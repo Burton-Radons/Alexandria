@@ -67,6 +67,10 @@ namespace Glare.Internal {
 		}
 
 		public ArrayBackedList(IEnumerable<T> items) {
+			if (items == null)
+				throw new ArgumentNullException("items");
+			ICollection<T> collection = items as ICollection<T>;
+			array = new T[collection != null ? collection.Count : 16];
 			AddRange(items);
 		}
 

@@ -55,6 +55,8 @@ namespace Alexandria.Controls {
 			RecentFilesMenuItem.DropDownItems.Clear();
 
 			var list = Settings.Default.RecentFiles;
+			if (list == null)
+				list = Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
 			for(int listIndex = list.Count - 1, index = 1; listIndex >= 0; listIndex--, index++) {
 				string path = list[listIndex];
 				string text = (index < 10 ? "&" : "") + index + " " + path;

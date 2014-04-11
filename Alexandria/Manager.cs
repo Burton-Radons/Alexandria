@@ -5,11 +5,13 @@ using Glare.Internal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Alexandria {
 	/// <summary>
@@ -64,11 +66,11 @@ namespace Alexandria {
 		}
 
 		public void LoadPlugins() {
-			LoadPlugins(Directory.GetCurrentDirectory());
+			LoadPlugins(Application.StartupPath, "Alexandria*.dll");
 		}
 
-		public void LoadPlugins(string searchPath) {
-			foreach (string path in Directory.EnumerateFiles(searchPath, "Alexandria*.dll", SearchOption.AllDirectories)) {
+		public void LoadPlugins(string searchPath, string searchPattern = "*.dll") {
+			foreach (string path in Directory.EnumerateFiles(searchPath, searchPattern, SearchOption.AllDirectories)) {
 				Assembly assembly = Assembly.LoadFile(path);
 
 				foreach (Type pluginType in assembly.GetExportedTypes()) {

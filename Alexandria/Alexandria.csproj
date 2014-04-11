@@ -29,6 +29,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ProgramIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
@@ -86,7 +90,6 @@
     <Compile Include="GameInstance.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="MarkingStream.cs" />
-    <Compile Include="Ole\Ole.cs" />
     <Compile Include="Raster.cs" />
     <Compile Include="Resources\Asset.cs" />
     <Compile Include="Resources\Folder.cs" />
@@ -151,6 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Loaders\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ProgramIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

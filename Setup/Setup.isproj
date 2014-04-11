@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<!-- Select a Product Configuration -->
+		<InstallShieldProductConfiguration>Express</InstallShieldProductConfiguration>
+		<!-- Select a Visual Studio Configuration / InstallShield Release -->
+		<Configuration>Debug</Configuration>
+		<InstallShieldRelease>$(Configuration)</InstallShieldRelease>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- The InstallShieldProject item selects the project to build -->
+		<InstallShieldProject Include="$(MSBuildProjectDirectory)\$(MSBuildProjectName).isl"/>
+		<!-- The InstallShieldReleaseFlags sets Release Flags -->
+		<!--<InstallShieldReleaseFlags Include=""/>-->
+		<!-- The InstallShieldMergeModulePath specifies what directories are
+		searched for Merge Modules -->
+		<!--<InstallShieldMergeModulePath Include=""/>-->
+	</ItemGroup>
+	<ItemGroup>
+		<!-- The ProjectReference items refer to any Visual Studio solutions you want to automatically probe for Project Output Groups.  -->
+	</ItemGroup>
+	<ItemGroup>
+		<!-- The TaggedOutputs items allow you to explicitly add extra files to output groups. Each item must include both Name and OutputGroup, as well as TargetPath metadata values. -->
+		<!--<TaggedOutputs Include="C:\My Test Exe.exe">
+			<Name>My Test Project</Name>
+			<OutputGroup>Primary output</OutputGroup>
+			<TargetPath>My Test Exe.exe</TargetPath>
+		</TaggedOutputs> -->
+	</ItemGroup>
+	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2013Limited\InstallShield.targets"/>
+	<ItemGroup>
+		<ProjectReference Include="..\Alexandria.Browser\Alexandria.Browser.csproj">
+			<Name>Alexandria.Browser</Name>
+			<Project>{2A8D381C-6BF5-424F-8F27-8F539F52881C}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Alexandria.Engines.DarkSouls\Alexandria.Engines.DarkSouls.csproj">
+			<Name>Alexandria.Engines.DarkSouls</Name>
+			<Project>{9B228E11-16E4-49B0-AE40-F3FC67E57240}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Alexandria.Engines.GoldBox\Alexandria.Engines.GoldBox.csproj">
+			<Name>Alexandria.Engines.GoldBox</Name>
+			<Project>{508A5328-255D-4DD7-8E5F-32FF5E37E41E}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Alexandria.Engines.Sciagi\Alexandria.Engines.Sciagi.csproj">
+			<Name>Alexandria.Engines.Sciagi</Name>
+			<Project>{28068168-76BE-4C69-956A-E180C1212CBB}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Alexandria.Engines.Unreal\Alexandria.Engines.Unreal.csproj">
+			<Name>Alexandria.Engines.Unreal</Name>
+			<Project>{EB667992-2E04-4F57-B3C1-5EB8F7F6DFB9}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Alexandria.Systems.NintendoDS\Alexandria.Platforms.NintendoDS.csproj">
+			<Name>Alexandria.Platforms.NintendoDS</Name>
+			<Project>{53394454-208E-4C45-A9E4-F056A3E7EDDF}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Alexandria.Plugins.General\Alexandria.Plugins.General.csproj">
+			<Name>Alexandria.Plugins.General</Name>
+			<Project>{6B825D69-E9BF-4EFE-B39A-8C2291921447}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Glare\Glare.csproj">
+			<Name>Glare</Name>
+			<Project>{125D9251-7CD0-4801-AB84-CB3F1F6978B1}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Glare.Engine\Glare.Engine.csproj">
+			<Name>Glare.Engine</Name>
+			<Project>{518F1B56-8857-4719-B43D-CFA9E8122184}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Glare.Graphics\Glare.Graphics.csproj">
+			<Name>Glare.Graphics</Name>
+			<Project>{6EC9BD9E-DA82-48DB-A01B-7BB90E1A1F71}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Moki\Moki.csproj">
+			<Name>Moki</Name>
+			<Project>{9742C179-0B75-48FB-95C4-F9C68C66F766}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Moki.CSharp\Moki.Compilers.CSharp.csproj">
+			<Name>Moki.Compilers.CSharp</Name>
+			<Project>{4F0587F7-B000-4DBB-BF2C-DC53022C561A}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Moki.Compilers.Floop\Moki.Floop.csproj">
+			<Name>Moki.Floop</Name>
+			<Project>{63EA089E-7360-43F1-B421-360173F2341C}</Project>
+		</ProjectReference>
+	</ItemGroup>
+</Project>
