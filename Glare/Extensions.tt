@@ -1,0 +1,23 @@
+﻿using System;
+using System.IO;
+
+namespace Glare {
+	public static partial class ExtensionMethods {
+		#region BinaryReader
+
+		<#GenerateAxes(VectorFamily, ()=>{#>
+			<#GenerateReferenceReturn(This, (r)=>{#>
+				public static <#=r.ReturnType#> Read<#=This#>(this BinaryReader reader <#=r.Argument#>) {
+					<#=r.Begin#>
+					<#QEach((axis)=>{#>
+					result.<#=axis#> = reader.Read<#=T#>();
+					<#});#><#=r.Return#>
+				}
+			<#});#>
+		<#});#>
+
+		#endregion BinaryReader
+	}
+}
+
+<#@ include file="CommonAxis.ttinclude" #>

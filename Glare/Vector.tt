@@ -1,0 +1,281 @@
+﻿using System;
+using System.Collections.Generic;
+using Glare.Internal;
+
+namespace Glare
+{
+	<#GenerateAxes("Vector", VectorTypeInfos, ()=>{#>
+
+	/// <summary>A <#=CardinalLow#>-dimensional vector type using <#=See(Type.Name)#> elements.</summary>
+	[VectorTypeAttribute(typeof(<#=T#>), <#=Order#>, false)]
+	public partial struct <#=This#> : IEquatable<<#=This#>>, IFormattable
+	{
+		#region Properties
+		
+			<#if(!IsIntegral) {#>
+				/// <summary>Compute the squared magnitude of the vector, which is the distance from the origin squared. Use <#=See("Magnitude")#> for the unsquared version, which is slower to compute.</summary>
+				public <#=SquaredType#> MagnitudeSquared { get { return <#Join("+", (axis) => {#> <#=axis.Id#> * <#=axis.Id#> <#});#>; } }
+			
+				/// <summary>Compute the magnitude of the vector, which is the distance from the origin.</summary>
+				public <#=FloatType#> Magnitude
+				{
+					get
+					{
+						return <#ToUniversal(() => {#>
+							Math.Sqrt(
+								<#Join("+", (axis) => {#>
+									<#FromUniversal(() => {#> <#=axis.Id#><#});#>.Squared() 
+								<#});#>
+							)<#});#>;
+					}
+				}
+
+				<#if(!IsMeasurement) {#>
+					/// <summary>Get the normalized form of this vector, with a magnitude of one.</summary>
+					public <#=This#> Normalized { get { <#=This#> result; Normalize(out result); return result; } }
+				<#}#>
+			<#}#>
+
+			<#if(!IsMeasurement) {#>
+				/// <summary>Get the product of multiplying all of the axes together.</summary>
+				public <#=T#> Product { get { return <#=ToT#>(<#Join("*", (axis) => {#> <#=axis.Id#> <#});#>); } }
+			<#}#>
+
+			/// <summary>Get the sum of all of the axes.</summary>
+			public <#=T#> Sum { get { return <#=ToT#>(<#Join("+", (axis) => {#> <#=axis.Id#> <#});#>); } }
+
+		#endregion Properties
+
+		#region Constructors
+		
+			<#if(IsNormalized) {#>
+				/// <summary>Initialise a vector from double values that are converted into normalised form.</summary>
+				public <#=This#>(<#Comma((axis)=>{#>double <#=axis.IdLow#><#});#>) : this(<#Comma((axis)=>{#>(<#=T#>)<#=axis.IdLow#><#});#>) { }
+
+				<#RefForm((r) => {#>
+					public <#=This#>(<#=r.Ref#> <#=VectorDouble#> value) : this(<#Comma((axis)=>{#>(<#=T#>)value.<#=axis.Id#><#});#>) { }
+				<#});#>
+					
+			<#}#>
+
+			<#if(IsMeasurement) {#>
+				<#foreach(var unit in AddUniversalUnit(LengthUnits)) {#>
+					public static <#=This#> <#=unit.FromMethod#>(<#Join(", ", (axis) => {#> double <#=axis.IdLow#> <#});#>)
+					{
+						return new <#=This#>(<#Join(", ", (axis) => {#> <#=T#>.<#=unit.FromMethod#>(<#=axis.IdLow#>) <#});#>);
+					}
+				
+					public static <#=This#> <#=unit.FromMethod#>(double value)
+					{
+						return new <#=This#>(<#=T#>.<#=unit.FromMethod#>(value));
+					}
+
+					<#RefForm((r) => {#>
+						public static <#=This#> <#=unit.Plural#>(<#=r.Ref#> <#=VectorFloat#> value)
+						{
+							return new <#=This#>(<#Join(", ", (axis) => {#>
+								<#=T#>.<#=unit.FromMethod#>(value.<#=axis.Id#>)
+							<#});#>);
+						}
+					<#});#>
+				
+
+					public <#=VectorFloat#> <#=unit.InMethod#>
+					{
+						get
+						{
+							return new <#=VectorFloat#>(<#Join(", ", (axis) => {#>
+								<#=axis.Id#>.<#=unit.InMethod#>
+							<#});#>);
+						}
+					}
+				<#}#>
+
+			<#}#>
+
+			<#if(!IsMeasurement) {#>
+				public static readonly <#=This#> One = <#New((axis)=>{#><#=ToT#>1<#});#>;
+
+				<#Each((axis)=>{#>
+					/// <summary>Get a normalized vector where <#=axis.Id#> is 1 and all other axes are 0.</summary>
+					public static readonly <#=This#> Unit<#=axis.Id#> = <#New((item)=>{#><#=ToT#><#=axis == item ? 1 : 0#><#});#>;
+				<#});#>
+			<#}#>
+
+
+			// Constructors built up of smaller vectors.
+			<#if(Order > 2 && Order - 1 >= Type.MinOrder) {#>
+				<#RefForm((r) => {#>
+					public <#=This#>(<#=r.Ref#> <#=VectorM1#> <#Each((axis)=>{#><#=axis.IdLow#><#}, Order - 1);#>, <#=T#> <#=Axes[Order - 1].IdLow#>)
+					{
+						<#Each((assignAxis) => {#>
+							<#=assignAxis.Id#> = <#Each((axis)=>{#><#=axis.IdLow#><#}, Order - 1);#>.<#=assignAxis.Id#>;
+						<#}, Order - 1);#>
+				
+						<#=Axes[Order - 1].Id#> = <#=Axes[Order - 1].IdLow#>;
+					}
+				
+					public <#=This#>(<#=T#> <#=Axes[0].IdLow#>, <#=r.Ref#> <#=VectorM1#> <#Each((axis)=>{#><#=axis.IdLow#><#}, Order - 1, 1);#>)
+					{
+						<#=Axes[0].Id#> = <#=Axes[0].IdLow#>;
+
+						<#Each((assignAxis) => {#>
+							<#=assignAxis.Id#> = <#Each((axis)=>{#><#=axis.IdLow#><#}, Order - 1, 1);#>.<#=Axes[assignAxis.Index - 1].Id#>;
+						<#}, Order, 1);#>
+					}
+				<#});#>
+			<#}#>
+
+			// Constructors from much smaller vectors.
+			<#if(Order == 4 && Order - 2 >= Type.MinOrder) {#>
+				<#RefForm((r) => {#>
+					public <#=This#>(<#=r.Ref#> <#=VectorM2#> xy, <#=T#> z, <#=T#> w) { X = xy.X; Y = xy.Y; Z = z; W = w; }
+					public <#=This#>(<#=T#> x, <#=r.Ref#> <#=VectorM2#> yz, <#=T#> w) { X = x; Y = yz.X; Z = yz.Y; W = w; }
+					public <#=This#>(<#=T#> x, <#=T#> y, <#=r.Ref#> <#=VectorM2#> zw) { X = x; Y = y; Z = zw.X; W = zw.Y; }
+					public <#=This#>(<#=r.Ref#> <#=VectorM2#> xy, <#=r.Ref#> <#=VectorM2#> zw) { X = xy.X; Y = xy.Y; Z = zw.X; W = zw.Y; }
+				<#});#>
+			<#}#>
+
+		#endregion Constructors
+
+		#region Methods
+
+			// Methods that have joint ref forms.
+			<#RefForm((r) => {#>
+				/// <summary>Compute the dot product of this and other vector, which is the sum of the product of each axis of each vector.</summary>
+				/// <param name="other">The other vector to calculate a dot product with. <#=r.Notice#></param>
+				public <#=SquaredType#> Dot(<#=r.Ref#> <#=This#> other) { return <#Join("+", (axis) => {#> <#=axis.Id#> * other.<#=axis.Id#> <#});#>; }
+			<#});#>
+
+			<#GenerateReferenceReturn(This, (r) => {#>
+				public <#=r.ReturnType#> Clamp(<#=r.Ref#> <#=This#> min, <#=r.Ref#> <#=This#> max <#=r.Argument#>)
+				{
+					<#=r.Begin#>
+					<#Each((axis) => {#>
+						result.<#=axis.Id#> = <#=axis.Id#> < min.<#=axis.Id#> ? min.<#=axis.Id#> : <#=axis.Id#> > max.<#=axis.Id#> ? max.<#=axis.Id#> : <#=axis.Id#>;
+					<#});#>
+					<#=r.Return#>
+				}
+			<#});#>
+
+			// Floating-point methods
+			<#if(!IsIntegral) {#>
+				<#RefForm((r) => {#>
+					/// <summary>Get the distance between the vectors.</summary>
+					public <#=FloatType#> Distance(<#=r.Ref#> <#=This#> other)
+					{
+						return <#ToUniversal(() => {#>
+							Math.Sqrt(
+								<#Join("+", (axis) => {#>
+									<#FromUniversal(() => {#> <#=axis.Id#> - other.<#=axis.Id#> <#});#>.Squared() 
+								<#});#>
+							)<#});#>;
+					}
+
+					/// <summary>Get the squared distance between the vectors.</summary>
+					public <#=SquaredType#> DistanceSquared(<#=r.Ref#> <#=This#> other)
+					{
+						return 
+							<#Join("+", (axis) => {#>
+								(<#=axis.Id#> - other.<#=axis.Id#>).Squared()
+							<#});#>;
+					}
+				<#});#>
+
+				<#if(!IsMeasurement) {#>
+					/// <summary>Get the normalized form of this vector, which has a magnitude of one.</summary>
+					public void Normalize(out <#=This#> result)
+					{
+						double m = 1.0 / Math.Sqrt(<#Join("+", (axis) => {#> <#=axis.Id#> * <#=axis.Id#> <#});#>);
+						<#Each((axis) => {#> result.<#=axis.Id#> = (<#=T#>)(<#=axis.Id#> * m); <#});#>
+					}
+
+					/// <summary>Normalize this vector in place, giving it a magnitude of one. An identity vector will become NaN.</summary>
+					public void NormalizeInPlace()
+					{
+						<#=T#> m = <#=ToT#>(1.0 / Math.Sqrt(<#Join("+", (axis) => {#> <#=axis.Id#> * <#=axis.Id#> <#});#>));
+						<#Each((axis) => {#> <#=axis.Id#> *= m; <#});#>
+					}
+				
+					<#if(Order == 3) {#>
+						/// <summary>Calculates the cross product of the vectors.</summary>
+						/// <param name="other">The other vector to perform a cross product with.</param>
+						/// <returns>The cross product.</returns>
+						public <#=This#> Cross(<#=This#> other) { Cross(ref other, out other); return other; }
+
+						/// <summary>Calculates the cross product of the vectors.</summary>
+						/// <param name="other">The other vector to perform a cross product with.</param>
+						/// <param name="result">Receives the cross product.</param>
+						public void Cross(<#=This#> other, out <#=This#> result) { Cross(ref other, out result); }
+
+						/// <summary>Calculates the cross product of the vectors.</summary>
+						/// <param name="other">The other vector to perform a cross product with.</param>
+						/// <param name="result">Receives the cross product.</param>
+						public void Cross(ref <#=This#> other, out <#=This#> result)
+						{
+							<#=T#> x = <#=ToT#>(Y * other.Z - Z * other.Y), y = <#=ToT#>(Z * other.X - X * other.Z), z = <#=ToT#>(X * other.Y - Y * other.X);
+							result.X = x;
+							result.Y = y;
+							result.Z = z;
+						}
+
+					<#} /*Order == 3 */#>
+				<#} /* !IsMeasurement */#>
+			<#} /* !IsIntegral */#>
+
+		#endregion Methods
+
+		<#GenerateCommonVector();#>
+
+		#region Operators
+		
+
+			// Casting
+			<#if(!IsMeasurement) {#>
+				<#foreach(MatrixTypeInfo type in TypeEnumerator())
+				{
+					if(type.Name == This || Order != type.Order || type.Type.IsMeasurement) continue;
+					#>public static <#=Type.ImplicitCastTo(type.Type)#> operator <#=type.Name#>(<#=This#> a) { return new <#=type.Name#>(<#Comma((axis)=>{#>(<#=type.Type.Name#>)a.<#=axis.Id#><#});#>); }
+					<#
+				}#>
+
+				// Explicit casting to vectors with a lower order, trimming off axes.
+				<#for(int trimOrder = Order - 1; trimOrder >= 2 && trimOrder >= Type.MinOrder; trimOrder--) {#>
+					public static explicit operator <#=VectorType(trimOrder)#>(<#=This#> a)
+					{
+						return new <#=VectorType(trimOrder)#>(<#Comma((axis) =>
+							{
+								Write("a." + axis.Id);
+							}, trimOrder);#>);
+					}
+				<#}#>
+			<#}#>
+
+			public static <#=This#> operator +(<#=This#> a) { return <#New((axis)=>{#><#=ToT#>(+a.<#=axis.Id#>)<#});#>; }
+			public static <#=This#> operator -(<#=This#> a) { return <#New((axis)=>{#><#=ToT#>(-a.<#=axis.Id#>)<#});#>; }
+			<#foreach(OperatorInfo op in Operators)
+			{
+				if(!op.IsMeasurement && IsMeasurement)
+					continue;
+				if(op.IsShift)
+				{
+					if(IsIntegral)
+					{#>
+						public static <#=This#> operator <#=op.Id#>(<#=This#> a, int b) { return <#New((axis)=>{#><#=ToT#>(a.<#=axis.Id#> <#=op.Id#> b)<#});#>; }
+					<#}
+				}
+				else if(!op.IsInteger || IsIntegral)
+				{#>
+					public static <#=This#> operator <#=op.Id#>(<#=This#> a, <#=This#> b) { return <#New((axis)=>{#><#=ToT#>(a.<#=axis.Id#> <#=op.Id#> b.<#=axis.Id#>)<#});#>; }
+					public static <#=This#> operator <#=op.Id#>(<#=This#> a, <#=T#> b) { return <#New((axis)=>{#><#=ToT#>(a.<#=axis.Id#> <#=op.Id#> b)<#});#>; }
+					public static <#=This#> operator <#=op.Id#>(<#=T#> a, <#=This#> b) { return <#New((axis)=>{#><#=ToT#>(a <#=op.Id#> b.<#=axis.Id#>)<#});#>; }
+				<#}
+			}#>
+
+		#endregion Operators
+	}
+	
+	<#});#>
+}
+
+<#@ include file="CommonAxis.ttinclude" #>

@@ -1,0 +1,162 @@
+﻿<#@ IntelliSenseLanguage processor="tangibleT4Editor" language="C#" #>
+
+<#+
+
+class Unit
+{
+	public readonly string Plural, Singular, Symbol, ConvertTo;
+	public bool IsPrimary;
+
+	public string FromMethod { get { return Plural; } }
+	public string InMethod { get { return "In" + Plural; } }
+
+	public Unit(string singular, string plural, string symbol, string convertTo)
+	{
+		Singular = singular;
+		Plural = plural;
+		Symbol = symbol;
+		ConvertTo = convertTo;
+	}
+}
+
+static Unit[] AngleUnits = new Unit[] {
+	new Unit("Radian", "Radians", " rad", "1"),
+	new Unit("Degree", "Degrees", "°", "ToRadians * 180 / Math.PI") { IsPrimary = true },
+	new Unit("Turn", "Turns", "τ", "ToRadians * 2 * Math.PI")
+};
+
+static Unit[] LengthUnits = new Unit[] {
+	new Unit("Centimetre", "Centimetres", "cm", "ToMetres * 100"),
+	new Unit("Foot", "Feet", "ft", "ToYards * 3"),
+	new Unit("Inch", "Inches", "in", "ToFeet * 12"),
+	new Unit("Kilometre", "Kilometres", "km", "ToMetres / 10e3"),
+	new Unit("Megametre", "Megametres", "Mm", "ToMetres / 10e6"),
+	new Unit("Metre", "Metres", "m", "1") { IsPrimary = true },
+	new Unit("Micrometre", "Micrometres", "µm", "ToMetres * 10e6"),
+	new Unit("Millimetre", "Millimetres", "mm", "ToMetres * 1000"),
+	new Unit("Nanometre", "Nanometres", "nm", "ToMetres * 10e9"),
+	new Unit("Yard", "Yards", "yd", "ToMetres / 0.9144"),
+};
+
+void FromUniversal(Action action) {
+	if(IsMeasurement) {
+		Write("(");
+		action();
+		Write(").InUniversal");
+	} else
+		action();
+}
+
+void ToUniversal(Action action) {
+	if(IsMeasurement) {
+		Write(T + ".Universal(");
+		action();
+		Write(")");
+	} else {
+		Write("(" + FloatType + ")(");
+		action();
+		Write(")");
+	}
+}
+
+void GenerateUnits(params Unit[] units) {
+	Unit primaryUnit = null;
+	if(units.Length == 1)
+		primaryUnit = units[0];
+	else foreach(Unit unit in units)
+		if(unit.IsPrimary) {
+			if(primaryUnit != null)
+				throw new Exception("Too many primary units");
+			primaryUnit = unit;
+		}
+	if(primaryUnit == null)
+		throw new Exception("No primary unit defined");
+
+	foreach(Unit unit in units) {
+		#>internal const <#=T#> To<#=unit.Plural#> = <#=ToT#>(<#=unit.ConvertTo#>);
+
+		public static <#=This#> <#=unit.Plural#>(<#=T#> value) { return new <#=This#>(value / To<#=unit.Plural#>); }
+
+		public <#=T#> In<#=unit.Plural#> { get { return value * To<#=unit.Plural#>; } }
+
+		public static readonly <#=This#> <#=unit.Singular#> = <#=unit.Plural#>(1);
+
+		public <#=This#> Clamp<#=unit.Plural#>(<#=T#> min, <#=T#> max) {
+			min = min / To<#=unit.Plural#>;
+			max = max / To<#=unit.Plural#>;
+			return new <#=This#>(value > max ? max : value < min ? min : value);
+		}
+
+		public void ClampInPlace<#=unit.Plural#>(<#=T#> min, <#=T#> max) {
+			if(value > (max = max / To<#=unit.Plural#>))
+				value = max;
+			else if(value < (min = min / To<#=unit.Plural#>))
+				value = min;
+		}
+
+		<#+
+	}
+
+	#>
+		public <#=This#> Absolute { get { return new <#=This#>(Math.Abs(value)); }}
+
+		public static <#=This#> Universal(double value) { return <#=primaryUnit.Plural#>(value); }
+		public double InUniversal { get { return In<#=primaryUnit.Plural#>; } }
+
+		<#=T#> value;
+		<#=This#>(<#=T#> value) { this.value = value; }
+
+		public static readonly <#=This#> Zero = new <#=This#>(0);
+		public static readonly <#=This#> PositiveInfinity = new <#=This#>(<#=T#>.PositiveInfinity);
+		public static readonly <#=This#> NegativeInfinity = new <#=This#>(<#=T#>.NegativeInfinity);
+		public static readonly <#=This#> NaN = new <#=This#>(<#=T#>.NaN);
+
+		public <#=This#> Clamp(<#=This#> min, <#=This#> max) { return new <#=This#>(value > max.value ? max.value : value < min.value ? min.value : value); }
+
+		public void ClampInPlace(<#=This#> min, <#=This#> max) { if(value > max.value) value = min.value; else if(value < min.value) value = min.value; }
+
+		public int CompareTo(<#=This#> other) { return value.CompareTo(other.value); }
+
+		public bool Equals(<#=This#> other) { return value == other.value; }
+		public override bool Equals(object other) { if(other is <#=This#>) return value == ((<#=This#>)other).value; return base.Equals(other); }
+
+		public override int GetHashCode() { return value.GetHashCode(); }
+
+		/// <summary>Return the maximum of this value or the passed value.</summary>
+		public <#=This#> Max(<#=This#> other) { return new <#=This#>(other.value > value ? other.value : value); }
+
+		/// <summary>Assign this <#=SeeThis#> to the maximum of this value or the other one.</summary>
+		public void MaxInPlace(<#=This#> other) { if(other.value > value) value = other.value; }
+
+		/// <summary>Return the minimum of this value or the passed value.</summary>
+		public <#=This#> Min(<#=This#> other) { return new <#=This#>(other.value < value ? other.value : value); }
+
+		/// <summary>Assign this <#=SeeThis#> to the minimum of this value or the other one.</summary>
+		public void MinInPlace(<#=This#> other) { if(other.value < value) value = other.value; }
+
+		/// <summary>Convert to a string of the form "<value><#=primaryUnit.Symbol#>".</summary>
+		public override string ToString() { return ToString(null, null); }
+
+		/// <summary>Convert to a string of the form "<value><#=primaryUnit.Symbol#>".</summary>
+		public string ToString(string format, IFormatProvider provider) { return <#=primaryUnit.InMethod#>.ToString(format, provider) + "<#=primaryUnit.Symbol#>"; }
+
+		public static bool operator ==(<#=This#> a, <#=This#> b) { return a.value == b.value; }
+		public static bool operator !=(<#=This#> a, <#=This#> b) { return a.value != b.value; }
+		public static bool operator >(<#=This#> a, <#=This#> b) { return a.value > b.value; }
+		public static bool operator >=(<#=This#> a, <#=This#> b) { return a.value >= b.value; }
+		public static bool operator <(<#=This#> a, <#=This#> b) { return a.value < b.value; }
+		public static bool operator <=(<#=This#> a, <#=This#> b) { return a.value <= b.value; }
+
+		public static <#=This#> operator +(<#=This#> value) { return new <#=This#>(+value.value); }
+		public static <#=This#> operator -(<#=This#> value) { return new <#=This#>(-value.value); }
+
+		public static <#=This#> operator +(<#=This#> a, <#=This#> b) { return new <#=This#>(a.value + b.value); }
+		public static <#=This#> operator -(<#=This#> a, <#=This#> b) { return new <#=This#>(a.value - b.value); }
+		public static <#=This#> operator *(<#=This#> a, <#=T#> b) { return new <#=This#>(a.value * b); }
+		public static <#=This#> operator *(<#=T#> a, <#=This#> b) { return new <#=This#>(a * b.value); }
+		public static <#=This#> operator /(<#=This#> a, <#=T#> b) { return new <#=This#>(a.value / b); }
+		public static <#=T#> operator /(<#=This#> a, <#=This#> b) { return a.value / b.value; }
+		public static <#=T#> operator %(<#=This#> a, <#=This#> b) { return a.value % b.value; }
+	<#+
+}
+#>

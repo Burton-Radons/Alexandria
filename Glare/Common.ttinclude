@@ -1,0 +1,319 @@
+﻿<#@ IntelliSenseLanguage processor="tangibleT4Editor" language="C#" #>
+<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ include file="CommonMeasurement.ttinclude" #>
+
+<#+
+
+class AxisInfo
+{
+	/// <summary>Zero-based index of the axis.</summary>
+	public readonly int Index;
+
+	public readonly string Id;
+	public string IdLow { get { return Id.ToLower(); } }
+
+	/// <summary>One, Two, Three, Four</summary>
+	public readonly string Cardinal;
+
+	public string CardinalLow { get { return Cardinal.ToLower(); } }
+
+	/// <summary>First, Second, Third, Fourth</summary>
+	public readonly string Ordinal;
+
+	public string OrdinalLow { get { return Ordinal.ToLower(); } }
+
+	public AxisInfo(int index, string id, string cardinal, string ordinal)
+	{
+		Index = index;
+		Id = id;
+		Cardinal = cardinal;
+		Ordinal = ordinal;
+	}
+}
+
+class ComparisonOperatorInfo
+{
+	public readonly string Id;
+	public bool IsOrdered { get { return Id != "==" && Id != "!="; } }
+
+	public ComparisonOperatorInfo(string id)
+	{
+		Id = id;
+	}
+
+	public static implicit operator ComparisonOperatorInfo(string id) { return new ComparisonOperatorInfo(id); }
+}
+
+class OperatorInfo
+{
+	public readonly string Id;
+	public readonly bool IsInteger;
+	public readonly bool IsMeasurement;
+	public bool IsShift { get { return Id == "<<" || Id == ">>"; } }
+
+	public OperatorInfo(string id, bool isInteger, bool isMeasurement = false)
+	{
+		Id = id;
+		IsInteger = isInteger;
+		IsMeasurement = isMeasurement;
+	}
+}
+
+class ReferenceReturnInfo
+{
+	public string ReturnType { get { return Returning ? Type : "void"; } }
+	public string Argument { get { return Returning ? "" : ", out " + Type + " result"; } }
+	public string OnlyArgument { get { return Returning ? "" : "out " + Type + " result"; } }
+	public string Begin { get { return Returning ? Type + " result;" : ""; } }
+	public string Return { get { return Returning ? "return result;" : "return;"; } }
+	public string Ref { get { return Returning ? "" : " ref "; } }
+
+	public readonly string Type;
+	public readonly bool Returning;
+
+	public ReferenceReturnInfo(string type, bool returning) { Type = type; Returning = returning; }
+}
+
+class RefFormInfo
+{
+	public const string RefNotice = "The value of the parameter will not be changed; <c>ref</c> is used for optimisation only.";
+	public readonly bool RefForm;
+	public string Ref { get { return RefForm ? " ref " : ""; } }
+	public string Notice { get { return RefForm ? RefNotice : ""; } }
+	public RefFormInfo(bool refForm) { RefForm = refForm; }
+}
+
+enum TypeShape
+{
+	Integral,
+	Fractional,
+	Normalized,
+	Measurement,
+}
+
+enum TypeSign { Signed, Unsigned, }
+
+class TypeInfo
+{
+	public string Name;
+	public readonly string Suffix;
+	public readonly int MinOrder = 1, MaxOrder = int.MaxValue;
+	public readonly int SizeOf;
+	public readonly string SquaredType;
+
+	public readonly TypeShape Shape;
+	public readonly TypeSign Sign;
+
+	public bool IsSigned { get { return Sign == TypeSign.Signed; } }
+	public bool IsUnsigned { get { return Sign == TypeSign.Unsigned; } }
+
+	public bool IsFractional { get { return Shape == TypeShape.Fractional; } }
+	public bool IsIntegral { get { return Shape == TypeShape.Integral; } }
+	public bool IsNormalized { get { return Shape == TypeShape.Normalized; } }
+	public bool IsMeasurement { get { return Shape == TypeShape.Measurement; } }
+
+	public string Zero { get { return IsMeasurement ? Name + ".Zero" : "(" + Name + ")0"; } }
+
+	public TypeInfo(string name, string suffix, int sizeOf, TypeShape shape, TypeSign sign = TypeSign.Signed, int minOrder = 1, int maxOrder = int.MaxValue, string squaredType = null)
+	{
+		Name = name;
+		Suffix = suffix;
+		Sign = sign;
+		Shape = shape;
+		MinOrder = minOrder;
+		MaxOrder = maxOrder;
+		SizeOf = sizeOf;
+		SquaredType = squaredType;
+	}
+
+	public bool HasMatrix(int order) { return this == SingleType || this == DoubleType && HasVector(order); }
+	public bool HasVector(int order) { return Suffix != null && order >= MinOrder && order <= MaxOrder; }
+
+	public string GetType(string baseTypeName, int order) {
+		if(!HasVector(order))
+			throw new InvalidOperationException();
+		return baseTypeName + order + Suffix;
+	}
+
+	public string GetVectorType(int order) { return GetType(VectorFamily.BaseName, order); }
+
+	public string ImplicitCastTo(TypeInfo other)
+	{
+		if(object.ReferenceEquals(other, this))
+			return "implicit";
+		switch(other.Name)
+		{
+			case "float": return Name == "double" ? "explicit" : "implicit";
+			case "double": return "implicit";
+			default: return "explicit";
+		}
+	}
+}
+
+class VectorTypeFamilyInfo {
+	public string BaseName { get; private set; }
+	public int MinOrder { get; private set; }
+	public int MaxOrder { get; private set; }
+	public bool NoOrderSuffix { get; set; }
+	public TypeInfo[] Types { get; private set; }
+
+	public VectorTypeFamilyInfo(string baseName, int minOrder, int maxOrder, params TypeInfo[] types) {
+		this.BaseName = baseName;
+		this.MinOrder = minOrder;
+		this.MaxOrder = maxOrder;
+		this.Types = types;
+	}
+
+	public void CheckType(TypeInfo type, int order) {
+		CheckType(type, order, 1);
+	}
+
+	public void CheckType(TypeInfo type, int rows, int columns) {
+		if(!Types.Contains(type))
+			throw new InvalidOperationException("This type family doesn't have a " + type.Name + " type.");
+		if(!type.HasVector(rows))
+			throw new InvalidOperationException("The type " + type.Name + " doesn't work with a row of " + rows + ".");
+		if(columns != 1 && !type.HasVector(columns))
+			throw new InvalidOperationException("The type " + type.Name + " doesn't work with a columns of " + columns + ".");
+		if(rows < MinOrder || rows > MaxOrder)
+			throw new InvalidOperationException("This type family " + BaseName + " does not support a value of row " + rows + ".");
+		if(columns != 1 && (columns < MinOrder || columns > MaxOrder))
+			throw new InvalidOperationException("This type family " + BaseName + " does not support a value of columns " + columns + ".");
+	}
+
+	public string GetType(TypeInfo type, int order) {
+		CheckType(type, order);
+		return BaseName + order + type.Suffix;
+	}
+
+	public string GetType(TypeInfo type, int rows, int columns) {
+		CheckType(type, rows, columns);
+		return BaseName + (rows  == columns || columns == 1 ? rows.ToString() : rows + "x" + columns) + type.Suffix;
+	}
+}
+
+static readonly AxisInfo[] Axes = new AxisInfo[]
+{
+	new AxisInfo(0, "X", "One", "First"),
+	new AxisInfo(1, "Y", "Two", "Second"),
+	new AxisInfo(2, "Z", "Three", "Third"),
+	new AxisInfo(3, "W", "Four", "Fourth")
+};
+
+static readonly ComparisonOperatorInfo[] ComparisonOperators = new ComparisonOperatorInfo[] { "==", "!=", "<", "<=", ">", ">=" };
+
+static readonly OperatorInfo[] Operators = new OperatorInfo[] {
+	new OperatorInfo("+", false, isMeasurement: true),
+	new OperatorInfo("-", false, isMeasurement: true),
+	new OperatorInfo("*", false),
+	new OperatorInfo("/", false),
+	new OperatorInfo("%", false),
+	new OperatorInfo("&", true),
+	new OperatorInfo("|", true),
+	new OperatorInfo("^", true),
+	new OperatorInfo("<<", true),
+	new OperatorInfo(">>", true),
+};
+
+static VectorTypeFamilyInfo _angleFamily, _lengthFamily, _vectorFamily;
+
+static VectorTypeFamilyInfo AngleFamily { get { return _angleFamily ?? (_angleFamily = new VectorTypeFamilyInfo("Angle", 3, 3, SuffixlessDoubleType)); } }
+static VectorTypeFamilyInfo LengthFamily { get { return _lengthFamily ?? (_lengthFamily = new VectorTypeFamilyInfo("Length", 2, 4, SuffixlessDoubleType)); } }
+static VectorTypeFamilyInfo VectorFamily { get { return _vectorFamily ?? (_vectorFamily = new VectorTypeFamilyInfo("Vector", 2, 4, LengthType, SingleType, DoubleType, Int32Type, UInt32Type, ByteType, NormalizedByteType, NormalizedSByteType, SRGBType, SRGBAType, Float16Type)); } }
+
+static readonly TypeInfo SingleType = new TypeInfo("Single", "f", 4, TypeShape.Fractional);
+static readonly TypeInfo Float16Type = new TypeInfo("Float16", "h", 2, TypeShape.Fractional, minOrder: 4);
+static readonly TypeInfo DoubleType = new TypeInfo("Double", "d", 8, TypeShape.Fractional);
+static readonly TypeInfo Int16Type = new TypeInfo("Int16", "s", 2, TypeShape.Integral);
+static readonly TypeInfo UInt16Type = new TypeInfo("UInt16", "us", 2, TypeShape.Integral, TypeSign.Unsigned);
+static readonly TypeInfo Int32Type = new TypeInfo("Int32", "i", 4, TypeShape.Integral);
+static readonly TypeInfo UInt32Type = new TypeInfo("UInt32", "ui", 4, TypeShape.Integral, TypeSign.Unsigned);
+static readonly TypeInfo Int64Type = new TypeInfo("Int64", "l", 8, TypeShape.Integral);
+static readonly TypeInfo UInt64Type = new TypeInfo("UInt64", "ul", 8, TypeShape.Integral, TypeSign.Unsigned);
+static readonly TypeInfo ByteType = new TypeInfo("Byte", "b", 1, TypeShape.Integral, TypeSign.Unsigned, 4, 4);
+static readonly TypeInfo NormalizedByteType = new TypeInfo("NormalizedByte", "nb", 4, TypeShape.Normalized, TypeSign.Unsigned, 4, 4);
+static readonly TypeInfo NormalizedSByteType = new TypeInfo("NormalizedSByte", "nsb", 1, TypeShape.Normalized, TypeSign.Signed, 4, 4);
+static readonly TypeInfo SByteType = new TypeInfo("SByte", "sb", 1, TypeShape.Integral, TypeSign.Signed, 4, 4);
+static readonly TypeInfo SRGBType = new TypeInfo("NormalizedByte", "rgb", 1, TypeShape.Normalized, TypeSign.Unsigned, 3, 3);
+static readonly TypeInfo SRGBAType = new TypeInfo("NormalizedByte", "rgba", 1, TypeShape.Normalized, TypeSign.Unsigned, 4, 4);
+static readonly TypeInfo SuffixlessDoubleType = new TypeInfo("Double", "", 8, TypeShape.Fractional);
+
+static readonly TypeInfo AngleType = new TypeInfo(AngleFamily.BaseName, "", 8, TypeShape.Measurement, TypeSign.Signed);
+static readonly TypeInfo LengthType = new TypeInfo(LengthFamily.BaseName, "", 8, TypeShape.Measurement, TypeSign.Signed, 3, 3, squaredType: "Area");
+
+static TypeInfo[] ArithmeticTypes { get { return new TypeInfo[] { ByteType, SByteType, Int16Type, UInt16Type, Int32Type, UInt32Type, Int64Type, UInt64Type, Float16Type, SingleType, DoubleType, NormalizedByteType, NormalizedSByteType }; } }
+
+TypeInfo Type;
+string BaseTypeName;
+IList<TypeInfo> Types;
+
+string This { get { return BaseTypeName + (Type != null ? Type.Suffix : ""); } }
+string T { get { return Type.Name; } }
+string ToT { get { return "(" + T + ")"; } }
+string SeeThis { get { return See(This); } }
+
+string Interfaces { get { return "IComparable<" + This + ">, IEquatable<" + This + ">, IFormattable"; } }
+
+string PackedType { get { return IsSigned ? "sbyte" : "byte"; } }
+string FloatType { get { return IsFractional || IsMeasurement ? T : "double"; } }
+string LargeType { get { return IsNormalized ? "double" : T == "byte" || T == "sbyte" ? "int" : T; } }
+string ScalarType { get { return IsMeasurement ? "double" : T; } }
+
+/// <summary>Get the type that's produced by multiplying the <see cref="Type"> against itself. This is normally double.</summary>
+string SquaredType { get { return Type.SquaredType ?? LargeType; } }
+
+bool IsIntegral { get { return Type.IsIntegral; } }
+bool IsFractional { get { return Type.IsFractional; } }
+bool IsSigned { get { return Type.IsSigned; } }
+bool IsNormalized { get { return Type.IsNormalized; } }
+bool IsMeasurement { get { return Type.IsMeasurement; } }
+
+string Vector2 { get { return VectorFamily.BaseName + "2" + Type.Suffix; } }
+string Vector3 { get { return VectorFamily.BaseName + "3" + Type.Suffix; } }
+string Vector4 { get { return VectorFamily.BaseName + "4" + Type.Suffix; } }
+
+string Id(int index) { return Axes[index].Id; }
+string Id(int row, int column) { return Id(row) + Id(column); }
+
+List<Unit> AddUniversalUnit(IEnumerable<Unit> list)
+{
+	return new List<Unit>(list) { new Unit(null, "Universal", null, null) };
+}
+
+void Generate(string baseTypeName, IList<TypeInfo> types, Action callback)
+{
+	BaseTypeName = baseTypeName;
+	Types = types;
+	foreach(TypeInfo type in types)
+	{
+		Type = type;
+		callback();
+	}
+}
+
+// For example:
+// < #GenerateReferenceReturn("boop", (r) => {# >
+//		< #=r.ReturnType# > Booper(int x, int y < #=r.Argument# >)
+//		{
+//			< #=r.Begin# >
+//			result.Booger = x + y;
+//			< #=r.Return# >
+//		}
+// < #});# >
+void GenerateReferenceReturn(string returnType, Action<ReferenceReturnInfo> each)
+{
+	each(new ReferenceReturnInfo(returnType, true));
+	each(new ReferenceReturnInfo(returnType, false));
+}
+
+void GenerateValueAndRef(Action<string> each) { each(""); each(" ref "); }
+
+void RefForm(Action<RefFormInfo> each) { each(new RefFormInfo(false)); each(new RefFormInfo(true)); }
+
+string See(string item) { return "<see cref=\"" + item + "\"/>"; }
+
+#>

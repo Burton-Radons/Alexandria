@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Glare
+{
+	<#Generate("Velocity", new TypeInfo[] { SuffixlessDoubleType }, () => {#>
+		/// <summary>A measurement of length by time, created as <see cref="Length"/> divided by <see cref="TimeSpan"/>.</summary>
+		public struct <#=This#> : IComparable<<#=This#>>, IEquatable<<#=This#>>
+		{
+			internal const double ToSeconds = 1;
+
+			<#GenerateUnits(VelocityUnits);#>
+		}
+
+		public struct Velocity3 : IEquatable<Velocity3>
+		{
+			public Velocity X;
+			public Velocity Y;
+			public Velocity Z;
+
+			public Velocity3(Velocity x, Velocity y, Velocity z) { X = x; Y = y; Z = z; }
+
+			public static readonly Velocity3 Zero = MetresPerSecond(0, 0, 0);
+
+			public bool Equals(Velocity3 other) { return X == other.X && Y == other.Y && Z == other.Z; }
+
+			public override bool Equals(object other) { if(other is Velocity3) return Equals((Velocity3)other); return base.Equals(other); }
+
+			public override int GetHashCode() { return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode(); }
+
+			public override string ToString() { return "Velocity3(" + X + ", " + Y + ", " + Z + ")"; }
+
+			public static bool operator ==(Velocity3 a, Velocity3 b) { return a.X == b.X && a.Y == b.Y && a.Z == b.Z; }
+			public static bool operator !=(Velocity3 a, Velocity3 b) { return a.X != b.X || a.Y != b.Y || a.Z != b.Z; }
+
+			<#foreach(Unit unit in VelocityUnits) {#>
+				public static Velocity3 <#=unit.Plural#>(double x, double y, double z) { return new Velocity3(Velocity.<#=unit.Plural#>(x), Velocity.<#=unit.Plural#>(y), Velocity.<#=unit.Plural#>(z)); }
+				public static Velocity3 <#=unit.Plural#>(Vector3d value) { return new Velocity3(Velocity.<#=unit.Plural#>(value.X), Velocity.<#=unit.Plural#>(value.Y), Velocity.<#=unit.Plural#>(value.Z)); }
+				public static Velocity3 <#=unit.Plural#>(ref Vector3d value) { return new Velocity3(Velocity.<#=unit.Plural#>(value.X), Velocity.<#=unit.Plural#>(value.Y), Velocity.<#=unit.Plural#>(value.Z)); }
+
+				public Vector3d In<#=unit.Plural#> { get { return new Vector3d(X.In<#=unit.Plural#>, Y.In<#=unit.Plural#>, Z.In<#=unit.Plural#>); } }
+			<#}#>
+		}
+	<#});#>
+}
+
+<#@ include file="Common.ttinclude" #>
+
+<#+
+
+static readonly Unit[] VelocityUnits = new Unit[]
+{
+	new Unit("MetrePerSecond", "MetresPerSecond", "m·s⁻¹", "Length.ToMetres / ToSeconds"),
+};
+
+#>

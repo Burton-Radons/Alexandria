@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Glare
+{
+	<#Generate("Length", new TypeInfo[] { SuffixlessDoubleType }, () => {#>
+	/// <summary>A distance value.</summary>
+	public struct <#=This#> : <#=Interfaces#>
+	{
+		<#GenerateUnits(LengthUnits);#>
+
+		/// <summary>Get this value multiplied by itself.</summary>
+		public Area Squared { get { return Area.SquareMetres(InMetres * InMetres); } }
+		
+		public static Area operator *(Length a, Length b) { return Area.SquareMetres(a.InMetres * b.InMetres); }
+		public static Vector3 operator *(Length a, Vector3d b) { return new Vector3(a * b.X, a * b.Y, a * b.Z); }
+		public static Vector3 operator *(Vector3d a, Length b) { return new Vector3(a.X * b, a.Y * b, a.Z * b); }
+		public static Velocity operator /(Length a, TimeSpan b) { return Velocity.MetresPerSecond(a.InMetres / b.TotalSeconds); }
+	}
+	<#});#>
+}
+
+<#@ include file="Common.ttinclude" #>

@@ -1,0 +1,289 @@
+﻿<#@ IntelliSenseLanguage processor="tangibleT4Editor" language="C#" #>
+<#@ include file="Common.ttinclude" #>
+
+<#+
+
+struct MatrixTypeInfo
+{
+	public readonly string BaseName;
+	public readonly int Order;
+	public readonly TypeInfo Type;
+
+	public string Name { get { return BaseName + Order + Suffix; } }
+	public string Suffix { get { return Type.Suffix; } }
+
+	public MatrixTypeInfo(string baseName, int order, TypeInfo type)
+	{
+		this.BaseName = baseName;
+		this.Order = order;
+		this.Type = type;
+	}
+}
+
+int Order;
+VectorTypeFamilyInfo Family;
+
+string Cardinal { get { return Axes[Order - 1].Cardinal; } }
+string CardinalLow { get { return Cardinal.ToLower(); } }
+
+string Ordinal { get { return Axes[Order - 1].Ordinal; } }
+string OrdinalLow { get { return Ordinal.ToLower(); } }
+
+string Vector { get { return "Vector" + Order + Type.Suffix; } }
+string VectorM1 { get { return Order - 1 >= 2 && Order - 1 >= Type.MinOrder ? VectorType(Order - 1) : null; } }
+string VectorM2 { get { return Order - 2 >= 2 && Order - 2 >= Type.MinOrder ? VectorType(Order - 2) : null; } }
+string VectorMinCR { get { return "Vector" + MinCR + Type.Suffix; } }
+string VectorFloat { get { return VectorType(Order); } }
+string VectorType(int order) { return "Vector" + order + (IsMeasurement ? "d" : Type.Suffix); }
+string VectorDouble { get { return "Vector" + Order + "d"; } }
+
+string Normal { get { return VectorFloat; } }
+
+int MinCR { get { return Math.Min(Rows, Columns); } }
+int MinCRM1 { get { return MinCR - 1; } }
+
+#region 2D axis iteration
+
+Action<AxisInfo> AxisInfoToString(Action<string> callback) { return (axis) => { callback(axis.Id); }; }
+
+void Comma(Action<AxisInfo> callback, int count = -1, int start = -1) { Join(", ", callback, count, start); }
+void QComma(Action<string> callback, int count = -1, int start = -1) { Comma(AxisInfoToString(callback), count, start); }
+
+void CommaId(int count = -1, int start = -1) { Comma((AxisInfo axis)=>{ Write(axis.Id); }, count, start); }
+
+void Each(Action<AxisInfo> callback, int count = -1, int start = -1) { Join(null, callback, count, start); }
+void QEach(Action<string> callback, int count = -1, int start = -1) { Each(AxisInfoToString(callback), count, start); }
+
+void Join(string between, Action<AxisInfo> callback, int count = -1, int start = -1)
+{
+	if(start < 0)
+		start = 0;
+	if(count < 0)
+		count = Order - start;
+
+	for(int index = start; index < count; index++)
+	{
+		if(index > start && between != null)
+			Write(between);
+		callback(Axes[index]);
+	}
+}
+
+void QJoin(string between, Action<string> callback, int count = -1, int start = -1) { Join(between, AxisInfoToString(callback), count, start); }
+
+void JoinId(string between, int count = -1, int start = -1) { Join(between, (AxisInfo axis) => Write(axis.Id), count, start); }
+
+void New(Action<AxisInfo> callback, int count = -1, int start = -1) { Write("new " + Vector + "("); Comma(callback, count, start); Write(")"); }
+void QNew(Action<string> callback, int count = -1, int start = -1) { New(AxisInfoToString(callback), count, start); }
+
+void NewThis(Action<AxisInfo> callback, int count = -1, int start = -1) { Write("new " + This + "("); Comma(callback, count, start); Write(")"); }
+void QNewThis(Action<string> callback, int count = -1, int start = -1) { NewThis(AxisInfoToString(callback), count, start); }
+
+#endregion
+
+IEnumerable<MatrixTypeInfo> TypeEnumerator(string baseTypeName) 
+{
+	for(int order = MinOrder; order <= MaxOrder; order++)
+	{
+		foreach(TypeInfo type in Types)
+		{
+			if(order < type.MinOrder || order > type.MaxOrder)
+				continue;
+			yield return new MatrixTypeInfo(baseTypeName, order, type);
+		}
+	}
+}
+
+IEnumerable<MatrixTypeInfo> TypeEnumerator() { return TypeEnumerator(Family.BaseName); }
+
+int MinOrder, MaxOrder;
+int Rows, Columns;
+
+void GenerateAxis(VectorTypeFamilyInfo family, TypeInfo type, int rows, int columns, Action callback) {
+	string typeName = family.GetType(type, rows, columns);
+	Family = family;
+	Rows = rows;
+	Columns = columns;
+	Generate(typeName, new TypeInfo[] { type }, callback);
+}
+
+void GenerateAxes(VectorTypeFamilyInfo family, TypeInfo type, Action callback, int minOrder = 2, int maxOrder = 4) {
+	MinOrder = minOrder;
+	MaxOrder = maxOrder;
+	
+	for(Order = Columns = Rows = minOrder; Order <= maxOrder; Order++)
+		GenerateAxis(family, type, Order, 1, callback);
+}
+
+void GenerateAxes(VectorTypeFamilyInfo family, Action callback) {
+	Family = family;
+	MinOrder = family.MinOrder;
+	MaxOrder = family.MaxOrder;
+
+	for(Order = family.MinOrder; Order <= family.MaxOrder; Order++) {
+		Rows = Columns = Order;
+
+		List<TypeInfo> orderTypes = new List<TypeInfo>();
+		foreach(TypeInfo type in family.Types)
+			if(type.HasVector(Order))
+				orderTypes.Add(type);
+
+		Generate(family.BaseName + (family.NoOrderSuffix ? "" : Order.ToString()), orderTypes, callback);
+	}
+}
+
+string See(MatrixTypeInfo type) { return See(type.Name); }
+
+public class ValueRefDecomposedInfo {
+	public enum Mode { Value, Ref, Decomposed }
+	public Mode MyMode;
+
+	public bool IsValue { get { return MyMode ==  Mode.Value; } }
+	public bool IsRef { get { return MyMode == Mode.Ref; } }
+	public bool IsDecomposed { get { return MyMode == Mode.Decomposed; } }
+
+	public bool IsVector { get { return IsValue || IsRef; } }
+
+	public string X { get { return IsVector ? ".X" : "X"; } }
+	public string Y { get { return IsVector ? ".Y" : "Y"; } }
+	public string Z { get { return IsVector ? ".Z" : "Z"; } }
+	public string W { get { return IsVector ? ".W" : "W"; } }
+
+	public readonly Action<string> Argument;
+
+	/// <summary>Call on each axis with the string for the field; but this provides the "." if necessary.
+	public readonly Action<string, Action<string, string>> Join;
+	public void Each(Action<string, string> callback) { Join("", callback); }
+	public void Comma(Action<string, string> callback) { Join(",", callback); }
+
+	/// <summary>If this vector argument would be passed by reference, save its parameters so that it won't interfere with the computation. Use SaveName to get the name of the saved value, or use the return from this.</summary>
+	public readonly Func<string, string> Save;
+
+	public string SaveName(string name) { return IsRef ? name + "Copy" : name; }
+
+	public readonly Action<string> Write;
+
+	public ValueRefDecomposedInfo(Action<string> argument, Func<string, string> save, Action<string, Action<string, string>> join) {
+		Argument = argument;
+		Save = save;
+		Join = join;
+	}
+}
+
+/// <summary>Create value, <c>ref</c>, and decomposed axis versions of methods taking vector arguments. The callback is called for each form. The info (call it d) has "Argument(name)" to produce an argument declaration, "Join(string, callback)", Each(callback), and Comma(callback) to be called for each axis with (string memberAxis, string axis) where memberAxis may or may not start with a "." depending on mode, "string Save(name)" to save the values of a vector to temporary values if it's passed by reference, and "string Saved(name)" to get the name of the saved variable, if it's different.</summary>
+void ValueRefDecomposed(Action<ValueRefDecomposedInfo> callback) {
+	ValueRefDecomposedInfo info = null;
+
+	info = new ValueRefDecomposedInfo(
+		/*Argument*/(string name) => {
+			switch(info.MyMode) {
+				case ValueRefDecomposedInfo.Mode.Value:#> <#=Vector#> <#=name#> <#+break;
+				case ValueRefDecomposedInfo.Mode.Ref:#> ref <#=Vector#> <#=name#> <#+break;
+				case ValueRefDecomposedInfo.Mode.Decomposed:#> <#+QComma((axis)=>{#> <#=T#> <#=name#><#=axis#> <#+}); break;
+			}
+		},
+
+		/*string Save*/(string name) => {
+			string saveName = info.SaveName(name);
+			if(info.IsRef) {
+				#> <#=Vector#> <#=saveName#>; <#+
+				QEach((axis) => {#> <#=saveName#>.<#=axis#> = <#=name#>.<#=axis#>; <#+});
+			}
+			return saveName;
+		},
+
+		/*Join*/(string between, Action<string, string> vcallback) => {
+			QJoin(between, (axis)=>{ vcallback(info.IsVector ? "." + axis : axis, axis); });
+		});
+
+	info.MyMode = ValueRefDecomposedInfo.Mode.Value;
+	callback(info);
+	info.MyMode = ValueRefDecomposedInfo.Mode.Ref;
+	callback(info);
+	info.MyMode = ValueRefDecomposedInfo.Mode.Decomposed;
+	callback(info);
+}
+
+void GenerateCommonVector() {#>
+	#region Fields
+
+	<#+Each((axis)=>{#>
+		/// <summary>The <#=axis.OrdinalLow#> axis of the <#=SeeThis#>.</summary>
+		public <#=T#> <#=axis.Id#>;
+	<#+});#>
+
+	#endregion Fields
+
+	#region Properties
+
+	public static readonly <#=This#> Zero = <#+NewThis((axis)=>{#><#=Type.Zero#><#+});#>;
+
+	#endregion Properties
+
+	#region Constructors
+
+	/// <summary>Initialise a <#=SeeThis#> from the provided values for each factor.</summary>
+	public <#=This#>(<#+Comma((axis)=>{#><#=T#> <#=axis.IdLow#><#+});#>)
+	{
+		<#+Each((axis)=>{#>
+			<#=axis.Id#> = <#=axis.IdLow#>;
+		<#+});#>
+	}
+
+	/// <summary>Initialise a <#=SeeThis#> from a list.</summary>
+	public <#=This#>(IList<<#=T#>> list, int index = 0) : this(<#+Comma((axis)=>{#>list[index + <#=axis.Index#>]<#+});#>) { }
+
+	/// <summary>Initialise a <#=SeeThis#> from a single scalar that is applied to all factors.</summary>
+	public <#=This#>(<#=T#> value) : this(<#+Comma((axis)=>{#>value<#+});#>) { }
+
+	#endregion Constructors
+
+	#region Methods
+
+	/// <summary>Get whether this <#=SeeThis#> has equal factors as the other <#=SeeThis#>.</summary>
+	public bool Equals(<#=This#> other) {
+		return <#+Join("&&", (axis) => {#> <#=axis.Id#> == other.<#=axis.Id#> <#+});#>;
+	}
+
+	/// <summary>If the other object is a <#=SeeThis#> of the same type, get whether this <#=SeeThis#> has equal factors as it; otherwise return false./summary>
+	public override bool Equals(object other)
+	{
+		if(other is <#=This#>)
+			return Equals((<#=This#>)other);
+		return base.Equals(other);
+	}
+
+	/// <summary>Compute a hash code from combining the axes.</summary>
+	public override int GetHashCode()
+	{
+		return <#+Join("^", (axis) => {#> <#=axis.Id#>.GetHashCode() <#+});#>;
+	}
+
+	/// <summary>Convert this <#=SeeThis#> to a string of the form "<#+CommaId();#>".</summary>
+	public string ToCommaSeparatedString(string format = null, IFormatProvider provider = null) {
+		return <#+Join(" + \", \" + ", (axis)=>{#><#=axis.Id#>.ToString(format, provider)<#+});#>;
+	}
+
+	/// <summary>Convert this <#=SeeThis#> to a string of the form "<#=This#>(<#+CommaId();#>)".</summary>
+	public override string ToString()
+	{
+		return ToString(null, null);
+	}
+
+	/// <summary>Convert this <#=SeeThis#> to a string of the form "<#=This#>(<#+CommaId();#>)".</summary>
+	public string ToString(string format, IFormatProvider provider)
+	{
+		return "<#=This#>(" + ToCommaSeparatedString(format, provider) + ")";
+	}
+
+	/// <summary>Convert this <#=SeeThis#> to a string of the form "{<#+CommaId();#>".</summary>
+	public string ToShortString(string format = null, IFormatProvider provider = null) { return "{" + ToCommaSeparatedString(format, provider) + "}"; }	
+
+	#endregion Methods
+	
+	public static bool operator ==(<#=This#> a, <#=This#> b) { return <#+Join("&&", (axis)=>{#>a.<#=axis.Id#> == b.<#=axis.Id#><#+});#>; }
+
+	public static bool operator !=(<#=This#> a, <#=This#> b) { return <#+Join("||", (axis)=>{#>a.<#=axis.Id#> != b.<#=axis.Id#><#+});#>; }
+<#+}
+
+#>

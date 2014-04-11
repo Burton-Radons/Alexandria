@@ -1,0 +1,365 @@
+﻿using System;
+using System.Runtime.InteropServices;
+
+namespace Glare
+{
+	<#GenerateAxes("Matrix", new TypeInfo[] { SingleType, DoubleType }, ()=>{#>
+
+	/// <summary>A <#=CardinalLow#>-dimensional matrix type using <#=See(Type.Name)#> elements.</summary>
+	[StructLayout(LayoutKind.Explicit)]
+	public partial struct <#=This#> : IEquatable<<#=This#>>
+	{
+		/// <summary>Get a <#=SeeThis#> that would have no effect when multiplied against a <#=SeeThis#> or <#=See(VectorR)#>.</summary>
+		public static readonly <#=This#> Identity = <#New((row, column)=>{#><#=row == column ? 1 : 0#><#});#>;
+
+		// T [XYZW][XYZW]
+		<#Each((AxisPair pair)=>{#>
+			/// <summary>Get or set the <#=pair.Row.OrdinalLow#> row of the <#=pair.Column.OrdinalLow#> column of the <#=SeeThis#>.</summary>
+			[FieldOffset(<#=pair.Offset#>)]
+			public <#=T#> <#=pair.Id#>;
+		<#});#>
+		
+		// VectorR [XYZW]Row
+		<#EachRow((row)=>{#>
+			/// <summary>Get or set the <#=row.OrdinalLow#> row of the <#=SeeThis#>.</summary>
+			public <#=VectorR#> <#=row.Id#>Row
+			{
+				get { return new <#=VectorR#>(<#ColumnComma((column)=>{#><#=Id(row, column)#><#});#>); }
+				set { <#EachColumn((column)=>{#><#=Id(row, column)#> = value.<#=column.Id#>;<#});#> }
+			}
+		<#});#>
+
+		// VectorC [XYZW]Column
+		<#EachColumn((column)=>{#>
+			/// <summary>Get or set the <#=column.OrdinalLow#> column of the <#=SeeThis#>.</summary>
+			public <#=VectorC#> <#=column.Id#>Column
+			{
+				get { return new <#=VectorC#>(<#RowComma((row)=>{#><#=Id(row, column)#><#});#>); }
+				set { <#EachRow((row)=>{#><#=Id(row, column)#> = value.<#=row.Id#>;<#});#> }
+			}
+		<#});#>
+		
+		/// <summary>Get or set the diagonal <#=VectorMinCR#> of the <#=SeeThis#>.</summary>
+		public <#=VectorMinCR#> Diagonal
+		{
+			get { return new <#=VectorMinCR#>(<#Comma((axis)=>{#><#=axis.Id#><#=axis.Id#><#}, MinCR);#>); }
+			set { <#Each((axis)=>{#><#=axis.Id+axis.Id#> = value.<#=axis.Id#>;<#}, MinCR);#> }
+		}
+
+		// This(T [xyzw][xyzw]...)
+		/// <summary>Assign the coefficients of the <#=SeeThis#> to the values provided. The coefficients are in row-major order, so the first coefficient is XX (first row of the first column) and the second coefficient is XY (first row of the <b>second</b> column).</summary>
+		<#Each((row, column)=>{#>
+			/// <param name="<#=IdLow(row, column)#>">The value to assign to the <#=row.OrdinalLow#> row of the <#=column.OrdinalLow#> column in field <#=See(Id(row, column))#>.</param>
+		<#});#>
+		public <#=This#>(<#Comma((AxisPair pair)=>{#><#=T#> <#=pair.IdLow#><#});#>)
+		{
+			<#Each((row, column)=>{#><#=Id(row, column)#> = <#=IdLow(row, column)#>;<#});#>
+		}
+
+		#region Methods
+
+		/// <summary>Test for equality in all coefficients between this <#=SeeThis#> and the other one.</summary>
+		public bool Equals(ref <#=This#> other)
+		{
+			return <#Join(" && ", (AxisPair pair)=>{#><#=pair.Id#> == other.<#=pair.Id#><#});#>;
+		}
+
+		/// <summary>Test for equality in all coefficients between this <#=SeeThis#> and the other one.</summary>
+		public bool Equals(<#=This#> other) { return Equals(ref other); }
+
+		/// <summary>Test for equality between this <#=SeeThis#> and the provided object, which must be an equivalent <#=SeeThis#> to return <c>true</c>.</summary>
+		public override bool Equals(object other)
+		{
+			if(other is <#=This#>)
+				return Equals((<#=This#>)other);
+			return base.Equals(other);
+		}
+
+		/// <summary>Compute a hash code containing all of the <#=SeeThis#>'s coefficients.</summary>
+		public override int GetHashCode()
+		{
+			return <#Join(" ^ ", (row, column)=>{#><#=Id(row, column)#>.GetHashCode()<#});#>;
+		}
+
+		// Multiply
+		<#GenerateReferenceReturn(MatrixRR, (r) => {#>
+			public <#=r.ReturnType#> Multiply(<#=MatrixCR#> other <#=r.Argument#>)
+			{
+				<#=r.Begin#>
+				Multiply(ref other, out result);
+				<#=r.Return#>
+			}
+
+			public <#=r.ReturnType#> Multiply(ref <#=MatrixCR#> other <#=r.Argument#>)
+			{
+				<#=r.Begin#>
+				<#/*this is an nxm matrix, other is an mxp matrix*/#>
+				<#int n = Rows, m = Columns, p = Columns;#>
+				<#for(int i = 0; i < Rows; i++)
+					for(int j = 0; j < Rows; j++) {#>
+						<#=T#> v<#=Id(i, j)#> = <#for(int k = 0; k < m; k++) {#> <#=k > 0 ? "+" : ""#> <#=Id(i, k)#> * other.<#=Id(k, j)#> <#}#>;
+					<#}#>
+				<#for(int i = 0; i < Rows; i++)
+					for(int j = 0; j < Rows; j++) {#>
+						result.<#=Id(i, j)#> = v<#=Id(i, j)#>;
+					<#}#>
+				<#=r.Return#>
+			}
+		<#});#>
+
+		// Translate
+		<#if(Rows > 2) GenerateReferenceReturn(This, (r) => {#>
+			public static <#=r.ReturnType#> Translate(<#=VectorRM1#> amount <#=r.Argument#>) { <#=r.Begin#> Translate(ref amount, out result); <#=r.Return#> }
+
+			public static <#=r.ReturnType#> Translate(ref <#=VectorRM1#> amount <#=r.Argument#>) 
+			{
+				<#=r.Begin#>
+				<#Each((AxisPair pair) => {#> result.<#=pair.Id#> = <#=pair.IsDiagonal ? "1" : pair.IsLastRow ? "amount." + pair.Column.Id : "0"#>; <#});#>
+				<#=r.Return#>
+			}
+
+			public static <#=r.ReturnType#> Translate(<#Join(", ", (axis) => {#> <#=T#> <#=axis.Id#> <#}, Rows - 1);#> <#=r.Argument#>)
+			{
+				<#=r.Begin#>
+				<#Each((AxisPair pair) => {#> result.<#=pair.Id#> = <#=pair.IsDiagonal ? "1" : pair.IsLastRow ? pair.Column.Id : "0"#>; <#});#>
+				<#=r.Return#>
+			}
+		<#});#>
+
+		#region Square matrix methods
+
+		<#if(Rows == Columns) {#>
+			<#GenerateReferenceReturn(This, (r) => {#>
+				<#if(MinCR > 2) {#>
+					public static <#=r.ReturnType#> Scale(<#=r.Ref#> <#=VectorM1#> amount <#=r.Argument#>)
+					{
+						<#=r.Begin#>
+						<#Each((AxisPair pair) => {#>
+							result.<#=pair.Id#> = <#=pair.Row == pair.Column ? (pair.Row.Index == Rows - 1 || pair.Column.Index == Columns - 1 ? "1" : "amount." + Axes[pair.Row.Index].Id) : "0"#>;
+						<#});#>
+						<#=r.Return#>
+					}
+
+					public static <#=r.ReturnType#> Scale(<#Join(", ", (axis) => {#> <#=T#> <#=axis.IdLow#> <#}, MinCRM1);#> <#=r.Argument#>)
+					{
+						<#=r.Begin#>
+						<#Each((AxisPair pair) => {#>
+							result.<#=pair.Id#> = <#=pair.Row == pair.Column ? (pair.Row.Index == Rows - 1 || pair.Column.Index == Columns - 1 ? "1" : pair.Row.IdLow) : "0"#>;
+						<#});#>
+						<#=r.Return#>
+					}
+				<#}/*MinCR > 2*/#>
+
+				public static <#=r.ReturnType#> Scale(<#=T#> amount <#=r.Argument#>)
+				{
+					<#=r.Begin#>
+					<#Each((AxisPair pair) => {#>
+						result.<#=pair.Id#> = <#=pair.Row == pair.Column ? (pair.Row.Index == Rows - 1 || pair.Column.Index == Columns - 1 ? "1" : "amount") : "0"#>;
+					<#});#>
+					<#=r.Return#>
+				}
+			<#});/*ReferenceReturn*/#>
+		<#}/*Rows==Columns*/#>
+
+		#endregion Square matrix methods
+
+		#region 4x4 Methods
+
+		<#if(Rows == 4 && Columns == 4) {#>
+			<#GenerateReferenceReturn(This, (r) => {#>
+				<#GenerateValueAndRef((dref)=>{#>
+					/// <summary>Create a view matrix that transforms a camera and turns it to look towards a specific location.</summary>
+					/// <param name="cameraPosition">The position of the camera.</param>
+					/// <param name="cameraTarget">The target to turn the camera towards.</param>
+					/// <param name="cameraUpVector">The direction that is "up" from the camera's point of view. For example, <#=See(Vector3 + ".UnitY")#> would have the vertical aspect of the camera straight down the Y axis.</param>
+					public static <#=r.ReturnType#> LookAt(<#=dref#> <#=Vector3#> cameraPosition, <#=dref#> <#=Vector3#> cameraTarget, <#=dref#> <#=Vector3#> cameraUpVector <#=r.Argument#>)
+					{
+						<#=r.Begin#>
+						<#=Vector3#> vector = (cameraPosition - cameraTarget).Normalized;
+						<#=Vector3#> vector2 = cameraUpVector.Cross(vector).Normalized;
+						<#=Vector3#> vector3 = vector.Cross(vector2);
+						result.XX = vector2.X;
+						result.XY = vector3.X;
+						result.XZ = vector.X;
+						result.XW = 0;
+						result.YX = vector2.Y;
+						result.YY = vector3.Y;
+						result.YZ = vector.Y;
+						result.YW = 0;
+						result.ZX = vector2.Z;
+						result.ZY = vector3.Z;
+						result.ZZ = vector.Z;
+						result.ZW = 0;
+						result.WX = -vector2.Dot(cameraPosition);
+						result.WY = -vector3.Dot(cameraPosition);
+						result.WZ = -vector.Dot(cameraPosition);
+						result.WW = 1;
+						<#=r.Return#>
+					}
+
+					public static <#=r.ReturnType#> Rotate(<#=dref#> Angle3 angle <#=r.Argument#>) { <#=r.Begin#> Rotate(angle.X, angle.Y, angle.Z, out result); <#=r.Return#> }
+				<#});/*ValueAndRef*/#>
+
+				/// <summary>Create a perspective matrix with a field of view.</summary>
+				/// <param name="fieldOfView">The vertical field of view. This must be greater than zero and below 180 degrees.</param>
+				/// <param name="aspectRatio">The aspect ratio.</param>
+				/// <param name="nearPlaneDistance">The nearest distance that will be visible; any object before this distance will be clipped. Ideally <paramref name="farPlaneDistance"/> / <paramref name="nearPlaneDistance"/> will be kept as low as possible in order to maximise the fidelity of the depth buffer. This may not be greater than <paramref name="farPlaneDistance"/> or negative.</param>
+				/// <param name="farPlaneDistance">The farthest distance that will be visible; any object after this distance will be clipped. This may not be less than or equal to <paramref name="nearPlaneDistance"/>.</param>
+				public static <#=r.ReturnType#> PerspectiveFieldOfView(Angle fieldOfView, <#=FloatType#> aspectRatio, <#=FloatType#> nearPlaneDistance, <#=FloatType#> farPlaneDistance <#=r.Argument#>) {
+					<#=r.Begin#>
+					if(fieldOfView < Angle.Zero || fieldOfView >= Angle.Flip)
+						throw new ArgumentOutOfRangeException("fieldOfView");
+					if(nearPlaneDistance <= 0)
+						throw new ArgumentOutOfRangeException("nearPlaneDistance");
+					if(farPlaneDistance <= 0)
+						throw new ArgumentOutOfRangeException("farPlaneDistance");
+					if(nearPlaneDistance >= farPlaneDistance)
+						throw new ArgumentOutOfRangeException("nearPlaneDistance");
+						result = Identity;
+					double fov = 1.0 / Math.Tan(fieldOfView.InRadians * 0.5);
+					double fovByAspectRatio = fov / aspectRatio;
+					result.XX = (<#=FloatType#>)fovByAspectRatio;
+					result.XY = result.XZ = result.XW = 0;
+					result.YY = (<#=FloatType#>)fov;
+					result.YX = result.YZ = result.YW = 0;
+					result.ZX = result.ZY = 0;
+					result.ZZ = (<#=FloatType#>)(farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
+					result.ZW = -1;
+					result.WX = result.WY = result.WW = 0;
+					result.WZ = (<#=FloatType#>)((nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance));
+					<#=r.Return#>
+				}
+
+				public static <#=r.ReturnType#> Rotate(Angle yaw, Angle pitch, Angle roll <#=r.Argument#>) {
+					<#=r.Begin#>
+					Quaternion quaternion = new Quaternion(yaw, pitch, roll);
+					quaternion.To<#=This#>(out result);
+					<#=r.Return#>
+				}
+			<#});/*ReferenceReturn*/#>
+		<#}/*4x4*/#>
+
+		#endregion 4x4 methods
+
+		<#if (Columns > 2 && Rows > 2) {#>
+			<#GenerateReferenceReturn(VectorCM1, (r) => {#>
+				<#GenerateValueAndRef((dref)=>{#>
+					public <#=r.ReturnType#> Multiply(<#=dref#> <#=VectorRM1#> vector <#=r.Argument#>) {
+						<#=r.Begin#>
+						<#Each((column) => {#>
+							result.<#=column.Id#> = <#Join("+", (row) => {#>
+								<#=Id(row, column)#> * vector.<#=row.Id#>
+							<#}, Rows - 1);#> + <#=Id(Axes[Rows - 1], column)#>;
+						<#}, Columns - 1);#>
+						<#=r.Return#>
+					}
+				<#});#>
+			<#});#>
+		<#}#>
+
+		#endregion Methods
+
+		#region Operators
+
+		/// <summary>Test whether the <#=SeeThis#> objects have equivalent coefficients.</summary>
+		public static bool operator ==(<#=This#> a, <#=This#> b) { return a.Equals(ref b); }
+
+		/// <summary>Test whether the <#=SeeThis#> objects do not have equivalent coefficients.</summary>
+		public static bool operator !=(<#=This#> a, <#=This#> b) { return !a.Equals(ref b); }
+
+		<#foreach(MatrixTypeInfo type in TypeEnumerator())
+		{
+			if(type.Name == This || type.Order != Order) continue;
+			#>
+			/// <summary>Cast to the <#=See(type)#>.</summary>
+			public static <#=Type.ImplicitCastTo(type.Type)#> operator <#=type.Name#>(<#=This#> a)
+			{
+				return new <#=type.Name#>(<#Comma((AxisPair pair)=>{#>(<#=type.Type.Name#>)a.<#=pair.Id#><#});#>);
+			}
+			<#
+		}#>
+
+		public static <#=MatrixRR#> operator *(<#=This#> a, <#=MatrixCR#> b) { <#=MatrixRR#> result; a.Multiply(ref b, out result); return result; }
+
+		<#if(Columns > 2 && Rows > 2) {#>
+			public static <#=VectorCM1#> operator *(<#=This#> a, <#=VectorRM1#> b) { <#=VectorCM1#> result; a.Multiply(ref b, out result); return result; }
+		<#}#>
+
+		#endregion Operators
+	}
+	
+	<#});#>
+}
+
+<#@ include file="CommonAxis.ttinclude" #>
+
+<#+
+
+string VectorC { get { return Vector; } }
+string VectorR { get { return Vector; } }
+string VectorCM1 { get { return VectorM1; } }
+string VectorRM1 { get { return VectorM1; } }
+
+string MatrixCR { get { return This; } }
+string MatrixRR { get { return This; } }
+
+struct AxisPair
+{
+	public readonly AxisInfo Row, Column;
+	readonly TypeInfo Type;
+	readonly int Rows, Columns;
+
+	public string Id { get { return Row.Id + Column.Id; } }
+	public string IdLow { get { return Row.IdLow + Column.IdLow; } }
+	public bool IsDiagonal { get { return Row.Index == Column.Index; } }
+	public bool IsFirstColumn { get { return Column.Index == 0; } }
+	public bool IsFirstRow { get { return Row.Index == 0; } }
+	public bool IsLastColumn { get { return Column.Index == 0; } }
+	public bool IsLastRow { get { return Row.Index == Rows - 1; } }
+	public int Offset { get { return (Row.Index * Columns + Column.Index) * Type.SizeOf; } }
+	public AxisPair(AxisInfo row, AxisInfo column, TypeInfo type, int rows, int columns) { Row = row; Column = column; Type = type; Rows = rows; Columns = columns; }
+}
+
+Action<AxisInfo, AxisInfo> Convert(Action<AxisPair> each) { return (row, column) => each(new AxisPair(row, column, Type, Rows, Columns)); }
+
+void EachColumn(Action<AxisInfo> each) { Each(each); }
+void EachRow(Action<AxisInfo> each) { Each(each); }
+
+void Each(Action<AxisInfo, AxisInfo> each) { Join(null, each); }
+void Each(Action<AxisPair> each) { Join(null, each); }
+
+string Id(AxisInfo row, AxisInfo column) { return row.Id + column.Id; }
+string IdLow(AxisInfo row, AxisInfo column) { return row.IdLow + column.IdLow; }
+
+void Join(string between, Action<AxisInfo, AxisInfo> each, int rows, int columns)
+{
+	for(int rowIndex = 0; rowIndex < rows; rowIndex++)
+		for(int columnIndex = 0; columnIndex < columns; columnIndex++)
+		{
+			if(between != null && (columnIndex > 0 || rowIndex > 0))
+				Write(between);
+			each(Axes[rowIndex], Axes[columnIndex]);
+		}
+}
+
+void Join(string between, Action<AxisInfo, AxisInfo> each) { Join(between, each, Rows, Columns); }
+void Join(string between, Action<AxisPair> each, int rows, int columns) { Join(between, Convert(each), rows, columns); }
+void Join(string between, Action<AxisPair> each) { Join(between, Convert(each)); }
+
+void New(Action<AxisInfo, AxisInfo> each, int rows, int columns) { Write("new " + This + "("); Comma(each, rows, columns); Write(")"); }
+void New(Action<AxisInfo, AxisInfo> each) { New(each, Rows, Columns); }
+void New(Action<AxisPair> each) { New(Convert(each)); }
+void New(Action<AxisPair> each, int rows, int columns) { New(Convert(each), rows, columns); }
+
+void Comma(Action<AxisInfo, AxisInfo> each, int rows, int columns) { Join(", ", each, rows, columns); }
+void Comma(Action<AxisPair> each, int rows, int columns) { Join(", ", each, rows, columns); }
+void Comma(Action<AxisInfo, AxisInfo> each) { Join(", ", each); }
+void Comma(Action<AxisPair> each) { Join(", ", each); }
+
+void ColumnJoin(string between, Action<AxisInfo> each) { Join(between, each); }
+void ColumnComma(Action<AxisInfo> each) { ColumnJoin(", ", each); }
+
+void RowJoin(string between, Action<AxisInfo> each) { Join(between, each); }
+void RowComma(Action<AxisInfo> each) { RowJoin(", ", each); }
+
+#>

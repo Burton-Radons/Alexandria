@@ -1,0 +1,307 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using System.Runtime.InteropServices;
+using OpenTK.Graphics.OpenGL4;
+
+namespace Glare.Graphics {
+	public partial class ProgramUniform {
+
+		<#foreach(var type in VectorBaseTypes) {
+			for(int order = 1; order <= 4; order++)
+			{
+				if(type.Suffix == null && order > 1)
+					continue;
+
+				string Type = order == 1 ? type.Id : "Vector" + order + type.Suffix;
+				bool isBool = type.Id == "bool";
+
+				for(int pass = 0; pass < (order == 1 ? 2 : 1); pass++)
+				{
+					string args = pass == 0 ?
+						"int first, int count, IList<" + Type + "> data" :
+						"int count, " + Type + "* data";
+
+					string valueBase = "data[" + (pass == 0 ? "first + " : "") + "index]";
+					string value = "";
+					string index = "";
+
+					Action<Action, int, string, string> writeElement = (Action content, int indexValue, string suffix, string myValueBase) =>
+					{
+						value = myValueBase + suffix;
+						index = "(index + " + indexValue + ") * 4 * " + order;
+						content();
+					};
+
+					Action<Action, bool> process = (Action content, bool write) =>
+					{
+						string myValueBase = valueBase;
+
+						if(write && isBool)
+							myValueBase = "(" + valueBase + " ? 1 : 0)";
+						if(order == 1)
+							writeElement(content, 0, "", myValueBase);
+						else for(int axis = 0; axis < order; axis++)
+							writeElement(content, axis, AxisSuffixes[axis], myValueBase);
+					};
+
+					Action<Action> processWrite = (Action content) => process(content, true);
+
+					Action<string, Action> processComplexRead = (string typeName, Action content) =>
+					{
+						Write("unsafe static void From" + typeName + "(" + args + ") { ");
+						Write("for(int index = 0; index < count; index++)");
+						Write(valueBase + " = ");
+						if(order > 1)
+							Write("new " + Type + "(");
+
+						for(int axis = 0; axis < order; axis++)
+						{
+							if(axis > 0)
+								Write(", ");
+							index = "(index + " + axis + ") * 4 * " + order;
+							Write("(" + type.Id + ")(");
+							if(isBool)
+								Write("(");
+							content();
+							if(isBool)
+								Write(") != 0");
+							Write(")");
+						}
+
+						if(order > 1)
+							Write(")");
+						Write("; }");
+					};
+
+					Action<string[]> processRead = (string[] typeNames) =>
+					{
+						foreach(string typeName in typeNames)
+							processComplexRead(typeName, () => {#> *((System.<#=typeName#>*)list.ToPointer() + <#=index#>) <#});
+					};
+				#>
+					<#processComplexRead("Boolean", () => {#> Marshal.ReadInt32(list, <#=index#> * 4) != 0 ? 1 : 0 <#});#>
+					<#processRead(new string[] { "Double", "Single", "Int32", "UInt32" });#>
+
+					unsafe static void ToBoolean(<#=args#>)
+					{
+						GetList(count * <#=order#>);
+						for (int index = 0; index < count; index++) {<#
+							processWrite(() => {#>
+								Marshal.WriteInt32(list, <#=index#> * 4, <#=value#> != 0 ? 1 : 0);
+							<#});
+						#>}
+					}
+
+					unsafe static void ToDouble(<#=args#>)
+					{
+						GetList(count * 2 * <#=order#>);
+						for (int index = 0; index < count; index++) {<#
+							processWrite(() => {#>
+								Marshal.WriteInt64(list, <#=index#> * 8, BitConverter.DoubleToInt64Bits((double)<#=value#>));
+							<#});
+						#>}
+					}
+
+					unsafe static void ToSingle(<#=args#>)
+					{
+						SetupFloatList(count * <#=order#>);
+						for (int index = 0; index < count; index++) {<#
+							processWrite(() => {#>
+								floatList[<#=index#> / 4] = (float)<#=value#>;
+							<#});
+						#>}
+						Marshal.Copy(floatList, 0, list, count);
+					}
+
+					unsafe static void ToInt32(<#=args#>)
+					{
+						GetList(count * <#=order#>);
+						for (int index = 0; index < count; index++) {<#
+							processWrite(() => {#>
+								Marshal.WriteInt32(list, <#=index#> * 4, (int)<#=value#>);
+							<#});
+						#>}
+					}
+
+					unsafe static void ToUInt32(<#=args#>)
+					{
+						GetList(count);
+						for (int index = 0; index < count; index++) {<#
+							processWrite(() => {#>
+								Marshal.WriteInt32(list, <#=index#> * 4, (int)(uint)<#=value#>);
+							<#});
+						#>}
+					}
+				<#}
+			}
+		}#>
+
+		<#foreach(var type in VectorBaseTypes) {#>
+			public unsafe void Get(System.<#=type.Name#>* data, Vector2i dimensions, int count)
+			{
+				if(data == null)
+					throw new ArgumentNullException("data");
+				if(count != Count)
+					throw new ArgumentException("count");
+				if(dimensions != ComponentDimensions)
+					throw new ArgumentException("dimensions");
+				using (Context.Lock())
+					lock (locker)
+						switch (ComponentType.Name)
+						{
+							<#foreach(var toType in VectorBaseTypes) {#>
+								case "<#=toType.Type.Name#>":
+									<#if(type == toType && type != BooleanType) {#>
+										GL.GetUniform(<#=toType.ProgramId#>, location, (<#=toType.Id#>*)data);
+									<#} else {#>
+										GetList(dimensions.X * dimensions.Y * count * Math.Min(sizeof(System.<#=type.Name#>), 4) / 4);
+										GL.GetUniform(<#=toType.ProgramId#>, location, (<#=toType.ListPointerId#>*)list.ToPointer());
+										From<#=toType.Name#>(Count * ComponentCount, data);
+									<#}#>
+									break;
+							<#}#>
+							default: throw new InvalidOperationException();
+						}
+			}
+		<#}#>
+
+		<#for(int order = 2; order <= 4; order++) {
+			foreach(var type in VectorBaseTypes) {
+				string Vector = type.HasVector(order) ? "Vector" + order + type.Suffix : null;
+				string Matrix = type.HasMatrix(order) ? "Matrix" + order + type.Suffix : null;
+			#>
+				<#if(Matrix != null) {#>
+					public <#=Matrix#> Get<#=Matrix#>()
+					{
+						<#=Matrix#> result = new <#=Matrix#>();
+						unsafe { Get(&result.XX, new Vector2i(<#=order#>, <#=order#>), 1); }
+						return result;
+					}
+				<#}#>
+
+				public unsafe void Set<#=order#>(int count, <#=type.Id#>* data)
+				{
+					using (Context.Lock())
+						lock (locker)
+							switch (type)
+							{
+								<#foreach(var toType in VectorBaseTypes) {#>
+									case ActiveUniformType.<#=toType.ActiveUniformType#>Vec<#=order#>:
+										<#if(type == toType && type != BooleanType) {#>
+											GL.ProgramUniform<#=order#>(<#=toType.ProgramId#>, location, count, (<#=toType.Id#>*)data);
+										<#} else {#>
+											To<#=toType.Name#>(count * <#=order#>, data);
+											GL.ProgramUniform<#=order#>(<#=toType.ProgramId#>, location, count, (<#=toType.ListPointerId#>*)list.ToPointer());
+										<#}#>
+										break;
+								<#}#>
+								default: throw new InvalidOperationException();
+							}
+				}
+
+				<#if(Vector != null) {#>
+					public void Set(<#=Vector#> value) { unsafe { Set<#=order#>(1, (<#=type.Id#>*)&value); } }
+
+					public void Set(ref <#=Vector#> value) { unsafe { fixed(<#=Vector#>* pointer = &value) Set<#=order#>(1, (<#=type.Id#>*)pointer); } }
+
+					public void Set(params <#=Vector#>[] values)
+					{
+						if(values == null)
+							throw new ArgumentNullException("values");
+						unsafe 
+						{
+							fixed(<#=Vector#>* pointer = values)
+								Set<#=order#>(values.Length, (<#=type.Id#>*)pointer);
+						}
+					}
+
+					public void Set(int first, int count, params <#=Vector#>[] values)
+					{
+						if(values == null)
+							throw new ArgumentNullException("values");
+						if(first < 0 || first > values.Length)
+							throw new ArgumentOutOfRangeException("first");
+						if(count <= 0 || first + count > values.Length)
+							throw new ArgumentOutOfRangeException("count");
+						unsafe
+						{
+							fixed(<#=Vector#>* pointer = values)
+								Set<#=order#>(count, (<#=type.Id#>*)(pointer + first));
+						}
+					}
+
+					public void Set(IList<<#=Vector#>> list)
+					{
+						if(list == null)
+							throw new ArgumentNullException("list");
+						Set(0, list.Count, list);
+					}
+
+					public void Set(int first, int count, IList<<#=Vector#>> list)
+					{
+						if(list == null)
+							throw new ArgumentNullException("list");
+						if(first < 0 || first > list.Count)
+							throw new ArgumentOutOfRangeException("first");
+						if(count <= 0 || first + count > list.Count)
+							throw new ArgumentOutOfRangeException("count");
+						unsafe
+						{
+							using (Context.Lock())
+								lock (locker)
+									switch (type)
+									{
+										<#foreach(var toType in VectorBaseTypes) {#>
+											case ActiveUniformType.<#=toType.ActiveUniformType#>Vec<#=order#>:
+												To<#=toType.Name#>(first, count, list);
+												GL.ProgramUniform<#=order#>(<#=toType.ProgramId#>, location, count, (<#=toType.ListPointerId#>*)ProgramUniform.list.ToPointer());
+												break;
+										<#}#>
+										default: throw new InvalidOperationException();
+									}							
+						}
+					}
+				<#}
+			}
+		}#>
+	}
+}
+
+<#+
+
+class BaseType
+{
+	public readonly Type Type;
+	public readonly string Id, Suffix, ActiveUniformType;
+	public string Name { get { return Type.Name; } }
+	public string ListId, ListPointerId;
+	public string ProgramId { get { return Type == typeof(uint) ? "(uint)Program.Id" : "Program.Id"; } }
+	public BaseType(Type type, string id, string suffix, string activeUniformType) { Type = type; Id = ListId = ListPointerId = id; Suffix = suffix; ActiveUniformType = activeUniformType; }
+
+	public bool IsBoolean { get { return Id == "bool"; } }
+
+	public bool HasVector(int order) { return !IsBoolean && order >= 2 && order <= 4; }
+	public bool HasMatrix(int order) { return (Id == "float" || Id == "double") && order >= 2 && order <= 4; }
+}
+
+static BaseType BooleanType = new BaseType(typeof(bool), "bool", null, "Bool") { ListId = "int", ListPointerId = "int" };
+static BaseType DoubleType = new BaseType(typeof(double), "double", "d", "Double");
+static BaseType SingleType = new BaseType(typeof(float), "float", "f", "Float");
+static BaseType Int32Type = new BaseType(typeof(int), "int", "i", "Int");
+static BaseType UInt32Type = new BaseType(typeof(uint), "uint", "ui", "UnsignedInt") { ListId = "int", ListPointerId = "uint" };
+
+static BaseType[] VectorBaseTypes = new BaseType[] { BooleanType, DoubleType, SingleType, Int32Type, UInt32Type };
+
+static string[] AxisSuffixes = new string[] { ".X", ".Y", ".Z", ".W" };
+
+#>

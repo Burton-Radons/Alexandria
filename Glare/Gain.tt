@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Glare
+{
+	<#Generate("Gain", new TypeInfo[] { SuffixlessDoubleType }, () => {#>
+	/// <summary>The change in power or amplitude of a signal from the input to the output.</summary>
+	public struct <#=This#> : IComparable<<#=This#>>, IEquatable<<#=This#>>
+	{
+		<#GenerateUnits(
+		);#>
+
+		public static Gain Linear(double value) { return new Gain(value); }
+		public double InLinear { get { return value; } }
+
+		public static Gain AudioDecibels(double value) { return new Gain(Math.Pow(10, value / 20)); }
+		public double InAudioDecibels { get { return 20 * Math.Log10(value); } }
+
+		public static Attenuation operator /(Gain gain, Length length) { return Attenuation.PerMetre(gain.InLinear / length.InMetres); }
+	}
+
+	<#});#>
+
+	<#Generate("Attenuation", new TypeInfo[] { SuffixlessDoubleType }, () => {#>
+	public struct Attenuation : IComparable<<#=This#>>, IEquatable<<#=This#>>
+	{
+		<#GenerateUnits();#>
+
+		public static Attenuation PerMetre(double value) { return new Attenuation(value); }
+		public double InPerMetre { get { return value; } }
+
+		public static Gain operator *(Attenuation a, Length b) { return Gain.Linear(a.InPerMetre * b.InMetres); }
+		public static Gain operator *(Length a, Attenuation b) { return Gain.Linear(a.InMetres * b.InPerMetre); }
+		public static Attenuation operator *(Attenuation a, Gain b) { return Attenuation.PerMetre(a.InPerMetre * b.InLinear); }
+		public static Attenuation operator *(Gain a, Attenuation b) { return Attenuation.PerMetre(a.InLinear * b.InPerMetre); }
+	}
+	<#});#>
+}
+
+<#@ include file="Common.ttinclude" #>

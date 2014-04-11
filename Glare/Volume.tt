@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Glare
+{
+	<#Generate("Volume", new TypeInfo[] { SuffixlessDoubleType }, () => {#>
+		/// <summary>A volume measurement.</summary>
+		public struct <#=This#> : IComparable<<#=This#>>, IEquatable<<#=This#>>
+		{
+			<#GenerateUnits(
+				new Unit("CubicMetre", "CubicMetres", "m³", "Area.ToSquareMetres * Length.ToMetres"));#>
+
+			public static Area operator /(Volume a, Length b) { return Area.SquareMetres(a.InCubicMetres / b.InMetres); }
+			public static Length operator /(Volume a, Area b) { return Length.Metres(a.InCubicMetres / b.InSquareMetres); }
+		}
+	<#});#>
+}
+
+<#@ include file="Common.ttinclude" #>

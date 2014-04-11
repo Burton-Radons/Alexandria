@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Glare
+{
+	<#GenerateAxes("Plane", FloatTypeInfos, () => {#>
+	/// <summary>A <#=Normal#> normal with a <#=T#> distance from origin.</summary>
+	public struct <#=This#>
+	{
+		/// <summary>Get or set the distance from origin.</summary>
+		public <#=T#> Distance;
+
+		/// <summary>Get or set the direction of the <#=SeeThis#>.</summary>
+		public <#=Normal#> Normal;
+		
+		public <#=This#>(<#=Normal#> normal, <#=T#> distance)
+		{
+			Distance = distance;
+			Normal = normal;
+		}
+
+		public <#=This#>(<#Comma((axis) => {#> <#=ScalarType#> normal<#=axis.Id#> <#});#>, <#=T#> distance)
+		{
+			Normal = new <#=Normal#>(<#Comma((axis) => {#> normal<#=axis.Id#> <#});#>);
+			Distance = distance;
+		}
+
+		public void NormalizeInPlace() { Normal.NormalizeInPlace(); }
+
+		<#if(Order == 3) {#>
+
+			<#GenerateReferenceReturn(Vector, (r) => {#>
+				public <#=r.ReturnType#> Intersect(<#=r.Ref#> <#=This#> b, <#=r.Ref#> <#=This#> c <#=r.Argument#>)
+				{
+					<#=r.Begin#>
+					<#=VectorFloat#> v1, v2, v3;
+					<#=VectorFloat#> cross;
+
+					b.Normal.Cross(ref c.Normal, out cross);
+
+					var f = -Normal.Dot(ref cross);
+
+					v1 = cross * <#FromUniversal(() => {#> Distance <#});#>;
+
+					c.Normal.Cross(ref Normal, out cross);
+					v2 = cross * <#FromUniversal(() => {#> b.Distance <#});#>;
+
+					Normal.Cross(ref b.Normal, out cross);
+					v3 = cross * <#FromUniversal(() => {#> c.Distance <#});#>;
+
+					result.X = <#ToUniversal(() => {#> (v1.X + v2.X + v3.X) / f <#});#>;
+					result.Y = <#ToUniversal(() => {#> (v1.Y + v2.Y + v3.Y) / f <#});#>;
+					result.Z = <#ToUniversal(() => {#> (v1.Z + v2.Z + v3.Z) / f <#});#>;
+
+					<#=r.Return#>
+				}
+			<#});#>
+		<#}#>
+	}
+	<#});#>
+}
+
+<#@ include file="CommonAxis.ttinclude" #>

@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{125D9251-7CD0-4801-AB84-CB3F1F6978B1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Glare</RootNamespace>
+    <AssemblyName>Glare</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Angle.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Angle.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Area.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Area.tt</DependentUpon>
+    </Compile>
+    <None Include="Box.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Box1.cs</LastGenOutput>
+    </None>
+    <Compile Include="Box1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Box.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Colours.cs" />
+    <None Include="CommonMeasurement.ttinclude" />
+    <None Include="Extensions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Extensions.cs</LastGenOutput>
+    </None>
+    <None Include="Frequency.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Frequency.cs</LastGenOutput>
+    </None>
+    <Compile Include="Complex.cs" />
+    <Compile Include="Enumerations.cs" />
+    <Compile Include="Extensions.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Extensions.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions.General.cs" />
+    <Compile Include="Frequency.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Frequency.tt</DependentUpon>
+    </Compile>
+    <None Include="Gain.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Gain1.cs</LastGenOutput>
+    </None>
+    <Compile Include="Frustum.cs" />
+    <Compile Include="Gain1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Gain.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\ArrayBackedList.cs" />
+    <Compile Include="Internal\Bidictionary.cs" />
+    <Compile Include="Internal\BigEndianBinaryReader.cs" />
+    <Compile Include="Internal\Extensions.cs" />
+    <Compile Include="Internal\Extensions.Random.cs" />
+    <Compile Include="Internal\Extensions.Template.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Extensions.Template.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\ListDebugView.cs" />
+    <Compile Include="Internal\ListIterator.cs" />
+    <Compile Include="Internal\ListDictionary.cs" />
+    <Compile Include="Internal\ReadOnlyList.cs" />
+    <Compile Include="Length.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Length.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Float16.cs" />
+    <Compile Include="Float24.cs" />
+    <None Include="Internal\Extensions.Template.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Extensions.Template.cs</LastGenOutput>
+    </None>
+    <None Include="LuminousIntensity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LuminousIntensity.cs</LastGenOutput>
+    </None>
+    <Compile Include="LuminousIntensity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LuminousIntensity.tt</DependentUpon>
+    </Compile>
+    <None Include="LuminousFlux.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LuminousFlux1.cs</LastGenOutput>
+    </None>
+    <Compile Include="LuminousFlux1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LuminousFlux.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Matrix1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Matrix.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NamedObject.cs" />
+    <Compile Include="NormalizedByte.cs" />
+    <Compile Include="NormalizedInt32.cs" />
+    <Compile Include="NormalizedSByte.cs" />
+    <None Include="Plane.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Plane.cs</LastGenOutput>
+    </None>
+    <None Include="Quaternion.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Quaternion.cs</LastGenOutput>
+    </None>
+    <None Include="Ray.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Ray1.cs</LastGenOutput>
+    </None>
+    <Compile Include="Plane.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Plane.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Quaternion.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Quaternion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ray1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ray.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceLoader.cs" />
+    <Compile Include="Sphere.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Sphere.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Velocity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Velocity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Volume1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Volume.tt</DependentUpon>
+    </Compile>
+    <None Include="Sphere.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Sphere.cs</LastGenOutput>
+    </None>
+    <None Include="Velocity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Velocity.cs</LastGenOutput>
+    </None>
+    <None Include="Volume.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Volume1.cs</LastGenOutput>
+    </None>
+    <None Include="Area.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Area.cs</LastGenOutput>
+    </None>
+    <None Include="Position.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Position1.cs</LastGenOutput>
+    </None>
+    <Compile Include="Position1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Position.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DisposableObject.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Vector.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Vector.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Angle.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Angle.cs</LastGenOutput>
+    </None>
+    <None Include="Common.ttinclude" />
+    <None Include="CommonAxis.ttinclude" />
+    <Compile Include="Vector.Partial.cs" />
+    <None Include="Length.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Length.cs</LastGenOutput>
+    </None>
+    <None Include="Matrix.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Matrix1.cs</LastGenOutput>
+    </None>
+    <None Include="Vector.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Vector.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

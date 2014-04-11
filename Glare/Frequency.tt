@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Glare
+{
+	<#Generate("Frequency", new TypeInfo[] { SuffixlessDoubleType }, () => {#>
+		/// <summary>A measurement of length by time, created as <see cref="Length"/> divided by <see cref="TimeSpan"/>.</summary>
+		public struct <#=This#> : IComparable<<#=This#>>, IEquatable<<#=This#>>
+		{
+			internal const double ToSeconds = Velocity.ToSeconds;
+
+			<#GenerateUnits(
+				new Unit("OneHertz", "Hertz", "Hz", "1"));#>
+
+			public <#=This#>(double number, TimeSpan span) { value = (number / span.TotalSeconds) / ToHertz; }
+		}
+	<#});#>
+}
+
+<#@ include file="Common.ttinclude" #>

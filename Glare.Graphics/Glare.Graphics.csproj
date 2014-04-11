@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6EC9BD9E-DA82-48DB-A01B-7BB90E1A1F71}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Glare.Graphics</RootNamespace>
+    <AssemblyName>Glare.Graphics</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.1.1.1508.5724\lib\NET40\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseBuffer.cs" />
+    <Compile Include="BlendFunction.cs" />
+    <Compile Include="Capabilities.ShaderStage.cs" />
+    <Compile Include="Collada\Accessor.cs" />
+    <Compile Include="Collada\ArrayElement.cs" />
+    <Compile Include="Collada\Asset.cs" />
+    <Compile Include="Collada\BindMaterial.cs" />
+    <Compile Include="Collada\Collada.cs" />
+    <Compile Include="Collada\Controller.cs" />
+    <Compile Include="Collada\Effect.cs" />
+    <Compile Include="Collada\EffectTechnique.cs" />
+    <Compile Include="Collada\Element.cs" />
+    <Compile Include="Collada\ElementCollection.cs" />
+    <Compile Include="Collada\Exceptions.cs" />
+    <Compile Include="Collada\Extra.cs" />
+    <Compile Include="Collada\CommonType.cs" />
+    <Compile Include="Collada\Geometry.cs" />
+    <Compile Include="Collada\Image.cs" />
+    <Compile Include="Collada\InitializeFrom.cs" />
+    <Compile Include="Collada\InstanceEffect.cs" />
+    <Compile Include="Collada\InstanceImage.cs" />
+    <Compile Include="Collada\Interfaces.cs" />
+    <Compile Include="Collada\Input.cs" />
+    <Compile Include="Collada\Instance.cs" />
+    <Compile Include="Collada\Library.cs" />
+    <Compile Include="Collada\Material.cs" />
+    <Compile Include="Collada\Mesh.cs" />
+    <Compile Include="Collada\MeshPrimitives.cs" />
+    <Compile Include="Collada\NewParameter.cs" />
+    <Compile Include="Collada\Node.cs" />
+    <Compile Include="Collada\Parameter.cs" />
+    <Compile Include="Collada\ParameterValue.cs" />
+    <Compile Include="Collada\Profile.cs" />
+    <Compile Include="Collada\ProfileCommon.cs" />
+    <Compile Include="Collada\Sampler.cs" />
+    <Compile Include="Collada\Scene.cs" />
+    <Compile Include="Collada\ProfileCommonShader.cs" />
+    <Compile Include="Collada\SetParameter.cs" />
+    <Compile Include="Collada\Skin.cs" />
+    <Compile Include="Collada\Source.cs" />
+    <Compile Include="Collada\Technique.cs" />
+    <Compile Include="Collada\TechniqueCommon.cs" />
+    <Compile Include="Collada\Transform.cs" />
+    <Compile Include="Collada\VertexCollection.cs" />
+    <Compile Include="Collada\VisualScene.cs" />
+    <Compile Include="ElementType.cs" />
+    <Compile Include="Graphics.cs" />
+    <Compile Include="GraphicsBuffer.cs" />
+    <Compile Include="DrawBuffer.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Capabilities.cs" />
+    <Compile Include="GraphicsVersion.cs" />
+    <Compile Include="Internal\GLExt.cs" />
+    <Compile Include="Internal\GLMinimumAttribute.cs" />
+    <Compile Include="FrameBuffer.cs" />
+    <Compile Include="FrameBufferAttachment.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="GraphicsResource.cs" />
+    <Compile Include="Internal\GraphicsExtensions.cs" />
+    <Compile Include="Loaders\DDS.cs" />
+    <Compile Include="Loaders\Direct3D.cs" />
+    <Compile Include="Loaders\Fbx\Fbx.cs" />
+    <Compile Include="Loaders\Fbx\FbxClass.cs" />
+    <Compile Include="Loaders\Fbx\FbxContainer.cs" />
+    <Compile Include="Loaders\Fbx\FbxDocument.cs" />
+    <Compile Include="Loaders\Fbx\FbxGeometry.cs" />
+    <Compile Include="Loaders\Fbx\FbxGeometryBase.cs" />
+    <Compile Include="Loaders\Fbx\FbxLayerContainer.cs" />
+    <Compile Include="Loaders\Fbx\FbxMesh.cs" />
+    <Compile Include="Loaders\Fbx\FbxNode.cs" />
+    <Compile Include="Loaders\Fbx\FbxNodeAttribute.cs" />
+    <Compile Include="Loaders\Fbx\FbxPropertyHandle.cs" />
+    <Compile Include="Loaders\Fbx\FbxScene.cs" />
+    <Compile Include="Loaders\Fbx\FbxSection.cs" />
+    <Compile Include="Loaders\Fbx\FbxHeaderExtension.cs" />
+    <Compile Include="Loaders\Fbx\FbxManager.cs" />
+    <Compile Include="Loaders\Fbx\FbxObject.cs" />
+    <Compile Include="Loaders\Fbx\FbxPropertyAttribute.cs" />
+    <Compile Include="Loaders\Fbx\FbxClassAttribute.cs" />
+    <Compile Include="Loaders\Fbx\FbxValue.cs" />
+    <Compile Include="Query.cs" />
+    <Compile Include="Sampler.cs" />
+    <Compile Include="SamplerResource.cs" />
+    <Compile Include="Terrains\Planar\Components\AttachedTreeTerrainComponent.cs" />
+    <Compile Include="Terrains\Planar\Components\ClipTerrainComponent.cs" />
+    <Compile Include="Terrains\Planar\Components\ColorTerrainComponent.cs" />
+    <Compile Include="Terrains\Planar\Components\DistanceLodTerrainComponent.cs" />
+    <Compile Include="Terrains\Planar\Components\GrassTerrainComponent.cs" />
+    <Compile Include="Terrains\Planar\Components\HeightTerrainComponent.cs" />
+    <Compile Include="Terrains\Planar\Components\LayerTerrainComponent.cs" />
+    <Compile Include="Terrains\Planar\Components\NormalTerrainComponent.cs" />
+    <Compile Include="Terrains\Planar\Components\OcclusionQueryTerrainComponent.cs" />
+    <Compile Include="Terrains\Planar\PlanarTerrain.cs" />
+    <Compile Include="Terrains\Planar\PlanarTerrainBlock.cs" />
+    <Compile Include="Terrains\Planar\TerrainComponent.cs" />
+    <Compile Include="Terrains\Planar\TerrainEditor.cs" />
+    <Compile Include="Terrains\Planar\TerrainMetrics.cs" />
+    <Compile Include="Terrains\Planar\TerrainTreeNode.cs" />
+    <Compile Include="Terrains\Terrain.cs" />
+    <Compile Include="VertexArray.cs" />
+    <None Include="packages.config" />
+    <None Include="ProgramUniform.Value.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ProgramUniform.Value1.cs</LastGenOutput>
+    </None>
+    <Compile Include="ProgramStage.cs" />
+    <Compile Include="ProgramUniform.Value1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProgramUniform.Value.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Rendering\BasicProgram.cs" />
+    <Compile Include="Rendering\Light.cs" />
+    <Compile Include="Rendering\Model.cs" />
+    <Compile Include="Rendering\ModelBone.cs" />
+    <Compile Include="Rendering\ModelBuilder.cs" />
+    <Compile Include="Rendering\ModelMaterial.cs" />
+    <Compile Include="Rendering\ModelMesh.cs" />
+    <Compile Include="Rendering\ModelPart.cs" />
+    <Compile Include="Rendering\ModelAttribute.cs" />
+    <Compile Include="Rendering\ModelBuilder.Builders.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ProgramAttribute.cs" />
+    <Compile Include="ProgramUniform.cs" />
+    <Compile Include="Rendering\ShaderBuilder.cs" />
+    <Compile Include="Rendering\TextureCache.cs" />
+    <Compile Include="Shader.cs" />
+    <Compile Include="Simulation\DynamicTexture.cs" />
+    <Compile Include="Simulation\FluidTexture.cs" />
+    <Compile Include="TextureCubeArray.cs" />
+    <Compile Include="Format.cs" />
+    <Compile Include="TextureRectangle.cs" />
+    <Compile Include="TextureSurface.cs" />
+    <Compile Include="RenderBuffer.cs" />
+    <Compile Include="Texture.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Texture1D.cs" />
+    <Compile Include="Texture1DArray.cs" />
+    <Compile Include="Texture2D.cs" />
+    <Compile Include="Texture2DArray.cs" />
+    <Compile Include="Texture3D.cs" />
+    <Compile Include="TextureCube.cs" />
+    <Compile Include="TextureLevel.cs" />
+    <Compile Include="TransferInfo.cs" />
+    <EmbeddedResource Include="Shaders\DynamicTexture.glsl" />
+    <EmbeddedResource Include="Shaders\FluidTexture.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Rendering\BasicProgram.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Glare\Glare.csproj">
+      <Project>{125d9251-7cd0-4801-ab84-cb3f1f6978b1}</Project>
+      <Name>Glare %28Glare\Glare%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Shaders\Common.h.glsl" />
+    <EmbeddedResource Include="Shaders\TerrainEditor.glsl" />
+    <EmbeddedResource Include="Shaders\Terrain.glsl" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

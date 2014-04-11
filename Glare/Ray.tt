@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Glare
+{
+	<#GenerateAxes("Ray", LengthTypeInfos, () => {#>
+	/// <summary>A <#=Vector#> position with a <#=VectorFloat#> normal.</summary>
+	public struct <#=This#>
+	{
+		/// <summary>Get or set the origin of the <#=SeeThis#>.</summary>
+		public <#=Vector#> Origin;
+
+		/// <summary>Get or set the direction of the <#=SeeThis#>.</summary>
+		public <#=VectorFloat#> Normal;
+		
+		public <#=This#>(<#=Vector#> origin, <#=VectorFloat#> normal)
+		{
+			Origin = origin;
+			Normal = normal;
+		}
+	}
+	<#});#>
+}
+
+<#@ include file="CommonAxis.ttinclude" #>

@@ -1,0 +1,86 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace Glare.Internal {
+	public static partial class Extensions {
+	}
+
+	public static partial class ExtensionMethods {
+		#region BinaryReader
+
+		#endregion BinaryReader
+
+		<#foreach(string type in new string[] { "Byte", "SByte", "Int16", "Int32", "Int64", "UInt16", "UInt32", "UInt64", "Single", "Double" }) {
+			bool isFloat = type == "Single" || type == "Double";
+			bool isByte = type == "Byte" || type == "SByte";
+		#>
+			/// <summary>Read a <c><#=type#></c> value, and return whether it's equal to the expected value.</summary>
+			public static bool ReadMatch(this BinaryReader reader, <#=type#> expected) {
+				<#=type#> value = reader.Read<#=type#>();
+				return expected == value;
+			}
+
+			/// <summary>Read a part of a list.</summary>
+			public static void ReadArray(this BinaryReader reader, IList<<#=type#>> values, int start, int count) { for (int index = 0; index < count; index++) values[start + index] = reader.Read<#=type#>(); }
+
+			/// <summary>Read a part of a list.</summary>
+			public static void ReadArray(this BinaryReader reader, IList<<#=type#>> values) { reader.ReadArray(values, 0, values.Count); }
+
+			/// <summary>Read an array of <c><#=type#></c> values.</summary>
+			public static <#=type#>[] ReadArray<#=type#>(this BinaryReader reader, int count) { <#=type#>[] array = new <#=type#>[count]; reader.ReadArray(array, 0, count); return array; }
+
+			/// <summary>Read a <c><#=type#></c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
+			public static void ReadExpected(this BinaryReader reader, <#=type#> expected) {
+				<#=type#> value = reader.Read<#=type#>();
+				if(value != expected)
+					throw CreateExpectationException(expected, value);
+			}
+
+			public static void Require(this BinaryReader reader, <#=type#> value) {
+				<#=type#> read = reader.Read<#=type#>();
+				if (read != value)
+					throw new Exception("Expected <#=type#> " + value + " but received " + read + ".");
+			}
+
+			/// <summary>Seek to the position and read a <see cref="<#=type#>"/>.</summary>
+			public static <#=type#> Read<#=type#>At(this BinaryReader reader, long offset) {
+				reader.BaseStream.Position = offset;
+				return reader.Read<#=type#>();
+			}
+
+			<#if(!isByte) {#>
+				/// <summary>Read a <c><#=type#></c> value in big-endian byte order.</summary>
+				public static <#=type#> Read<#=type#>BE(this BinaryReader reader) {
+					return reader.Read<#=type#>().ReverseBytes();
+				}
+
+				public static <#=type#> Read<#=type#>(this BinaryReader reader, ByteOrder byteOrder) {
+					switch (byteOrder) {
+						case ByteOrder.LittleEndian: return reader.Read<#=type#>();
+						case ByteOrder.BigEndian: return reader.Read<#=type#>BE();
+						default: throw new ArgumentException("byteOrder");
+					}
+				}
+
+				/// <summary>Seek to the position and read a <see cref="<#=type#>"/>.</summary>
+				public static <#=type#> Read<#=type#>At(this BinaryReader reader, long offset, ByteOrder byteOrder) {
+					reader.BaseStream.Position = offset;
+					return reader.Read<#=type#>(byteOrder);
+				}
+			<#}#>
+		<#}#>
+
+		<#foreach(TypeInfo type in ArithmeticTypes) {#>
+			public static <#=type.Name#> Squared(this <#=type.Name#> value) { return (<#=type.Name#>)(value * value); }
+		<#}#>
+
+		static InvalidDataException CreateExpectationException<T>(T expected, T value)  {
+			return new InvalidDataException("Expected a " + expected + " " + typeof(T).Name + " value, but received " + value + ".");
+		}
+
+
+	}
+}
+
+<#@ include file="../CommonAxis.ttinclude" #>

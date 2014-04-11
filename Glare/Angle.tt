@@ -1,0 +1,75 @@
+﻿<#@ IntelliSenseLanguage processor="tangibleT4Editor" language="C#" #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Glare
+{
+	<#Generate("Angle", new TypeInfo[] { SuffixlessDoubleType }, () => {#>
+		/// <summary>An angle between two lines or a rotation, depending upon usage.</summary>
+		public struct <#=This#> : IComparable<<#=This#>>, IEquatable<<#=This#>>, IFormattable {
+			<#GenerateUnits(AngleUnits);#>
+				
+			/// <summary>Get a 90 degree angle.</summary>
+			public static readonly <#=This#> Corner = Degrees(90);
+
+			/// <summary>Get a 180 degree angle.</summary>
+			public static readonly <#=This#> Flip = Degrees(180);
+
+			/// <summary>Get a 270 degree angle.</summary>
+			public static readonly <#=This#> Degrees270 = Degrees(270);
+		}
+	<#});#>
+
+	<#GenerateAxes("Angle", new TypeInfo[] { AngleType }, () => {#>
+		public struct <#=This#> : IEquatable<<#=This#>>, IFormattable {
+			<#foreach(Unit unit in AngleUnits) {#>
+				<#GenerateReferenceReturn(This, (r)=>{#>
+					public static <#=r.ReturnType#> <#=unit.FromMethod#>(<#=VectorDouble#> value <#=r.Argument#>) {
+						<#=r.Begin#>
+						<#Each((axis)=>{#>
+							result.<#=axis.Id#> = Angle.<#=unit.FromMethod#>(value.<#=axis.Id#>);
+						<#});#>
+						<#=r.Return#>
+					}
+				<#});#>
+
+				public <#=VectorDouble#> <#=unit.InMethod#> { get { return new <#=VectorDouble#>(<#Comma((axis)=>{#> <#=axis.Id#>.<#=unit.InMethod#> <#});#>); } }
+
+				public void To<#=unit.Plural#>(out <#=VectorDouble#> result) {
+					<#Each((axis)=>{#>
+						result.<#=axis.Id#> = <#=axis.Id#>.<#=unit.InMethod#>;
+					<#});#>
+				}
+// < #GenerateReferenceReturn("boop", (r) => {# >
+//		< #=r.ReturnType# > Booper(int x, int y < #=r.Argument# >)
+//		{
+//			< #=r.Begin# >
+//			result.Booger = x + y;
+//			< #=r.Return# >
+//		}
+// < #});# >
+			<#}#>
+			
+			/// <summary>Get the absolute sum of all of the axes.</summary>
+			public <#=T#> AbsoluteSum { get { return <#=ToT#>(<#Join("+", (axis) => {#> <#=axis.Id#>.Absolute <#});#>); } }
+			
+			public static <#=This#> operator +(<#=This#> a) { return new <#=This#>(<#QComma((axis)=>{#> +a.<#=axis#> <#});#>); }
+			public static <#=This#> operator -(<#=This#> a) { return new <#=This#>(<#QComma((axis)=>{#> -a.<#=axis#> <#});#>); }
+
+			public static <#=This#> operator +(<#=This#> a, <#=This#> b) { return new <#=This#>(<#QComma((axis)=>{#> a.<#=axis#> + b.<#=axis#> <#});#>); }
+			public static <#=This#> operator -(<#=This#> a, <#=This#> b) { return new <#=This#>(<#QComma((axis)=>{#> a.<#=axis#> - b.<#=axis#> <#});#>); }
+			public static <#=This#> operator *(<#=This#> a, double b) { return new <#=This#>(<#QComma((axis)=>{#> a.<#=axis#> * b <#});#>); }
+			public static <#=This#> operator *(double a, <#=This#> b) { return new <#=This#>(<#QComma((axis)=>{#> a * b.<#=axis#> <#});#>); }
+			public static <#=This#> operator /(<#=This#> a, double b) { return new <#=This#>(<#QComma((axis)=>{#> a.<#=axis#> / b <#});#>); }
+			public static <#=VectorDouble#> operator /(<#=This#> a, <#=This#> b) { return new <#=VectorDouble#>(<#QComma((axis)=>{#> a.<#=axis#> / b.<#=axis#> <#});#>); }
+			public static <#=VectorDouble#> operator %(<#=This#> a, <#=This#> b) { return new <#=VectorDouble#>(<#QComma((axis)=>{#> a.<#=axis#> % b.<#=axis#> <#});#>); }
+
+			<#GenerateCommonVector();#>
+		}
+	<#}, 3, 3);#>
+}
+
+<#@ include file="CommonAxis.ttinclude" #>

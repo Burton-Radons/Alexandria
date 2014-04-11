@@ -1,0 +1,114 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Glare
+{
+	<#GenerateAxes("Box", LengthTypeInfos, () => {#>
+	/// <summary>A <#=CardinalLow#>-dimensional box that uses <#=T#> elements.</summary>
+	public struct <#=This#>
+	{
+		/// <summary>Get whether the <see cref="Min"/> and <see cref="Max"/> values are the same.</summary>
+		public bool IsEmpty { get { return <#Join("||", (axis) => {#> Min.<#=axis.Id#> == Max.<#=axis.Id#> <#});#>; } }
+
+		/// <summary>The minimum extents of the <#=SeeThis#>.</summary>
+		public <#=Vector#> Min;
+
+		/// <summary>The maximum extents of the <#=SeeThis#>.</summary>
+		public <#=Vector#> Max;
+
+		public <#=Vector#> Center { get { return <#QNew((axis)=>{#> (Max.<#=axis#> + Min.<#=axis#>) / 2 <#});#>; } }
+		
+		public <#=Vector#> Centre { get { return <#QNew((axis)=>{#> (Max.<#=axis#> + Min.<#=axis#>) / 2 <#});#>; } }
+
+		public <#=Vector#> Size { get { return <#QNew((axis)=>{#> Max.<#=axis#> - Min.<#=axis#> <#});#>; } }
+
+		public static readonly <#=This#> Zero = new <#=This#>(<#Join(", ", (axis) => { Write(Type.Zero + ", " + Type.Zero); });#>);
+
+		<#RefForm((r) => {#>
+			public <#=This#>(<#=r.Ref#> <#=Vector#> min, <#=r.Ref#> <#=Vector#> max) { this.Min = min; this.Max = max; }
+		<#});#>
+
+		public <#=This#>(
+			<#Join(", ", (axis) => {#> <#=T#> min<#=axis.Id#> <#});#>,
+			<#Join(", ", (axis) => {#> <#=T#> max<#=axis.Id#> <#});#>) {
+			<#Each((axis) => {#>
+				Min.<#=axis.Id#> = min<#=axis.Id#>;
+				Max.<#=axis.Id#> = max<#=axis.Id#>;
+			<#});#>
+		}
+
+		<#GenerateReferenceReturn(This, (r) => {#>
+			<#ValueRefDecomposed((d) => {#>
+				public static <#=r.ReturnType#> Relative(<#d.Argument("min");#>, <#d.Argument("size");#> <#=r.Argument#>) {
+					<#=r.Begin#>
+					<#d.Each((property, axis) => {#>
+						result.Min.<#=axis#> = min<#=property#>;
+						result.Max.<#=axis#> = min<#=property#> + size<#=property#>;
+					<#});#>
+					<#=r.Return#>
+				}
+			<#}); /*ValueRefDecomposed*/#>
+		<#}); /*GenerateReferenceReturn(This)*/#>
+
+		<#GenerateReferenceReturn(Vector, (r) => {#>
+			/// <summary>Get a random position within the box.</summary>
+			public <#=r.ReturnType#> Random(Random rng <#=r.Argument#>) {
+				<#=r.Begin#>
+				<#QEach((axis)=>{#>
+					result.<#=axis#> = (<#=T#>)(rng.NextDouble() * (Max.<#=axis#> - Min.<#=axis#>) + Min.<#=axis#>);
+				<#});#>
+				<#=r.Return#>
+			}
+		<#}); /*GenerateReferenceReturn(Vector)*/#>
+
+		<#RefForm((r) => {#>
+			/// <summary>Get the closest distance between this <#=SeeThis#> and the <see cref="<#=Vector#>"/>.</summary>
+			public <#=T#> Distance(<#=r.Ref#> <#=Vector#> point) {
+				<#=Vector#> nearest;
+				NearestPointTo(ref point, out nearest);
+				return point.Distance(ref nearest);
+			}
+
+			public Containment Intersect(<#=r.Ref#> <#=Vector#> point) {
+				// Most points should be outside, so check that first.
+				if (<#Join("||", (axis) => {#> point.<#=axis.Id#> < Min.<#=axis.Id#> || point.<#=axis.Id#> > Max.<#=axis.Id#> <#});#>)
+					return Containment.Disjoint;
+				// Now check for boundaries, which will usually be cut short on the first axis.
+				if (<#Join("&&", (axis) => {#> (point.<#=axis.Id#> == Min.<#=axis.Id#> || point.<#=axis.Id#> == Max.<#=axis.Id#>) <#});#>)
+					return Containment.Intersects;
+				return Containment.Contains;
+			}
+
+			/// <summary>Get whether this <#=SeeThis#> inclusively intersects with the <see cref="<#=Vector#>"/>.</summary>
+			public bool Overlaps(<#=r.Ref#> <#=Vector#> point) {
+				return <#Join("&&", (axis) => {#> point.<#=axis.Id#> >= Min.<#=axis.Id#> && point.<#=axis.Id#> <= Max.<#=axis.Id#> <#});#>;
+			}
+		<#});#>
+
+		<#if (Order == 3) {#>
+			public Containment Intersect(Frustum frustum) {
+				throw new NotImplementedException();
+			}
+		<#}#>
+
+		<#GenerateReferenceReturn(Vector, (r) => {#>
+			public <#=r.ReturnType#> NearestPointTo(<#=r.Ref#> <#=Vector#> point <#=r.Argument#>) {
+				<#=r.Begin#>
+				Containment containment = Intersect(ref point);
+				if(containment != Containment.Disjoint)
+					result = point;
+				else
+					point.Clamp(ref Min, ref Max, out result);
+				<#=r.Return#>
+			}
+		<#});#>
+
+	}
+
+	<#});#>
+}
+
+<#@ include file="CommonAxis.ttinclude" #>

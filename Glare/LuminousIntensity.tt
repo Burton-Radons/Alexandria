@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Glare
+{
+	<#Generate("LuminousIntensity", new TypeInfo[] { SuffixlessDoubleType }, () => {#>
+		/// <summary>A measurement of luminous intensity.</summary>
+		public struct <#=This#> : IComparable<<#=This#>>, IEquatable<<#=This#>>
+		{
+			<#GenerateUnits(
+				new Unit("Candela", "Candelas", "cd", "1"));#>
+		}
+
+	<#});#>
+
+/*
+
+*/
+}
+
+<#@ include file="Common.ttinclude" #>

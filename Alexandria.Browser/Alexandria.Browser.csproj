@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2A8D381C-6BF5-424F-8F27-8F539F52881C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Alexandria.Browser</RootNamespace>
+    <AssemblyName>Alexandria.Browser</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Glare.Graphics\Glare.Graphics.csproj">
+      <Project>{6ec9bd9e-da82-48db-a01b-7bb90e1a1f71}</Project>
+      <Name>Glare.Graphics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Engines.GoldBox\Alexandria.Engines.GoldBox.csproj">
+      <Project>{508a5328-255d-4dd7-8e5f-32ff5e37e41e}</Project>
+      <Name>Alexandria.Engines.GoldBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Engines.Sciagi\Alexandria.Engines.Sciagi.csproj">
+      <Project>{28068168-76be-4c69-956a-e180c1212cbb}</Project>
+      <Name>Alexandria.Engines.Sciagi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Engines.Unreal\Alexandria.Engines.Unreal.csproj">
+      <Project>{eb667992-2e04-4f57-b3c1-5eb8f7f6dfb9}</Project>
+      <Name>Alexandria.Engines.Unreal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Plugins.General\Alexandria.Plugins.General.csproj">
+      <Project>{6b825d69-e9bf-4efe-b39a-8c2291921447}</Project>
+      <Name>Alexandria.General</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Engines.DarkSouls\Alexandria.Engines.DarkSouls.csproj">
+      <Project>{9b228e11-16e4-49b0-ae40-f3fc67e57240}</Project>
+      <Name>Alexandria.Engines.DarkSouls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Systems.NintendoDS\Alexandria.Platforms.NintendoDS.csproj">
+      <Project>{53394454-208e-4c45-a9e4-f056a3e7eddf}</Project>
+      <Name>Alexandria.Platforms.NintendoDS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria\Alexandria.csproj">
+      <Project>{fcd1c6c9-b4bf-49cf-9c92-d16e4b40a869}</Project>
+      <Name>Alexandria</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Moki.CSharp\Moki.Compilers.CSharp.csproj">
+      <Project>{4f0587f7-b000-4dbb-bf2c-dc53022c561a}</Project>
+      <Name>Moki.Compilers.CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Moki\Moki.csproj">
+      <Project>{9742c179-0b75-48fb-95c4-f9c68c66f766}</Project>
+      <Name>Moki</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

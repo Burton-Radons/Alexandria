@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Glare
+{
+	<#Generate("LuminousFlux", new TypeInfo[] { SuffixlessDoubleType }, () => {#>
+		/// <summary>A measurement of the total "amount" of visible light emitted by a source. Luminous flux is equal to luminous intensity times a steradian.</summary>
+		public struct <#=This#> : IComparable<<#=This#>>, IEquatable<<#=This#>>
+		{
+			<#GenerateUnits(
+				new Unit("Lumen", "Candelas", "cd", "1"));#>
+		}
+	<#});#>
+}
+
+<#@ include file="Common.ttinclude" #>
