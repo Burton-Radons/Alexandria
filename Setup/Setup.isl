@@ -548,7 +548,7 @@
 		<row><td>InstallChangeFolder</td><td>Up</td><td>PushButton</td><td>310</td><td>66</td><td>19</td><td>19</td><td>3670019</td><td/><td/><td>NewFolder</td><td>##IDS__IsBrowseFolderDlg_UpOneLevel##</td><td>0</td><td/><td/><td>NewBinary3</td></row>
 		<row><td>InstallWelcome</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_BACK##</td><td>Copyright</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Back</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>InstallWelcome</td><td>Copyright</td><td>Text</td><td>135</td><td>144</td><td>228</td><td>73</td><td>65539</td><td/><td>##IDS__IsWelcomeDlg_WarningCopyright##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
+		<row><td>InstallWelcome</td><td>Copyright</td><td>Text</td><td>135</td><td>144</td><td>228</td><td>73</td><td>65538</td><td/><td>##IDS__IsWelcomeDlg_WarningCopyright##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>DlgLine</td><td>Line</td><td>0</td><td>234</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary5</td></row>
 		<row><td>InstallWelcome</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
@@ -2428,6 +2428,7 @@
 		<col key="yes" def="s72">ISProductConfiguration_</col>
 		<col key="yes" def="s72">Property</col>
 		<col def="L255">Value</col>
+		<row><td>Express</td><td>SetupFileName</td><td>Alexandria-setup</td></row>
 	</table>
 
 	<table name="ISRelease">
@@ -3922,6 +3923,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\Alexandria\ProgramIcon.ico</td><td>0</td></row>
+		<row><td>_A89C0EBD3398467D8E4C235260D9B42A.exe</td><td/><td>D:\Projects\Alexandria\Alexandria.Browser\bin\Release\Alexandria.Browser.exe</td><td>0</td></row>
 		<row><td>_FF9643260F77446E8FDB0148B5219C56.exe</td><td/><td>D:\Projects\Alexandria\Alexandria.Browser\bin\Release\Alexandria.Browser.exe</td><td>0</td></row>
 	</table>
 
@@ -4055,7 +4057,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{ED59B529-9E8C-4A5A-8F6E-79802F221B01}</td></row>
 		<row><td>ISUSSignature</td><td>{EB6ED7A2-26EC-4855-9DC9-7776F6134C0A}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewISToday,viewSystemSearch,viewProject,viewAppV</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewISToday,viewSystemSearch,viewProject,viewAppV,viewUpdateService,viewRealSetupDesign,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewUI,viewBillboards,viewSupportFiles,viewRelease</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>

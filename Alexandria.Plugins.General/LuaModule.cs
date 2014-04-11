@@ -1,14 +1,15 @@
-﻿using Alexandria.General.Controls;
+﻿using Alexandria.Plugins.General.Controls;
 using Glare.Internal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Alexandria.General {
+namespace Alexandria.Plugins.General {
 	public class LuaModule : Resource {
 		internal const string Magic = "\x1BLua";
 
@@ -154,17 +155,17 @@ namespace Alexandria.General {
 		Thread = 8,
 	}
 
-	class LuaLoader : Loader {
-		public LuaLoader(Plugin plugin) : base(plugin) { }
+	class LuaFormat : ResourceFormat {
+		public LuaFormat(Plugin plugin) : base(plugin, typeof(LuaModule), canLoad: true) { }
 
-		public override LoaderMatchLevel Match(System.IO.BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			if (!reader.MatchMagic(LuaModule.Magic))
-				return LoaderMatchLevel.None;
-			return LoaderMatchLevel.Strong;
+		public override LoadMatchStrength LoadMatch(LoadInfo context) {
+			if (!context.Reader.MatchMagic(LuaModule.Magic))
+				return LoadMatchStrength.None;
+			return LoadMatchStrength.Medium;
 		}
 
-		public override Resource Load(System.IO.BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			return new LuaModule(Manager, reader, name);
+		public override Resource Load(LoadInfo context) {
+			return new LuaModule(Manager, context.Reader, context.Name);
 		}
 	}
 }

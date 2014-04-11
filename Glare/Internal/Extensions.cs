@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -459,6 +460,12 @@ namespace Glare.Internal {
 		public static double BitsToDouble(this long value) { unsafe { return new PackedDouble(value).DoubleValue; } }
 
 		#endregion Numbers
+
+		#region ResourceManager
+
+		
+
+		#endregion ResourceManager
 
 		#region Stream
 

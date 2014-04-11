@@ -23,20 +23,21 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
 			this.MenuStrip = new System.Windows.Forms.MenuStrip();
 			this.FileMenu = new System.Windows.Forms.ToolStripMenuItem();
 			this.OpenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CloseMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.RecentFilesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.pluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.WindowMenu = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.stackhorizontallyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.stackverticallyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.pluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -69,7 +70,7 @@
 			// 
 			this.OpenMenuItem.Name = "OpenMenuItem";
 			this.OpenMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.OpenMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.OpenMenuItem.Size = new System.Drawing.Size(148, 22);
 			this.OpenMenuItem.Text = "&Open";
 			this.OpenMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
 			// 
@@ -77,23 +78,39 @@
 			// 
 			this.CloseMenuItem.Name = "CloseMenuItem";
 			this.CloseMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-			this.CloseMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.CloseMenuItem.Size = new System.Drawing.Size(148, 22);
 			this.CloseMenuItem.Text = "&Close";
 			this.CloseMenuItem.Click += new System.EventHandler(this.CloseMenuItem_Click);
 			// 
 			// RecentFilesMenuItem
 			// 
 			this.RecentFilesMenuItem.Name = "RecentFilesMenuItem";
-			this.RecentFilesMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.RecentFilesMenuItem.Size = new System.Drawing.Size(148, 22);
 			this.RecentFilesMenuItem.Text = "Recent &files";
 			// 
 			// ExitMenuItem
 			// 
 			this.ExitMenuItem.Name = "ExitMenuItem";
 			this.ExitMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-			this.ExitMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.ExitMenuItem.Size = new System.Drawing.Size(148, 22);
 			this.ExitMenuItem.Text = "E&xit";
 			this.ExitMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+			// 
+			// toolsToolStripMenuItem
+			// 
+			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pluginsToolStripMenuItem});
+			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+			this.toolsToolStripMenuItem.Text = "&Tools";
+			// 
+			// pluginsToolStripMenuItem
+			// 
+			this.pluginsToolStripMenuItem.Name = "pluginsToolStripMenuItem";
+			this.pluginsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+			this.pluginsToolStripMenuItem.Text = "Plugins...";
+			this.pluginsToolStripMenuItem.ToolTipText = "Display and manage the plugins.";
+			this.pluginsToolStripMenuItem.Click += new System.EventHandler(this.pluginsToolStripMenuItem_Click);
 			// 
 			// WindowMenu
 			// 
@@ -111,7 +128,7 @@
             this.stackverticallyToolStripMenuItem,
             this.cascadeToolStripMenuItem});
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
 			this.toolStripMenuItem1.Text = "&Organize...";
 			// 
 			// stackhorizontallyToolStripMenuItem
@@ -140,23 +157,7 @@
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
-			// 
-			// toolsToolStripMenuItem
-			// 
-			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pluginsToolStripMenuItem});
-			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-			this.toolsToolStripMenuItem.Text = "&Tools";
-			// 
-			// pluginsToolStripMenuItem
-			// 
-			this.pluginsToolStripMenuItem.Name = "pluginsToolStripMenuItem";
-			this.pluginsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.pluginsToolStripMenuItem.Text = "Plugins...";
-			this.pluginsToolStripMenuItem.ToolTipText = "Display and manage the plugins.";
-			this.pluginsToolStripMenuItem.Click += new System.EventHandler(this.pluginsToolStripMenuItem_Click);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(127, 6);
 			// 
 			// MainWindow
 			// 
@@ -164,6 +165,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(284, 262);
 			this.Controls.Add(this.MenuStrip);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.IsMdiContainer = true;
 			this.MainMenuStrip = this.MenuStrip;
 			this.Name = "MainWindow";

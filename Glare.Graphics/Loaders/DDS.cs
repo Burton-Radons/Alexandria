@@ -224,7 +224,7 @@ namespace Glare.Graphics.Loaders {
 				else if ((flags & DDSFlags.LinearSize) != 0)
 					linearSize = pitchOrLinearSize;
 				else
-					throw new InvalidDataException();
+					linearSize = format.AlignedByteSize(new Vector2i(width, height));
 
 				byte[] data = new byte[linearSize];
 
@@ -237,8 +237,8 @@ namespace Glare.Graphics.Loaders {
 						throw new InvalidDataException();
 					texture.Surface.Levels[level].DataCompressed(format, new Vector2i(width, height), data);
 
-					width = (width + 1) / 2;
-					height = (height + 1) / 2;
+					width = Math.Max(1, (width + 1) / 2);
+					height = Math.Max(1, (height + 1) / 2);
 					linearSize = format.AlignedByteSize(width, height);
 				}
 
@@ -286,7 +286,7 @@ namespace Glare.Graphics.Loaders {
 			for (int index = 0; index < Magic.Length; index++)
 				writer.Write((byte)Magic[index]);
 			writer.Write(HeaderSize);
-			writer.Write((int)(RequiredFlags | DDSFlags.MipMapCount));
+			writer.Write((int)flags);
 			writer.Write(dimensions.X);
 			writer.Write(dimensions.Y);
 			writer.Write(pitchOrLinearSize);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -110,39 +111,40 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
-	public class StringArchiveLoader : Loader {
-		public StringArchiveLoader(Engine engine)
-			: base(engine) {
+	public class StringArchiveFormat : ResourceFormat {
+		public StringArchiveFormat(Engine engine)
+			: base(engine, typeof(StringArchive), canLoad: true) {
 		}
 
-		public override LoaderMatchLevel Match(System.IO.BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
+		public override LoadMatchStrength LoadMatch(LoadInfo context) {
+			var reader = context.Reader;
 			long length = reader.BaseStream.Length;
 
 			if (length < 4 * 7)
-				return LoaderMatchLevel.None;
+				return LoadMatchStrength.None;
 			int magic1 = reader.ReadInt32();
 			if (magic1 != StringArchive.Magic1)
-				return LoaderMatchLevel.None;
+				return LoadMatchStrength.None;
 			int totalFileLength = reader.ReadInt32();
 			if (length != totalFileLength)
-				return LoaderMatchLevel.None;
+				return LoadMatchStrength.None;
 			int magic2 = reader.ReadInt32();
 			if (magic2 != StringArchive.Magic2)
-				return LoaderMatchLevel.None;
+				return LoadMatchStrength.None;
 			int groupCount = reader.ReadInt32();
 			int stringCount = reader.ReadInt32();
 			int stringOffset = reader.ReadInt32();
 			int zero1 = reader.ReadInt32(), zero2 = reader.ReadInt32();
 			if (zero1 != 0 || zero2 != 0)
-				return LoaderMatchLevel.None;
+				return LoadMatchStrength.None;
 
 			if (stringOffset != 28 + groupCount * 12)
-				return LoaderMatchLevel.None;
-			return LoaderMatchLevel.Strong;
+				return LoadMatchStrength.None;
+			return LoadMatchStrength.Strong;
 		}
 
-		public override Resource Load(System.IO.BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			return new StringArchive(Manager, reader, name);
+		public override Resource Load(LoadInfo context) {
+			return new StringArchive(Manager, context.Reader, context.Name);
 		}
 	}
 }

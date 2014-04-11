@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Glare.Internal;
 using Glare;
 using Glare.Graphics;
+using System.Resources;
 
 namespace Alexandria.Engines.DarkSouls {
 	public class TextureArchive : Folder {
@@ -126,17 +127,17 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
-	class TextureArchiveLoader : Loader {
-		public TextureArchiveLoader(Engine engine)
-			: base(engine) {
+	class TextureArchiveFormat : ResourceFormat {
+		public TextureArchiveFormat(Engine engine)
+			: base(engine, typeof(TextureArchive), canLoad: true) {
 		}
 
-		public override LoaderMatchLevel Match(System.IO.BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			return reader.MatchMagic(TextureArchive.Magic) ? LoaderMatchLevel.Strong : LoaderMatchLevel.None;
+		public override LoadMatchStrength LoadMatch(LoadInfo info) {
+			return info.Reader.MatchMagic(TextureArchive.Magic) ? LoadMatchStrength.Medium : LoadMatchStrength.None;
 		}
 
-		public override Resource Load(System.IO.BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			return new TextureArchive(Manager, reader, name);
+		public override Resource Load(LoadInfo info) {
+			return new TextureArchive(Manager, info.Reader, info.Name);
 		}
 	}
 }

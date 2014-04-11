@@ -12,7 +12,7 @@ namespace Alexandria.Engines.GoldBox {
 
 		public Plugin(Manager manager)
 			: base(manager, OurResourceManager) {
-			new Engine(this);
+			AddEngine(new Engine(this));
 		}
 	}
 }

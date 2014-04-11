@@ -80,16 +80,17 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		}
 	}
 
-	class ImageLoader : Loader {
-		public ImageLoader(Engine engine)
-			: base(engine) {
+	class ImageFormat : ResourceFormat {
+		public ImageFormat(Engine engine)
+			: base(engine, typeof(Image), canLoad: true) {
 		}
 
-		public override LoaderMatchLevel Match(BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
+		public override LoadMatchStrength LoadMatch(LoadInfo info) {
+			var reader = info.Reader;
 			long length = reader.BaseStream.Length;
 
 			if (length < 11)
-				return LoaderMatchLevel.None;
+				return LoadMatchStrength.None;
 			int height = reader.ReadByte();
 			int width = reader.ReadByte() * 8;
 			int zero1 = reader.ReadInt32();
@@ -98,7 +99,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			int colorCount = reader.ReadByte() + 1;
 
 			if (zero1 != 0 || imageCount == 0)
-				return LoaderMatchLevel.None;
+				return LoadMatchStrength.None;
 
 			int sum = 10; // Header
 			sum += colorCount * 3; // Palette
@@ -106,12 +107,12 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			sum += 4; // Unknown
 			sum += width * height * imageCount; // Images
 			if (sum != length && sum != length - 28)
-				return LoaderMatchLevel.None;
-			return LoaderMatchLevel.Medium;
+				return LoadMatchStrength.None;
+			return LoadMatchStrength.Medium;
 		}
 
-		public override Resource Load(BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			return new Image(Manager, reader, name, context);
+		public override Resource Load(LoadInfo info) {
+			return new Image(Manager, info.Reader, info.Name, info.ContextResource);
 		}
 	}
 }

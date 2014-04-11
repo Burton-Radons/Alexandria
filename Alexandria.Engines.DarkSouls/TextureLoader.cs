@@ -9,10 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Engines.DarkSouls {
-	public class TextureLoader : Loader {
+#if false
+	public class TextureFormat : Loader {
 		const int Magic = 0x020200FF;
 
-		public TextureLoader(Engine engine)
+		public TextureFormat(Engine engine)
 			: base(engine) {
 		}
 
@@ -62,4 +63,5 @@ namespace Alexandria.Engines.DarkSouls {
 			return new TextureResource(Manager, cube, name);*/
 		}
 	}
+#endif
 }

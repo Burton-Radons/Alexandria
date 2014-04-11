@@ -7,7 +7,7 @@ namespace Alexandria.Engines.Unreal {
 	public class Plugin : Alexandria.Plugin {
 		public Plugin(Manager manager)
 			: base(manager, Properties.Resources.ResourceManager) {
-			new Engine(this);
+			AddEngine(new Engine(this));
 		}
 	}
 }

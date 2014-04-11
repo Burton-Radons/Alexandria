@@ -33,5 +33,16 @@ namespace Alexandria.Properties {
                 this["RecentFiles"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection DisabledPluginResources {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["DisabledPluginResources"]));
+            }
+            set {
+                this["DisabledPluginResources"] = value;
+            }
+        }
     }
 }

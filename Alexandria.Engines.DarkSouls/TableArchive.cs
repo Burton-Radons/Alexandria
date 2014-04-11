@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Glare.Internal;
+using System.Resources;
 
 namespace Alexandria.Engines.DarkSouls {
 	public class TableArchive : Folder {
@@ -124,13 +125,13 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
-	class TableArchiveLoader : Loader {
-		public TableArchiveLoader(Engine engine)
-			: base(engine) {
+	class TableArchiveFormat : ResourceFormat {
+		public TableArchiveFormat(Engine engine)
+			: base(engine, typeof(TableArchive), canLoad: true) {
 		}
 
-		public override LoaderMatchLevel Match(System.IO.BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			return LoaderMatchLevel.None;
+		public override LoadMatchStrength LoadMatch(LoadInfo context) {
+			return LoadMatchStrength.None;
 			/*if (reader.BaseStream.Length < 16)
 				return LoaderMatchLevel.None;
 
@@ -143,8 +144,8 @@ namespace Alexandria.Engines.DarkSouls {
 			return LoaderMatchLevel.Medium;*/
 		}
 
-		public override Resource Load(System.IO.BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			return new TableArchive(Manager, reader, name);
+		public override Resource Load(LoadInfo context) {
+			return new TableArchive(Manager, context.Reader, context.Name);
 		}
 	}
 }

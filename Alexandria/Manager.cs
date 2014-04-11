@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,11 +21,11 @@ namespace Alexandria {
 	public class Manager {
 		internal readonly ArrayBackedList<Plugin> plugins = new ArrayBackedList<Plugin>();
 
-		public IEnumerable<Loader> AllLoaders {
+		public IEnumerable<ResourceFormat> AllFormats {
 			get {
 				foreach (Plugin plugin in plugins) {
-					foreach (Loader loader in plugin.AllLoaders)
-						yield return loader;
+					foreach (ResourceFormat format in plugin.AllFormats)
+						yield return format;
 				}
 			}
 		}
@@ -36,24 +37,26 @@ namespace Alexandria {
 
 		public Resource LoadFile(string path) {
 			Stream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-			return Load(stream, path, Loader.SystemFileOpener, null);
+			return Load(stream, path, LoadInfo.SystemFileOpener, null);
 		}
 
 		public Resource Load(Stream stream, string name, LoaderFileOpener opener, Resource context) {
 			return Load(new BinaryReader(stream), name, opener, context);
 		}
 
-		public Resource Load(BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			Loader best = null;
-			LoaderMatchLevel bestLevel = LoaderMatchLevel.None;
+		public Resource Load(BinaryReader reader, string name, LoaderFileOpener opener, Resource resourceContext) {
+			return ResourceFormat.LoadResource(new LoadInfo(reader, name, opener, resourceContext), AllFormats, null);
+			/*ResourceFormat best = null;
+			LoadMatchStrength bestLevel = LoadMatchStrength.None;
+			LoadInfo context = new LoadInfo(reader, name, opener, resourceContext);
 
 			long reset = reader.BaseStream.Position;
-			foreach (Loader loader in AllLoaders) {
-				LoaderMatchLevel matchLevel = loader.Match(reader, name, opener, context);
+			foreach (ResourceFormat format in AllFormats) {
+				LoadMatchStrength matchLevel = format.LoadMatch(context);
 				reader.BaseStream.Position = reset;
 				if (matchLevel > bestLevel) {
 					bestLevel = matchLevel;
-					best = loader;
+					best = format;
 				}
 			}
 
@@ -62,7 +65,7 @@ namespace Alexandria {
 				return new Binary(this, name, data);
 			}
 
-			return best.Load(reader, name, opener, context);
+			return best.Load(context);*/
 		}
 
 		public void LoadPlugins() {

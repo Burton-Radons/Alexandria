@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -369,19 +370,19 @@ namespace Alexandria.Engines.DarkSouls {
 		DS2 = 0x20010,
 	}
 
-	public class DSModelLoader : Loader {
-		public DSModelLoader(Engine engine)
-			: base(engine) {
+	public class DSModelFormat : ResourceFormat {
+		public DSModelFormat(Engine engine)
+			: base(engine, typeof(DSModel), canLoad: true) {
 		}
 
-		public override LoaderMatchLevel Match(BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			if (!reader.MatchMagic(DSModel.Magic))
-				return LoaderMatchLevel.None;
-			return LoaderMatchLevel.Strong;
+		public override LoadMatchStrength LoadMatch(LoadInfo context) {
+			if (!context.Reader.MatchMagic(DSModel.Magic))
+				return LoadMatchStrength.None;
+			return LoadMatchStrength.Medium;
 		}
 
-		public override Resource Load(BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			return new DSModel(Manager, reader, name, opener, context);
+		public override Resource Load(LoadInfo context) {
+			return new DSModel(Manager, context.Reader, context.Name, context.Opener, context.ContextResource);
 		}
 	}
 }

@@ -2,32 +2,41 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Alexandria
-{
-	public abstract class Engine : Resource
-	{
-		internal readonly ArrayBackedList<Game> GamesMutable = new ArrayBackedList<Game>();
-		internal readonly ArrayBackedList<Loader> loaders = new ArrayBackedList<Loader>();
-		readonly Plugin plugin;
+namespace Alexandria {
+	public abstract class Engine : PluginFormatResource {
+		readonly ArrayBackedList<Game> GamesMutable = new ArrayBackedList<Game>();
 
+		public override IEnumerable<ResourceFormat> AllFormats {
+			get {
+				foreach (var format in base.AllFormats)
+					yield return format;
+				foreach (var game in Games)
+					foreach (var format in game.AllFormats)
+						yield return format;
+			}
+		}
+
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public ReadOnlyList<Game> Games { get { return GamesMutable; } }
 
-		public ReadOnlyList<Loader> Loaders { get { return loaders; } }
+		public Engine(Plugin plugin)
+			: base(plugin) {
+		}
 
-		public Plugin Plugin { get { return plugin; } }
-
-		public Engine(Plugin plugin, ResourceManager resourceManager)
-			: base(plugin != null ? plugin.Manager : null, resourceManager)
-		{
-			if (plugin == null)
-				throw new ArgumentNullException("plugin");
-			this.plugin = plugin;
-			plugin.EnginesMutable.Add(this);
+		protected void AddGame(Game game) {
+			if (game == null)
+				throw new ArgumentNullException("game");
+			if (GamesMutable.Contains(game))
+				throw new ArgumentException(game.Name + " is already added to this " + Name + ".");
+			if (game.Engine != this)
+				throw new ArgumentException(game.Name + " does not have this " + Name + " as its Engine.");
+			GamesMutable.Add(game);
 		}
 
 		public virtual void Detect(GameInstanceList instances) {

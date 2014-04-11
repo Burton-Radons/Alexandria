@@ -87,15 +87,16 @@
     <Compile Include="DoubleBufferedDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ResourceFormat.cs" />
     <Compile Include="GameInstance.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="MarkingStream.cs" />
     <Compile Include="Raster.cs" />
+    <Compile Include="Resources\Archive.cs" />
     <Compile Include="Resources\Asset.cs" />
     <Compile Include="Resources\Folder.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="Loader.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Resource.cs" />

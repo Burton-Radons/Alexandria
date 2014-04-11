@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Alexandria.General {
+namespace Alexandria.Plugins.General {
 	public class LuaFunction {
 		public ReadOnlyList<LuaInstruction> Instructions { get; private set; }
 

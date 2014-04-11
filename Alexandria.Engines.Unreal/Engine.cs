@@ -10,23 +10,23 @@ using System.Globalization;
 namespace Alexandria.Engines.Unreal {
 	public class Engine : Alexandria.Engine {
 		public Engine(Plugin plugin)
-			: base(plugin, Properties.Resources.ResourceManager) {
-			AlphaProtocol = new UnrealGame(this, "Alpha Protocol", @"Obsidian\Alpha Protocol", "InstallPath", ue3IniFile, 34010);
-			BatmanArkhamAsylum = new UnrealGame(this, "Batman: Arkham Asylum", @"RocksteadyLtd\Batman Arkham Asylum GOTY", "Install Directory", ue3IniFile, 35140);
-			Borderlands = new UnrealGame(this, "Borderlands", @"Gearbox Software\Borderlands", "InstallFolder", "../" + ue3IniFile, 8980);
-			DeusEx = new UnrealGame(this, "Deus Ex", @"Unreal Technology\Installed Apps\Deus Ex", "Folder", "System/DeusEx.ini", 6910);
-			DeusExInvisibleWar = new UnrealGame(this, "Deus Ex: Invisible War", @"Ion Storm\Deus Ex - Invisible War", "ION_ROOT_PC", "System/Default.ini", 6920);
-			Dishonored = new UnrealGame(this, "Dishonored", null, null, ue3IniFile, 205100);
-			MassEffect1 = new UnrealGame(this, "Mass Effect", null, null, ue3IniFile, null);
-			MassEffect2 = new UnrealGame(this, "Mass Effect 2", null, null, ue3IniFile, null);
-			MassEffect3 = new UnrealGame(this, "Mass Effect 3", @"BioWare\Mass Effect 3", null, ue3IniFile, null);
-			TheLastRemnant = new UnrealGame(this, "The Last Remnant", null, null, ue3IniFile, 23310);
-			ThiefDeadlyShadows = new UnrealGame(this, "Thief: Deadly Shadows", @"Ion Storm\Thief - Deadly Shadows", "ION_ROOT", "System/DEFAULT.INI", 6980);
-			Unreal2TheAwakening = new UnrealGame(this, "Unreal II: The Awakening", null, null, ue2IniFile, 13200);
-			UnrealGold = new UnrealGame(this, "Unreal Gold", @"Unreal Technology\Installed Apps\Unreal Gold", "Folder", ue2IniFile, 13250);
-			UnrealTournament = new UnrealGame(this, "Unreal Tournament", @"Unreal Technology\Installed Apps\UnrealTournament", "Folder", ue2IniFile, 13240);
-			UnrealTournament2004 = new UnrealGame(this, "Unreal Tournament 2004", @"Unreal Technology\Installed Apps\UT2004", "Folder", ue2IniFile, 13230);
-			UnrealTournament3 = new UnrealGame(this, "Unreal Tournament 3", null, null, ue3IniFile, 13210);
+			: base(plugin) {
+			AddGame(AlphaProtocol = new UnrealGame(this, "Alpha Protocol", @"Obsidian\Alpha Protocol", "InstallPath", ue3IniFile, 34010));
+			AddGame(BatmanArkhamAsylum = new UnrealGame(this, "Batman: Arkham Asylum", @"RocksteadyLtd\Batman Arkham Asylum GOTY", "Install Directory", ue3IniFile, 35140));
+			AddGame(Borderlands = new UnrealGame(this, "Borderlands", @"Gearbox Software\Borderlands", "InstallFolder", "../" + ue3IniFile, 8980));
+			AddGame(DeusEx = new UnrealGame(this, "Deus Ex", @"Unreal Technology\Installed Apps\Deus Ex", "Folder", "System/DeusEx.ini", 6910));
+			AddGame(DeusExInvisibleWar = new UnrealGame(this, "Deus Ex: Invisible War", @"Ion Storm\Deus Ex - Invisible War", "ION_ROOT_PC", "System/Default.ini", 6920));
+			AddGame(Dishonored = new UnrealGame(this, "Dishonored", null, null, ue3IniFile, 205100));
+			AddGame(MassEffect1 = new UnrealGame(this, "Mass Effect", null, null, ue3IniFile, null));
+			AddGame(MassEffect2 = new UnrealGame(this, "Mass Effect 2", null, null, ue3IniFile, null));
+			AddGame(MassEffect3 = new UnrealGame(this, "Mass Effect 3", @"BioWare\Mass Effect 3", null, ue3IniFile, null));
+			AddGame(TheLastRemnant = new UnrealGame(this, "The Last Remnant", null, null, ue3IniFile, 23310));
+			AddGame(ThiefDeadlyShadows = new UnrealGame(this, "Thief: Deadly Shadows", @"Ion Storm\Thief - Deadly Shadows", "ION_ROOT", "System/DEFAULT.INI", 6980));
+			AddGame(Unreal2TheAwakening = new UnrealGame(this, "Unreal II: The Awakening", null, null, ue2IniFile, 13200));
+			AddGame(UnrealGold = new UnrealGame(this, "Unreal Gold", @"Unreal Technology\Installed Apps\Unreal Gold", "Folder", ue2IniFile, 13250));
+			AddGame(UnrealTournament = new UnrealGame(this, "Unreal Tournament", @"Unreal Technology\Installed Apps\UnrealTournament", "Folder", ue2IniFile, 13240));
+			AddGame(UnrealTournament2004 = new UnrealGame(this, "Unreal Tournament 2004", @"Unreal Technology\Installed Apps\UT2004", "Folder", ue2IniFile, 13230));
+			AddGame(UnrealTournament3 = new UnrealGame(this, "Unreal Tournament 3", null, null, ue3IniFile, 13210));
 		}
 
 		const string ue2IniFile = "System/Default.ini";
@@ -67,7 +67,8 @@ namespace Alexandria.Engines.Unreal {
 
 	public abstract class UnrealBaseGame : Game {
 		public UnrealBaseGame(Engine engine, string name, string iniFileName)
-			: base(engine.Plugin, name, engine: engine) {
+			: base(engine) {
+			Name = name;
 			IniFileName = iniFileName;
 		}
 

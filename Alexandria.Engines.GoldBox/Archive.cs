@@ -126,20 +126,21 @@ namespace Alexandria.Engines.GoldBox {
 		}*/
 	}
 
-	class ArchiveLoader : Loader {
-		public ArchiveLoader(Engine engine)
-			: base(engine) {
+	class ArchiveFormat : ResourceFormat {
+		public ArchiveFormat(Engine engine)
+			: base(engine, typeof(Archive), canLoad: true) {
 		}
 
-		public override LoaderMatchLevel Match(BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
+		public override LoadMatchStrength LoadMatch(LoadInfo info) {
+			var reader = info.Reader;
 			long length = reader.BaseStream.Length;
 
 			if (length < 2)
-				return LoaderMatchLevel.None;
+				return LoadMatchStrength.None;
 
 			int headerLength = reader.ReadUInt16();
 			if (headerLength == 0 || headerLength % ArchiveRecord.HeaderSize != 0 || length < headerLength + 2)
-				return LoaderMatchLevel.None;
+				return LoadMatchStrength.None;
 
 			int dataOffset = headerLength + 2;
 			int currentOffset = dataOffset;
@@ -151,25 +152,25 @@ namespace Alexandria.Engines.GoldBox {
 				int compressedSize = reader.ReadUInt16();
 
 				if (offset != currentOffset)
-					return LoaderMatchLevel.None;
+					return LoadMatchStrength.None;
 				currentOffset += compressedSize;
 
 				// Offset is out of the file.
 				if (offset > length)
-					return LoaderMatchLevel.None;
+					return LoadMatchStrength.None;
 
 				// File is empty but one of the sizes is not.
 				if (compressedSize == 0 || uncompressedSize == 0)
-					return LoaderMatchLevel.None;
+					return LoadMatchStrength.None;
 
 				// Uncompressed expansion can't be used as a metric. I tried; some files expand one out of seven bytes. It's nuts how bad their RLE compressor was. At a guess it stopped a data run for every repeating byte, resulting in far more data runs when only a repeat run of 4 or more is guaranteed to result in compression (because then you've saved at least two bytes, accounting for your repeat run length and the next run length bytes).
 			}
 
-			return LoaderMatchLevel.Strong;
+			return LoadMatchStrength.Strong;
 		}
 
-		public override Resource Load(BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			return new Archive(Manager, reader, name, opener);
+		public override Resource Load(LoadInfo info) {
+			return new Archive(Manager, info.Reader, info.Name, info.Opener);
 		}
 	}
 }

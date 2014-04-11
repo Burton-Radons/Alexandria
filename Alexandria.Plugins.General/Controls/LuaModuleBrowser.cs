@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Alexandria.General.Controls {
+namespace Alexandria.Plugins.General.Controls {
 	public partial class LuaModuleBrowser : UserControl {
 		public LuaModule Module { get; private set; }
 

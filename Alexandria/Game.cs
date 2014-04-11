@@ -8,26 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria {
-	public abstract class Game : Resource {
+	public abstract class Game : PluginFormatResource {
 		readonly Engine engine;
-		internal readonly ArrayBackedList<Loader> loaders = new ArrayBackedList<Loader>();
 
 		public Engine Engine { get { return engine; } }
 
-		public ReadOnlyList<Loader> Loaders { get { return loaders; } }
-
-		public Game(Plugin plugin, string name, string description = null, Engine engine = null)
-			: base(plugin.Manager, name, description) {
-			if (plugin == null)
-				throw new ArgumentNullException("plugin");
-			plugin.GamesMutable.Add(this);
-
+		Game(Plugin plugin, Engine engine)
+			: base(plugin) {
 			this.engine = engine;
-			if (engine != null)
-				engine.GamesMutable.Add(this);
 		}
 
-		public virtual void Detect(GameInstanceList instances) { 
+		public Game(Plugin plugin) : this(plugin, null) { }
+		public Game(Engine engine) : this(engine.Plugin, engine) { }
+
+		public virtual void Detect(GameInstanceList instances) {
 		}
 	}
 }

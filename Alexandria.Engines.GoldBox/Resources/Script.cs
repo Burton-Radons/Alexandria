@@ -189,9 +189,9 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		}
 	}
 
-	class ScriptLoader : Loader {
-		public ScriptLoader(Engine engine)
-			: base(engine) {
+	class ScriptFormat : ResourceFormat {
+		public ScriptFormat(Engine engine)
+			: base(engine, typeof(Script), canLoad: true) {
 		}
 
 		static bool CheckAddress(BinaryReader reader, long length) {
@@ -199,10 +199,11 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			return address >= 22 && address < length;
 		}
 
-		public override LoaderMatchLevel Match(System.IO.BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
+		public override LoadMatchStrength LoadMatch(LoadInfo info) {
+			var reader = info.Reader;
 			long length = reader.BaseStream.Length;
 			if (length < 22)
-				return LoaderMatchLevel.None;
+				return LoadMatchStrength.None;
 			if (reader.ReadInt32() != 0x01011388 ||
 				!CheckAddress(reader, length) ||
 				reader.ReadInt16() != 0x0101 ||
@@ -211,12 +212,12 @@ namespace Alexandria.Engines.GoldBox.Resources {
 				!CheckAddress(reader, length) ||
 				reader.ReadInt16() != 0x0101 ||
 				!CheckAddress(reader, length))
-				return LoaderMatchLevel.None;
-			return LoaderMatchLevel.Medium;
+				return LoadMatchStrength.None;
+			return LoadMatchStrength.Medium;
 		}
 
-		public override Resource Load(System.IO.BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			return new Script(Manager, reader, name);
+		public override Resource Load(LoadInfo info) {
+			return new Script(Manager, info.Reader, info.Name);
 		}
 	}
 }

@@ -42,12 +42,12 @@ namespace Alexandria.Controls {
 					node.Nodes.Add(new GameTreeNode(game));
 		}
 
-		static void CreateSubnode(TreeNode parent, ICollection<Loader> collection) {
+		static void CreateSubnode(TreeNode parent, ICollection<ResourceFormat> collection) {
 			if (collection.Count == 0)
 				return;
 			TreeNode node = CreateRoot(parent, "loader", collection);
-			foreach (Loader loader in collection)
-				node.Nodes.Add(new LoaderTreeNode(loader));
+			foreach (ResourceFormat format in collection)
+				node.Nodes.Add(new FormatTreeNode(format));
 		}
 
 		class EngineTreeNode : ResourceTreeNode {
@@ -56,20 +56,20 @@ namespace Alexandria.Controls {
 				ToolTipText = engine.Description;
 
 				CreateSubnode(this, engine.Games, engine);
-				CreateSubnode(this, engine.Loaders);
+				CreateSubnode(this, engine.Formats);
 			}
 		}
 
 		class GameTreeNode : ResourceTreeNode {
 			public GameTreeNode(Game game)
 				: base(game) {
-				CreateSubnode(this, game.Loaders);
+				CreateSubnode(this, game.Formats);
 			}
 		}
 
-		class LoaderTreeNode : ResourceTreeNode {
-			public LoaderTreeNode(Loader loader)
-				: base(loader) {
+		class FormatTreeNode : ResourceTreeNode {
+			public FormatTreeNode(ResourceFormat format)
+				: base(format) {
 			}
 		}
 
@@ -78,7 +78,7 @@ namespace Alexandria.Controls {
 				: base(plugin) {
 				CreateSubnode(this, plugin.Engines);
 				CreateSubnode(this, plugin.Games, null);
-				CreateSubnode(this, plugin.Loaders);
+				CreateSubnode(this, plugin.Formats);
 			}
 		}
 

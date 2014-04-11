@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Alexandria.General {
+namespace Alexandria.Plugins.General {
 	public struct LuaInstruction {
 		readonly LuaFunction function;
 

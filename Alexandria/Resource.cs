@@ -5,6 +5,7 @@ using Glare.Internal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Resources;
@@ -19,13 +20,14 @@ namespace Alexandria {
 		Resource parent;
 		UnknownList unknowns;
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		string name, description;
 
 		public ReadOnlyList<Resource> Children { get { return children; } }
 
 		public virtual string Description {
-			get { return description ?? (ResourceManager != null ? ResourceManager.GetString(ResourcePrefix + "Description") : null); }
-			set { description = value; }
+			get { return GetResourceString(description, "Description"); }
+			protected set { description = value; }
 		}
 
 		public virtual string DisplayName { get { return Name ?? GetType().Name + " resource"; } }
@@ -37,11 +39,29 @@ namespace Alexandria {
 
 		public bool HasUnknowns { get { return unknowns != null && unknowns.Count > 0; } }
 
+		/// <summary>Get whether this <see cref="Resource"/> or any children have been locked from modification.</summary>
+		public bool IsAnyModified {
+			get {
+				if (IsModified)
+					return true;
+				foreach (Resource child in children)
+					if (child.IsModified)
+						return true;
+				return false;
+			}
+		}
+
+		/// <summary>Get whether the <see cref="Resource"/> is modified.</summary>
+		public bool IsModified { get; protected set; }
+
+		/// <summary>Get whether the <see cref="Resource"/> cannot be modified in any way. The default is <c>true</c>.</summary>
+		public bool IsReadOnly { get; protected set; }
+
 		public Manager Manager { get { return manager; } }
 
 		public virtual string Name {
-			get { return name ?? (ResourceManager != null ? ResourceManager.GetString(ResourcePrefix + "Name") : null) ?? GetType().Name; }
-			set { name = value; }
+			get { return GetResourceString(name, "Name"); }
+			protected set { name = value; }
 		}
 
 		public Resource Parent {
@@ -58,7 +78,7 @@ namespace Alexandria {
 
 		public virtual string PathName { get { return Name; } }
 
-		internal readonly ResourceManager ResourceManager;
+		public ResourceManager ResourceManager { get; private set; }
 
 		protected virtual string ResourcePrefix { get { return GetType().Name; } }
 
@@ -68,6 +88,7 @@ namespace Alexandria {
 			if (manager == null)
 				throw new ArgumentNullException("manager");
 			this.manager = manager;
+			IsReadOnly = true;
 		}
 
 		public Resource(Manager manager, ResourceManager resourceManager)
@@ -81,6 +102,17 @@ namespace Alexandria {
 			: this(manager) {
 			if (name == null)
 				throw new ArgumentNullException("name");
+			Name = name;
+			Description = description;
+		}
+
+		public Resource(Manager manager, ResourceManager resourceManager, string name, string description = null) {
+			if (resourceManager == null) {
+				if (name == null)
+					throw new ArgumentNullException("name");
+			}
+
+			ResourceManager = resourceManager;
 			Name = name;
 			Description = description;
 		}
@@ -122,6 +154,18 @@ namespace Alexandria {
 
 			FillContextMenu(strip);
 			return strip;
+		}
+
+		string GetResourceString(string value, string suffix) {
+			if (value != null)
+				return value;
+
+			try {
+				return ResourceManager.GetString(ResourcePrefix + suffix);
+			} catch (MissingManifestResourceException) {
+			}
+
+			return "?" + ResourcePrefix + suffix + "?";
 		}
 
 		protected void MoveIntoPath(string path) {

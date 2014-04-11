@@ -68,8 +68,17 @@ namespace Alexandria.Controls {
 		}
 
 		void Open(string path) {
-			Resource resource = Manager.LoadFile(path);
-			Control control = resource.Browse();
+			
+			Resource resource;
+			Control control;
+
+			try {
+				resource = Manager.LoadFile(path);
+				control = resource.Browse();
+			} catch (Exception exception) {
+				MessageBox.Show("Load failed: " + exception, "Load failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
 
 			if (control != null) {
 				var window = new Form() {

@@ -25,7 +25,7 @@ namespace Alexandria.Resources {
 			}
 		}
 
-		public virtual LoaderFileOpener FileOpener { get { return Loader.SystemFileOpener; } }
+		public virtual LoaderFileOpener FileOpener { get { return LoadInfo.SystemFileOpener; } }
 
 		public Asset(Folder parent, string name, string description = null)
 			: base(parent, name, description) {

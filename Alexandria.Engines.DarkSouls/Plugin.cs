@@ -11,7 +11,7 @@ namespace Alexandria.Engines.DarkSouls
 	    public Plugin(Manager manager)
 		    : base(manager, Properties.Resources.ResourceManager)
 	    {
-		    new Engine(this);
+		    AddEngine(new Engine(this));
 	    }
     }
 }

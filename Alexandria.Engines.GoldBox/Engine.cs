@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace Alexandria.Engines.GoldBox {
 	public class Engine : Alexandria.Engine {
 		public Engine(Plugin plugin)
-			: base(plugin, Alexandria.Engines.GoldBox.Plugin.OurResourceManager) {
-			new ArchiveLoader(this);
-			new ImageLoader(this);
-			new ScriptLoader(this);
+			: base(plugin) {
+			AddFormat(new ArchiveFormat(this));
+			AddFormat(new ImageFormat(this));
+			AddFormat(new ScriptFormat(this));
 		}
 
 		[ThreadStatic]
@@ -56,7 +56,7 @@ namespace Alexandria.Engines.GoldBox {
 			}
 
 			//if (Math.Ceiling(length * 3 / 4.0) != codeLength)
-				//throw new Exception();
+			//throw new Exception();
 			return new string(Codes, 0, length - 1);
 		}
 	}

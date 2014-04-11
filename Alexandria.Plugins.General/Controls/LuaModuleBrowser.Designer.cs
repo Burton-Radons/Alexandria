@@ -1,4 +1,4 @@
-﻿namespace Alexandria.General.Controls {
+﻿namespace Alexandria.Plugins.General.Controls {
 	partial class LuaModuleBrowser {
 		/// <summary> 
 		/// Required designer variable.

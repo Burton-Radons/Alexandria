@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -521,20 +522,21 @@ namespace Alexandria.Engines.DarkSouls {
 
 	public class ArchiveGroupCollection : List<ArchiveGroup> { }
 
-	public class ArchiveLoader : Loader {
-		public ArchiveLoader(Engine engine)
-			: base(engine) {
+	public class ArchiveFormat : ResourceFormat {
+		public ArchiveFormat(Engine engine)
+			: base(engine, typeof(Archive), canLoad: true) {
 		}
 
-		public override LoaderMatchLevel Match(BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
+		public override LoadMatchStrength LoadMatch(LoadInfo context) {
+			var reader = context.Reader;
 			string magic = reader.ReadString(4, Encoding.ASCII);
 			if (magic == Archive.ContentsMagicBDF3 || magic == Archive.HeadersMagicBHD5 || magic == Archive.ContentsMagicBDF4 || magic == Archive.HeadersMagicBHF4 || magic == Archive.PackageMagicBND4 || magic == Archive.PackageMagicBND3 || magic == Archive.HeadersMagicBHF3)
-				return LoaderMatchLevel.Strong;
-			return LoaderMatchLevel.None;
+				return LoadMatchStrength.Strong;
+			return LoadMatchStrength.None;
 		}
 
-		public override Resource Load(BinaryReader reader, string name, LoaderFileOpener opener, Resource context) {
-			return new Archive(Manager, reader, name, opener);
+		public override Resource Load(LoadInfo context) {
+			return new Archive(Manager, context.Reader, context.Name, context.Opener);
 		}
 	}
 }

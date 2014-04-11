@@ -15,37 +15,38 @@ namespace Alexandria.Engines.Sciagi {
 
 		public Plugin(Manager manager)
 			: base(manager, OurResourceManager) {
-			new ResourceMapLoader(this);
+			AddFormat(new ResourceMapFormat(this));
 		}
 
-		class ResourceMapLoader : Loader {
-			public ResourceMapLoader(Plugin plugin)
-				: base(plugin) {
+		class ResourceMapFormat : ResourceFormat {
+			public ResourceMapFormat(Plugin plugin)
+				: base(plugin, typeof(ResourceMap), canLoad: true) {
 			}
 
-			public override LoaderMatchLevel Match(BinaryReader reader, string name, LoaderFileOpener opener, Alexandria.Resource context) {
-				long length = reader.BaseStream.Length;
+			public override LoadMatchStrength LoadMatch(LoadInfo info) {
+				var reader = info.Reader;
+				long length = info.Length;
 
-				if (string.Compare(Path.GetFileName(name), "resource.map", true) != 0)
-					return LoaderMatchLevel.None;
+				if (string.Compare(Path.GetFileName(info.Name), "resource.map", true) != 0)
+					return LoadMatchStrength.None;
 
 				if (length % 6 != 0 || length / 6 > short.MaxValue)
-					return LoaderMatchLevel.None;
+					return LoadMatchStrength.None;
 				int count = (int)(length / 6);
 				for (int index = 0; index < count - 1; index++) {
 					ResourceId id = new ResourceId(reader);
 					if (id.IsEnd)
-						return LoaderMatchLevel.None;
+						return LoadMatchStrength.None;
 				}
 
 				ResourceId end = new ResourceId(reader);
 				if (!end.IsEnd)
-					return LoaderMatchLevel.None;
-				return LoaderMatchLevel.Medium;
+					return LoadMatchStrength.None;
+				return LoadMatchStrength.Medium;
 			}
 
-			public override Alexandria.Resource Load(BinaryReader reader, string name, LoaderFileOpener opener, Alexandria.Resource context) {
-				return new ResourceMap(Manager, reader, name, opener);
+			public override Alexandria.Resource Load(LoadInfo info) {
+				return new ResourceMap(Manager, info.Reader, info.Name, info.Opener);
 			}
 		}
 	}
