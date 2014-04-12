@@ -68,6 +68,15 @@ namespace Glare.Internal {
 					reader.BaseStream.Position = offset;
 					return reader.Read<#=type#>(byteOrder);
 				}
+				
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<<#=type#>> values, int start, int count, ByteOrder byteOrder) { for (int index = 0; index < count; index++) values[start + index] = reader.Read<#=type#>(byteOrder); }
+
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<<#=type#>> values, ByteOrder byteOrder) { reader.ReadArray(values, 0, values.Count, byteOrder); }
+
+				/// <summary>Read an array of <c><#=type#></c> values.</summary>
+				public static <#=type#>[] ReadArray<#=type#>(this BinaryReader reader, int count, ByteOrder byteOrder) { <#=type#>[] array = new <#=type#>[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
 			<#}#>
 		<#}#>
 

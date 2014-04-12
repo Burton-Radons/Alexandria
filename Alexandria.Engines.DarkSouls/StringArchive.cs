@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace Alexandria.Engines.DarkSouls {
 	public class StringArchive : Resource {
 		public const int Magic1 = 0x10000;
-		public const int Magic2 = 1;
+		public const int Magic2 = 1, Magic2BE = 0x01FF0000;
 
 		readonly ArrayBackedList<StringGroup> groups = new ArrayBackedList<StringGroup>();
 		readonly ArrayBackedList<string> strings = new ArrayBackedList<string>();
@@ -23,23 +23,43 @@ namespace Alexandria.Engines.DarkSouls {
 		public ReadOnlyList<string> Strings { get { return strings; } }
 		public ReadOnlyDictionary<int, string> StringsById { get { return stringsByIdReadOnly; } }
 
-		public StringArchive(Manager manager, BinaryReader reader, string name)
+		public ByteOrder ByteOrder { get; private set; }
+		public Encoding Encoding { get; private set; }
+
+		internal StringArchive(Manager manager, BinaryReader reader, string name, long length)
 			: base(manager, name) {
+			ByteOrder = ByteOrder.LittleEndian;
 			stringsByIdReadOnly = new ReadOnlyDictionary<int, string>(stringsById);
+
+			Encoding = Encoding.Unicode;
+			if (reader is BigEndianBinaryReader)
+				Encoding = Encoding.BigEndianUnicode;
 
 			using (reader) {
 				reader.Require(Magic1);
+
 				int totalFileLength = reader.ReadInt32();
-				reader.Require(Magic2);
-				int groupCount = reader.ReadInt32();
-				int stringCount = reader.ReadInt32();
-				int stringOffset = reader.ReadInt32();
+				if (totalFileLength != length) {
+					if (totalFileLength.ReverseBytes() == length) {
+						ByteOrder = ByteOrder.BigEndian;
+						Encoding = Encoding.BigEndianUnicode;
+					} else
+						throw new InvalidDataException();
+				}
+
+				int magic2 = reader.ReadInt32();
+				if (magic2 != Magic2 && magic2 != Magic2BE)
+					throw new InvalidDataException();
+
+				int groupCount = reader.ReadInt32(ByteOrder);
+				int stringCount = reader.ReadInt32(ByteOrder);
+				int stringOffset = reader.ReadInt32(ByteOrder);
 				reader.RequireZeroes(4 * 1);
 
 				for (int index = 0; index < groupCount; index++)
-					groups.Add(new StringGroup(reader));
+					groups.Add(new StringGroup(reader, ByteOrder));
 
-				int[] stringOffsets = reader.ReadArrayInt32(stringCount);
+				int[] stringOffsets = reader.ReadArrayInt32(stringCount, ByteOrder);
 
 				for (int index = 0; index < stringCount; index++) {
 					int offset = stringOffsets[index];
@@ -48,29 +68,39 @@ namespace Alexandria.Engines.DarkSouls {
 						strings.Add(null);
 					else {
 						reader.BaseStream.Position = offset;
-						string value = reader.ReadStringz(Encoding.Unicode);
+						string value = reader.ReadStringz(Encoding);
 						strings.Add(value);
-						stringsById[index] = value;
+						//stringsById[index] = value;
+					}
+				}
+
+				foreach (StringGroup group in groups) {
+					for (int index = 0; index < group.StringCount; index++) {
+						int stringIndex = group.StringsIndex + index;
+						string stringValue = strings[stringIndex];
+
+						if (stringValue != null)
+							stringsById[group.IndexStart + index] = stringValue;
 					}
 				}
 			}
 		}
 
 		public override System.Windows.Forms.Control Browse() {
-			var splitter = new SplitContainer() {
+			/*var splitter = new SplitContainer() {
 				Orientation = Orientation.Horizontal
-			};
+			};*/
 
-			DataGridView stringView;
-
-			splitter.Panel1.Controls.Add(stringView = new DataGridView() {
+			DataGridView stringView = new DataGridView() {
 				AutoGenerateColumns = false,
 				AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells,
-				DataSource = 
+				DataSource =
 					(from i in StringsById
-						select new KeyValuePair<int, string>(i.Key, i.Value.Trim())).ToArray(),
+					 select new KeyValuePair<int, string>(i.Key, i.Value.Trim())).ToArray(),
 				Dock = DockStyle.Fill,
-			});
+			};
+
+			/*splitter.Panel1.Controls.Add();*/
 
 			stringView.Columns.Add(new DataGridViewTextBoxColumn() {
 				DataPropertyName = "Key",
@@ -88,26 +118,26 @@ namespace Alexandria.Engines.DarkSouls {
 				HeaderText = "Value",
 			});
 
-			splitter.Panel2.Controls.Add(new DataGridView() {
+			/*splitter.Panel2.Controls.Add(new DataGridView() {
 				AutoGenerateColumns = true,
 				DataSource = Groups,
 				Dock = DockStyle.Fill,
-			});
+			});*/
 
-			return splitter;
+			return stringView;
 		}
 	}
 
 	public class StringGroup {
-		public int Index1 { get; private set; }
-		public int Index2 { get; private set; }
-		public int Index3 { get; private set; }
-		public int IndexSpan { get { return Index3 - Index2; } }
+		public int StringsIndex { get; private set; }
+		public int IndexStart { get; private set; }
+		public int IndexEnd { get; private set; }
+		public int StringCount { get { return IndexEnd - IndexStart + 1; } }
 
-		public StringGroup(BinaryReader reader) {
-			Index1 = reader.ReadInt32();
-			Index2 = reader.ReadInt32();
-			Index3 = reader.ReadInt32();
+		public StringGroup(BinaryReader reader, ByteOrder byteOrder) {
+			StringsIndex = reader.ReadInt32(byteOrder);
+			IndexStart = reader.ReadInt32(byteOrder);
+			IndexEnd = reader.ReadInt32(byteOrder);
 		}
 	}
 
@@ -118,24 +148,29 @@ namespace Alexandria.Engines.DarkSouls {
 
 		public override LoadMatchStrength LoadMatch(LoadInfo context) {
 			var reader = context.Reader;
-			long length = reader.BaseStream.Length;
+			ByteOrder byteOrder = ByteOrder.LittleEndian;
 
-			if (length < 4 * 7)
+			if (context.Length < 4 * 7)
 				return LoadMatchStrength.None;
 			int magic1 = reader.ReadInt32();
 			if (magic1 != StringArchive.Magic1)
 				return LoadMatchStrength.None;
 			int totalFileLength = reader.ReadInt32();
-			if (length != totalFileLength)
+			if (context.Length != totalFileLength) {
+				if (totalFileLength.ReverseBytes() == context.Length)
+					byteOrder = ByteOrder.BigEndian;
+				else
+					return LoadMatchStrength.None;
+			}
+
+			int magic2 = reader.ReadInt32(byteOrder);
+			if (magic2 != StringArchive.Magic2 && magic2 != StringArchive.Magic2BE)
 				return LoadMatchStrength.None;
-			int magic2 = reader.ReadInt32();
-			if (magic2 != StringArchive.Magic2)
-				return LoadMatchStrength.None;
-			int groupCount = reader.ReadInt32();
-			int stringCount = reader.ReadInt32();
-			int stringOffset = reader.ReadInt32();
-			int zero1 = reader.ReadInt32(), zero2 = reader.ReadInt32();
-			if (zero1 != 0 || zero2 != 0)
+			int groupCount = reader.ReadInt32(byteOrder);
+			int stringCount = reader.ReadInt32(byteOrder);
+			int stringOffset = reader.ReadInt32(byteOrder);
+			int zero1 = reader.ReadInt32(byteOrder);
+			if (zero1 != 0)
 				return LoadMatchStrength.None;
 
 			if (stringOffset != 28 + groupCount * 12)
@@ -144,7 +179,7 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 
 		public override Resource Load(LoadInfo context) {
-			return new StringArchive(Manager, context.Reader, context.Name);
+			return new StringArchive(Manager, context.Reader, context.Name, context.Length);
 		}
 	}
 }

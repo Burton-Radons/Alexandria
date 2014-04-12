@@ -17,7 +17,7 @@ namespace Alexandria.Engines.DarkSouls {
 		V5,
 	}
 
-	public class Archive : Folder {
+	public class Archive : Resources.Archive {
 		public const string ContentsExtensionEnd = "bdt";
 		public const string HeadersExtensionEnd = "bhd", HeadersExtension5End = "bhd5";
 
@@ -97,14 +97,6 @@ namespace Alexandria.Engines.DarkSouls {
 			if (magic == ContentsMagicBDF3 || magic == ContentsMagicBDF4) {
 				string headersPathBase = RemoveSuffix(path, ContentsExtensionEnd);
 				Stream headersStream = OpenOtherFile(headersPathBase, opener, HeadersExtensionEnd, HeadersExtension5End);
-
-				/*string headersExtension =
-					extension == ContentsExtensionTPFBDT ? HeadersExtensionTPFBHD :
-					extension == ContentsExtensionHKXBDT ? HeadersExtensionHKXBHD :
-					IsDarkSoulsII ? HeadersExtensionBHD : HeadersExtensionBHD5;
-				string headersPath = System.IO.Path.ChangeExtension(path, headersExtension);*/
-
-				
 
 				DataStream = reader.BaseStream;
 				DataReader = reader;

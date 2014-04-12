@@ -530,6 +530,8 @@ namespace Glare.Internal {
 			if (optionOrdinalIgnoreCase || optionOrdinal)
 				throw new NotImplementedException();
 
+			CompareInfo compare = culture.CompareInfo;
+
 			while (true) {
 				// Skip any ignored values.
 				CompareNumeric_Skip(left, ref leftIndex, leftEnd, optionIgnoreNonSpace, optionIgnoreSymbols);
@@ -539,8 +541,9 @@ namespace Glare.Internal {
 				if (leftIndex >= leftEnd || rightIndex >= rightEnd)
 					return leftLength.CompareTo(rightLength);
 
-				UnicodeCategory leftCategory = char.GetUnicodeCategory(left, leftIndex);
-				UnicodeCategory rightCategory = char.GetUnicodeCategory(right, rightIndex);
+				char leftCharacter = left[leftIndex], rightCharacter = right[rightIndex];
+				UnicodeCategory leftCategory = char.GetUnicodeCategory(leftCharacter);
+				UnicodeCategory rightCategory = char.GetUnicodeCategory(rightCharacter);
 				int comparison;
 
 				if (leftCategory == UnicodeCategory.DecimalDigitNumber && rightCategory == UnicodeCategory.DecimalDigitNumber) {
@@ -548,12 +551,20 @@ namespace Glare.Internal {
 					double rightNumber = CompareNumeric_GetNumber(right, ref rightIndex, rightEnd);
 					comparison = leftNumber.CompareTo(rightNumber);
 				} else {
-					int leftSize = char.IsSurrogate(left, leftIndex) ? 2 : 1;
-					int rightSize = char.IsSurrogate(right, rightIndex) ? 2 : 1;
+					int count = 1, max = Math.Min(leftEnd - leftIndex, rightEnd - rightIndex);
 
-					comparison = culture.CompareInfo.Compare(left, leftIndex, leftSize, right, rightIndex, rightSize, options);
-					leftIndex += leftSize;
-					rightIndex += rightSize;
+					for (count = 1; count < max; count++) {
+						leftCategory = char.GetUnicodeCategory(left[leftIndex + count]);
+						rightCategory = char.GetUnicodeCategory(right[rightIndex + count]);
+						if (!CompareNumeric_UseDefault(leftCategory, optionIgnoreNonSpace, optionIgnoreSymbols) ||
+							!CompareNumeric_UseDefault(rightCategory, optionIgnoreNonSpace, optionIgnoreSymbols))
+							break;
+					}
+
+					comparison = compare.Compare(left, leftIndex, count, right, rightIndex, count, options);
+					
+					leftIndex += count;
+					rightIndex += count;
 				}
 
 				if (comparison != 0)
@@ -561,15 +572,28 @@ namespace Glare.Internal {
 			}
 		}
 
+		static bool CompareNumeric_UseDefault(UnicodeCategory category, bool ignoreNonSpace, bool ignoreSymbols) {
+			switch (category) {
+				case UnicodeCategory.DecimalDigitNumber: return false;
+				case UnicodeCategory.ModifierLetter:
+				case UnicodeCategory.ModifierSymbol: return !ignoreNonSpace;
+				case UnicodeCategory.CurrencySymbol:
+				case UnicodeCategory.MathSymbol:
+				case UnicodeCategory.OtherSymbol: return !ignoreSymbols;
+				default: return true;
+			}
+		}
+
 		static double CompareNumeric_GetNumber(string text, ref int index, int end) {
 			double value = 0;
 
 			while (index < end) {
-				UnicodeCategory category = char.GetUnicodeCategory(text, index);
+				char ch = text[index];
+				UnicodeCategory category = char.GetUnicodeCategory(ch);
 				if (category != UnicodeCategory.DecimalDigitNumber)
 					break;
-				value = value * 10 + char.GetNumericValue(text, index);
-				index += char.IsSurrogate(text, index) ? 2 : 1;
+				value = value * 10 + char.GetNumericValue(ch);
+				index++;
 			}
 
 			return value;
@@ -577,7 +601,7 @@ namespace Glare.Internal {
 
 		static void CompareNumeric_Skip(string text, ref int index, int end, bool ignoreNonSpace, bool ignoreSymbols) {
 			while (index < end) {
-				switch (char.GetUnicodeCategory(text, index)) {
+				switch (char.GetUnicodeCategory(text[index])) {
 					case UnicodeCategory.ModifierLetter:
 					case UnicodeCategory.ModifierSymbol:
 						if (ignoreNonSpace)
@@ -597,7 +621,7 @@ namespace Glare.Internal {
 						return;
 				}
 
-				index += char.IsSurrogate(text, index) ? 2 : 1;
+				index++;
 			}
 		}
 

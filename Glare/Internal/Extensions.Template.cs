@@ -131,6 +131,15 @@ namespace Glare.Internal {
 					reader.BaseStream.Position = offset;
 					return reader.ReadInt16(byteOrder);
 				}
+				
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<Int16> values, int start, int count, ByteOrder byteOrder) { for (int index = 0; index < count; index++) values[start + index] = reader.ReadInt16(byteOrder); }
+
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<Int16> values, ByteOrder byteOrder) { reader.ReadArray(values, 0, values.Count, byteOrder); }
+
+				/// <summary>Read an array of <c>Int16</c> values.</summary>
+				public static Int16[] ReadArrayInt16(this BinaryReader reader, int count, ByteOrder byteOrder) { Int16[] array = new Int16[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
 								/// <summary>Read a <c>Int32</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, Int32 expected) {
 				Int32 value = reader.ReadInt32();
@@ -183,6 +192,15 @@ namespace Glare.Internal {
 					reader.BaseStream.Position = offset;
 					return reader.ReadInt32(byteOrder);
 				}
+				
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<Int32> values, int start, int count, ByteOrder byteOrder) { for (int index = 0; index < count; index++) values[start + index] = reader.ReadInt32(byteOrder); }
+
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<Int32> values, ByteOrder byteOrder) { reader.ReadArray(values, 0, values.Count, byteOrder); }
+
+				/// <summary>Read an array of <c>Int32</c> values.</summary>
+				public static Int32[] ReadArrayInt32(this BinaryReader reader, int count, ByteOrder byteOrder) { Int32[] array = new Int32[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
 								/// <summary>Read a <c>Int64</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, Int64 expected) {
 				Int64 value = reader.ReadInt64();
@@ -235,6 +253,15 @@ namespace Glare.Internal {
 					reader.BaseStream.Position = offset;
 					return reader.ReadInt64(byteOrder);
 				}
+				
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<Int64> values, int start, int count, ByteOrder byteOrder) { for (int index = 0; index < count; index++) values[start + index] = reader.ReadInt64(byteOrder); }
+
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<Int64> values, ByteOrder byteOrder) { reader.ReadArray(values, 0, values.Count, byteOrder); }
+
+				/// <summary>Read an array of <c>Int64</c> values.</summary>
+				public static Int64[] ReadArrayInt64(this BinaryReader reader, int count, ByteOrder byteOrder) { Int64[] array = new Int64[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
 								/// <summary>Read a <c>UInt16</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, UInt16 expected) {
 				UInt16 value = reader.ReadUInt16();
@@ -287,6 +314,15 @@ namespace Glare.Internal {
 					reader.BaseStream.Position = offset;
 					return reader.ReadUInt16(byteOrder);
 				}
+				
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<UInt16> values, int start, int count, ByteOrder byteOrder) { for (int index = 0; index < count; index++) values[start + index] = reader.ReadUInt16(byteOrder); }
+
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<UInt16> values, ByteOrder byteOrder) { reader.ReadArray(values, 0, values.Count, byteOrder); }
+
+				/// <summary>Read an array of <c>UInt16</c> values.</summary>
+				public static UInt16[] ReadArrayUInt16(this BinaryReader reader, int count, ByteOrder byteOrder) { UInt16[] array = new UInt16[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
 								/// <summary>Read a <c>UInt32</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, UInt32 expected) {
 				UInt32 value = reader.ReadUInt32();
@@ -339,6 +375,15 @@ namespace Glare.Internal {
 					reader.BaseStream.Position = offset;
 					return reader.ReadUInt32(byteOrder);
 				}
+				
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<UInt32> values, int start, int count, ByteOrder byteOrder) { for (int index = 0; index < count; index++) values[start + index] = reader.ReadUInt32(byteOrder); }
+
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<UInt32> values, ByteOrder byteOrder) { reader.ReadArray(values, 0, values.Count, byteOrder); }
+
+				/// <summary>Read an array of <c>UInt32</c> values.</summary>
+				public static UInt32[] ReadArrayUInt32(this BinaryReader reader, int count, ByteOrder byteOrder) { UInt32[] array = new UInt32[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
 								/// <summary>Read a <c>UInt64</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, UInt64 expected) {
 				UInt64 value = reader.ReadUInt64();
@@ -391,6 +436,15 @@ namespace Glare.Internal {
 					reader.BaseStream.Position = offset;
 					return reader.ReadUInt64(byteOrder);
 				}
+				
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<UInt64> values, int start, int count, ByteOrder byteOrder) { for (int index = 0; index < count; index++) values[start + index] = reader.ReadUInt64(byteOrder); }
+
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<UInt64> values, ByteOrder byteOrder) { reader.ReadArray(values, 0, values.Count, byteOrder); }
+
+				/// <summary>Read an array of <c>UInt64</c> values.</summary>
+				public static UInt64[] ReadArrayUInt64(this BinaryReader reader, int count, ByteOrder byteOrder) { UInt64[] array = new UInt64[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
 								/// <summary>Read a <c>Single</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, Single expected) {
 				Single value = reader.ReadSingle();
@@ -443,6 +497,15 @@ namespace Glare.Internal {
 					reader.BaseStream.Position = offset;
 					return reader.ReadSingle(byteOrder);
 				}
+				
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<Single> values, int start, int count, ByteOrder byteOrder) { for (int index = 0; index < count; index++) values[start + index] = reader.ReadSingle(byteOrder); }
+
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<Single> values, ByteOrder byteOrder) { reader.ReadArray(values, 0, values.Count, byteOrder); }
+
+				/// <summary>Read an array of <c>Single</c> values.</summary>
+				public static Single[] ReadArraySingle(this BinaryReader reader, int count, ByteOrder byteOrder) { Single[] array = new Single[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
 								/// <summary>Read a <c>Double</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, Double expected) {
 				Double value = reader.ReadDouble();
@@ -495,6 +558,15 @@ namespace Glare.Internal {
 					reader.BaseStream.Position = offset;
 					return reader.ReadDouble(byteOrder);
 				}
+				
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<Double> values, int start, int count, ByteOrder byteOrder) { for (int index = 0; index < count; index++) values[start + index] = reader.ReadDouble(byteOrder); }
+
+				/// <summary>Read a part of a list.</summary>
+				public static void ReadArray(this BinaryReader reader, IList<Double> values, ByteOrder byteOrder) { reader.ReadArray(values, 0, values.Count, byteOrder); }
+
+				/// <summary>Read an array of <c>Double</c> values.</summary>
+				public static Double[] ReadArrayDouble(this BinaryReader reader, int count, ByteOrder byteOrder) { Double[] array = new Double[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
 					
 					public static Byte Squared(this Byte value) { return (Byte)(value * value); }
 					public static SByte Squared(this SByte value) { return (SByte)(value * value); }
