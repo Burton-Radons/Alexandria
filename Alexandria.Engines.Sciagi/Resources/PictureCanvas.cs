@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Engines.Sciagi.Resources {
+	/// <summary>Manages the four rasters of an SCI game.</summary>
 	public class PictureCanvas {
-
 		Vector2i pResolution;
 
 		public Raster VisualRaster { get; protected set; }
@@ -15,6 +15,7 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		public Raster ControlRaster { get; protected set; }
 		public Raster AuxiliaryRaster { get; protected set; }
 
+		/// <summary>Get or set the resolution of the canvas. The default is (320, 190).</summary>
 		public Vector2i Resolution {
 			get { return pResolution; }
 
@@ -30,9 +31,14 @@ namespace Alexandria.Engines.Sciagi.Resources {
 			}
 		}
 
-		public PictureCanvas() {
-			Resolution = new Vector2i(320, 190);
+		public PictureCanvas(Vector2i resolution) {
+			Resolution = resolution;
 		}
+
+		public PictureCanvas(int width, int height) : this(new Vector2i(width, height)) { }
+
+		/// <summary>Create a new <see cref="PictureCanvas"/> at the default resolution (320x190).</summary>
+		public PictureCanvas() : this(320, 190) { }
 
 		/// <summary>
 		/// Clear all of the layers to their default values (by default), or specific layers with specific values if desired. This locks, then unlocks the bitmaps.

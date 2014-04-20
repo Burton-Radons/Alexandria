@@ -5,10 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glare.Graphics.Rendering
-{
-	public class Model : NamedObject
-	{
+namespace Glare.Graphics.Rendering {
+	public class Model : NamedObject {
 		readonly List<ModelAttribute> attributes = new List<ModelAttribute>();
 		readonly ModelBoneCollection bones;
 		readonly Sphere3d bounds;
@@ -32,8 +30,7 @@ namespace Glare.Graphics.Rendering
 		/// <summary>Get the dynamic collection of meshes attached to the <see cref="Model"/>.</summary>
 		public ModelMeshCollection Meshes { get { return meshes; } }
 
-		public Model(GraphicsBuffer elementBuffer, ElementType elementType, Sphere3d bounds)
-		{
+		public Model(GraphicsBuffer elementBuffer, ElementType elementType, Sphere3d bounds) {
 			if (elementBuffer == null)
 				throw new ArgumentNullException("elementBuffer");
 			this.elementBuffer = elementBuffer;
@@ -45,31 +42,26 @@ namespace Glare.Graphics.Rendering
 
 		public delegate void SetWorldMatrixCallback(ref Matrix4d world);
 
-		public void BindAttributes(IChannelAttributeSource channelAttributes)
-		{
-			foreach (ModelAttribute modelAttribute in attributes)
-			{
+		public void BindAttributes(IChannelAttributeSource channelAttributes) {
+			foreach (ModelAttribute modelAttribute in attributes) {
 				ProgramAttribute attribute = channelAttributes.TryGetChannelAttribute(modelAttribute);
 				if (attribute != null)
 					attribute.Bind(modelAttribute.Buffer, modelAttribute.OffsetInBytes, modelAttribute.Format, modelAttribute.Stride);
 			}
 		}
 
-		public void BindAttributes(Program program, string namePrefix, string nameSuffix)
-		{
+		public void BindAttributes(Program program, string namePrefix, string nameSuffix) {
 			var programAttributes = program.Attributes;
 			StringBuilder builder = new StringBuilder();
 			bool hasNamePrefix = !string.IsNullOrEmpty(namePrefix), hasNameSuffix = !string.IsNullOrEmpty(nameSuffix);
 
-			foreach (ModelAttribute modelAttribute in attributes)
-			{
+			foreach (ModelAttribute modelAttribute in attributes) {
 				ProgramAttribute attribute;
 				string name;
 
 				if (!hasNamePrefix && !hasNameSuffix && modelAttribute.Index == 0)
 					attribute = programAttributes.TryGetValue(name = modelAttribute.Channel.ToString());
-				else
-				{
+				else {
 					if (hasNamePrefix)
 						builder.Append(namePrefix);
 					builder.Append(modelAttribute.Channel.ToString());
@@ -88,18 +80,14 @@ namespace Glare.Graphics.Rendering
 			}
 		}
 
-		public void Draw(Program program, ref Matrix4d world, SetWorldMatrixCallback setWorldMatrix, IModelMaterialBinder materialBinder)
-		{
+		public void Draw(Program program, ref Matrix4d world, SetWorldMatrixCallback setWorldMatrix, IModelMaterialBinder materialBinder) {
 			ModelMaterial material = null;
 
-			foreach (ModelMesh mesh in meshes)
-			{
-				if (setWorldMatrix != null)
-				{
+			foreach (ModelMesh mesh in meshes) {
+				if (setWorldMatrix != null) {
 					Matrix4d meshWorld;
 
-					if (mesh.bone != null)
-					{
+					if (mesh.bone != null) {
 						mesh.bone.GetWorldTransform(out meshWorld);
 						world.Multiply(ref meshWorld, out meshWorld);
 						setWorldMatrix.Invoke(ref meshWorld);
@@ -117,15 +105,13 @@ namespace Glare.Graphics.Rendering
 			}
 		}
 
-		public void Draw(Program program, IChannelAttributeSource channelAttributes, ref Matrix4d world, SetWorldMatrixCallback setWorldMatrix, IModelMaterialBinder materialBinder)
-		{
+		public void Draw(Program program, IChannelAttributeSource channelAttributes, ref Matrix4d world, SetWorldMatrixCallback setWorldMatrix, IModelMaterialBinder materialBinder) {
 			if (channelAttributes != null)
 				BindAttributes(channelAttributes);
 			Draw(program, ref world, setWorldMatrix, materialBinder);
 		}
 
-		public void Draw(Program program, string attributeNamePrefix, string attributeNameSuffix, ref Matrix4d world, SetWorldMatrixCallback setWorldMatrix = null)
-		{
+		public void Draw(Program program, string attributeNamePrefix, string attributeNameSuffix, ref Matrix4d world, SetWorldMatrixCallback setWorldMatrix = null) {
 			BindAttributes(program, attributeNamePrefix, attributeNameSuffix);
 			Draw(program, ref world, setWorldMatrix, program as IModelMaterialBinder);
 		}
@@ -136,8 +122,7 @@ namespace Glare.Graphics.Rendering
 		public void Draw(Program program) { Draw(program, Matrix4d.Identity, null); }
 	}
 
-	public abstract class ModelObject : NamedObject
-	{
+	public abstract class ModelObject : NamedObject {
 		internal Model model;
 
 		/// <summary>Get the <see cref="Glare.Graphics.Model"/> that this is a part of, or <c>null</c> if it's not attached.</summary>

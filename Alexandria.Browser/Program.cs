@@ -1,4 +1,5 @@
 ﻿using Alexandria.Controls;
+using Glare.Assets;
 using Glare.Graphics.Loaders.Fbx;
 using Moki.Compiler;
 using Moki.Compilers.CSharp;
@@ -28,7 +29,7 @@ namespace Alexandria.Browser {
 			Console.Write("Press any key...");
 			Console.ReadKey();*/
 
-			Manager manager = new Manager();
+			AlexandriaManager manager = new AlexandriaManager();
 			manager.LoadPlugins();
 
 			var window = new MainWindow(manager);

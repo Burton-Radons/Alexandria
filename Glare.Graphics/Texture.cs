@@ -53,9 +53,6 @@ namespace Glare.Graphics
 			Storage(format, dimensions);
 		}
 
-		internal Texture(string path) : this() { ResourceLoader.LoadInto(this, path); }
-		internal Texture(string path, Stream stream, bool closeStream = true) : this() { ResourceLoader.LoadInto(this, path, stream, closeStream); }
-
 		public static TTexture Create<TTexture>() where TTexture : Texture
 		{
 			switch (typeof(TTexture).Name)
@@ -114,7 +111,7 @@ namespace Glare.Graphics
 
 		protected void Data2D(int level, Vector2i dimensions, Format storageFormat, IntPtr pointer, Format uploadFormat = null)
 		{
-			int maxSize = Graphics.Capabilities.MaxTextureDimension2D;
+			int maxSize = Device.Capabilities.MaxTextureDimension2D;
 
 			if (level < 0)
 				throw new ArgumentOutOfRangeException("level");
@@ -158,7 +155,7 @@ namespace Glare.Graphics
 
 		protected internal int Bind()
 		{
-			int value = Graphics.GetInt32(TargetBinding);
+			int value = Device.GetInt32(TargetBinding);
 			GL.BindTexture(Target, Id);
 			Context.CheckError();
 			return value;
@@ -253,8 +250,6 @@ namespace Glare.Graphics
 
 		internal FlatTexture() : base() { }
 		internal FlatTexture(Format format, Vector4i dimensions) : base(format, dimensions) { }
-		internal FlatTexture(string path) : base(path) { }
-		internal FlatTexture(string path, Stream stream, bool closeStream = true) : base(path, stream, closeStream) { }
 	}
 
 	/// <summary>A <see cref="Texture"/> that has three or four dimensions or multiple faces, which includes <see cref="Texture2DArray"/>, <see cref="Texture3D"/>, <see cref="TextureCube"/>, and <see cref="TextureCubeArray"/>.</summary>
@@ -262,7 +257,5 @@ namespace Glare.Graphics
 	{
 		internal LayeredTexture() : base() { }
 		internal LayeredTexture(Format format, Vector4i dimensions) : base(format, dimensions) { }
-		internal LayeredTexture(string path) : base(path) { }
-		internal LayeredTexture(string path, Stream stream, bool closeStream = true) : base(path, stream, closeStream) { }
 	}
 }

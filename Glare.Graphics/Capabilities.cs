@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Glare.Graphics {
 	/// <summary>
-	/// The capabilities and implementation information of a <see cref="Graphics"/> provider. A singleton of this is returned from <see cref="Graphics.Capabilities"/>.
+	/// The capabilities and implementation information of a <see cref="Device"/> provider. A singleton of this is returned from <see cref="Device.Capabilities"/>.
 	/// </summary>
 	public class Capabilities {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -70,11 +70,11 @@ namespace Glare.Graphics {
 		/// <summary>Get the maximum number of uniform blocks per <see cref="Program"/>. The value must be at least 70.</summary>
 		public int MaxCombinedUniformBlocks { get { return Get1i(GetPName.MaxCombinedUniformBlocks); } }
 
-		public int MaxTextureDimension2D { get { return Graphics.GetInt32(GetPName.MaxTextureSize); } }
-		public int MaxTextureDimension3D { get { return Graphics.GetInt32(GetPName.Max3DTextureSize); } }
-		public int MaxTextureDimensionCube { get { return Graphics.GetInt32(GetPName.MaxCubeMapTextureSize); } }
-		public int MaxTextureArrayLayers { get { return Graphics.GetInt32(GetPName.MaxArrayTextureLayers); } }
-		public double MaxTextureLodBias { get { return Graphics.GetDouble(GetPName.MaxTextureLodBias); } }
+		public int MaxTextureDimension2D { get { return Device.GetInt32(GetPName.MaxTextureSize); } }
+		public int MaxTextureDimension3D { get { return Device.GetInt32(GetPName.Max3DTextureSize); } }
+		public int MaxTextureDimensionCube { get { return Device.GetInt32(GetPName.MaxCubeMapTextureSize); } }
+		public int MaxTextureArrayLayers { get { return Device.GetInt32(GetPName.MaxArrayTextureLayers); } }
+		public double MaxTextureLodBias { get { return Device.GetDouble(GetPName.MaxTextureLodBias); } }
 
 		/// <summary>Get the maximum size in basic machine units of a uniform block, which must be at least 16384.</summary>
 		public int MaxUniformBlockSize { get { return Get1i(GetPName.MaxUniformBlockSize); } }
@@ -89,7 +89,7 @@ namespace Glare.Graphics {
 			get {
 				if (programBinaryFormats == null) {
 					using (Context.Lock()) {
-						var list = new int[Graphics.GetInt32(GetPName.NumProgramBinaryFormats)];
+						var list = new int[Device.GetInt32(GetPName.NumProgramBinaryFormats)];
 						if (list.Length > 0)
 							GL.GetInteger(GetPName.ProgramBinaryFormats, list);
 						programBinaryFormats = new ReadOnlyCollection<int>(list);
@@ -107,7 +107,7 @@ namespace Glare.Graphics {
 			get {
 				if (shaderBinaryFormats == null) {
 					using (Context.Lock()) {
-						var list = new int[Graphics.GetInt32(GetPName.NumShaderBinaryFormats)];
+						var list = new int[Device.GetInt32(GetPName.NumShaderBinaryFormats)];
 						if (list.Length > 0)
 							GL.GetInteger(GetPName.ShaderBinaryFormats, list);
 						shaderBinaryFormats = new ReadOnlyCollection<int>(list);
@@ -154,9 +154,9 @@ namespace Glare.Graphics {
 			Context.CheckError();
 		}
 
-		Vector2d Get2d(GetPName pname) { return Graphics.GetVector2d(pname); }
+		Vector2d Get2d(GetPName pname) { return Device.GetVector2d(pname); }
 
-		int Get1i(GetPName pname) { return Graphics.GetInt32(pname); }
+		int Get1i(GetPName pname) { return Device.GetInt32(pname); }
 
 		/// <summary>Get the <see cref="ShaderStageCapabilities"/> that describe the type, which must be a subclass of <see cref="Shader"/>.</summary>
 		/// <typeparam name="TShader">The <see cref="Type"/> of the <see cref="Shader"/> stage to return. It cannot be <see cref="Shader"/> itself.</typeparam>

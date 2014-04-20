@@ -1,4 +1,6 @@
-﻿using Glare.Internal;
+﻿using Glare.Assets;
+using Glare.Framework;
+using Glare.Internal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,10 +11,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria {
-	public abstract class Engine : PluginFormatResource {
-		readonly ArrayBackedList<Game> GamesMutable = new ArrayBackedList<Game>();
+	public abstract class Engine : PluginFormatAsset {
+		readonly RichList<Game> GamesMutable = new RichList<Game>();
 
-		public override IEnumerable<ResourceFormat> AllFormats {
+		public override IEnumerable<AssetFormat> AllFormats {
 			get {
 				foreach (var format in base.AllFormats)
 					yield return format;
@@ -25,7 +27,7 @@ namespace Alexandria {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public ReadOnlyList<Game> Games { get { return GamesMutable; } }
 
-		public Engine(Plugin plugin)
+		public Engine(AssetPlugin plugin)
 			: base(plugin) {
 		}
 

@@ -14,6 +14,7 @@ namespace Alexandria.Engines.DarkSouls {
 			AddFormat(new TableArchiveFormat(this));
 			//AddFormat(new TextureFormat(this));
 			AddFormat(new TextureArchiveFormat(this));
+			AddFormat(new FsslFormat(this));
 		}
 	}
 }

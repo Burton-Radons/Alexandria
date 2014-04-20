@@ -1,5 +1,5 @@
 ﻿using Alexandria.Engines.Sciagi.Resources;
-using Alexandria.Resources;
+using Glare.Assets;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Engines.Sciagi {
-	public class Resource : Asset {
-		public int CombinedIndex { get { return Id.GetCombinedIndex(Map.EngineVersion); } }
+	public class Resource : DataAsset {
+		public int CombinedIndex { get { return Id.CombinedIndex; } }
 
 		public override string DisplayName {
 			get {
@@ -27,7 +27,7 @@ namespace Alexandria.Engines.Sciagi {
 
 		public ResourceMap Map { get; private set; }
 
-		public Resource(Folder parent, ResourceMap map, ResourceId id)
+		public Resource(FolderAsset parent, ResourceMap map, ResourceId id)
 			: base(parent, id.ToString()) {
 			Map = map;
 			Id = id;
@@ -37,44 +37,75 @@ namespace Alexandria.Engines.Sciagi {
 			var reader = Map.OpenPage(Id.Page);
 			reader.BaseStream.Position = Id.Offset;
 
-			int id = reader.ReadUInt16();
-			int compressedSize = reader.ReadUInt16() - 4;
-			int uncompressedSize = reader.ReadUInt16();
+			ResourceType type;
+			int id, compressedSize, uncompressedSize;
 			CompressionMethod compressionMethod;
-			int compressionCode = reader.ReadUInt16();
+			int compressionCode;
 
-			if (id != CombinedIndex)
-				throw new Exception("Non-matching index.");
+			switch (Id.Version) {
+				case ResourceMapVersion.Sci0:
+					id = reader.ReadUInt16();
+					compressedSize = reader.ReadUInt16() - 4;
+					uncompressedSize = reader.ReadUInt16();
+					compressionCode = reader.ReadUInt16();
 
-			if (compressionCode == 0)
-				compressionMethod = CompressionMethod.None;
-			else
-				switch (Map.EngineVersion) {
-					case EngineVersion.SCI0:
-						switch (compressionCode) {
-							case 0: compressionMethod = CompressionMethod.None; break;
-							case 1: compressionMethod = CompressionMethod.LZW; break;
-							case 2: compressionMethod = CompressionMethod.Huffman; break;
-							default: throw new NotSupportedException("Compression mode " + compressionCode + " for engine " + Map.EngineVersion + " is not supported.");
+					if (id != CombinedIndex)
+						throw new Exception("Non-matching index.");
 
-						}
-						break;
+					switch (compressionCode) {
+						case 0: compressionMethod = CompressionMethod.None; break;
+						case 1: compressionMethod = CompressionMethod.Lzw; break;
+						case 2: compressionMethod = CompressionMethod.Huffman; break;
+						default: throw new NotSupportedException("Compression mode " + compressionCode + " for engine " + Map.EngineVersion + " is not supported.");
 
-					default:
-						throw new NotImplementedException();
-				}
+					}
+					break;
+
+				case ResourceMapVersion.Sci1:
+					type = (ResourceType)reader.ReadByte();
+					id = reader.ReadUInt16();
+					compressedSize = reader.ReadUInt16();
+					uncompressedSize = reader.ReadUInt16();
+					compressionCode = reader.ReadUInt16();
+
+					if(id != CombinedIndex)
+						throw new Exception("Non-matching index.");
+					if (type != (Id.Type | ResourceType.Sci1Mask))
+						throw new InvalidDataException("Incorrect type.");
+
+					switch (compressionCode) {
+						case 0: compressionMethod = CompressionMethod.None; break;
+						case 1: compressionMethod = CompressionMethod.Lzw; break;
+						case 2: compressionMethod = CompressionMethod.Comp3; break;
+						case 18:
+						case 19:
+						case 20:
+							compressionMethod = CompressionMethod.DclImplode;
+							break;
+						default: throw new NotSupportedException("Compression code " + compressionCode + " for engine " + Id.Version + " is not supported.");
+					}
+					break;
+
+				default:
+					throw new NotImplementedException();
+			}
 
 			byte[] data = ResourceDecompressor.Decompress(reader.BaseStream, compressedSize, uncompressedSize, compressionMethod);
 			return new MemoryStream(data, false);
 		}
 
-		protected override Alexandria.Resource Load() {
+		protected override Asset Load() {
 			using (BinaryReader reader = OpenReader()) {
+				var loader = new AssetLoader(reader, Name, FileManager, this);
+
 				switch (Id.Type) {
 					case ResourceType.Picture: return new Picture(reader, this);
+					case ResourceType.Script: return new Script(loader);
 					case ResourceType.Text: return new Text(reader, this);
 					case ResourceType.View: return new View(reader, this);
-					default: throw new NotSupportedException("Resource type " + Id.Type + " is not supported.");
+					case ResourceType.Message: return new Message(reader, this);
+					default: return new BinaryAsset(Manager, Name, reader.ReadBytes(checked((int)reader.BaseStream.Length)));
+					//default: throw new NotSupportedException("Resource type " + Id.Type + " is not supported.");
 				}
 			}
 		}

@@ -42,7 +42,7 @@ namespace Glare.Graphics {
 			bindOffsetInBytes = offsetInBytes;
 			bindFormat = format;
 			bindStride = stride;
-			if (object.ReferenceEquals(Program, Graphics.Program))
+			if (object.ReferenceEquals(Program, Device.Program))
 				DoBind();
 		}
 

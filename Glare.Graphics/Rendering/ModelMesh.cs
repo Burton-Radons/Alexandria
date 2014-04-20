@@ -7,24 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glare.Graphics.Rendering
-{
+namespace Glare.Graphics.Rendering {
 	/// <summary>
-	/// An individual mesh in a <see cref="Model"/>.
+	/// An individual mesh in a <see cref="Model"/>. These are composed of a number of <see cref="ModelPart"/>s.
 	/// </summary>
-	public class ModelMesh : ModelObject
-	{
+	public class ModelMesh : ModelObject {
 		internal ModelBone bone;
 		internal readonly ModelPartCollection parts;
 		Sphere3d bounds;
 
 		/// <summary>Get or set the bone this mesh uses.</summary>
-		public ModelBone Bone
-		{
+		public ModelBone Bone {
 			get { return bone; }
 
-			set
-			{
+			set {
 				if (value != null && !object.ReferenceEquals(value.model, Model))
 					throw new Exception("The given bone is not part of the same model as this mesh.");
 				bone = value;
@@ -36,13 +32,12 @@ namespace Glare.Graphics.Rendering
 
 		public ModelPartCollection Parts { get { return parts; } }
 
-		public ModelMesh()
-		{
+		public ModelMesh() {
 			parts = new ModelPartCollection(this);
 		}
 
-		public ModelMesh(Sphere3d bounds, ModelBone bone, IEnumerable<ModelPart> parts) : this()
-		{
+		public ModelMesh(Sphere3d bounds, ModelBone bone, IEnumerable<ModelPart> parts)
+			: this() {
 			if (bone != null && bone.model != null)
 				bone.model.Meshes.Add(this);
 			Bounds = bounds;
@@ -54,8 +49,7 @@ namespace Glare.Graphics.Rendering
 		public ModelMesh(Sphere3d bounds, ModelBone bone, params ModelPart[] parts) : this(bounds, bone, (IEnumerable<ModelPart>)parts) { }
 	}
 
-	public class ModelMeshCollection : IList<ModelMesh>, INotifyCollectionChanged, INotifyPropertyChanged
-	{
+	public class ModelMeshCollection : IList<ModelMesh>, INotifyCollectionChanged, INotifyPropertyChanged {
 		readonly Model model;
 		readonly List<ModelMesh> list = new List<ModelMesh>();
 
@@ -63,15 +57,13 @@ namespace Glare.Graphics.Rendering
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		internal ModelMeshCollection(Model model)
-		{
+		internal ModelMeshCollection(Model model) {
 			this.model = model;
 		}
 
 		public int IndexOf(ModelMesh item) { return list.IndexOf(item); }
 
-		public ModelMesh Insert(int index, ModelMesh item)
-		{
+		public ModelMesh Insert(int index, ModelMesh item) {
 			if (item == null)
 				throw new ArgumentNullException("item");
 			if (index < 0 || index > Count)
@@ -89,8 +81,7 @@ namespace Glare.Graphics.Rendering
 
 		void IList<ModelMesh>.Insert(int index, ModelMesh item) { Insert(index, item); }
 
-		public void RemoveAt(int index)
-		{
+		public void RemoveAt(int index) {
 			var item = list[index];
 			list.RemoveAt(index);
 			item.model = null;
@@ -100,12 +91,10 @@ namespace Glare.Graphics.Rendering
 				PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Count"));
 		}
 
-		public ModelMesh this[int index]
-		{
+		public ModelMesh this[int index] {
 			get { return list[index]; }
 
-			set
-			{
+			set {
 				if (index < 0 || index >= Count)
 					throw new ArgumentOutOfRangeException("index");
 				Insert(index, value);
@@ -125,8 +114,7 @@ namespace Glare.Graphics.Rendering
 
 		bool ICollection<ModelMesh>.IsReadOnly { get { return false; } }
 
-		public bool Remove(ModelMesh item)
-		{
+		public bool Remove(ModelMesh item) {
 			int index = IndexOf(item);
 			if (index < 0) return false;
 			RemoveAt(index);

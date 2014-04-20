@@ -78,6 +78,8 @@
       <DependentUpon>Extensions.tt</DependentUpon>
     </Compile>
     <Compile Include="Extensions.General.cs" />
+    <Compile Include="Framework\ReadOnlyRichDictionary.cs" />
+    <Compile Include="Framework\RichDictionary.cs" />
     <Compile Include="Frequency.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,9 +95,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Gain.tt</DependentUpon>
     </Compile>
-    <Compile Include="Internal\ArrayBackedList.cs" />
-    <Compile Include="Internal\Bidictionary.cs" />
-    <Compile Include="Internal\BigEndianBinaryReader.cs" />
+    <Compile Include="Framework\RichList.cs" />
+    <Compile Include="Framework\Bidictionary.cs" />
+    <Compile Include="Framework\BigEndianBinaryReader.cs" />
     <Compile Include="Internal\Extensions.cs" />
     <Compile Include="Internal\Extensions.Random.cs" />
     <Compile Include="Internal\Extensions.Template.cs">
@@ -103,10 +105,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Extensions.Template.tt</DependentUpon>
     </Compile>
-    <Compile Include="Internal\ListDebugView.cs" />
-    <Compile Include="Internal\ListIterator.cs" />
-    <Compile Include="Internal\ListDictionary.cs" />
-    <Compile Include="Internal\ReadOnlyList.cs" />
+    <Compile Include="Framework\ListDebugView.cs" />
+    <Compile Include="Framework\ListIterator.cs" />
+    <Compile Include="Framework\ListDictionary.cs" />
+    <Compile Include="Framework\ReadOnlyList.cs" />
     <Compile Include="Length.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -172,7 +174,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Ray.tt</DependentUpon>
     </Compile>
-    <Compile Include="ResourceLoader.cs" />
+    <Compile Include="ResourceSource.cs" />
     <Compile Include="Sphere.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -245,6 +247,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

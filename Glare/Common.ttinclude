@@ -219,11 +219,12 @@ static readonly OperatorInfo[] Operators = new OperatorInfo[] {
 	new OperatorInfo(">>", true),
 };
 
-static VectorTypeFamilyInfo _angleFamily, _lengthFamily, _vectorFamily;
+static VectorTypeFamilyInfo _angleFamily, _lengthFamily, _vectorFamily, _matrixFamily;
 
 static VectorTypeFamilyInfo AngleFamily { get { return _angleFamily ?? (_angleFamily = new VectorTypeFamilyInfo("Angle", 3, 3, SuffixlessDoubleType)); } }
 static VectorTypeFamilyInfo LengthFamily { get { return _lengthFamily ?? (_lengthFamily = new VectorTypeFamilyInfo("Length", 2, 4, SuffixlessDoubleType)); } }
 static VectorTypeFamilyInfo VectorFamily { get { return _vectorFamily ?? (_vectorFamily = new VectorTypeFamilyInfo("Vector", 2, 4, LengthType, SingleType, DoubleType, Int32Type, UInt32Type, ByteType, NormalizedByteType, NormalizedSByteType, SRGBType, SRGBAType, Float16Type)); } }
+static VectorTypeFamilyInfo MatrixFamily { get { return _matrixFamily ?? (_matrixFamily = new VectorTypeFamilyInfo("Matrix", 2, 4, SingleType, DoubleType)); } }
 
 static readonly TypeInfo SingleType = new TypeInfo("Single", "f", 4, TypeShape.Fractional);
 static readonly TypeInfo Float16Type = new TypeInfo("Float16", "h", 2, TypeShape.Fractional, minOrder: 4);

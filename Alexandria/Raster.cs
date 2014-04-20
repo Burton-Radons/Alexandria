@@ -1,4 +1,5 @@
 ﻿using Glare;
+using Glare.Framework;
 using Glare.Internal;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace Alexandria {
 		/// <summary>Get a palette containing the default colors for an EGA adapter.</summary>
 		public static ReadOnlyList<Color> DefaultEgaColors {
 			get {
-				return defaultEgaColors ?? (defaultEgaColors = new ArrayBackedList<Color>() {
+				return defaultEgaColors ?? (defaultEgaColors = new RichList<Color>() {
 					Color.FromArgb(0, 0, 0),
 					Color.FromArgb(0, 0, 170),
 					Color.FromArgb(0, 170, 0),
@@ -78,7 +79,7 @@ namespace Alexandria {
 		public static ReadOnlyList<Color> DefaultEgaColorsWithTransparent {
 			get {
 				if (defaultEgaColorsWithTransparent == null) {
-					var list = new ArrayBackedList<Color>(DefaultEgaColors);
+					var list = new RichList<Color>(DefaultEgaColors);
 					list.Add(Color.Transparent);
 					defaultEgaColorsWithTransparent = list;
 				}
@@ -176,7 +177,7 @@ namespace Alexandria {
 		/// <summary>Create a blended palette, which blends colors from the perspective of either A and B or B and A, but unevenly (unless if <paramref name="blend"/> is <c>0.5</c>). The first colour has <paramref name="blend"/> influence on the result; the second colour has (1 - <paramref name="blend"/>) influence. <see cref="BlendColorIndex"/> and <see cref="BlendColorIndex16"/> can be used to create proper indices.</summary>
 		/// <param name="original"></param>
 		/// <returns></returns>
-		public static ArrayBackedList<Color> BlendPalette(IList<Color> original, double blend = 2.0 / 3.0) {
+		public static RichList<Color> BlendPalette(IList<Color> original, double blend = 2.0 / 3.0) {
 			int count = original.Count;
 			var colors = new Color[count * count];
 
@@ -193,7 +194,7 @@ namespace Alexandria {
 				}
 			}
 
-			return new ArrayBackedList<Color>(colors);
+			return new RichList<Color>(colors);
 		}
 
 		/// <summary>
@@ -239,10 +240,10 @@ namespace Alexandria {
 					for (int output = 0, end = rowWidth * 4; output < end; output += 4, input++) {
 						byte index = data[input];
 						Color color = index < paletteCount ? Palette[index] : Color.Purple;
-						ArgbRow[output + 0] = color.A;
-						ArgbRow[output + 1] = color.R;
-						ArgbRow[output + 2] = color.G;
-						ArgbRow[output + 3] = color.B;
+						ArgbRow[output + 3] = color.A;
+						ArgbRow[output + 2] = color.R;
+						ArgbRow[output + 1] = color.G;
+						ArgbRow[output + 0] = color.B;
 					}
 
 					Marshal.Copy(ArgbRow, 0, bitmapOutput, rowWidth * 4);

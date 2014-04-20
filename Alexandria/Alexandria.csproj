@@ -54,29 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BetterRichTextBox.cs" />
-    <Compile Include="Controls\BinaryResourceBrowser.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\BinaryResourceBrowser.Designer.cs">
-      <DependentUpon>BinaryResourceBrowser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FolderResourceBrowser.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\FolderResourceBrowser.Designer.cs">
-      <DependentUpon>FolderResourceBrowser.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Compression\BitStream.cs" />
+    <Compile Include="Compression\DclImplode.cs" />
+    <Compile Include="Compression\LZW.cs" />
     <Compile Include="Controls\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Controls\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ModelResourceBrowser.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ModelResourceBrowser.Designer.cs">
-      <DependentUpon>ModelResourceBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\PluginManager.cs">
       <SubType>Form</SubType>
@@ -87,31 +72,26 @@
     <Compile Include="DoubleBufferedDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ResourceFormat.cs" />
     <Compile Include="GameInstance.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="MarkingStream.cs" />
     <Compile Include="Raster.cs" />
-    <Compile Include="Resources\Archive.cs" />
-    <Compile Include="Resources\Asset.cs" />
-    <Compile Include="Resources\Folder.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="Manager.cs" />
-    <Compile Include="Plugin.cs" />
-    <Compile Include="Resource.cs" />
+    <Compile Include="AssetManager.cs" />
+    <Compile Include="AlexandriaPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\Binary.cs" />
-    <Compile Include="Resources\IndexedTexture.cs" />
-    <Compile Include="Resources\Model.cs" />
-    <Compile Include="Resources\Palette.cs" />
-    <Compile Include="Resources\Texture.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Platform.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RichTextBuilder.cs" />
     <Compile Include="Unknowns.cs" />
   </ItemGroup>
@@ -127,6 +107,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Glare.Assets\Glare.Assets.csproj">
+      <Project>{e3809e79-fe0a-4425-a1a1-575f6719ec45}</Project>
+      <Name>Glare.Assets</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Glare.Graphics\Glare.Graphics.csproj">
       <Project>{6ec9bd9e-da82-48db-a01b-7bb90e1a1f71}</Project>
       <Name>Glare.Graphics</Name>
@@ -137,27 +121,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\BinaryResourceBrowser.resx">
-      <DependentUpon>BinaryResourceBrowser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FolderResourceBrowser.resx">
-      <DependentUpon>FolderResourceBrowser.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ModelResourceBrowser.resx">
-      <DependentUpon>ModelResourceBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PluginManager.resx">
       <DependentUpon>PluginManager.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Loaders\" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ProgramIcon.ico" />
+    <None Include="Resources\DownArrowImage.png" />
+    <None Include="Resources\DownArrow.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

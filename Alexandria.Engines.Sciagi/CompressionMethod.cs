@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace Alexandria.Engines.Sciagi {
 	public enum CompressionMethod {
 		None,
-		LZW,
+		Lzw,
 		Huffman,
+		Comp3,
+		DclImplode,
 	}
 }

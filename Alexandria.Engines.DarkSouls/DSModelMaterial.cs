@@ -1,7 +1,8 @@
-﻿using Alexandria.Resources;
-using Glare;
+﻿using Glare;
+using Glare.Assets;
+using Glare.Assets.Formats;
+using Glare.Framework;
 using Glare.Graphics;
-using Glare.Graphics.Collada;
 using Glare.Graphics.Loaders;
 using Glare.Graphics.Rendering;
 using Glare.Internal;
@@ -20,13 +21,11 @@ namespace Alexandria.Engines.DarkSouls {
 
 		internal const int DataSize = 4 * 8;
 
-		internal Effect Effect { get; private set; }
-
-		internal Material Material { get; private set; }
-
-		PhongShader Shader;
-
 		public ModelMaterial ModelMaterial { get; private set; }
+
+		public string Name { get; private set; }
+
+		public string ShaderName { get; private set; }
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		readonly ListDictionary<string, DSModelMaterialParameter> ParametersList = new ListDictionary<string, DSModelMaterialParameter>((parameter) => parameter.Name);
@@ -51,102 +50,29 @@ namespace Alexandria.Engines.DarkSouls {
 
 		public DSModelMaterial(DSModel model, int index, BinaryReader reader)
 			: base(model, index) {
-			string effectId = "effect" + Index;
-			string materialId = "material" + Index;
-			string techniqueScopedId = "technique" + Index;
-
-			InstanceEffect instanceEffect;
-			Technique effectExtraTechnique;
-
-			Effect = new Effect(effectId) {
-				Profiles = new ProfileCollection(
-					new ProfileCommon(
-						new ProfileCommonTechnique(techniqueScopedId,
-							Shader = new PhongShader() {
-								Emission = Vector4d.Zero,
-								Ambient = Vector4d.One,
-								Diffuse = Vector4d.One,
-								Specular = Vector4d.One,
-								Shininess = 20.0,
-								Reflective = Vector4d.One,
-								Reflectivity = 0.5,
-								Transparent = Vector4d.One,
-								Transparency = 1.0,
-
-							}))), // PhongShader
-						// ProfileCommonTechnique
-					// ProfileCommon
-				// Profiles
-
-				Extras = new ExtraCollection(new Extra(effectExtraTechnique = new Technique("Dark Souls Material"))),
-			}; // Effect
-
-			Material = new Material() {
-				Id = materialId,
-				InstanceEffect = instanceEffect = new InstanceEffect("#" + effectId)
-			}; // Material
-
-			Effect.Name = reader.ReadStringzAtUInt32(Encoding);
-			effectExtraTechnique.Parameters.Add(new Parameter("shader-name",
-				reader.ReadStringzAtUInt32(Encoding)));
+			Name = reader.ReadStringzAtUInt32(Encoding);
+			ShaderName = reader.ReadStringzAtUInt32(Encoding);
 			ParameterCount = reader.ReadInt32();
 			int parameterStartIndex = reader.ReadInt32();
-			effectExtraTechnique.Parameters.Add(new Parameter("unknown",
-				reader.ReadInt32()));
+			Unknowns.ReadInt32s(reader, 1);
 			if(IsDS2)
-				effectExtraTechnique.Parameters.Add(new Parameter("unknown",
-					reader.ReadInt32()));
+				Unknowns.ReadInt32s(reader, 1);
 			reader.RequireZeroes(4 * (IsDS1 ? 3 : 2));
 
 			if (parameterStartIndex != ParameterStartIndex)
 				throw new InvalidDataException("Parameter start index is not valid.");
 		}
 
-		internal void BuildCollada() {
-			Model.Collada.Effects.Add(Effect);
-			Model.Collada.Materials.Add(Material);
-
-			BuildColladaTexture(Shader.Diffuse, ModelMaterial.DiffuseMap);
-			BuildColladaTexture(Shader.Specular, ModelMaterial.SpecularMap);
-		}
-
-		void BuildColladaTexture(CommonColorOrTextureType currentValue, IResourceSource<Texture2D> source) {
-			Texture2D texture;
-
-			if (source == null || (texture = source.GetResourceValue()) == null)
-				return;
-
-			string textureName = Path.GetFileNameWithoutExtension(texture.Name);
-			string parameterName = "material" + Index + textureName;
-			string imageId = "image" + Index + textureName;
-
-			Image image = new Image() {
-				Id = imageId,
-				InitializeFrom = new InitializeFrom(textureName + ".dds"),
-			};
-			Model.Collada.Images.Add(image);
-
-			/*ColladaEffect.Parameters.Add(
-				new NewParameter(parameterName,
-					new Sampler2D() {
-						InstanceImage = new InstanceImage(textureName + ".dds"),
-					}
-				) // NewParameter
-			); */// Parameters
-
-			currentValue.Texture = new CommonTexture(imageId, "textureCoordinate");
-		}
-
 		static Texture2D GetTexture(IResourceSource<Texture2D> source) { return source != null ? source.GetResourceValue() : null; }
 
-		internal void ReadParameters(BinaryReader reader, Folder textureFolder) {
+		internal void ReadParameters(BinaryReader reader, FolderAsset textureFolder) {
 			int startIndex = ParameterStartIndex;
 
 			for (int index = 0; index < ParameterCount; index++)
 				ParametersList.Add(new DSModelMaterialParameter(this, index, startIndex + index, reader));
 
 			ModelMaterial = new ModelMaterial() {
-				Ambient = Vector3d.One,
+				AmbientColor = Vector3d.One,
 			};
 
 			if (textureFolder != null) {
@@ -154,24 +80,24 @@ namespace Alexandria.Engines.DarkSouls {
 					if (string.IsNullOrEmpty(parameter.Value))
 						continue;
 					string name = Path.GetFileNameWithoutExtension(parameter.Value);
-					Resources.Asset resource = null;
+					DataAsset resource = null;
 
-					foreach (Resources.Asset archiveAsset in textureFolder.Children) {
+					foreach (DataAsset archiveAsset in textureFolder.Children) {
 						var extension = Path.GetExtension(archiveAsset.Name);
 
 						if (extension != ".tpf" && extension != ".tpfbhd")
 							continue;
 
-						Folder archive = archiveAsset.Contents as Folder;
+						FolderAsset archive = archiveAsset.Contents as FolderAsset;
 
 						if (archive == null)
 							continue;
 
-						foreach (Resources.Asset compare in archive.Children)
+						foreach (DataAsset compare in archive.Children)
 							if (compare.Name.StartsWith(name) && (compare.Name.Length == name.Length || compare.Name[name.Length] == '.')) {
 								if (compare.Name.EndsWith(".tpf.dcx")) {
-									Folder textureArchive = (Folder)compare.Contents;
-									resource = (Resources.Asset)textureArchive.Children[0];
+									FolderAsset textureArchive = (FolderAsset)compare.Contents;
+									resource = (DataAsset)textureArchive.Children[0];
 								} else
 									resource = compare;
 
@@ -192,7 +118,7 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
-		IResourceSource<Texture2D> MakeResourceSource(Resources.Asset resource) {
+		IResourceSource<Texture2D> MakeResourceSource(DataAsset resource) {
 			if (resource == null)
 				return null;
 			return new AssetResourceSource<Texture2D>(resource);
@@ -200,15 +126,15 @@ namespace Alexandria.Engines.DarkSouls {
 
 		class AssetResourceSource<T> : IResourceSource<T> {
 			public T GetResourceValue() {
-				Resource contents = AssetResource.Contents;
+				Asset contents = AssetResource.Contents;
 				return (T)contents.GlareObject;
 			}
 
 			object IResourceSource.GetResourceValue() { return GetResourceValue(); }
 
-			readonly Resources.Asset AssetResource;
+			readonly DataAsset AssetResource;
 
-			public AssetResourceSource(Resources.Asset resource) {
+			public AssetResourceSource(DataAsset resource) {
 				AssetResource = resource;
 			}
 		}
@@ -219,7 +145,7 @@ namespace Alexandria.Engines.DarkSouls {
 			SaveTexture(path, ModelMaterial.SpecularMap);
 		}
 
-		static void SaveTexture(string path, IResourceSource<Texture2D> source) {
+		void SaveTexture(string path, IResourceSource<Texture2D> source) {
 			Texture2D texture;
 
 			if (source == null || (texture = source.GetResourceValue()) == null)
@@ -227,7 +153,9 @@ namespace Alexandria.Engines.DarkSouls {
 			string texturePath = TexturePath(source, path);
 			if(File.Exists(texturePath))
 				return;
-			DDSSaver.Save(texturePath, texture);
+			using (Stream stream = File.Open(texturePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+			using (BinaryWriter writer = new BinaryWriter(stream))
+				Model.Manager.GetFormat<DdsFormat>().Save(texture, writer);
 		}
 
 		static string TexturePath(IResourceSource<Texture2D> source, string path) {

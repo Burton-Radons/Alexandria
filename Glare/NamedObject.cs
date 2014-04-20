@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Glare.Framework;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +13,7 @@ namespace Glare
 	/// </summary>
 	public abstract class NamedObject
 	{
-		readonly Dictionary<object, object> tags = new Dictionary<object, object>();
+		readonly RichDictionary<object, object> tags = new RichDictionary<object, object>();
 		string debugName;
 
 		/// <summary>Get or set the name to use when debugging. If this is <c>null</c>, <see cref="Name"/> is returned on get.</summary>
@@ -21,7 +23,7 @@ namespace Glare
 		public string Name { get; set; }
 
 		/// <summary>Get a dictionary of user-defined tags.</summary>
-		public Dictionary<object, object> Tags { get { return tags; } }
+		public RichDictionary<object, object> Tags { get { return tags; } }
 
 		public override string ToString()
 		{

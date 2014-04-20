@@ -7,13 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glare.Graphics.Rendering
-{
+namespace Glare.Graphics.Rendering {
 	/// <summary>
 	/// A part of a <see cref="ModelMesh"/>. This is an individual draw call.
 	/// </summary>
-	public class ModelPart : ModelObject
-	{
+	public class ModelPart : ModelObject {
 		internal ModelMesh mesh;
 
 		readonly ModelMaterial material;
@@ -33,17 +31,15 @@ namespace Glare.Graphics.Rendering
 		/// <summary>Get the primitive type to draw.</summary>
 		public Primitive Primitive { get { return primitive; } }
 
-		public ModelPart(Primitive primitive, int offset, int count, ModelMaterial material)
-		{
+		public ModelPart(Primitive primitive, int offset, int count, ModelMaterial material) {
 			this.primitive = primitive;
 			this.offset = offset;
 			this.count = count;
 			this.material = material;
 		}
 	}
-	
-	public class ModelPartCollection : IList<ModelPart>, INotifyCollectionChanged, INotifyPropertyChanged
-	{
+
+	public class ModelPartCollection : IList<ModelPart>, INotifyCollectionChanged, INotifyPropertyChanged {
 		readonly ModelMesh mesh;
 		readonly List<ModelPart> list = new List<ModelPart>();
 
@@ -51,15 +47,13 @@ namespace Glare.Graphics.Rendering
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		internal ModelPartCollection(ModelMesh mesh)
-		{
+		internal ModelPartCollection(ModelMesh mesh) {
 			this.mesh = mesh;
 		}
 
 		public int IndexOf(ModelPart item) { return list.IndexOf(item); }
 
-		public ModelPart Insert(int index, ModelPart item)
-		{
+		public ModelPart Insert(int index, ModelPart item) {
 			if (item == null)
 				throw new ArgumentNullException("item");
 
@@ -77,8 +71,7 @@ namespace Glare.Graphics.Rendering
 
 		void IList<ModelPart>.Insert(int index, ModelPart item) { Insert(index, item); }
 
-		public void RemoveAt(int index)
-		{
+		public void RemoveAt(int index) {
 			var item = list[index];
 			list.RemoveAt(index);
 			item.mesh = null;
@@ -89,12 +82,10 @@ namespace Glare.Graphics.Rendering
 				PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Count"));
 		}
 
-		public ModelPart this[int index]
-		{
+		public ModelPart this[int index] {
 			get { return list[index]; }
 
-			set
-			{
+			set {
 				if (index < 0 || index >= Count)
 					throw new ArgumentOutOfRangeException("index");
 				Insert(index, value);
@@ -115,8 +106,7 @@ namespace Glare.Graphics.Rendering
 
 		bool ICollection<ModelPart>.IsReadOnly { get { return false; } }
 
-		public bool Remove(ModelPart item)
-		{
+		public bool Remove(ModelPart item) {
 			int index = IndexOf(item);
 			if (index < 0) return false;
 			RemoveAt(index);

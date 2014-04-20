@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Glare.Assets;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,16 +12,19 @@ using System.Windows.Forms;
 
 namespace Alexandria.Controls {
 	public partial class PluginManager : Form {
-		public PluginManager(Manager manager) {
+		public PluginManager(AssetManager manager) {
 			InitializeComponent();
 
-			foreach (Plugin plugin in manager.Plugins)
+			tree.BeginUpdate();
+			foreach (AssetPlugin plugin in manager.Plugins)
 				tree.Nodes.Add(new PluginTreeNode(plugin));
 			tree.ExpandAll();
+			tree.EndUpdate();
 		}
 
 		static TreeNode CreateRoot<T>(TreeNode parent, string name, ICollection<T> collection) {
 			TreeNode node = new TreeNode(collection.Count + " " + name + (collection.Count == 1 ? "" : "s"));
+
 			parent.Nodes.Add(node);
 			return node;
 		}
@@ -42,15 +46,15 @@ namespace Alexandria.Controls {
 					node.Nodes.Add(new GameTreeNode(game));
 		}
 
-		static void CreateSubnode(TreeNode parent, ICollection<ResourceFormat> collection) {
+		static void CreateSubnode(TreeNode parent, ICollection<AssetFormat> collection) {
 			if (collection.Count == 0)
 				return;
 			TreeNode node = CreateRoot(parent, "loader", collection);
-			foreach (ResourceFormat format in collection)
+			foreach (AssetFormat format in collection)
 				node.Nodes.Add(new FormatTreeNode(format));
 		}
 
-		class EngineTreeNode : ResourceTreeNode {
+		class EngineTreeNode : PluginAssetTreeNode {
 			public EngineTreeNode(Engine engine)
 				: base(engine) {
 				ToolTipText = engine.Description;
@@ -60,32 +64,38 @@ namespace Alexandria.Controls {
 			}
 		}
 
-		class GameTreeNode : ResourceTreeNode {
+		class GameTreeNode : PluginAssetTreeNode {
 			public GameTreeNode(Game game)
 				: base(game) {
 				CreateSubnode(this, game.Formats);
 			}
 		}
 
-		class FormatTreeNode : ResourceTreeNode {
-			public FormatTreeNode(ResourceFormat format)
+		class FormatTreeNode : PluginAssetTreeNode {
+			public FormatTreeNode(AssetFormat format)
 				: base(format) {
 			}
 		}
 
-		class PluginTreeNode : ResourceTreeNode {
-			public PluginTreeNode(Plugin plugin)
+		class PluginTreeNode : PluginAssetTreeNode {
+			public PluginTreeNode(AssetPlugin plugin)
 				: base(plugin) {
-				CreateSubnode(this, plugin.Engines);
-				CreateSubnode(this, plugin.Games, null);
+				AlexandriaPlugin aplugin = plugin as AlexandriaPlugin;
+
+				if (aplugin != null) {
+					CreateSubnode(this, aplugin.Engines);
+					CreateSubnode(this, aplugin.Games, null);
+				}
+
 				CreateSubnode(this, plugin.Formats);
 			}
 		}
 
-		abstract class ResourceTreeNode : TreeNode {
-			public ResourceTreeNode(Resource resource)
+		abstract class PluginAssetTreeNode : TreeNode {
+			public PluginAssetTreeNode(PluginAsset resource)
 				: base(resource.DisplayName) {
 				ToolTipText = resource.Description;
+				Checked = resource.IsEnabled;
 			}
 		}
 	}

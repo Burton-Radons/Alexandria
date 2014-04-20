@@ -1,4 +1,5 @@
-﻿using Alexandria.Resources;
+﻿using Glare.Assets;
+using Glare.Framework;
 using Glare.Internal;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Alexandria.Engines.DarkSouls {
 		V5,
 	}
 
-	public class Archive : Resources.Archive {
+	public class Archive : ArchiveAsset {
 		public const string ContentsExtensionEnd = "bdt";
 		public const string HeadersExtensionEnd = "bhd", HeadersExtension5End = "bhd5";
 
@@ -32,12 +33,12 @@ namespace Alexandria.Engines.DarkSouls {
 		public const string PackageMagicBND3 = "BND3";
 		public const string PackageMagicBND4 = "BND4";
 
-		internal readonly ArrayBackedList<ArchiveRecord> records = new ArrayBackedList<ArchiveRecord>();
+		internal readonly RichList<ArchiveRecord> records = new RichList<ArchiveRecord>();
 
 		public Encoding Encoding { get { return IsBigEndian ? Encoding.BigEndianUnicode : Encoding.Unicode; } }
 		public static readonly Encoding ShiftJis = Encoding.GetEncoding("shift-jis");
 
-		public ArchiveGroupCollection Groups { get; private set; }
+		internal FileManager FileManager { get; private set; }
 
 		/// <summary>Null or a string up to eight characters of the form "307D7R6", "14B27P30" or "14B24G16", depending upon archive type; maybe revision-control related?</summary>
 		public string Id { get; private set; }
@@ -67,15 +68,8 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
-		static Stream OpenOtherFile(string path, LoaderFileOpener opener, string suffix, string suffix2 = null) {
-			if (suffix2 != null) {
-				try {
-					return opener(path + suffix2, FileMode.Open, FileAccess.Read, FileShare.Read);
-				} catch (FileNotFoundException) {
-				}
-			}
-
-			return opener(path + suffix, FileMode.Open, FileAccess.Read, FileShare.Read);
+		static Stream OpenOtherFile(string path, FileManager manager, string suffix, string suffix2 = null) {
+			return (suffix2 != null ? manager.TryOpenRead(path + suffix2) : null) ?? manager.OpenRead(path + suffix);
 		}
 
 		static string RemoveSuffix(string path, string suffix, string suffix2 = null) {
@@ -86,9 +80,12 @@ namespace Alexandria.Engines.DarkSouls {
 			return path;
 		}
 
-		public Archive(Manager manager, BinaryReader reader, string path, LoaderFileOpener opener)
-			: base(manager, "Dark Souls archive - " + path) {
-			Groups = new ArchiveGroupCollection();
+		public Archive(AssetManager manager, AssetLoader info)
+			: base(manager, "Dark Souls archive - " + info.Name) {
+			FileManager = new ArchiveFileManager(this);
+			var reader = info.Reader;
+			var path = info.Name;
+			var context = info.FileManager;
 
 			string magic = reader.ReadString(4, Encoding.ASCII);
 			string extension = System.IO.Path.GetExtension(path);
@@ -96,7 +93,7 @@ namespace Alexandria.Engines.DarkSouls {
 			// Switch to the headers file if we got a contents file.
 			if (magic == ContentsMagicBDF3 || magic == ContentsMagicBDF4) {
 				string headersPathBase = RemoveSuffix(path, ContentsExtensionEnd);
-				Stream headersStream = OpenOtherFile(headersPathBase, opener, HeadersExtensionEnd, HeadersExtension5End);
+				Stream headersStream = OpenOtherFile(headersPathBase, context, HeadersExtensionEnd, HeadersExtension5End);
 
 				DataStream = reader.BaseStream;
 				DataReader = reader;
@@ -140,14 +137,8 @@ namespace Alexandria.Engines.DarkSouls {
 						reader = new BigEndianBinaryReader(reader.BaseStream);
 				} else if (magic == HeadersMagicBHD5 || magic == HeadersMagicBHF4 || magic == HeadersMagicBHF3) {
 					string contentsPathBase = RemoveSuffix(path, HeadersExtensionEnd, HeadersExtension5End);
-					DataStream = OpenOtherFile(contentsPathBase, opener, ContentsExtensionEnd);
+					DataStream = OpenOtherFile(contentsPathBase, context, ContentsExtensionEnd);
 
-					/*string contentsExtension =
-						extension == HeadersExtensionTPFBHD ? ContentsExtensionTPFBDT :
-						extension == HeadersExtensionHKXBHD ? ContentsExtensionHKXBDT :
-						ContentsExtensionBDT;
-
-					DataStream = opener(System.IO.Path.ChangeExtension(path, contentsExtension), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);*/
 					DataReader = new BinaryReader(DataStream);
 					if (IsBigEndian)
 						reader = new BigEndianBinaryReader(reader.BaseStream);
@@ -205,31 +196,24 @@ namespace Alexandria.Engines.DarkSouls {
 						reader.Require(0xFF);
 						reader.Require(1);
 						uint totalFileSize = reader.ReadUInt32();
-						int groupCount = reader.ReadInt32();
-						int groupOffsets = reader.ReadInt32();
+						int binCount = reader.ReadInt32();
+						reader.Require(0x18); // Groups offset
 
-						reader.BaseStream.Position = groupOffsets;
-						int[] groupInfo = new int[groupCount * 2];
-						for (int index = 0; index < groupCount * 2; index++)
-							groupInfo[index] = reader.ReadInt32();
+						int[] binInfo = reader.ReadArrayInt32(binCount * 2);
+						for (int index = 0, totalRecordIndex = 0; index < binCount; index++) {
+							reader.BaseStream.Position = binInfo[index * 2 + 1];
+							int count = binInfo[index * 2 + 0];
 
-						for (int index = 0; index < groupCount; index++) {
-							reader.BaseStream.Position = groupInfo[index * 2 + 1];
-							Groups.Add(new ArchiveGroup(this, reader, index, groupInfo[index * 2 + 0]));
+							// Each record in a group belongs to the same "bin"; 
+							for (int recordIndex = 0; recordIndex < count; recordIndex++)
+								new ArchiveRecord(this, totalRecordIndex, reader, -1);
 						}
+
 						break;
 
 					default:
 						throw new NotImplementedException(Variant + " is not implemented, durr");
 				}
-#if false
-				if (IsDarkSoulsII) {
-					if(!IsHeaderlessPackage)
-						reader.RequireMagic(HeadersMagicBHF4);
-				} else if(IsHeaderlessPackage) {
-				} else {
-				}
-#endif
 			} finally {
 				if (!IsHeaderlessPackage)
 					reader.Dispose();
@@ -247,42 +231,49 @@ namespace Alexandria.Engines.DarkSouls {
 			return hash;
 		}
 
-	}
+		class ArchiveFileManager : FileManager {
+			readonly Archive Archive;
 
-	public class ArchiveGroup {
-		public Archive Archive { get; private set; }
+			public ArchiveFileManager(Archive archive) {
+				Archive = archive;
+			}
 
-		public int Index { get; private set; }
+			/*public override LoaderFileOpener FileOpener { get { return MyFileOpener; } }
 
-		public List<ArchiveRecord> Records { get; private set; }
+			class MyFileManager : FileManager {
+			}
+			Stream MyFileOpener(string name, FileMode mode, FileAccess access, FileShare share) {
+				foreach (ArchiveRecord record in Archive.Records) {
+					if (record.PathName == name)
+						return record.Open();
+				}
+				throw new Exception("Archive doesn't contain file '" + name + "'.");
+			}*/
 
-		internal ArchiveGroup(Archive archive, BinaryReader reader, int index, int count) {
-			Records = new List<ArchiveRecord>();
-			Archive = archive;
-			Index = index;
-			for (int recordIndex = 0; recordIndex < count; recordIndex++)
-				Records.Add(new ArchiveRecord(this, recordIndex, reader));
+			public override bool Exists(string path) {
+				foreach(ArchiveRecord record in Archive.Records)
+					if(record.PathName == path)
+						return true;
+				return false;
+			}
+
+			public override Stream Open(string path, FileMode mode, FileAccess access, FileShare share) {
+				foreach (ArchiveRecord record in Archive.Records)
+					if (record.PathName == path)
+						return record.Open();
+				throw new IOException("Archive doesn't contain file '" + path + "'.");
+			}
 		}
 	}
 
-	public class ArchiveRecord : Asset {
+	public class ArchiveRecord : DataAsset {
 		int Compression;
 		long fixedUncompressedSize;
-
-		public override LoaderFileOpener FileOpener { get { return MyFileOpener; } }
-
-		Stream MyFileOpener(string name, FileMode mode, FileAccess access, FileShare share) {
-			foreach (ArchiveRecord record in Archive.Records) {
-				if (record.PathName == name)
-					return record.Open();
-			}
-			throw new Exception("Archive doesn't contain file '" + name + "'.");
-		}
 
 		public Archive Archive {
 			get {
 				Archive archive;
-				for (Resource parent = Parent; parent != null; parent = parent.Parent)
+				for (Asset parent = Parent; parent != null; parent = parent.Parent)
 					if ((archive = parent as Archive) != null)
 						return archive;
 				throw new InvalidOperationException("Archive record is not part of an Archive???");
@@ -297,7 +288,7 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
-		public ArchiveGroup Group { get; private set; }
+		public override FileManager FileManager { get { return Archive.FileManager; } }
 
 		public int Id { get; private set; }
 
@@ -305,10 +296,11 @@ namespace Alexandria.Engines.DarkSouls {
 
 		public long Offset { get; private set; }
 
+		/// <summary>Get the <see cref="Name"/> of the <see cref="Asset"/> along with its path.</summary>
 		public override string PathName {
 			get {
 				string text = "";
-				for (Resource resource = this; !(resource is Archive); resource = resource.Parent) {
+				for (Asset resource = this; !(resource is Archive); resource = resource.Parent) {
 					if (text.Length > 0)
 						text = "/" + text;
 					text = resource.Name + text;
@@ -318,11 +310,6 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 
 		public long Size { get; private set; }
-
-		internal ArchiveRecord(ArchiveGroup group, int index, BinaryReader reader)
-			: this(group.Archive, index, reader, -1) {
-			Group = group;
-		}
 
 		internal ArchiveRecord(Archive archive, int index, BinaryReader reader, int recordHeaderSize)
 			: base(archive, "") {
@@ -497,12 +484,12 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
-		public override BinaryReader OpenReader() {
+		/*public override BinaryReader OpenReader() {
 			return BigEndianBinaryReader.Create(Archive.IsBigEndian ? ByteOrder.BigEndian : ByteOrder.LittleEndian, Open());
-		}
+		}*/
 
 		public override string ToString() {
-			return string.Format("{0}({1}, Offset {2:X}h, Size {3})", GetType().Name, Name, Offset, Size);
+			return string.Format("{0}(Id 0x{4:X}, \"{1}\", Offset {2:X}h, Size {3})", GetType().Name, PathName, Offset, Size, Id);
 		}
 
 		static string ToString(byte value) {
@@ -512,14 +499,12 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
-	public class ArchiveGroupCollection : List<ArchiveGroup> { }
-
-	public class ArchiveFormat : ResourceFormat {
+	public class ArchiveFormat : AssetFormat {
 		public ArchiveFormat(Engine engine)
 			: base(engine, typeof(Archive), canLoad: true) {
 		}
 
-		public override LoadMatchStrength LoadMatch(LoadInfo context) {
+		public override LoadMatchStrength LoadMatch(AssetLoader context) {
 			var reader = context.Reader;
 			string magic = reader.ReadString(4, Encoding.ASCII);
 			if (magic == Archive.ContentsMagicBDF3 || magic == Archive.HeadersMagicBHD5 || magic == Archive.ContentsMagicBDF4 || magic == Archive.HeadersMagicBHF4 || magic == Archive.PackageMagicBND4 || magic == Archive.PackageMagicBND3 || magic == Archive.HeadersMagicBHF3)
@@ -527,8 +512,8 @@ namespace Alexandria.Engines.DarkSouls {
 			return LoadMatchStrength.None;
 		}
 
-		public override Resource Load(LoadInfo context) {
-			return new Archive(Manager, context.Reader, context.Name, context.Opener);
+		public override Asset Load(AssetLoader info) {
+			return new Archive(Manager, info);
 		}
 	}
 }

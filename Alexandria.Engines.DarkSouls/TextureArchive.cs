@@ -1,5 +1,4 @@
-﻿using Alexandria.Resources;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,27 +9,33 @@ using Glare.Internal;
 using Glare;
 using Glare.Graphics;
 using System.Resources;
+using Glare.Framework;
+using Glare.Assets;
 
 namespace Alexandria.Engines.DarkSouls {
-	public class TextureArchive : Folder {
+	public class TextureArchive : FolderAsset {
 		public const string Magic = "TPF\0";
 
 		internal readonly Stream Stream;
 
 		public DSPlatform Platform { get; private set; }
 
-		public TextureArchive(Manager manager, BinaryReader reader, string name)
+		public ByteOrder ByteOrder { get; private set; }
+
+		public TextureArchive(AssetManager manager, BinaryReader reader, string name)
 			: base(manager, name) {
+			ByteOrder = ByteOrder.LittleEndian;
+
 			reader.RequireMagic(Magic);
 			var totalSize = reader.ReadInt32();
 			var count = reader.ReadInt32();
-			ByteOrder order = ByteOrder.LittleEndian;
+			ByteOrder = ByteOrder.LittleEndian;
 
 			int code = reader.ReadInt32();
 			if (code == 0x20302) {
 				totalSize = totalSize.ReverseBytes();
 				count = count.ReverseBytes();
-				order = ByteOrder.BigEndian;
+				ByteOrder = ByteOrder.BigEndian;
 				Platform = DSPlatform.PS3;
 			} else if(code == 0x02030200) { // BigEndianBinaryReader, PS3
 				Platform = DSPlatform.PS3;
@@ -38,7 +43,7 @@ namespace Alexandria.Engines.DarkSouls {
 				throw new InvalidDataException();
 
 			for (int index = 0; index < count; index++)
-				new TextureArchiveRecord(this, reader, order);
+				new TextureArchiveRecord(this, reader, ByteOrder);
 			Stream = reader.BaseStream;
 		}
 
@@ -49,7 +54,7 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
-	public class TextureArchiveRecord : Asset {
+	public class TextureArchiveRecord : DataAsset {
 		readonly int Offset;
 		readonly int Size;
 		readonly int Id;
@@ -73,15 +78,17 @@ namespace Alexandria.Engines.DarkSouls {
 			if (Archive.Platform == DSPlatform.PS3) {
 				int format = reader.ReadInt16(order);
 				Id = reader.ReadInt16(order);
-				Ps3Dimensions = new Vector2i(reader.ReadUInt16(), reader.ReadUInt16());
+				Ps3Dimensions = new Vector2i(reader.ReadUInt16(order), reader.ReadUInt16(order));
 
 				switch (format) {
 					case 0: Ps3Format = TextureFormats.DXT1; break;
 					case 0x0500: Ps3Format = TextureFormats.DXT5; break;
-					default: throw new NotSupportedException(string.Format("PS3 format 0x{0:X8} (dimensions {1}, data size {2}) is not known.", format, Ps3Dimensions, Size));
+					case 0x0900: Ps3Format = TextureFormats.Vector4nb; break;
+					default: throw new NotSupportedException(string.Format("PS3 format 0x{0:X4} (dimensions {1}, data size {2}) is not known.", format, Ps3Dimensions, Size));
 				}
 
-				reader.RequireZeroes(8);
+				Unknowns.ReadInt32s(reader, 1);
+				reader.RequireZeroes(4);
 			} else {
 				Id = reader.ReadInt32(order);
 			}
@@ -99,7 +106,7 @@ namespace Alexandria.Engines.DarkSouls {
 			return new MemoryStream(data, false);
 		}
 
-		protected override Resource Load() {
+		protected override Asset Load() {
 			if (Archive.Platform == DSPlatform.PS3) {
 				using (var stream = Open()) {
 					Texture2D texture = new Texture2D();
@@ -120,23 +127,23 @@ namespace Alexandria.Engines.DarkSouls {
 						dimensions.Y = Math.Max(1, (dimensions.Y + 1) / 2);
 					}
 
-					return new Resources.Texture(Manager, texture, Name);
+					return new TextureAsset(Manager, texture, Name);
 				}
 			} else
 				return base.Load();
 		}
 	}
 
-	class TextureArchiveFormat : ResourceFormat {
+	class TextureArchiveFormat : AssetFormat {
 		public TextureArchiveFormat(Engine engine)
 			: base(engine, typeof(TextureArchive), canLoad: true) {
 		}
 
-		public override LoadMatchStrength LoadMatch(LoadInfo info) {
+		public override LoadMatchStrength LoadMatch(AssetLoader info) {
 			return info.Reader.MatchMagic(TextureArchive.Magic) ? LoadMatchStrength.Medium : LoadMatchStrength.None;
 		}
 
-		public override Resource Load(LoadInfo info) {
+		public override Asset Load(AssetLoader info) {
 			return new TextureArchive(Manager, info.Reader, info.Name);
 		}
 	}

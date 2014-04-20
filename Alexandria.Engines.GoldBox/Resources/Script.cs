@@ -10,9 +10,11 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using Glare.Framework;
+using Glare.Assets;
 
 namespace Alexandria.Engines.GoldBox.Resources {
-	public class Script : Resource {
+	public class Script : Asset {
 		public const int AddressOffset = 0x7FFE;
 
 		public long CodeAddressA { get; private set; }
@@ -22,7 +24,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		public long CodeAddressE { get; private set; }
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		ArrayBackedList<ScriptInstruction> InstructionsMutable = new ArrayBackedList<ScriptInstruction>();
+		RichList<ScriptInstruction> InstructionsMutable = new RichList<ScriptInstruction>();
 
 		public string ExceptionEnd { get; private set; }
 
@@ -42,7 +44,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			return null;
 		}
 
-		public Script(Manager manager, BinaryReader reader, string name)
+		public Script(AssetManager manager, BinaryReader reader, string name)
 			: base(manager, name) {
 			long end = reader.BaseStream.Length;
 
@@ -189,7 +191,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		}
 	}
 
-	class ScriptFormat : ResourceFormat {
+	class ScriptFormat : AssetFormat {
 		public ScriptFormat(Engine engine)
 			: base(engine, typeof(Script), canLoad: true) {
 		}
@@ -199,7 +201,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			return address >= 22 && address < length;
 		}
 
-		public override LoadMatchStrength LoadMatch(LoadInfo info) {
+		public override LoadMatchStrength LoadMatch(AssetLoader info) {
 			var reader = info.Reader;
 			long length = reader.BaseStream.Length;
 			if (length < 22)
@@ -216,7 +218,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			return LoadMatchStrength.Medium;
 		}
 
-		public override Resource Load(LoadInfo info) {
+		public override Asset Load(AssetLoader info) {
 			return new Script(Manager, info.Reader, info.Name);
 		}
 	}

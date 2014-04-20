@@ -1,5 +1,5 @@
 ﻿using Glare;
-using Glare.Graphics.Collada;
+using Glare.Framework;
 using Glare.Graphics.Loaders;
 using Glare.Internal;
 using System;
@@ -23,7 +23,7 @@ namespace Alexandria.Engines.DarkSouls {
 		public DSModelVertexChannel PositionChannel {
 			get {
 				foreach (DSModelVertexChannel channel in Channels)
-					if (channel.Semantic == InputSemantic.Vertex && channel.Set == 0)
+					if (channel.Usage == DSModelVertexUsage.Position && channel.Set == 0)
 						return channel;
 				throw new InvalidDataException("There is no position channel somehow.");
 			}
@@ -47,7 +47,7 @@ namespace Alexandria.Engines.DarkSouls {
 			long reset = reader.BaseStream.Position;
 
 			reader.BaseStream.Position = offset;
-			var blocks = new ArrayBackedList<DSModelVertexChannel>();
+			var blocks = new RichList<DSModelVertexChannel>();
 			Channels = blocks;
 			for (int blockIndex = 0; blockIndex < count; blockIndex++)
 				blocks.Add(new DSModelVertexChannel(this, reader, blockIndex));
@@ -71,7 +71,7 @@ namespace Alexandria.Engines.DarkSouls {
 
 		public DSModelVertexFormat Format { get; private set; }
 
-		public InputSemantic Semantic { get; private set; }
+		public DSModelVertexUsage Usage { get; private set; }
 
 		public int Set { get; private set; }
 
@@ -80,7 +80,7 @@ namespace Alexandria.Engines.DarkSouls {
 
 		public int ValueEndOffset { get { return VertexStartOffset + VertexOrder; } }
 
-		public string VertexId { get { return Semantic + (Set > 0 ? Set.ToString() : ""); } }
+		public string VertexId { get { return Usage + (Set > 0 ? Set.ToString() : ""); } }
 
 		/// <summary>Get the number of vertex axes in the channel.</summary>
 		public int VertexOrder {
@@ -106,32 +106,6 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
-		public Parameter[] VertexParameters {
-			get {
-				switch (VertexOrder) {
-					case 2: return new Parameter[] {
-						new Parameter("X", ParameterType.Double),
-						new Parameter("Y", ParameterType.Double),
-					};
-
-					case 3: return new Parameter[] {
-						new Parameter("X", ParameterType.Double),
-						new Parameter("Y", ParameterType.Double),
-						new Parameter("Z", ParameterType.Double),
-					};
-
-					case 4: return new Parameter[] {
-						new Parameter("X", ParameterType.Double),
-						new Parameter("Y", ParameterType.Double),
-						new Parameter("Z", ParameterType.Double),
-						new Parameter("W", ParameterType.Double),
-					};
-
-					default: throw new NotImplementedException();
-				}
-			}
-		}
-
 		#endregion Properties
 
 		internal DSModelVertexChannel(DSModelVertexDeclaration declaration, BinaryReader reader, int index)
@@ -140,7 +114,7 @@ namespace Alexandria.Engines.DarkSouls {
 			reader.RequireZeroes(4);
 			Offset = reader.ReadInt32();
 			Format = (DSModelVertexFormat)reader.ReadInt32();
-			Semantic = D3D.InputSemanticConverter[(D3DDeclarationUsage)reader.ReadInt32()];
+			Usage = (DSModelVertexUsage)reader.ReadInt32();
 			Set = reader.ReadInt32();
 		}
 
@@ -217,7 +191,7 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 
 		public override string ToString() {
-			return string.Format("{0}(Offset {1}, Type {2}, Usage {3}{4})", GetType().Name, Offset, Format, Semantic, Set > 0 ? "+" + Set : "");
+			return string.Format("{0}(Offset {1}, Type {2}, Usage {3}{4})", GetType().Name, Offset, Format, Usage, Set > 0 ? "+" + Set : "");
 		}
 	}
 
@@ -263,8 +237,6 @@ namespace Alexandria.Engines.DarkSouls {
 		/// <summary>DS2; used by normal, blend indices, tangent.</summary>
 		Vector4nsb2 = 47,
 	}
-#if false
-#endif
 
 	/// <summary>From D3DDECLUSAGE.</summary>
 	public enum DSModelVertexUsage : int {

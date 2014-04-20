@@ -38,7 +38,7 @@ namespace Glare.Graphics.Rendering
 
 		public Vector4d DiffuseColor { get { return diffuseColorValue; } set { diffuseColorValue = value; if (diffuseColor != null) diffuseColor.Set(ref value); } }
 
-		public Texture2D DiffuseMap { get { return diffuseMapValue; } set { diffuseMapValue = value; if (diffuseMap != null) diffuseMap.Set(value ?? Graphics.WhiteTexture); } }
+		public Texture2D DiffuseMap { get { return diffuseMapValue; } set { diffuseMapValue = value; if (diffuseMap != null) diffuseMap.Set(value ?? Device.WhiteTexture); } }
 
 		public BasicProgramDisplayMode DisplayMode { get { return displayModeValue; } set { displayModeValue = value; if (displayMode != null) displayMode.Set((int)value); } }
 
@@ -94,7 +94,7 @@ namespace Glare.Graphics.Rendering
 
 				(ambientLight = Uniforms["AmbientLight"]).Set(ref ambientLightValue);
 				(diffuseColor = Uniforms["DiffuseColor"]).Set(ref diffuseColorValue);
-				(diffuseMap = Uniforms["DiffuseMap"]).Set(diffuseMapValue ?? Graphics.WhiteTexture);
+				(diffuseMap = Uniforms["DiffuseMap"]).Set(diffuseMapValue ?? Device.WhiteTexture);
 				(displayMode = Uniforms["DisplayMode"]).Set((int)displayModeValue);
 				(projection = Uniforms["Projection"]).Set(ref projectionValue);
 				(view = Uniforms["View"]).Set(ref viewValue);
@@ -111,7 +111,7 @@ namespace Glare.Graphics.Rendering
 		}
 
 		public void BindMaterial(ModelMaterial material) {
-			AmbientLight = material.Ambient;
+			AmbientLight = material.AmbientColor;
 			DiffuseColor = new Vector4d(material.DiffuseColor, material.Opacity);
 			DiffuseMap = material.DiffuseTexture;
 		}

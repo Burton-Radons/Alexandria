@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 using Glare.Internal;
 using Glare.Graphics.Rendering;
+using Glare.Framework;
 
 namespace Glare.Graphics.Terrains.Planar {
 	/// <summary>
@@ -66,7 +67,7 @@ namespace Glare.Graphics.Terrains.Planar {
 		/// </summary>
 		readonly internal List<TerrainComponent> ComponentsNodeLodBlend = new List<TerrainComponent>();
 
-		ArrayBackedList<Vector4f> InstanceArray = new ArrayBackedList<Vector4f>();
+		RichList<Vector4f> InstanceArray = new RichList<Vector4f>();
 
 		internal GraphicsBuffer InstanceVertexBuffer;
 

@@ -1,5 +1,4 @@
-﻿using Alexandria.Resources;
-using Glare;
+﻿using Glare;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Glare.Internal;
 using System.Resources;
+using Glare.Assets;
 
 namespace Alexandria.Engines.DarkSouls {
-	public class TableArchive : Folder {
-		public TableArchive(Manager manager, BinaryReader reader, string name)
+	public class TableArchive : FolderAsset {
+		public TableArchive(AssetManager manager, BinaryReader reader, string name)
 			: base(manager, name) {
 			long length = reader.BaseStream.Position;
 
@@ -21,7 +21,7 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
-	public class Table : Folder {
+	public class Table : FolderAsset {
 		public Table(TableArchive archive, BinaryReader reader)
 			: base(archive, "Dark Souls Table") {
 			reader.RequireZeroes(4);
@@ -41,7 +41,7 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
-	public abstract class TableRow : Resource {
+	public abstract class TableRow : Asset {
 		public TableRow(Table table, int index)
 			: base(table, table.Name + " row " + index) {
 		}
@@ -125,12 +125,12 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
-	class TableArchiveFormat : ResourceFormat {
+	class TableArchiveFormat : AssetFormat {
 		public TableArchiveFormat(Engine engine)
 			: base(engine, typeof(TableArchive), canLoad: true) {
 		}
 
-		public override LoadMatchStrength LoadMatch(LoadInfo context) {
+		public override LoadMatchStrength LoadMatch(AssetLoader context) {
 			return LoadMatchStrength.None;
 			/*if (reader.BaseStream.Length < 16)
 				return LoaderMatchLevel.None;
@@ -144,7 +144,7 @@ namespace Alexandria.Engines.DarkSouls {
 			return LoaderMatchLevel.Medium;*/
 		}
 
-		public override Resource Load(LoadInfo context) {
+		public override Asset Load(AssetLoader context) {
 			return new TableArchive(Manager, context.Reader, context.Name);
 		}
 	}

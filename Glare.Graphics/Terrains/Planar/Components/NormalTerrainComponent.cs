@@ -45,9 +45,9 @@ namespace Glare.Graphics.Terrains.Planar.Components
 			var effect = Terrain.Program; // NormalEffect
 			effect.Uniforms["heightTexture"].Set(block.HeightTexture);
 			Terrain.FrameBuffer.Colors[0].Attach(Get(block));
-			Graphics.FrameBuffer = Terrain.FrameBuffer;
+			Device.FrameBuffer = Terrain.FrameBuffer;
 			Terrain.DrawUnitRectangle("normal");
-			Graphics.FrameBuffer = null;
+			Device.FrameBuffer = null;
 
 			effect.Uniforms["heightTexture"].Set((Texture2D)null);
 		}

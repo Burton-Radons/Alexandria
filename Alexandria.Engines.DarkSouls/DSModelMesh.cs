@@ -1,6 +1,6 @@
 ﻿using Glare;
+using Glare.Framework;
 using Glare.Graphics;
-using Glare.Graphics.Collada;
 using Glare.Internal;
 using System;
 using System.Collections.Generic;
@@ -76,7 +76,7 @@ namespace Alexandria.Engines.DarkSouls {
 			long reset = reader.BaseStream.Position;
 
 			reader.BaseStream.Position = boneIndicesOffset;
-			var bones = new ArrayBackedList<DSModelBone>();
+			var bones = new RichList<DSModelBone>();
 			Bones = bones;
 			for (int i = 0; i < boneCount; i++)
 				bones.Add(model.Bones[reader.ReadInt32()]);
@@ -91,109 +91,6 @@ namespace Alexandria.Engines.DarkSouls {
 			reader.Require(Index);
 
 			reader.BaseStream.Position = reset;
-		}
-
-		Geometry Geometry;
-		internal Node ColladaNode { get; private set; }
-
-		internal void BuildCollada() {
-			DSModelVertexDeclaration declaration = VertexDeclaration;
-			int stride = declaration.ValueCount;
-			float[][] values = new float[declaration.Channels.Count][]; // Vertex data.
-			var channels = VertexDeclaration.Channels;
-			DSModelVertexChannel position = declaration.PositionChannel;
-			List<int> triangles = new List<int>(PartCount);
-
-			string geometryId = "geometry" + Index;
-			string sourceId = "source" + Index;
-			string arrayElementId = "array" + Index;
-			string verticesId = "vertex" + Index;
-			string nodeId = "node" + Index;
-			string geometryMaterialId = "geometryMaterial" + Index;
-
-			Source[] sources = new Source[channels.Count];
-			SharedInputCollection inputs = new SharedInputCollection(channels.Count);
-
-			foreach (DSModelVertexChannel channel in channels) {
-				values[channel.Index] = new float[channel.VertexOrder * VertexCount];
-			}
-
-			// Build the values.
-			using (BinaryReader reader = CreateVertexDataReader()) {
-				for (int vertexIndex = 0; vertexIndex < VertexCount; vertexIndex++) {
-					int dataOffset = 0;
-
-					foreach (DSModelVertexChannel channel in channels) {
-						Vector4f value = channel.Read(reader, ref dataOffset);
-						float[] channelValues = values[channel.Index];
-						int valueOffset = channel.VertexOrder * vertexIndex;
-
-						channelValues[valueOffset++] = value.X;
-						channelValues[valueOffset++] = value.Y;
-						if (channel.VertexOrder > 2) {
-							channelValues[valueOffset++] = value.Z;
-							if (channel.VertexOrder > 3)
-								channelValues[valueOffset++] = value.W;
-							if (channel.VertexOrder > 4)
-								throw new NotImplementedException();
-						}
-					}
-
-					if (dataOffset != VertexSize)
-						throw new InvalidDataException();
-				}
-			}
-
-			// Build the strips.
-			foreach (DSModelPart part in Parts) {
-				part.BuildCollada(triangles);
-			}
-
-			// Build the Sources and SharedInputs.
-			foreach (DSModelVertexChannel channel in channels) {
-				Source source = sources[channel.Index] = new Source(sourceId + channel.VertexId) {
-					TechniqueCommon = new SourceTechniqueCommon(
-						new Accessor("#" + arrayElementId + channel.VertexId, VertexCount, channel.VertexOrder, channel.VertexStartOffset, channel.VertexParameters)),
-					// CommonTechnique
-
-					Elements = new SingleArrayElement(arrayElementId + channel.VertexId, values[channel.Index]),
-				}; // Source
-
-				SharedInput input = new SharedInput() {
-					Semantic = channel.Semantic,
-					Source = "#" + (channel == position ? verticesId : source.Id),
-					Offset = 0, // Just reuse the same index offset.
-					Set = channel.Set,
-				};
-				inputs.Add(input);
-			}
-
-			// Build the geometry object.
-			Geometry = new Geometry(geometryId) {
-				Element = new Mesh() {
-					Sources = new SourceCollection(sources),
-					Vertices = new VertexCollection(verticesId, new Input(InputSemantic.Position, "#" + sources[position.Index].Id)),
-					Elements = new MeshPrimitivesCollection(
-						new MeshTriangles() {
-							Inputs = inputs,
-							Elements = triangles,
-							Material = geometryMaterialId,
-						})
-				}, // Element/Mesh
-			}; // Geometry
-			Model.Collada.Geometries.Add(Geometry);
-
-			// Build the Node.
-			ColladaNode = new Node(nodeId) {
-				GeometryInstances = new GeometryInstanceCollection() {
-					new InstanceGeometry("#" + geometryId,
-						new BindMaterial(
-							new BindMaterialTechniqueCommon(
-								new InstanceMaterial(geometryMaterialId, "#" + Material.Material.Id) {
-
-								}))),
-				},
-			};
 		}
 
 		/// <summary>Create a <see cref="BinaryReader"/> for the <see cref="VertexData"/>.</summary>
@@ -220,16 +117,16 @@ namespace Alexandria.Engines.DarkSouls {
 					foreach (DSModelVertexChannel channel in channels) {
 						Vector4f value = channel.Read(reader, ref offset);
 
-						switch (channel.Semantic) {
-							case InputSemantic.Vertex: position = new Vector3f(value.X, value.Y, value.Z); break;
-							case InputSemantic.Normal: normal = new Vector3f(value.X, value.Y, value.Z); break;
-							case InputSemantic.Joint: boneIndices = (Vector4i)value; break;
-							case InputSemantic.Weight: boneWeights = (Vector4f)value; break;
-							case InputSemantic.Tangent: tangent = value; break;
-							case InputSemantic.Color: color = (Vector4rgba)value; break;
-							case InputSemantic.TextureCoordinate: textureCoordinate = new Vector2f(value.X, value.Y); break;
-							case InputSemantic.Binormal: binormal = value; break;
-							default: throw new NotImplementedException("Usage " + channel.Semantic + " is not implemented.");
+						switch (channel.Usage) {
+							case DSModelVertexUsage.Position: position = new Vector3f(value.X, value.Y, value.Z); break;
+							case DSModelVertexUsage.Normal: normal = new Vector3f(value.X, value.Y, value.Z); break;
+							case DSModelVertexUsage.BlendIndices: boneIndices = (Vector4i)value; break;
+							case DSModelVertexUsage.BlendWeight: boneWeights = (Vector4f)value; break;
+							case DSModelVertexUsage.Tangent: tangent = value; break;
+							case DSModelVertexUsage.Color: color = (Vector4rgba)value; break;
+							case DSModelVertexUsage.TextureCoordinate: textureCoordinate = new Vector2f(value.X, value.Y); break;
+							case DSModelVertexUsage.Binormal: binormal = value; break;
+							default: throw new NotImplementedException("Usage " + channel.Usage + " is not implemented.");
 						}
 					}
 
@@ -253,7 +150,7 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 
 		internal void ReadParts(BinaryReader reader, int dataOffset) {
-			var parts = new ArrayBackedList<DSModelPart>();
+			var parts = new RichList<DSModelPart>();
 			Parts = parts;
 			for (int index = 0; index < PartCount; index++)
 				parts.Add(new DSModelPart(this, index, reader, dataOffset));

@@ -1,5 +1,6 @@
 ﻿using Alexandria.Engines.Sciagi.Controls;
 using Glare;
+using Glare.Framework;
 using Glare.Internal;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,13 @@ using System.Threading.Tasks;
 namespace Alexandria.Engines.Sciagi.Resources {
 	public class View : ResourceData {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly ArrayBackedList<ViewAnimation> AnimationsMutable = new ArrayBackedList<ViewAnimation>();
+		readonly RichList<ViewAnimation> AnimationsMutable = new RichList<ViewAnimation>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly ArrayBackedList<ViewCell> CellsMutable = new ArrayBackedList<ViewCell>();
+		readonly RichList<ViewCell> CellsMutable = new RichList<ViewCell>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly ArrayBackedList<ViewGroup> GroupsMutable = new ArrayBackedList<ViewGroup>();
+		readonly RichList<ViewGroup> GroupsMutable = new RichList<ViewGroup>();
 
 		public ReadOnlyList<ViewAnimation> Animations { get { return AnimationsMutable; } }
 
@@ -103,7 +104,7 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		internal ViewAnimation(View view, BinaryReader reader) {
 			View = view;
 
-			var cells = new ArrayBackedList<ViewCell>();
+			var cells = new RichList<ViewCell>();
 			Cells = cells;
 
 			DataOffset = (ushort)reader.BaseStream.Position;

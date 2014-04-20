@@ -1,5 +1,4 @@
-﻿using Alexandria.Resources;
-using Glare.Graphics;
+﻿using Glare.Graphics;
 using Glare.Internal;
 using System;
 using System.Collections.Generic;

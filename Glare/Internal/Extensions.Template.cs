@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Glare.Framework;
 
 namespace Glare.Internal {
 	public static partial class Extensions {
@@ -27,16 +28,10 @@ namespace Glare.Internal {
 			public static Byte[] ReadArrayByte(this BinaryReader reader, int count) { Byte[] array = new Byte[count]; reader.ReadArray(array, 0, count); return array; }
 
 			/// <summary>Read a <c>Byte</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
-			public static void ReadExpected(this BinaryReader reader, Byte expected) {
+			public static void Require(this BinaryReader reader, Byte expected) {
 				Byte value = reader.ReadByte();
 				if(value != expected)
 					throw CreateExpectationException(expected, value);
-			}
-
-			public static void Require(this BinaryReader reader, Byte value) {
-				Byte read = reader.ReadByte();
-				if (read != value)
-					throw new Exception("Expected Byte " + value + " but received " + read + ".");
 			}
 
 			/// <summary>Seek to the position and read a <see cref="Byte"/>.</summary>
@@ -61,16 +56,10 @@ namespace Glare.Internal {
 			public static SByte[] ReadArraySByte(this BinaryReader reader, int count) { SByte[] array = new SByte[count]; reader.ReadArray(array, 0, count); return array; }
 
 			/// <summary>Read a <c>SByte</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
-			public static void ReadExpected(this BinaryReader reader, SByte expected) {
+			public static void Require(this BinaryReader reader, SByte expected) {
 				SByte value = reader.ReadSByte();
 				if(value != expected)
 					throw CreateExpectationException(expected, value);
-			}
-
-			public static void Require(this BinaryReader reader, SByte value) {
-				SByte read = reader.ReadSByte();
-				if (read != value)
-					throw new Exception("Expected SByte " + value + " but received " + read + ".");
 			}
 
 			/// <summary>Seek to the position and read a <see cref="SByte"/>.</summary>
@@ -95,16 +84,10 @@ namespace Glare.Internal {
 			public static Int16[] ReadArrayInt16(this BinaryReader reader, int count) { Int16[] array = new Int16[count]; reader.ReadArray(array, 0, count); return array; }
 
 			/// <summary>Read a <c>Int16</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
-			public static void ReadExpected(this BinaryReader reader, Int16 expected) {
+			public static void Require(this BinaryReader reader, Int16 expected) {
 				Int16 value = reader.ReadInt16();
 				if(value != expected)
 					throw CreateExpectationException(expected, value);
-			}
-
-			public static void Require(this BinaryReader reader, Int16 value) {
-				Int16 read = reader.ReadInt16();
-				if (read != value)
-					throw new Exception("Expected Int16 " + value + " but received " + read + ".");
 			}
 
 			/// <summary>Seek to the position and read a <see cref="Int16"/>.</summary>
@@ -140,6 +123,13 @@ namespace Glare.Internal {
 
 				/// <summary>Read an array of <c>Int16</c> values.</summary>
 				public static Int16[] ReadArrayInt16(this BinaryReader reader, int count, ByteOrder byteOrder) { Int16[] array = new Int16[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
+
+				/// <summary>Read a <c>Int16</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
+				public static void Require(this BinaryReader reader, Int16 expected, ByteOrder byteOrder) {
+					Int16 value = reader.ReadInt16(byteOrder);
+					if(value != expected)
+						throw CreateExpectationException(expected, value);
+				}
 								/// <summary>Read a <c>Int32</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, Int32 expected) {
 				Int32 value = reader.ReadInt32();
@@ -156,16 +146,10 @@ namespace Glare.Internal {
 			public static Int32[] ReadArrayInt32(this BinaryReader reader, int count) { Int32[] array = new Int32[count]; reader.ReadArray(array, 0, count); return array; }
 
 			/// <summary>Read a <c>Int32</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
-			public static void ReadExpected(this BinaryReader reader, Int32 expected) {
+			public static void Require(this BinaryReader reader, Int32 expected) {
 				Int32 value = reader.ReadInt32();
 				if(value != expected)
 					throw CreateExpectationException(expected, value);
-			}
-
-			public static void Require(this BinaryReader reader, Int32 value) {
-				Int32 read = reader.ReadInt32();
-				if (read != value)
-					throw new Exception("Expected Int32 " + value + " but received " + read + ".");
 			}
 
 			/// <summary>Seek to the position and read a <see cref="Int32"/>.</summary>
@@ -201,6 +185,13 @@ namespace Glare.Internal {
 
 				/// <summary>Read an array of <c>Int32</c> values.</summary>
 				public static Int32[] ReadArrayInt32(this BinaryReader reader, int count, ByteOrder byteOrder) { Int32[] array = new Int32[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
+
+				/// <summary>Read a <c>Int32</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
+				public static void Require(this BinaryReader reader, Int32 expected, ByteOrder byteOrder) {
+					Int32 value = reader.ReadInt32(byteOrder);
+					if(value != expected)
+						throw CreateExpectationException(expected, value);
+				}
 								/// <summary>Read a <c>Int64</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, Int64 expected) {
 				Int64 value = reader.ReadInt64();
@@ -217,16 +208,10 @@ namespace Glare.Internal {
 			public static Int64[] ReadArrayInt64(this BinaryReader reader, int count) { Int64[] array = new Int64[count]; reader.ReadArray(array, 0, count); return array; }
 
 			/// <summary>Read a <c>Int64</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
-			public static void ReadExpected(this BinaryReader reader, Int64 expected) {
+			public static void Require(this BinaryReader reader, Int64 expected) {
 				Int64 value = reader.ReadInt64();
 				if(value != expected)
 					throw CreateExpectationException(expected, value);
-			}
-
-			public static void Require(this BinaryReader reader, Int64 value) {
-				Int64 read = reader.ReadInt64();
-				if (read != value)
-					throw new Exception("Expected Int64 " + value + " but received " + read + ".");
 			}
 
 			/// <summary>Seek to the position and read a <see cref="Int64"/>.</summary>
@@ -262,6 +247,13 @@ namespace Glare.Internal {
 
 				/// <summary>Read an array of <c>Int64</c> values.</summary>
 				public static Int64[] ReadArrayInt64(this BinaryReader reader, int count, ByteOrder byteOrder) { Int64[] array = new Int64[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
+
+				/// <summary>Read a <c>Int64</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
+				public static void Require(this BinaryReader reader, Int64 expected, ByteOrder byteOrder) {
+					Int64 value = reader.ReadInt64(byteOrder);
+					if(value != expected)
+						throw CreateExpectationException(expected, value);
+				}
 								/// <summary>Read a <c>UInt16</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, UInt16 expected) {
 				UInt16 value = reader.ReadUInt16();
@@ -278,16 +270,10 @@ namespace Glare.Internal {
 			public static UInt16[] ReadArrayUInt16(this BinaryReader reader, int count) { UInt16[] array = new UInt16[count]; reader.ReadArray(array, 0, count); return array; }
 
 			/// <summary>Read a <c>UInt16</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
-			public static void ReadExpected(this BinaryReader reader, UInt16 expected) {
+			public static void Require(this BinaryReader reader, UInt16 expected) {
 				UInt16 value = reader.ReadUInt16();
 				if(value != expected)
 					throw CreateExpectationException(expected, value);
-			}
-
-			public static void Require(this BinaryReader reader, UInt16 value) {
-				UInt16 read = reader.ReadUInt16();
-				if (read != value)
-					throw new Exception("Expected UInt16 " + value + " but received " + read + ".");
 			}
 
 			/// <summary>Seek to the position and read a <see cref="UInt16"/>.</summary>
@@ -323,6 +309,13 @@ namespace Glare.Internal {
 
 				/// <summary>Read an array of <c>UInt16</c> values.</summary>
 				public static UInt16[] ReadArrayUInt16(this BinaryReader reader, int count, ByteOrder byteOrder) { UInt16[] array = new UInt16[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
+
+				/// <summary>Read a <c>UInt16</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
+				public static void Require(this BinaryReader reader, UInt16 expected, ByteOrder byteOrder) {
+					UInt16 value = reader.ReadUInt16(byteOrder);
+					if(value != expected)
+						throw CreateExpectationException(expected, value);
+				}
 								/// <summary>Read a <c>UInt32</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, UInt32 expected) {
 				UInt32 value = reader.ReadUInt32();
@@ -339,16 +332,10 @@ namespace Glare.Internal {
 			public static UInt32[] ReadArrayUInt32(this BinaryReader reader, int count) { UInt32[] array = new UInt32[count]; reader.ReadArray(array, 0, count); return array; }
 
 			/// <summary>Read a <c>UInt32</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
-			public static void ReadExpected(this BinaryReader reader, UInt32 expected) {
+			public static void Require(this BinaryReader reader, UInt32 expected) {
 				UInt32 value = reader.ReadUInt32();
 				if(value != expected)
 					throw CreateExpectationException(expected, value);
-			}
-
-			public static void Require(this BinaryReader reader, UInt32 value) {
-				UInt32 read = reader.ReadUInt32();
-				if (read != value)
-					throw new Exception("Expected UInt32 " + value + " but received " + read + ".");
 			}
 
 			/// <summary>Seek to the position and read a <see cref="UInt32"/>.</summary>
@@ -384,6 +371,13 @@ namespace Glare.Internal {
 
 				/// <summary>Read an array of <c>UInt32</c> values.</summary>
 				public static UInt32[] ReadArrayUInt32(this BinaryReader reader, int count, ByteOrder byteOrder) { UInt32[] array = new UInt32[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
+
+				/// <summary>Read a <c>UInt32</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
+				public static void Require(this BinaryReader reader, UInt32 expected, ByteOrder byteOrder) {
+					UInt32 value = reader.ReadUInt32(byteOrder);
+					if(value != expected)
+						throw CreateExpectationException(expected, value);
+				}
 								/// <summary>Read a <c>UInt64</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, UInt64 expected) {
 				UInt64 value = reader.ReadUInt64();
@@ -400,16 +394,10 @@ namespace Glare.Internal {
 			public static UInt64[] ReadArrayUInt64(this BinaryReader reader, int count) { UInt64[] array = new UInt64[count]; reader.ReadArray(array, 0, count); return array; }
 
 			/// <summary>Read a <c>UInt64</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
-			public static void ReadExpected(this BinaryReader reader, UInt64 expected) {
+			public static void Require(this BinaryReader reader, UInt64 expected) {
 				UInt64 value = reader.ReadUInt64();
 				if(value != expected)
 					throw CreateExpectationException(expected, value);
-			}
-
-			public static void Require(this BinaryReader reader, UInt64 value) {
-				UInt64 read = reader.ReadUInt64();
-				if (read != value)
-					throw new Exception("Expected UInt64 " + value + " but received " + read + ".");
 			}
 
 			/// <summary>Seek to the position and read a <see cref="UInt64"/>.</summary>
@@ -445,6 +433,13 @@ namespace Glare.Internal {
 
 				/// <summary>Read an array of <c>UInt64</c> values.</summary>
 				public static UInt64[] ReadArrayUInt64(this BinaryReader reader, int count, ByteOrder byteOrder) { UInt64[] array = new UInt64[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
+
+				/// <summary>Read a <c>UInt64</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
+				public static void Require(this BinaryReader reader, UInt64 expected, ByteOrder byteOrder) {
+					UInt64 value = reader.ReadUInt64(byteOrder);
+					if(value != expected)
+						throw CreateExpectationException(expected, value);
+				}
 								/// <summary>Read a <c>Single</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, Single expected) {
 				Single value = reader.ReadSingle();
@@ -461,16 +456,10 @@ namespace Glare.Internal {
 			public static Single[] ReadArraySingle(this BinaryReader reader, int count) { Single[] array = new Single[count]; reader.ReadArray(array, 0, count); return array; }
 
 			/// <summary>Read a <c>Single</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
-			public static void ReadExpected(this BinaryReader reader, Single expected) {
+			public static void Require(this BinaryReader reader, Single expected) {
 				Single value = reader.ReadSingle();
 				if(value != expected)
 					throw CreateExpectationException(expected, value);
-			}
-
-			public static void Require(this BinaryReader reader, Single value) {
-				Single read = reader.ReadSingle();
-				if (read != value)
-					throw new Exception("Expected Single " + value + " but received " + read + ".");
 			}
 
 			/// <summary>Seek to the position and read a <see cref="Single"/>.</summary>
@@ -506,6 +495,13 @@ namespace Glare.Internal {
 
 				/// <summary>Read an array of <c>Single</c> values.</summary>
 				public static Single[] ReadArraySingle(this BinaryReader reader, int count, ByteOrder byteOrder) { Single[] array = new Single[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
+
+				/// <summary>Read a <c>Single</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
+				public static void Require(this BinaryReader reader, Single expected, ByteOrder byteOrder) {
+					Single value = reader.ReadSingle(byteOrder);
+					if(value != expected)
+						throw CreateExpectationException(expected, value);
+				}
 								/// <summary>Read a <c>Double</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, Double expected) {
 				Double value = reader.ReadDouble();
@@ -522,16 +518,10 @@ namespace Glare.Internal {
 			public static Double[] ReadArrayDouble(this BinaryReader reader, int count) { Double[] array = new Double[count]; reader.ReadArray(array, 0, count); return array; }
 
 			/// <summary>Read a <c>Double</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
-			public static void ReadExpected(this BinaryReader reader, Double expected) {
+			public static void Require(this BinaryReader reader, Double expected) {
 				Double value = reader.ReadDouble();
 				if(value != expected)
 					throw CreateExpectationException(expected, value);
-			}
-
-			public static void Require(this BinaryReader reader, Double value) {
-				Double read = reader.ReadDouble();
-				if (read != value)
-					throw new Exception("Expected Double " + value + " but received " + read + ".");
 			}
 
 			/// <summary>Seek to the position and read a <see cref="Double"/>.</summary>
@@ -567,6 +557,13 @@ namespace Glare.Internal {
 
 				/// <summary>Read an array of <c>Double</c> values.</summary>
 				public static Double[] ReadArrayDouble(this BinaryReader reader, int count, ByteOrder byteOrder) { Double[] array = new Double[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
+
+				/// <summary>Read a <c>Double</c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
+				public static void Require(this BinaryReader reader, Double expected, ByteOrder byteOrder) {
+					Double value = reader.ReadDouble(byteOrder);
+					if(value != expected)
+						throw CreateExpectationException(expected, value);
+				}
 					
 					public static Byte Squared(this Byte value) { return (Byte)(value * value); }
 					public static SByte Squared(this SByte value) { return (SByte)(value * value); }

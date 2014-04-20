@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Glare
 {
-	<#GenerateAxes("Matrix", new TypeInfo[] { SingleType, DoubleType }, ()=>{#>
+	<#GenerateAxes(MatrixFamily, ()=>{#>
 
 	/// <summary>A <#=CardinalLow#>-dimensional matrix type using <#=See(Type.Name)#> elements.</summary>
 	[StructLayout(LayoutKind.Explicit)]
@@ -54,6 +54,38 @@ namespace Glare
 		public <#=This#>(<#Comma((AxisPair pair)=>{#><#=T#> <#=pair.IdLow#><#});#>)
 		{
 			<#Each((row, column)=>{#><#=Id(row, column)#> = <#=IdLow(row, column)#>;<#});#>
+		}
+
+		public <#=T#> this[int row, int column] {
+			get {
+				<#RowJoin(" else ", (row)=>{#>
+					if(row == <#=row.Index#>) {
+						<#ColumnJoin(" else ", (column)=>{#>
+							if(column == <#=column.Index#>)
+								return <#=PairId(row, column)#>;
+						<#});#>
+						else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				<#});#>
+				else
+					throw new ArgumentOutOfRangeException("row");
+			}
+
+			set {
+				<#RowJoin(" else ", (row)=>{#>
+					if(row == <#=row.Index#>) {
+						<#ColumnJoin(" else ", (column)=>{#>
+							if(column == <#=column.Index#>)
+								<#=PairId(row, column)#> = value;
+						<#});#>
+						else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				<#});#>
+				else
+					throw new ArgumentOutOfRangeException("row");
+			}
 		}
 
 		#region Methods
@@ -319,6 +351,9 @@ struct AxisPair
 	public int Offset { get { return (Row.Index * Columns + Column.Index) * Type.SizeOf; } }
 	public AxisPair(AxisInfo row, AxisInfo column, TypeInfo type, int rows, int columns) { Row = row; Column = column; Type = type; Rows = rows; Columns = columns; }
 }
+
+AxisPair Pair(AxisInfo row, AxisInfo column) { return new AxisPair(row, column, Type, Rows, Columns); }
+string PairId(AxisInfo row, AxisInfo column) { return Pair(row, column).Id; }
 
 Action<AxisInfo, AxisInfo> Convert(Action<AxisPair> each) { return (row, column) => each(new AxisPair(row, column, Type, Rows, Columns)); }
 

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Glare.Assets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Engines.Sciagi {
-	public abstract class ResourceData : Alexandria.Resource {
+	public abstract class ResourceData : Asset {
 		public EngineVersion EngineVersion { get { return Resource.EngineVersion; } }
 
 		public GameId GameId { get { return Map.GameId; } }

@@ -84,6 +84,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Alexandria.Games.Albion\Alexandria.Games.Albion.csproj">
+      <Project>{c257544b-c940-4278-b56f-e2c9eea94104}</Project>
+      <Name>Alexandria.Games.Albion</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Glare.Assets\Glare.Assets.csproj">
+      <Project>{e3809e79-fe0a-4425-a1a1-575f6719ec45}</Project>
+      <Name>Glare.Assets</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Glare.Graphics\Glare.Graphics.csproj">
       <Project>{6ec9bd9e-da82-48db-a01b-7bb90e1a1f71}</Project>
       <Name>Glare.Graphics</Name>
@@ -115,6 +123,10 @@
     <ProjectReference Include="..\Alexandria\Alexandria.csproj">
       <Project>{fcd1c6c9-b4bf-49cf-9c92-d16e4b40a869}</Project>
       <Name>Alexandria</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Glare\Glare.csproj">
+      <Project>{125d9251-7cd0-4801-ab84-cb3f1f6978b1}</Project>
+      <Name>Glare %28Glare\Glare%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\Moki.CSharp\Moki.Compilers.CSharp.csproj">
       <Project>{4f0587f7-b000-4dbb-bf2c-dc53022c561a}</Project>

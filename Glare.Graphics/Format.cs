@@ -235,7 +235,6 @@ namespace Glare.Graphics {
 			new List<Format>(new Format[] { CommonFormats.Vector2ui, TextureFormats.Vector1nsb, VectorFormats.Vector1d });
 			TextureFormats.Setup();
 
-
 			foreach (Format format in BaseList)
 				SetupFormat(format);
 		}
@@ -263,7 +262,7 @@ namespace Glare.Graphics {
 				if (format == null)
 					throw new InvalidOperationException("Field " + type.Name + "." + field.Name + " is not initialized!");
 				SetupFormat(format);
-				BaseList.Add(format);
+				//BaseList.Add(format);
 			}
 		}
 

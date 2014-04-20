@@ -61,6 +61,10 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Glare.Assets\Glare.Assets.csproj">
+      <Project>{e3809e79-fe0a-4425-a1a1-575f6719ec45}</Project>
+      <Name>Glare.Assets</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Glare.Engine\Glare.Engine.csproj">
       <Project>{518f1b56-8857-4719-b43d-cfa9e8122184}</Project>
       <Name>Glare.Engine</Name>

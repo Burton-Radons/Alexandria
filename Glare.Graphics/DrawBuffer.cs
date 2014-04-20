@@ -22,12 +22,12 @@ namespace Glare.Graphics
 
 			set
 			{
-				using (Graphics.Lock())
+				using (Device.Lock())
 				{
 					GL.BlendEquationSeparate(index, (BlendEquationMode)blend.EquationRgb, (BlendEquationMode)blend.EquationAlpha);
-					Graphics.CheckError();
+					Device.CheckError();
 					GL.BlendFuncSeparate(index, (BlendingFactorSrc)blend.SourceRgb, (BlendingFactorDest)blend.DestinationRgb, (BlendingFactorSrc)blend.SourceAlpha, (BlendingFactorDest)blend.DestinationAlpha);
-					Graphics.CheckError();
+					Device.CheckError();
 					GL.Enable(EnableCap.Blend);
 				}
 			}

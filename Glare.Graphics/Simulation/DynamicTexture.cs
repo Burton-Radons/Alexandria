@@ -85,9 +85,9 @@ namespace Glare.Graphics.Simulation
 			frameBuffer.Colors[0].Attach(target);
 			mainProgramAction.Subroutine = mainProgramAction.Compatible[action];
 
-			Graphics.FrameBuffer = frameBuffer;
+			Device.FrameBuffer = frameBuffer;
 			mainProgram.Draw(Primitive.Quads, 4);
-			Graphics.FrameBuffer = null;
+			Device.FrameBuffer = null;
 		}
 	}
 }

@@ -98,14 +98,14 @@ namespace Glare.Graphics.Terrains.Planar
 
 			Program program = terrain.Program;
 
-			Graphics.FrameBuffer = terrain.FrameBuffer;
+			Device.FrameBuffer = terrain.FrameBuffer;
 
 			// Perform the horizontal reduction.
 			program.Uniforms["heightTexture"].Set(HeightTexture);
 			program.Uniforms["world"].Set(Matrix4f.Scale(16f / terrain.BlockSize, 0, 0));
 			program.Uniforms["view"].Set(new Matrix4f(1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1));
 			terrain.FrameBuffer.Colors[0].Attach(terrain.NarrowHeightTexture);
-			Graphics.Blend = BlendState.Opaque;
+			Device.Blend = BlendState.Opaque;
 			terrain.DrawUnitRectangle("clean");
 
 			// Perform the vertical reduction.
@@ -114,7 +114,7 @@ namespace Glare.Graphics.Terrains.Planar
 			program.Uniforms["View"].Set(Matrix4d.Identity);
 			terrain.FrameBuffer.Colors[0].Attach(terrain.SmallHeightTexture);
 			terrain.DrawUnitRectangle("clean");
-			Graphics.FrameBuffer = null;
+			Device.FrameBuffer = null;
 
 			terrain.SmallHeightTexture.Levels[0].Read(terrain.SmallHeightData);
 			treeRoot.Clean(ref area, terrain.SmallHeightData);

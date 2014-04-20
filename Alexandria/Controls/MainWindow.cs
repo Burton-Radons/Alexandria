@@ -1,4 +1,5 @@
 ﻿using Alexandria.Properties;
+using Glare.Assets;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,9 +13,9 @@ using System.Windows.Forms;
 
 namespace Alexandria.Controls {
 	public partial class MainWindow : Form {
-		public readonly Manager Manager;
+		public readonly AssetManager Manager;
 
-		public MainWindow(Manager manager) {
+		public MainWindow(AssetManager manager) {
 			Manager = manager;
 			InitializeComponent();
 		}
@@ -69,7 +70,7 @@ namespace Alexandria.Controls {
 
 		void Open(string path) {
 			
-			Resource resource;
+			Asset resource;
 			Control control;
 
 			try {

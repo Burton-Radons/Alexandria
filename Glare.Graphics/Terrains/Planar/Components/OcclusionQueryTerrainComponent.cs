@@ -91,7 +91,7 @@ namespace Glare.Graphics.Terrains.Planar.Components
 		public override void PostOpaqueRender(ref Matrix4d world, ref Matrix4d view, ref Matrix4d projection)
 		{
 			base.PostOpaqueRender(ref world, ref view, ref projection);
-			var oldBlendState = Graphics.DrawBuffers[0].Blend;
+			var oldBlendState = Device.DrawBuffers[0].Blend;
 			//var oldDepthStencilState = context.DepthStencilState;
 			var effect = Terrain.Program; // OcclusionEffect
 

@@ -1,5 +1,4 @@
-﻿using Alexandria.Resources;
-using Glare;
+﻿using Glare;
 using Glare.Graphics;
 using System;
 using System.Collections.Generic;
@@ -9,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Glare.Internal;
+using Glare.Assets;
 
 namespace Alexandria.Engines.GoldBox.Resources {
-	public class Image : Folder {
-		public Image(Manager manager, BinaryReader reader, string name, Resource context)
+	public class Image : FolderAsset {
+		public Image(AssetManager manager, BinaryReader reader, string name, Asset context)
 			: base(manager, name) {
 			using (reader) {
 				int height = reader.ReadByte();
@@ -34,7 +34,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 				for (int index = 0; index < colorCount; index++)
 					colors[index + baseColorIndex] = Color.FromArgb(reader.ReadByte() * 255 / 63, reader.ReadByte() * 255 / 63, reader.ReadByte() * 255 / 63);
 
-				Palette palette = new Palette(Manager, Name + " palette", colors);
+				PaletteAsset palette = new PaletteAsset(Manager, Name + " palette", colors);
 
 				Unknowns.ReadBytes(reader, (colorCount + 1) / 2); // EGA color map, two colours per byte.
 				Unknowns.ReadBytes(reader, 4);
@@ -56,7 +56,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 				else
 					for (int index = 0; index < frameCount; index++) {
 						reader.Read(indices, 0, indices.Length);
-						var resource = new IndexedTexture(Manager, "Frame " + index, palette, width, height, indices);
+						var resource = new IndexedTextureAsset(Manager, "Frame " + index, palette, width, height, indices);
 						AddChild(resource);
 					}
 
@@ -65,8 +65,8 @@ namespace Alexandria.Engines.GoldBox.Resources {
 					Archive archive = (Archive)context.Parent;
 
 					for (int id = 1; id <= 4; id++) {
-						palette = (Palette)archive.RecordsById[id].Contents.Children[0];
-						var frame = new IndexedTexture(Manager, "Palette " + id, palette, width, height, indices);
+						palette = (PaletteAsset)archive.RecordsById[id].Contents.Children[0];
+						var frame = new IndexedTextureAsset(Manager, "Palette " + id, palette, width, height, indices);
 						AddChild(frame);
 					}
 				}
@@ -80,12 +80,12 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		}
 	}
 
-	class ImageFormat : ResourceFormat {
+	class ImageFormat : AssetFormat {
 		public ImageFormat(Engine engine)
 			: base(engine, typeof(Image), canLoad: true) {
 		}
 
-		public override LoadMatchStrength LoadMatch(LoadInfo info) {
+		public override LoadMatchStrength LoadMatch(AssetLoader info) {
 			var reader = info.Reader;
 			long length = reader.BaseStream.Length;
 
@@ -111,7 +111,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			return LoadMatchStrength.Medium;
 		}
 
-		public override Resource Load(LoadInfo info) {
+		public override Asset Load(AssetLoader info) {
 			return new Image(Manager, info.Reader, info.Name, info.ContextResource);
 		}
 	}

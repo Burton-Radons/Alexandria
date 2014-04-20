@@ -1,5 +1,4 @@
-﻿using Alexandria.Resources;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,14 +7,15 @@ using System.Threading.Tasks;
 using Glare;
 using Alexandria.Engines.GoldBox.Resources;
 using System.Collections.ObjectModel;
+using Glare.Assets;
 
 namespace Alexandria.Engines.GoldBox {
-	public class Archive : Folder {
+	public class Archive : FolderAsset {
 		internal BinaryReader Reader { get; private set; }
 
 		public ReadOnlyDictionary<int, ArchiveRecord> RecordsById { get; private set; }
 
-		public Archive(Manager manager, BinaryReader reader, string name, LoaderFileOpener opener)
+		public Archive(AssetManager manager, BinaryReader reader, string name, FileManager fileManager)
 			: base(manager, name) {
 			Reader = reader;
 
@@ -32,7 +32,7 @@ namespace Alexandria.Engines.GoldBox {
 		}
 	}
 
-	public class ArchiveRecord : Asset {
+	public class ArchiveRecord : DataAsset {
 		/// <summary>Size of a record entry in bytes.</summary>
 		public const int HeaderSize = 9;
 
@@ -126,12 +126,12 @@ namespace Alexandria.Engines.GoldBox {
 		}*/
 	}
 
-	class ArchiveFormat : ResourceFormat {
+	class ArchiveFormat : AssetFormat {
 		public ArchiveFormat(Engine engine)
 			: base(engine, typeof(Archive), canLoad: true) {
 		}
 
-		public override LoadMatchStrength LoadMatch(LoadInfo info) {
+		public override LoadMatchStrength LoadMatch(AssetLoader info) {
 			var reader = info.Reader;
 			long length = reader.BaseStream.Length;
 
@@ -169,8 +169,8 @@ namespace Alexandria.Engines.GoldBox {
 			return LoadMatchStrength.Strong;
 		}
 
-		public override Resource Load(LoadInfo info) {
-			return new Archive(Manager, info.Reader, info.Name, info.Opener);
+		public override Asset Load(AssetLoader info) {
+			return new Archive(Manager, info.Reader, info.Name, info.FileManager);
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Glare.Framework;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -72,7 +73,7 @@ namespace Glare.Internal {
 		static ArrayBuffer<char> SharedChars;
 
 		[ThreadStatic]
-		static Dictionary<Encoding, Decoder> SharedDecoders = new Dictionary<Encoding, Decoder>();
+		static Dictionary<Encoding, Decoder> SharedDecoders;
 
 		[ThreadStatic]
 		static byte[] __SharedBytes4;
@@ -82,6 +83,8 @@ namespace Glare.Internal {
 		static Decoder GetSharedDecoder(Encoding encoding) {
 			Decoder decoder;
 
+			if (SharedDecoders == null)
+				SharedDecoders = new Dictionary<Encoding, Decoder>();
 			if (SharedDecoders.TryGetValue(encoding, out decoder))
 				decoder.Reset();
 			else {
@@ -171,7 +174,7 @@ namespace Glare.Internal {
 		public static string ReadStringzAtUInt32(this BinaryReader reader, Encoding encoding) { return reader.ReadStringzAtUInt32(ByteOrder.LittleEndian, encoding); }
 
 		public static string ReadStringzAtUInt32(this BinaryReader reader, ByteOrder byteOrder, Encoding encoding) {
-			uint offset = reader.ReadUInt32();
+			uint offset = reader.ReadUInt32(byteOrder);
 			if (offset == 0)
 				return null;
 
@@ -647,12 +650,6 @@ namespace Glare.Internal {
 		public void Dispose() {
 			handle.Free();
 		}
-	}
-
-	public enum ByteOrder {
-		None,
-		LittleEndian,
-		BigEndian,
 	}
 
 

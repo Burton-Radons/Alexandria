@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Glare.Internal;
+using Glare.Assets;
 
 namespace Alexandria.Platforms.NintendoDS {
-	public class Rom : Resource {
+	public class Rom : Asset {
 		BinaryReader Reader;
 
 		/// <summary>
@@ -30,11 +31,11 @@ namespace Alexandria.Platforms.NintendoDS {
 		public int FileSizeTableOffset { get { return Reader.ReadInt32At(0x048); } }
 		public int FileSizeTableSize { get { return Reader.ReadInt32At(0x04C); } }
 
-		public Rom(Manager manager, string path) : this(manager, path, File.OpenRead(path)) { }
+		public Rom(AssetManager manager, string path) : this(manager, path, File.OpenRead(path)) { }
 
-		public Rom(Manager manager, string name, Stream stream) : this(manager, name, new BinaryReader(stream)) { }
+		public Rom(AssetManager manager, string name, Stream stream) : this(manager, name, new BinaryReader(stream)) { }
 
-		public Rom(Manager manager, string name, BinaryReader reader) : base(manager, name) {
+		public Rom(AssetManager manager, string name, BinaryReader reader) : base(manager, name) {
 			Reader = reader;
 		}
 	}

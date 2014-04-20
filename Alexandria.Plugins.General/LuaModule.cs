@@ -1,4 +1,6 @@
 ﻿using Alexandria.Plugins.General.Controls;
+using Glare.Assets;
+using Glare.Framework;
 using Glare.Internal;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Plugins.General {
-	public class LuaModule : Resource {
+	public class LuaModule : Asset {
 		internal const string Magic = "\x1BLua";
 
 		const int MinimumVersion = 0x50;
@@ -45,7 +47,7 @@ namespace Alexandria.Plugins.General {
 		public int VersionMinor { get { return VersionCode & 15; } }
 		public string VersionString { get { return VersionMajor + "." + VersionMinor; } }
 		
-		public LuaModule(Manager manager, BinaryReader reader, string name)
+		public LuaModule(AssetManager manager, BinaryReader reader, string name)
 			: base(manager, name) {
 			using (reader) {
 				reader.RequireMagic(Magic);
@@ -155,16 +157,16 @@ namespace Alexandria.Plugins.General {
 		Thread = 8,
 	}
 
-	class LuaFormat : ResourceFormat {
+	class LuaFormat : AssetFormat {
 		public LuaFormat(Plugin plugin) : base(plugin, typeof(LuaModule), canLoad: true) { }
 
-		public override LoadMatchStrength LoadMatch(LoadInfo context) {
+		public override LoadMatchStrength LoadMatch(AssetLoader context) {
 			if (!context.Reader.MatchMagic(LuaModule.Magic))
 				return LoadMatchStrength.None;
 			return LoadMatchStrength.Medium;
 		}
 
-		public override Resource Load(LoadInfo context) {
+		public override Asset Load(AssetLoader context) {
 			return new LuaModule(Manager, context.Reader, context.Name);
 		}
 	}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Glare.Assets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
@@ -10,7 +11,7 @@ namespace Alexandria {
 	/// A type of <see cref="Engine"/> that refers to a physical system, such as a Commodore 64 or a Nintendo Entertainment System.
 	/// </summary>
 	public class Platform : Engine {
-		public Platform(Plugin plugin)
+		public Platform(AlexandriaPlugin plugin)
 			: base(plugin) {
 		}
 	}

@@ -6,27 +6,238 @@ using System.Text;
 using System.Threading.Tasks;
 using Glare;
 using Glare.Internal;
+using Glare.Assets;
+using Glare.Framework;
+using System.Windows.Forms;
 
 namespace Alexandria.Engines.Sciagi.Resources {
 	public class Script : ResourceData {
-		public byte[] Data { get; private set; }
+		RichList<ScriptSection> blocks = new RichList<ScriptSection>();
 
-		/// <summary>Return a reader at the strings block or <c>null</c> if there is none.</summary>
-		public ScriptReader StringsBlock { get { return CreateReader(ScriptBlockType.Strings); } }
+		public ReadOnlyList<ScriptSection> Blocks { get { return blocks; } }
 
-		public Script(BinaryReader reader, Resource resource)
-			: base(resource) {
-				Data = reader.BaseStream.ReadAllBytes();
+		public Script(AssetLoader loader)
+			: base(loader.ContextResource as Resource) {
+			ScriptSection block;
+
+			while ((block = ScriptSection.Read(this, loader)) != null)
+				blocks.Add(block);
 		}
 
-		public ScriptReader CreateReader() { return new ScriptReader(this); }
+		public override Control Browse() {
+			TreeView tree = new TreeView() {
+			};
 
-		/// <summary>Return a reader at the first block of this type or <c>null</c> if there is none.</summary>
-		/// <param name="type"></param>
-		/// <returns></returns>
-		public ScriptReader CreateReader(ScriptBlockType type) {
-			var reader = CreateReader();
-			return reader.ToFirstBlock(type) ? reader : null;
+			foreach (ScriptSection block in blocks)
+				tree.Nodes.Add(block.ToTreeNode());
+
+			return tree;
+		}
+	}
+
+	public struct ScriptBlock {
+		public long ContentOffset { get { return HeaderOffset + (Type == ScriptBlockType.End ? 2 : 4); } }
+		public int ContentSize { get { return TotalSize > 0 ? TotalSize - 4 : 0; } }
+		public long EndOffset { get { return HeaderOffset + TotalSize; } }
+		public readonly long HeaderOffset;
+		public readonly int TotalSize;
+		public readonly ScriptBlockType Type;
+
+		public ScriptBlock(AssetLoader loader) {
+			HeaderOffset = loader.Position;
+			Type = (ScriptBlockType)loader.Reader.ReadUInt16();
+
+			if (Type == ScriptBlockType.End)
+				TotalSize = 2;
+			else {
+				TotalSize = loader.Reader.ReadUInt16();
+				if (TotalSize < 4) {
+					loader.AddError(HeaderOffset, "Invalid block size in script resource; terminating reading.");
+					TotalSize = 2;
+					Type = ScriptBlockType.End;
+				}
+			}
+		}
+	}
+
+	public abstract class ScriptSection {
+		public ScriptBlock Block { get; private set; }
+
+		public Script Script { get; private set; }
+
+		public ScriptSection(Script script, ScriptBlock block) {
+			Block = block;
+			Script = script;
+		}
+
+		public static ScriptSection Read(Script script, AssetLoader loader) {
+			ScriptBlock block = new ScriptBlock(loader);
+
+			switch (block.Type) {
+				case ScriptBlockType.End: return null;
+				case ScriptBlockType.Locals: return new Locals(script, block, loader);
+				case ScriptBlockType.Object: return new Object(script, block, loader);
+				case ScriptBlockType.Strings: return new Strings(script, block, loader);
+				default: return new Unknown(script, block, loader);
+			}
+		}
+
+		public override string ToString() {
+			return string.Format("{0} ({1} byte(s))", Block.Type, Block.ContentSize);
+		}
+
+		public abstract TreeNode ToTreeNode();
+
+		public class Locals : ScriptSection {
+			public int Count { get { return Values.Count; } }
+			public ReadOnlyList<ushort> Values { get; private set; }
+			public ushort this[int index] { get { return Values[index]; } }
+
+			public Locals(Script script, ScriptBlock block, AssetLoader loader)
+				: base(script, block) {
+				RichList<ushort> values = new RichList<ushort>(block.ContentSize / 2);
+				Values = values;
+				for (int index = 0; index < block.ContentSize / 2; index++)
+					values.Add(loader.Reader.ReadUInt16());
+			}
+
+			public override string ToString() {
+				return string.Format("{0}({1} local(s))", GetType().Name, Count);
+			}
+
+			public override TreeNode ToTreeNode() {
+				TreeNode node = new TreeNode(ToString());
+				for (int index = 0; index < Count; index++)
+					node.Nodes.Add(new TreeNode(index + ". " + this[index]));
+				return node;
+			}
+		}
+
+		public class Object : ScriptSection {
+			public const int SpeciesSelectorIndex = 0;
+			public const int SuperClassSelectorIndex = 1;
+			public const int InfoSelectorIndex = 2;
+			public const int NameSelectorIndex = 3;
+
+			public ReadOnlyList<FunctionSelector> Functions { get; private set; }
+
+			public VariableSelector Info { get { return Variables[InfoSelectorIndex]; } }
+
+			public int LocalVariableOffset { get; private set; }
+
+			public VariableSelector Name { get { return Variables[NameSelectorIndex]; } }
+
+			public VariableSelector Species { get { return Variables[SpeciesSelectorIndex]; } }
+
+			public VariableSelector SuperClass { get { return Variables[SuperClassSelectorIndex]; } }
+
+			public ReadOnlyList<VariableSelector> Variables { get; private set; }
+
+			public Object(Script script, ScriptBlock block, AssetLoader loader)
+				: base(script, block) {
+				var reader = loader.Reader;
+
+				loader.Expect((ushort)0x1234);
+				LocalVariableOffset = reader.ReadUInt16();
+				int functionSelectorListOffset = reader.ReadUInt16();
+
+				int variableSelectorCount = reader.ReadUInt16();
+				RichList<VariableSelector> variableSelectors = new RichList<VariableSelector>(variableSelectorCount);
+				Variables = variableSelectors;
+				for (int index = 0; index < variableSelectorCount; index++)
+					variableSelectors.Add(new VariableSelector(this, loader));
+
+				int functionSelectorCount = reader.ReadUInt16();
+				RichList<FunctionSelector> functionSelectors = new RichList<FunctionSelector>(functionSelectorCount);
+				Functions = functionSelectors;
+				for (int index = 0; index < functionSelectorCount; index++)
+					functionSelectors.Add(new FunctionSelector(this, loader));
+
+				loader.Expect((ushort)0);
+				for (int index = 0; index < functionSelectorCount; index++)
+					functionSelectors[index].ReadCodeOffset(loader);
+
+				loader.ExpectPosition(block.EndOffset);
+			}
+
+			public override string ToString() {
+				return string.Format("{0}({1} variable(s), {2} function(s))", GetType().Name, Variables.Count, Functions.Count);
+			}
+
+			public override TreeNode ToTreeNode() {
+				var node = new TreeNode(ToString());
+				return node;
+			}
+
+			public abstract class Selector {
+				public int Index { get; private set; }
+				public Object Object { get; private set; }
+
+				internal Selector(Object @object, AssetLoader loader) {
+					Object = @object;
+					Index = loader.Reader.ReadUInt16();
+				}
+
+				public override string ToString() {
+					return string.Format("{0}({1})", GetType().Name, Index);
+				}
+			}
+
+			public class FunctionSelector : Selector {
+				public int CodeOffset { get; private set; }
+
+				internal FunctionSelector(Object @object, AssetLoader loader) : base(@object, loader) { }
+
+				internal void ReadCodeOffset(AssetLoader loader) { CodeOffset = loader.Reader.ReadUInt16(); }
+
+				public override string ToString() {
+					return string.Format("{0}({1}, {2})", GetType().Name, Index, CodeOffset);
+				}
+			}
+
+			public class VariableSelector : Selector {
+				internal VariableSelector(Object @object, AssetLoader loader) : base(@object, loader) { }
+			}
+		}
+
+		public class Strings : ScriptSection {
+			public int Count { get { return Values.Count; } }
+			public ReadOnlyList<string> Values { get; private set; }
+
+			public string this[int index] { get { return Values[index]; } }
+
+			internal Strings(Script script, ScriptBlock block, AssetLoader loader)
+				: base(script, block) {
+				RichList<string> list = new RichList<string>();
+				Values = list;
+				while (loader.Position < block.EndOffset)
+					list.Add(loader.Reader.ReadStringz(Encoding.ASCII));
+			}
+
+			public override string ToString() {
+				return string.Format("{0}({1} string(s))", GetType().Name, Count);
+			}
+
+			public override TreeNode ToTreeNode() {
+				TreeNode node = new TreeNode(ToString());
+				for (int index = 0; index < Count; index++)
+					node.Nodes.Add(new TreeNode(index + ". " + this[index].Trim()));
+				return node;
+			}
+		}
+
+		public class Unknown : ScriptSection {
+			public ReadOnlyList<byte> Content { get; private set; }
+
+			internal Unknown(Script script, ScriptBlock block, AssetLoader loader)
+				: base(script, block) {
+				Content = new RichList<byte>(loader.Reader.ReadBytes(block.ContentSize));
+			}
+
+			public override TreeNode ToTreeNode() {
+				var node = new TreeNode(ToString());
+				return node;
+			}
 		}
 	}
 
@@ -42,88 +253,5 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		Relocations = 8,
 		Preload = 9,
 		Locals = 10,
-	}
-
-	public class ScriptReader {
-		public Script Script { get; private set; }
-
-		public BinaryReader Reader { get; private set; }
-
-		public ScriptBlockType BlockType { get; private set; }
-
-		public int BlockSize { get; private set; }
-
-		public long BlockEnd { get; private set; }
-
-		public bool Ended { get { return BlockType == ScriptBlockType.End; } }
-
-		public ScriptReader(Script script)
-			: this(script, script.Data) {
-		}
-
-		public ScriptReader(Script script, byte[] data, int offset = 0) {
-			var stream = new MemoryStream(data, false);
-			stream.Position = offset;
-
-			Script = script;
-			Reader = new BinaryReader(stream);
-			if (script.EngineVersion == EngineVersion.SCI0Early)
-				stream.Seek(2, SeekOrigin.Current);
-			BlockEnd = stream.Position;
-			BlockType = ScriptBlockType.Code;
-			NextBlock();
-		}
-
-		public ushort ReadUInt16() { return Reader.ReadUInt16(); }
-
-		/// <summary>Move the offset to the next block and read its header.</summary>
-		/// <returns></returns>
-		public ScriptBlockType NextBlock() {
-			if (BlockType == ScriptBlockType.End)
-				return BlockType;
-			Reader.BaseStream.Position = BlockEnd;
-			BlockType = (ScriptBlockType)ReadUInt16();
-			if (BlockType == ScriptBlockType.End) {
-				BlockSize = 0;
-				BlockEnd = Reader.BaseStream.Position;
-			} else {
-				BlockSize = ReadUInt16();
-				if (BlockSize < 4)
-					throw new Exception("Invalid block size in script resource.");
-				BlockSize -= 4;
-				BlockEnd = Reader.BaseStream.Position + BlockSize;
-			}
-
-			return BlockType;
-		}
-
-		public void Skip(int count = 1) {
-			if (count < 0 || Reader.BaseStream.Position + count > BlockEnd)
-				throw new ArgumentOutOfRangeException("count");
-			Reader.BaseStream.Seek(count, SeekOrigin.Current);
-		}
-
-		/// <summary>Fast forward to the first block with the given type, returning true if found or false if not found.</summary>
-		/// <param name="type"></param>
-		/// <returns></returns>
-		public bool ToFirstBlock(ScriptBlockType type) {
-			for (; !Ended; NextBlock())
-				if (BlockType == type)
-					return true;
-			return false;
-		}
-
-		/// <summary>Find the exports block, returning its offset (of the first entry, not the counter) and the number of elements in it.</summary>
-		/// <param name="offset"></param>
-		/// <param name="count"></param>
-		/// <returns></returns>
-		public bool FindExports(out int offset, out int count) {
-			offset = count = 0;
-			if (!ToFirstBlock(ScriptBlockType.Exports))
-				return false;
-			count = ReadUInt16();
-			offset = checked((int)Reader.BaseStream.Position);
-			return true;
-		}
 	}
 }

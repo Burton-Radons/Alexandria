@@ -1,4 +1,5 @@
-﻿using Glare.Internal;
+﻿using Glare.Framework;
+using Glare.Internal;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,45 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Engines.GoldBox.Resources {
-	/// <summary>Characters used in <see cref="ScriptInstruction"/> argument lists. Some are simple values, some are compound.</summary>
-	public enum ScriptArgument : byte {
-		/// <summary>Invalid value/unspecified.</summary>
-		None = 0,
-
-		/// <summary>An address value, stored as <see cref="ScriptOperandType.Short"/>. The value is <c>0x7FFE</c> (<see cref="Script.AddressOffset"/> too high. For example, the address <c>0x8014</c> is the first code byte of a script file. This can be confused with a <see cref="Variable"/> or a <see cref="ScriptOpcode.Goto"/>.</summary>
-		Address = (Byte)'a',
-
-		/// <summary>An array of values - a compound argument. In an argument list this is written as "p[count][type]", where count is the simple <see cref="ScriptArgument"/> of the number of elements, and type is the <see cref="ScriptArgument"/> of each element of the array. In the data these are stored as the count argument, followed by count number of elements.</summary>
-		Array = (Byte)'p',
-
-		/// <summary>A comparison stored as a literal byte value.</summary>
-		Comparison = (Byte)'m',
-
-		/// <summary>A literal byte value. This is stored as a single <see cref="Byte"/>, not as a <see cref="ScriptOperandType.Value"/>.</summary>
-		Literal = (Byte)'l',
-
-		/// <summary>An opcode value in a <see cref="Byte"/>. For opcodes <see cref="0x00"/> and <see cref="0x01"/> (<see cref="ScriptOpcode.Return"/> and <see cref="ScriptOpcode.Goto"/> respectively) there can be confusion about whether it's an opcode or a <see cref="Value"/> or <see cref="Address"/>/<see cref="Variable"/> value.</summary>
-		Opcode = (Byte)'o',
-
-		/// <summary>An optional compound argument. In an argument list this is written as "?[type]". If the type is found, it is added as an argument; otherwise it's skipped. This is hopefully just a temporary hack as we learn more about the script, as it seems impossible for it to be intentional, as <see cref="ScriptOpcode.Stop"/> and <see cref="ScriptOpcode.Goto"/> create confusion with <see cref="ScriptOperandType.Value"/> and <see cref="ScriptOperandType.Short"/>.</summary>
-		Optional = (Byte)'?',
-
-		/// <summary>A string value, either a literal or a variable index. This is stored as <see cref="ScriptOperandType.String"/> or <see cref="ScriptOperandType.StringVariable"/>.</summary>
-		String = (Byte)'c',
-
-		/// <summary>Some kind of unknown variable, stored as a <see cref="ScriptOperandType.UnknownVariable"/>.</summary>
-		UnknownVariable = (Byte)'u',
-
-		/// <summary>A byte value. This is stored as <see cref="ScriptOperandType.Value"/>. This may be signed. This can be confused with a <see cref="ScriptOpcode.Stop"/>.</summary>
-		Value = (Byte)'b',
-
-		/// <summary>A <see cref="Value"/> or a <see cref="Variable"/> or a <see cref="UnknownVariable"/>, depending upon the code <see cref="System.Byte"/>. This can be confused with <see cref="ScriptOpcode.Stop"/>, <see cref="ScriptOpcode.Goto"/>, <see cref="ScriptArgument.Address"/>, or even <see cref="ScriptArgument.Value"/> or <see cref="ScriptArgument.Variable"/> if there is no actual flexibility.</summary>
-		ValueOrVariable = (Byte)'n',
-
-		/// <summary>A variable index. This is stored as <see cref="ScriptOperandType.Short"/>. It could be confused with <see cref="ScriptOpcode.Goto"/>, <see cref="ScriptArgument.Address"/>, or even <see cref="ScriptArgument.ValueOrVariable"/>.</summary>
-		Variable = (Byte)'v',
-	}
-
 	public class ScriptInstruction {
 		/// <summary>
 		/// See <see cref="ScriptArgument"/> for code values.
@@ -65,6 +27,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			{ ScriptOpcode.U0C, "bbbb" }, // 0x0C
 			{ ScriptOpcode.U0D, "" }, // 0x0D
 			{ ScriptOpcode.ShowSmallImage, "b" },  // 0x0E
+			{ ScriptOpcode.AskIntegerByte, "bv" }, // 0x0F
 			{ ScriptOpcode.U10, "" }, // 0x10
 			{ ScriptOpcode.PrintStringAdd, "c" }, // 0x11
 			{ ScriptOpcode.PrintString, "c" }, // 0x12
@@ -76,22 +39,25 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			{ ScriptOpcode.U1B, "v" }, // 0x1B
 			{ ScriptOpcode.U1C, "" }, // 0x1C
 			{ ScriptOpcode.PressEnterToContinue, "" }, // 0x1D
+			{ ScriptOpcode.U1F, "vbvb" }, // 0x1F
 			{ ScriptOpcode.ChangeMap, "b" }, // 0x20
 			{ ScriptOpcode.SetAreaViewMap, "bb" }, // 0x21
 			{ ScriptOpcode.AskYesOrNo, "" }, // 0x22
 			{ ScriptOpcode.Break, "" }, // 0x23 - Return or break
 			{ ScriptOpcode.Switch, "vpba" }, // 0x25
-			{ ScriptOpcode.U2C, "b" }, // 0x2C
+			{ ScriptOpcode.AskYesOrNo_MatrixCubed, "" }, // 0x2C
 			{ ScriptOpcode.Ask, "vpbc" }, // 0x2B
 			{ ScriptOpcode.ShowAreaViewMap, "v" }, // 0x2D
 			{ ScriptOpcode.And, "nnv" }, // 0x2F
 			{ ScriptOpcode.PrintNewLine, "" }, // 0x33
+			{ ScriptOpcode.U35, "vv" }, // 0x35
 			{ ScriptOpcode.AddCreatureToParty, "bb" }, // 0x36
 			{ ScriptOpcode.U38, "b" }, // 0x38
 			{ ScriptOpcode.U3A, "" }, // 0x3A
 			{ ScriptOpcode.U3C, "bn" }, // 0x3C
 			{ ScriptOpcode.DrawAdventureScreen, "" }, // 0x3D
-			{ ScriptOpcode.U42, "bbbb" }, // 0x42
+			{ ScriptOpcode.U42, "" }, // 0x42
+			{ ScriptOpcode.U43, "b" }, // 0x43
 			{ ScriptOpcode.U4C, "" }, // 0x4C
 			{ ScriptOpcode.U60, "" }, // 0x60
 			{ ScriptOpcode.U84, "" }, // 0x84
@@ -100,6 +66,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			{ ScriptOpcode.U87, "" }, // 0x87
 			{ ScriptOpcode.U89, "" }, // 0x89
 			{ ScriptOpcode.U8A, "" }, // 0x8A
+			{ ScriptOpcode.U8E, "" }, // 0x8E
 			{ ScriptOpcode.U90, "" }, // 0x90
 			{ ScriptOpcode.U99, "" }, // 0x99
 			{ ScriptOpcode.U9D, "" }, // 0x9D
@@ -131,9 +98,9 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			ScriptOpcode.Break,
 		};
 
-		readonly protected ArrayBackedList<ScriptOperand> OperandsMutable = new ArrayBackedList<ScriptOperand>();
-		internal readonly ArrayBackedList<ScriptOperand> TargetedByTokensMutable = new ArrayBackedList<ScriptOperand>();
-		internal readonly ArrayBackedList<ScriptInstruction> TargetedByInstructionsMutable = new ArrayBackedList<ScriptInstruction>();
+		readonly protected RichList<ScriptOperand> OperandsMutable = new RichList<ScriptOperand>();
+		internal readonly RichList<ScriptOperand> TargetedByTokensMutable = new RichList<ScriptOperand>();
+		internal readonly RichList<ScriptInstruction> TargetedByInstructionsMutable = new RichList<ScriptInstruction>();
 
 		/// <summary>Get the address of the <see cref="ScriptInstruction"/>. In the file, this is <see cref="Script.AddressOffset"/> (<c>0x7FFE</c>) too large.</summary>
 		public long Address { get; protected set; }
@@ -365,6 +332,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 				switch (TestType) {
 					case 0x16: return "==";
 					case 0x17: return "!=";
+					case 0x18: return "(< or <=)";
 					//case 0x17: return ">";
 					//case 0x1B: return ">=";
 					default: return string.Format("(?{0:X2}h)", TestType);
@@ -403,10 +371,5 @@ namespace Alexandria.Engines.GoldBox.Resources {
 				return string.Format("{0}!!!!!!!!!!!!!", InvalidToken);
 			}
 		}
-	}
-
-	public enum ScriptComparison {
-		Equal = 0x16,
-		NotEqual = 0x17,
 	}
 }

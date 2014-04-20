@@ -89,7 +89,7 @@ namespace Glare.Graphics {
 		}
 
 		internal void Used() {
-			if (object.ReferenceEquals(Program, Graphics.Program)) {
+			if (object.ReferenceEquals(Program, Device.Program)) {
 				using (Context.Lock())
 					GL.UniformSubroutines(ShaderType, ids.Length, ids);
 			}

@@ -35,6 +35,7 @@
 			// 
 			// tree
 			// 
+			this.tree.CheckBoxes = true;
 			resources.ApplyResources(this.tree, "tree");
 			this.tree.Name = "tree";
 			// 

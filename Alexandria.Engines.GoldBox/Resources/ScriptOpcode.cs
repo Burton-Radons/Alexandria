@@ -26,6 +26,10 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		U0C = 0x0C,
 		U0D = 0x0D,
 		ShowSmallImage = 0x0E,
+
+		/// <summary>(b:digitCount v:stringTarget) Ask for an integer value from the user and put the result in the target.</summary>
+		AskIntegerByte = 0x0F,
+
 		U10 = 0x10,
 		/// <summary>(c:x) Add x to the printed string.</summary>
 		PrintStringAdd = 0x11,
@@ -39,6 +43,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		U1B = 0x1B,
 		U1C = 0x1C,
 		PressEnterToContinue = 0x1D,
+		U1F = 0x1F,
 		ChangeMap = 0x20,
 
 		/// <summary>(b:X b:Y) Either some kind of change map, or change what area view is shown (X == Y).</summary>
@@ -52,12 +57,14 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		Switch = 0x25,
 
 		Ask = 0x2B,
-		U2C = 0x2C,
+
+		AskYesOrNo_MatrixCubed = 0x2C,
 
 		/// <summary>Show the area view map?</summary>
 		ShowAreaViewMap = 0x2D,
 		And = 0x2F,
 		PrintNewLine = 0x33,
+		U35 = 0x35,
 		/// <summary>(b:x b:y) Add creature x to party with strength? multiplier y (y is 100 for no scaling)</summary>
 		AddCreatureToParty = 0x36,
 		U38 = 0x38,
@@ -67,6 +74,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 
 		/// <summary>(b:X) Some kind of if; used in demo (4) at the start.</summary>
 		U42 = 0x42,
+		U43 = 0x43,
 		U4C = 0x4C,
 		U60 = 0x60,
 		U84 = 0x84,
@@ -75,6 +83,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		U87 = 0x87,
 		U89 = 0x89,
 		U8A = 0x8A,
+		U8E = 0x8E,
 		U90 = 0x90,
 		U99 = 0x99,
 		U9D = 0x9D,

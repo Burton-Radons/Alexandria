@@ -1,4 +1,5 @@
-﻿using Glare.Internal;
+﻿using Glare.Framework;
+using Glare.Internal;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Alexandria.Engines.Sciagi.Resources {
 	public class Text : ResourceData {
-		readonly ArrayBackedList<string> StringsMutable = new ArrayBackedList<string>();
+		readonly RichList<string> StringsMutable = new RichList<string>();
 
 		public ReadOnlyList<string> Strings { get { return StringsMutable; } }
 

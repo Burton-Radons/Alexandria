@@ -1,5 +1,6 @@
 ﻿using Alexandria.Engines.Sciagi.Controls;
 using Glare;
+using Glare.Framework;
 using Glare.Internal;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Alexandria.Engines.Sciagi.Resources {
 			: base(resource) {
 			byte[] data = reader.ReadBytes(checked((int)reader.BaseStream.Length));
 			Stream stream = new MemoryStream(data, false);
-			ArrayBackedList<PictureInstruction> instructions = new ArrayBackedList<PictureInstruction>();
+			RichList<PictureInstruction> instructions = new RichList<PictureInstruction>();
 			PicturePatternFlags patternFlags = PicturePatternFlags.None;
 			byte patternNumber = 0;
 

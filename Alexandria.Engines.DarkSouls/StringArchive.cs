@@ -1,4 +1,6 @@
-﻿using Glare.Internal;
+﻿using Glare.Assets;
+using Glare.Framework;
+using Glare.Internal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,12 +12,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Alexandria.Engines.DarkSouls {
-	public class StringArchive : Resource {
+	public class StringArchive : Asset {
 		public const int Magic1 = 0x10000;
 		public const int Magic2 = 1, Magic2BE = 0x01FF0000;
 
-		readonly ArrayBackedList<StringGroup> groups = new ArrayBackedList<StringGroup>();
-		readonly ArrayBackedList<string> strings = new ArrayBackedList<string>();
+		readonly RichList<StringGroup> groups = new RichList<StringGroup>();
+		readonly RichList<string> strings = new RichList<string>();
 		readonly Dictionary<int, string> stringsById = new Dictionary<int, string>();
 		readonly ReadOnlyDictionary<int, string> stringsByIdReadOnly;
 
@@ -26,7 +28,7 @@ namespace Alexandria.Engines.DarkSouls {
 		public ByteOrder ByteOrder { get; private set; }
 		public Encoding Encoding { get; private set; }
 
-		internal StringArchive(Manager manager, BinaryReader reader, string name, long length)
+		internal StringArchive(AssetManager manager, BinaryReader reader, string name, long length)
 			: base(manager, name) {
 			ByteOrder = ByteOrder.LittleEndian;
 			stringsByIdReadOnly = new ReadOnlyDictionary<int, string>(stringsById);
@@ -87,10 +89,6 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 
 		public override System.Windows.Forms.Control Browse() {
-			/*var splitter = new SplitContainer() {
-				Orientation = Orientation.Horizontal
-			};*/
-
 			DataGridView stringView = new DataGridView() {
 				AutoGenerateColumns = false,
 				AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells,
@@ -99,8 +97,6 @@ namespace Alexandria.Engines.DarkSouls {
 					 select new KeyValuePair<int, string>(i.Key, i.Value.Trim())).ToArray(),
 				Dock = DockStyle.Fill,
 			};
-
-			/*splitter.Panel1.Controls.Add();*/
 
 			stringView.Columns.Add(new DataGridViewTextBoxColumn() {
 				DataPropertyName = "Key",
@@ -117,12 +113,6 @@ namespace Alexandria.Engines.DarkSouls {
 				},
 				HeaderText = "Value",
 			});
-
-			/*splitter.Panel2.Controls.Add(new DataGridView() {
-				AutoGenerateColumns = true,
-				DataSource = Groups,
-				Dock = DockStyle.Fill,
-			});*/
 
 			return stringView;
 		}
@@ -141,12 +131,12 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
-	public class StringArchiveFormat : ResourceFormat {
+	public class StringArchiveFormat : AssetFormat {
 		public StringArchiveFormat(Engine engine)
 			: base(engine, typeof(StringArchive), canLoad: true) {
 		}
 
-		public override LoadMatchStrength LoadMatch(LoadInfo context) {
+		public override LoadMatchStrength LoadMatch(AssetLoader context) {
 			var reader = context.Reader;
 			ByteOrder byteOrder = ByteOrder.LittleEndian;
 
@@ -178,7 +168,7 @@ namespace Alexandria.Engines.DarkSouls {
 			return LoadMatchStrength.Strong;
 		}
 
-		public override Resource Load(LoadInfo context) {
+		public override Asset Load(AssetLoader context) {
 			return new StringArchive(Manager, context.Reader, context.Name, context.Length);
 		}
 	}

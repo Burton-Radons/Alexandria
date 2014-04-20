@@ -243,16 +243,16 @@ namespace Glare.Graphics {
 
 		public void Draw(Primitive primitive, int vertexCount) { Draw(primitive, 0, vertexCount); }
 		public void Draw(Primitive primitive, int firstVertex, int vertexCount) {
-			Graphics.DrawStart(this);
-			using (Graphics.Lock())
+			Device.DrawStart(this);
+			using (Device.Lock())
 				GL.DrawArrays((PrimitiveType)primitive, firstVertex, vertexCount);
 		}
 
 		public void Draw(Primitive primitive, int vertexCount, GraphicsBuffer elementBuffer, ElementType elementType, int elementOffsetInBytes) {
 			if (elementBuffer == null)
 				throw new ArgumentNullException("elementBuffer");
-			Graphics.DrawStart(this);
-			using (Graphics.Lock()) {
+			Device.DrawStart(this);
+			using (Device.Lock()) {
 				GL.BindBuffer(BufferTarget.ElementArrayBuffer, elementBuffer.Id);
 				CheckError();
 				GL.DrawElements((BeginMode)primitive, vertexCount, (DrawElementsType)elementType, elementOffsetInBytes);
@@ -435,7 +435,7 @@ namespace Glare.Graphics {
 
 		public void Dispose() {
 			Context.CheckError();
-			GL.UseProgram(Graphics.Program != null ? Graphics.Program.Id : 0);
+			GL.UseProgram(Device.Program != null ? Device.Program.Id : 0);
 			contextLock.Dispose();
 		}
 	}

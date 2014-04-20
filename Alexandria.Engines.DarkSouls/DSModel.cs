@@ -1,10 +1,10 @@
 ﻿//#define Marking // Enable to save the original to "D:\dump" and the marked copy to "d:\dump2".
-using Alexandria.Resources;
 using Glare;
+using Glare.Framework;
 using Glare.Graphics;
-using Glare.Graphics.Collada;
 using Glare.Graphics.Rendering;
 using Glare.Internal;
+using Glare.Assets;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ using System.Xml;
 using System.Xml.Serialization;
 
 namespace Alexandria.Engines.DarkSouls {
-	public class DSModel : Resources.Model {
+	public class DSModel : ModelAsset {
 		#region Internal
 
 		internal const int HeaderSize = 4 * 32;
@@ -32,22 +32,22 @@ namespace Alexandria.Engines.DarkSouls {
 		readonly ListDictionary<string, DSModelBone> bones = new ListDictionary<string, DSModelBone>((bone) => bone.Name);
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly ArrayBackedList<DSModelBoneUnknown> boneUnknowns = new ArrayBackedList<DSModelBoneUnknown>();
+		readonly RichList<DSModelBoneUnknown> boneUnknowns = new RichList<DSModelBoneUnknown>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly ListDictionary<string, DSModelMaterial> materials = new ListDictionary<string, DSModelMaterial>((material) => material.Effect.Name);
+		readonly ListDictionary<string, DSModelMaterial> materials = new ListDictionary<string, DSModelMaterial>((material) => material.Name);
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly ArrayBackedList<DSModelMaterialParameter> materialParameters = new ArrayBackedList<DSModelMaterialParameter>();
+		readonly RichList<DSModelMaterialParameter> materialParameters = new RichList<DSModelMaterialParameter>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly ArrayBackedList<DSModelMesh> meshes = new ArrayBackedList<DSModelMesh>();
+		readonly RichList<DSModelMesh> meshes = new RichList<DSModelMesh>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly ArrayBackedList<DSModelPart> parts = new ArrayBackedList<DSModelPart>();
+		readonly RichList<DSModelPart> parts = new RichList<DSModelPart>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly ArrayBackedList<DSModelVertexDeclaration> vertexDeclarations = new ArrayBackedList<DSModelVertexDeclaration>();
+		readonly RichList<DSModelVertexDeclaration> vertexDeclarations = new RichList<DSModelVertexDeclaration>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		internal ByteOrder ByteOrder { get; private set; }
@@ -60,8 +60,6 @@ namespace Alexandria.Engines.DarkSouls {
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		internal bool IsDS2 { get { return Version == DSModelVersion.DS2; } }
-
-		internal Collada Collada { get; private set; }
 
 		#endregion Internal
 
@@ -89,24 +87,24 @@ namespace Alexandria.Engines.DarkSouls {
 
 		#endregion Properties
 
-		public DSModel(Manager manager, BinaryReader reader, string name, LoaderFileOpener opener, Resource context)
+		public DSModel(AssetManager manager, BinaryReader reader, string name, FileManager fileManager, Asset context)
 			: base(manager, name) {
 			ModelBuilder builder = new ModelBuilder();
-			Folder textureArchive = null;
+			FolderAsset textureArchive = null;
 
-			if (context != null && context.Parent is Folder) {
+			if (context != null && context.Parent is FolderAsset) {
 				// @"/map/m##_##_##_##/m*.flver.dcx" for DS1; textures are in the @"/map/m##/" folder.
 				if (name.StartsWith(@"/map/m")) {
 					string folderName = name.Substring(5, 3);
-					Folder maps = (Folder)context.Parent.Parent;
-					foreach (Folder child in maps.Children) {
+					FolderAsset maps = (FolderAsset)context.Parent.Parent;
+					foreach (FolderAsset child in maps.Children) {
 						if (child.Name == folderName) {
 							textureArchive = child;
 							break;
 						}
 					}
 				} else
-					textureArchive = (Folder)context.Parent;
+					textureArchive = (FolderAsset)context.Parent;
 				
 			}
 
@@ -256,83 +254,10 @@ namespace Alexandria.Engines.DarkSouls {
 				foreach (DSModelMesh mesh in Meshes)
 					mesh.BuildModel(builder);
 				Content = builder.Finish();
-
-				//var collada = GetCollada();
 			}
-		}
-
-		/// <summary>Create the <see cref="Collada"/> document representation of this mesh if necessary and return it.</summary>
-		/// <returns></returns>
-		Collada GetCollada() {
-			if (Collada != null)
-				return Collada;
-
-			Collada = new Glare.Graphics.Collada.Collada();
-			Node[] nodes = new Node[Meshes.Count];
-
-			string visualSceneId = "visualScene";
-
-			foreach (DSModelBone bone in Bones)
-				bone.BuildCollada();
-			foreach (DSModelMaterial material in Materials)
-				material.BuildCollada();
-
-			foreach (DSModelMesh mesh in Meshes){
-				mesh.BuildCollada();
-				nodes[mesh.Index] = mesh.ColladaNode;
-			}
-
-			// Build and insert the VisualScene.
-			VisualScene visualScene = new VisualScene(visualSceneId, nodes);
-			Collada.VisualScenes.Add(visualScene);
-
-			// Build and insert the Scene.
-			Scene scene = Collada.Scene = new Scene() {
-				VisualSceneInstance = new VisualSceneInstance("#" + visualScene.Id),
-			};
-
-			/*StringBuilder builder = new StringBuilder();
-			var writer = XmlWriter.Create(builder, new XmlWriterSettings() { Indent = true, IndentChars = "    " });
-			var serializer = Collada.GetSerializer();
-			serializer.Serialize(writer, Collada);
-			var text = builder.ToString();*/
-
-			return Collada;
 		}
 
 		void ExpectedOffset(BinaryReader reader, long offset, string section) { if (reader.BaseStream.Position != offset) throw new InvalidDataException("Expected to be at offset " + offset + " for section " + section + "."); }
-
-		public override void FillContextMenu(System.Windows.Forms.ContextMenuStrip strip) {
-			base.FillContextMenu(strip);
-
-			ToolStripMenuItem saveColladaDocumentMenuItem = new ToolStripMenuItem("Save &Collada document and images");
-
-			saveColladaDocumentMenuItem.Click += (sender, args) => {
-				var dialog = new SaveFileDialog() {
-					AddExtension = true,
-					DefaultExt = "dae",
-					FileName = Name,
-					Title = "Select filename for " + Name,
-					OverwritePrompt = true,
-				};
-
-				if (dialog.ShowDialog() == DialogResult.OK) {
-					using (Stream file = File.Open(dialog.FileName, FileMode.Create)) {
-						using (XmlWriter writer = XmlWriter.Create(file, new XmlWriterSettings() { Indent = true, IndentChars = "    " })) {
-							XmlSerializer serializer = Collada.GetSerializer();
-							Collada document = GetCollada();
-
-							serializer.Serialize(writer, document);
-
-							foreach (DSModelMaterial material in Materials)
-								material.SaveTextures(Path.GetDirectoryName(dialog.FileName));
-						}
-					}
-				}
-			};
-
-			strip.Items.Add(saveColladaDocumentMenuItem);
-		}
 	}
 
 	public abstract class DSModelObject {
@@ -370,19 +295,19 @@ namespace Alexandria.Engines.DarkSouls {
 		DS2 = 0x20010,
 	}
 
-	public class DSModelFormat : ResourceFormat {
+	public class DSModelFormat : AssetFormat {
 		public DSModelFormat(Engine engine)
 			: base(engine, typeof(DSModel), canLoad: true) {
 		}
 
-		public override LoadMatchStrength LoadMatch(LoadInfo context) {
+		public override LoadMatchStrength LoadMatch(AssetLoader context) {
 			if (!context.Reader.MatchMagic(DSModel.Magic))
 				return LoadMatchStrength.None;
 			return LoadMatchStrength.Medium;
 		}
 
-		public override Resource Load(LoadInfo context) {
-			return new DSModel(Manager, context.Reader, context.Name, context.Opener, context.ContextResource);
+		public override Asset Load(AssetLoader context) {
+			return new DSModel(Manager, context.Reader, context.Name, context.FileManager, context.ContextResource);
 		}
 	}
 }

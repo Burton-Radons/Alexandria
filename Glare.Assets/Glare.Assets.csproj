@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E3809E79-FE0A-4425-A1A1-575F6719EC45}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Glare.Assets</RootNamespace>
+    <AssemblyName>Glare.Assets</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.1.1.1508.5724\lib\NET40\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\OpenTK.GLControl.1.1.1508.5724\lib\NET40\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArchiveAsset.cs" />
+    <Compile Include="Asset.cs" />
+    <Compile Include="AssetFormat.cs" />
+    <Compile Include="AssetLoader.cs" />
+    <Compile Include="AssetManager.cs" />
+    <Compile Include="AssetPlugin.cs" />
+    <Compile Include="BinaryAsset.cs" />
+    <Compile Include="Controls\AssetBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AssetBar.Designer.cs">
+      <DependentUpon>AssetBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BinaryAssetBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\BinaryAssetBrowser.Designer.cs">
+      <DependentUpon>BinaryAssetBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FolderAssetBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FolderAssetBrowser.Designer.cs">
+      <DependentUpon>FolderAssetBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ModelAssetBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ModelAssetBrowser.Designer.cs">
+      <DependentUpon>ModelAssetBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataAsset.cs" />
+    <Compile Include="DefaultPlugin.cs" />
+    <Compile Include="FileManager.cs" />
+    <Compile Include="FolderAsset.cs" />
+    <Compile Include="Formats\Autodesk3ds.cs" />
+    <Compile Include="Formats\Dds.cs" />
+    <Compile Include="Formats\Direct3D.cs" />
+    <Compile Include="IndexedTextureAsset.cs" />
+    <Compile Include="ModelAsset.cs" />
+    <Compile Include="PaletteAsset.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TextureAsset.cs" />
+    <Compile Include="Unknown.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Glare.Graphics\Glare.Graphics.csproj">
+      <Project>{6ec9bd9e-da82-48db-a01b-7bb90e1a1f71}</Project>
+      <Name>Glare.Graphics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Glare\Glare.csproj">
+      <Project>{125d9251-7cd0-4801-ab84-cb3f1f6978b1}</Project>
+      <Name>Glare %28Glare\Glare%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\AssetBar.resx">
+      <DependentUpon>AssetBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\BinaryAssetBrowser.resx">
+      <DependentUpon>BinaryAssetBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FolderAssetBrowser.resx">
+      <DependentUpon>FolderAssetBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ModelAssetBrowser.resx">
+      <DependentUpon>ModelAssetBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DownArrow.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DownArrowImage.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

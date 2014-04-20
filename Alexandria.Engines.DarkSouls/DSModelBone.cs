@@ -1,5 +1,6 @@
 ﻿using Glare;
 using Glare.Internal;
+using Glare.Assets;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

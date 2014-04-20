@@ -1,4 +1,5 @@
-﻿using Glare.Graphics.Internal;
+﻿using Glare.Framework;
+using Glare.Graphics.Internal;
 using Glare.Internal;
 using OpenTK.Graphics.OpenGL4;
 using System;
@@ -52,7 +53,7 @@ namespace Glare.Graphics {
 		}
 	}
 
-	public class DynamicBuffer<T> : ArrayBackedList<T> where T : struct {
+	public class DynamicBuffer<T> : RichList<T> where T : struct {
 		static readonly int size = Marshal.SizeOf(typeof(T));
 		GraphicsBuffer buffer;
 		BufferUsage usage = BufferUsage.DynamicDraw;

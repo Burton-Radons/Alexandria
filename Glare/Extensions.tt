@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Glare {
@@ -6,6 +7,15 @@ namespace Glare {
 		#region BinaryReader
 
 		<#GenerateAxes(VectorFamily, ()=>{#>
+			/// <summary>Read a part of a list.</summary>
+			public static void ReadArray(this BinaryReader reader, IList<<#=This#>> values, int start, int count) { for (int index = 0; index < count; index++) values[start + index] = reader.Read<#=This#>(); }
+
+			/// <summary>Read a part of a list.</summary>
+			public static void ReadArray(this BinaryReader reader, IList<<#=This#>> values) { reader.ReadArray(values, 0, values.Count); }
+
+			/// <summary>Read an array of <c><#=This#></c> values.</summary>
+			public static <#=This#>[] ReadArray<#=This#>(this BinaryReader reader, int count) { <#=This#>[] array = new <#=This#>[count]; reader.ReadArray(array, 0, count); return array; }
+
 			<#GenerateReferenceReturn(This, (r)=>{#>
 				public static <#=r.ReturnType#> Read<#=This#>(this BinaryReader reader <#=r.Argument#>) {
 					<#=r.Begin#>

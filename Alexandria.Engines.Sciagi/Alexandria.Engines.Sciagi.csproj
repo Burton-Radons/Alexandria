@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="GameId.cs" />
     <Compile Include="GraphicsMode.cs" />
+    <Compile Include="Resources\Message.cs" />
     <Compile Include="Resources\PictureCanvas.cs" />
     <Compile Include="Controls\PictureBrowser.cs">
       <SubType>UserControl</SubType>
@@ -80,12 +81,17 @@
     <Compile Include="Resources\PictureRenderer.cs" />
     <Compile Include="Resources\Picture.cs" />
     <Compile Include="Resources\Script.cs" />
+    <Compile Include="Resources\ScriptOpcode.cs" />
     <Compile Include="Resources\Text.cs" />
     <Compile Include="Resources\View.cs" />
     <Compile Include="ResourceType.cs" />
     <Compile Include="Resource.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Glare.Assets\Glare.Assets.csproj">
+      <Project>{e3809e79-fe0a-4425-a1a1-575f6719ec45}</Project>
+      <Name>Glare.Assets</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Glare.Graphics\Glare.Graphics.csproj">
       <Project>{6ec9bd9e-da82-48db-a01b-7bb90e1a1f71}</Project>
       <Name>Glare.Graphics</Name>

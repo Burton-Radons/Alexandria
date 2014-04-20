@@ -31,7 +31,7 @@ namespace Glare.Graphics {
 		// ActiveTexture
 		// ArrayBufferBinding
 
-		public static Context Shared { get { return Graphics.sharedContext; } }
+		public static Context Shared { get { return Device.sharedContext; } }
 
 		public Context(IGraphicsContext context, IWindowInfo window) {
 			CheckError();
@@ -42,7 +42,7 @@ namespace Glare.Graphics {
 			MakeCurrent();
 
 			CheckError();
-			DrawBuffer[] drawBuffers = new DrawBuffer[Graphics.GetInt32(GetPName.MaxDrawBuffers)];
+			DrawBuffer[] drawBuffers = new DrawBuffer[Device.GetInt32(GetPName.MaxDrawBuffers)];
 			for (int index = 0; index < drawBuffers.Length; index++)
 				drawBuffers[index] = new DrawBuffer(this, index);
 			this.drawBuffers = new DrawBufferCollection(drawBuffers);
@@ -52,7 +52,7 @@ namespace Glare.Graphics {
 		}
 
 		static Context() {
-			Graphics.Initialize();
+			Device.Initialize();
 		}
 
 		public static void CheckError() {
@@ -70,7 +70,7 @@ namespace Glare.Graphics {
 			}
 		}
 
-		internal static bool CheckVersion(int major, int minor = 0, int revision = 0) { return Graphics.Capabilities.Version.Check(major, minor, revision); }
+		internal static bool CheckVersion(int major, int minor = 0, int revision = 0) { return Device.Capabilities.Version.Check(major, minor, revision); }
 
 		internal static void Initialize() {
 		}
@@ -99,7 +99,7 @@ namespace Glare.Graphics {
 			return true;
 		}*/
 
-		internal void RequireVersion(int major, int minor) { Graphics.Capabilities.Version.Require(major, minor); }
+		internal void RequireVersion(int major, int minor) { Device.Capabilities.Version.Require(major, minor); }
 
 		internal void SetEnabled(EnableCap cap, bool value) {
 			using (Lock())

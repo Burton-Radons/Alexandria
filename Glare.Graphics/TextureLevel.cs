@@ -86,8 +86,8 @@ namespace Glare.Graphics {
 		}
 
 		public void DataCompressed(Format format, Vector2i dimensions, IntPtr data) {
-			if (format == null || !format.IsCompressed)
-				throw new ArgumentException("format");
+			if (format == null)
+				throw new ArgumentNullException("format");
 			DataCompressedBase(format, dimensions, data);
 		}
 

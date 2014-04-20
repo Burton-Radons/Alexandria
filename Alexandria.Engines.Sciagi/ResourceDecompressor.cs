@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Alexandria.Compression;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,8 +27,20 @@ namespace Alexandria.Engines.Sciagi {
 				case CompressionMethod.Huffman:
 					return new Huffman(input, compressedSize, uncompressedSize).OutputData;
 
-				case CompressionMethod.LZW:
-					return new LZW(input, compressedSize, uncompressedSize).OutputData;
+				case CompressionMethod.Lzw:
+					byte[] lzwOutput = new byte[uncompressedSize];
+					int lzwRead = Alexandria.Compression.LZW.Decompress(input, lzwOutput);
+					if (lzwRead != uncompressedSize)
+						throw new InvalidDataException("Invalid LZW decompression.");
+					return lzwOutput;
+					//return new LZW(input, compressedSize, uncompressedSize).OutputData;
+
+				case CompressionMethod.DclImplode:
+					byte[] dclOutput = new byte[uncompressedSize];
+					int dclRead = DclImplode.Decompress(input, dclOutput);
+					if (dclRead != uncompressedSize)
+						throw new Exception("Invalid DCL decompression.");
+					return dclOutput;
 
 				default:
 					throw new Exception("Unknown or unhandled compression mode " + compressionMode + ".");
@@ -56,8 +69,10 @@ namespace Alexandria.Engines.Sciagi {
 				BitCount += 8;
 			}
 		}
-		
-		/** Read some bits in LSB order. */
+
+		/// <summary>Read some bits in LSB order.</summary>
+		/// <param name="count"></param>
+		/// <returns></returns>
 		protected int BitsLSB(int count) {
 			if (BitCount < count)
 				FetchLSB();
@@ -75,10 +90,12 @@ namespace Alexandria.Engines.Sciagi {
 			}
 		}
 
+		/// <summary>Read some bits in MSB order.</summary>
+		/// <param name="count"></param>
+		/// <returns></returns>
 		protected int BitsMSB(int count) {
-			if (BitCount < count) {
+			if (BitCount < count)
 				FetchMSB();
-			}
 
 			int result = (int)((Bits >> (32 - count)) & ~((~0) << count));
 			Bits <<= count;
@@ -86,63 +103,27 @@ namespace Alexandria.Engines.Sciagi {
 			return result;
 		}
 
+		int ReadHuffmanCodeMSB(byte[] nodes) {
+			int next, index = 1;
+
+			while (nodes[index] != 0) {
+				if (BitsMSB(1) != 0) {
+					next = nodes[index] & 0x0F;
+					if (next == 0) {
+						return BitsMSB(8) | 0x100;
+					}
+				} else {
+					next = (nodes[index] & 255) >> 4;
+				}
+				index += next << 1;
+			}
+
+			return (nodes[index - 1] & 255) | ((nodes[index] & 255) << 8);
+		}
+
 		protected bool Finished { get { return Input.Position >= End; } }
 
 		protected int RemainingOutput { get { return UncompressedSize - (int)Output.Position; } }
-
-		class LZW : ResourceDecompressor {
-			public LZW(Stream input, int compressedSize, int uncompressedSize)
-				: base(input, compressedSize, uncompressedSize) {
-				int bits = 9; // Number of bits in a token.
-				int endToken = 0x1FF; // Last token to cause an increase in the bits.
-				int currentToken = 0x0102; // First undefined token.
-				int[] tokenOffsets = new int[4096]; // Indexes into output for each token.
-				int[] tokenLengths = new int[4096]; // Byte length of each token.
-
-				while (!Finished) {
-					int token = BitsLSB(bits);
-
-					if (token == 0x101) {
-						break;
-					} else if (token == 0x100) {
-						bits = 9;
-						endToken = 0x1FF;
-						currentToken = 0x0102;
-					} else {
-						int tokenLength; // Size of the token in bytes.
-
-						if (token > 0xFF) {
-							if (token >= currentToken)
-								throw new Exception("SCI LZW decompression encountered out-of-range token.");
-
-							tokenLength = tokenLengths[token] + 1;
-							int writeLength = tokenLength;
-							int offset = tokenOffsets[token];
-
-							if (RemainingOutput < writeLength) {
-								writeLength = RemainingOutput;
-							}
-
-							Output.Write(OutputData, offset, writeLength);
-						} else {
-							tokenLength = 1;
-							Output.WriteByte((byte)token);
-						}
-
-						if (currentToken > endToken && bits < 12) {
-							bits++;
-							endToken = (endToken << 1) + 1;
-						}
-
-						if (currentToken <= endToken) {
-							tokenOffsets[currentToken] = (int)Output.Position - tokenLength;
-							tokenLengths[currentToken] = tokenLength;
-							currentToken++;
-						}
-					}
-				}
-			}
-		}
 
 		class Huffman : ResourceDecompressor {
 			byte[] nodes;
@@ -156,28 +137,11 @@ namespace Alexandria.Engines.Sciagi {
 				nodes = new byte[nodeCount << 1];
 				input.Read(nodes, 0, nodes.Length);
 
-				while ((code = ReadCode()) != terminator && (code >= 0) && !Finished) {
+				while ((code = ReadCode()) != terminator && (code >= 0) && !Finished)
 					Output.WriteByte((byte)code);
-				}
 			}
 
-			int ReadCode() {
-				int next, index = 1;
-
-				while (nodes[index] != 0) {
-					if (BitsMSB(1) != 0) {
-						next = nodes[index] & 0x0F;
-						if (next == 0) {
-							return BitsMSB(8) | 0x100;
-						}
-					} else {
-						next = (nodes[index] & 255) >> 4;
-					}
-					index += next << 1;
-				}
-
-				return (nodes[index - 1] & 255) | ((nodes[index] & 255) << 8);
-			}
+			int ReadCode() { return ReadHuffmanCodeMSB(nodes); }
 		}
 	}
 }

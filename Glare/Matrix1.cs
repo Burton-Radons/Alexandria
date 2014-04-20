@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace Glare
 {
 	
-	/// <summary>A two-dimensional matrix type using <see cref="float"/> elements.</summary>
+	/// <summary>A two-dimensional matrix type using <see cref="Single"/> elements.</summary>
 	[StructLayout(LayoutKind.Explicit)]
 	public partial struct Matrix2f : IEquatable<Matrix2f>
 	{
@@ -14,16 +14,16 @@ namespace Glare
 		// T [XYZW][XYZW]
 					/// <summary>Get or set the first row of the first column of the <see cref="Matrix2f"/>.</summary>
 			[FieldOffset(0)]
-			public float XX;
+			public Single XX;
 					/// <summary>Get or set the first row of the second column of the <see cref="Matrix2f"/>.</summary>
 			[FieldOffset(4)]
-			public float XY;
+			public Single XY;
 					/// <summary>Get or set the second row of the first column of the <see cref="Matrix2f"/>.</summary>
 			[FieldOffset(8)]
-			public float YX;
+			public Single YX;
 					/// <summary>Get or set the second row of the second column of the <see cref="Matrix2f"/>.</summary>
 			[FieldOffset(12)]
-			public float YY;
+			public Single YY;
 				
 		// VectorR [XYZW]Row
 					/// <summary>Get or set the first row of the <see cref="Matrix2f"/>.</summary>
@@ -66,9 +66,53 @@ namespace Glare
 					/// <param name="xy">The value to assign to the first row of the second column in field <see cref="XY"/>.</param>
 					/// <param name="yx">The value to assign to the second row of the first column in field <see cref="YX"/>.</param>
 					/// <param name="yy">The value to assign to the second row of the second column in field <see cref="YY"/>.</param>
-				public Matrix2f(float xx, float xy, float yx, float yy)
+				public Matrix2f(Single xx, Single xy, Single yx, Single yy)
 		{
 			XX = xx;XY = xy;YX = yx;YY = yy;		}
+
+		public Single this[int row, int column] {
+			get {
+									if(row == 0) {
+													if(column == 0)
+								return XX;
+						 else 							if(column == 1)
+								return XY;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 1) {
+													if(column == 0)
+								return YX;
+						 else 							if(column == 1)
+								return YY;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+								else
+					throw new ArgumentOutOfRangeException("row");
+			}
+
+			set {
+									if(row == 0) {
+													if(column == 0)
+								XX = value;
+						 else 							if(column == 1)
+								XY = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 1) {
+													if(column == 0)
+								YX = value;
+						 else 							if(column == 1)
+								YY = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+								else
+					throw new ArgumentOutOfRangeException("row");
+			}
+		}
 
 		#region Methods
 
@@ -106,10 +150,10 @@ namespace Glare
 			public Matrix2f Multiply(ref Matrix2f other )
 			{
 				Matrix2f result;
-																		float vXX =   XX * other.XX  + XY * other.YX ;
-											float vXY =   XX * other.XY  + XY * other.YY ;
-											float vYX =   YX * other.XX  + YY * other.YX ;
-											float vYY =   YX * other.XY  + YY * other.YY ;
+																		Single vXX =   XX * other.XX  + XY * other.YX ;
+											Single vXY =   XX * other.XY  + XY * other.YY ;
+											Single vYX =   YX * other.XX  + YY * other.YX ;
+											Single vYY =   YX * other.XY  + YY * other.YY ;
 															result.XX = vXX;
 											result.XY = vXY;
 											result.YX = vYX;
@@ -126,10 +170,10 @@ namespace Glare
 			public void Multiply(ref Matrix2f other , out Matrix2f result)
 			{
 				
-																		float vXX =   XX * other.XX  + XY * other.YX ;
-											float vXY =   XX * other.XY  + XY * other.YY ;
-											float vYX =   YX * other.XX  + YY * other.YX ;
-											float vYY =   YX * other.XY  + YY * other.YY ;
+																		Single vXX =   XX * other.XX  + XY * other.YX ;
+											Single vXY =   XX * other.XY  + XY * other.YY ;
+											Single vYX =   YX * other.XX  + YY * other.YX ;
+											Single vYY =   YX * other.XY  + YY * other.YY ;
 															result.XX = vXX;
 											result.XY = vXY;
 											result.YX = vYX;
@@ -142,7 +186,7 @@ namespace Glare
 		#region Square matrix methods
 
 									
-				public static Matrix2f Scale(float amount )
+				public static Matrix2f Scale(Single amount )
 				{
 					Matrix2f result;
 											result.XX = amount;
@@ -152,7 +196,7 @@ namespace Glare
 										return result;
 				}
 							
-				public static void Scale(float amount , out Matrix2f result)
+				public static void Scale(Single amount , out Matrix2f result)
 				{
 					
 											result.XX = amount;
@@ -181,9 +225,9 @@ namespace Glare
 		public static bool operator !=(Matrix2f a, Matrix2f b) { return !a.Equals(ref b); }
 
 					/// <summary>Cast to the <see cref="Matrix2d"/>.</summary>
-			public static implicit operator Matrix2d(Matrix2f a)
+			public static explicit operator Matrix2d(Matrix2f a)
 			{
-				return new Matrix2d((double)a.XX, (double)a.XY, (double)a.YX, (double)a.YY);
+				return new Matrix2d((Double)a.XX, (Double)a.XY, (Double)a.YX, (Double)a.YY);
 			}
 			
 		public static Matrix2f operator *(Matrix2f a, Matrix2f b) { Matrix2f result; a.Multiply(ref b, out result); return result; }
@@ -193,7 +237,7 @@ namespace Glare
 	}
 	
 	
-	/// <summary>A two-dimensional matrix type using <see cref="double"/> elements.</summary>
+	/// <summary>A two-dimensional matrix type using <see cref="Double"/> elements.</summary>
 	[StructLayout(LayoutKind.Explicit)]
 	public partial struct Matrix2d : IEquatable<Matrix2d>
 	{
@@ -203,16 +247,16 @@ namespace Glare
 		// T [XYZW][XYZW]
 					/// <summary>Get or set the first row of the first column of the <see cref="Matrix2d"/>.</summary>
 			[FieldOffset(0)]
-			public double XX;
+			public Double XX;
 					/// <summary>Get or set the first row of the second column of the <see cref="Matrix2d"/>.</summary>
 			[FieldOffset(8)]
-			public double XY;
+			public Double XY;
 					/// <summary>Get or set the second row of the first column of the <see cref="Matrix2d"/>.</summary>
 			[FieldOffset(16)]
-			public double YX;
+			public Double YX;
 					/// <summary>Get or set the second row of the second column of the <see cref="Matrix2d"/>.</summary>
 			[FieldOffset(24)]
-			public double YY;
+			public Double YY;
 				
 		// VectorR [XYZW]Row
 					/// <summary>Get or set the first row of the <see cref="Matrix2d"/>.</summary>
@@ -255,9 +299,53 @@ namespace Glare
 					/// <param name="xy">The value to assign to the first row of the second column in field <see cref="XY"/>.</param>
 					/// <param name="yx">The value to assign to the second row of the first column in field <see cref="YX"/>.</param>
 					/// <param name="yy">The value to assign to the second row of the second column in field <see cref="YY"/>.</param>
-				public Matrix2d(double xx, double xy, double yx, double yy)
+				public Matrix2d(Double xx, Double xy, Double yx, Double yy)
 		{
 			XX = xx;XY = xy;YX = yx;YY = yy;		}
+
+		public Double this[int row, int column] {
+			get {
+									if(row == 0) {
+													if(column == 0)
+								return XX;
+						 else 							if(column == 1)
+								return XY;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 1) {
+													if(column == 0)
+								return YX;
+						 else 							if(column == 1)
+								return YY;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+								else
+					throw new ArgumentOutOfRangeException("row");
+			}
+
+			set {
+									if(row == 0) {
+													if(column == 0)
+								XX = value;
+						 else 							if(column == 1)
+								XY = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 1) {
+													if(column == 0)
+								YX = value;
+						 else 							if(column == 1)
+								YY = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+								else
+					throw new ArgumentOutOfRangeException("row");
+			}
+		}
 
 		#region Methods
 
@@ -295,10 +383,10 @@ namespace Glare
 			public Matrix2d Multiply(ref Matrix2d other )
 			{
 				Matrix2d result;
-																		double vXX =   XX * other.XX  + XY * other.YX ;
-											double vXY =   XX * other.XY  + XY * other.YY ;
-											double vYX =   YX * other.XX  + YY * other.YX ;
-											double vYY =   YX * other.XY  + YY * other.YY ;
+																		Double vXX =   XX * other.XX  + XY * other.YX ;
+											Double vXY =   XX * other.XY  + XY * other.YY ;
+											Double vYX =   YX * other.XX  + YY * other.YX ;
+											Double vYY =   YX * other.XY  + YY * other.YY ;
 															result.XX = vXX;
 											result.XY = vXY;
 											result.YX = vYX;
@@ -315,10 +403,10 @@ namespace Glare
 			public void Multiply(ref Matrix2d other , out Matrix2d result)
 			{
 				
-																		double vXX =   XX * other.XX  + XY * other.YX ;
-											double vXY =   XX * other.XY  + XY * other.YY ;
-											double vYX =   YX * other.XX  + YY * other.YX ;
-											double vYY =   YX * other.XY  + YY * other.YY ;
+																		Double vXX =   XX * other.XX  + XY * other.YX ;
+											Double vXY =   XX * other.XY  + XY * other.YY ;
+											Double vYX =   YX * other.XX  + YY * other.YX ;
+											Double vYY =   YX * other.XY  + YY * other.YY ;
 															result.XX = vXX;
 											result.XY = vXY;
 											result.YX = vYX;
@@ -331,7 +419,7 @@ namespace Glare
 		#region Square matrix methods
 
 									
-				public static Matrix2d Scale(double amount )
+				public static Matrix2d Scale(Double amount )
 				{
 					Matrix2d result;
 											result.XX = amount;
@@ -341,7 +429,7 @@ namespace Glare
 										return result;
 				}
 							
-				public static void Scale(double amount , out Matrix2d result)
+				public static void Scale(Double amount , out Matrix2d result)
 				{
 					
 											result.XX = amount;
@@ -372,7 +460,7 @@ namespace Glare
 					/// <summary>Cast to the <see cref="Matrix2f"/>.</summary>
 			public static explicit operator Matrix2f(Matrix2d a)
 			{
-				return new Matrix2f((float)a.XX, (float)a.XY, (float)a.YX, (float)a.YY);
+				return new Matrix2f((Single)a.XX, (Single)a.XY, (Single)a.YX, (Single)a.YY);
 			}
 			
 		public static Matrix2d operator *(Matrix2d a, Matrix2d b) { Matrix2d result; a.Multiply(ref b, out result); return result; }
@@ -382,7 +470,7 @@ namespace Glare
 	}
 	
 	
-	/// <summary>A three-dimensional matrix type using <see cref="float"/> elements.</summary>
+	/// <summary>A three-dimensional matrix type using <see cref="Single"/> elements.</summary>
 	[StructLayout(LayoutKind.Explicit)]
 	public partial struct Matrix3f : IEquatable<Matrix3f>
 	{
@@ -392,31 +480,31 @@ namespace Glare
 		// T [XYZW][XYZW]
 					/// <summary>Get or set the first row of the first column of the <see cref="Matrix3f"/>.</summary>
 			[FieldOffset(0)]
-			public float XX;
+			public Single XX;
 					/// <summary>Get or set the first row of the second column of the <see cref="Matrix3f"/>.</summary>
 			[FieldOffset(4)]
-			public float XY;
+			public Single XY;
 					/// <summary>Get or set the first row of the third column of the <see cref="Matrix3f"/>.</summary>
 			[FieldOffset(8)]
-			public float XZ;
+			public Single XZ;
 					/// <summary>Get or set the second row of the first column of the <see cref="Matrix3f"/>.</summary>
 			[FieldOffset(12)]
-			public float YX;
+			public Single YX;
 					/// <summary>Get or set the second row of the second column of the <see cref="Matrix3f"/>.</summary>
 			[FieldOffset(16)]
-			public float YY;
+			public Single YY;
 					/// <summary>Get or set the second row of the third column of the <see cref="Matrix3f"/>.</summary>
 			[FieldOffset(20)]
-			public float YZ;
+			public Single YZ;
 					/// <summary>Get or set the third row of the first column of the <see cref="Matrix3f"/>.</summary>
 			[FieldOffset(24)]
-			public float ZX;
+			public Single ZX;
 					/// <summary>Get or set the third row of the second column of the <see cref="Matrix3f"/>.</summary>
 			[FieldOffset(28)]
-			public float ZY;
+			public Single ZY;
 					/// <summary>Get or set the third row of the third column of the <see cref="Matrix3f"/>.</summary>
 			[FieldOffset(32)]
-			public float ZZ;
+			public Single ZZ;
 				
 		// VectorR [XYZW]Row
 					/// <summary>Get or set the first row of the <see cref="Matrix3f"/>.</summary>
@@ -476,9 +564,81 @@ namespace Glare
 					/// <param name="zx">The value to assign to the third row of the first column in field <see cref="ZX"/>.</param>
 					/// <param name="zy">The value to assign to the third row of the second column in field <see cref="ZY"/>.</param>
 					/// <param name="zz">The value to assign to the third row of the third column in field <see cref="ZZ"/>.</param>
-				public Matrix3f(float xx, float xy, float xz, float yx, float yy, float yz, float zx, float zy, float zz)
+				public Matrix3f(Single xx, Single xy, Single xz, Single yx, Single yy, Single yz, Single zx, Single zy, Single zz)
 		{
 			XX = xx;XY = xy;XZ = xz;YX = yx;YY = yy;YZ = yz;ZX = zx;ZY = zy;ZZ = zz;		}
+
+		public Single this[int row, int column] {
+			get {
+									if(row == 0) {
+													if(column == 0)
+								return XX;
+						 else 							if(column == 1)
+								return XY;
+						 else 							if(column == 2)
+								return XZ;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 1) {
+													if(column == 0)
+								return YX;
+						 else 							if(column == 1)
+								return YY;
+						 else 							if(column == 2)
+								return YZ;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 2) {
+													if(column == 0)
+								return ZX;
+						 else 							if(column == 1)
+								return ZY;
+						 else 							if(column == 2)
+								return ZZ;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+								else
+					throw new ArgumentOutOfRangeException("row");
+			}
+
+			set {
+									if(row == 0) {
+													if(column == 0)
+								XX = value;
+						 else 							if(column == 1)
+								XY = value;
+						 else 							if(column == 2)
+								XZ = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 1) {
+													if(column == 0)
+								YX = value;
+						 else 							if(column == 1)
+								YY = value;
+						 else 							if(column == 2)
+								YZ = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 2) {
+													if(column == 0)
+								ZX = value;
+						 else 							if(column == 1)
+								ZY = value;
+						 else 							if(column == 2)
+								ZZ = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+								else
+					throw new ArgumentOutOfRangeException("row");
+			}
+		}
 
 		#region Methods
 
@@ -516,15 +676,15 @@ namespace Glare
 			public Matrix3f Multiply(ref Matrix3f other )
 			{
 				Matrix3f result;
-																		float vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX ;
-											float vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY ;
-											float vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ ;
-											float vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX ;
-											float vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY ;
-											float vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ ;
-											float vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX ;
-											float vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY ;
-											float vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ ;
+																		Single vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX ;
+											Single vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY ;
+											Single vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ ;
+											Single vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX ;
+											Single vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY ;
+											Single vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ ;
+											Single vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX ;
+											Single vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY ;
+											Single vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ ;
 															result.XX = vXX;
 											result.XY = vXY;
 											result.XZ = vXZ;
@@ -546,15 +706,15 @@ namespace Glare
 			public void Multiply(ref Matrix3f other , out Matrix3f result)
 			{
 				
-																		float vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX ;
-											float vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY ;
-											float vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ ;
-											float vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX ;
-											float vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY ;
-											float vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ ;
-											float vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX ;
-											float vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY ;
-											float vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ ;
+																		Single vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX ;
+											Single vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY ;
+											Single vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ ;
+											Single vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX ;
+											Single vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY ;
+											Single vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ ;
+											Single vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX ;
+											Single vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY ;
+											Single vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ ;
 															result.XX = vXX;
 											result.XY = vXY;
 											result.XZ = vXZ;
@@ -576,7 +736,7 @@ namespace Glare
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = amount.X;  result.ZY = amount.Y;  result.ZZ = 1; 				return result;
 			}
 
-			public static Matrix3f Translate( float X ,  float Y  )
+			public static Matrix3f Translate( Single X ,  Single Y  )
 			{
 				Matrix3f result;
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = X;  result.ZY = Y;  result.ZZ = 1; 				return result;
@@ -589,7 +749,7 @@ namespace Glare
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = amount.X;  result.ZY = amount.Y;  result.ZZ = 1; 				return;
 			}
 
-			public static void Translate( float X ,  float Y  , out Matrix3f result)
+			public static void Translate( Single X ,  Single Y  , out Matrix3f result)
 			{
 				
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = X;  result.ZY = Y;  result.ZZ = 1; 				return;
@@ -612,7 +772,7 @@ namespace Glare
 												return result;
 					}
 
-					public static Matrix3f Scale( float x ,  float y  )
+					public static Matrix3f Scale( Single x ,  Single y  )
 					{
 						Matrix3f result;
 													result.XX = x;
@@ -627,7 +787,7 @@ namespace Glare
 												return result;
 					}
 				
-				public static Matrix3f Scale(float amount )
+				public static Matrix3f Scale(Single amount )
 				{
 					Matrix3f result;
 											result.XX = amount;
@@ -656,7 +816,7 @@ namespace Glare
 												return;
 					}
 
-					public static void Scale( float x ,  float y  , out Matrix3f result)
+					public static void Scale( Single x ,  Single y  , out Matrix3f result)
 					{
 						
 													result.XX = x;
@@ -671,7 +831,7 @@ namespace Glare
 												return;
 					}
 				
-				public static void Scale(float amount , out Matrix3f result)
+				public static void Scale(Single amount , out Matrix3f result)
 				{
 					
 											result.XX = amount;
@@ -745,9 +905,9 @@ namespace Glare
 		public static bool operator !=(Matrix3f a, Matrix3f b) { return !a.Equals(ref b); }
 
 					/// <summary>Cast to the <see cref="Matrix3d"/>.</summary>
-			public static implicit operator Matrix3d(Matrix3f a)
+			public static explicit operator Matrix3d(Matrix3f a)
 			{
-				return new Matrix3d((double)a.XX, (double)a.XY, (double)a.XZ, (double)a.YX, (double)a.YY, (double)a.YZ, (double)a.ZX, (double)a.ZY, (double)a.ZZ);
+				return new Matrix3d((Double)a.XX, (Double)a.XY, (Double)a.XZ, (Double)a.YX, (Double)a.YY, (Double)a.YZ, (Double)a.ZX, (Double)a.ZY, (Double)a.ZZ);
 			}
 			
 		public static Matrix3f operator *(Matrix3f a, Matrix3f b) { Matrix3f result; a.Multiply(ref b, out result); return result; }
@@ -758,7 +918,7 @@ namespace Glare
 	}
 	
 	
-	/// <summary>A three-dimensional matrix type using <see cref="double"/> elements.</summary>
+	/// <summary>A three-dimensional matrix type using <see cref="Double"/> elements.</summary>
 	[StructLayout(LayoutKind.Explicit)]
 	public partial struct Matrix3d : IEquatable<Matrix3d>
 	{
@@ -768,31 +928,31 @@ namespace Glare
 		// T [XYZW][XYZW]
 					/// <summary>Get or set the first row of the first column of the <see cref="Matrix3d"/>.</summary>
 			[FieldOffset(0)]
-			public double XX;
+			public Double XX;
 					/// <summary>Get or set the first row of the second column of the <see cref="Matrix3d"/>.</summary>
 			[FieldOffset(8)]
-			public double XY;
+			public Double XY;
 					/// <summary>Get or set the first row of the third column of the <see cref="Matrix3d"/>.</summary>
 			[FieldOffset(16)]
-			public double XZ;
+			public Double XZ;
 					/// <summary>Get or set the second row of the first column of the <see cref="Matrix3d"/>.</summary>
 			[FieldOffset(24)]
-			public double YX;
+			public Double YX;
 					/// <summary>Get or set the second row of the second column of the <see cref="Matrix3d"/>.</summary>
 			[FieldOffset(32)]
-			public double YY;
+			public Double YY;
 					/// <summary>Get or set the second row of the third column of the <see cref="Matrix3d"/>.</summary>
 			[FieldOffset(40)]
-			public double YZ;
+			public Double YZ;
 					/// <summary>Get or set the third row of the first column of the <see cref="Matrix3d"/>.</summary>
 			[FieldOffset(48)]
-			public double ZX;
+			public Double ZX;
 					/// <summary>Get or set the third row of the second column of the <see cref="Matrix3d"/>.</summary>
 			[FieldOffset(56)]
-			public double ZY;
+			public Double ZY;
 					/// <summary>Get or set the third row of the third column of the <see cref="Matrix3d"/>.</summary>
 			[FieldOffset(64)]
-			public double ZZ;
+			public Double ZZ;
 				
 		// VectorR [XYZW]Row
 					/// <summary>Get or set the first row of the <see cref="Matrix3d"/>.</summary>
@@ -852,9 +1012,81 @@ namespace Glare
 					/// <param name="zx">The value to assign to the third row of the first column in field <see cref="ZX"/>.</param>
 					/// <param name="zy">The value to assign to the third row of the second column in field <see cref="ZY"/>.</param>
 					/// <param name="zz">The value to assign to the third row of the third column in field <see cref="ZZ"/>.</param>
-				public Matrix3d(double xx, double xy, double xz, double yx, double yy, double yz, double zx, double zy, double zz)
+				public Matrix3d(Double xx, Double xy, Double xz, Double yx, Double yy, Double yz, Double zx, Double zy, Double zz)
 		{
 			XX = xx;XY = xy;XZ = xz;YX = yx;YY = yy;YZ = yz;ZX = zx;ZY = zy;ZZ = zz;		}
+
+		public Double this[int row, int column] {
+			get {
+									if(row == 0) {
+													if(column == 0)
+								return XX;
+						 else 							if(column == 1)
+								return XY;
+						 else 							if(column == 2)
+								return XZ;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 1) {
+													if(column == 0)
+								return YX;
+						 else 							if(column == 1)
+								return YY;
+						 else 							if(column == 2)
+								return YZ;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 2) {
+													if(column == 0)
+								return ZX;
+						 else 							if(column == 1)
+								return ZY;
+						 else 							if(column == 2)
+								return ZZ;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+								else
+					throw new ArgumentOutOfRangeException("row");
+			}
+
+			set {
+									if(row == 0) {
+													if(column == 0)
+								XX = value;
+						 else 							if(column == 1)
+								XY = value;
+						 else 							if(column == 2)
+								XZ = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 1) {
+													if(column == 0)
+								YX = value;
+						 else 							if(column == 1)
+								YY = value;
+						 else 							if(column == 2)
+								YZ = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 2) {
+													if(column == 0)
+								ZX = value;
+						 else 							if(column == 1)
+								ZY = value;
+						 else 							if(column == 2)
+								ZZ = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+								else
+					throw new ArgumentOutOfRangeException("row");
+			}
+		}
 
 		#region Methods
 
@@ -892,15 +1124,15 @@ namespace Glare
 			public Matrix3d Multiply(ref Matrix3d other )
 			{
 				Matrix3d result;
-																		double vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX ;
-											double vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY ;
-											double vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ ;
-											double vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX ;
-											double vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY ;
-											double vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ ;
-											double vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX ;
-											double vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY ;
-											double vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ ;
+																		Double vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX ;
+											Double vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY ;
+											Double vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ ;
+											Double vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX ;
+											Double vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY ;
+											Double vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ ;
+											Double vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX ;
+											Double vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY ;
+											Double vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ ;
 															result.XX = vXX;
 											result.XY = vXY;
 											result.XZ = vXZ;
@@ -922,15 +1154,15 @@ namespace Glare
 			public void Multiply(ref Matrix3d other , out Matrix3d result)
 			{
 				
-																		double vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX ;
-											double vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY ;
-											double vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ ;
-											double vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX ;
-											double vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY ;
-											double vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ ;
-											double vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX ;
-											double vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY ;
-											double vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ ;
+																		Double vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX ;
+											Double vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY ;
+											Double vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ ;
+											Double vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX ;
+											Double vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY ;
+											Double vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ ;
+											Double vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX ;
+											Double vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY ;
+											Double vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ ;
 															result.XX = vXX;
 											result.XY = vXY;
 											result.XZ = vXZ;
@@ -952,7 +1184,7 @@ namespace Glare
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = amount.X;  result.ZY = amount.Y;  result.ZZ = 1; 				return result;
 			}
 
-			public static Matrix3d Translate( double X ,  double Y  )
+			public static Matrix3d Translate( Double X ,  Double Y  )
 			{
 				Matrix3d result;
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = X;  result.ZY = Y;  result.ZZ = 1; 				return result;
@@ -965,7 +1197,7 @@ namespace Glare
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = amount.X;  result.ZY = amount.Y;  result.ZZ = 1; 				return;
 			}
 
-			public static void Translate( double X ,  double Y  , out Matrix3d result)
+			public static void Translate( Double X ,  Double Y  , out Matrix3d result)
 			{
 				
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = X;  result.ZY = Y;  result.ZZ = 1; 				return;
@@ -988,7 +1220,7 @@ namespace Glare
 												return result;
 					}
 
-					public static Matrix3d Scale( double x ,  double y  )
+					public static Matrix3d Scale( Double x ,  Double y  )
 					{
 						Matrix3d result;
 													result.XX = x;
@@ -1003,7 +1235,7 @@ namespace Glare
 												return result;
 					}
 				
-				public static Matrix3d Scale(double amount )
+				public static Matrix3d Scale(Double amount )
 				{
 					Matrix3d result;
 											result.XX = amount;
@@ -1032,7 +1264,7 @@ namespace Glare
 												return;
 					}
 
-					public static void Scale( double x ,  double y  , out Matrix3d result)
+					public static void Scale( Double x ,  Double y  , out Matrix3d result)
 					{
 						
 													result.XX = x;
@@ -1047,7 +1279,7 @@ namespace Glare
 												return;
 					}
 				
-				public static void Scale(double amount , out Matrix3d result)
+				public static void Scale(Double amount , out Matrix3d result)
 				{
 					
 											result.XX = amount;
@@ -1123,7 +1355,7 @@ namespace Glare
 					/// <summary>Cast to the <see cref="Matrix3f"/>.</summary>
 			public static explicit operator Matrix3f(Matrix3d a)
 			{
-				return new Matrix3f((float)a.XX, (float)a.XY, (float)a.XZ, (float)a.YX, (float)a.YY, (float)a.YZ, (float)a.ZX, (float)a.ZY, (float)a.ZZ);
+				return new Matrix3f((Single)a.XX, (Single)a.XY, (Single)a.XZ, (Single)a.YX, (Single)a.YY, (Single)a.YZ, (Single)a.ZX, (Single)a.ZY, (Single)a.ZZ);
 			}
 			
 		public static Matrix3d operator *(Matrix3d a, Matrix3d b) { Matrix3d result; a.Multiply(ref b, out result); return result; }
@@ -1134,7 +1366,7 @@ namespace Glare
 	}
 	
 	
-	/// <summary>A four-dimensional matrix type using <see cref="float"/> elements.</summary>
+	/// <summary>A four-dimensional matrix type using <see cref="Single"/> elements.</summary>
 	[StructLayout(LayoutKind.Explicit)]
 	public partial struct Matrix4f : IEquatable<Matrix4f>
 	{
@@ -1144,52 +1376,52 @@ namespace Glare
 		// T [XYZW][XYZW]
 					/// <summary>Get or set the first row of the first column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(0)]
-			public float XX;
+			public Single XX;
 					/// <summary>Get or set the first row of the second column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(4)]
-			public float XY;
+			public Single XY;
 					/// <summary>Get or set the first row of the third column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(8)]
-			public float XZ;
+			public Single XZ;
 					/// <summary>Get or set the first row of the fourth column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(12)]
-			public float XW;
+			public Single XW;
 					/// <summary>Get or set the second row of the first column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(16)]
-			public float YX;
+			public Single YX;
 					/// <summary>Get or set the second row of the second column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(20)]
-			public float YY;
+			public Single YY;
 					/// <summary>Get or set the second row of the third column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(24)]
-			public float YZ;
+			public Single YZ;
 					/// <summary>Get or set the second row of the fourth column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(28)]
-			public float YW;
+			public Single YW;
 					/// <summary>Get or set the third row of the first column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(32)]
-			public float ZX;
+			public Single ZX;
 					/// <summary>Get or set the third row of the second column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(36)]
-			public float ZY;
+			public Single ZY;
 					/// <summary>Get or set the third row of the third column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(40)]
-			public float ZZ;
+			public Single ZZ;
 					/// <summary>Get or set the third row of the fourth column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(44)]
-			public float ZW;
+			public Single ZW;
 					/// <summary>Get or set the fourth row of the first column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(48)]
-			public float WX;
+			public Single WX;
 					/// <summary>Get or set the fourth row of the second column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(52)]
-			public float WY;
+			public Single WY;
 					/// <summary>Get or set the fourth row of the third column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(56)]
-			public float WZ;
+			public Single WZ;
 					/// <summary>Get or set the fourth row of the fourth column of the <see cref="Matrix4f"/>.</summary>
 			[FieldOffset(60)]
-			public float WW;
+			public Single WW;
 				
 		// VectorR [XYZW]Row
 					/// <summary>Get or set the first row of the <see cref="Matrix4f"/>.</summary>
@@ -1268,9 +1500,117 @@ namespace Glare
 					/// <param name="wy">The value to assign to the fourth row of the second column in field <see cref="WY"/>.</param>
 					/// <param name="wz">The value to assign to the fourth row of the third column in field <see cref="WZ"/>.</param>
 					/// <param name="ww">The value to assign to the fourth row of the fourth column in field <see cref="WW"/>.</param>
-				public Matrix4f(float xx, float xy, float xz, float xw, float yx, float yy, float yz, float yw, float zx, float zy, float zz, float zw, float wx, float wy, float wz, float ww)
+				public Matrix4f(Single xx, Single xy, Single xz, Single xw, Single yx, Single yy, Single yz, Single yw, Single zx, Single zy, Single zz, Single zw, Single wx, Single wy, Single wz, Single ww)
 		{
 			XX = xx;XY = xy;XZ = xz;XW = xw;YX = yx;YY = yy;YZ = yz;YW = yw;ZX = zx;ZY = zy;ZZ = zz;ZW = zw;WX = wx;WY = wy;WZ = wz;WW = ww;		}
+
+		public Single this[int row, int column] {
+			get {
+									if(row == 0) {
+													if(column == 0)
+								return XX;
+						 else 							if(column == 1)
+								return XY;
+						 else 							if(column == 2)
+								return XZ;
+						 else 							if(column == 3)
+								return XW;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 1) {
+													if(column == 0)
+								return YX;
+						 else 							if(column == 1)
+								return YY;
+						 else 							if(column == 2)
+								return YZ;
+						 else 							if(column == 3)
+								return YW;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 2) {
+													if(column == 0)
+								return ZX;
+						 else 							if(column == 1)
+								return ZY;
+						 else 							if(column == 2)
+								return ZZ;
+						 else 							if(column == 3)
+								return ZW;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 3) {
+													if(column == 0)
+								return WX;
+						 else 							if(column == 1)
+								return WY;
+						 else 							if(column == 2)
+								return WZ;
+						 else 							if(column == 3)
+								return WW;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+								else
+					throw new ArgumentOutOfRangeException("row");
+			}
+
+			set {
+									if(row == 0) {
+													if(column == 0)
+								XX = value;
+						 else 							if(column == 1)
+								XY = value;
+						 else 							if(column == 2)
+								XZ = value;
+						 else 							if(column == 3)
+								XW = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 1) {
+													if(column == 0)
+								YX = value;
+						 else 							if(column == 1)
+								YY = value;
+						 else 							if(column == 2)
+								YZ = value;
+						 else 							if(column == 3)
+								YW = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 2) {
+													if(column == 0)
+								ZX = value;
+						 else 							if(column == 1)
+								ZY = value;
+						 else 							if(column == 2)
+								ZZ = value;
+						 else 							if(column == 3)
+								ZW = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 3) {
+													if(column == 0)
+								WX = value;
+						 else 							if(column == 1)
+								WY = value;
+						 else 							if(column == 2)
+								WZ = value;
+						 else 							if(column == 3)
+								WW = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+								else
+					throw new ArgumentOutOfRangeException("row");
+			}
+		}
 
 		#region Methods
 
@@ -1308,22 +1648,22 @@ namespace Glare
 			public Matrix4f Multiply(ref Matrix4f other )
 			{
 				Matrix4f result;
-																		float vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX  + XW * other.WX ;
-											float vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY  + XW * other.WY ;
-											float vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ  + XW * other.WZ ;
-											float vXW =   XX * other.XW  + XY * other.YW  + XZ * other.ZW  + XW * other.WW ;
-											float vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX  + YW * other.WX ;
-											float vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY  + YW * other.WY ;
-											float vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ  + YW * other.WZ ;
-											float vYW =   YX * other.XW  + YY * other.YW  + YZ * other.ZW  + YW * other.WW ;
-											float vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX  + ZW * other.WX ;
-											float vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY  + ZW * other.WY ;
-											float vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ  + ZW * other.WZ ;
-											float vZW =   ZX * other.XW  + ZY * other.YW  + ZZ * other.ZW  + ZW * other.WW ;
-											float vWX =   WX * other.XX  + WY * other.YX  + WZ * other.ZX  + WW * other.WX ;
-											float vWY =   WX * other.XY  + WY * other.YY  + WZ * other.ZY  + WW * other.WY ;
-											float vWZ =   WX * other.XZ  + WY * other.YZ  + WZ * other.ZZ  + WW * other.WZ ;
-											float vWW =   WX * other.XW  + WY * other.YW  + WZ * other.ZW  + WW * other.WW ;
+																		Single vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX  + XW * other.WX ;
+											Single vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY  + XW * other.WY ;
+											Single vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ  + XW * other.WZ ;
+											Single vXW =   XX * other.XW  + XY * other.YW  + XZ * other.ZW  + XW * other.WW ;
+											Single vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX  + YW * other.WX ;
+											Single vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY  + YW * other.WY ;
+											Single vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ  + YW * other.WZ ;
+											Single vYW =   YX * other.XW  + YY * other.YW  + YZ * other.ZW  + YW * other.WW ;
+											Single vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX  + ZW * other.WX ;
+											Single vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY  + ZW * other.WY ;
+											Single vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ  + ZW * other.WZ ;
+											Single vZW =   ZX * other.XW  + ZY * other.YW  + ZZ * other.ZW  + ZW * other.WW ;
+											Single vWX =   WX * other.XX  + WY * other.YX  + WZ * other.ZX  + WW * other.WX ;
+											Single vWY =   WX * other.XY  + WY * other.YY  + WZ * other.ZY  + WW * other.WY ;
+											Single vWZ =   WX * other.XZ  + WY * other.YZ  + WZ * other.ZZ  + WW * other.WZ ;
+											Single vWW =   WX * other.XW  + WY * other.YW  + WZ * other.ZW  + WW * other.WW ;
 															result.XX = vXX;
 											result.XY = vXY;
 											result.XZ = vXZ;
@@ -1352,22 +1692,22 @@ namespace Glare
 			public void Multiply(ref Matrix4f other , out Matrix4f result)
 			{
 				
-																		float vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX  + XW * other.WX ;
-											float vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY  + XW * other.WY ;
-											float vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ  + XW * other.WZ ;
-											float vXW =   XX * other.XW  + XY * other.YW  + XZ * other.ZW  + XW * other.WW ;
-											float vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX  + YW * other.WX ;
-											float vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY  + YW * other.WY ;
-											float vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ  + YW * other.WZ ;
-											float vYW =   YX * other.XW  + YY * other.YW  + YZ * other.ZW  + YW * other.WW ;
-											float vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX  + ZW * other.WX ;
-											float vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY  + ZW * other.WY ;
-											float vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ  + ZW * other.WZ ;
-											float vZW =   ZX * other.XW  + ZY * other.YW  + ZZ * other.ZW  + ZW * other.WW ;
-											float vWX =   WX * other.XX  + WY * other.YX  + WZ * other.ZX  + WW * other.WX ;
-											float vWY =   WX * other.XY  + WY * other.YY  + WZ * other.ZY  + WW * other.WY ;
-											float vWZ =   WX * other.XZ  + WY * other.YZ  + WZ * other.ZZ  + WW * other.WZ ;
-											float vWW =   WX * other.XW  + WY * other.YW  + WZ * other.ZW  + WW * other.WW ;
+																		Single vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX  + XW * other.WX ;
+											Single vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY  + XW * other.WY ;
+											Single vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ  + XW * other.WZ ;
+											Single vXW =   XX * other.XW  + XY * other.YW  + XZ * other.ZW  + XW * other.WW ;
+											Single vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX  + YW * other.WX ;
+											Single vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY  + YW * other.WY ;
+											Single vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ  + YW * other.WZ ;
+											Single vYW =   YX * other.XW  + YY * other.YW  + YZ * other.ZW  + YW * other.WW ;
+											Single vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX  + ZW * other.WX ;
+											Single vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY  + ZW * other.WY ;
+											Single vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ  + ZW * other.WZ ;
+											Single vZW =   ZX * other.XW  + ZY * other.YW  + ZZ * other.ZW  + ZW * other.WW ;
+											Single vWX =   WX * other.XX  + WY * other.YX  + WZ * other.ZX  + WW * other.WX ;
+											Single vWY =   WX * other.XY  + WY * other.YY  + WZ * other.ZY  + WW * other.WY ;
+											Single vWZ =   WX * other.XZ  + WY * other.YZ  + WZ * other.ZZ  + WW * other.WZ ;
+											Single vWW =   WX * other.XW  + WY * other.YW  + WZ * other.ZW  + WW * other.WW ;
 															result.XX = vXX;
 											result.XY = vXY;
 											result.XZ = vXZ;
@@ -1396,7 +1736,7 @@ namespace Glare
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = amount.X;  result.WY = amount.Y;  result.WZ = amount.Z;  result.WW = 1; 				return result;
 			}
 
-			public static Matrix4f Translate( float X ,  float Y ,  float Z  )
+			public static Matrix4f Translate( Single X ,  Single Y ,  Single Z  )
 			{
 				Matrix4f result;
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = X;  result.WY = Y;  result.WZ = Z;  result.WW = 1; 				return result;
@@ -1409,7 +1749,7 @@ namespace Glare
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = amount.X;  result.WY = amount.Y;  result.WZ = amount.Z;  result.WW = 1; 				return;
 			}
 
-			public static void Translate( float X ,  float Y ,  float Z  , out Matrix4f result)
+			public static void Translate( Single X ,  Single Y ,  Single Z  , out Matrix4f result)
 			{
 				
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = X;  result.WY = Y;  result.WZ = Z;  result.WW = 1; 				return;
@@ -1439,7 +1779,7 @@ namespace Glare
 												return result;
 					}
 
-					public static Matrix4f Scale( float x ,  float y ,  float z  )
+					public static Matrix4f Scale( Single x ,  Single y ,  Single z  )
 					{
 						Matrix4f result;
 													result.XX = x;
@@ -1461,7 +1801,7 @@ namespace Glare
 												return result;
 					}
 				
-				public static Matrix4f Scale(float amount )
+				public static Matrix4f Scale(Single amount )
 				{
 					Matrix4f result;
 											result.XX = amount;
@@ -1504,7 +1844,7 @@ namespace Glare
 												return;
 					}
 
-					public static void Scale( float x ,  float y ,  float z  , out Matrix4f result)
+					public static void Scale( Single x ,  Single y ,  Single z  , out Matrix4f result)
 					{
 						
 													result.XX = x;
@@ -1526,7 +1866,7 @@ namespace Glare
 												return;
 					}
 				
-				public static void Scale(float amount , out Matrix4f result)
+				public static void Scale(Single amount , out Matrix4f result)
 				{
 					
 											result.XX = amount;
@@ -1618,7 +1958,7 @@ namespace Glare
 				/// <param name="aspectRatio">The aspect ratio.</param>
 				/// <param name="nearPlaneDistance">The nearest distance that will be visible; any object before this distance will be clipped. Ideally <paramref name="farPlaneDistance"/> / <paramref name="nearPlaneDistance"/> will be kept as low as possible in order to maximise the fidelity of the depth buffer. This may not be greater than <paramref name="farPlaneDistance"/> or negative.</param>
 				/// <param name="farPlaneDistance">The farthest distance that will be visible; any object after this distance will be clipped. This may not be less than or equal to <paramref name="nearPlaneDistance"/>.</param>
-				public static Matrix4f PerspectiveFieldOfView(Angle fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance ) {
+				public static Matrix4f PerspectiveFieldOfView(Angle fieldOfView, Single aspectRatio, Single nearPlaneDistance, Single farPlaneDistance ) {
 					Matrix4f result;
 					if(fieldOfView < Angle.Zero || fieldOfView >= Angle.Flip)
 						throw new ArgumentOutOfRangeException("fieldOfView");
@@ -1631,15 +1971,15 @@ namespace Glare
 						result = Identity;
 					double fov = 1.0 / Math.Tan(fieldOfView.InRadians * 0.5);
 					double fovByAspectRatio = fov / aspectRatio;
-					result.XX = (float)fovByAspectRatio;
+					result.XX = (Single)fovByAspectRatio;
 					result.XY = result.XZ = result.XW = 0;
-					result.YY = (float)fov;
+					result.YY = (Single)fov;
 					result.YX = result.YZ = result.YW = 0;
 					result.ZX = result.ZY = 0;
-					result.ZZ = (float)(farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
+					result.ZZ = (Single)(farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
 					result.ZW = -1;
 					result.WX = result.WY = result.WW = 0;
-					result.WZ = (float)((nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance));
+					result.WZ = (Single)((nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance));
 					return result;
 				}
 
@@ -1715,7 +2055,7 @@ namespace Glare
 				/// <param name="aspectRatio">The aspect ratio.</param>
 				/// <param name="nearPlaneDistance">The nearest distance that will be visible; any object before this distance will be clipped. Ideally <paramref name="farPlaneDistance"/> / <paramref name="nearPlaneDistance"/> will be kept as low as possible in order to maximise the fidelity of the depth buffer. This may not be greater than <paramref name="farPlaneDistance"/> or negative.</param>
 				/// <param name="farPlaneDistance">The farthest distance that will be visible; any object after this distance will be clipped. This may not be less than or equal to <paramref name="nearPlaneDistance"/>.</param>
-				public static void PerspectiveFieldOfView(Angle fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance , out Matrix4f result) {
+				public static void PerspectiveFieldOfView(Angle fieldOfView, Single aspectRatio, Single nearPlaneDistance, Single farPlaneDistance , out Matrix4f result) {
 					
 					if(fieldOfView < Angle.Zero || fieldOfView >= Angle.Flip)
 						throw new ArgumentOutOfRangeException("fieldOfView");
@@ -1728,15 +2068,15 @@ namespace Glare
 						result = Identity;
 					double fov = 1.0 / Math.Tan(fieldOfView.InRadians * 0.5);
 					double fovByAspectRatio = fov / aspectRatio;
-					result.XX = (float)fovByAspectRatio;
+					result.XX = (Single)fovByAspectRatio;
 					result.XY = result.XZ = result.XW = 0;
-					result.YY = (float)fov;
+					result.YY = (Single)fov;
 					result.YX = result.YZ = result.YW = 0;
 					result.ZX = result.ZY = 0;
-					result.ZZ = (float)(farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
+					result.ZZ = (Single)(farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
 					result.ZW = -1;
 					result.WX = result.WY = result.WW = 0;
-					result.WZ = (float)((nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance));
+					result.WZ = (Single)((nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance));
 					return;
 				}
 
@@ -1825,9 +2165,9 @@ namespace Glare
 		public static bool operator !=(Matrix4f a, Matrix4f b) { return !a.Equals(ref b); }
 
 					/// <summary>Cast to the <see cref="Matrix4d"/>.</summary>
-			public static implicit operator Matrix4d(Matrix4f a)
+			public static explicit operator Matrix4d(Matrix4f a)
 			{
-				return new Matrix4d((double)a.XX, (double)a.XY, (double)a.XZ, (double)a.XW, (double)a.YX, (double)a.YY, (double)a.YZ, (double)a.YW, (double)a.ZX, (double)a.ZY, (double)a.ZZ, (double)a.ZW, (double)a.WX, (double)a.WY, (double)a.WZ, (double)a.WW);
+				return new Matrix4d((Double)a.XX, (Double)a.XY, (Double)a.XZ, (Double)a.XW, (Double)a.YX, (Double)a.YY, (Double)a.YZ, (Double)a.YW, (Double)a.ZX, (Double)a.ZY, (Double)a.ZZ, (Double)a.ZW, (Double)a.WX, (Double)a.WY, (Double)a.WZ, (Double)a.WW);
 			}
 			
 		public static Matrix4f operator *(Matrix4f a, Matrix4f b) { Matrix4f result; a.Multiply(ref b, out result); return result; }
@@ -1838,7 +2178,7 @@ namespace Glare
 	}
 	
 	
-	/// <summary>A four-dimensional matrix type using <see cref="double"/> elements.</summary>
+	/// <summary>A four-dimensional matrix type using <see cref="Double"/> elements.</summary>
 	[StructLayout(LayoutKind.Explicit)]
 	public partial struct Matrix4d : IEquatable<Matrix4d>
 	{
@@ -1848,52 +2188,52 @@ namespace Glare
 		// T [XYZW][XYZW]
 					/// <summary>Get or set the first row of the first column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(0)]
-			public double XX;
+			public Double XX;
 					/// <summary>Get or set the first row of the second column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(8)]
-			public double XY;
+			public Double XY;
 					/// <summary>Get or set the first row of the third column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(16)]
-			public double XZ;
+			public Double XZ;
 					/// <summary>Get or set the first row of the fourth column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(24)]
-			public double XW;
+			public Double XW;
 					/// <summary>Get or set the second row of the first column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(32)]
-			public double YX;
+			public Double YX;
 					/// <summary>Get or set the second row of the second column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(40)]
-			public double YY;
+			public Double YY;
 					/// <summary>Get or set the second row of the third column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(48)]
-			public double YZ;
+			public Double YZ;
 					/// <summary>Get or set the second row of the fourth column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(56)]
-			public double YW;
+			public Double YW;
 					/// <summary>Get or set the third row of the first column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(64)]
-			public double ZX;
+			public Double ZX;
 					/// <summary>Get or set the third row of the second column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(72)]
-			public double ZY;
+			public Double ZY;
 					/// <summary>Get or set the third row of the third column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(80)]
-			public double ZZ;
+			public Double ZZ;
 					/// <summary>Get or set the third row of the fourth column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(88)]
-			public double ZW;
+			public Double ZW;
 					/// <summary>Get or set the fourth row of the first column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(96)]
-			public double WX;
+			public Double WX;
 					/// <summary>Get or set the fourth row of the second column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(104)]
-			public double WY;
+			public Double WY;
 					/// <summary>Get or set the fourth row of the third column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(112)]
-			public double WZ;
+			public Double WZ;
 					/// <summary>Get or set the fourth row of the fourth column of the <see cref="Matrix4d"/>.</summary>
 			[FieldOffset(120)]
-			public double WW;
+			public Double WW;
 				
 		// VectorR [XYZW]Row
 					/// <summary>Get or set the first row of the <see cref="Matrix4d"/>.</summary>
@@ -1972,9 +2312,117 @@ namespace Glare
 					/// <param name="wy">The value to assign to the fourth row of the second column in field <see cref="WY"/>.</param>
 					/// <param name="wz">The value to assign to the fourth row of the third column in field <see cref="WZ"/>.</param>
 					/// <param name="ww">The value to assign to the fourth row of the fourth column in field <see cref="WW"/>.</param>
-				public Matrix4d(double xx, double xy, double xz, double xw, double yx, double yy, double yz, double yw, double zx, double zy, double zz, double zw, double wx, double wy, double wz, double ww)
+				public Matrix4d(Double xx, Double xy, Double xz, Double xw, Double yx, Double yy, Double yz, Double yw, Double zx, Double zy, Double zz, Double zw, Double wx, Double wy, Double wz, Double ww)
 		{
 			XX = xx;XY = xy;XZ = xz;XW = xw;YX = yx;YY = yy;YZ = yz;YW = yw;ZX = zx;ZY = zy;ZZ = zz;ZW = zw;WX = wx;WY = wy;WZ = wz;WW = ww;		}
+
+		public Double this[int row, int column] {
+			get {
+									if(row == 0) {
+													if(column == 0)
+								return XX;
+						 else 							if(column == 1)
+								return XY;
+						 else 							if(column == 2)
+								return XZ;
+						 else 							if(column == 3)
+								return XW;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 1) {
+													if(column == 0)
+								return YX;
+						 else 							if(column == 1)
+								return YY;
+						 else 							if(column == 2)
+								return YZ;
+						 else 							if(column == 3)
+								return YW;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 2) {
+													if(column == 0)
+								return ZX;
+						 else 							if(column == 1)
+								return ZY;
+						 else 							if(column == 2)
+								return ZZ;
+						 else 							if(column == 3)
+								return ZW;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 3) {
+													if(column == 0)
+								return WX;
+						 else 							if(column == 1)
+								return WY;
+						 else 							if(column == 2)
+								return WZ;
+						 else 							if(column == 3)
+								return WW;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+								else
+					throw new ArgumentOutOfRangeException("row");
+			}
+
+			set {
+									if(row == 0) {
+													if(column == 0)
+								XX = value;
+						 else 							if(column == 1)
+								XY = value;
+						 else 							if(column == 2)
+								XZ = value;
+						 else 							if(column == 3)
+								XW = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 1) {
+													if(column == 0)
+								YX = value;
+						 else 							if(column == 1)
+								YY = value;
+						 else 							if(column == 2)
+								YZ = value;
+						 else 							if(column == 3)
+								YW = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 2) {
+													if(column == 0)
+								ZX = value;
+						 else 							if(column == 1)
+								ZY = value;
+						 else 							if(column == 2)
+								ZZ = value;
+						 else 							if(column == 3)
+								ZW = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+				 else 					if(row == 3) {
+													if(column == 0)
+								WX = value;
+						 else 							if(column == 1)
+								WY = value;
+						 else 							if(column == 2)
+								WZ = value;
+						 else 							if(column == 3)
+								WW = value;
+												else
+							throw new ArgumentOutOfRangeException("column");
+					}
+								else
+					throw new ArgumentOutOfRangeException("row");
+			}
+		}
 
 		#region Methods
 
@@ -2012,22 +2460,22 @@ namespace Glare
 			public Matrix4d Multiply(ref Matrix4d other )
 			{
 				Matrix4d result;
-																		double vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX  + XW * other.WX ;
-											double vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY  + XW * other.WY ;
-											double vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ  + XW * other.WZ ;
-											double vXW =   XX * other.XW  + XY * other.YW  + XZ * other.ZW  + XW * other.WW ;
-											double vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX  + YW * other.WX ;
-											double vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY  + YW * other.WY ;
-											double vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ  + YW * other.WZ ;
-											double vYW =   YX * other.XW  + YY * other.YW  + YZ * other.ZW  + YW * other.WW ;
-											double vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX  + ZW * other.WX ;
-											double vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY  + ZW * other.WY ;
-											double vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ  + ZW * other.WZ ;
-											double vZW =   ZX * other.XW  + ZY * other.YW  + ZZ * other.ZW  + ZW * other.WW ;
-											double vWX =   WX * other.XX  + WY * other.YX  + WZ * other.ZX  + WW * other.WX ;
-											double vWY =   WX * other.XY  + WY * other.YY  + WZ * other.ZY  + WW * other.WY ;
-											double vWZ =   WX * other.XZ  + WY * other.YZ  + WZ * other.ZZ  + WW * other.WZ ;
-											double vWW =   WX * other.XW  + WY * other.YW  + WZ * other.ZW  + WW * other.WW ;
+																		Double vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX  + XW * other.WX ;
+											Double vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY  + XW * other.WY ;
+											Double vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ  + XW * other.WZ ;
+											Double vXW =   XX * other.XW  + XY * other.YW  + XZ * other.ZW  + XW * other.WW ;
+											Double vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX  + YW * other.WX ;
+											Double vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY  + YW * other.WY ;
+											Double vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ  + YW * other.WZ ;
+											Double vYW =   YX * other.XW  + YY * other.YW  + YZ * other.ZW  + YW * other.WW ;
+											Double vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX  + ZW * other.WX ;
+											Double vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY  + ZW * other.WY ;
+											Double vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ  + ZW * other.WZ ;
+											Double vZW =   ZX * other.XW  + ZY * other.YW  + ZZ * other.ZW  + ZW * other.WW ;
+											Double vWX =   WX * other.XX  + WY * other.YX  + WZ * other.ZX  + WW * other.WX ;
+											Double vWY =   WX * other.XY  + WY * other.YY  + WZ * other.ZY  + WW * other.WY ;
+											Double vWZ =   WX * other.XZ  + WY * other.YZ  + WZ * other.ZZ  + WW * other.WZ ;
+											Double vWW =   WX * other.XW  + WY * other.YW  + WZ * other.ZW  + WW * other.WW ;
 															result.XX = vXX;
 											result.XY = vXY;
 											result.XZ = vXZ;
@@ -2056,22 +2504,22 @@ namespace Glare
 			public void Multiply(ref Matrix4d other , out Matrix4d result)
 			{
 				
-																		double vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX  + XW * other.WX ;
-											double vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY  + XW * other.WY ;
-											double vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ  + XW * other.WZ ;
-											double vXW =   XX * other.XW  + XY * other.YW  + XZ * other.ZW  + XW * other.WW ;
-											double vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX  + YW * other.WX ;
-											double vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY  + YW * other.WY ;
-											double vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ  + YW * other.WZ ;
-											double vYW =   YX * other.XW  + YY * other.YW  + YZ * other.ZW  + YW * other.WW ;
-											double vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX  + ZW * other.WX ;
-											double vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY  + ZW * other.WY ;
-											double vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ  + ZW * other.WZ ;
-											double vZW =   ZX * other.XW  + ZY * other.YW  + ZZ * other.ZW  + ZW * other.WW ;
-											double vWX =   WX * other.XX  + WY * other.YX  + WZ * other.ZX  + WW * other.WX ;
-											double vWY =   WX * other.XY  + WY * other.YY  + WZ * other.ZY  + WW * other.WY ;
-											double vWZ =   WX * other.XZ  + WY * other.YZ  + WZ * other.ZZ  + WW * other.WZ ;
-											double vWW =   WX * other.XW  + WY * other.YW  + WZ * other.ZW  + WW * other.WW ;
+																		Double vXX =   XX * other.XX  + XY * other.YX  + XZ * other.ZX  + XW * other.WX ;
+											Double vXY =   XX * other.XY  + XY * other.YY  + XZ * other.ZY  + XW * other.WY ;
+											Double vXZ =   XX * other.XZ  + XY * other.YZ  + XZ * other.ZZ  + XW * other.WZ ;
+											Double vXW =   XX * other.XW  + XY * other.YW  + XZ * other.ZW  + XW * other.WW ;
+											Double vYX =   YX * other.XX  + YY * other.YX  + YZ * other.ZX  + YW * other.WX ;
+											Double vYY =   YX * other.XY  + YY * other.YY  + YZ * other.ZY  + YW * other.WY ;
+											Double vYZ =   YX * other.XZ  + YY * other.YZ  + YZ * other.ZZ  + YW * other.WZ ;
+											Double vYW =   YX * other.XW  + YY * other.YW  + YZ * other.ZW  + YW * other.WW ;
+											Double vZX =   ZX * other.XX  + ZY * other.YX  + ZZ * other.ZX  + ZW * other.WX ;
+											Double vZY =   ZX * other.XY  + ZY * other.YY  + ZZ * other.ZY  + ZW * other.WY ;
+											Double vZZ =   ZX * other.XZ  + ZY * other.YZ  + ZZ * other.ZZ  + ZW * other.WZ ;
+											Double vZW =   ZX * other.XW  + ZY * other.YW  + ZZ * other.ZW  + ZW * other.WW ;
+											Double vWX =   WX * other.XX  + WY * other.YX  + WZ * other.ZX  + WW * other.WX ;
+											Double vWY =   WX * other.XY  + WY * other.YY  + WZ * other.ZY  + WW * other.WY ;
+											Double vWZ =   WX * other.XZ  + WY * other.YZ  + WZ * other.ZZ  + WW * other.WZ ;
+											Double vWW =   WX * other.XW  + WY * other.YW  + WZ * other.ZW  + WW * other.WW ;
 															result.XX = vXX;
 											result.XY = vXY;
 											result.XZ = vXZ;
@@ -2100,7 +2548,7 @@ namespace Glare
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = amount.X;  result.WY = amount.Y;  result.WZ = amount.Z;  result.WW = 1; 				return result;
 			}
 
-			public static Matrix4d Translate( double X ,  double Y ,  double Z  )
+			public static Matrix4d Translate( Double X ,  Double Y ,  Double Z  )
 			{
 				Matrix4d result;
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = X;  result.WY = Y;  result.WZ = Z;  result.WW = 1; 				return result;
@@ -2113,7 +2561,7 @@ namespace Glare
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = amount.X;  result.WY = amount.Y;  result.WZ = amount.Z;  result.WW = 1; 				return;
 			}
 
-			public static void Translate( double X ,  double Y ,  double Z  , out Matrix4d result)
+			public static void Translate( Double X ,  Double Y ,  Double Z  , out Matrix4d result)
 			{
 				
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = X;  result.WY = Y;  result.WZ = Z;  result.WW = 1; 				return;
@@ -2143,7 +2591,7 @@ namespace Glare
 												return result;
 					}
 
-					public static Matrix4d Scale( double x ,  double y ,  double z  )
+					public static Matrix4d Scale( Double x ,  Double y ,  Double z  )
 					{
 						Matrix4d result;
 													result.XX = x;
@@ -2165,7 +2613,7 @@ namespace Glare
 												return result;
 					}
 				
-				public static Matrix4d Scale(double amount )
+				public static Matrix4d Scale(Double amount )
 				{
 					Matrix4d result;
 											result.XX = amount;
@@ -2208,7 +2656,7 @@ namespace Glare
 												return;
 					}
 
-					public static void Scale( double x ,  double y ,  double z  , out Matrix4d result)
+					public static void Scale( Double x ,  Double y ,  Double z  , out Matrix4d result)
 					{
 						
 													result.XX = x;
@@ -2230,7 +2678,7 @@ namespace Glare
 												return;
 					}
 				
-				public static void Scale(double amount , out Matrix4d result)
+				public static void Scale(Double amount , out Matrix4d result)
 				{
 					
 											result.XX = amount;
@@ -2322,7 +2770,7 @@ namespace Glare
 				/// <param name="aspectRatio">The aspect ratio.</param>
 				/// <param name="nearPlaneDistance">The nearest distance that will be visible; any object before this distance will be clipped. Ideally <paramref name="farPlaneDistance"/> / <paramref name="nearPlaneDistance"/> will be kept as low as possible in order to maximise the fidelity of the depth buffer. This may not be greater than <paramref name="farPlaneDistance"/> or negative.</param>
 				/// <param name="farPlaneDistance">The farthest distance that will be visible; any object after this distance will be clipped. This may not be less than or equal to <paramref name="nearPlaneDistance"/>.</param>
-				public static Matrix4d PerspectiveFieldOfView(Angle fieldOfView, double aspectRatio, double nearPlaneDistance, double farPlaneDistance ) {
+				public static Matrix4d PerspectiveFieldOfView(Angle fieldOfView, Double aspectRatio, Double nearPlaneDistance, Double farPlaneDistance ) {
 					Matrix4d result;
 					if(fieldOfView < Angle.Zero || fieldOfView >= Angle.Flip)
 						throw new ArgumentOutOfRangeException("fieldOfView");
@@ -2335,15 +2783,15 @@ namespace Glare
 						result = Identity;
 					double fov = 1.0 / Math.Tan(fieldOfView.InRadians * 0.5);
 					double fovByAspectRatio = fov / aspectRatio;
-					result.XX = (double)fovByAspectRatio;
+					result.XX = (Double)fovByAspectRatio;
 					result.XY = result.XZ = result.XW = 0;
-					result.YY = (double)fov;
+					result.YY = (Double)fov;
 					result.YX = result.YZ = result.YW = 0;
 					result.ZX = result.ZY = 0;
-					result.ZZ = (double)(farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
+					result.ZZ = (Double)(farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
 					result.ZW = -1;
 					result.WX = result.WY = result.WW = 0;
-					result.WZ = (double)((nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance));
+					result.WZ = (Double)((nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance));
 					return result;
 				}
 
@@ -2419,7 +2867,7 @@ namespace Glare
 				/// <param name="aspectRatio">The aspect ratio.</param>
 				/// <param name="nearPlaneDistance">The nearest distance that will be visible; any object before this distance will be clipped. Ideally <paramref name="farPlaneDistance"/> / <paramref name="nearPlaneDistance"/> will be kept as low as possible in order to maximise the fidelity of the depth buffer. This may not be greater than <paramref name="farPlaneDistance"/> or negative.</param>
 				/// <param name="farPlaneDistance">The farthest distance that will be visible; any object after this distance will be clipped. This may not be less than or equal to <paramref name="nearPlaneDistance"/>.</param>
-				public static void PerspectiveFieldOfView(Angle fieldOfView, double aspectRatio, double nearPlaneDistance, double farPlaneDistance , out Matrix4d result) {
+				public static void PerspectiveFieldOfView(Angle fieldOfView, Double aspectRatio, Double nearPlaneDistance, Double farPlaneDistance , out Matrix4d result) {
 					
 					if(fieldOfView < Angle.Zero || fieldOfView >= Angle.Flip)
 						throw new ArgumentOutOfRangeException("fieldOfView");
@@ -2432,15 +2880,15 @@ namespace Glare
 						result = Identity;
 					double fov = 1.0 / Math.Tan(fieldOfView.InRadians * 0.5);
 					double fovByAspectRatio = fov / aspectRatio;
-					result.XX = (double)fovByAspectRatio;
+					result.XX = (Double)fovByAspectRatio;
 					result.XY = result.XZ = result.XW = 0;
-					result.YY = (double)fov;
+					result.YY = (Double)fov;
 					result.YX = result.YZ = result.YW = 0;
 					result.ZX = result.ZY = 0;
-					result.ZZ = (double)(farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
+					result.ZZ = (Double)(farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
 					result.ZW = -1;
 					result.WX = result.WY = result.WW = 0;
-					result.WZ = (double)((nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance));
+					result.WZ = (Double)((nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance));
 					return;
 				}
 
@@ -2531,7 +2979,7 @@ namespace Glare
 					/// <summary>Cast to the <see cref="Matrix4f"/>.</summary>
 			public static explicit operator Matrix4f(Matrix4d a)
 			{
-				return new Matrix4f((float)a.XX, (float)a.XY, (float)a.XZ, (float)a.XW, (float)a.YX, (float)a.YY, (float)a.YZ, (float)a.YW, (float)a.ZX, (float)a.ZY, (float)a.ZZ, (float)a.ZW, (float)a.WX, (float)a.WY, (float)a.WZ, (float)a.WW);
+				return new Matrix4f((Single)a.XX, (Single)a.XY, (Single)a.XZ, (Single)a.XW, (Single)a.YX, (Single)a.YY, (Single)a.YZ, (Single)a.YW, (Single)a.ZX, (Single)a.ZY, (Single)a.ZZ, (Single)a.ZW, (Single)a.WX, (Single)a.WY, (Single)a.WZ, (Single)a.WW);
 			}
 			
 		public static Matrix4d operator *(Matrix4d a, Matrix4d b) { Matrix4d result; a.Multiply(ref b, out result); return result; }

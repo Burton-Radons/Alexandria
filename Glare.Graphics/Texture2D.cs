@@ -34,8 +34,6 @@ namespace Glare.Graphics {
 		public Texture2D(Format format, int width, int height) : this(format, new Vector2i(width, height)) { }
 		public Texture2D(Format format, Vector2i dimensions) : base(format, new Vector4i(dimensions, 1, 1)) { }
 
-		public Texture2D(string path) : base(path) { }
-
 		public Texture2D Data(int width, int height, Format storageFormat, IntPtr pointer, Format uploadFormat = null) {
 			Data2D(0, new Vector2i(width, height), storageFormat, pointer, uploadFormat);
 			return this;
@@ -90,7 +88,10 @@ namespace Glare.Graphics {
 			Texture.Format = format;
 			int imageSize = format.ByteSize(dimensions);
 			using (Texture.Lock())
-				GL.CompressedTexImage2D((TextureTarget)Target, Level, format.pixelInternalFormat, dimensions.X, dimensions.Y, 0, imageSize, data);
+				if (format.IsCompressed)
+					GL.CompressedTexImage2D((TextureTarget)Target, Level, format.pixelInternalFormat, dimensions.X, dimensions.Y, 0, imageSize, data);
+				else
+					GL.TexImage2D((TextureTarget)Target, Level, format.pixelInternalFormat, dimensions.X, dimensions.Y, 0, format.pixelFormat, format.pixelType, data);
 		}
 	}
 

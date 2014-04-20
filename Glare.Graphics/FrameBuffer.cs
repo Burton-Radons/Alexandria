@@ -24,7 +24,7 @@ namespace Glare.Graphics {
 
 		public FrameBuffer()
 			: base(AllocateId()) {
-			FrameBufferAttachment[] color = new FrameBufferAttachment[Graphics.GetInt32(GetPName.MaxColorAttachments)];
+			FrameBufferAttachment[] color = new FrameBufferAttachment[Device.GetInt32(GetPName.MaxColorAttachments)];
 			for (int index = 0; index < color.Length; index++)
 				color[index] = new FrameBufferAttachment(this, FramebufferAttachment.ColorAttachment0 + index);
 			this.color = new FrameBufferAttachmentCollection(color);

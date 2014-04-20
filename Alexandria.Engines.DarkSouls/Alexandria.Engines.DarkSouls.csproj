@@ -60,6 +60,7 @@
     <Compile Include="DSModelVertexDeclaration.cs" />
     <Compile Include="DSModelBoneUnknown.cs" />
     <Compile Include="DSPlatform.cs" />
+    <Compile Include="FSSL.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +75,10 @@
     <Compile Include="TextureLoader.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Glare.Assets\Glare.Assets.csproj">
+      <Project>{e3809e79-fe0a-4425-a1a1-575f6719ec45}</Project>
+      <Name>Glare.Assets</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Glare.Graphics\Glare.Graphics.csproj">
       <Project>{6ec9bd9e-da82-48db-a01b-7bb90e1a1f71}</Project>
       <Name>Glare.Graphics</Name>

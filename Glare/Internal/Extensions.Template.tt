@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Glare.Framework;
 
 namespace Glare.Internal {
 	public static partial class Extensions {
@@ -31,16 +32,10 @@ namespace Glare.Internal {
 			public static <#=type#>[] ReadArray<#=type#>(this BinaryReader reader, int count) { <#=type#>[] array = new <#=type#>[count]; reader.ReadArray(array, 0, count); return array; }
 
 			/// <summary>Read a <c><#=type#></c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
-			public static void ReadExpected(this BinaryReader reader, <#=type#> expected) {
+			public static void Require(this BinaryReader reader, <#=type#> expected) {
 				<#=type#> value = reader.Read<#=type#>();
 				if(value != expected)
 					throw CreateExpectationException(expected, value);
-			}
-
-			public static void Require(this BinaryReader reader, <#=type#> value) {
-				<#=type#> read = reader.Read<#=type#>();
-				if (read != value)
-					throw new Exception("Expected <#=type#> " + value + " but received " + read + ".");
 			}
 
 			/// <summary>Seek to the position and read a <see cref="<#=type#>"/>.</summary>
@@ -77,6 +72,13 @@ namespace Glare.Internal {
 
 				/// <summary>Read an array of <c><#=type#></c> values.</summary>
 				public static <#=type#>[] ReadArray<#=type#>(this BinaryReader reader, int count, ByteOrder byteOrder) { <#=type#>[] array = new <#=type#>[count]; reader.ReadArray(array, 0, count, byteOrder); return array; }
+
+				/// <summary>Read a <c><#=type#></c> value, and if it doesn't match the expected value, throw an <see cref="InvalidDataException"/>.</summary>
+				public static void Require(this BinaryReader reader, <#=type#> expected, ByteOrder byteOrder) {
+					<#=type#> value = reader.Read<#=type#>(byteOrder);
+					if(value != expected)
+						throw CreateExpectationException(expected, value);
+				}
 			<#}#>
 		<#}#>
 

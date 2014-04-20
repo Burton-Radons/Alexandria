@@ -15,7 +15,7 @@ namespace Glare.Graphics {
 		}
 
 		protected void CheckError() {
-			Graphics.CheckError();
+			Device.CheckError();
 		}
 	}
 }
