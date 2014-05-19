@@ -11,10 +11,8 @@ using GLuint = System.UInt32;
 using GLint = System.Int32;
 using GLboolean = System.Boolean;
 
-namespace Glare.Graphics.Internal
-{
-	internal static class GLExt
-	{
+namespace Glare.Graphics.Internal {
+	internal static class GLExt {
 		const string dllName = "opengl32.dll";
 
 		public const GetPName MaxComputeAtomicCounterBuffers = (GetPName)0x8264;
@@ -65,23 +63,24 @@ namespace Glare.Graphics.Internal
 
 		public const ShaderType ComputeShader = (ShaderType)0x91B9;
 
-		public delegate void glDispatchCompute(int num_groups_x, int num_groups_y, int num_groups_z);
-		public delegate void glTexStorage2D(TextureTarget target, GLsizei levels, PixelInternalFormat internalformat, GLsizei width, GLsizei height);
-		public delegate void glVertexAttribFormat(GLuint attribindex, GLint size, VertexAttribPointerType type, GLboolean normalized, GLuint relativeoffset);
+		public delegate void DispatchComputeDelegate(int num_groups_x, int num_groups_y, int num_groups_z);
+		public delegate void TexStorage2DDelegate(TextureTarget target, GLsizei levels, PixelInternalFormat internalformat, GLsizei width, GLsizei height);
+		public delegate void VertexAttribFormatDelegate(GLuint attribindex, GLint size, VertexAttribPointerType type, GLboolean normalized, GLuint relativeoffset);
 
-		public static glDispatchCompute DispatchCompute;
-		public static glTexStorage2D TexStorage2D;
-		public static glVertexAttribFormat VertexAttribFormat;
+		static IGraphicsContextInternal Context;
 
-		public static void Setup(IGraphicsContextInternal context)
-		{
-			MustGet(context, "glDispatchCompute", out DispatchCompute);
-			MustGet(context, "glTexStorage2D", out TexStorage2D);
-			MustGet(context, "glVertexAttribFormat", out VertexAttribFormat);
+		//public static DispatchComputeDelegate DispatchComputePointer;
+		//public static TexStorage2DDelegate TexStorage2DPointer;
+		//public static VertexAttribFormatDelegate VertexAttribFormatPointer;
+
+		public static void Setup(IGraphicsContextInternal context) {
+			Context = context;
+			//MustGet(context, "glDispatchCompute", out DispatchCompute);
+			//MustGet(context, "glTexStorage2D", out TexStorage2D);
+			//MustGet(context, "glVertexAttribFormat", out VertexAttribFormat);
 		}
 
-		static void MustGet<T>(IGraphicsContextInternal context, string name, out T result) where T : class
-		{
+		static void MustGet<T>(IGraphicsContextInternal context, string name, out T result) where T : class {
 			IntPtr pointer = context.GetAddress(name);
 			result = (T)(object)Marshal.GetDelegateForFunctionPointer(pointer, typeof(T));
 		}

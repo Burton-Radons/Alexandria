@@ -3,7 +3,7 @@
 :: Fragment ::
 // Fragment Shader
 :: Common ::
-#version 430
+#version 300
 
 #define PI 3.14159265358979323846264338327950288419716939937510
 

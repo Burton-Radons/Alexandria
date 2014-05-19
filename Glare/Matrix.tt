@@ -264,7 +264,7 @@ namespace Glare
 
 				public static <#=r.ReturnType#> Rotate(Angle yaw, Angle pitch, Angle roll <#=r.Argument#>) {
 					<#=r.Begin#>
-					Quaternion quaternion = new Quaternion(yaw, pitch, roll);
+					Rotation4d quaternion = new Rotation4d(yaw, pitch, roll);
 					quaternion.To<#=This#>(out result);
 					<#=r.Return#>
 				}

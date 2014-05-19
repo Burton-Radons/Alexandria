@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Glare.Framework;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,11 +10,11 @@ using System.Threading.Tasks;
 namespace Glare.Engine {
 	[Serializable]
 	public abstract class Node {
-		readonly Dictionary<NodeTypeProperty, object> assignedProperties = new Dictionary<NodeTypeProperty, object>();
+		readonly RichDictionary<NodeTypeProperty, object> assignedProperties = new RichDictionary<NodeTypeProperty, object>();
 		readonly Guid id = Guid.NewGuid();
 		readonly Node prototype;
 
-		public ReadOnlyDictionary<NodeTypeProperty, object> AssignedProperties { get { return new ReadOnlyDictionary<NodeTypeProperty,object>(assignedProperties); } }
+		public ReadOnlyObservableDictionary<NodeTypeProperty, object> AssignedProperties { get { return assignedProperties; } }
 
 		/// <summary>Get the unique identifier of this <see cref="Node"/> and overrides in inheriting <see cref="Module"/>s.</summary>
 		public Guid Id { get { return id; } }

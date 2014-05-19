@@ -8,8 +8,7 @@
 
 <#+
 
-class AxisInfo
-{
+class AxisInfo {
 	/// <summary>Zero-based index of the axis.</summary>
 	public readonly int Index;
 
@@ -26,8 +25,7 @@ class AxisInfo
 
 	public string OrdinalLow { get { return Ordinal.ToLower(); } }
 
-	public AxisInfo(int index, string id, string cardinal, string ordinal)
-	{
+	public AxisInfo(int index, string id, string cardinal, string ordinal) {
 		Index = index;
 		Id = id;
 		Cardinal = cardinal;
@@ -35,13 +33,11 @@ class AxisInfo
 	}
 }
 
-class ComparisonOperatorInfo
-{
+class ComparisonOperatorInfo {
 	public readonly string Id;
 	public bool IsOrdered { get { return Id != "==" && Id != "!="; } }
 
-	public ComparisonOperatorInfo(string id)
-	{
+	public ComparisonOperatorInfo(string id) {
 		Id = id;
 	}
 
@@ -63,8 +59,7 @@ class OperatorInfo
 	}
 }
 
-class ReferenceReturnInfo
-{
+class ReferenceReturnInfo {
 	public string ReturnType { get { return Returning ? Type : "void"; } }
 	public string Argument { get { return Returning ? "" : ", out " + Type + " result"; } }
 	public string OnlyArgument { get { return Returning ? "" : "out " + Type + " result"; } }
@@ -78,8 +73,7 @@ class ReferenceReturnInfo
 	public ReferenceReturnInfo(string type, bool returning) { Type = type; Returning = returning; }
 }
 
-class RefFormInfo
-{
+class RefFormInfo {
 	public const string RefNotice = "The value of the parameter will not be changed; <c>ref</c> is used for optimisation only.";
 	public readonly bool RefForm;
 	public string Ref { get { return RefForm ? " ref " : ""; } }
@@ -87,8 +81,7 @@ class RefFormInfo
 	public RefFormInfo(bool refForm) { RefForm = refForm; }
 }
 
-enum TypeShape
-{
+enum TypeShape {
 	Integral,
 	Fractional,
 	Normalized,
@@ -97,13 +90,13 @@ enum TypeShape
 
 enum TypeSign { Signed, Unsigned, }
 
-class TypeInfo
-{
+class TypeInfo {
 	public string Name;
 	public readonly string Suffix;
 	public readonly int MinOrder = 1, MaxOrder = int.MaxValue;
 	public readonly int SizeOf;
 	public readonly string SquaredType;
+	public string CubedType;
 
 	public readonly TypeShape Shape;
 	public readonly TypeSign Sign;
@@ -118,8 +111,7 @@ class TypeInfo
 
 	public string Zero { get { return IsMeasurement ? Name + ".Zero" : "(" + Name + ")0"; } }
 
-	public TypeInfo(string name, string suffix, int sizeOf, TypeShape shape, TypeSign sign = TypeSign.Signed, int minOrder = 1, int maxOrder = int.MaxValue, string squaredType = null)
-	{
+	public TypeInfo(string name, string suffix, int sizeOf, TypeShape shape, TypeSign sign = TypeSign.Signed, int minOrder = 1, int maxOrder = int.MaxValue, string squaredType = null) {
 		Name = name;
 		Suffix = suffix;
 		Sign = sign;
@@ -141,14 +133,12 @@ class TypeInfo
 
 	public string GetVectorType(int order) { return GetType(VectorFamily.BaseName, order); }
 
-	public string ImplicitCastTo(TypeInfo other)
-	{
+	public string ImplicitCastTo(TypeInfo other) {
 		if(object.ReferenceEquals(other, this))
 			return "implicit";
-		switch(other.Name)
-		{
-			case "float": return Name == "double" ? "explicit" : "implicit";
-			case "double": return "implicit";
+		switch(other.Name) {
+			case "Single": return Name == "Double" ? "explicit" : "implicit";
+			case "Double": return "implicit";
 			default: return "explicit";
 		}
 	}
@@ -219,10 +209,18 @@ static readonly OperatorInfo[] Operators = new OperatorInfo[] {
 	new OperatorInfo(">>", true),
 };
 
-static VectorTypeFamilyInfo _angleFamily, _lengthFamily, _vectorFamily, _matrixFamily;
+static VectorTypeFamilyInfo _angleFamily, _angleScalarFamily, _boxFamily, _lengthFamily, _planeFamily, _rayFamily, _sphereFamily, _matrixFamily, _rotationFamily, _vectorFamily;
 
-static VectorTypeFamilyInfo AngleFamily { get { return _angleFamily ?? (_angleFamily = new VectorTypeFamilyInfo("Angle", 3, 3, SuffixlessDoubleType)); } }
-static VectorTypeFamilyInfo LengthFamily { get { return _lengthFamily ?? (_lengthFamily = new VectorTypeFamilyInfo("Length", 2, 4, SuffixlessDoubleType)); } }
+const string AngleFamilyName = "Angle", LengthFamilyName = "Length";
+
+static VectorTypeFamilyInfo BoxFamily { get { return _boxFamily ?? (_boxFamily = new VectorTypeFamilyInfo("Box", 2, 4, Int32Type, SingleType, DoubleType, LengthType)); } }
+static VectorTypeFamilyInfo AngleFamily { get { return _angleFamily ?? (_angleFamily = new VectorTypeFamilyInfo(AngleFamilyName, 3, 3, AngleType)); } }
+static VectorTypeFamilyInfo AngleScalarFamily { get { return _angleScalarFamily ?? (_angleScalarFamily = new VectorTypeFamilyInfo(AngleFamilyName, 1, 1, SuffixlessDoubleType) { NoOrderSuffix = true }); } }
+static VectorTypeFamilyInfo LengthFamily { get { return _lengthFamily ?? (_lengthFamily = new VectorTypeFamilyInfo(LengthFamilyName, 2, 4, SuffixlessDoubleType)); } }
+static VectorTypeFamilyInfo PlaneFamily { get { return _planeFamily ?? (_planeFamily = new VectorTypeFamilyInfo("Plane", 2, 4, SingleType, DoubleType, LengthType)); } }
+static VectorTypeFamilyInfo RayFamily { get { return _rayFamily ?? (_rayFamily = new VectorTypeFamilyInfo("Ray", 2, 4, SingleType, DoubleType, LengthType)); } }
+static VectorTypeFamilyInfo RotationFamily { get { return _rotationFamily ?? (_rotationFamily = new VectorTypeFamilyInfo("Rotation", 4, 4, SingleType, DoubleType)); } }
+static VectorTypeFamilyInfo SphereFamily { get { return _sphereFamily ?? (_sphereFamily = new VectorTypeFamilyInfo("Sphere", 2, 4, SingleType, DoubleType, LengthType)); } }
 static VectorTypeFamilyInfo VectorFamily { get { return _vectorFamily ?? (_vectorFamily = new VectorTypeFamilyInfo("Vector", 2, 4, LengthType, SingleType, DoubleType, Int32Type, UInt32Type, ByteType, NormalizedByteType, NormalizedSByteType, SRGBType, SRGBAType, Float16Type)); } }
 static VectorTypeFamilyInfo MatrixFamily { get { return _matrixFamily ?? (_matrixFamily = new VectorTypeFamilyInfo("Matrix", 2, 4, SingleType, DoubleType)); } }
 
@@ -243,8 +241,8 @@ static readonly TypeInfo SRGBType = new TypeInfo("NormalizedByte", "rgb", 1, Typ
 static readonly TypeInfo SRGBAType = new TypeInfo("NormalizedByte", "rgba", 1, TypeShape.Normalized, TypeSign.Unsigned, 4, 4);
 static readonly TypeInfo SuffixlessDoubleType = new TypeInfo("Double", "", 8, TypeShape.Fractional);
 
-static readonly TypeInfo AngleType = new TypeInfo(AngleFamily.BaseName, "", 8, TypeShape.Measurement, TypeSign.Signed);
-static readonly TypeInfo LengthType = new TypeInfo(LengthFamily.BaseName, "", 8, TypeShape.Measurement, TypeSign.Signed, 3, 3, squaredType: "Area");
+static readonly TypeInfo AngleType = new TypeInfo(AngleFamilyName, "", 8, TypeShape.Measurement, TypeSign.Signed);
+static readonly TypeInfo LengthType = new TypeInfo(LengthFamilyName, "", 8, TypeShape.Measurement, TypeSign.Signed, 2, 4, squaredType: "Area") { CubedType = "Volume" };
 
 static TypeInfo[] ArithmeticTypes { get { return new TypeInfo[] { ByteType, SByteType, Int16Type, UInt16Type, Int32Type, UInt32Type, Int64Type, UInt64Type, Float16Type, SingleType, DoubleType, NormalizedByteType, NormalizedSByteType }; } }
 
@@ -256,16 +254,20 @@ string This { get { return BaseTypeName + (Type != null ? Type.Suffix : ""); } }
 string T { get { return Type.Name; } }
 string ToT { get { return "(" + T + ")"; } }
 string SeeThis { get { return See(This); } }
+string Zero { get { return Type.Zero; } }
 
 string Interfaces { get { return "IComparable<" + This + ">, IEquatable<" + This + ">, IFormattable"; } }
 
-string PackedType { get { return IsSigned ? "sbyte" : "byte"; } }
+string PackedType { get { return IsSigned ? "SByte" : "Byte"; } }
 string FloatType { get { return IsFractional || IsMeasurement ? T : "double"; } }
-string LargeType { get { return IsNormalized ? "double" : T == "byte" || T == "sbyte" ? "int" : T; } }
-string ScalarType { get { return IsMeasurement ? "double" : T; } }
+string LargeType { get { return IsNormalized ? "Double" : T == "Byte" || T == "SByte" ? "int" : T; } }
+string ScalarType { get { return IsMeasurement ? "Double" : T; } }
 
 /// <summary>Get the type that's produced by multiplying the <see cref="Type"> against itself. This is normally double.</summary>
 string SquaredType { get { return Type.SquaredType ?? LargeType; } }
+
+/// <summary>Get the type that's produced by multiplying the <see cref="Type"> against itself twice. This is normally double.</summary>
+string CubedType { get { return Type.CubedType ?? LargeType; } }
 
 bool IsIntegral { get { return Type.IsIntegral; } }
 bool IsFractional { get { return Type.IsFractional; } }

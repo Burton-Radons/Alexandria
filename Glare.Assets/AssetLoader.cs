@@ -1,4 +1,6 @@
-﻿using Glare.Framework;
+﻿#define DebugBreak
+
+using Glare.Framework;
 using Glare.Internal;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Glare.Assets {
-
 	/// <summary>An error that has been recorded while loading an <see cref="Asset"/>. This is collected in <see cref="AssetLoader"/>'s <see cref="AssetLoader.Errors"/> property.</summary>
 	public class AssetLoadError {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -24,12 +25,12 @@ namespace Glare.Assets {
 		/// <summary>Get the position the <see cref="AssetLoader.Stream"/> was at when this error was generated.</summary>
 		public long Offset { get; private set; }
 
+		public string OffsetHex { get { return Math.Abs(Offset) < 10 ? Offset.ToString() : string.Format("{1}{0}/{0:X}h", Math.Abs(Offset), Offset < 0 ? "-" : ""); } }
+
 		public AssetLoadError(AssetLoader loader, long? offset, string message) {
 			Loader = loader;
 			Offset = offset.HasValue ? offset.Value : loader.Position;
 			this.message = message;
-			if (Debugger.IsAttached)
-				Debugger.Break();
 		}
 
 		public override string ToString() {
@@ -83,7 +84,7 @@ namespace Glare.Assets {
 		/// <summary>Get whether the <see cref="Stream"/>'s <see cref="Stream.Position"/> is at least <see cref="End"/>, indicating that the entire stream has been read.</summary>
 		public bool AtEnd { get { return Stream.Position >= End; } }
 
-		public Asset ContextResource { get; private set; }
+		public Asset Context { get; private set; }
 
 		/// <summary>Get the end offset of the <see cref="Reader"/>, which is <see cref="Start"/> + <see cref="Length"/>.</summary>
 		public long End { get { return Start + Length; } }
@@ -102,13 +103,15 @@ namespace Glare.Assets {
 		public FileManager FileManager { get; private set; }
 
 		/// <summary>Get the <see cref="BinaryReader"/> to load from.</summary>
-		public BinaryReader Reader { get; private set; }
+		public BinaryReader Reader { get; set; }
 
 		/// <summary>Get or set the current position of the <see cref="Stream"/>.</summary>
 		public long Position {
 			get { return Stream.Position; }
 			set { Stream.Position = value; }
 		}
+
+		public int ShortLength { get { return checked((int)Length); } }
 
 		/// <summary>Get the starting offset in the <see cref="Stream"/> that this <see cref="AssetLoader"/> object was created with.</summary>
 		public long Start { get; private set; }
@@ -126,12 +129,19 @@ namespace Glare.Assets {
 			Reader = reader;
 			Name = name;
 			FileManager = manager;
-			ContextResource = contextResource;
+			Context = contextResource;
 			Length = length.HasValue ? length.Value : reader.BaseStream.Length;
 			Errors = new RichList<AssetLoadError>();
 		}
 
-		public void AddError(long? offset, string message) { Errors.Add(new AssetLoadError(this, offset, message)); }
+		public void AddError(long? offset, string message) {
+			Errors.Add(new AssetLoadError(this, offset, message));
+
+#if DebugBreak
+			if (Debugger.IsAttached)
+				Debugger.Break();
+#endif // DebugBreak
+		}
 		public void AddError(long? offset, string messageFormat, params object[] args) { AddError(offset, string.Format(messageFormat, args)); }
 
 		bool ExpectCore(long expected, long received) {
@@ -166,6 +176,41 @@ namespace Glare.Assets {
 			Errors.Add(new AssetLoadError.UnexpectedPosition(this, expected));
 			Position = expected;
 			return false;
+		}
+
+		public bool ExpectZeroes(int size, int count) {
+			bool result = true;
+
+			for (int index = 0; index < count; index++) {
+				switch (size) {
+					case 2: result = Expect((short)0) && result; break;
+					case 4: result = Expect((int)0) && result; break;
+					case 8: result = Expect((long)0) && result; break;
+
+					default:
+						for (int element = 0; element < size; element++)
+							result = Expect((byte)0) && result;
+						break;
+				}
+			}
+
+			return result;
+		}
+
+		/// <summary>Switch the <see cref="Reader"/> for a <see cref="BigEndianBinaryReader"/>.</summary>
+		public BinaryReader MakeBigEndian() {
+			return Reader = new BigEndianBinaryReader(Stream);
+		}
+
+		/// <summary>Read a <see cref="Box3f"/> that is conveyed using absolute coordinates, with a triplet of min values and a triplet of max values. This checks that the min values are less than or equal to the max values, reporting errors if not.</summary>
+		/// <returns></returns>
+		public Box3f ReadCheckedAbsoluteBox3f() {
+			var offset = Position;
+			Vector3f min = Reader.ReadVector3f();
+			Vector3f max = Reader.ReadVector3f();
+			if (min.X > max.X || min.Y > max.Y || min.Z > max.Z)
+				AddError(offset, "Absolute {0} has min values greater than max values (min = {1}, max = {2})", typeof(Box3f).Name, min.ToShortString(), max.ToShortString());
+			return new Box3f(min, max);
 		}
 
 		public static Stream SystemFileOpener(string name, FileMode mode, FileAccess access, FileShare share) {

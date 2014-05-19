@@ -9,246 +9,228 @@ namespace Glare
 		/// <summary>A distance value.</summary>
 	public struct Length : IComparable<Length>, IEquatable<Length>, IFormattable
 	{
-		internal const double ToCentimetres = (double)(ToMetres * 100);
+		internal const Double ToCentimetres = (Double)(ToMetres * 100);
 
-		public static Length Centimetres(double value) { return new Length(value / ToCentimetres); }
+		public static Length Centimetres(Double value) { return new Length(value / ToCentimetres); }
 
-		public double InCentimetres { get { return value * ToCentimetres; } }
+		public Double InCentimetres { get { return value * ToCentimetres; } }
 
 		public static readonly Length Centimetre = Centimetres(1);
 
-		public Length ClampCentimetres(double min, double max)
-		{
+		public Length ClampCentimetres(Double min, Double max) {
 			min = min / ToCentimetres;
 			max = max / ToCentimetres;
 			return new Length(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlaceCentimetres(double min, double max)
-		{
+		public void ClampInPlaceCentimetres(Double min, Double max) {
 			if(value > (max = max / ToCentimetres))
 				value = max;
 			else if(value < (min = min / ToCentimetres))
 				value = min;
 		}
 
-		internal const double ToFeet = (double)(ToYards * 3);
+		internal const Double ToFeet = (Double)(ToYards * 3);
 
-		public static Length Feet(double value) { return new Length(value / ToFeet); }
+		public static Length Feet(Double value) { return new Length(value / ToFeet); }
 
-		public double InFeet { get { return value * ToFeet; } }
+		public Double InFeet { get { return value * ToFeet; } }
 
 		public static readonly Length Foot = Feet(1);
 
-		public Length ClampFeet(double min, double max)
-		{
+		public Length ClampFeet(Double min, Double max) {
 			min = min / ToFeet;
 			max = max / ToFeet;
 			return new Length(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlaceFeet(double min, double max)
-		{
+		public void ClampInPlaceFeet(Double min, Double max) {
 			if(value > (max = max / ToFeet))
 				value = max;
 			else if(value < (min = min / ToFeet))
 				value = min;
 		}
 
-		internal const double ToInches = (double)(ToFeet * 12);
+		internal const Double ToInches = (Double)(ToFeet * 12);
 
-		public static Length Inches(double value) { return new Length(value / ToInches); }
+		public static Length Inches(Double value) { return new Length(value / ToInches); }
 
-		public double InInches { get { return value * ToInches; } }
+		public Double InInches { get { return value * ToInches; } }
 
 		public static readonly Length Inch = Inches(1);
 
-		public Length ClampInches(double min, double max)
-		{
+		public Length ClampInches(Double min, Double max) {
 			min = min / ToInches;
 			max = max / ToInches;
 			return new Length(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlaceInches(double min, double max)
-		{
+		public void ClampInPlaceInches(Double min, Double max) {
 			if(value > (max = max / ToInches))
 				value = max;
 			else if(value < (min = min / ToInches))
 				value = min;
 		}
 
-		internal const double ToKilometres = (double)(ToMetres / 10e3);
+		internal const Double ToKilometres = (Double)(ToMetres / 10e3);
 
-		public static Length Kilometres(double value) { return new Length(value / ToKilometres); }
+		public static Length Kilometres(Double value) { return new Length(value / ToKilometres); }
 
-		public double InKilometres { get { return value * ToKilometres; } }
+		public Double InKilometres { get { return value * ToKilometres; } }
 
 		public static readonly Length Kilometre = Kilometres(1);
 
-		public Length ClampKilometres(double min, double max)
-		{
+		public Length ClampKilometres(Double min, Double max) {
 			min = min / ToKilometres;
 			max = max / ToKilometres;
 			return new Length(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlaceKilometres(double min, double max)
-		{
+		public void ClampInPlaceKilometres(Double min, Double max) {
 			if(value > (max = max / ToKilometres))
 				value = max;
 			else if(value < (min = min / ToKilometres))
 				value = min;
 		}
 
-		internal const double ToMegametres = (double)(ToMetres / 10e6);
+		internal const Double ToMegametres = (Double)(ToMetres / 10e6);
 
-		public static Length Megametres(double value) { return new Length(value / ToMegametres); }
+		public static Length Megametres(Double value) { return new Length(value / ToMegametres); }
 
-		public double InMegametres { get { return value * ToMegametres; } }
+		public Double InMegametres { get { return value * ToMegametres; } }
 
 		public static readonly Length Megametre = Megametres(1);
 
-		public Length ClampMegametres(double min, double max)
-		{
+		public Length ClampMegametres(Double min, Double max) {
 			min = min / ToMegametres;
 			max = max / ToMegametres;
 			return new Length(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlaceMegametres(double min, double max)
-		{
+		public void ClampInPlaceMegametres(Double min, Double max) {
 			if(value > (max = max / ToMegametres))
 				value = max;
 			else if(value < (min = min / ToMegametres))
 				value = min;
 		}
 
-		internal const double ToMetres = (double)(1);
+		internal const Double ToMetres = (Double)(1);
 
-		public static Length Metres(double value) { return new Length(value / ToMetres); }
+		public static Length Metres(Double value) { return new Length(value / ToMetres); }
 
-		public double InMetres { get { return value * ToMetres; } }
+		public Double InMetres { get { return value * ToMetres; } }
 
 		public static readonly Length Metre = Metres(1);
 
-		public Length ClampMetres(double min, double max)
-		{
+		public Length ClampMetres(Double min, Double max) {
 			min = min / ToMetres;
 			max = max / ToMetres;
 			return new Length(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlaceMetres(double min, double max)
-		{
+		public void ClampInPlaceMetres(Double min, Double max) {
 			if(value > (max = max / ToMetres))
 				value = max;
 			else if(value < (min = min / ToMetres))
 				value = min;
 		}
 
-		internal const double ToMicrometres = (double)(ToMetres * 10e6);
+		internal const Double ToMicrometres = (Double)(ToMetres * 10e6);
 
-		public static Length Micrometres(double value) { return new Length(value / ToMicrometres); }
+		public static Length Micrometres(Double value) { return new Length(value / ToMicrometres); }
 
-		public double InMicrometres { get { return value * ToMicrometres; } }
+		public Double InMicrometres { get { return value * ToMicrometres; } }
 
 		public static readonly Length Micrometre = Micrometres(1);
 
-		public Length ClampMicrometres(double min, double max)
-		{
+		public Length ClampMicrometres(Double min, Double max) {
 			min = min / ToMicrometres;
 			max = max / ToMicrometres;
 			return new Length(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlaceMicrometres(double min, double max)
-		{
+		public void ClampInPlaceMicrometres(Double min, Double max) {
 			if(value > (max = max / ToMicrometres))
 				value = max;
 			else if(value < (min = min / ToMicrometres))
 				value = min;
 		}
 
-		internal const double ToMillimetres = (double)(ToMetres * 1000);
+		internal const Double ToMillimetres = (Double)(ToMetres * 1000);
 
-		public static Length Millimetres(double value) { return new Length(value / ToMillimetres); }
+		public static Length Millimetres(Double value) { return new Length(value / ToMillimetres); }
 
-		public double InMillimetres { get { return value * ToMillimetres; } }
+		public Double InMillimetres { get { return value * ToMillimetres; } }
 
 		public static readonly Length Millimetre = Millimetres(1);
 
-		public Length ClampMillimetres(double min, double max)
-		{
+		public Length ClampMillimetres(Double min, Double max) {
 			min = min / ToMillimetres;
 			max = max / ToMillimetres;
 			return new Length(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlaceMillimetres(double min, double max)
-		{
+		public void ClampInPlaceMillimetres(Double min, Double max) {
 			if(value > (max = max / ToMillimetres))
 				value = max;
 			else if(value < (min = min / ToMillimetres))
 				value = min;
 		}
 
-		internal const double ToNanometres = (double)(ToMetres * 10e9);
+		internal const Double ToNanometres = (Double)(ToMetres * 10e9);
 
-		public static Length Nanometres(double value) { return new Length(value / ToNanometres); }
+		public static Length Nanometres(Double value) { return new Length(value / ToNanometres); }
 
-		public double InNanometres { get { return value * ToNanometres; } }
+		public Double InNanometres { get { return value * ToNanometres; } }
 
 		public static readonly Length Nanometre = Nanometres(1);
 
-		public Length ClampNanometres(double min, double max)
-		{
+		public Length ClampNanometres(Double min, Double max) {
 			min = min / ToNanometres;
 			max = max / ToNanometres;
 			return new Length(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlaceNanometres(double min, double max)
-		{
+		public void ClampInPlaceNanometres(Double min, Double max) {
 			if(value > (max = max / ToNanometres))
 				value = max;
 			else if(value < (min = min / ToNanometres))
 				value = min;
 		}
 
-		internal const double ToYards = (double)(ToMetres / 0.9144);
+		internal const Double ToYards = (Double)(ToMetres / 0.9144);
 
-		public static Length Yards(double value) { return new Length(value / ToYards); }
+		public static Length Yards(Double value) { return new Length(value / ToYards); }
 
-		public double InYards { get { return value * ToYards; } }
+		public Double InYards { get { return value * ToYards; } }
 
 		public static readonly Length Yard = Yards(1);
 
-		public Length ClampYards(double min, double max)
-		{
+		public Length ClampYards(Double min, Double max) {
 			min = min / ToYards;
 			max = max / ToYards;
 			return new Length(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlaceYards(double min, double max)
-		{
+		public void ClampInPlaceYards(Double min, Double max) {
 			if(value > (max = max / ToYards))
 				value = max;
 			else if(value < (min = min / ToYards))
 				value = min;
 		}
 
-				public static Length Universal(double value) { return Metres(value); }
+				public Length Absolute { get { return new Length(Math.Abs(value)); }}
+
+		public static Length Universal(double value) { return Metres(value); }
 		public double InUniversal { get { return InMetres; } }
 
-		double value;
-		Length(double value) { this.value = value; }
+		Double value;
+		Length(Double value) { this.value = value; }
 
 		public static readonly Length Zero = new Length(0);
-		public static readonly Length PositiveInfinity = new Length(double.PositiveInfinity);
-		public static readonly Length NegativeInfinity = new Length(double.NegativeInfinity);
-		public static readonly Length NaN = new Length(double.NaN);
+		public static readonly Length PositiveInfinity = new Length(Double.PositiveInfinity);
+		public static readonly Length NegativeInfinity = new Length(Double.NegativeInfinity);
+		public static readonly Length NaN = new Length(Double.NaN);
 
 		public Length Clamp(Length min, Length max) { return new Length(value > max.value ? max.value : value < min.value ? min.value : value); }
 
@@ -277,7 +259,7 @@ namespace Glare
 		public override string ToString() { return ToString(null, null); }
 
 		/// <summary>Convert to a string of the form "<value>m".</summary>
-		public string ToString(string format, IFormatProvider provider) { return value.ToString(format, provider) + "m"; }
+		public string ToString(string format, IFormatProvider provider) { return InMetres.ToString(format, provider) + "m"; }
 
 		public static bool operator ==(Length a, Length b) { return a.value == b.value; }
 		public static bool operator !=(Length a, Length b) { return a.value != b.value; }
@@ -291,11 +273,11 @@ namespace Glare
 
 		public static Length operator +(Length a, Length b) { return new Length(a.value + b.value); }
 		public static Length operator -(Length a, Length b) { return new Length(a.value - b.value); }
-		public static Length operator *(Length a, double b) { return new Length(a.value * b); }
-		public static Length operator *(double a, Length b) { return new Length(a * b.value); }
-		public static Length operator /(Length a, double b) { return new Length(a.value / b); }
-		public static double operator /(Length a, Length b) { return a.value / b.value; }
-		public static double operator %(Length a, Length b) { return a.value % b.value; }
+		public static Length operator *(Length a, Double b) { return new Length(a.value * b); }
+		public static Length operator *(Double a, Length b) { return new Length(a * b.value); }
+		public static Length operator /(Length a, Double b) { return new Length(a.value / b); }
+		public static Double operator /(Length a, Length b) { return a.value / b.value; }
+		public static Double operator %(Length a, Length b) { return a.value % b.value; }
 	
 		/// <summary>Get this value multiplied by itself.</summary>
 		public Area Squared { get { return Area.SquareMetres(InMetres * InMetres); } }
@@ -306,5 +288,7 @@ namespace Glare
 		public static Velocity operator /(Length a, TimeSpan b) { return Velocity.MetresPerSecond(a.InMetres / b.TotalSeconds); }
 	}
 	}
+
+
 
 

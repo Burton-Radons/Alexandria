@@ -1,6 +1,6 @@
-﻿::Common::
+﻿:: #version 330 ::
+::Common::
 // This is added to the beginning of all shaders.
-#version 430
 
 ::Uniforms::
 uniform mat4 World, View, Projection;

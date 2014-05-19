@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Alexandria.Engines.DarkSouls</RootNamespace>
     <AssemblyName>Alexandria.Engines.DarkSouls</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,7 +30,28 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net20\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -60,7 +82,57 @@
     <Compile Include="DSModelVertexDeclaration.cs" />
     <Compile Include="DSModelBoneUnknown.cs" />
     <Compile Include="DSPlatform.cs" />
+    <Compile Include="Enumerations.cs" />
     <Compile Include="FSSL.cs" />
+    <Compile Include="MCG.cs" />
+    <Compile Include="MCP.cs" />
+    <Compile Include="ParameterDefinition.cs" />
+    <Compile Include="ParameterTable.cs" />
+    <Compile Include="ParameterTables\AiStandardInfo.cs" />
+    <Compile Include="ParameterTables\GameArea.cs" />
+    <Compile Include="ParameterTables\ProtectorReinforcement.cs" />
+    <Compile Include="ParameterTables\Attack.cs" />
+    <Compile Include="ParameterTables\Behavior.cs" />
+    <Compile Include="ParameterTables\Bullet.cs" />
+    <Compile Include="ParameterTables\CalculationCorrection.cs" />
+    <Compile Include="ParameterTables\CharacterInitialiser.cs" />
+    <Compile Include="ParameterTables\DepthOfField.cs" />
+    <Compile Include="ParameterTables\EnemyStandardInfo.cs" />
+    <Compile Include="ParameterTables\EnvironmentLight.cs" />
+    <Compile Include="ParameterTables\Fog.cs" />
+    <Compile Include="ParameterTables\HitMaterial.cs" />
+    <Compile Include="ParameterTables\KnockBack.cs" />
+    <Compile Include="ParameterTables\LensFlare.cs" />
+    <Compile Include="ParameterTables\LensFlareEx.cs" />
+    <Compile Include="ParameterTables\LevelOfDetail.cs" />
+    <Compile Include="ParameterTables\Light.cs" />
+    <Compile Include="ParameterTables\LightScattering.cs" />
+    <Compile Include="ParameterTables\LockCamera.cs" />
+    <Compile Include="ParameterTables\Magic.cs" />
+    <Compile Include="ParameterTables\MenuColor.cs" />
+    <Compile Include="ParameterTables\Move.cs" />
+    <Compile Include="ParameterTables\NpcThink.cs" />
+    <Compile Include="ParameterTables\ObjectAction.cs" />
+    <Compile Include="ParameterTables\ObjectInfo.cs" />
+    <Compile Include="ParameterTables\PointLight.cs" />
+    <Compile Include="ParameterTables\QwcChange.cs" />
+    <Compile Include="ParameterTables\QwcJudge.cs" />
+    <Compile Include="ParameterTables\Ragdoll.cs" />
+    <Compile Include="ParameterTables\ItemLot.cs" />
+    <Compile Include="ParameterTables\MaterialSet.cs" />
+    <Compile Include="ParameterTables\FaceGeneration.cs" />
+    <Compile Include="ParameterTables\Npc.cs" />
+    <Compile Include="ParameterTables\Accessory.cs" />
+    <Compile Include="ParameterTables\Good.cs" />
+    <Compile Include="ParameterTables\Shadow.cs" />
+    <Compile Include="ParameterTables\ShopLineup.cs" />
+    <Compile Include="ParameterTables\Skeleton.cs" />
+    <Compile Include="ParameterTables\SpecialEffect.cs" />
+    <Compile Include="ParameterTables\SpecialEffectVfx.cs" />
+    <Compile Include="ParameterTables\Talk.cs" />
+    <Compile Include="ParameterTables\ToneCorrection.cs" />
+    <Compile Include="ParameterTables\ToneMapping.cs" />
+    <Compile Include="ParameterTables\WeaponUpgrade.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +143,7 @@
     </Compile>
     <Compile Include="StringArchive.cs" />
     <Compile Include="TableArchive.cs" />
+    <Compile Include="ParameterTables\Weapon.cs" />
     <Compile Include="TextureArchive.cs" />
     <Compile Include="TextureLoader.cs" />
   </ItemGroup>
@@ -100,8 +173,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Compile Include="ParameterTables\Protector.cs" />
+    <Compile Include="ParameterTables\Throw.cs" />
     <None Include="Resources\dvdbnd0.filelist" />
     <None Include="Resources\dvdbnd1.filelist" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Names_AtkParam_Npc.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

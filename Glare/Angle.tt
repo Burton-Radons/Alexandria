@@ -5,10 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glare
-{
-	<#Generate("Angle", new TypeInfo[] { SuffixlessDoubleType }, () => {#>
-		/// <summary>An angle between two lines or a rotation, depending upon usage.</summary>
+namespace Glare {
+	<#GenerateAxes(AngleScalarFamily, () => {#>
 		public struct <#=This#> : IComparable<<#=This#>>, IEquatable<<#=This#>>, IFormattable {
 			<#GenerateUnits(AngleUnits);#>
 				
@@ -23,36 +21,29 @@ namespace Glare
 		}
 	<#});#>
 
-	<#GenerateAxes("Angle", new TypeInfo[] { AngleType }, () => {#>
+	<#GenerateAxes(AngleFamily, () => {#>
+		/// <summary>An angle between two lines or a rotation, depending upon usage.</summary>
 		public struct <#=This#> : IEquatable<<#=This#>>, IFormattable {
 			<#foreach(Unit unit in AngleUnits) {#>
-				<#GenerateReferenceReturn(This, (r)=>{#>
-					public static <#=r.ReturnType#> <#=unit.FromMethod#>(<#=VectorDouble#> value <#=r.Argument#>) {
-						<#=r.Begin#>
-						<#Each((axis)=>{#>
-							result.<#=axis.Id#> = Angle.<#=unit.FromMethod#>(value.<#=axis.Id#>);
-						<#});#>
-						<#=r.Return#>
-					}
+				public static <#=This#> <#=unit.FromMethod#>(<#Comma((AxisInfo axis)=>{#> double <#=axis.IdLow#> <#});#>) { 
+					return new <#=This#>(<#Comma((AxisInfo axis)=>{#> Angle.<#=unit.FromMethod#>(<#=axis.IdLow#>) <#});#>);
+				}
+			
+				<#GenerateReferenceReturn(This, (ReferenceReturnInfo r) => {#>
+					<#RefForm((RefFormInfo ri) => {#>
+						public static <#=r.ReturnType#> <#=unit.FromMethod#>(<#=ri.Ref#> <#=VectorDouble#> value <#=r.Argument#>) { 
+							<#=r.Begin#>
+							<#Each((AxisInfo axis) => {#>
+								result.<#=axis.Id#> = Angle.<#=unit.FromMethod#>(value.<#=axis.Id#>);
+							<#});#>
+							<#=r.Return#>
+						}
+					<#});#>
 				<#});#>
 
-				public <#=VectorDouble#> <#=unit.InMethod#> { get { return new <#=VectorDouble#>(<#Comma((axis)=>{#> <#=axis.Id#>.<#=unit.InMethod#> <#});#>); } }
-
-				public void To<#=unit.Plural#>(out <#=VectorDouble#> result) {
-					<#Each((axis)=>{#>
-						result.<#=axis.Id#> = <#=axis.Id#>.<#=unit.InMethod#>;
-					<#});#>
-				}
-// < #GenerateReferenceReturn("boop", (r) => {# >
-//		< #=r.ReturnType# > Booper(int x, int y < #=r.Argument# >)
-//		{
-//			< #=r.Begin# >
-//			result.Booger = x + y;
-//			< #=r.Return# >
-//		}
-// < #});# >
+				public <#=VectorDouble#> <#=unit.InMethod#> { get { return new <#=VectorDouble#>(<#QComma((axis)=>{#> <#=axis#>.<#=unit.InMethod#> <#});#>); } }
 			<#}#>
-			
+
 			/// <summary>Get the absolute sum of all of the axes.</summary>
 			public <#=T#> AbsoluteSum { get { return <#=ToT#>(<#Join("+", (axis) => {#> <#=axis.Id#>.Absolute <#});#>); } }
 			
@@ -69,7 +60,7 @@ namespace Glare
 
 			<#GenerateCommonVector();#>
 		}
-	<#}, 3, 3);#>
+	<#});#>
 }
 
 <#@ include file="CommonAxis.ttinclude" #>

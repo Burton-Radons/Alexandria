@@ -10,7 +10,6 @@ namespace Glare.Framework {
 	public class BigEndianBinaryReader : BinaryReader {
 		public BigEndianBinaryReader(Stream input) : base(input) { }
 		public BigEndianBinaryReader(Stream input, Encoding encoding) : base(input, encoding) { }
-		public BigEndianBinaryReader(Stream input, Encoding encoding, bool leaveOpen) : base(input, encoding, leaveOpen) { }
 
 		public static BinaryReader Create(ByteOrder byteOrder, Stream input) {
 			switch (byteOrder) {

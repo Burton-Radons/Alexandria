@@ -79,8 +79,8 @@ namespace Glare.Assets.Controls {
 			LastMouseLocation = args.Location;
 
 			if ((args.Button & MouseButtons.Left) != 0) {
-				Rotation *= new Quaternion(Angle.Degrees(-x), Angle.Zero, Angle.Zero).ToMatrix4d();
-				Rotation *= new Quaternion(Angle.Zero, Angle.Degrees(y), Angle.Zero).ToMatrix4d();
+				Rotation *= new Rotation4d(Angle.Degrees(-x), Angle.Zero, Angle.Zero).ToMatrix4d();
+				Rotation *= new Rotation4d(Angle.Zero, Angle.Degrees(y), Angle.Zero).ToMatrix4d();
 				RefreshRenderer();
 			} else if ((args.Button & MouseButtons.Right) != 0) {
 				ModelScale = Math.Max(1, ModelScale + x / 5.0);

@@ -11,36 +11,39 @@ namespace Glare
 		{
 			internal const double ToSeconds = 1;
 
-			internal const double ToMetresPerSecond = (double)(Length.ToMetres / ToSeconds);
+			internal const Double ToMetresPerSecond = (Double)(Length.ToMetres / ToSeconds);
 
-		public static Velocity MetresPerSecond(double value) { return new Velocity(value / ToMetresPerSecond); }
+		public static Velocity MetresPerSecond(Double value) { return new Velocity(value / ToMetresPerSecond); }
 
-		public double InMetresPerSecond { get { return value * ToMetresPerSecond; } }
+		public Double InMetresPerSecond { get { return value * ToMetresPerSecond; } }
 
 		public static readonly Velocity MetrePerSecond = MetresPerSecond(1);
 
-		public Velocity ClampMetresPerSecond(double min, double max)
-		{
+		public Velocity ClampMetresPerSecond(Double min, Double max) {
 			min = min / ToMetresPerSecond;
 			max = max / ToMetresPerSecond;
 			return new Velocity(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlaceMetresPerSecond(double min, double max)
-		{
+		public void ClampInPlaceMetresPerSecond(Double min, Double max) {
 			if(value > (max = max / ToMetresPerSecond))
 				value = max;
 			else if(value < (min = min / ToMetresPerSecond))
 				value = min;
 		}
 
-				double value;
-		Velocity(double value) { this.value = value; }
+				public Velocity Absolute { get { return new Velocity(Math.Abs(value)); }}
+
+		public static Velocity Universal(double value) { return MetresPerSecond(value); }
+		public double InUniversal { get { return InMetresPerSecond; } }
+
+		Double value;
+		Velocity(Double value) { this.value = value; }
 
 		public static readonly Velocity Zero = new Velocity(0);
-		public static readonly Velocity PositiveInfinity = new Velocity(double.PositiveInfinity);
-		public static readonly Velocity NegativeInfinity = new Velocity(double.NegativeInfinity);
-		public static readonly Velocity NaN = new Velocity(double.NaN);
+		public static readonly Velocity PositiveInfinity = new Velocity(Double.PositiveInfinity);
+		public static readonly Velocity NegativeInfinity = new Velocity(Double.NegativeInfinity);
+		public static readonly Velocity NaN = new Velocity(Double.NaN);
 
 		public Velocity Clamp(Velocity min, Velocity max) { return new Velocity(value > max.value ? max.value : value < min.value ? min.value : value); }
 
@@ -65,6 +68,12 @@ namespace Glare
 		/// <summary>Assign this <see cref="Velocity"/> to the minimum of this value or the other one.</summary>
 		public void MinInPlace(Velocity other) { if(other.value < value) value = other.value; }
 
+		/// <summary>Convert to a string of the form "<value>m·s⁻¹".</summary>
+		public override string ToString() { return ToString(null, null); }
+
+		/// <summary>Convert to a string of the form "<value>m·s⁻¹".</summary>
+		public string ToString(string format, IFormatProvider provider) { return InMetresPerSecond.ToString(format, provider) + "m·s⁻¹"; }
+
 		public static bool operator ==(Velocity a, Velocity b) { return a.value == b.value; }
 		public static bool operator !=(Velocity a, Velocity b) { return a.value != b.value; }
 		public static bool operator >(Velocity a, Velocity b) { return a.value > b.value; }
@@ -77,10 +86,11 @@ namespace Glare
 
 		public static Velocity operator +(Velocity a, Velocity b) { return new Velocity(a.value + b.value); }
 		public static Velocity operator -(Velocity a, Velocity b) { return new Velocity(a.value - b.value); }
-		public static Velocity operator *(Velocity a, double b) { return new Velocity(a.value * b); }
-		public static Velocity operator *(double a, Velocity b) { return new Velocity(a * b.value); }
-		public static Velocity operator /(Velocity a, double b) { return new Velocity(a.value / b); }
-		public static double operator %(Velocity a, Velocity b) { return a.value % b.value; }
+		public static Velocity operator *(Velocity a, Double b) { return new Velocity(a.value * b); }
+		public static Velocity operator *(Double a, Velocity b) { return new Velocity(a * b.value); }
+		public static Velocity operator /(Velocity a, Double b) { return new Velocity(a.value / b); }
+		public static Double operator /(Velocity a, Velocity b) { return a.value / b.value; }
+		public static Double operator %(Velocity a, Velocity b) { return a.value % b.value; }
 			}
 
 		public struct Velocity3 : IEquatable<Velocity3>
@@ -111,6 +121,8 @@ namespace Glare
 				public Vector3d InMetresPerSecond { get { return new Vector3d(X.InMetresPerSecond, Y.InMetresPerSecond, Z.InMetresPerSecond); } }
 					}
 	}
+
+
 
 
 

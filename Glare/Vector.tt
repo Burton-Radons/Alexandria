@@ -4,7 +4,7 @@ using Glare.Internal;
 
 namespace Glare
 {
-	<#GenerateAxes("Vector", VectorTypeInfos, ()=>{#>
+	<#GenerateAxes(VectorFamily, ()=>{#>
 
 	/// <summary>A <#=CardinalLow#>-dimensional vector type using <#=See(Type.Name)#> elements.</summary>
 	[VectorTypeAttribute(typeof(<#=T#>), <#=Order#>, false)]
@@ -17,10 +17,8 @@ namespace Glare
 				public <#=SquaredType#> MagnitudeSquared { get { return <#Join("+", (axis) => {#> <#=axis.Id#> * <#=axis.Id#> <#});#>; } }
 			
 				/// <summary>Compute the magnitude of the vector, which is the distance from the origin.</summary>
-				public <#=FloatType#> Magnitude
-				{
-					get
-					{
+				public <#=FloatType#> Magnitude {
+					get {
 						return <#ToUniversal(() => {#>
 							Math.Sqrt(
 								<#Join("+", (axis) => {#>
@@ -60,19 +58,16 @@ namespace Glare
 
 			<#if(IsMeasurement) {#>
 				<#foreach(var unit in AddUniversalUnit(LengthUnits)) {#>
-					public static <#=This#> <#=unit.FromMethod#>(<#Join(", ", (axis) => {#> double <#=axis.IdLow#> <#});#>)
-					{
+					public static <#=This#> <#=unit.FromMethod#>(<#Join(", ", (axis) => {#> double <#=axis.IdLow#> <#});#>) {
 						return new <#=This#>(<#Join(", ", (axis) => {#> <#=T#>.<#=unit.FromMethod#>(<#=axis.IdLow#>) <#});#>);
 					}
 				
-					public static <#=This#> <#=unit.FromMethod#>(double value)
-					{
+					public static <#=This#> <#=unit.FromMethod#>(double value) {
 						return new <#=This#>(<#=T#>.<#=unit.FromMethod#>(value));
 					}
 
 					<#RefForm((r) => {#>
-						public static <#=This#> <#=unit.Plural#>(<#=r.Ref#> <#=VectorFloat#> value)
-						{
+						public static <#=This#> <#=unit.Plural#>(<#=r.Ref#> <#=VectorFloat#> value) {
 							return new <#=This#>(<#Join(", ", (axis) => {#>
 								<#=T#>.<#=unit.FromMethod#>(value.<#=axis.Id#>)
 							<#});#>);
@@ -80,10 +75,8 @@ namespace Glare
 					<#});#>
 				
 
-					public <#=VectorFloat#> <#=unit.InMethod#>
-					{
-						get
-						{
+					public <#=VectorFloat#> <#=unit.InMethod#> {
+						get {
 							return new <#=VectorFloat#>(<#Join(", ", (axis) => {#>
 								<#=axis.Id#>.<#=unit.InMethod#>
 							<#});#>);
@@ -106,8 +99,7 @@ namespace Glare
 			// Constructors built up of smaller vectors.
 			<#if(Order > 2 && Order - 1 >= Type.MinOrder) {#>
 				<#RefForm((r) => {#>
-					public <#=This#>(<#=r.Ref#> <#=VectorM1#> <#Each((axis)=>{#><#=axis.IdLow#><#}, Order - 1);#>, <#=T#> <#=Axes[Order - 1].IdLow#>)
-					{
+					public <#=This#>(<#=r.Ref#> <#=VectorM1#> <#Each((axis)=>{#><#=axis.IdLow#><#}, Order - 1);#>, <#=T#> <#=Axes[Order - 1].IdLow#>) {
 						<#Each((assignAxis) => {#>
 							<#=assignAxis.Id#> = <#Each((axis)=>{#><#=axis.IdLow#><#}, Order - 1);#>.<#=assignAxis.Id#>;
 						<#}, Order - 1);#>
@@ -115,8 +107,7 @@ namespace Glare
 						<#=Axes[Order - 1].Id#> = <#=Axes[Order - 1].IdLow#>;
 					}
 				
-					public <#=This#>(<#=T#> <#=Axes[0].IdLow#>, <#=r.Ref#> <#=VectorM1#> <#Each((axis)=>{#><#=axis.IdLow#><#}, Order - 1, 1);#>)
-					{
+					public <#=This#>(<#=T#> <#=Axes[0].IdLow#>, <#=r.Ref#> <#=VectorM1#> <#Each((axis)=>{#><#=axis.IdLow#><#}, Order - 1, 1);#>) {
 						<#=Axes[0].Id#> = <#=Axes[0].IdLow#>;
 
 						<#Each((assignAxis) => {#>
@@ -144,12 +135,11 @@ namespace Glare
 			<#RefForm((r) => {#>
 				/// <summary>Compute the dot product of this and other vector, which is the sum of the product of each axis of each vector.</summary>
 				/// <param name="other">The other vector to calculate a dot product with. <#=r.Notice#></param>
-				public <#=SquaredType#> Dot(<#=r.Ref#> <#=This#> other) { return <#Join("+", (axis) => {#> <#=axis.Id#> * other.<#=axis.Id#> <#});#>; }
+				public <#=SquaredType#> Dot(<#=r.Ref#> <#=This#> other) { return (<#=SquaredType#>)(<#Join("+", (axis) => {#> <#=axis.Id#> * other.<#=axis.Id#> <#});#>); }
 			<#});#>
 
 			<#GenerateReferenceReturn(This, (r) => {#>
-				public <#=r.ReturnType#> Clamp(<#=r.Ref#> <#=This#> min, <#=r.Ref#> <#=This#> max <#=r.Argument#>)
-				{
+				public <#=r.ReturnType#> Clamp(<#=r.Ref#> <#=This#> min, <#=r.Ref#> <#=This#> max <#=r.Argument#>) {
 					<#=r.Begin#>
 					<#Each((axis) => {#>
 						result.<#=axis.Id#> = <#=axis.Id#> < min.<#=axis.Id#> ? min.<#=axis.Id#> : <#=axis.Id#> > max.<#=axis.Id#> ? max.<#=axis.Id#> : <#=axis.Id#>;
@@ -158,41 +148,37 @@ namespace Glare
 				}
 			<#});#>
 
+			<#RefForm((r) => {#>
+				/// <summary>Get the distance between the vectors.</summary>
+				public <#=FloatType#> Distance(<#=r.Ref#> <#=This#> other) {
+					return <#ToUniversal(() => {#>
+						Math.Sqrt(
+							<#Join("+", (axis) => {#>
+								<#FromUniversal(() => {#> <#=axis.Id#> - other.<#=axis.Id#> <#});#>.Squared() 
+							<#});#>
+						)<#});#>;
+				}
+
+				/// <summary>Get the squared distance between the vectors.</summary>
+				public <#=SquaredType#> DistanceSquared(<#=r.Ref#> <#=This#> other) {
+					return 
+						<#Join("+", (axis) => {#>
+							(<#=axis.Id#> - other.<#=axis.Id#>).Squared()
+						<#});#>;
+				}
+			<#});#>
+
 			// Floating-point methods
 			<#if(!IsIntegral) {#>
-				<#RefForm((r) => {#>
-					/// <summary>Get the distance between the vectors.</summary>
-					public <#=FloatType#> Distance(<#=r.Ref#> <#=This#> other)
-					{
-						return <#ToUniversal(() => {#>
-							Math.Sqrt(
-								<#Join("+", (axis) => {#>
-									<#FromUniversal(() => {#> <#=axis.Id#> - other.<#=axis.Id#> <#});#>.Squared() 
-								<#});#>
-							)<#});#>;
-					}
-
-					/// <summary>Get the squared distance between the vectors.</summary>
-					public <#=SquaredType#> DistanceSquared(<#=r.Ref#> <#=This#> other)
-					{
-						return 
-							<#Join("+", (axis) => {#>
-								(<#=axis.Id#> - other.<#=axis.Id#>).Squared()
-							<#});#>;
-					}
-				<#});#>
-
 				<#if(!IsMeasurement) {#>
 					/// <summary>Get the normalized form of this vector, which has a magnitude of one.</summary>
-					public void Normalize(out <#=This#> result)
-					{
+					public void Normalize(out <#=This#> result) {
 						double m = 1.0 / Math.Sqrt(<#Join("+", (axis) => {#> <#=axis.Id#> * <#=axis.Id#> <#});#>);
 						<#Each((axis) => {#> result.<#=axis.Id#> = (<#=T#>)(<#=axis.Id#> * m); <#});#>
 					}
 
 					/// <summary>Normalize this vector in place, giving it a magnitude of one. An identity vector will become NaN.</summary>
-					public void NormalizeInPlace()
-					{
+					public void NormalizeInPlace() {
 						<#=T#> m = <#=ToT#>(1.0 / Math.Sqrt(<#Join("+", (axis) => {#> <#=axis.Id#> * <#=axis.Id#> <#});#>));
 						<#Each((axis) => {#> <#=axis.Id#> *= m; <#});#>
 					}
@@ -211,8 +197,7 @@ namespace Glare
 						/// <summary>Calculates the cross product of the vectors.</summary>
 						/// <param name="other">The other vector to perform a cross product with.</param>
 						/// <param name="result">Receives the cross product.</param>
-						public void Cross(ref <#=This#> other, out <#=This#> result)
-						{
+						public void Cross(ref <#=This#> other, out <#=This#> result) {
 							<#=T#> x = <#=ToT#>(Y * other.Z - Z * other.Y), y = <#=ToT#>(Z * other.X - X * other.Z), z = <#=ToT#>(X * other.Y - Y * other.X);
 							result.X = x;
 							result.Y = y;
@@ -232,8 +217,7 @@ namespace Glare
 
 			// Casting
 			<#if(!IsMeasurement) {#>
-				<#foreach(MatrixTypeInfo type in TypeEnumerator())
-				{
+				<#foreach(MatrixTypeInfo type in TypeEnumerator()) {
 					if(type.Name == This || Order != type.Order || type.Type.IsMeasurement) continue;
 					#>public static <#=Type.ImplicitCastTo(type.Type)#> operator <#=type.Name#>(<#=This#> a) { return new <#=type.Name#>(<#Comma((axis)=>{#>(<#=type.Type.Name#>)a.<#=axis.Id#><#});#>); }
 					<#
@@ -241,10 +225,8 @@ namespace Glare
 
 				// Explicit casting to vectors with a lower order, trimming off axes.
 				<#for(int trimOrder = Order - 1; trimOrder >= 2 && trimOrder >= Type.MinOrder; trimOrder--) {#>
-					public static explicit operator <#=VectorType(trimOrder)#>(<#=This#> a)
-					{
-						return new <#=VectorType(trimOrder)#>(<#Comma((axis) =>
-							{
+					public static explicit operator <#=VectorType(trimOrder)#>(<#=This#> a) {
+						return new <#=VectorType(trimOrder)#>(<#Comma((axis) => {
 								Write("a." + axis.Id);
 							}, trimOrder);#>);
 					}
@@ -253,19 +235,14 @@ namespace Glare
 
 			public static <#=This#> operator +(<#=This#> a) { return <#New((axis)=>{#><#=ToT#>(+a.<#=axis.Id#>)<#});#>; }
 			public static <#=This#> operator -(<#=This#> a) { return <#New((axis)=>{#><#=ToT#>(-a.<#=axis.Id#>)<#});#>; }
-			<#foreach(OperatorInfo op in Operators)
-			{
+			<#foreach(OperatorInfo op in Operators) {
 				if(!op.IsMeasurement && IsMeasurement)
 					continue;
-				if(op.IsShift)
-				{
-					if(IsIntegral)
-					{#>
+				if(op.IsShift) {
+					if(IsIntegral) {#>
 						public static <#=This#> operator <#=op.Id#>(<#=This#> a, int b) { return <#New((axis)=>{#><#=ToT#>(a.<#=axis.Id#> <#=op.Id#> b)<#});#>; }
 					<#}
-				}
-				else if(!op.IsInteger || IsIntegral)
-				{#>
+				} else if(!op.IsInteger || IsIntegral) {#>
 					public static <#=This#> operator <#=op.Id#>(<#=This#> a, <#=This#> b) { return <#New((axis)=>{#><#=ToT#>(a.<#=axis.Id#> <#=op.Id#> b.<#=axis.Id#>)<#});#>; }
 					public static <#=This#> operator <#=op.Id#>(<#=This#> a, <#=T#> b) { return <#New((axis)=>{#><#=ToT#>(a.<#=axis.Id#> <#=op.Id#> b)<#});#>; }
 					public static <#=This#> operator <#=op.Id#>(<#=T#> a, <#=This#> b) { return <#New((axis)=>{#><#=ToT#>(a <#=op.Id#> b.<#=axis.Id#>)<#});#>; }

@@ -108,6 +108,18 @@ namespace Glare.Internal {
 			return bytes;
 		}
 
+		static Encoding CheckEncodingEndian(BinaryReader reader, Encoding encoding) {
+			if (reader is BigEndianBinaryReader) {
+				if (encoding == Encoding.Unicode)
+					return Encoding.BigEndianUnicode;
+				else if (encoding == Encoding.BigEndianUnicode)
+					return Encoding.Unicode;
+				else if (encoding == Encoding.UTF32)
+					throw new NotImplementedException();
+			}
+			return encoding;
+		}
+
 		#endregion Shared by extensions
 
 		#region BinaryReader
@@ -119,6 +131,7 @@ namespace Glare.Internal {
 
 		public static string ReadString(this BinaryReader reader, int byteCount, Encoding encoding) {
 			byte[] bytes = ReadSharedBytes(reader, byteCount, out byteCount);
+			encoding = CheckEncodingEndian(reader, encoding);
 			return encoding.GetString(bytes, 0, byteCount);
 		}
 
@@ -131,6 +144,8 @@ namespace Glare.Internal {
 			int charCount = 0;
 			byte[] bytes = SharedBytes.Get(16);
 			char[] chars = SharedChars.Get(16);
+
+			encoding = CheckEncodingEndian(reader, encoding);
 
 			while (true) {
 				int byteCount = 0;
@@ -147,16 +162,22 @@ namespace Glare.Internal {
 			}
 		}
 
-		public static string ReadStringz(this BinaryReader reader, int maxByteCount, Encoding encoding) {
+		/// <summary>Read a string that is always the same number of bytes, but may have a terminator in it that makes it shorter.</summary>
+		/// <param name="reader">The <see cref="BinaryReader"/> to read the string from.</param>
+		/// <param name="byteCount">The number of bytes in the string.</param>
+		/// <param name="encoding">The encoding to read the string with.</param>
+		/// <param name="stopValue1">The first character to stop the string with. The default is '\0' (the NUL terminator).</param>
+		/// <param name="stopValue2">The second character to stop the string with. The default is '\0' (the NUL terminator).</param>
+		/// <returns></returns>
+		public static string ReadStringz(this BinaryReader reader, int byteCount, Encoding encoding, char stopValue1 = '\0', char stopValue2 = '\0') {
 			Decoder decoder = GetSharedDecoder(encoding);
-			int byteCount;
-			byte[] bytes = reader.ReadSharedBytes(maxByteCount, out byteCount);
+			byte[] bytes = reader.ReadSharedBytes(byteCount, out byteCount);
 			char[] chars = SharedChars.Get(encoding.GetMaxCharCount(byteCount));
 			int charCount = decoder.GetChars(bytes, 0, byteCount, chars, 0);
 			int charLength;
 
 			for (charLength = 0; charLength < charCount; charLength++)
-				if (chars[charLength] == 0)
+				if (chars[charLength] == stopValue1 || chars[charLength] == stopValue2)
 					break;
 			return new string(chars, 0, charLength);
 		}
@@ -173,6 +194,11 @@ namespace Glare.Internal {
 
 		public static string ReadStringzAtUInt32(this BinaryReader reader, Encoding encoding) { return reader.ReadStringzAtUInt32(ByteOrder.LittleEndian, encoding); }
 
+		/// <summary>Read a <see cref="UInt32"/> offset, read the NUL-terminated string at the offset (or just return <c>null</c> if the offset is 0), and then return the stream position to just after the <see cref="UInt32"/>.</summary>
+		/// <param name="reader"></param>
+		/// <param name="byteOrder"></param>
+		/// <param name="encoding"></param>
+		/// <returns></returns>
 		public static string ReadStringzAtUInt32(this BinaryReader reader, ByteOrder byteOrder, Encoding encoding) {
 			uint offset = reader.ReadUInt32(byteOrder);
 			if (offset == 0)
@@ -288,8 +314,8 @@ namespace Glare.Internal {
 		/// <typeparam name="T"></typeparam>
 		/// <param name="list"></param>
 		/// <param name="comparison"></param>
-		public static void Sort<T>(this IList<T> list, Comparison<T> comparison) {
-			list.Sort(0, list.Count, comparison);
+		public static IList<T> Sort<T>(this IList<T> list, Comparison<T> comparison) {
+			return list.Sort(0, list.Count, comparison);
 		}
 
 		/// <summary>Sort a section of the list in place.</summary>
@@ -298,7 +324,7 @@ namespace Glare.Internal {
 		/// <param name="first"></param>
 		/// <param name="count"></param>
 		/// <param name="comparison"></param>
-		public static void Sort<T>(this IList<T> list, int first, int count, Comparison<T> comparison) {
+		public static IList<T> Sort<T>(this IList<T> list, int first, int count, Comparison<T> comparison) {
 			if (list == null)
 				throw new ArgumentNullException("list");
 			if (comparison == null)
@@ -309,6 +335,7 @@ namespace Glare.Internal {
 				throw new ArgumentOutOfRangeException("count");
 
 			list.SortQuick(first, first + count - 1, comparison);
+			return list;
 		}
 
 		static void SortQuick<T>(this IList<T> list, int left, int right, Comparison<T> comparison) {
@@ -361,6 +388,30 @@ namespace Glare.Internal {
 			return storeIndex;
 		}
 
+		/// <summary>If the index is within the list, return it; otherwise return a default value.</summary>
+		/// <typeparam name="T">The type of the elements of the list.</typeparam>
+		/// <param name="list">The list to index.</param>
+		/// <param name="index">The index to attempt.</param>
+		/// <param name="defaultValue">The default value to return if the index is out of range.</param>
+		/// <returns>The indexed list value or the default value.</returns>
+		public static T TryGet<T>(this IList<T> list, int index, T defaultValue = default(T)) {
+			return (index < 0 || index >= list.Count) ? defaultValue : list[index];
+		}
+
+		/// <summary>If the index is within the list, assign it; otherwise do nothing.</summary>
+		/// <typeparam name="T">The type of the elements of the list.</typeparam>
+		/// <param name="list">The list to assign.</param>
+		/// <param name="index">The index to attempt to assign to.</param>
+		/// <param name="value">The value to attempt to assign.</param>
+		/// <returns>Whether the value was assigned.</returns>
+		public static bool TrySet<T>(this IList<T> list, int index, T value) {
+			if (index >= 0 && index < list.Count) {
+				list[index] = value;
+				return true;
+			}
+			return false;
+		}
+
 		#endregion Arrays
 
 		#region BinaryReader
@@ -391,6 +442,52 @@ namespace Glare.Internal {
 		public static Double ReadDoubleBE(this IList<byte> list, int offset, int endOffset) { return (Double)new PackedDouble(list.ReadInt64BE(offset, endOffset)); }
 
 		#endregion Byte lists
+
+		#region Dictionaries
+
+		/// <summary>Try to get a value from the dictionary. If the value is not in the dictionary, assign <paramref name="defaultValue"/>.</summary>
+		/// <typeparam name="TKey">The key type of the dictionary.</typeparam>
+		/// <typeparam name="TValue">The value type of the dictionary.</typeparam>
+		/// <param name="dictionary">The dictionary to query.</param>
+		/// <param name="key">The key to search for.</param>
+		/// <param name="value">Receives the value from the dictionary or the <paramref name="defaultValue"/> if not found.</param>
+		/// <param name="defaultValue">The default value to use if the dictionary does not have the key.</param>
+		/// <returns>Whether the key is in the dictionary.</returns>
+		public static bool TryGetValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, out TValue value, TValue defaultValue = default(TValue)) {
+			bool result = dictionary.TryGetValue(key, out value);
+			if (!result)
+				value = defaultValue;
+			return result;
+		}
+
+		/// <summary>Try to get a value from the dictionary. If the value is not in the dictionary, return <paramref name="defaultValue"/>.</summary>
+		/// <typeparam name="TKey">The key type of the dictionary.</typeparam>
+		/// <typeparam name="TValue">The value type of the dictionary.</typeparam>
+		/// <param name="dictionary">The dictionary to query.</param>
+		/// <param name="key">The key to search for.</param>
+		/// <param name="defaultValue">The default value to use if the dictionary does not have the key.</param>
+		/// <returns>The key's value from the dictionary or <paramref name="defaultValue"/> if it did not have one.</returns>
+		public static TValue TryGetValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue = default(TValue)) {
+			TValue value;
+			return dictionary.TryGetValue(key, out value) ? value : defaultValue;
+		}
+
+		/// <summary>Try to get a value from the dictionary. If the value is not in the dictionary, construct a new value and put it in the dictionary, then return the new value.</summary>
+		/// <typeparam name="TKey">The key type of the dictionary.</typeparam>
+		/// <typeparam name="TValue">The value type of the dictionary. It must have a public constructor that has no parameters.</typeparam>
+		/// <param name="dictionary">The dictionary to query and possibly modify.</param>
+		/// <param name="key">The key to search for.</param>
+		/// <returns>The key's value from the dictionary or the new value if one was created.</returns>
+		public static TValue GetValueOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) where TValue : new() {
+			TValue result;
+
+			if (dictionary.TryGetValue(key, out result))
+				return result;
+			dictionary[key] = result = new TValue();
+			return result;
+		}
+
+		#endregion Dictionaries
 
 		#region IntPtr
 
@@ -435,6 +532,11 @@ namespace Glare.Internal {
 		#endregion IntPtr
 
 		#region MemberInfo
+
+		public static TAttribute GetCustomAttribute<TAttribute>(this MemberInfo member, bool inherit = false) where TAttribute : Attribute {
+			var list = member.GetCustomAttributes(typeof(TAttribute), inherit);
+			return list != null && list.Length > 0 ? (TAttribute)list[0] : null;
+		}
 
 		public static bool TryGetCustomAttribute<TAttribute>(this MemberInfo member, out TAttribute result, bool inherit = false) where TAttribute : Attribute {
 			result = member.GetCustomAttribute<TAttribute>(inherit);
@@ -631,6 +733,15 @@ namespace Glare.Internal {
 		#endregion String
 
 		#region Type
+
+		public static T[] GetCustomAttributes<T>(this Type type, bool inherit = false) {
+			object[] objectList = type.GetCustomAttributes(typeof(T), inherit);
+			T[] attributeList = new T[objectList.Length];
+
+			for (int index = 0; index < objectList.Length; index++)
+				attributeList[index] = (T)objectList[index];
+			return attributeList;
+		}
 
 		public static int Size(this Type value) { return Marshal.SizeOf(value); }
 

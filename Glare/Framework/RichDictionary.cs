@@ -15,8 +15,8 @@ namespace Glare.Framework {
 	/// <typeparam name="TKey"></typeparam>
 	/// <typeparam name="TValue"></typeparam>
 	[DebuggerDisplay("Count = {Count}")]
-	[DebuggerTypeProxy(typeof(ListDebugView<>))]
-	public class RichDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDictionary, INotifyCollectionChanged, INotifyPropertyChanged {
+	[DebuggerTypeProxy(typeof(DictionaryDebugView<,>))]
+	public class RichDictionary<TKey, TValue> : IDictionary<TKey, TValue>, ICollection<KeyValuePair<TKey, TValue>>, IDictionary, INotifyCollectionChanged, INotifyPropertyChanged {
 		readonly Dictionary<TKey, TValue> Dictionary;
 		ICollection<KeyValuePair<TKey, TValue>> Collection { get { return Dictionary; } }
 
@@ -27,6 +27,10 @@ namespace Glare.Framework {
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		PropertyChangedEventArgs CountChangedEventArgs = new PropertyChangedEventArgs("Count");
+
+		public ReadOnlyObservableDictionary<TKey, TValue> ReadOnlyView { get { return readOnlyView ?? (readOnlyView = new ReadOnlyObservableDictionary<TKey, TValue>(this)); } }
+
+		public static implicit operator ReadOnlyObservableDictionary<TKey, TValue>(RichDictionary<TKey, TValue> value) { return value.ReadOnlyView; }
 
 		public RichDictionary() { Dictionary = new Dictionary<TKey, TValue>(); }
 		public RichDictionary(IDictionary<TKey, TValue> dictionary) { Dictionary = new Dictionary<TKey, TValue>(dictionary); }
@@ -316,7 +320,7 @@ namespace Glare.Framework {
 
 		public struct Enumerator : IEnumerator<KeyValuePair<TKey, TValue>>, IDictionaryEnumerator {
 			readonly RichDictionary<TKey, TValue> Dictionary;
-			readonly Dictionary<TKey, TValue>.Enumerator Source;
+			Dictionary<TKey, TValue>.Enumerator Source;
 
 			internal Enumerator(RichDictionary<TKey, TValue> dictionary) {
 				Dictionary = dictionary;
@@ -329,7 +333,7 @@ namespace Glare.Framework {
 
 			object IEnumerator.Current { get { lock (Dictionary) return ((IEnumerator)Source).Current; } }
 
-			public bool MoveNext() { lock (Dictionary)return Source.MoveNext(); }
+			public bool MoveNext() { lock (Dictionary) return Source.MoveNext(); }
 
 			void IEnumerator.Reset() { lock (Dictionary) ((IEnumerator)Source).Reset(); }
 

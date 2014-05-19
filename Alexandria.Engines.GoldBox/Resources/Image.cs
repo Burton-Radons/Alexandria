@@ -112,7 +112,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		}
 
 		public override Asset Load(AssetLoader info) {
-			return new Image(Manager, info.Reader, info.Name, info.ContextResource);
+			return new Image(Manager, info.Reader, info.Name, info.Context);
 		}
 	}
 }

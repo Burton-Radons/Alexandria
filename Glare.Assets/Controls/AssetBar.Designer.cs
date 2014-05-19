@@ -24,11 +24,21 @@
 		/// </summary>
 		private void InitializeComponent() {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetBar));
+			this.panel1 = new System.Windows.Forms.Panel();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.label = new System.Windows.Forms.Label();
 			this.button = new System.Windows.Forms.Button();
+			this.panel1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// panel1
+			// 
+			resources.ApplyResources(this.panel1, "panel1");
+			this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel1.Controls.Add(this.tableLayoutPanel1);
+			this.panel1.Name = "panel1";
 			// 
 			// tableLayoutPanel1
 			// 
@@ -45,27 +55,33 @@
 			// button
 			// 
 			resources.ApplyResources(this.button, "button");
+			this.button.BackColor = System.Drawing.SystemColors.ButtonFace;
 			this.button.Image = global::Glare.Assets.Properties.Resources.DownArrowImage;
 			this.button.Name = "button";
-			this.button.UseVisualStyleBackColor = true;
-			this.button.Click += new System.EventHandler(this.OnButtonClick);
+			this.button.UseVisualStyleBackColor = false;
+			this.button.Click += new System.EventHandler(this.button_Click);
 			// 
-			// ResourceBar
+			// AssetBar
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.tableLayoutPanel1);
-			this.Name = "ResourceBar";
+			this.Controls.Add(this.panel1);
+			this.Name = "AssetBar";
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.tableLayoutPanel1.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
 
+		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.Label label;
 		private System.Windows.Forms.Button button;
+
 	}
 }

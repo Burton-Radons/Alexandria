@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Glare
 {
-	<#GenerateAxes("Ray", LengthTypeInfos, () => {#>
+	<#GenerateAxes(RayFamily, () => {#>
 	/// <summary>A <#=Vector#> position with a <#=VectorFloat#> normal.</summary>
 	public struct <#=This#>
 	{

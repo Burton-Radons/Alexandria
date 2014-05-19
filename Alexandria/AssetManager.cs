@@ -25,6 +25,7 @@ namespace Alexandria {
 		}
 
 		public void LoadPlugins() {
+            var cap = Glare.Graphics.Device.Capabilities;
 			LoadPlugins(Application.StartupPath, "Alexandria*.dll");
 		}
 

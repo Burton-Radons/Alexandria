@@ -390,8 +390,8 @@ namespace Glare.Graphics {
 					}
 
 					// Have the stages gather data.
-					foreach (ProgramStage stage in stagesByShaderStage.Values)
-						stage.Link();
+					//foreach (ProgramStage stage in stagesByShaderStage.Values)
+						//stage.Link();
 				}
 
 				return result != 0;

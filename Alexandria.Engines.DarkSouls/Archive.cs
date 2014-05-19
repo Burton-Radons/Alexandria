@@ -38,6 +38,8 @@ namespace Alexandria.Engines.DarkSouls {
 		public Encoding Encoding { get { return IsBigEndian ? Encoding.BigEndianUnicode : Encoding.Unicode; } }
 		public static readonly Encoding ShiftJis = Encoding.GetEncoding("shift-jis");
 
+		public Asset Context { get; private set; }
+
 		internal FileManager FileManager { get; private set; }
 
 		/// <summary>Null or a string up to eight characters of the form "307D7R6", "14B27P30" or "14B24G16", depending upon archive type; maybe revision-control related?</summary>
@@ -80,13 +82,14 @@ namespace Alexandria.Engines.DarkSouls {
 			return path;
 		}
 
-		public Archive(AssetManager manager, AssetLoader info)
-			: base(manager, "Dark Souls archive - " + info.Name) {
+		public Archive(AssetManager manager, AssetLoader loader)
+			: base(manager, "Dark Souls archive - " + loader.Name) {
 			FileManager = new ArchiveFileManager(this);
-			var reader = info.Reader;
-			var path = info.Name;
-			var context = info.FileManager;
+			var reader = loader.Reader;
+			var path = loader.Name;
+			var context = loader.FileManager;
 
+			Context = loader.Context;
 			string magic = reader.ReadString(4, Encoding.ASCII);
 			string extension = System.IO.Path.GetExtension(path);
 
@@ -222,6 +225,20 @@ namespace Alexandria.Engines.DarkSouls {
 			SortChildrenRecursively();
 		}
 
+		public ArchiveRecord FindRecordById(int id) {
+			foreach (var record in records)
+				if (record.Id == id)
+					return record;
+			return null;
+		}
+
+		public ArchiveRecord FindRecordByPath(string path) {
+			foreach (var record in records)
+				if (record.PathName == path)
+					return record;
+			return null;
+		}
+
 		public static int HashFilename(string input) {
 			if (string.IsNullOrEmpty(input))
 				return 0;
@@ -238,21 +255,9 @@ namespace Alexandria.Engines.DarkSouls {
 				Archive = archive;
 			}
 
-			/*public override LoaderFileOpener FileOpener { get { return MyFileOpener; } }
-
-			class MyFileManager : FileManager {
-			}
-			Stream MyFileOpener(string name, FileMode mode, FileAccess access, FileShare share) {
-				foreach (ArchiveRecord record in Archive.Records) {
-					if (record.PathName == name)
-						return record.Open();
-				}
-				throw new Exception("Archive doesn't contain file '" + name + "'.");
-			}*/
-
 			public override bool Exists(string path) {
-				foreach(ArchiveRecord record in Archive.Records)
-					if(record.PathName == path)
+				foreach (ArchiveRecord record in Archive.Records)
+					if (record.PathName == path)
 						return true;
 				return false;
 			}
@@ -279,6 +284,8 @@ namespace Alexandria.Engines.DarkSouls {
 				throw new InvalidOperationException("Archive record is not part of an Archive???");
 			}
 		}
+
+		public Asset ArchiveContext { get { return Archive.Context; } }
 
 		public override string DisplayName {
 			get {
@@ -504,8 +511,28 @@ namespace Alexandria.Engines.DarkSouls {
 			: base(engine, typeof(Archive), canLoad: true) {
 		}
 
+		static byte[] LoadKey(string filename, string type) {
+			var data = File.ReadAllBytes(filename);
+			string pem = Encoding.ASCII.GetString(data);
+			string header = String.Format("-----BEGIN {0}-----", type);
+			string footer = String.Format("-----END {0}-----", type);
+			int start = pem.IndexOf(header) + header.Length;
+			int end = pem.IndexOf(footer, start);
+			string base64 = pem.Substring(start, (end - start));
+			return Convert.FromBase64String(base64);
+		}
+
 		public override LoadMatchStrength LoadMatch(AssetLoader context) {
 			var reader = context.Reader;
+
+			/*const string keyFile = @"D:\Steam\steamapps\common\Dark Souls II\Game\GameDataKeyCode.pem";
+			var keyData = LoadKey(keyFile, "RSA PUBLIC KEY");
+			//byte[] result = rsa.Decrypt(reader.ReadBytes(100));
+			var bio = new BIO(keyData);
+			
+
+			var rsa = new RSA();*/
+
 			string magic = reader.ReadString(4, Encoding.ASCII);
 			if (magic == Archive.ContentsMagicBDF3 || magic == Archive.HeadersMagicBHD5 || magic == Archive.ContentsMagicBDF4 || magic == Archive.HeadersMagicBHF4 || magic == Archive.PackageMagicBND4 || magic == Archive.PackageMagicBND3 || magic == Archive.HeadersMagicBHF3)
 				return LoadMatchStrength.Strong;

@@ -95,7 +95,7 @@ namespace Alexandria.Plugins.General {
 		string GetArgumentBoolean(int value) { return (value != 0).ToString(); }
 		string GetArgumentBranch(int value) { return value.ToString(); }
 
-		string GetArgumentConstant(int value) {
+		string GetArgumentConstant(int value, bool quotes = false) {
 			if (value >= Function.Constants.Count)
 				return "K(Invalid index " + value + ")";
 			object constant = Function.Constants[value];
@@ -104,8 +104,6 @@ namespace Alexandria.Plugins.General {
 				return "nil";
 
 			if (constant is string) {
-				bool quotes = false;
-
 				foreach (char ch in (string)constant) {
 					if (!char.IsLetterOrDigit(ch) && ch != '_')
 						quotes = true;
@@ -122,10 +120,11 @@ namespace Alexandria.Plugins.General {
 			return "K(" + constant + ")";
 		}
 
-		string GetArgumentLiteral(int value) { return value.ToString(); }
-		string GetArgumentRegister(int value) { return "R[" + value + "]"; }
+		string GetArgumentLiteral(int value) { return GetArgumentConstant(value, true); }
+		string GetArgumentRegister(int value) { return "R" + value; }
 		string GetArgumentRegisterConstant(int value) { return value < Function.MaxStackSize ? GetArgumentRegister(value) : GetArgumentConstant(value - MaxStack); }
 		string GetArgumentUpValue(int value) { return "UpValue(" + (value < Function.UpValues.Count ? Function.UpValues[value] : "Invalid index " + value) + ")"; }
+		string GetArgumentGlobal(int value) { return GetArgumentConstant(value); }
 
 		string GetArgumentRegisterRange(int from, int to) {
 			if (from != to)
@@ -137,13 +136,39 @@ namespace Alexandria.Plugins.General {
 			string text = Opcode.ToString();
 
 			switch (Opcode) {
-				case LuaOpcode.Call: return string.Format("{0} = {1}({2})", GetArgumentRegisterRange(A, A + C - 2), GetArgumentRegister(B), GetArgumentRegisterRange(A + 1, A + B - 1));
+				case LuaOpcode.Call:
+					text = (A - 1 == A + C - 2) ? "" : string.Format("{0} = ", GetArgumentRegisterRange(A, A + C - 2));
+					return text + string.Format("{0}({1})", GetArgumentRegister(A), GetArgumentRegisterRange(A + 1, A + B - 1));
 
 				case LuaOpcode.Closure:
 					LuaFunction closure = Function.Closures[Bx];
-					return string.Format("{0} = closure({1}, {2})", GetArgumentRegister(A), closure.SourceOrIndex, GetArgumentRegisterRange(A, A + closure.ParameterCount - 1));
+					text = string.Format("{0} = closure({1}", GetArgumentRegister(A), closure.SourceOrIndex);
+					if (closure.UpValueCount != 0)
+						text += string.Format(", {0}", GetArgumentRegisterRange(A, A + closure.UpValueCount - 1));
+					return text + ")";
 
-				case LuaOpcode.Self: return string.Format("{0} = {1}; {2} = {3}.{4}", GetArgumentRegister(A + 1), GetArgumentRegister(B), GetArgumentRegister(A), GetArgumentRegister(B), GetArgumentRegisterConstant(C));
+				case LuaOpcode.GetGlobal:
+					return string.Format("{0} = {1}", GetArgumentRegister(A), GetArgumentGlobal(Bx));
+
+				case LuaOpcode.LoadBoolean: // R(A) = (bool)B; if(C) PC++
+					return string.Format("{0} = {1}{2}", GetArgumentRegister(A), GetArgumentBoolean(B), (C != 0) ? "; PC++" : "");
+
+				case LuaOpcode.LoadConstant: // R(A) = Constant(Bx)
+					return string.Format("{0} = {1}", GetArgumentRegister(A), GetArgumentLiteral(Bx));
+
+				case LuaOpcode.Move: // R(A) = R(B)
+					return string.Format("{0} = {1}", GetArgumentRegister(A), GetArgumentRegister(B));
+
+				case LuaOpcode.Return: // return R(A to A+B-2); if (B == 0) then return up to 'top'
+					if (A - 1 == A + B - 2)
+						return "return";
+					return string.Format("return {0}", B == 0 ? GetArgumentRegister(A) + " to top" : GetArgumentRegisterRange(A, A + B - 2));
+
+				case LuaOpcode.Self: return string.Format("{0} = {1}; {2} = {3}.{4}", GetArgumentRegister(A + 1), GetArgumentRegister(B), GetArgumentRegister(A), GetArgumentRegister(B), GetArgumentRegisterConstant
+					(C));
+
+				case LuaOpcode.SetGlobal: // Global[Constant[Bx]] = R(A)
+					return string.Format("{0} = {1}", GetArgumentGlobal(Bx), GetArgumentRegister(A));
 
 				default:
 					foreach (LuaOpcodeArgument argument in Arguments)

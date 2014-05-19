@@ -105,7 +105,7 @@ namespace Glare.Graphics {
 			get { return Context.readFrameBuffer; }
 
 			set {
-				using(Lock())
+				using (Lock())
 					GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, value != null ? value.Id : 0);
 				Context.readFrameBuffer = value;
 			}
@@ -122,7 +122,6 @@ namespace Glare.Graphics {
 		}
 
 		static Device() {
-			Context.Initialize();
 			OpenTK.Graphics.GraphicsContext.ShareContexts = true;
 			toolkit = OpenTK.Toolkit.Init();
 
@@ -158,6 +157,17 @@ namespace Glare.Graphics {
 			CheckError();
 		}
 
+		internal static Exception CreateError(ErrorCode code) {
+			if (code == ErrorCode.NoError)
+				return null;
+			string response = "An OpenGL exception " + code + " occurred.";
+			switch (code) {
+				case ErrorCode.InvalidOperation: return new InvalidOperationException(response);
+				case ErrorCode.OutOfMemory: return new OutOfMemoryException(response);
+				default: return new Exception(response);
+			}
+		}
+
 		public static void DispatchCompute(int numGroupsX = 1, int numGroupsY = 1, int numGroupsZ = 1) { using (Lock()) GL.DispatchCompute(numGroupsX, numGroupsY, numGroupsZ); }
 
 		public static void DispatchCompute(Vector2i numGroups) { DispatchCompute(numGroups.X, numGroups.Y, 1); }
@@ -171,8 +181,44 @@ namespace Glare.Graphics {
 		}
 
 		internal static double GetDouble(GetPName pname) { double result; using (Lock()) GL.GetDouble(pname, out result); return result; }
-		internal static int GetInt32(GetPName pname) { int result; using (Lock()) GL.GetInteger(pname, out result); return result; }
-		internal static int GetInt32(GetIndexedPName pname, int index) { int result; using (Lock()) GL.GetInteger(pname, index, out result); return result; }
+
+		internal static int GetInt32(GetPName pname) {
+			int result;
+
+			try {
+				using (Lock())
+					GL.GetInteger(pname, out result);
+			} catch (Exception exception) {
+				throw new InvalidOperationException("Exception thrown with GetInt32(GetPName." + pname + ")", exception);
+			}
+
+			return result;
+		}
+
+		internal static int GetInt32(GetPName pname, int defaultValue) {
+			int result;
+
+			GL.GetInteger(pname, out result);
+			var error = GL.GetError();
+			switch (error) {
+				case ErrorCode.NoError: return result;
+				case ErrorCode.InvalidEnum: return defaultValue;
+				default: throw new InvalidOperationException("Exception thrown with GetInt32(GetPName." + pname + "): ", CreateError(error));
+			}
+		}
+
+		internal static int GetInt32(GetIndexedPName pname, int index) {
+			int result;
+
+			try {
+				using (Lock())
+					GL.GetInteger(pname, index, out result);
+			} catch (Exception exception) {
+				throw new InvalidOperationException("Exception thrown with GetInt32(GetIndexedPName." + pname + ")", exception);
+			}
+
+			return result;
+		}
 
 		internal static Vector2d GetVector2d(GetPName pname) {
 			lock (doubleArray) {

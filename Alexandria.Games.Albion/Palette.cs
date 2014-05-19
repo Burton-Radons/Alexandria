@@ -28,7 +28,7 @@ namespace Alexandria.Games.Albion {
 
 			if (string.Equals(filename, Constants.PaletteStatic, StringComparison.InvariantCultureIgnoreCase))
 				return LoadMatchStrength.Medium;
-			if (loader.ContextResource is LibraryRecord && string.Equals(Path.GetFileName(loader.ContextResource.Parent.Name), Constants.PaletteLibrary, StringComparison.InvariantCultureIgnoreCase))
+			if (loader.Context is LibraryRecord && string.Equals(Path.GetFileName(loader.Context.Parent.Name), Constants.PaletteLibrary, StringComparison.InvariantCultureIgnoreCase))
 				return LoadMatchStrength.Medium;
 			return LoadMatchStrength.None;
 		}

@@ -8,12 +8,13 @@ using Glare;
 using Alexandria.Engines.GoldBox.Resources;
 using System.Collections.ObjectModel;
 using Glare.Assets;
+using Glare.Framework;
 
 namespace Alexandria.Engines.GoldBox {
 	public class Archive : FolderAsset {
 		internal BinaryReader Reader { get; private set; }
 
-		public ReadOnlyDictionary<int, ArchiveRecord> RecordsById { get; private set; }
+		public ReadOnlyObservableDictionary<int, ArchiveRecord> RecordsById { get; private set; }
 
 		public Archive(AssetManager manager, BinaryReader reader, string name, FileManager fileManager)
 			: base(manager, name) {
@@ -21,14 +22,14 @@ namespace Alexandria.Engines.GoldBox {
 
 			int headerSize = reader.ReadUInt16();
 			int count = headerSize / ArchiveRecord.HeaderSize;
-			Dictionary<int, ArchiveRecord> recordsById = new Dictionary<int, ArchiveRecord>();
+			RichDictionary<int, ArchiveRecord> recordsById = new RichDictionary<int, ArchiveRecord>();
 
 			for (int index = 0; index < count; index++) {
 				var record = new ArchiveRecord(this, reader, index, headerSize + 2);
 				recordsById[record.Id] = record;
 			}
 
-			RecordsById = new ReadOnlyDictionary<int, ArchiveRecord>(recordsById);
+			RecordsById = recordsById;
 		}
 	}
 

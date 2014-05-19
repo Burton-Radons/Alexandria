@@ -9,39 +9,39 @@ namespace Glare
 			/// <summary>An area measurement.</summary>
 		public struct Area : IComparable<Area>, IEquatable<Area>
 		{
-			internal const double ToSquareMetres = (double)(Length.ToMetres * Length.ToMetres);
+			internal const Double ToSquareMetres = (Double)(Length.ToMetres * Length.ToMetres);
 
-		public static Area SquareMetres(double value) { return new Area(value / ToSquareMetres); }
+		public static Area SquareMetres(Double value) { return new Area(value / ToSquareMetres); }
 
-		public double InSquareMetres { get { return value * ToSquareMetres; } }
+		public Double InSquareMetres { get { return value * ToSquareMetres; } }
 
 		public static readonly Area SquareMetre = SquareMetres(1);
 
-		public Area ClampSquareMetres(double min, double max)
-		{
+		public Area ClampSquareMetres(Double min, Double max) {
 			min = min / ToSquareMetres;
 			max = max / ToSquareMetres;
 			return new Area(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlaceSquareMetres(double min, double max)
-		{
+		public void ClampInPlaceSquareMetres(Double min, Double max) {
 			if(value > (max = max / ToSquareMetres))
 				value = max;
 			else if(value < (min = min / ToSquareMetres))
 				value = min;
 		}
 
-				public static Area Universal(double value) { return SquareMetres(value); }
+				public Area Absolute { get { return new Area(Math.Abs(value)); }}
+
+		public static Area Universal(double value) { return SquareMetres(value); }
 		public double InUniversal { get { return InSquareMetres; } }
 
-		double value;
-		Area(double value) { this.value = value; }
+		Double value;
+		Area(Double value) { this.value = value; }
 
 		public static readonly Area Zero = new Area(0);
-		public static readonly Area PositiveInfinity = new Area(double.PositiveInfinity);
-		public static readonly Area NegativeInfinity = new Area(double.NegativeInfinity);
-		public static readonly Area NaN = new Area(double.NaN);
+		public static readonly Area PositiveInfinity = new Area(Double.PositiveInfinity);
+		public static readonly Area NegativeInfinity = new Area(Double.NegativeInfinity);
+		public static readonly Area NaN = new Area(Double.NaN);
 
 		public Area Clamp(Area min, Area max) { return new Area(value > max.value ? max.value : value < min.value ? min.value : value); }
 
@@ -70,7 +70,7 @@ namespace Glare
 		public override string ToString() { return ToString(null, null); }
 
 		/// <summary>Convert to a string of the form "<value>m²".</summary>
-		public string ToString(string format, IFormatProvider provider) { return value.ToString(format, provider) + "m²"; }
+		public string ToString(string format, IFormatProvider provider) { return InSquareMetres.ToString(format, provider) + "m²"; }
 
 		public static bool operator ==(Area a, Area b) { return a.value == b.value; }
 		public static bool operator !=(Area a, Area b) { return a.value != b.value; }
@@ -84,16 +84,18 @@ namespace Glare
 
 		public static Area operator +(Area a, Area b) { return new Area(a.value + b.value); }
 		public static Area operator -(Area a, Area b) { return new Area(a.value - b.value); }
-		public static Area operator *(Area a, double b) { return new Area(a.value * b); }
-		public static Area operator *(double a, Area b) { return new Area(a * b.value); }
-		public static Area operator /(Area a, double b) { return new Area(a.value / b); }
-		public static double operator /(Area a, Area b) { return a.value / b.value; }
-		public static double operator %(Area a, Area b) { return a.value % b.value; }
+		public static Area operator *(Area a, Double b) { return new Area(a.value * b); }
+		public static Area operator *(Double a, Area b) { return new Area(a * b.value); }
+		public static Area operator /(Area a, Double b) { return new Area(a.value / b); }
+		public static Double operator /(Area a, Area b) { return a.value / b.value; }
+		public static Double operator %(Area a, Area b) { return a.value % b.value; }
 	
 			public static Volume operator *(Area a, Length b) { return Volume.CubicMetres(a.InSquareMetres * b.InMetres); }
 			public static Volume operator *(Length a, Area b) { return Volume.CubicMetres(a.InMetres * b.InSquareMetres); }
 			public static Length operator /(Area a, Length b) { return Length.Metres(a.InSquareMetres / b.InMetres); }
 		}
 	}
+
+
 
 

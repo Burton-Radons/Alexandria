@@ -29,6 +29,10 @@
 	</ItemGroup>
 	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2013Limited\InstallShield.targets"/>
 	<ItemGroup>
+		<ProjectReference Include="..\Alexandria\Alexandria.csproj">
+			<Name>Alexandria</Name>
+			<Project>{FCD1C6C9-B4BF-49CF-9C92-D16E4B40A869}</Project>
+		</ProjectReference>
 		<ProjectReference Include="..\Alexandria.Browser\Alexandria.Browser.csproj">
 			<Name>Alexandria.Browser</Name>
 			<Project>{2A8D381C-6BF5-424F-8F27-8F539F52881C}</Project>
@@ -49,6 +53,10 @@
 			<Name>Alexandria.Engines.Unreal</Name>
 			<Project>{EB667992-2E04-4F57-B3C1-5EB8F7F6DFB9}</Project>
 		</ProjectReference>
+		<ProjectReference Include="..\Alexandria.Games.Albion\Alexandria.Games.Albion.csproj">
+			<Name>Alexandria.Games.Albion</Name>
+			<Project>{C257544B-C940-4278-B56F-E2C9EEA94104}</Project>
+		</ProjectReference>
 		<ProjectReference Include="..\Alexandria.Systems.NintendoDS\Alexandria.Platforms.NintendoDS.csproj">
 			<Name>Alexandria.Platforms.NintendoDS</Name>
 			<Project>{53394454-208E-4C45-A9E4-F056A3E7EDDF}</Project>
@@ -61,13 +69,13 @@
 			<Name>Glare</Name>
 			<Project>{125D9251-7CD0-4801-AB84-CB3F1F6978B1}</Project>
 		</ProjectReference>
+		<ProjectReference Include="..\Glare.Assets\Glare.Assets.csproj">
+			<Name>Glare.Assets</Name>
+			<Project>{E3809E79-FE0A-4425-A1A1-575F6719EC45}</Project>
+		</ProjectReference>
 		<ProjectReference Include="..\Glare.Engine\Glare.Engine.csproj">
 			<Name>Glare.Engine</Name>
 			<Project>{518F1B56-8857-4719-B43D-CFA9E8122184}</Project>
-		</ProjectReference>
-		<ProjectReference Include="..\Glare.Graphics\Glare.Graphics.csproj">
-			<Name>Glare.Graphics</Name>
-			<Project>{6EC9BD9E-DA82-48DB-A01B-7BB90E1A1F71}</Project>
 		</ProjectReference>
 		<ProjectReference Include="..\Moki\Moki.csproj">
 			<Name>Moki</Name>

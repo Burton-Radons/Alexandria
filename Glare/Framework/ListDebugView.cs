@@ -42,4 +42,23 @@ namespace Glare.Framework {
 			}
 		}
 	}
+
+	public class DictionaryDebugView<TKey, TValue> {
+		private ICollection<KeyValuePair<TKey, TValue>> collection;
+
+		public DictionaryDebugView(ICollection<KeyValuePair<TKey, TValue>> collection) {
+			if (collection == null)
+				throw new ArgumentNullException("collection");
+			this.collection = collection;
+		}
+
+		[DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
+		public KeyValuePair<TKey, TValue>[] Items {
+			get {
+				KeyValuePair<TKey, TValue>[] array = new KeyValuePair<TKey, TValue>[this.collection.Count];
+				this.collection.CopyTo(array, 0);
+				return array;
+			}
+		}
+	}
 }

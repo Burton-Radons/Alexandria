@@ -30,12 +30,12 @@ namespace Glare {
 	}
 
 	public class WeakResourceSource<T> : IResourceSource<T> where T : class {
-		readonly WeakReference<T> value;
+		readonly WeakReference value;
 
-		public WeakResourceSource(WeakReference<T> value) { this.value = value; }
-		public WeakResourceSource(T value) { this.value = new WeakReference<T>(value); }
+		public WeakResourceSource(WeakReference value) { this.value = value; }
+		public WeakResourceSource(T value) { this.value = new WeakReference(value); }
 
-		public T GetResourceValue() { T target; value.TryGetTarget(out target); return target; }
+		public T GetResourceValue() { return (T)value.Target; }
 		object IResourceSource.GetResourceValue() { return GetResourceValue(); }
 	}
 }

@@ -11,6 +11,7 @@ using Glare.Assets;
 
 namespace Alexandria.Engines.DarkSouls {
 	public class Fssl : Asset {
+		#region Translations
 		static readonly string[] Translations_ai101000 = new string[] {
 			"[ Random number ] random number generation", // 0
 			"[ Timer ] timer start", // 1
@@ -826,8 +827,9 @@ namespace Alexandria.Engines.DarkSouls {
 			"OBJ avoid damage : Dash" , // 811
 			"OBJ damage preventing : Exit" , // 812
 		};
+		#endregion Translations
 
-		public const string Magic = "FSSL";
+		public const string MagicBigEndian = "FSSL", MagicLittleEndian = "fSSL";
 
 		public ReadOnlyList<string> Strings { get; private set; }
 
@@ -843,88 +845,96 @@ namespace Alexandria.Engines.DarkSouls {
 
 		public ReadOnlyList<FsslThing5> Thing5s { get; private set; }
 
-		internal Fssl(AssetManager manager, ResourceManager resourceManager, AssetLoader info)
-			: base(manager, info.Name) {
-			var reader = info.Reader;
-			ByteOrder order = ByteOrder.LittleEndian;
-			const int adjustment = 0x94;
+		internal Fssl(AssetManager manager, ResourceManager resourceManager, AssetLoader loader)
+			: base(manager, loader.Name) {
+			var reader = loader.Reader;
+			const int adjustment = 0x6C;
 
-			reader.RequireMagic(Magic);
+			string magic = reader.ReadString(4, Encoding.ASCII);
+			if (magic == MagicBigEndian)
+				reader = loader.MakeBigEndian();
+			else if (magic != MagicLittleEndian)
+				loader.AddError(loader.Position - 4, "Unexpected magic value '" + magic + ".");
 
-			int indicator = reader.ReadInt32();
-			if (indicator == 0x01000000)
-				order = ByteOrder.BigEndian;
-			else if (indicator != 1)
-				throw new InvalidDataException();
+			loader.Position = 0xC505;
+			var ex = reader.ReadStringz(Encoding.BigEndianUnicode);
 
-			reader.Require(1, order);
-			reader.Require(1, order);
-			reader.Require(0x7C, order);
-			reader.Require(checked((int)info.Length - adjustment), order);
-			reader.Require(0x0B, order);
-			int stringHeaderOffset = reader.ReadInt32(order) + adjustment;
-			if (stringHeaderOffset != 0xC8)
-				throw new InvalidDataException();
-			reader.Require(1, order);
-			reader.Require(8, order);
-			int stringTotal = reader.ReadInt32(order);
-			reader.Require(4, order);
-			reader.Require(0, order);
-			reader.Require(8, order);
-			int thing2Total = reader.ReadInt32(order);
-			reader.Require(8, order);
-			int unusedThing2Count = reader.ReadInt32(order);
-			reader.Require(8, order);
-			reader.Require(0, order);
-			reader.Require(0x10, order); // Thing3Size?
-			int thing3Total = reader.ReadInt32(order);
-			reader.Require(4, order); // WeirdThingSize?
-			int weirdCount = reader.ReadInt32(order);
-			reader.Require(8, order);
-			reader.Require(0, order);
-			reader.Require(0x3C, order); // Thing4Size?
-			int thing4Count = reader.ReadInt32(order);
-			reader.Require(0x30, order); // Thing5Size?
-			int thing5Total = reader.ReadInt32(order);
-			int stringDataOffset = reader.ReadInt32(order) + adjustment;
-			reader.Require(0, order);
-			reader.Require(stringDataOffset - adjustment, order);
-			reader.Require(0x2D0C, order);
-			reader.Require(checked((int)info.Length - adjustment), order);
-			reader.Require(0, order);
-			reader.Require(checked((int)info.Length - adjustment), order);
-			reader.Require(0, order);
+			loader.Expect(1);
+			reader.Require(1);
+			reader.Require(1);
+
+			int version = reader.ReadInt32(); // 0x7C or 0x54
+			if (version != 0x54 && version != 0x7c)
+				loader.AddError(loader.Position - 4, "Unexpected version number(?) {0:X}h/{0}", version);
+
+			loader.Expect(loader.ShortLength - adjustment);
+			loader.Expect(0x06);
+			int stringHeaderOffset = reader.ReadInt32() + adjustment;
+			loader.Expect(1);
+			loader.Expect(0x10);
+			int stringTotal = reader.ReadInt32();
+			loader.Expect(0x24);
+			loader.Expect(0x85);
+			loader.Expect(0x1C);
+			int thing2Total = reader.ReadInt32();
+			loader.Expect(0x10); // was 8
+			int unusedThing2Count = reader.ReadInt32();
+			loader.Expect(8);
+			loader.Expect(0);
+			loader.Expect(0x10); // Thing3Size?
+			int thing3Total = reader.ReadInt32();
+			loader.Expect(4); // WeirdThingSize?
+			int weirdCount = reader.ReadInt32();
+			loader.Expect(8);
+			loader.Expect(0);
+			loader.Expect(0x3C); // Thing4Size?
+			int thing4Count = reader.ReadInt32();
+			loader.Expect(0x30); // Thing5Size?
+			int thing5Total = reader.ReadInt32();
+			int stringDataOffset = reader.ReadInt32() + adjustment;
+			loader.Expect(0);
+			loader.Expect(stringDataOffset - adjustment);
+			loader.Expect(0x2D0C);
+			loader.Expect(checked((int)loader.Length - adjustment));
+			loader.Expect(0);
+			loader.Expect(checked((int)loader.Length - adjustment));
+			loader.Expect(0);
 
 			// Offset 0x94:
-			reader.Require(0, order);
-			int thing3Offset = reader.ReadInt32(order) + adjustment;
-			int thing3Count = reader.ReadInt32(order);
-			int thing2Offset = reader.ReadInt32(order) + adjustment;
-			int thing2Count = reader.ReadInt32(order);
-			int thing5Offset = reader.ReadInt32(order) + adjustment;
-			int thing5Count = reader.ReadInt32(order);
+			loader.Expect(0);
+			int thing3Offset = reader.ReadInt32() + adjustment;
+			int thing3Count = reader.ReadInt32();
+			int thing2Offset = reader.ReadInt32() + adjustment;
+			int thing2Count = reader.ReadInt32();
+			int thing5Offset = reader.ReadInt32() + adjustment;
+			int thing5Count = reader.ReadInt32();
 			Guid guid = new Guid(reader.ReadBytes(16));
-			reader.Require(stringHeaderOffset - adjustment, order);
-			reader.Require(stringTotal, order);
+			loader.Expect(stringHeaderOffset - adjustment);
+			loader.Expect(stringTotal);
 
 			int unusedThing2Offset = thing2Offset + thing2Total * FsslThing2.DataSize;
 			int weirdOffset = thing3Offset + thing3Total * FsslThing3.DataSize;
 			int thing4Offset = weirdOffset + weirdCount * FsslWeird.DataSize;
 
-			if (thing2Offset != stringHeaderOffset + stringTotal * 8)
-				throw new InvalidDataException();
+			int thing2OffsetRequired = stringHeaderOffset + stringTotal * 8;
+			int thing3OffsetRequired = thing2Offset + (thing2Total + unusedThing2Count) * FsslThing2.DataSize;
+			int thing5OffsetRequired = thing4Offset + thing4Count * FsslThing4.DataSize;
+			int stringDataOffsetRequired = thing5Offset + thing5Total * FsslThing5.DataSize;
+
+			if (thing2Offset != thing2OffsetRequired)
+				loader.AddError(-1, "Thing2Offset should be {0} but is {1}.",  thing2OffsetRequired, thing2Offset);
 			if (thing2Offset + (thing2Total + unusedThing2Count) * FsslThing2.DataSize != thing3Offset)
-				throw new InvalidDataException();
-			if (thing5Offset != thing4Offset + thing4Count * FsslThing4.DataSize)
-				throw new InvalidDataException();
-			if (stringDataOffset != thing5Offset + thing5Total * FsslThing5.DataSize)
-				throw new InvalidDataException();
+				loader.AddError(-1, "Thing3Offset should be {0} but is {1}.", thing3OffsetRequired, thing3Offset);
+			if (thing5Offset != thing5OffsetRequired)
+				loader.AddError(-1, "Thing5Offset should be {0} but is {1}.", thing5OffsetRequired, thing5Offset);
+			if (stringDataOffset != stringDataOffsetRequired)
+				loader.AddError(-1, "stringDataOffset should be {0} but is {1}.", stringDataOffsetRequired, stringDataOffset);
 
 			var strings = new RichList<string>(stringTotal);
-			int[] stringOffsets = reader.ReadArrayInt32(stringTotal * 2, order);
+			int[] stringOffsets = reader.ReadArrayInt32(stringTotal * 2);
 			for (int index = 0; index < stringTotal; index++) {
 				reader.BaseStream.Position = stringOffsets[index * 2 + 0] + adjustment;
-				strings.Add(reader.ReadString(stringOffsets[index * 2 + 1] * 2 - 2, order == ByteOrder.LittleEndian ? Encoding.Unicode : Encoding.BigEndianUnicode));
+				strings.Add(reader.ReadString(stringOffsets[index * 2 + 1] * 2 - 2, Encoding.Unicode));
 			}
 			Strings = strings;
 
@@ -932,9 +942,9 @@ namespace Alexandria.Engines.DarkSouls {
 			var thing2s = new RichList<FsslThing2>(thing2Count);
 			var unusedThing2s = new RichList<FsslThing2>(unusedThing2Count);
 			for (int index = 0; index < thing2Count; index++)
-				thing2s.Add(new FsslThing2(this, index, reader, order));
+				thing2s.Add(new FsslThing2(this, index, reader));
 			for (int index = 0; index < unusedThing2Count; index++)
-				unusedThing2s.Add(new FsslThing2(this, index, reader, order));
+				unusedThing2s.Add(new FsslThing2(this, index, reader));
 			Thing2s = thing2s;
 			UnusedThing2s = unusedThing2s;
 
@@ -943,35 +953,35 @@ namespace Alexandria.Engines.DarkSouls {
 			var thing3s = new RichList<FsslThing3>(thing3Count);
 			Thing3s = thing3s;
 			for (int index = 0; index < thing3Count; index++)
-				thing3s.Add(new FsslThing3(this, index, reader, order));
+				thing3s.Add(new FsslThing3(this, index, reader));
 
 			if (reader.BaseStream.Position != weirdOffset)
 				throw new InvalidOperationException();
 			var weirds = new RichList<FsslWeird>(weirdCount);
 			Weirds = weirds;
 			for (int index = 0; index < weirdCount; index++)
-				weirds.Add(new FsslWeird(this, index, reader, order));
+				weirds.Add(new FsslWeird(this, index, reader));
 
 			if (reader.BaseStream.Position != thing4Offset)
 				throw new InvalidOperationException();
 			var thing4s = new RichList<FsslThing4>(thing4Count);
 			Thing4s = thing4s;
 			for (int index = 0; index < thing4Count; index++)
-				thing4s.Add(new FsslThing4(this, index, reader, order, unusedThing2Offset, unusedThing2Count, weirdOffset, weirdCount, adjustment));
+				thing4s.Add(new FsslThing4(this, index, reader, unusedThing2Offset, unusedThing2Count, weirdOffset, weirdCount, adjustment));
 
 			if (reader.BaseStream.Position != thing5Offset)
 				throw new InvalidOperationException();
 			var thing5s = new RichList<FsslThing5>(thing5Count);
 			Thing5s = thing5s;
 			for (int index = 0; index < thing5Count; index++)
-				thing5s.Add(new FsslThing5(this, index, reader, order, thing4Offset, thing4Count, adjustment));
+				thing5s.Add(new FsslThing5(this, index, reader, thing4Offset, thing4Count, adjustment));
 
-			for(int index = 0; index < thing4s.Count; index++) {
+			for (int index = 0; index < thing4s.Count; index++) {
 				FsslThing4 item = thing4s[index];
 				int offset = item.ThingerOffset;
-				int next = index < thing4s.Count - 1 ? thing4s[index + 1].ThingerOffset : checked((int)info.Length);
+				int next = index < thing4s.Count - 1 ? thing4s[index + 1].ThingerOffset : checked((int)loader.Length);
 				reader.BaseStream.Position = offset;
-				item.Thingers = new RichList<short>(reader.ReadArrayInt16((next - offset) / 2, order));
+				item.Thingers = new RichList<short>(reader.ReadArrayInt16((next - offset) / 2));
 			}
 
 			Range
@@ -1044,10 +1054,10 @@ namespace Alexandria.Engines.DarkSouls {
 	public class FsslThing2 : FsslResource {
 		public const int DataSize = 8;
 
-		public FsslThing2(Fssl fssl, int index, BinaryReader reader, ByteOrder order)
+		public FsslThing2(Fssl fssl, int index, BinaryReader reader)
 			: base(fssl, index) {
-			Unknowns.ReadInt32s(reader, 1, "U1", order);
-			Unknowns.ReadInt16s(reader, 2, "U2", order);
+			Unknowns.ReadInt32s(reader, 1, "U1");
+			Unknowns.ReadInt16s(reader, 2, "U2");
 		}
 
 		public override string ToString() {
@@ -1058,12 +1068,12 @@ namespace Alexandria.Engines.DarkSouls {
 	public class FsslThing3 : FsslResource {
 		public const int DataSize = 16;
 
-		public FsslThing3(Fssl fssl, int index, BinaryReader reader, ByteOrder order)
+		public FsslThing3(Fssl fssl, int index, BinaryReader reader)
 			: base(fssl, index) {
-			Unknowns.ReadInt32s(reader, 1, "U1", order);
-			reader.Require(-1, order);
-			reader.Require(0, order);
-			Unknowns.ReadInt16s(reader, 2, "U2", order);
+			Unknowns.ReadInt32s(reader, 1, "U1");
+			reader.Require(-1);
+			reader.Require(0);
+			Unknowns.ReadInt16s(reader, 2, "U2");
 		}
 
 		public override string ToString() {
@@ -1076,10 +1086,10 @@ namespace Alexandria.Engines.DarkSouls {
 
 		public int U1 { get; private set; }
 
-		public FsslWeird(Fssl fssl, int index, BinaryReader reader, ByteOrder order)
+		public FsslWeird(Fssl fssl, int index, BinaryReader reader)
 			: base(fssl, index) {
-			U1 = reader.ReadUInt16(order);
-			reader.Require((short)0x01FF, order);
+			U1 = reader.ReadUInt16();
+			reader.Require((short)0x01FF);
 		}
 
 		public override string ToString() {
@@ -1102,17 +1112,17 @@ namespace Alexandria.Engines.DarkSouls {
 		public int UnusedThing2Start { get; private set; }
 		public int UnusedThing2Count { get; private set; }
 
-		internal FsslThing4(Fssl fssl, int index, BinaryReader reader, ByteOrder order, int unusedThing2Offset, int unusedThing2Count, int weirdOffset, int weirdCount, int adjustment)
+		internal FsslThing4(Fssl fssl, int index, BinaryReader reader, int unusedThing2Offset, int unusedThing2Count, int weirdOffset, int weirdCount, int adjustment)
 			: base(fssl, index) {
-			Thing5Index = reader.ReadInt32(order);
-			ThingerOffset = reader.ReadInt32(order);
-			reader.Require(1, order); // 3
+			Thing5Index = reader.ReadInt32();
+			ThingerOffset = reader.ReadInt32();
+			reader.Require(1); // 3
 
 			RichList<ReadOnlyList<FsslWeird>> weirds = new RichList<ReadOnlyList<FsslWeird>>(4);
 			Weirds = weirds;
 			for (int i = 0; i < 4; i++) {
-				int offset = reader.ReadInt32(order);
-				int count = reader.ReadInt32(order);
+				int offset = reader.ReadInt32();
+				int count = reader.ReadInt32();
 				int start = Fssl.CheckOffsetCount(offset, count, weirdOffset, weirdCount, FsslWeird.DataSize, adjustment);
 				RichList<FsslWeird> list = new RichList<FsslWeird>(count);
 				for (int weirdIndex = 0; weirdIndex < count; weirdIndex++)
@@ -1120,12 +1130,12 @@ namespace Alexandria.Engines.DarkSouls {
 				weirds.Add(list);
 			}
 
-			int thing2Offset = reader.ReadInt32(order);
-			UnusedThing2Count = reader.ReadInt32(order);
+			int thing2Offset = reader.ReadInt32();
+			UnusedThing2Count = reader.ReadInt32();
 			UnusedThing2Start = Fssl.CheckOffsetCount(thing2Offset, UnusedThing2Count, unusedThing2Offset, unusedThing2Count, FsslThing2.DataSize, adjustment);
 
-			reader.Require(-1, order); // u14
-			reader.Require(0, order); // u15
+			reader.Require(-1); // u14
+			reader.Require(0); // u15
 		}
 
 		public override string ToString() {
@@ -1142,13 +1152,13 @@ namespace Alexandria.Engines.DarkSouls {
 		public IEnumerable<FsslThing4> Thing4 { get { for (int index = 0; index < Thing4Count; index++) yield return Fssl.Thing4s[Thing4Start + index]; } }
 		public int Thing4Count { get; private set; }
 
-		internal FsslThing5(Fssl fssl, int index, BinaryReader reader, ByteOrder order, int thing4sOffset, int thing4sCount, int adjustment)
+		internal FsslThing5(Fssl fssl, int index, BinaryReader reader, int thing4sOffset, int thing4sCount, int adjustment)
 			: base(fssl, index) {
-			Unknowns.ReadInt32s(reader, 1, "U1", order);
-			Unknowns.ReadInt16s(reader, 2, "U2", order);
-			Unknowns.ReadInt32s(reader, 8, "U3", order);
+			Unknowns.ReadInt32s(reader, 1, "U1");
+			Unknowns.ReadInt16s(reader, 2, "U2");
+			Unknowns.ReadInt32s(reader, 8, "U3");
 
-			int thing4Offset = reader.ReadInt32(order) + adjustment;
+			int thing4Offset = reader.ReadInt32() + adjustment;
 			if (thing4Offset < thing4sOffset)
 				throw new InvalidDataException();
 			if (thing4Offset >= thing4sOffset + thing4sCount * FsslThing4.DataSize)
@@ -1156,7 +1166,7 @@ namespace Alexandria.Engines.DarkSouls {
 			if ((thing4Offset - thing4sOffset) % FsslThing4.DataSize != 0)
 				throw new InvalidDataException();
 			Thing4Start = (thing4Offset - thing4sOffset) / FsslThing4.DataSize;
-			Thing4Count = reader.ReadInt32(order);
+			Thing4Count = reader.ReadInt32();
 		}
 
 		public override string ToString() {
@@ -1168,7 +1178,12 @@ namespace Alexandria.Engines.DarkSouls {
 		public FsslFormat(Engine engine) : base(engine, typeof(Fssl), canLoad: true) { }
 
 		public override LoadMatchStrength LoadMatch(AssetLoader context) {
-			return context.Reader.MatchMagic(Fssl.Magic) ? LoadMatchStrength.Medium : LoadMatchStrength.None;
+			string magic = Encoding.ASCII.GetString(context.Reader.ReadBytes(4));
+
+			if (magic != Fssl.MagicBigEndian && magic != Fssl.MagicLittleEndian)
+				return LoadMatchStrength.None;
+
+			return LoadMatchStrength.Medium;
 		}
 
 		public override Asset Load(AssetLoader context) {

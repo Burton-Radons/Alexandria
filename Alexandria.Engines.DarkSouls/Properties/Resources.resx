@@ -130,6 +130,9 @@
   <data name="FileList2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dvdbnd1.filelist;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="Names_AtkParam_Npc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Names_AtkParam_Npc.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="PluginDescription" xml:space="preserve">
     <value>A plugin for Demon Souls, Dark Souls, and Dark Souls 2.</value>
   </data>

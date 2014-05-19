@@ -3,8 +3,7 @@
 
 <#+
 
-struct MatrixTypeInfo
-{
+struct MatrixTypeInfo {
 	public readonly string BaseName;
 	public readonly int Order;
 	public readonly TypeInfo Type;
@@ -30,11 +29,12 @@ string Ordinal { get { return Axes[Order - 1].Ordinal; } }
 string OrdinalLow { get { return Ordinal.ToLower(); } }
 
 string Vector { get { return "Vector" + Order + Type.Suffix; } }
-string VectorM1 { get { return Order - 1 >= 2 && Order - 1 >= Type.MinOrder ? VectorType(Order - 1) : null; } }
-string VectorM2 { get { return Order - 2 >= 2 && Order - 2 >= Type.MinOrder ? VectorType(Order - 2) : null; } }
+string VectorM1 { get { return Order - 1 >= 2 && Order - 1 >= Type.MinOrder ? VectorSameType(Order - 1) : null; } }
+string VectorM2 { get { return Order - 2 >= 2 && Order - 2 >= Type.MinOrder ? VectorSameType(Order - 2) : null; } }
 string VectorMinCR { get { return "Vector" + MinCR + Type.Suffix; } }
 string VectorFloat { get { return VectorType(Order); } }
 string VectorType(int order) { return "Vector" + order + (IsMeasurement ? "d" : Type.Suffix); }
+string VectorSameType(int order) { return "Vector" + order + Type.Suffix; }
 string VectorDouble { get { return "Vector" + Order + "d"; } }
 
 string Normal { get { return VectorFloat; } }

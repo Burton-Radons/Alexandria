@@ -87,8 +87,12 @@ namespace Alexandria.Engines.DarkSouls {
 
 		#endregion Properties
 
-		public DSModel(AssetManager manager, BinaryReader reader, string name, FileManager fileManager, Asset context)
-			: base(manager, name) {
+		public DSModel(AssetManager manager, AssetLoader loader)
+			: base(manager, loader.Name) {
+			Asset context = loader.Context;
+			string name = loader.Name;
+			BinaryReader reader = loader.Reader;
+
 			ModelBuilder builder = new ModelBuilder();
 			FolderAsset textureArchive = null;
 
@@ -116,7 +120,7 @@ namespace Alexandria.Engines.DarkSouls {
 			reader = new BinaryReader(markingStream);
 #endif
 
-			reader.RequireMagic(Magic);
+			loader.ExpectMagic(Magic);
 			char endian = (char)reader.ReadByte();
 			
 			switch (endian) {
@@ -125,7 +129,7 @@ namespace Alexandria.Engines.DarkSouls {
 					break;
 
 				case 'B':
-					reader = new BigEndianBinaryReader(reader.BaseStream, Encoding, true);
+					reader = loader.Reader = new BigEndianBinaryReader(reader.BaseStream, Encoding);
 					ByteOrder = ByteOrder.BigEndian;
 					break;
 
@@ -135,14 +139,14 @@ namespace Alexandria.Engines.DarkSouls {
 
 			using (reader) {
 				// Read header.
-				reader.RequireZeroes(1);
+				loader.Expect((byte)0);
 				Version = (DSModelVersion)reader.ReadInt32();
 				if (Version != DSModelVersion.DS1 && Version != DSModelVersion.DS2)
-					throw new InvalidDataException("Unknown model version " + VersionString + ".");
+					loader.AddError(loader.Position - 4, "Unknown model version " + VersionString + "; will try to load it anyway.");
 				int dataOffset = reader.ReadInt32();
 				int dataSize = reader.ReadInt32();
 				if (((dataOffset + dataSize + 31) & ~31) != reader.BaseStream.Length)
-					throw new InvalidDataException("Data size and offset aren't correct.");
+					loader.AddError(loader.Position - 4, "Data size and offset aren't correct.");
 
 				int boneUnknownCount = reader.ReadInt32();
 				int materialCount = reader.ReadInt32();
@@ -151,20 +155,20 @@ namespace Alexandria.Engines.DarkSouls {
 				int meshCount = reader.ReadInt32();
 				int meshCount2 = reader.ReadInt32();
 				if (meshCount != meshCount2)
-					throw new InvalidDataException();
+					loader.AddError(loader.Position - 4, "Mesh count 1 and 2 aren't the same.");
 
 				Bounds = new Box3f(reader.ReadVector3f(), reader.ReadVector3f());
 				Unknowns.ReadInt32s(reader, 1); // Possible the non-degenerate triangle count. Seems related.
 				int triangleCount = reader.ReadInt32();
 
-				reader.Require(IsDS1 ? 272 : 0x10010100);
-				reader.Require(IsDS1 ? 0 : 0xFFFF);
+				loader.Expect(IsDS1 ? 272 : 0x10010100);
+				loader.Expect(IsDS1 ? 0 : 0xFFFF);
 
 				int partCount = reader.ReadInt32();
 				int vertexDeclarationCount = reader.ReadInt32();
 				int materialParameterCount = reader.ReadInt32();
-				reader.Require(IsDS1 ? 0 : 0x1000000);
-				reader.RequireZeroes(4 * 8);
+				loader.Expect(IsDS1 ? 0 : 0x1000000);
+				loader.ExpectZeroes(4, 8);
 
 				// Calculate offsets.
 				long boneUnknownsOffset = HeaderSize;
@@ -178,25 +182,25 @@ namespace Alexandria.Engines.DarkSouls {
 				long postHeaderOffset = materialParametersOffset + materialParameterCount * DSModelMaterialParameter.DataSize;
 
 				// BoneUnknowns
-				ExpectedOffset(reader, boneUnknownsOffset, typeof(DSModelBoneUnknown).Name);
+				ExpectedOffset(loader, boneUnknownsOffset, typeof(DSModelBoneUnknown).Name);
 				for (int index = 0; index < boneUnknownCount; index++)
 					boneUnknowns.Add(new DSModelBoneUnknown(this, index, reader));
 
 				// Materials
-				ExpectedOffset(reader, materialsOffset, typeof(DSModelMaterial).Name);
+				ExpectedOffset(loader, materialsOffset, typeof(DSModelMaterial).Name);
 				for (int index = 0; index < materialCount; index++)
 					materials.Add(new DSModelMaterial(this, index, reader));
 				int expectedMaterialParameterCount = materialCount > 0 ? materials[materialCount - 1].ParameterEndIndex : 0;
 				if (expectedMaterialParameterCount != materialParameterCount)
-					throw new InvalidDataException("Expected material parameter count doesn't match actual count.");
+					loader.AddError(null, "Expected material parameter count {0} doesn't match actual count {1}.", expectedMaterialParameterCount, materialParameterCount);
 
 				// Bones
-				ExpectedOffset(reader, bonesOffset, typeof(DSModelBone).Name);
+				ExpectedOffset(loader, bonesOffset, typeof(DSModelBone).Name);
 				for (int index = 0; index < boneCount; index++)
 					bones.Add(new DSModelBone(this, index, reader));
 
 				// Meshes
-				ExpectedOffset(reader, meshesOffset, typeof(DSModelMesh).Name);
+				ExpectedOffset(loader, meshesOffset, typeof(DSModelMesh).Name);
 				for (int index = 0; index < meshCount; index++)
 					meshes.Add(new DSModelMesh(this, index, reader));
 				int expectedPartCount = meshCount > 0 ? meshes[meshCount - 1].PartEndIndex : 0;
@@ -204,30 +208,30 @@ namespace Alexandria.Engines.DarkSouls {
 					throw new InvalidDataException("Expected part count doesn't match actual count.");
 
 				// Parts
-				ExpectedOffset(reader, partsOffset, typeof(DSModelPart).Name);
+				ExpectedOffset(loader, partsOffset, typeof(DSModelPart).Name);
 				foreach (DSModelMesh mesh in meshes) {
 					mesh.ReadParts(reader, dataOffset);
 					parts.AddRange(mesh.Parts);
 				}
 
 				// Mesh vertices
-				ExpectedOffset(reader, meshVerticesOffset, typeof(DSModelMesh).Name + " vertex header");
+				ExpectedOffset(loader, meshVerticesOffset, typeof(DSModelMesh).Name + " vertex header");
 				foreach (DSModelMesh mesh in meshes)
 					mesh.ReadVertexHeaders(reader, dataOffset);
 
 				// Vertex declarations
-				ExpectedOffset(reader, vertexDeclarationsOffset, typeof(DSModelVertexDeclaration).Name);
+				ExpectedOffset(loader, vertexDeclarationsOffset, typeof(DSModelVertexDeclaration).Name);
 				for (int index = 0; index < vertexDeclarationCount; index++)
 					vertexDeclarations.Add(new DSModelVertexDeclaration(this, index, reader));
 
 				// Material parameters
-				ExpectedOffset(reader, materialParametersOffset, typeof(DSModelMaterialParameter).Name);
+				ExpectedOffset(loader, materialParametersOffset, typeof(DSModelMaterialParameter).Name);
 				foreach (DSModelMaterial material in materials) {
 					material.ReadParameters(reader, textureArchive);
 					materialParameters.AddRange(material.Parameters);
 				}
 
-				ExpectedOffset(reader, postHeaderOffset, "Post-header");
+				ExpectedOffset(loader, postHeaderOffset, "Post-header");
 
 #if Marking
 				if (markingStream != null)
@@ -257,7 +261,12 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
-		void ExpectedOffset(BinaryReader reader, long offset, string section) { if (reader.BaseStream.Position != offset) throw new InvalidDataException("Expected to be at offset " + offset + " for section " + section + "."); }
+		void ExpectedOffset(AssetLoader loader, long offset, string section) {
+			if (loader.Position != offset) {
+				loader.AddError(loader.Position, "Expected to be at offset " + offset + " for section " + section + ".");
+				loader.Position = offset;
+			}
+		}
 	}
 
 	public abstract class DSModelObject {
@@ -300,14 +309,12 @@ namespace Alexandria.Engines.DarkSouls {
 			: base(engine, typeof(DSModel), canLoad: true) {
 		}
 
-		public override LoadMatchStrength LoadMatch(AssetLoader context) {
-			if (!context.Reader.MatchMagic(DSModel.Magic))
-				return LoadMatchStrength.None;
-			return LoadMatchStrength.Medium;
+		public override LoadMatchStrength LoadMatch(AssetLoader loader) {
+			return loader.Reader.MatchMagic(DSModel.Magic) ? LoadMatchStrength.Medium : LoadMatchStrength.None;
 		}
 
-		public override Asset Load(AssetLoader context) {
-			return new DSModel(Manager, context.Reader, context.Name, context.FileManager, context.ContextResource);
+		public override Asset Load(AssetLoader loader) {
+			return new DSModel(Manager, loader);
 		}
 	}
 }

@@ -1985,7 +1985,7 @@ namespace Glare
 
 				public static Matrix4f Rotate(Angle yaw, Angle pitch, Angle roll ) {
 					Matrix4f result;
-					Quaternion quaternion = new Quaternion(yaw, pitch, roll);
+					Rotation4d quaternion = new Rotation4d(yaw, pitch, roll);
 					quaternion.ToMatrix4f(out result);
 					return result;
 				}
@@ -2082,7 +2082,7 @@ namespace Glare
 
 				public static void Rotate(Angle yaw, Angle pitch, Angle roll , out Matrix4f result) {
 					
-					Quaternion quaternion = new Quaternion(yaw, pitch, roll);
+					Rotation4d quaternion = new Rotation4d(yaw, pitch, roll);
 					quaternion.ToMatrix4f(out result);
 					return;
 				}
@@ -2797,7 +2797,7 @@ namespace Glare
 
 				public static Matrix4d Rotate(Angle yaw, Angle pitch, Angle roll ) {
 					Matrix4d result;
-					Quaternion quaternion = new Quaternion(yaw, pitch, roll);
+					Rotation4d quaternion = new Rotation4d(yaw, pitch, roll);
 					quaternion.ToMatrix4d(out result);
 					return result;
 				}
@@ -2894,7 +2894,7 @@ namespace Glare
 
 				public static void Rotate(Angle yaw, Angle pitch, Angle roll , out Matrix4d result) {
 					
-					Quaternion quaternion = new Quaternion(yaw, pitch, roll);
+					Rotation4d quaternion = new Rotation4d(yaw, pitch, roll);
 					quaternion.ToMatrix4d(out result);
 					return;
 				}

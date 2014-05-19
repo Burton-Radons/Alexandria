@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Glare.Internal;
 using Glare.Framework;
 using System.Windows.Forms;
+using Glare.Assets.Controls;
 
 namespace Alexandria.Engines.Sciagi.Resources {
 	public class Message : ResourceData {

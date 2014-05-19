@@ -17,6 +17,11 @@ namespace Glare.Graphics {
 		public GraphicsVersion(string value) {
 			int split, next;
 
+            if (value == null || value == "") {
+                info = "";
+                return;
+            }
+
 			split = value.IndexOf('.');
 			major = int.Parse(value.Substring(0, split));
 			next = value.IndexOf('.', split + 1);
@@ -28,9 +33,9 @@ namespace Glare.Graphics {
 			minor = int.Parse(value.Substring(split + 1, next - split - 1));
 			if (next < value.Length && value[next] == '.') {
 				split = value.IndexOf(' ', next + 1);
-				if (split < 0) split = value.Length + 1;
+				if (split < 0) split = value.Length;
 				revision = int.Parse(value.Substring(next + 1, split - next - 1));
-				next = split - 1;
+				next = split;
 			} else
 				revision = 0;
 

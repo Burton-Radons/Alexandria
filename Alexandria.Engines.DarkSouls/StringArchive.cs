@@ -18,20 +18,38 @@ namespace Alexandria.Engines.DarkSouls {
 
 		readonly RichList<StringGroup> groups = new RichList<StringGroup>();
 		readonly RichList<string> strings = new RichList<string>();
-		readonly Dictionary<int, string> stringsById = new Dictionary<int, string>();
-		readonly ReadOnlyDictionary<int, string> stringsByIdReadOnly;
+		readonly RichDictionary<int, string> stringsById = new RichDictionary<int, string>();
 
 		public ReadOnlyList<StringGroup> Groups { get { return groups; } }
 		public ReadOnlyList<string> Strings { get { return strings; } }
-		public ReadOnlyDictionary<int, string> StringsById { get { return stringsByIdReadOnly; } }
+		public ReadOnlyObservableDictionary<int, string> StringsById { get { return stringsById; } }
 
 		public ByteOrder ByteOrder { get; private set; }
 		public Encoding Encoding { get; private set; }
 
+		public KeyValuePair<int, string>[] SortedStrings {
+			get {
+				var list = stringsById.ToArray();
+				list.Sort((a, b) => a.Key.CompareTo(b.Key));
+				return list;
+			}
+		}
+
+		public string CommaSeparatedValues {
+			get {
+				StringBuilder builder = new StringBuilder();
+
+				builder.Append("\"Id\",\"Value\"\r\n");
+				foreach (var item in SortedStrings)
+					builder.AppendFormat("\"{0}\",\"{1}\"\r\n", item.Key, item.Value.Replace("\"", "\"\""));
+
+				return builder.ToString();
+			}
+		}
+
 		internal StringArchive(AssetManager manager, BinaryReader reader, string name, long length)
 			: base(manager, name) {
 			ByteOrder = ByteOrder.LittleEndian;
-			stringsByIdReadOnly = new ReadOnlyDictionary<int, string>(stringsById);
 
 			Encoding = Encoding.Unicode;
 			if (reader is BigEndianBinaryReader)
@@ -72,7 +90,6 @@ namespace Alexandria.Engines.DarkSouls {
 						reader.BaseStream.Position = offset;
 						string value = reader.ReadStringz(Encoding);
 						strings.Add(value);
-						//stringsById[index] = value;
 					}
 				}
 
@@ -80,9 +97,10 @@ namespace Alexandria.Engines.DarkSouls {
 					for (int index = 0; index < group.StringCount; index++) {
 						int stringIndex = group.StringsIndex + index;
 						string stringValue = strings[stringIndex];
+						int realIndex = group.IndexStart + index;
 
 						if (stringValue != null)
-							stringsById[group.IndexStart + index] = stringValue;
+							stringsById[realIndex] = stringValue;
 					}
 				}
 			}
@@ -94,15 +112,14 @@ namespace Alexandria.Engines.DarkSouls {
 				AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells,
 				DataSource =
 					(from i in StringsById
-					 select new KeyValuePair<int, string>(i.Key, i.Value.Trim())).ToArray(),
+					 select new KeyValuePair<int, string>(i.Key, (i.Value ?? "").Trim())).ToArray(),
 				Dock = DockStyle.Fill,
 			};
 
 			stringView.Columns.Add(new DataGridViewTextBoxColumn() {
 				DataPropertyName = "Key",
-
 				HeaderText = "Index",
-
+				ReadOnly = true,
 			});
 
 			stringView.Columns.Add(new DataGridViewTextBoxColumn() {
@@ -115,6 +132,14 @@ namespace Alexandria.Engines.DarkSouls {
 			});
 
 			return stringView;
+		}
+
+		public override void FillContextMenu(ContextMenuStrip strip) {
+			base.FillContextMenu(strip);
+
+			strip.Items.Add(new ToolStripButton("Copy CSV to Clipboard", null, (sender, args) => {
+				Clipboard.SetText(CommaSeparatedValues);
+			}));
 		}
 	}
 

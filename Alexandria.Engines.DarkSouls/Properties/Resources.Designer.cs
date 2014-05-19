@@ -132,6 +132,31 @@ namespace Alexandria.Engines.DarkSouls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 0	[ System ] dummy bullets
+        ///4	[ System ] invalid attack [Common ]
+        ///5	Dummy attacks continue out the bullet
+        ///10	Template LV1 small damage
+        ///11	Template LV2 Medium Damage
+        ///12	Template LV3 large damage
+        ///13	Futtobi LV4 template ( large )
+        ///14	LV5 press template
+        ///15	Template LV6 damage slams
+        ///16	Futtobi LV7 template ( small)
+        ///17	Template LV8 minimal damage
+        ///18	Template LV9 damage up wins
+        ///19	Futtobi LV10 template ( extra large )
+        ///20	Template LV11 breath
+        ///21	Template guard
+        ///22	Parry template for guard
+        ///23	Throw tem [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Names_AtkParam_Npc {
+            get {
+                return ResourceManager.GetString("Names_AtkParam_Npc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A plugin for Demon Souls, Dark Souls, and Dark Souls 2..
         /// </summary>
         internal static string PluginDescription {

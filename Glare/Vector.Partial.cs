@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glare
-{
-	public class VectorTypeAttribute : Attribute
-	{
+namespace Glare {
+	public class VectorTypeAttribute : Attribute {
 		readonly Type elementType;
 		readonly int elementCount;
 		readonly bool reversed;
@@ -16,8 +14,7 @@ namespace Glare
 		public int ElementCount { get { return elementCount; } }
 		public bool Reversed { get { return reversed; } }
 
-		public VectorTypeAttribute(Type elementType, int elementCount, bool reversed)
-		{
+		public VectorTypeAttribute(Type elementType, int elementCount, bool reversed) {
 			if (elementType == null)
 				throw new ArgumentNullException("elementType");
 			if (elementCount < 2)
@@ -31,23 +28,18 @@ namespace Glare
 		}
 	}
 
-	partial struct Vector4f
-	{
+	partial struct Vector4f {
 	}
 
-	partial struct Vector4d
-	{
+	partial struct Vector4d {
 	}
 
-	partial struct Vector4i
-	{
+	partial struct Vector4i {
 	}
 
-	partial struct Vector4nb
-	{
+	partial struct Vector4nb {
 	}
 
-	partial struct Vector3rgb
-	{
+	partial struct Vector3rgb {
 	}
 }

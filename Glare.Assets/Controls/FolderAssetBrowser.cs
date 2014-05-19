@@ -17,6 +17,8 @@ namespace Glare.Assets.Controls {
 			Resource = resource;
 			InitializeComponent();
 
+			assetBar.Asset = resource;
+
 			tree.BeginUpdate();
 			tree.AfterExpand += (sender, args) => { AdjustSplitter(); };
 			tree.AfterCollapse += (sender, args) => { AdjustSplitter(); };

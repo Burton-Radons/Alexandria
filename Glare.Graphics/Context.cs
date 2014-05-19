@@ -42,7 +42,7 @@ namespace Glare.Graphics {
 			MakeCurrent();
 
 			CheckError();
-			DrawBuffer[] drawBuffers = new DrawBuffer[Device.GetInt32(GetPName.MaxDrawBuffers)];
+			DrawBuffer[] drawBuffers = new DrawBuffer[Device.GetInt32(GetPName.MaxDrawBuffers, 1)];
 			for (int index = 0; index < drawBuffers.Length; index++)
 				drawBuffers[index] = new DrawBuffer(this, index);
 			this.drawBuffers = new DrawBufferCollection(drawBuffers);
@@ -62,19 +62,11 @@ namespace Glare.Graphics {
 		public static void CheckError(ErrorCode code) {
 			if (code == ErrorCode.NoError)
 				return;
-			string response = "An OpenGL exception " + code + " occurred.";
-			switch (code) {
-				case ErrorCode.InvalidOperation: throw new InvalidOperationException(response);
-				case ErrorCode.OutOfMemory: throw new OutOfMemoryException(response);
-				default: throw new Exception(response);
-			}
+			throw Device.CreateError(code);
 		}
 
 		internal static bool CheckVersion(int major, int minor = 0, int revision = 0) { return Device.Capabilities.Version.Check(major, minor, revision); }
-
-		internal static void Initialize() {
-		}
-
+		
 		internal bool IsEnabled(EnableCap cap) { using (Lock()) return GL.IsEnabled(cap); }
 
 		static internal ContextLock Lock() { return new ContextLock(); }

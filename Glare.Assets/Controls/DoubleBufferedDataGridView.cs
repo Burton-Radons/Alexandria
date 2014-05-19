@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Alexandria {
+namespace Glare.Assets.Controls {
 	public class DoubleBufferedDataGridView : DataGridView {
 		public DoubleBufferedDataGridView()
 			: base() {

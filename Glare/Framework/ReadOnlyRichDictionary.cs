@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Glare.Framework {
 	[DebuggerDisplay("Count = {Count}")]
-	[DebuggerTypeProxy(typeof(ListDebugView<>))]
+	[DebuggerTypeProxy(typeof(DictionaryDebugView<,>))]
 	public class ReadOnlyObservableDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDictionary, INotifyPropertyChanged, INotifyCollectionChanged {
 		readonly RichDictionary<TKey, TValue> Dictionary;
 

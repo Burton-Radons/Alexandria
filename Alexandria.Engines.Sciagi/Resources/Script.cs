@@ -17,7 +17,7 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		public ReadOnlyList<ScriptSection> Blocks { get { return blocks; } }
 
 		public Script(AssetLoader loader)
-			: base(loader.ContextResource as Resource) {
+			: base(loader.Context as Resource) {
 			ScriptSection block;
 
 			while ((block = ScriptSection.Read(this, loader)) != null)

@@ -134,6 +134,8 @@ namespace Glare.Assets {
 		public static Asset LoadResource(AssetLoader loader, IEnumerable<AssetFormat> formats, ResolveLoadConflictCallback resolveConflict = null) {
 			LoadMatchStrength matchStrength;
 			AssetFormat format = LoadMatchResource(out matchStrength, loader, formats, resolveConflict);
+			if (loader.Context != null)
+				loader.Context.LoadErrors = loader.Errors;
 			return format.Load(loader);
 		}
 
@@ -281,13 +283,13 @@ namespace Glare.Assets {
 		/// <summary>(30) The match is weak.</summary>
 		Weak = 30,
 
-		/// <summary>(40) The match is medium-strong. This is generally used if the file matches a magic number.</summary>
+		/// <summary>(40) The match is medium-strong. This is generally used if the file matches a magic number or part of the header.</summary>
 		Medium = 40,
 
 		/// <summary>(50) The match is strong but not comprehensive. If you don't load the entire file but just match a header, you should return this.</summary>
 		Strong = 50,
 
-		/// <summary>(75) The match is strong and comprehensive.</summary>
+		/// <summary>(75) The match is strong and comprehensive. You've matched the header extensively.</summary>
 		Comprehensive = 75,
 
 		/// <summary>(100) The object cannot be anything else.</summary>

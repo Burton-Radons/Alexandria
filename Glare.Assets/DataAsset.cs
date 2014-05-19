@@ -11,16 +11,16 @@ using System.Windows.Forms;
 
 namespace Glare.Assets {
 	public abstract class DataAsset : Asset {
-		WeakReference<Asset> contents;
+		WeakReference contents;
 
 		public Asset Contents {
 			get {
 				Asset target;
 
 				if (contents == null)
-					contents = new WeakReference<Asset>(target = Load());
-				else if (!contents.TryGetTarget(out target))
-					contents.SetTarget(target = Load());
+					contents = new WeakReference(target = Load());
+				else if ((target = (Asset)contents.Target) == null)
+					contents.Target = target = Load();
 
 				return target;
 			}
@@ -37,7 +37,7 @@ namespace Glare.Assets {
 		}
 
 		public override Control BrowseContents() {
-			return Contents.Browse();
+			return Contents.BrowseContents();
 		}
 
 		public override void FillContextMenu(ContextMenuStrip strip) {
@@ -62,6 +62,7 @@ namespace Glare.Assets {
 
 			try {
 				Contents.FillContextMenu(strip);
+				Contents.BrowseContents();
 			} catch (Exception) {
 				ToolStripMenuItem debugException = new ToolStripMenuItem("Debug exception thrown when reading...") {
 				};
@@ -83,7 +84,9 @@ namespace Glare.Assets {
 			}
 		}
 
-		protected virtual Asset Load() { return Manager.Load(OpenReader(), PathName, FileManager, this); }
+		protected virtual Asset Load() {
+			return Manager.Load(OpenReader(), PathName, FileManager, this);
+		}
 
 		public abstract Stream Open();
 

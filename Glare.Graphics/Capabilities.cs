@@ -35,7 +35,7 @@ namespace Glare.Graphics {
 		ReadOnlyCollection<int> shaderBinaryFormats;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly GraphicsVersion shadingLanguage;
+		GraphicsVersion shadingLanguage;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		readonly TesselationControlShaderStageCapabilities tesselationControlStage;
@@ -44,7 +44,7 @@ namespace Glare.Graphics {
 		readonly TesselationEvaluationShaderStageCapabilities tesselationEvaluationStage;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly GraphicsVersion version;
+		GraphicsVersion version;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		readonly VertexShaderStageCapabilities vertexStage;
@@ -118,7 +118,7 @@ namespace Glare.Graphics {
 		}
 
 		/// <summary>Get version information for the supported GLSL.</summary>
-		public GraphicsVersion ShadingLanguage { get { return shadingLanguage; } }
+		public GraphicsVersion ShadingLanguage { get { return shadingLanguage ?? (shadingLanguage = new GraphicsVersion(GL.GetString(StringName.ShadingLanguageVersion))); } }
 
 		/// <summary>Get <see cref="TesselationControlShaderStageCapabilities"/> for the <see cref="TessellationControlShader"/> <see cref="ShaderStage"/> (<see cref="ShaderStage.TessellationControl"/>).</summary>
 		public TesselationControlShaderStageCapabilities TesselationControlStage { get { return tesselationControlStage; } }
@@ -130,7 +130,7 @@ namespace Glare.Graphics {
 		public string Vendor { get { return GL.GetString(StringName.Vendor); } }
 
 		/// <summary>Get a version or release number.</summary>
-		public GraphicsVersion Version { get { return version; } }
+		public GraphicsVersion Version { get { return version ?? (version = new GraphicsVersion(GL.GetString(StringName.Version))); } }
 
 		/// <summary>Get <see cref="VertexShaderStageCapabilities"/> for the <see cref="VertexShader"/> <see cref="ShaderStage"/> (<see cref="ShaderStage.Vertex"/>).</summary>
 		public VertexShaderStageCapabilities VertexStage { get { return vertexStage; } }
@@ -147,10 +147,6 @@ namespace Glare.Graphics {
 			extensions = new ReadOnlyCollection<string>(GL.GetString(StringName.Extensions).Split(' '));
 			GL.GetError(); // InvalidEnum set even though the call goes fine.
 			extensionsSet = new HashSet<string>(extensions);
-			Context.CheckError();
-			shadingLanguage = new GraphicsVersion(GL.GetString(StringName.ShadingLanguageVersion));
-			Context.CheckError();
-			version = new GraphicsVersion(GL.GetString(StringName.Version));
 			Context.CheckError();
 		}
 

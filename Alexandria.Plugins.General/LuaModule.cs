@@ -98,7 +98,7 @@ namespace Alexandria.Plugins.General {
 
 			if (size == 0)
 				return null;
-			var value = reader.ReadString(size - 1, Encoding.UTF8);
+			var value = reader.ReadString(size - 1, Encoding.GetEncoding("shift-jis"));
 			reader.RequireZeroes(1);
 			return value;
 		}

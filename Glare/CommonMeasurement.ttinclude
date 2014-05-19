@@ -2,16 +2,14 @@
 
 <#+
 
-class Unit
-{
+class Unit {
 	public readonly string Plural, Singular, Symbol, ConvertTo;
 	public bool IsPrimary;
 
 	public string FromMethod { get { return Plural; } }
 	public string InMethod { get { return "In" + Plural; } }
 
-	public Unit(string singular, string plural, string symbol, string convertTo)
-	{
+	public Unit(string singular, string plural, string symbol, string convertTo) {
 		Singular = singular;
 		Plural = plural;
 		Symbol = symbol;

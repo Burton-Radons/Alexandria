@@ -6,16 +6,26 @@ using System.Threading.Tasks;
 
 namespace Alexandria.Plugins.General {
 	public enum LuaOpcode : byte {
+		/// <summary>R(A) = R(B)</summary>
 		Move,
+
+		/// <summary>R(A) = Constant(Bx)</summary>
 		LoadConstant,
+
+		/// <summary>R(A) = (bool)B; if(C) PC++</summary>
 		LoadBoolean,
+
 		LoadNil,
 		GetUpValue,
 
+		/// <summary>R(A) := Global[Constant[Bx]]</summary>
 		GetGlobal,
+
 		GetTable,
 
+		/// <summary>Global[Constant[Bx]] = R(A)</summary>
 		SetGlobal,
+
 		SetUpValue,
 		SetTable,
 
@@ -42,9 +52,11 @@ namespace Alexandria.Plugins.General {
 
 		Test,
 
-		/// <summary>(R(A) R(B) R(C)) R(A to A+C-2) := R(A)(R(A+1 to A+B-1))</summary>
+		/// <summary>(R(A) R(B) R(C)); R(A to A+C-2) = R(A)(R(A+1 to A+B-1))</summary>
 		Call,
 		TailCall,
+
+		/// <summary>return R(A to A+B-2); if (B == 0) then return up to 'top'</summary>
 		Return,
 
 		ForLoop,
@@ -59,7 +71,7 @@ namespace Alexandria.Plugins.General {
 
 		Close,
 
-		/// <summary>(A Bx) R(A) := closure(KPROTO[Bx], R(A to A+n))</summary>
+		/// <summary>(A Bx); R(A) := closure(KPROTO[Bx], R(A to A+n))</summary>
 		Closure,
 	}
 }

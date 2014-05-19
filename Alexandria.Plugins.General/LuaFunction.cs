@@ -67,19 +67,19 @@ namespace Alexandria.Plugins.General {
 			UpValues = new RichList<string>(upValues);
 
 			var constantCount = module.ReadInt(reader);
-			object[] constants = new object[constantCount];
+			RichList<object> constants = new RichList<object>(constantCount);
+			Constants = constants;
 			for (int index = 0; index < constantCount; index++) {
 				LuaType type = (LuaType)reader.ReadByte();
 
 				switch (type) {
 					case LuaType.Nil: break;
-					case LuaType.Boolean: constants[index] = reader.ReadByte() != 0; break;
-					case LuaType.Number: constants[index] = module.ReadNumber(reader); break;
-					case LuaType.String: constants[index] = module.ReadString(reader); break;
+					case LuaType.Boolean: constants.Add(reader.ReadByte() != 0); break;
+					case LuaType.Number: constants.Add(module.ReadNumber(reader)); break;
+					case LuaType.String: constants.Add(module.ReadString(reader)); break;
 					default: throw new NotSupportedException();
 				}
 			}
-			Constants = new RichList<object>(constants);
 
 			var functionCount = module.ReadInt(reader);
 			LuaFunction[] functions = new LuaFunction[functionCount];

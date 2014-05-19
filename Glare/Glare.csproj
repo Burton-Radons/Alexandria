@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Glare</RootNamespace>
     <AssemblyName>Glare</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,26 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -85,16 +106,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Frequency.tt</DependentUpon>
     </Compile>
-    <None Include="Gain.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Gain1.cs</LastGenOutput>
-    </None>
     <Compile Include="Frustum.cs" />
-    <Compile Include="Gain1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Gain.tt</DependentUpon>
-    </Compile>
     <Compile Include="Framework\RichList.cs" />
     <Compile Include="Framework\Bidictionary.cs" />
     <Compile Include="Framework\BigEndianBinaryReader.cs" />
@@ -120,24 +132,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Extensions.Template.cs</LastGenOutput>
     </None>
-    <None Include="LuminousIntensity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>LuminousIntensity.cs</LastGenOutput>
-    </None>
-    <Compile Include="LuminousIntensity.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LuminousIntensity.tt</DependentUpon>
-    </Compile>
-    <None Include="LuminousFlux.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>LuminousFlux1.cs</LastGenOutput>
-    </None>
-    <Compile Include="LuminousFlux1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LuminousFlux.tt</DependentUpon>
-    </Compile>
     <Compile Include="Matrix1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -151,9 +145,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Plane.cs</LastGenOutput>
     </None>
-    <None Include="Quaternion.tt">
+    <None Include="Rotation.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Quaternion.cs</LastGenOutput>
+      <LastGenOutput>Rotation.cs</LastGenOutput>
     </None>
     <None Include="Ray.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -164,10 +158,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Plane.tt</DependentUpon>
     </Compile>
-    <Compile Include="Quaternion.cs">
+    <Compile Include="Rotation.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Quaternion.tt</DependentUpon>
+      <DependentUpon>Rotation.tt</DependentUpon>
     </Compile>
     <Compile Include="Ray1.cs">
       <AutoGen>True</AutoGen>
@@ -206,15 +200,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Area.cs</LastGenOutput>
     </None>
-    <None Include="Position.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Position1.cs</LastGenOutput>
-    </None>
-    <Compile Include="Position1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Position.tt</DependentUpon>
-    </Compile>
     <Compile Include="DisposableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vector.cs">

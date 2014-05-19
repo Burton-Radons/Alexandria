@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glare.Graphics.Rendering
-{
-	partial class ModelBuilder
-	{
+namespace Glare.Graphics.Rendering {
+	partial class ModelBuilder {
 		public delegate double LineGenerator(double input);
 		public delegate double LineGenerator2(ref Vector2d input);
 		public delegate Vector2d CurveGenerator(double input);
@@ -17,17 +15,13 @@ namespace Glare.Graphics.Rendering
 
 		static double ToRange(double value, double min, double max) { return value * (max - min) + min; }
 
-		public static class CurveGenerators
-		{
+		public static class CurveGenerators {
 			public static readonly CurveGenerator Circle = (double input) => { double r = ToRange(input, -Math.PI / 2, Math.PI / 2); return new Vector2d(Math.Cos(r), Math.Sin(r)); };
 		}
 
-		public static class SurfaceGenerators
-		{
-			public static SimpleSurfaceGenerator Lathe(CurveGenerator original)
-			{
-				return (ref Vector2d input) =>
-				{
+		public static class SurfaceGenerators {
+			public static SimpleSurfaceGenerator Lathe(CurveGenerator original) {
+				return (ref Vector2d input) => {
 					Vector2d plane = original(input.Y);
 					double r = input.X * Math.PI * 2, c = Math.Cos(r), s = Math.Sin(r);
 
@@ -37,8 +31,7 @@ namespace Glare.Graphics.Rendering
 
 			public static SimpleSurfaceGenerator Lathe(LineGenerator original) { return Lathe((input) => new Vector2d(original(input), input)); }
 
-			public static Vector3d Sphere(ref Vector2d input, out Vector3d normal)
-			{
+			public static Vector3d Sphere(ref Vector2d input, out Vector3d normal) {
 				double x = input.X * Math.PI * 2, y = input.Y * Math.PI;
 				Vector3d result = new Vector3d(
 				    Math.Cos(x) * Math.Sin(y),
@@ -48,10 +41,8 @@ namespace Glare.Graphics.Rendering
 				return result;
 			}
 
-			public static SimpleSurfaceGenerator Torus(double tubeRadiusRatio)
-			{
-				return (ref Vector2d input) =>
-				{
+			public static SimpleSurfaceGenerator Torus(double tubeRadiusRatio) {
+				return (ref Vector2d input) => {
 					double x = input.X * Math.PI * 2, y = input.Y * Math.PI * 2;
 					return new Vector3d(
 						(1 + tubeRadiusRatio * Math.Cos(x)) * Math.Cos(y),
@@ -60,7 +51,7 @@ namespace Glare.Graphics.Rendering
 				};
 			}
 		}
-		
+
 		public ProceduralParameters StartLathe(LineGenerator original) { return StartProcedural(SurfaceGenerators.Lathe(original)); }
 		public ProceduralParameters StartLathe(CurveGenerator original) { return StartProcedural(SurfaceGenerators.Lathe(original)); }
 
@@ -73,8 +64,7 @@ namespace Glare.Graphics.Rendering
 
 		public ProceduralParameters StartTorus(double radius, double tubeRadius) { return StartProcedural(SurfaceGenerators.Torus(tubeRadius / radius)); }
 
-		public class ProceduralParameters
-		{
+		public class ProceduralParameters {
 			public readonly ModelBuilder Builder;
 			public Vector3d Centre = Vector3d.Zero;
 			public Vector2i DetailLevel = new Vector2i(64, 64);
@@ -90,12 +80,10 @@ namespace Glare.Graphics.Rendering
 
 			static readonly ChannelGenerator BasicTexelGeneratorValue = BasicTexelGenerator;
 
-			public static SurfaceGenerator Convert(SimpleSurfaceGenerator source)
-			{
+			public static SurfaceGenerator Convert(SimpleSurfaceGenerator source) {
 				if (source == null)
 					throw new ArgumentNullException("source");
-				return (ref Vector2d input, out Vector3d normal) =>
-				{
+				return (ref Vector2d input, out Vector3d normal) => {
 					const double sampleDistance = 1e-6;
 					Vector3d position = source(ref input);
 					Vector2d right = input + new Vector2d(sampleDistance, 0), down = input + new Vector2d(0, sampleDistance);
@@ -108,8 +96,7 @@ namespace Glare.Graphics.Rendering
 
 			public ProceduralParameters(SimpleSurfaceGenerator surfaceGenerator, ModelBuilder builder) : this(Convert(surfaceGenerator), builder) { }
 
-			public ProceduralParameters(SurfaceGenerator surfaceGenerator, ModelBuilder builder)
-			{
+			public ProceduralParameters(SurfaceGenerator surfaceGenerator, ModelBuilder builder) {
 				if (surfaceGenerator == null) throw new ArgumentNullException("surfaceGenerator");
 				if (builder == null) throw new ArgumentNullException("builder");
 				Builder = builder;
@@ -117,8 +104,7 @@ namespace Glare.Graphics.Rendering
 				TexelGenerator = BasicTexelGeneratorValue;
 			}
 
-			public ProceduralParameters Build()
-			{
+			public ProceduralParameters Build() {
 				Vector2i detailLevel = new Vector2i(
 				    Math.Max(DetailLevel.X + 1, 3),
 				    Math.Max(DetailLevel.Y + 1, 3));
@@ -129,9 +115,8 @@ namespace Glare.Graphics.Rendering
 				// Write the vertices.
 				int vo = Builder.VertexCount;
 				for (int y = 0, i = 0; y < detailLevel.Y; y++)
-					for (int x = 0; x < detailLevel.X; x++, i++)
-					{
-						Vector2d input = (new Vector2d(x, y) * inputSpan + MinInput) / (detailLevel - 1);
+					for (int x = 0; x < detailLevel.X; x++, i++) {
+						Vector2d input = (new Vector2d(x, y) * inputSpan + MinInput) / (Vector2d)(detailLevel - 1);
 						Vector3d normal;
 						Vector3d position = transform * SurfaceGenerator(ref input, out normal);
 
@@ -143,8 +128,7 @@ namespace Glare.Graphics.Rendering
 					}
 
 				// Write the indices.
-				for (int y = 0, i = 0; y < detailLevel.Y - 1; y++)
-				{
+				for (int y = 0, i = 0; y < detailLevel.Y - 1; y++) {
 					int s = vo + y * detailLevel.X, t = s + detailLevel.X;
 
 					for (int x = 0; x < detailLevel.X - 1; x++, i += 6, s++, t++)
@@ -179,8 +163,7 @@ namespace Glare.Graphics.Rendering
 
 		/// <summary>Create a model using a simple procedural generator that uses a regular grid over the value range. This can cause too much detail in some areas and too little in others depending upon the shape.</summary>
 		/// <param name="parameters"></param>
-		public void Procedural(ProceduralParameters parameters)
-		{
+		public void Procedural(ProceduralParameters parameters) {
 			if (parameters == null)
 				throw new ArgumentNullException("parameters");
 			parameters.Build();
