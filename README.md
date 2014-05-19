@@ -8,3 +8,7 @@ The current focus is on From Software's Souls games - Demon Souls, Dark Souls, a
 The core idea is to abstract as much of a game's data as possible, to make it easier to visualise and modify it so that you can get through those parts easy and concentrate on the much more complex game-specific issues. Secondary to that is making it easy to write new plugins and processors; once you have Visual Studio 2012 Express installed, a new plugin shouldn't be much more difficult than writing a Python script. Ideally this is supported with an API that is well-documented, comprehensible, and has lots of tools for making processing data easy. This ideal varies in how well it's implemented, but that's the goal.
 
 Some of the information I find are brought together in a file format wiki I maintain (https://sites.google.com/site/fileformats/). This is kept separate in order for it to be more useful to other projects.
+
+There is also a Google Docs Spreadsheet containing a lot of the game information that feeds back into the program:
+
+https://docs.google.com/spreadsheets/d/1KukblWL61We64-gNIyaAShga9h8RTXYmyFs98eQhY4E/edit?usp=sharing
