@@ -93,7 +93,7 @@ namespace Alexandria.Engines.Unreal {
 
 		[TypeProcessor(typeof(Vector3f[]))]
 		class Vector3fArrayProcessor : DataProcessor {
-			public override object Read(object target, Package package, BinaryReader reader, long end) { return reader.ReadIndexCountArray(reader.ReadVector3f); }
+			public override object Read(object target, Package package, BinaryReader reader, long end) { return reader.ReadIndexCountArray<Vector3f>(reader.ReadVector3f); }
 		}
 
 		[TypeProcessor(typeof(Vector4f))]

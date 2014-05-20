@@ -30,7 +30,16 @@ namespace Glare.Assets {
 			} else
 				throw new NotImplementedException();
 
-			byte[] data = level.Read<byte>(TextureFormats.Vector4srgba);
+			byte[] data = level.Read<byte>(TextureFormats.Vector4nbBGRA);//Vector4srgba);
+
+			/*for (int index = 0; index < data.Length; index += 4) {
+				byte a = data[index], b = data[index + 1], c = data[index + 2], d = data[index = 3];
+				data[index + 0] = c;
+				data[index + 1] = b;
+				data[index + 2] = a;
+				data[index + 3] = d;
+			}*/
+
 			PixelFormat pixelFormat = PixelFormat.Format32bppRgb;
 			Bitmap bitmap = new Bitmap(level.Dimensions.X, level.Dimensions.Y, pixelFormat);
 			BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.WriteOnly, pixelFormat);

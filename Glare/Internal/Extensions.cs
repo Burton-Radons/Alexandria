@@ -538,6 +538,16 @@ namespace Glare.Internal {
 			return list != null && list.Length > 0 ? (TAttribute)list[0] : null;
 		}
 
+        public static T[] GetCustomAttributes<T>(this MemberInfo memberInfo, bool inherit = false)
+        {
+            object[] objectList = memberInfo.GetCustomAttributes(typeof(T), inherit);
+            T[] attributeList = new T[objectList.Length];
+
+            for (int index = 0; index < objectList.Length; index++)
+                attributeList[index] = (T)objectList[index];
+            return attributeList;
+        }
+
 		public static bool TryGetCustomAttribute<TAttribute>(this MemberInfo member, out TAttribute result, bool inherit = false) where TAttribute : Attribute {
 			result = member.GetCustomAttribute<TAttribute>(inherit);
 			return result != null;
@@ -733,15 +743,6 @@ namespace Glare.Internal {
 		#endregion String
 
 		#region Type
-
-		public static T[] GetCustomAttributes<T>(this Type type, bool inherit = false) {
-			object[] objectList = type.GetCustomAttributes(typeof(T), inherit);
-			T[] attributeList = new T[objectList.Length];
-
-			for (int index = 0; index < objectList.Length; index++)
-				attributeList[index] = (T)objectList[index];
-			return attributeList;
-		}
 
 		public static int Size(this Type value) { return Marshal.SizeOf(value); }
 
