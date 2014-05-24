@@ -12,20 +12,20 @@ using System.Threading.Tasks;
 namespace Glare.Framework {
 	[DebuggerDisplay("Count = {Count}")]
 	[DebuggerTypeProxy(typeof(ListDebugView<>))]
-	public class ReadOnlyList<T> : IList<T>, IList, INotifyCollectionChanged, INotifyPropertyChanged {
-		readonly RichList<T> List;
+	public class ReadOnlyCodex<T> : IList<T>, IList, INotifyCollectionChanged, INotifyPropertyChanged {
+		readonly Codex<T> List;
 
 		static readonly PropertyChangedEventArgs CountChangedEventArgs = new PropertyChangedEventArgs("Count");
 
 		public T this[int index] { get { return List[index]; } }
 
-		internal ReadOnlyList(RichList<T> list) {
+		internal ReadOnlyCodex(Codex<T> list) {
 			List = list;
 		}
 
-		public ReadOnlyList(IEnumerable<T> collection) : this(new RichList<T>(collection)) { }
+		public ReadOnlyCodex(IEnumerable<T> collection) : this(new Codex<T>(collection)) { }
 
-		public ListEnumerator<ReadOnlyList<T>, T> GetEnumerator() { return new ListEnumerator<ReadOnlyList<T>, T>(this); }
+		public ListEnumerator<Codex<T>, T> GetEnumerator() { return new ListEnumerator<Codex<T>, T>(List); }
 
 		public event NotifyCollectionChangedEventHandler CollectionChanged;
 

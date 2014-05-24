@@ -740,6 +740,8 @@ namespace Glare.Internal {
 			}
 		}
 
+		public static bool EndsWith(this string @string, char value) { int length; return @string != null && (length = @string.Length) > 0 && @string[length - 1] == value; }
+
 		#endregion String
 
 		#region Type

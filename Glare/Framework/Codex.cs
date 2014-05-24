@@ -14,7 +14,7 @@ namespace Glare.Framework {
 	/// </summary>
 	[DebuggerDisplay("Count = {Count}")]
 	[DebuggerTypeProxy(typeof(ListDebugView<>))]
-	public class RichList<T> : IList<T>, IList, INotifyCollectionChanged, INotifyPropertyChanged {
+	public class Codex<T> : IList<T>, IList, INotifyCollectionChanged, INotifyPropertyChanged {
 		/// <summary>Backing field for <see cref="Array"/>.</summary>
 		T[] array;
 
@@ -29,9 +29,9 @@ namespace Glare.Framework {
 		static readonly PropertyChangedEventArgs CountChangedEventArgs = new PropertyChangedEventArgs("Count");
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		ReadOnlyList<T> readOnlyView;
+		ReadOnlyCodex<T> readOnlyView;
 
-		ReadOnlyList<T> ReadOnlyView { get { return readOnlyView ?? (readOnlyView = new ReadOnlyList<T>(this)); } }
+		ReadOnlyCodex<T> ReadOnlyView { get { return readOnlyView ?? (readOnlyView = new ReadOnlyCodex<T>(this)); } }
 
 		public virtual T this[int index] {
 			get {
@@ -49,17 +49,17 @@ namespace Glare.Framework {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public RichList()
+		public Codex()
 			: this(0) {
 		}
 
-		public RichList(int capacity) {
+		public Codex(int capacity) {
 			array = new T[Math.Max(capacity, 1)];
 		}
 
-		public RichList(params T[] array) : this((IEnumerable<T>)array) { }
+		public Codex(params T[] array) : this((IEnumerable<T>)array) { }
 
-		public RichList(T[] array, int count) {
+		public Codex(T[] array, int count) {
 			if (array == null && count > 0)
 				throw new ArgumentNullException("array");
 			if (count > array.Length)
@@ -68,7 +68,7 @@ namespace Glare.Framework {
 			this.count = count;
 		}
 
-		public RichList(IEnumerable<T> items) {
+		public Codex(IEnumerable<T> items) {
 			if (items == null)
 				throw new ArgumentNullException("items");
 			ICollection<T> collection = items as ICollection<T>;
@@ -205,7 +205,7 @@ namespace Glare.Framework {
 			return true;
 		}
 
-		public ListEnumerator<RichList<T>, T> GetEnumerator() { return new ListEnumerator<RichList<T>, T>(this); }
+		public ListEnumerator<Codex<T>, T> GetEnumerator() { return new ListEnumerator<Codex<T>, T>(this); }
 
 		IEnumerator<T> IEnumerable<T>.GetEnumerator() { return GetEnumerator(); }
 
@@ -256,6 +256,6 @@ namespace Glare.Framework {
 
 		object ICollection.SyncRoot { get { return null; } }
 
-		public static implicit operator ReadOnlyList<T>(RichList<T> value) { return value.ReadOnlyView; }
+		public static implicit operator ReadOnlyCodex<T>(Codex<T> value) { return value.ReadOnlyView; }
 	}
 }

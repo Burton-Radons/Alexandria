@@ -13,8 +13,8 @@ using System.Threading.Tasks;
 
 namespace Alexandria {
 	public abstract class AlexandriaPlugin : AssetPlugin {
-		readonly RichList<Engine> EnginesMutable = new RichList<Engine>();
-		readonly RichList<Game> GamesMutable = new RichList<Game>();
+		readonly Codex<Engine> EnginesMutable = new Codex<Engine>();
+		readonly Codex<Game> GamesMutable = new Codex<Game>();
 
 		public override IEnumerable<AssetFormat> AllFormats {
 			get {
@@ -29,9 +29,9 @@ namespace Alexandria {
 			}
 		}
 
-		public ReadOnlyList<Engine> Engines { get { return EnginesMutable; } }
+		public Codex<Engine> Engines { get { return EnginesMutable; } }
 
-		public ReadOnlyList<Game> Games { get { return GamesMutable; } }
+		public Codex<Game> Games { get { return GamesMutable; } }
 
 		public AlexandriaPlugin(AssetManager manager, ResourceManager resourceManager) : base(manager, resourceManager) { }
 

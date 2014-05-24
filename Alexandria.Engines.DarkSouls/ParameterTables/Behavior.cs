@@ -14,7 +14,7 @@ namespace Alexandria.Engines.DarkSouls {
 		public class Behavior : ParameterTableRow {
 			public const string TableName = "BEHAVIOR_PARAM_ST";
 
-			Int32 variationId, behaviorJudgeId, refId, sfxVariationId, stamina, mp;
+			Int32 variationId, behaviorJudgeId, referenceId, sfxVariationId, stamina, mp;
 			Byte ezStateBehaviorType_old, heroPoint;
 			BehaviorRefType refType;
 			Byte[] pad0, pad1;
@@ -26,7 +26,7 @@ namespace Alexandria.Engines.DarkSouls {
 				EzStateBehaviorType_oldProperty = GetProperty<Behavior>("EzStateBehaviorType_old"),
 				RefTypeProperty = GetProperty<Behavior>("RefType"),
 				Pad0Property = GetProperty<Behavior>("Pad0"),
-				RefIdProperty = GetProperty<Behavior>("RefId"),
+				ReferenceIdProperty = GetProperty<Behavior>("ReferenceId"),
 				SfxVariationIdProperty = GetProperty<Behavior>("SfxVariationId"),
 				StaminaProperty = GetProperty<Behavior>("Stamina"),
 				MpProperty = GetProperty<Behavior>("Mp"),
@@ -125,12 +125,12 @@ namespace Alexandria.Engines.DarkSouls {
 			[DisplayName("Reference ID")]
 			[Description("ID attack power , missile , special effects parameters , can be used for different refType.")]
 			[DefaultValue((Int32)(-1))]
-			public Int32 RefId {
-				get { return refId; }
+			public Int32 ReferenceId {
+				get { return referenceId; }
 				set {
 					if ((double)value < -1 || (double)value > 1E+09)
-						throw new ArgumentOutOfRangeException("value", "value of " + value + " is out of range -1 to 1E+09 for RefId.");
-					SetProperty(ref refId, ref value, RefIdProperty);
+						throw new ArgumentOutOfRangeException("value", "value of " + value + " is out of range -1 to 1E+09 for " + ReferenceIdProperty.Name + ".");
+					SetProperty(ref referenceId, ref value, ReferenceIdProperty);
 				}
 			}
 
@@ -243,7 +243,7 @@ namespace Alexandria.Engines.DarkSouls {
 				EzStateBehaviorType_old = reader.ReadByte();
 				RefType = (BehaviorRefType)reader.ReadByte();
 				Pad0 = reader.ReadBytes(2);
-				RefId = reader.ReadInt32();
+				ReferenceId = reader.ReadInt32();
 				SfxVariationId = reader.ReadInt32();
 				Stamina = reader.ReadInt32();
 				Mp = reader.ReadInt32();
@@ -259,7 +259,7 @@ namespace Alexandria.Engines.DarkSouls {
 				EzStateBehaviorType_old = (Byte)0;
 				RefType = (BehaviorRefType)0;
 				Pad0 = new Byte[2];
-				RefId = (Int32)(-1);
+				ReferenceId = (Int32)(-1);
 				SfxVariationId = (Int32)0;
 				Stamina = (Int32)0;
 				Mp = (Int32)0;
@@ -274,7 +274,7 @@ namespace Alexandria.Engines.DarkSouls {
 				writer.Write(EzStateBehaviorType_old);
 				writer.Write((Byte)RefType);
 				writer.Write(Pad0);
-				writer.Write(RefId);
+				writer.Write(ReferenceId);
 				writer.Write(SfxVariationId);
 				writer.Write(Stamina);
 				writer.Write(Mp);

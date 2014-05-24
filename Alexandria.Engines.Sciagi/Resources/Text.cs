@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Alexandria.Engines.Sciagi.Resources {
 	public class Text : ResourceData {
-		readonly RichList<string> StringsMutable = new RichList<string>();
+		readonly Codex<string> StringsMutable = new Codex<string>();
 
-		public ReadOnlyList<string> Strings { get { return StringsMutable; } }
+		public ReadOnlyCodex<string> Strings { get { return StringsMutable; } }
 
 		List<KeyValuePair<int, string>> StringsWithId = new List<KeyValuePair<int, string>>();
 

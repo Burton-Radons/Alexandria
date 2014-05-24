@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace Glare.Assets {
 	public class PaletteAsset : Asset {
-		protected readonly RichList<Color> ColorsMutable = new RichList<Color>();
+		protected readonly Codex<Color> ColorsMutable = new Codex<Color>();
 
-		public ReadOnlyList<Color> Colors { get { return ColorsMutable; } }
+		public Codex<Color> Colors { get { return ColorsMutable; } }
 
 		public PaletteAsset(AssetManager manager, string name, params Color[] colors) : this(manager, name, (IEnumerable<Color>)colors) { }
 		public PaletteAsset(FolderAsset folder, string name, params Color[] colors) : this(folder, name, (IEnumerable<Color>)colors) { }

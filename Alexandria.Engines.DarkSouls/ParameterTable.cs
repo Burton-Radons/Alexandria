@@ -41,43 +41,10 @@ namespace Alexandria.Engines.DarkSouls {
 			// Read in the row names.
 			for (int index = 0; index < rowCount; index++) {
 				loader.Position = rows[index].NameOffset;
-				((ParameterTableRow)Children[index]).Name = reader.ReadStringz(EncodingShiftJis);//((index < rows.Length - 1 ? rows[index + 1].NameOffset : loader.ShortLength) - rows[index].NameOffset - 1, EncodingShiftJis));
-			}
-
-			if (loader.Context != null) {
-				switch (loader.Context.Name) {
-					case "AtkParam_Npc.param": TranslationTable = GetTranslationTable(Properties.Resources.Names_AtkParam_Npc); break;
-				}
+				((ParameterTableRow)Children[index]).Name = reader.ReadStringz(EncodingShiftJis).Trim();//((index < rows.Length - 1 ? rows[index + 1].NameOffset : loader.ShortLength) - rows[index].NameOffset - 1, EncodingShiftJis));
 			}
 		}
-
-		Dictionary<int, string> TranslationTable;
-
-		static Dictionary<int, string> GetTranslationTable(string contents) {
-			Dictionary<int, string> result = new Dictionary<int, string>();
-
-			for (int index = 0; index < contents.Length; ) {
-				int next = contents.IndexOf("\r\n", index);
-				if (next < 0)
-					next = contents.Length;
-
-				int split = contents.IndexOf('\t', index);
-				int id = int.Parse(contents.Substring(index, split - index).Trim());
-				string value = contents.Substring(split + 1, next - (split + 1)).Trim();
-				result[id] = value;
-
-				index = next + 2;
-			}
-
-			return result;
-		}
-
-		internal string GetTranslatedName(int id) {
-			if (TranslationTable == null)
-				return null;
-			return TranslationTable.TryGetValue(id);
-		}
-
+		
 		struct RowInfo {
 			public int Id;
 			public int DataOffset;
@@ -104,15 +71,26 @@ namespace Alexandria.Engines.DarkSouls {
 
 			int stringsOffset = reader.ReadInt32(), firstRowDataOffset = reader.ReadUInt16(), unknown1 = reader.ReadUInt16(), unknown2 = reader.ReadUInt16(), rowCount = reader.ReadUInt16();
 
-			if (firstRowDataOffset < 0x30 + rowCount * 12 || rowCount < 1 || stringsOffset <= firstRowDataOffset || stringsOffset >= loader.Length || unknown1 > 8 || unknown2 > 0x300)
+			if (firstRowDataOffset < 0x30 + rowCount * 12 || rowCount < 1 || stringsOffset <= firstRowDataOffset || stringsOffset > loader.Length)
 				return LoadMatchStrength.None;
 
-			reader.BaseStream.Seek(0x20 + 8, SeekOrigin.Current); // Skip the name, the thing (0x200 etc), and the first record's id.
-			int offset = reader.ReadInt32();
-			int stringOffset = reader.ReadInt32();
+			// Name is "[ASCII...]\x00[\x20...]"
+			{
+				const int nameEnd = 0x2C;
+				byte nameChar;
+				while (true)
+					if (loader.Position >= nameEnd)
+						return LoadMatchStrength.None;
+					else if ((nameChar = reader.ReadByte()) == 0)
+						break;
+					else if (nameChar > 127 || nameChar <= 32)
+						return LoadMatchStrength.None;
+				while (loader.Position < nameEnd)
+					if (reader.ReadByte() != 0x20)
+						return LoadMatchStrength.None;
+			}
 
-			if (offset != firstRowDataOffset || (Math.Abs(stringOffset - stringsOffset) > 15 && stringOffset != 0))
-				return LoadMatchStrength.None;
+			reader.ReadInt32(); // Weird thing, 0x200, etc.
 
 			return LoadMatchStrength.Medium;
 		}
@@ -155,7 +133,7 @@ namespace Alexandria.Engines.DarkSouls {
 		public new ParameterTable Parent { get { return (ParameterTable)base.Parent; } }
 
 		public string TranslatedName {
-			get { return Parent.GetTranslatedName(Id); }
+			get { return Engine.GetTranslation(Name); }
 		}
 
 		public ParameterTableRow(ParameterTable table, int index, AssetLoader loader)

@@ -44,7 +44,7 @@ namespace Alexandria.Engines.DarkSouls {
 		#region Properties
 
 		/// <summary>Get the material's parameters.</summary>
-		public ReadOnlyListDictionary<string, DSModelMaterialParameter> Parameters { get { return ParametersList; } }
+		public ReadOnlyCodexDictionary<string, DSModelMaterialParameter> Parameters { get { return ParametersList; } }
 
 		#endregion Properties
 

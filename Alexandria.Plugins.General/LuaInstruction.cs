@@ -32,7 +32,7 @@ namespace Alexandria.Plugins.General {
 		const int CMax = (1 << CSize) - 1;
 		const int SignedBxMax = BxMax >> 1;
 
-		public ReadOnlyList<LuaOpcodeArgument> Arguments { get { return OpcodeArguments[Opcode]; } }
+		public Codex<LuaOpcodeArgument> Arguments { get { return OpcodeArguments[Opcode]; } }
 
 		public LuaFunction Function { get { return function; } }
 
@@ -179,23 +179,23 @@ namespace Alexandria.Plugins.General {
 			return text;
 		}
 
-		static readonly ReadOnlyList<LuaOpcodeArgument>
-			Arguments_RegisterA = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA }),
-			Arguments_RegisterA_BranchSignedBx = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.BranchSignedBx }),
-			Arguments_RegisterA_RegisterB = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.RegisterB }),
-			Arguments_RegisterA_RegisterB_RegisterC = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.RegisterB, LuaOpcodeArgument.RegisterC }),
-			Arguments_RegisterA_RegisterB_RegisterConstantC = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.RegisterB, LuaOpcodeArgument.RegisterConstantC }),
-			Arguments_RegisterA_RegisterC = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.RegisterC }),
-			Arguments_RegisterA_ConstantBx = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.ConstantBx }),
-			Arguments_RegisterA_LiteralBx = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.LiteralBx }),
-			Arguments_RegisterA_BooleanB = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.BooleanB }),
-			Arguments_RegisterA_UpValueB = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.UpValueB }),
-			Arguments_RegisterA_RegisterConstantB_RegisterConstantC = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.RegisterConstantB, LuaOpcodeArgument.RegisterConstantC }),
-			Arguments_RegisterA_LiteralB_LiteralC = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.LiteralB, LuaOpcodeArgument.LiteralC }),
-			Arguments_BranchSignedBx = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.BranchSignedBx }),
-			Arguments_LiteralA_RegisterConstantB_RegisterConstantC = new RichList<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.LiteralA, LuaOpcodeArgument.RegisterConstantB, LuaOpcodeArgument.RegisterConstantC });
+		static readonly Codex<LuaOpcodeArgument>
+			Arguments_RegisterA = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA }),
+			Arguments_RegisterA_BranchSignedBx = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.BranchSignedBx }),
+			Arguments_RegisterA_RegisterB = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.RegisterB }),
+			Arguments_RegisterA_RegisterB_RegisterC = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.RegisterB, LuaOpcodeArgument.RegisterC }),
+			Arguments_RegisterA_RegisterB_RegisterConstantC = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.RegisterB, LuaOpcodeArgument.RegisterConstantC }),
+			Arguments_RegisterA_RegisterC = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.RegisterC }),
+			Arguments_RegisterA_ConstantBx = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.ConstantBx }),
+			Arguments_RegisterA_LiteralBx = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.LiteralBx }),
+			Arguments_RegisterA_BooleanB = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.BooleanB }),
+			Arguments_RegisterA_UpValueB = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.UpValueB }),
+			Arguments_RegisterA_RegisterConstantB_RegisterConstantC = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.RegisterConstantB, LuaOpcodeArgument.RegisterConstantC }),
+			Arguments_RegisterA_LiteralB_LiteralC = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.RegisterA, LuaOpcodeArgument.LiteralB, LuaOpcodeArgument.LiteralC }),
+			Arguments_BranchSignedBx = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.BranchSignedBx }),
+			Arguments_LiteralA_RegisterConstantB_RegisterConstantC = new Codex<LuaOpcodeArgument>(new LuaOpcodeArgument[] { LuaOpcodeArgument.LiteralA, LuaOpcodeArgument.RegisterConstantB, LuaOpcodeArgument.RegisterConstantC });
 
-		static readonly Dictionary<LuaOpcode, ReadOnlyList<LuaOpcodeArgument>> OpcodeArguments = new Dictionary<LuaOpcode, ReadOnlyList<LuaOpcodeArgument>>() {
+		static readonly Dictionary<LuaOpcode, Codex<LuaOpcodeArgument>> OpcodeArguments = new Dictionary<LuaOpcode, Codex<LuaOpcodeArgument>>() {
 			{ LuaOpcode.Move, Arguments_RegisterA_RegisterB },
 			{ LuaOpcode.LoadConstant, Arguments_RegisterA_ConstantBx },
 			{ LuaOpcode.LoadBoolean, Arguments_RegisterA_BooleanB },

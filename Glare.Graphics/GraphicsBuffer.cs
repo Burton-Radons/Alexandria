@@ -53,7 +53,7 @@ namespace Glare.Graphics {
 		}
 	}
 
-	public class DynamicBuffer<T> : RichList<T> where T : struct {
+	public class DynamicBuffer<T> : Codex<T> where T : struct {
 		static readonly int size = Marshal.SizeOf(typeof(T));
 		GraphicsBuffer buffer;
 		BufferUsage usage = BufferUsage.DynamicDraw;

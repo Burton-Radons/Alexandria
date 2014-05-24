@@ -32,22 +32,22 @@ namespace Alexandria.Engines.DarkSouls {
 		readonly ListDictionary<string, DSModelBone> bones = new ListDictionary<string, DSModelBone>((bone) => bone.Name);
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly RichList<DSModelBoneUnknown> boneUnknowns = new RichList<DSModelBoneUnknown>();
+		readonly Codex<DSModelBoneUnknown> boneUnknowns = new Codex<DSModelBoneUnknown>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		readonly ListDictionary<string, DSModelMaterial> materials = new ListDictionary<string, DSModelMaterial>((material) => material.Name);
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly RichList<DSModelMaterialParameter> materialParameters = new RichList<DSModelMaterialParameter>();
+		readonly Codex<DSModelMaterialParameter> materialParameters = new Codex<DSModelMaterialParameter>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly RichList<DSModelMesh> meshes = new RichList<DSModelMesh>();
+		readonly Codex<DSModelMesh> meshes = new Codex<DSModelMesh>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly RichList<DSModelPart> parts = new RichList<DSModelPart>();
+		readonly Codex<DSModelPart> parts = new Codex<DSModelPart>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly RichList<DSModelVertexDeclaration> vertexDeclarations = new RichList<DSModelVertexDeclaration>();
+		readonly Codex<DSModelVertexDeclaration> vertexDeclarations = new Codex<DSModelVertexDeclaration>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		internal ByteOrder ByteOrder { get; private set; }
@@ -65,25 +65,25 @@ namespace Alexandria.Engines.DarkSouls {
 
 		#region Properties
 
-		public ReadOnlyListDictionary<string, DSModelBone> Bones { get { return bones; } }
+		public ReadOnlyCodexDictionary<string, DSModelBone> Bones { get { return bones; } }
 
-		public ReadOnlyList<DSModelBoneUnknown> BoneUnknowns { get { return boneUnknowns; } }
+		public Codex<DSModelBoneUnknown> BoneUnknowns { get { return boneUnknowns; } }
 
 		public Box3f Bounds { get; private set; }
 
-		public ReadOnlyListDictionary<string, DSModelMaterial> Materials { get { return materials; } }
+		public ReadOnlyCodexDictionary<string, DSModelMaterial> Materials { get { return materials; } }
 
-		public ReadOnlyList<DSModelMaterialParameter> MaterialParameters { get { return materialParameters; } }
+		public Codex<DSModelMaterialParameter> MaterialParameters { get { return materialParameters; } }
 
-		public ReadOnlyList<DSModelMesh> Meshes { get { return meshes; } }
+		public Codex<DSModelMesh> Meshes { get { return meshes; } }
 
-		public ReadOnlyList<DSModelPart> Parts { get { return parts; } }
+		public Codex<DSModelPart> Parts { get { return parts; } }
 
 		public DSModelVersion Version { get; private set; }
 
 		public string VersionString { get { return (((int)Version) >> 16) + "." + ((int)Version & 0xFFFF); } }
 
-		public ReadOnlyList<DSModelVertexDeclaration> VertexDeclarations { get { return vertexDeclarations; } }
+		public Codex<DSModelVertexDeclaration> VertexDeclarations { get { return vertexDeclarations; } }
 
 		#endregion Properties
 
@@ -98,8 +98,8 @@ namespace Alexandria.Engines.DarkSouls {
 
 			if (context != null && context.Parent is FolderAsset) {
 				// @"/map/m##_##_##_##/m*.flver.dcx" for DS1; textures are in the @"/map/m##/" folder.
-				if (name.StartsWith(@"/map/m")) {
-					string folderName = name.Substring(5, 3);
+				if (name.StartsWith(@"map/m")) {
+					string folderName = name.Substring(4, 3);
 					FolderAsset maps = (FolderAsset)context.Parent.Parent;
 					foreach (FolderAsset child in maps.Children) {
 						if (child.Name == folderName) {
@@ -108,8 +108,7 @@ namespace Alexandria.Engines.DarkSouls {
 						}
 					}
 				} else
-					textureArchive = (FolderAsset)context.Parent;
-				
+					textureArchive = (FolderAsset)context.Parent;				
 			}
 
 #if Marking

@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace Alexandria.Engines.Sciagi.Resources {
 	public class Picture : ResourceData {
-		public ReadOnlyList<PictureInstruction> Instructions { get; private set; }
+		public Codex<PictureInstruction> Instructions { get; private set; }
 
 		public Picture(BinaryReader reader, Resource resource)
 			: base(resource) {
 			byte[] data = reader.ReadBytes(checked((int)reader.BaseStream.Length));
 			Stream stream = new MemoryStream(data, false);
-			RichList<PictureInstruction> instructions = new RichList<PictureInstruction>();
+			Codex<PictureInstruction> instructions = new Codex<PictureInstruction>();
 			PicturePatternFlags patternFlags = PicturePatternFlags.None;
 			byte patternNumber = 0;
 

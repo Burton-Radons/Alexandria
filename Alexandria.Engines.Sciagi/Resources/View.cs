@@ -14,19 +14,19 @@ using System.Threading.Tasks;
 namespace Alexandria.Engines.Sciagi.Resources {
 	public class View : ResourceData {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly RichList<ViewAnimation> AnimationsMutable = new RichList<ViewAnimation>();
+		readonly Codex<ViewAnimation> AnimationsMutable = new Codex<ViewAnimation>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly RichList<ViewCell> CellsMutable = new RichList<ViewCell>();
+		readonly Codex<ViewCell> CellsMutable = new Codex<ViewCell>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly RichList<ViewGroup> GroupsMutable = new RichList<ViewGroup>();
+		readonly Codex<ViewGroup> GroupsMutable = new Codex<ViewGroup>();
 
-		public ReadOnlyList<ViewAnimation> Animations { get { return AnimationsMutable; } }
+		public Codex<ViewAnimation> Animations { get { return AnimationsMutable; } }
 
-		public ReadOnlyList<ViewCell> Cells { get { return CellsMutable; } }
+		public Codex<ViewCell> Cells { get { return CellsMutable; } }
 
-		public ReadOnlyList<ViewGroup> Groups { get { return GroupsMutable; } }
+		public Codex<ViewGroup> Groups { get { return GroupsMutable; } }
 
 		public View(BinaryReader reader, Resource resource)
 			: base(resource) {
@@ -95,7 +95,7 @@ namespace Alexandria.Engines.Sciagi.Resources {
 
 		public ushort U1 { get; private set; }
 
-		public ReadOnlyList<ViewCell> Cells { get; private set; }
+		public Codex<ViewCell> Cells { get; private set; }
 
 		public int Index { get { return View.Animations.IndexOf(this); } }
 
@@ -104,7 +104,7 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		internal ViewAnimation(View view, BinaryReader reader) {
 			View = view;
 
-			var cells = new RichList<ViewCell>();
+			var cells = new Codex<ViewCell>();
 			Cells = cells;
 
 			DataOffset = (ushort)reader.BaseStream.Position;

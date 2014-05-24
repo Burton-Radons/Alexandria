@@ -18,7 +18,7 @@ namespace Alexandria.Engines.DarkSouls {
 
 		#endregion Internal
 
-		public ReadOnlyList<DSModelVertexChannel> Channels { get; private set; }
+		public Codex<DSModelVertexChannel> Channels { get; private set; }
 
 		public DSModelVertexChannel PositionChannel {
 			get {
@@ -47,7 +47,7 @@ namespace Alexandria.Engines.DarkSouls {
 			long reset = reader.BaseStream.Position;
 
 			reader.BaseStream.Position = offset;
-			var blocks = new RichList<DSModelVertexChannel>();
+			var blocks = new Codex<DSModelVertexChannel>();
 			Channels = blocks;
 			for (int blockIndex = 0; blockIndex < count; blockIndex++)
 				blocks.Add(new DSModelVertexChannel(this, reader, blockIndex));

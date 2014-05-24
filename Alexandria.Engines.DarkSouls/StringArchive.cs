@@ -16,12 +16,12 @@ namespace Alexandria.Engines.DarkSouls {
 		public const int Magic1 = 0x10000;
 		public const int Magic2 = 1, Magic2BE = 0x01FF0000;
 
-		readonly RichList<StringGroup> groups = new RichList<StringGroup>();
-		readonly RichList<string> strings = new RichList<string>();
+		readonly Codex<StringGroup> groups = new Codex<StringGroup>();
+		readonly Codex<string> strings = new Codex<string>();
 		readonly RichDictionary<int, string> stringsById = new RichDictionary<int, string>();
 
-		public ReadOnlyList<StringGroup> Groups { get { return groups; } }
-		public ReadOnlyList<string> Strings { get { return strings; } }
+		public ReadOnlyCodex<StringGroup> Groups { get { return groups; } }
+		public ReadOnlyCodex<string> Strings { get { return strings; } }
 		public ReadOnlyObservableDictionary<int, string> StringsById { get { return stringsById; } }
 
 		public ByteOrder ByteOrder { get; private set; }

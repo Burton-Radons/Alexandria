@@ -13,7 +13,7 @@ namespace Glare.Graphics.Scenes {
 	/// </summary>
 	public class Node : SceneObject {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly RichList<Node> children = new RichList<Node>();
+		readonly Codex<Node> children = new Codex<Node>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		Node parent;
@@ -21,7 +21,7 @@ namespace Glare.Graphics.Scenes {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		Vector3d translation;
 
-		public ReadOnlyList<Node> Children { get { return children; } }
+		public Codex<Node> Children { get { return children; } }
 
 		public NodeComponentCollection Components { get; private set; }
 
@@ -58,7 +58,7 @@ namespace Glare.Graphics.Scenes {
 		}
 	}
 
-	public class NodeComponentCollection : RichList<Component> {
+	public class NodeComponentCollection : Codex<Component> {
 		readonly Node Node;
 
 		internal NodeComponentCollection(Node node) {

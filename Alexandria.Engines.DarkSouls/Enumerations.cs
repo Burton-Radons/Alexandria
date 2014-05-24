@@ -120,6 +120,12 @@ namespace Alexandria.Engines.DarkSouls {
 	/// <summary></summary>
 	/// <remarks>"BEHAVIOR_REF_TYPE" in Dark Souls.</remarks>
 	public enum BehaviorRefType : byte {
+		NpcAttack = 0,
+
+		/// <summary>Seems to be magic-related, but matches nothing in Magic or SpecialEffects.</summary>
+		Unknown1 = 1,
+
+		SpecialEffect = 2,
 	}
 
 	/// <summary></summary>

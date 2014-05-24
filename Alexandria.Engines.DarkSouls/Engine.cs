@@ -1,6 +1,9 @@
 ﻿using Glare.Assets;
+using Glare.Internal;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +20,29 @@ namespace Alexandria.Engines.DarkSouls {
 		public const string LanguageIdRussian = "RUSSIAN";
 		public const string LanguageIdSpanish = "SPANISH";
 		public const string LanguageIdChinese = "TCHINESE";
+
+		static Dictionary<string, string> TranslationDictionary;
+
+		public static string GetTranslation(string text, string defaultValue = null) {
+			if (TranslationDictionary == null) {
+				TranslationDictionary = new Dictionary<string, string>();
+
+				using(var reader = new StreamReader(new GZipStream(new MemoryStream(Properties.Resources.Translations, false), CompressionMode.Decompress), Encoding.UTF8)) {
+					string line;
+
+					reader.ReadLine();
+					while ((line = reader.ReadLine()) != null) {
+						var split = line.IndexOf('\t');
+
+						if (split < 0)
+							continue;
+						TranslationDictionary[line.Substring(0, split)] = line.Substring(split + 1);
+					}
+				}
+			}
+
+			return TranslationDictionary.TryGetValue(text, defaultValue);
+		}
 
 		public static string GetLanguageId(Language language) {
 			switch (language) {
@@ -118,6 +144,7 @@ namespace Alexandria.Engines.DarkSouls {
 			: base(plugin) {
 			AddFormat(new ArchiveFormat(this));
 			AddFormat(new DSModelFormat(this));
+			AddFormat(new EffectFormat(this));
 			AddFormat(new FsslFormat(this));
 			AddFormat(new MCGFormat(this));
 			AddFormat(new MCPFormat(this));

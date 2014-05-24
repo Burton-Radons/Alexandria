@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace Alexandria.Engines.Sciagi.Resources {
 	public class Script : ResourceData {
-		RichList<ScriptSection> blocks = new RichList<ScriptSection>();
+		Codex<ScriptSection> blocks = new Codex<ScriptSection>();
 
-		public ReadOnlyList<ScriptSection> Blocks { get { return blocks; } }
+		public Codex<ScriptSection> Blocks { get { return blocks; } }
 
 		public Script(AssetLoader loader)
 			: base(loader.Context as Resource) {
@@ -90,12 +90,12 @@ namespace Alexandria.Engines.Sciagi.Resources {
 
 		public class Locals : ScriptSection {
 			public int Count { get { return Values.Count; } }
-			public ReadOnlyList<ushort> Values { get; private set; }
+			public Codex<ushort> Values { get; private set; }
 			public ushort this[int index] { get { return Values[index]; } }
 
 			public Locals(Script script, ScriptBlock block, AssetLoader loader)
 				: base(script, block) {
-				RichList<ushort> values = new RichList<ushort>(block.ContentSize / 2);
+				Codex<ushort> values = new Codex<ushort>(block.ContentSize / 2);
 				Values = values;
 				for (int index = 0; index < block.ContentSize / 2; index++)
 					values.Add(loader.Reader.ReadUInt16());
@@ -119,7 +119,7 @@ namespace Alexandria.Engines.Sciagi.Resources {
 			public const int InfoSelectorIndex = 2;
 			public const int NameSelectorIndex = 3;
 
-			public ReadOnlyList<FunctionSelector> Functions { get; private set; }
+			public Codex<FunctionSelector> Functions { get; private set; }
 
 			public VariableSelector Info { get { return Variables[InfoSelectorIndex]; } }
 
@@ -131,7 +131,7 @@ namespace Alexandria.Engines.Sciagi.Resources {
 
 			public VariableSelector SuperClass { get { return Variables[SuperClassSelectorIndex]; } }
 
-			public ReadOnlyList<VariableSelector> Variables { get; private set; }
+			public Codex<VariableSelector> Variables { get; private set; }
 
 			public Object(Script script, ScriptBlock block, AssetLoader loader)
 				: base(script, block) {
@@ -142,13 +142,13 @@ namespace Alexandria.Engines.Sciagi.Resources {
 				int functionSelectorListOffset = reader.ReadUInt16();
 
 				int variableSelectorCount = reader.ReadUInt16();
-				RichList<VariableSelector> variableSelectors = new RichList<VariableSelector>(variableSelectorCount);
+				Codex<VariableSelector> variableSelectors = new Codex<VariableSelector>(variableSelectorCount);
 				Variables = variableSelectors;
 				for (int index = 0; index < variableSelectorCount; index++)
 					variableSelectors.Add(new VariableSelector(this, loader));
 
 				int functionSelectorCount = reader.ReadUInt16();
-				RichList<FunctionSelector> functionSelectors = new RichList<FunctionSelector>(functionSelectorCount);
+				Codex<FunctionSelector> functionSelectors = new Codex<FunctionSelector>(functionSelectorCount);
 				Functions = functionSelectors;
 				for (int index = 0; index < functionSelectorCount; index++)
 					functionSelectors.Add(new FunctionSelector(this, loader));
@@ -202,13 +202,13 @@ namespace Alexandria.Engines.Sciagi.Resources {
 
 		public class Strings : ScriptSection {
 			public int Count { get { return Values.Count; } }
-			public ReadOnlyList<string> Values { get; private set; }
+			public Codex<string> Values { get; private set; }
 
 			public string this[int index] { get { return Values[index]; } }
 
 			internal Strings(Script script, ScriptBlock block, AssetLoader loader)
 				: base(script, block) {
-				RichList<string> list = new RichList<string>();
+				Codex<string> list = new Codex<string>();
 				Values = list;
 				while (loader.Position < block.EndOffset)
 					list.Add(loader.Reader.ReadStringz(Encoding.ASCII));
@@ -227,11 +227,11 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		}
 
 		public class Unknown : ScriptSection {
-			public ReadOnlyList<byte> Content { get; private set; }
+			public Codex<byte> Content { get; private set; }
 
 			internal Unknown(Script script, ScriptBlock block, AssetLoader loader)
 				: base(script, block) {
-				Content = new RichList<byte>(loader.Reader.ReadBytes(block.ContentSize));
+				Content = new Codex<byte>(loader.Reader.ReadBytes(block.ContentSize));
 			}
 
 			public override TreeNode ToTreeNode() {

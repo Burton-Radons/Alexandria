@@ -90,7 +90,7 @@ namespace Glare.Assets {
 		public long End { get { return Start + Length; } }
 
 		/// <summary>Get the collection of errors accumulated while loading.</summary>
-		public RichList<AssetLoadError> Errors { get; private set; }
+		public Codex<AssetLoadError> Errors { get; private set; }
 
 		/// <summary>Get whether there were any <see cref="Errors"/> while loading.</summary>
 		public bool HasErrors { get { return Errors.Count > 0; } }
@@ -131,7 +131,7 @@ namespace Glare.Assets {
 			FileManager = manager;
 			Context = contextResource;
 			Length = length.HasValue ? length.Value : reader.BaseStream.Length;
-			Errors = new RichList<AssetLoadError>();
+			Errors = new Codex<AssetLoadError>();
 		}
 
 		public void AddError(long? offset, string message) {

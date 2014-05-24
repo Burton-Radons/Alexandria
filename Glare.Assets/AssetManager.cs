@@ -13,7 +13,7 @@ namespace Glare.Assets {
 	/// Global state manager.
 	/// </summary>
 	public abstract class AssetManager {
-		internal readonly RichList<AssetPlugin> plugins = new RichList<AssetPlugin>();
+		internal readonly Codex<AssetPlugin> plugins = new Codex<AssetPlugin>();
 
 		public IEnumerable<AssetFormat> AllFormats {
 			get {
@@ -24,7 +24,7 @@ namespace Glare.Assets {
 			}
 		}
 
-		public ReadOnlyList<AssetPlugin> Plugins { get { return plugins; } }
+		public Codex<AssetPlugin> Plugins { get { return plugins; } }
 
 		public AssetManager() {
 			new DefaultPlugin(this);

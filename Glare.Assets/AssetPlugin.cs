@@ -50,7 +50,7 @@ namespace Glare.Assets {
 	}
 
 	public abstract class PluginFormatAsset : PluginAsset {
-		readonly RichList<AssetFormat> FormatsMutable = new RichList<AssetFormat>();
+		readonly Codex<AssetFormat> FormatsMutable = new Codex<AssetFormat>();
 
 		public virtual IEnumerable<AssetFormat> AllFormats {
 			get {
@@ -60,7 +60,7 @@ namespace Glare.Assets {
 		}
 
 		/// <summary>Get the resource formats.</summary>
-		public ReadOnlyList<AssetFormat> Formats { get { return FormatsMutable; } }
+		public Codex<AssetFormat> Formats { get { return FormatsMutable; } }
 
 		public PluginFormatAsset(AssetPlugin plugin) : base(plugin) { }
 

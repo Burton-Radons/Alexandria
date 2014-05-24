@@ -14,13 +14,13 @@ namespace Alexandria.Engines.DarkSouls {
 	public class MCG : Asset {
 		internal const int HeaderDataSize = 32;
 
-		public ReadOnlyList<MCGTable1> Table1 { get; private set; }
+		public Codex<MCGTable1> Table1 { get; private set; }
 
 		int Table1Offset, Table2Offset, Table3Offset, EndOffset;
 
-		public ReadOnlyList<MCGTable2> Table2 { get; private set; }
+		public Codex<MCGTable2> Table2 { get; private set; }
 
-		public ReadOnlyList<MCGTable3> Table3 { get; private set; }
+		public Codex<MCGTable3> Table3 { get; private set; }
 
 		public MCG(AssetManager manager, AssetLoader loader)
 			: base(manager, loader.Name) {
@@ -40,19 +40,19 @@ namespace Alexandria.Engines.DarkSouls {
 			int table1Count = (table2Offset - table1Offset) / MCGTable1.DataSize;
 
 			reader.BaseStream.Position = table1Offset;
-			var table1 = new RichList<MCGTable1>(table1Count);
+			var table1 = new Codex<MCGTable1>(table1Count);
 			Table1 = table1;
 			for (int index = 0; index < table1Count; index++)
 				table1.Add(new MCGTable1(this, index, loader));
 
 			reader.BaseStream.Position = table2Offset;
-			var table2 = new RichList<MCGTable2>(table2Count);
+			var table2 = new Codex<MCGTable2>(table2Count);
 			Table2 = table2;
 			for (int index = 0; index < table2Count; index++)
 				table2.Add(new MCGTable2(this, index, loader));
 
 			reader.BaseStream.Position = table3Offset;
-			var table3 = new RichList<MCGTable3>(table3Count);
+			var table3 = new Codex<MCGTable3>(table3Count);
 			Table3 = table3;
 			for (int index = 0; index < table3Count; index++)
 				table3.Add(new MCGTable3(this, index, loader));
@@ -85,11 +85,11 @@ namespace Alexandria.Engines.DarkSouls {
 			return node;
 		}
 
-		internal RichList<MCGTable1> GetTable1Slice(int count, int offset) {
+		internal Codex<MCGTable1> GetTable1Slice(int count, int offset) {
 			if (offset < Table1Offset || offset + count * MCGTable1.DataSize > Table2Offset || (offset - Table1Offset) % MCGTable1.DataSize != 0)
 				throw new InvalidDataException();
 			int start = (offset - Table1Offset) / MCGTable1.DataSize;
-			RichList<MCGTable1> table = new RichList<MCGTable1>(count);
+			Codex<MCGTable1> table = new Codex<MCGTable1>(count);
 			for (int index = 0; index < count; index++)
 				table.Add(Table1[start + index]);
 			return table;
@@ -143,9 +143,9 @@ namespace Alexandria.Engines.DarkSouls {
 	public class MCGTable2 : MCGTable {
 		internal const int DataSize = 36;
 
-		public ReadOnlyList<MCGTable1> Table1U1 { get; private set; }
+		public Codex<MCGTable1> Table1U1 { get; private set; }
 
-		public ReadOnlyList<MCGTable1> Table1U2 { get; private set; }
+		public Codex<MCGTable1> Table1U2 { get; private set; }
 
 		public MCGTable2(MCG mcg, int index, AssetLoader loader)
 			: base(mcg, index) {
@@ -176,8 +176,8 @@ namespace Alexandria.Engines.DarkSouls {
 	public class MCGTable3 : MCGTable {
 		internal const int DataSize = 32;
 
-		public ReadOnlyList<MCGTable1> Table1U1 { get; private set; }
-		public ReadOnlyList<MCGTable1> Table1U2 { get; private set; }
+		public Codex<MCGTable1> Table1U1 { get; private set; }
+		public Codex<MCGTable1> Table1U2 { get; private set; }
 
 		public Vector3f Position { get; private set; }
 

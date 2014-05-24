@@ -15,11 +15,11 @@ namespace Alexandria.Engines.DarkSouls {
 		internal const int Magic1 = 2;
 		internal const int Magic2 = 0x4085D1;
 
-		public ReadOnlyList<MCPTable1> Table1 { get; private set; }
+		public Codex<MCPTable1> Table1 { get; private set; }
 
 		int Table1Offset, Table2Offset, EndOffset;
 
-		public ReadOnlyList<MCPTable2> Table2 { get; private set; }
+		public Codex<MCPTable2> Table2 { get; private set; }
 
 		public MCP(AssetManager manager, AssetLoader loader)
 			: base(manager, loader.Name) {
@@ -35,13 +35,13 @@ namespace Alexandria.Engines.DarkSouls {
 			int table1Count = (table2Offset - table1Offset) / MCPTable1.DataSize;
 
 			reader.BaseStream.Position = table1Offset;
-			var table1 = new RichList<MCPTable1>(table1Count);
+			var table1 = new Codex<MCPTable1>(table1Count);
 			Table1 = table1;
 			for (int index = 0; index < table1Count; index++)
 				table1.Add(new MCPTable1(this, index, loader));
 
 			reader.BaseStream.Position = table2Offset;
-			var table2 = new RichList<MCPTable2>(table2Count);
+			var table2 = new Codex<MCPTable2>(table2Count);
 			Table2 = table2;
 			for (int index = 0; index < table2Count; index++)
 				table2.Add(new MCPTable2(this, index, loader));
@@ -70,11 +70,11 @@ namespace Alexandria.Engines.DarkSouls {
 			return node;
 		}
 
-		internal RichList<MCPTable1> GetTable1Slice(int count, int offset) {
+		internal Codex<MCPTable1> GetTable1Slice(int count, int offset) {
 			if (offset < Table1Offset || offset + count * MCPTable1.DataSize > Table2Offset || (offset - Table1Offset) % MCPTable1.DataSize != 0)
 				throw new InvalidDataException();
 			int start = (offset - Table1Offset) / MCPTable1.DataSize;
-			RichList<MCPTable1> table = new RichList<MCPTable1>(count);
+			Codex<MCPTable1> table = new Codex<MCPTable1>(count);
 			for (int index = 0; index < count; index++)
 				table.Add(Table1[start + index]);
 			return table;
@@ -128,7 +128,7 @@ namespace Alexandria.Engines.DarkSouls {
 	public class MCPTable2 : MCPTable {
 		internal const int DataSize = 40;
 
-		public ReadOnlyList<MCPTable1> Table1U1 { get; private set; }
+		public Codex<MCPTable1> Table1U1 { get; private set; }
 
 		public Box3f Box { get; private set; }
 

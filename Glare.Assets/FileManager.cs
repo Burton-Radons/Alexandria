@@ -63,6 +63,7 @@ namespace Glare.Assets {
 			return manager.Load(stream, path, this, context);
 		}
 
+		/// <summary>Get the system file manager for opening files using standard IO.</summary>
 		public static readonly FileManager System = new FileSystemContextClass();
 
 		class FileSystemContextClass : FileManager {

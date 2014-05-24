@@ -20,16 +20,16 @@ namespace Glare.Assets {
 	/// </remarks>
 	public abstract class AssetFormat : PluginAsset {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		protected readonly RichList<Type> CreateTypesMutable = new RichList<Type>();
+		protected readonly Codex<Type> CreateTypesMutable = new Codex<Type>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		protected readonly RichList<string> ExtensionsMutable = new RichList<string>();
+		protected readonly Codex<string> ExtensionsMutable = new Codex<string>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		protected readonly RichList<Type> LoadTypesMutable = new RichList<Type>();
+		protected readonly Codex<Type> LoadTypesMutable = new Codex<Type>();
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		protected readonly RichList<Type> SaveTypesMutable = new RichList<Type>();
+		protected readonly Codex<Type> SaveTypesMutable = new Codex<Type>();
 
 		/// <summary>Get whether this <see cref="AssetFormat"/> can create a new <see cref="Asset"/> of the <see cref="PrimaryType"/>.</summary>
 		public bool CanCreate { get; private set; }
@@ -39,23 +39,36 @@ namespace Glare.Assets {
 
 		public bool CanSave { get; private set; }
 
-		public ReadOnlyList<Type> CreateTypes { get { return CreateTypesMutable; } }
+		public ReadOnlyCodex<Type> CreateTypes { get { return CreateTypesMutable; } }
 
 		/// <summary>Get the file extensions, including preceding ".", that this <see cref="AssetFormat"/> saves files as.</summary>
 		/// <remarks>Implementors: The mutable form of this property is <see cref="ExtensionsMutable"/>.</remarks>
-		public ReadOnlyList<string> Extensions { get { return ExtensionsMutable; } }
+		public ReadOnlyCodex<string> Extensions { get { return ExtensionsMutable; } }
 
 		/// <summary>Get the types of <see cref="Asset"/>s that can be loaded by this format. This can be empty, if this <see cref="AssetFormat"/> doesn't implement loading.</summary>
 		/// <remarks>Implementors: The mutable form of this property is <see cref="LoadTypesMutable"/>.</remarks>
-		public ReadOnlyList<Type> LoadTypes { get { return LoadTypesMutable; } }
+		public ReadOnlyCodex<Type> LoadTypes { get { return LoadTypesMutable; } }
 
 		/// <summary>Get the primary type of <see cref="Asset"/> that this <see cref="AssetFormat"/> deals with.</summary>
 		public Type PrimaryType { get; private set; }
 
 		/// <summary>Get the types of <see cref="Asset"/>s that can be saved by this format. This can be empty, if this <see cref="AssetFormat"/> doesn't implement saving.</summary>
 		/// <remarks>Implementors: The mutable form of this property is <see cref="SaveTypesMutable"/>.</remarks>
-		public ReadOnlyList<Type> SaveTypes { get { return SaveTypesMutable; } }
+		public ReadOnlyCodex<Type> SaveTypes { get { return SaveTypesMutable; } }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="pluginResource">The context for the <see cref="AssetFormat"/>, used to find the <see cref="Plugin"/>.</param>
+		/// <param name="primaryType">The primary <see cref="Asset"/> type that this <see cref="AssetFormat"/> operates with.</param>
+		/// <param name="canLoad">Whether this can load <see cref="Asset"/>s; if <c>true</c>, then <see cref="Load"/> and <see cref="LoadMatch"/> must be implemented.</param>
+		/// <param name="loadTypes">Any additional <see cref="Asset"/> types that could be loaded beyond the <paramref name="primaryType"/>; this can only be provided if <paramref name="canLoad"/> is <c>true</c>.</param>
+		/// <param name="canSave">Whether this can save <see cref="Asset"/>s; if <c>true</c>, then <see cref="Save"/> and <see cref="SaveCheck"/> must be implemented, and <paramref name="saveTypes"/> can be provided for additional types this can save beyond the <paramref name="primaryType"/>.</param>
+		/// <param name="saveTypes">Any additional <see cref="Asset"/> types that this can save beyond the <paramref name="primaryType"/>; this can only be provided if <paramref name="canSave"/> is <c>true</c>.</param>
+		/// <param name="canCreate">Whether this can create an <see cref="Asset"/>. If so, <see cref="Create"/> must be implemented, and <see cref="createTypes"/> can be provided for additional types this can create beyond the <paramref name="primaryType"/>.</param>
+		/// <param name="createTypes">Any additional <see cref="Asset"/> types that this can create beyond the <paramref name="primaryType"/>; this can only be provided if <paramref name="canCreate"/> is <c>true</c>.</param>
+		/// <param name="extension">File extension in the form of ".ext".</param>
+		/// <param name="extensions">File extensions in the form of ".ext".</param>
 		public AssetFormat(PluginAsset pluginResource, Type primaryType, bool canLoad = false, IList<Type> loadTypes = null, bool canSave = false, IList<Type> saveTypes = null, bool canCreate = false, IList<Type> createTypes = null, string extension = null, IList<string> extensions = null)
 			: base(pluginResource.Plugin) {
 			if (primaryType == null)
@@ -249,7 +262,7 @@ namespace Glare.Assets {
 
 	public class SaveCheckResult {
 		/// <summary>Get a collection of the problems with saving the resource, or effects on the resource that saving to this format will have.</summary>
-		public ReadOnlyList<string> Problems { get; private set; }
+		public ReadOnlyCodex<string> Problems { get; private set; }
 
 		public bool Result { get; private set; }
 
@@ -261,7 +274,7 @@ namespace Glare.Assets {
 
 		public SaveCheckResult(bool result, params string[] problems) {
 			Result = result;
-			Problems = new RichList<string>(problems);
+			Problems = new Codex<string>(problems);
 		}
 	}
 

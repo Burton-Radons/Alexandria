@@ -67,7 +67,7 @@ namespace Glare.Graphics.Terrains.Planar {
 		/// </summary>
 		readonly internal List<TerrainComponent> ComponentsNodeLodBlend = new List<TerrainComponent>();
 
-		RichList<Vector4f> InstanceArray = new RichList<Vector4f>();
+		Codex<Vector4f> InstanceArray = new Codex<Vector4f>();
 
 		internal GraphicsBuffer InstanceVertexBuffer;
 

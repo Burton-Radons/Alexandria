@@ -43,7 +43,7 @@ namespace Alexandria {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		Vector2i size;
 
-		static ReadOnlyList<Color> defaultBlendedEgaColors, defaultEgaColors, defaultEgaColorsWithTransparent;
+		static Codex<Color> defaultBlendedEgaColors, defaultEgaColors, defaultEgaColorsWithTransparent;
 
 		#endregion Backing fields
 
@@ -52,9 +52,9 @@ namespace Alexandria {
 		public byte[] Data { get { return data; } }
 
 		/// <summary>Get a palette containing the default colors for an EGA adapter.</summary>
-		public static ReadOnlyList<Color> DefaultEgaColors {
+		public static Codex<Color> DefaultEgaColors {
 			get {
-				return defaultEgaColors ?? (defaultEgaColors = new RichList<Color>() {
+				return defaultEgaColors ?? (defaultEgaColors = new Codex<Color>() {
 					Color.FromArgb(0, 0, 0),
 					Color.FromArgb(0, 0, 170),
 					Color.FromArgb(0, 170, 0),
@@ -76,10 +76,10 @@ namespace Alexandria {
 		}
 
 		/// <summary>Get a palette containing the default EGA colors, with a color 16 that is transparent.</summary>
-		public static ReadOnlyList<Color> DefaultEgaColorsWithTransparent {
+		public static Codex<Color> DefaultEgaColorsWithTransparent {
 			get {
 				if (defaultEgaColorsWithTransparent == null) {
-					var list = new RichList<Color>(DefaultEgaColors);
+					var list = new Codex<Color>(DefaultEgaColors);
 					list.Add(Color.Transparent);
 					defaultEgaColorsWithTransparent = list;
 				}
@@ -87,7 +87,7 @@ namespace Alexandria {
 			}
 		}
 
-		public static ReadOnlyList<Color> DefaultBlendedEgaColors {
+		public static Codex<Color> DefaultBlendedEgaColors {
 			get { return defaultBlendedEgaColors ?? (defaultBlendedEgaColors = BlendPalette(DefaultEgaColors)); }
 		}
 
@@ -177,7 +177,7 @@ namespace Alexandria {
 		/// <summary>Create a blended palette, which blends colors from the perspective of either A and B or B and A, but unevenly (unless if <paramref name="blend"/> is <c>0.5</c>). The first colour has <paramref name="blend"/> influence on the result; the second colour has (1 - <paramref name="blend"/>) influence. <see cref="BlendColorIndex"/> and <see cref="BlendColorIndex16"/> can be used to create proper indices.</summary>
 		/// <param name="original"></param>
 		/// <returns></returns>
-		public static RichList<Color> BlendPalette(IList<Color> original, double blend = 2.0 / 3.0) {
+		public static Codex<Color> BlendPalette(IList<Color> original, double blend = 2.0 / 3.0) {
 			int count = original.Count;
 			var colors = new Color[count * count];
 
@@ -194,7 +194,7 @@ namespace Alexandria {
 				}
 			}
 
-			return new RichList<Color>(colors);
+			return new Codex<Color>(colors);
 		}
 
 		/// <summary>

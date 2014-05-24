@@ -33,13 +33,13 @@ namespace Alexandria.Engines.DarkSouls {
 
 		#region Properties
 
-		public ReadOnlyList<DSModelBone> Bones { get; private set; }
+		public Codex<DSModelBone> Bones { get; private set; }
 
 		public DSModelMaterial Material { get { return Model.Materials[MaterialIndex]; } }
 
 		public int MaterialIndex { get; private set; }
 
-		public ReadOnlyList<DSModelPart> Parts { get; private set; }
+		public Codex<DSModelPart> Parts { get; private set; }
 
 		public int VertexCount { get; private set; }
 
@@ -76,7 +76,7 @@ namespace Alexandria.Engines.DarkSouls {
 			long reset = reader.BaseStream.Position;
 
 			reader.BaseStream.Position = boneIndicesOffset;
-			var bones = new RichList<DSModelBone>();
+			var bones = new Codex<DSModelBone>();
 			Bones = bones;
 			for (int i = 0; i < boneCount; i++)
 				bones.Add(model.Bones[reader.ReadInt32()]);
@@ -98,7 +98,7 @@ namespace Alexandria.Engines.DarkSouls {
 		BinaryReader CreateVertexDataReader() { return BigEndianBinaryReader.Create(Model.ByteOrder, new MemoryStream(VertexData, false)); }
 
 		internal void BuildModel(Glare.Graphics.Rendering.ModelBuilder builder) {
-			ReadOnlyList<DSModelVertexChannel> channels = Model.VertexDeclarations[VertexDeclarationIndex].Channels;
+			Codex<DSModelVertexChannel> channels = Model.VertexDeclarations[VertexDeclarationIndex].Channels;
 			int vertexSize = VertexSize;
 
 			using (BinaryReader reader = CreateVertexDataReader()) {
@@ -150,7 +150,7 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 
 		internal void ReadParts(BinaryReader reader, int dataOffset) {
-			var parts = new RichList<DSModelPart>();
+			var parts = new Codex<DSModelPart>();
 			Parts = parts;
 			for (int index = 0; index < PartCount; index++)
 				parts.Add(new DSModelPart(this, index, reader, dataOffset));

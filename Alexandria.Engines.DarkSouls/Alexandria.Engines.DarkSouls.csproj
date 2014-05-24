@@ -82,6 +82,7 @@
     <Compile Include="DSModelVertexDeclaration.cs" />
     <Compile Include="DSModelBoneUnknown.cs" />
     <Compile Include="DSPlatform.cs" />
+    <Compile Include="Effect.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="FSSL.cs" />
     <Compile Include="MCG.cs" />
@@ -141,6 +142,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="State.cs" />
     <Compile Include="StringArchive.cs" />
     <Compile Include="TableArchive.cs" />
     <Compile Include="ParameterTables\Weapon.cs" />
@@ -177,9 +179,17 @@
     <Compile Include="ParameterTables\Throw.cs" />
     <None Include="Resources\dvdbnd0.filelist" />
     <None Include="Resources\dvdbnd1.filelist" />
+    <None Include="Resources\Translations.tsv.gz" />
+    <None Include="Resources\Translations.zip" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Names_AtkParam_Npc.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Names_AtkParam_Npc1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Translations.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

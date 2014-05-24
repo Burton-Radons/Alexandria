@@ -107,7 +107,7 @@
       <DependentUpon>Frequency.tt</DependentUpon>
     </Compile>
     <Compile Include="Frustum.cs" />
-    <Compile Include="Framework\RichList.cs" />
+    <Compile Include="Framework\Codex.cs" />
     <Compile Include="Framework\Bidictionary.cs" />
     <Compile Include="Framework\BigEndianBinaryReader.cs" />
     <Compile Include="Internal\Extensions.cs" />

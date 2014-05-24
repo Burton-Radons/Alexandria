@@ -15,12 +15,12 @@ using System.Reflection;
 namespace Glare.Assets {
 	public abstract class Asset : INotifyPropertyChanged, INotifyPropertyChanging {
 		AssetFormat assetFormat;
-		readonly RichList<Asset> children = new RichList<Asset>();
+		readonly Codex<Asset> children = new Codex<Asset>();
 		bool isModified;
 		bool isReadOnly;
 		readonly AssetManager manager;
 		Asset parent;
-		RichList<AssetLoadError> loadErrors;
+		Codex<AssetLoadError> loadErrors;
 		UnknownList unknowns;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -42,7 +42,7 @@ namespace Glare.Assets {
 		}
 
 		[Browsable(false)]
-		public ReadOnlyList<Asset> Children { get { return children; } }
+		public ReadOnlyCodex<Asset> Children { get { return children; } }
 
 		[Browsable(false)]
 		public virtual string Description {
@@ -92,7 +92,7 @@ namespace Glare.Assets {
 
 		/// <summary>Get a collection of errors that were recorded while trying to load this <see cref="Asset"/>, or <c>null</c> if this <see cref="Asset"/> hasn't been loaded.</summary>
 		[Browsable(false)]
-		public RichList<AssetLoadError> LoadErrors {
+		public Codex<AssetLoadError> LoadErrors {
 			get { return loadErrors; }
 			internal set { SetProperty(ref loadErrors, ref value, LoadErrorsProperty); }
 		}

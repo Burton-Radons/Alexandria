@@ -33,7 +33,10 @@ namespace Alexandria.Engines.DarkSouls {
 		public const string PackageMagicBND3 = "BND3";
 		public const string PackageMagicBND4 = "BND4";
 
-		internal readonly RichList<ArchiveRecord> records = new RichList<ArchiveRecord>();
+		internal readonly Codex<ArchiveRecord> records = new Codex<ArchiveRecord>();
+
+		readonly Dictionary<string, ArchiveRecord> RecordsByPath = new Dictionary<string, ArchiveRecord>();
+		readonly Dictionary<int, ArchiveRecord> RecordsById = new Dictionary<int, ArchiveRecord>();
 
 		public Encoding Encoding { get { return IsBigEndian ? Encoding.BigEndianUnicode : Encoding.Unicode; } }
 		public static readonly Encoding ShiftJis = Encoding.GetEncoding("shift-jis");
@@ -57,7 +60,7 @@ namespace Alexandria.Engines.DarkSouls {
 
 		internal static readonly Dictionary<int, string> KnownFiles = new Dictionary<int, string>();
 
-		public ReadOnlyList<ArchiveRecord> Records { get { return records; } }
+		public ReadOnlyCodex<ArchiveRecord> Records { get { return records; } }
 
 		public ArchiveVariant Variant { get; private set; }
 
@@ -223,21 +226,15 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 
 			SortChildrenRecursively();
+			foreach (var record in Records) {
+				RecordsById[record.Id] = record;
+				RecordsByPath[record.PathName] = record;
+			}
 		}
 
-		public ArchiveRecord FindRecordById(int id) {
-			foreach (var record in records)
-				if (record.Id == id)
-					return record;
-			return null;
-		}
+		public ArchiveRecord FindRecordById(int id) { return RecordsById.TryGetValue(id); }
 
-		public ArchiveRecord FindRecordByPath(string path) {
-			foreach (var record in records)
-				if (record.PathName == path)
-					return record;
-			return null;
-		}
+		public ArchiveRecord FindRecordByPath(string path) { return RecordsByPath.TryGetValue(path); }
 
 		public static int HashFilename(string input) {
 			if (string.IsNullOrEmpty(input))

@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Glare.Assets {
@@ -18,31 +19,39 @@ namespace Glare.Assets {
 	}
 
 	public abstract class TableAsset<TRow> : TableAsset where TRow : TableRowAsset {
-		public List<PropertyInfo> BrowsableProperties {
+		public List<TableRowPropertyInfo> BrowsableProperties {
 			get {
-				var enumerator = (from p in Children[0].GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy) where IsPropertyBrowsable(p) select p).ToList();
-				PropertyTableRowOrderAttribute[] orders = GetType().GetCustomAttributes<PropertyTableRowOrderAttribute>(true);
-				List<KeyValuePair<int, PropertyInfo>> sortList = new List<KeyValuePair<int, PropertyInfo>>();
+				var type = Children[0].GetType();
+				var enumerator = (from p in type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy) where IsPropertyBrowsable(p) select p).ToList();
+				PropertyTableRowOrderAttribute[] orders = type.GetCustomAttributes<PropertyTableRowOrderAttribute>(true);
+				List<KeyValuePair<int, TableRowPropertyInfo>> sortList = new List<KeyValuePair<int, TableRowPropertyInfo>>();
 
 				foreach (PropertyInfo property in enumerator) {
-					var attribute = property.GetCustomAttribute<TableRowAttribute>(true);
+					var info = new TableRowPropertyInfo(property);
 					int order = -1;
 
-					if (attribute != null) {
-						order = attribute.SortOrder;
-						foreach (PropertyTableRowOrderAttribute orderAttribute in orders)
-							if (orderAttribute.Id == attribute.Id) {
-								order = orderAttribute.SortOrder;
-								break;
-							}
+					string matchName = null;
+
+					if(info.TableRowAttribute != null) {
+						matchName = info.Name; 
+						order = info.SortOrder;
 					}
 
-					sortList.Add(new KeyValuePair<int, PropertyInfo>(order, property));
+					if(matchName == null)
+						matchName = "@" + property.Name;
+
+					foreach (PropertyTableRowOrderAttribute orderAttribute in orders)
+						if (orderAttribute.Id == matchName) {
+							order = orderAttribute.SortOrder;
+							break;
+						}
+
+					sortList.Add(new KeyValuePair<int, TableRowPropertyInfo>(order, info));
 				}
 
 				sortList.Sort((a, b) => a.Key.CompareTo(b.Key));
 
-				List<PropertyInfo> list = new List<PropertyInfo>(sortList.Count);
+				List<TableRowPropertyInfo> list = new List<TableRowPropertyInfo>(sortList.Count);
 				foreach (var pair in sortList)
 					list.Add(pair.Value);
 
@@ -53,24 +62,24 @@ namespace Glare.Assets {
 		public string CommaSeparatedValues {
 			get {
 				StringBuilder builder = new StringBuilder();
-				List<PropertyInfo> properties = BrowsableProperties;
+				List<TableRowPropertyInfo> properties = BrowsableProperties;
 				bool first = true;
 
-				foreach (PropertyInfo property in properties) {
+				foreach (TableRowPropertyInfo property in properties) {
 					if (!first)
 						builder.Append(",");
 					first = false;
-					builder.AppendFormat("\"{0}\"", property.Name);
+					builder.AppendFormat("\"{0}\"", property.DisplayName);
 				}
 				builder.Append("\r\n");
 
 				foreach (TRow child in Children) {
 					first = true;
-					foreach (PropertyInfo property in properties) {
+					foreach (TableRowPropertyInfo property in properties) {
 						if (!first)
 							builder.Append(",");
 						first = false;
-						var value = property.GetValue(child, null);
+						var value = property.Property.GetValue(child, null);
 						builder.AppendFormat("\"{0}\"", (value ?? "").ToString().Replace("\"", "\"\"").Replace("\r\n", "\\n").Replace("\n", "\\n"));
 					}
 					builder.Append("\r\n");
@@ -105,16 +114,17 @@ namespace Glare.Assets {
 		public override Control Browse() {
 			var grid = new DoubleBufferedDataGridView() {
 				AutoGenerateColumns = false,
-				DataSource = Children,
-				AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells,
+				AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None,
 				AllowUserToResizeColumns = true,
 				AllowUserToOrderColumns = true,
 				AllowUserToResizeRows = true,
+				DataSource = Children,
+				ReadOnly = false,
 			};
 
 			TRow row = (TRow)Children[0];
-			List<PropertyInfo> properties = BrowsableProperties;
-			foreach (PropertyInfo property in properties) {
+			List<TableRowPropertyInfo> properties = BrowsableProperties;
+			foreach (TableRowPropertyInfo property in properties) {
 				Type propertyType = property.PropertyType;
 
 				DataGridViewColumn column;
@@ -127,14 +137,42 @@ namespace Glare.Assets {
 
 				column.Resizable = DataGridViewTriState.True;
 				column.DataPropertyName = property.Name;
-				column.HeaderText = property.Name;
+				column.HeaderText = property.DisplayName;
 				column.HeaderCell = new DataGridViewColumnHeaderCell() {
+					Style = new DataGridViewCellStyle() {
+						WrapMode = DataGridViewTriState.True,
+					},
+
+					ToolTipText = property.Name + "\n" + property.Description,
 					Value = column.HeaderText,
 				};
 				grid.Columns.Add(column);
 			}
 
-			grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+//			grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+			
+			new Thread(() => {
+				while (!grid.IsHandleCreated)
+					Thread.Yield();
+
+				foreach (DataGridViewAutoSizeColumnMode mode in new DataGridViewAutoSizeColumnMode[] { DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader, DataGridViewAutoSizeColumnMode.AllCellsExceptHeader }) {
+					foreach (DataGridViewColumn outsideColumn in grid.Columns) {
+						grid.Invoke((Action<DataGridViewColumn>)((column) => {
+							int totalSize = column.GetPreferredWidth(mode, false);
+							int headerSize = column.GetPreferredWidth(DataGridViewAutoSizeColumnMode.ColumnHeader, false);
+
+							if (headerSize > totalSize)
+								totalSize = (totalSize + headerSize) / 2;
+							column.Width = totalSize;
+						}), outsideColumn);
+						Thread.Sleep(20);
+					}
+					grid.Invoke((Action)(() => {
+						grid.AutoResizeColumnHeadersHeight();
+					}));
+				}
+			}).Start();
 			return grid;
 		}
 
@@ -152,9 +190,9 @@ namespace Glare.Assets {
 		}
 
 		class MyDataGridViewCheckBoxCell : DataGridViewCheckBoxCell {
-			readonly PropertyInfo Property;
+			readonly TableRowPropertyInfo Property;
 
-			public MyDataGridViewCheckBoxCell(PropertyInfo property) {
+			public MyDataGridViewCheckBoxCell(TableRowPropertyInfo property) {
 				Property = property;
 			}
 
@@ -200,9 +238,9 @@ namespace Glare.Assets {
 		}
 
 		class MyDataGridViewTextBoxCell : DataGridViewTextBoxCell {
-			readonly PropertyInfo Property;
+			readonly TableRowPropertyInfo Property;
 
-			public MyDataGridViewTextBoxCell(PropertyInfo property) {
+			public MyDataGridViewTextBoxCell(TableRowPropertyInfo property) {
 				Property = property;
 			}
 
@@ -212,24 +250,30 @@ namespace Glare.Assets {
 
 			protected override object GetValue(int rowIndex) {
 				var target = ((IList)DataGridView.DataSource)[rowIndex];
-				var result = Property.GetValue(target, null);
+				var result = Property.GetValue(target);
 				return result;
 			}
 
 			protected override bool SetValue(int rowIndex, object value) {
 				var target = ((IList)DataGridView.DataSource)[rowIndex];
-				Property.SetValue(target, value, null);
+				Property.SetValue(target, value);
 				return true;
 			}
 		}
 	}
 
 	public class TableRowPropertyInfo {
-		readonly DefaultValueAttribute DefaultValueAttribute;
 		object DefaultValueValue;
-		readonly DescriptionAttribute DescriptionAttribute;
-		readonly DisplayNameAttribute DisplayNameAttribute;
-		readonly TableRowAttribute TableRowAttribute;
+
+		#region Attributes
+
+		public DefaultValueAttribute DefaultValueAttribute { get; private set; }
+		public DescriptionAttribute DescriptionAttribute { get; private set; }
+		public DesignerAttribute DesignerAttribute { get; private set; }
+		public DisplayNameAttribute DisplayNameAttribute { get; private set; }
+		public TableRowAttribute TableRowAttribute { get; private set; }
+
+		#endregion Attributes
 
 		public object DefaultValue {
 			get {
@@ -245,26 +289,37 @@ namespace Glare.Assets {
 			}
 		}
 
+		public string Description { get { return DescriptionAttribute != null ? DescriptionAttribute.Description : null; } }
+
+		/// <summary>Get the <see cref="DisplayNameAttribute.DisplayName"/> from the <see cref="DisplayNameAttribute"/> if there is one; otherwise return <see cref="PropertyInfo.Name"/>.</summary>
 		public string DisplayName { get { return DisplayNameAttribute != null ? DisplayNameAttribute.DisplayName : Property.Name; } }
 
 		public bool HasDefaultValue { get { return DefaultValueAttribute != null; } }
+		public bool HasDescription { get { return DescriptionAttribute != null; } }
 		public bool HasDisplayName { get { return DisplayNameAttribute != null; } }
 		public bool HasId { get { return TableRowAttribute != null; } }
 		public bool HasMaximum { get { return TableRowAttribute != null; } }
 		public bool HasMinimum { get { return TableRowAttribute != null; } }
+		public bool HasSortOrder { get { return TableRowAttribute != null; } }
 
 		/// <summary>
 		/// Get the <see cref="TableRowAttribute.Id"/> property provided by the <see cref="TableRowAttribute"/> if one is applied to the <see cref="Property"/>; otherwise return <c>null</c>. The <see cref="TableRowAttribute.Id"/> property is a unique identifier used to match this property with a <see cref="PropertyTableRowOrderAttribute"/>.
 		/// </summary>
 		public string Id { get { return TableRowAttribute != null ? TableRowAttribute.Id : null; } }
 
+		/// <summary>Get te <see cref="TableRowAttribute.Maximum"/> property provided by the <see cref="TableRowAttribute"/> if one is applied to the <see cref="Property"/>; otherwise return <see cref="null"/>. The presence of a valid value for this property can be determined with <see cref="HasMaximum"/>. The <see cref="TableRowAttribute.Maximum"/> property is the maximum value for a scalar property.</summary>
 		public object Maximum { get { return TableRowAttribute != null ? TableRowAttribute.Maximum : null; } }
 
+		/// <summary>Get te <see cref="TableRowAttribute.Minimum"/> property provided by the <see cref="TableRowAttribute"/> if one is applied to the <see cref="Property"/>; otherwise return <see cref="null"/>. The presence of a valid value for this property can be determined with <see cref="HasMinimum"/>. The <see cref="TableRowAttribute.Minimum"/> property is the minimum value for a scalar property.</summary>
 		public object Minimum { get { return TableRowAttribute != null ? TableRowAttribute.Minimum : null; } }
+
+		public string Name { get { return Property.Name; } }
 
 		public PropertyInfo Property { get; private set; }
 
 		public Type PropertyType { get { return Property.PropertyType; } }
+
+		public int SortOrder { get { return TableRowAttribute != null ? TableRowAttribute.SortOrder : -1; } }
 
 		public TableRowPropertyInfo(PropertyInfo property) {
 			Property = property;
@@ -274,9 +329,18 @@ namespace Glare.Assets {
 			foreach (Attribute attribute in attributes) {
 				DefaultValueAttribute = DefaultValueAttribute ?? (attribute as DefaultValueAttribute);
 				DescriptionAttribute = DescriptionAttribute ?? (attribute as DescriptionAttribute);
+				DesignerAttribute = DesignerAttribute ?? (attribute as DesignerAttribute);
 				DisplayNameAttribute = DisplayNameAttribute ?? (attribute as DisplayNameAttribute);
 				TableRowAttribute = TableRowAttribute ?? (attribute as TableRowAttribute);
 			}
+		}
+
+		public object GetValue(object source, object[] index = null) { return Property.GetValue(source, index); }
+		public T GetValue<T>(object source, object[] index = null) { return (T)Property.GetValue(source, index); }
+		public T SetValue<T>(object source, T value, object[] index = null) { Property.SetValue(source, value, index); return value; }
+
+		public override string ToString() {
+			return string.Format("{0}({1}.{2})", GetType().Name, Property.DeclaringType.Name, Property.Name);
 		}
 	}
 

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Alexandria {
 	public abstract class Engine : PluginFormatAsset {
-		readonly RichList<Game> GamesMutable = new RichList<Game>();
+		readonly Codex<Game> GamesMutable = new Codex<Game>();
 
 		public override IEnumerable<AssetFormat> AllFormats {
 			get {
@@ -25,7 +25,7 @@ namespace Alexandria {
 		}
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public ReadOnlyList<Game> Games { get { return GamesMutable; } }
+		public ReadOnlyCodex<Game> Games { get { return GamesMutable; } }
 
 		public Engine(AssetPlugin plugin)
 			: base(plugin) {

@@ -24,11 +24,11 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		public long CodeAddressE { get; private set; }
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		RichList<ScriptInstruction> InstructionsMutable = new RichList<ScriptInstruction>();
+		Codex<ScriptInstruction> InstructionsMutable = new Codex<ScriptInstruction>();
 
 		public string ExceptionEnd { get; private set; }
 
-		public ReadOnlyList<ScriptInstruction> Instructions { get { return InstructionsMutable; } }
+		public ReadOnlyCodex<ScriptInstruction> Instructions { get { return InstructionsMutable; } }
 
 		string CodeAddressName(long address) {
 			if (address == CodeAddressA)

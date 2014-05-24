@@ -98,9 +98,9 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			ScriptOpcode.Break,
 		};
 
-		readonly protected RichList<ScriptOperand> OperandsMutable = new RichList<ScriptOperand>();
-		internal readonly RichList<ScriptOperand> TargetedByTokensMutable = new RichList<ScriptOperand>();
-		internal readonly RichList<ScriptInstruction> TargetedByInstructionsMutable = new RichList<ScriptInstruction>();
+		readonly protected Codex<ScriptOperand> OperandsMutable = new Codex<ScriptOperand>();
+		internal readonly Codex<ScriptOperand> TargetedByTokensMutable = new Codex<ScriptOperand>();
+		internal readonly Codex<ScriptInstruction> TargetedByInstructionsMutable = new Codex<ScriptInstruction>();
 
 		/// <summary>Get the address of the <see cref="ScriptInstruction"/>. In the file, this is <see cref="Script.AddressOffset"/> (<c>0x7FFE</c>) too large.</summary>
 		public long Address { get; protected set; }
@@ -118,13 +118,13 @@ namespace Alexandria.Engines.GoldBox.Resources {
 
 		public ScriptOpcode Opcode { get; protected set; }
 
-		public ReadOnlyList<ScriptOperand> Operands { get { return OperandsMutable; } }
+		public Codex<ScriptOperand> Operands { get { return OperandsMutable; } }
 
 		public Script Script { get; protected set; }
 
-		public ReadOnlyList<ScriptInstruction> TargetedByInstructions { get { return TargetedByInstructionsMutable; } }
+		public Codex<ScriptInstruction> TargetedByInstructions { get { return TargetedByInstructionsMutable; } }
 
-		public ReadOnlyList<ScriptOperand> TargetedByTokens { get { return TargetedByTokensMutable; } }
+		public Codex<ScriptOperand> TargetedByTokens { get { return TargetedByTokensMutable; } }
 
 		protected ScriptInstruction(Script script, long offset, ScriptOpcode opcode) {
 			Script = script;

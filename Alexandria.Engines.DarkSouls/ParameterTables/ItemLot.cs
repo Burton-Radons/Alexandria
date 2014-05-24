@@ -21,7 +21,7 @@ namespace Alexandria.Engines.DarkSouls {
 			Int32 lotItemId01, lotItemId02, lotItemId03, lotItemId04, lotItemId05, lotItemId06, lotItemId07, lotItemId08, getItemFlagId01, getItemFlagId02, getItemFlagId03, getItemFlagId04, getItemFlagId05, getItemFlagId06, getItemFlagId07, getItemFlagId08, getItemFlagId, cumulateNumFlagId;
 			RewardItemCategory lotItemCategory01, lotItemCategory02, lotItemCategory03, lotItemCategory04, lotItemCategory05, lotItemCategory06, lotItemCategory07, lotItemCategory08;
 			UInt16 lotItemBasePoint01, lotItemBasePoint02, lotItemBasePoint03, lotItemBasePoint04, lotItemBasePoint05, lotItemBasePoint06, lotItemBasePoint07, lotItemBasePoint08, cumulateLotPoint01, cumulateLotPoint02, cumulateLotPoint03, cumulateLotPoint04, cumulateLotPoint05, cumulateLotPoint06, cumulateLotPoint07, cumulateLotPoint08;
-			Byte cumulateNumMax, lotItem_Rarity, lotItemNum01, lotItemNum02, lotItemNum03, lotItemNum04, lotItemNum05, lotItemNum06, lotItemNum07, lotItemNum08;
+			Byte cumulateNumMax, rarity, lotItemNum01, lotItemNum02, lotItemNum03, lotItemNum04, lotItemNum05, lotItemNum06, lotItemNum07, lotItemNum08;
 
 			public static readonly PropertyInfo
 				LotItemId01Property = GetProperty<ItemLot>("LotItemId01"),
@@ -67,7 +67,7 @@ namespace Alexandria.Engines.DarkSouls {
 				GetItemFlagIdProperty = GetProperty<ItemLot>("GetItemFlagId"),
 				CumulateNumFlagIdProperty = GetProperty<ItemLot>("CumulateNumFlagId"),
 				CumulateNumMaxProperty = GetProperty<ItemLot>("CumulateNumMax"),
-				LotItem_RarityProperty = GetProperty<ItemLot>("LotItem_Rarity"),
+				RarityProperty = GetProperty<ItemLot>("Rarity"),
 				LotItemNum01Property = GetProperty<ItemLot>("LotItemNum01"),
 				LotItemNum02Property = GetProperty<ItemLot>("LotItemNum02"),
 				LotItemNum03Property = GetProperty<ItemLot>("LotItemNum03"),
@@ -892,12 +892,12 @@ namespace Alexandria.Engines.DarkSouls {
 			[DisplayName("Rarity setting")]
 			[Description("I will be identified as such the treasure chest , valuable items whether on how much")]
 			[DefaultValue((Byte)0)]
-			public Byte LotItem_Rarity {
-				get { return lotItem_Rarity; }
+			public Byte Rarity {
+				get { return rarity; }
 				set {
 					if ((double)value < 0 || (double)value > 10)
-						throw new ArgumentOutOfRangeException("value", "value of " + value + " is out of range 0 to 10 for LotItem_Rarity.");
-					SetProperty(ref lotItem_Rarity, ref value, LotItem_RarityProperty);
+						throw new ArgumentOutOfRangeException("value", "value of " + value + " is out of range 0 to 10 for " + RarityProperty.Name + ".");
+					SetProperty(ref rarity, ref value, RarityProperty);
 				}
 			}
 
@@ -1316,7 +1316,7 @@ namespace Alexandria.Engines.DarkSouls {
 				GetItemFlagId = reader.ReadInt32();
 				CumulateNumFlagId = reader.ReadInt32();
 				CumulateNumMax = reader.ReadByte();
-				LotItem_Rarity = reader.ReadByte();
+				Rarity = reader.ReadByte();
 				LotItemNum01 = reader.ReadByte();
 				LotItemNum02 = reader.ReadByte();
 				LotItemNum03 = reader.ReadByte();
@@ -1374,7 +1374,7 @@ namespace Alexandria.Engines.DarkSouls {
 				GetItemFlagId = (Int32)(-1);
 				CumulateNumFlagId = (Int32)(-1);
 				CumulateNumMax = (Byte)0;
-				LotItem_Rarity = (Byte)0;
+				Rarity = (Byte)0;
 				LotItemNum01 = (Byte)0;
 				LotItemNum02 = (Byte)0;
 				LotItemNum03 = (Byte)0;
@@ -1445,7 +1445,7 @@ namespace Alexandria.Engines.DarkSouls {
 				writer.Write(GetItemFlagId);
 				writer.Write(CumulateNumFlagId);
 				writer.Write(CumulateNumMax);
-				writer.Write(LotItem_Rarity);
+				writer.Write(Rarity);
 				writer.Write(LotItemNum01);
 				writer.Write(LotItemNum02);
 				writer.Write(LotItemNum03);

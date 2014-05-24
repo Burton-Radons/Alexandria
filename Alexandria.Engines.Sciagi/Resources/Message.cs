@@ -11,7 +11,7 @@ using Glare.Assets.Controls;
 
 namespace Alexandria.Engines.Sciagi.Resources {
 	public class Message : ResourceData {
-		public ReadOnlyList<MessageItem> Items { get; private set; }
+		public ReadOnlyCodex<MessageItem> Items { get; private set; }
 
 		public int Version { get; private set; }
 
@@ -22,7 +22,7 @@ namespace Alexandria.Engines.Sciagi.Resources {
 
 				int fileLength;
 				int count;
-				RichList<MessageItem> items = new RichList<MessageItem>();
+				Codex<MessageItem> items = new Codex<MessageItem>();
 				Items = items;
 
 				switch (Version) {

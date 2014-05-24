@@ -7,17 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Glare.Framework {
-	/// <summary>A <see cref="List&lt;&gt;"/> that also acts as a <see cref="Dictionary&lt;,&gt;"/> of <typeparamref name="TValue"/> elements, from which it derives a <typeparamref name="TKey"/>. One use of this is for a list of objects that also have unique name properties. It's also observable and <see cref="ReadOnlyListDictionary&lt;TKey,TValue&gt;"/> can be implicitly casted to.</summary>
+	/// <summary>A <see cref="List&lt;&gt;"/> that also acts as a <see cref="Dictionary&lt;,&gt;"/> of <typeparamref name="TValue"/> elements, from which it derives a <typeparamref name="TKey"/>. One use of this is for a list of objects that also have unique name properties. It's also observable and <see cref="ReadOnlyCodexDictionary&lt;TKey,TValue&gt;"/> can be implicitly casted to.</summary>
 	/// <typeparam name="TKey"></typeparam>
 	/// <typeparam name="TValue"></typeparam>
 	[DebuggerDisplay("Count = {Count}")]
 	[DebuggerTypeProxy(typeof(ListDebugView<>))]
 	public class ListDictionary<TKey, TValue> : ObservableCollection<TValue> {
-		ReadOnlyListDictionary<TKey, TValue> readOnlyView;
+		ReadOnlyCodexDictionary<TKey, TValue> readOnlyView;
 
 		readonly Dictionary<TKey, TValue> Dictionary = new Dictionary<TKey, TValue>();
 
-		public ReadOnlyListDictionary<TKey, TValue> ReadOnlyView { get { return readOnlyView ?? (readOnlyView = new ReadOnlyListDictionary<TKey, TValue>(this)); } }
+		public ReadOnlyCodexDictionary<TKey, TValue> ReadOnlyView { get { return readOnlyView ?? (readOnlyView = new ReadOnlyCodexDictionary<TKey, TValue>(this)); } }
 
 		public delegate TKey GetKeyCallback(TValue value);
 
@@ -71,19 +71,19 @@ namespace Glare.Framework {
 			base.SetItem(index, item);
 		}
 
-		public static implicit operator ReadOnlyListDictionary<TKey, TValue>(ListDictionary<TKey, TValue> value) { return value.ReadOnlyView; }
+		public static implicit operator ReadOnlyCodexDictionary<TKey, TValue>(ListDictionary<TKey, TValue> value) { return value.ReadOnlyView; }
 	}
 
 	/// <summary>A read-only view of a <see cref="ListDictionary&lt;TKey, TValue&gt;"/>.</summary>
 	/// <typeparam name="TKey"></typeparam>
 	/// <typeparam name="TValue"></typeparam>
-	public class ReadOnlyListDictionary<TKey, TValue> : ReadOnlyObservableCollection<TValue> {
+	public class ReadOnlyCodexDictionary<TKey, TValue> : ReadOnlyObservableCollection<TValue> {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		protected ListDictionary<TKey, TValue> List { get; private set; }
 
 		public TValue this[TKey key] { get { return List[key]; } }
 
-		public ReadOnlyListDictionary(ListDictionary<TKey, TValue> list) : base(list) {
+		public ReadOnlyCodexDictionary(ListDictionary<TKey, TValue> list) : base(list) {
 			List = list;
 		}
 	}

@@ -135,7 +135,7 @@ namespace Alexandria.Engines.DarkSouls {
 			switch (table.Name) {
 				case TableRows.Event.TableName: return new TableRows.Event(table, index, loader, next);
 				case TableRows.Model.TableName: return new TableRows.Model(table, index, loader);
-				case TableRows.Parts.TableName: return new TableRows.Parts(table, index, loader, next);
+				case TableRows.Part.TableName: return new TableRows.Part(table, index, loader, next);
 				case TableRows.Point.TableName: return new TableRows.Point(table, index, loader);
 				default:
 					throw new NotImplementedException("Table row type " + table.Name + " is not implemented.");
@@ -150,18 +150,29 @@ namespace Alexandria.Engines.DarkSouls {
 	/// <summary>This contains the list of table row classes.</summary>
 	public abstract partial class TableRows {
 		/// <summary>"EVENT_PARAM_ST" in a MapStudio ".msb" file.</summary>
+		[PropertyTableRowOrder("@Name", 100100)]
 		public class Event : TableRow {
 			public const string TableName = "EVENT_PARAM_ST";
 			const int HeaderLength = 0x1C;
 
+			[Browsable(false)]
 			public override string DisplayName {
 				get {
 					return string.Format("'{0}', Type = {2}, Index = {3}{1}", Name, Unknowns.ToCommaPrefixedList(), Type, Index);
 				}
 			}
 
+			[TableRow(null, sortOrder: 100)]
+			public string TranslatedName { get { return Engine.GetTranslation(Name); } }
+
+			[TableRow(null, sortOrder: 25)]
 			public int Type { get; private set; }
+
+			[TableRow(null, sortOrder: 50)]
 			public int Index { get; private set; }
+
+			[TableRow(null, sortOrder: 100000)]
+			public string UnknownsString { get { return Unknowns.ToCommaSeparatedList(); } }
 
 			internal Event(Table table, int index, AssetLoader loader, int next)
 				: base(table, index) {
@@ -192,22 +203,26 @@ namespace Alexandria.Engines.DarkSouls {
 			public const string TableName = "MODEL_PARAM_ST";
 			const int HeaderLength = 0x20;
 
+			[Browsable(false)]
 			public override string DisplayName {
 				get {
 					return string.Format("'{0}', Type = {1}, Index = {2}, Path = '{4}'{3}", Name, Type, Index, Unknowns.ToCommaPrefixedList(), Path);
 				}
 			}
 
-			public int Type { get; private set; }
+			public ModelType Type { get; private set; }
 			public int Index { get; private set; }
 			public string Path { get; private set; }
+
+			[TableRow(null, sortOrder: 100000)]
+			public string UnknownsString { get { return Unknowns.ToCommaSeparatedList(); } }
 
 			internal Model(Table table, int index, AssetLoader loader)
 				: base(table, index) {
 				BinaryReader reader = loader.Reader;
 
 				loader.Expect(HeaderLength);
-				Type = reader.ReadInt32();
+				Type = (ModelType)reader.ReadInt32();
 				Index = reader.ReadInt32();
 
 				int contentSize = reader.ReadInt32(); // Size from start to end of Name
@@ -219,13 +234,37 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		public enum ModelType {
+			Mesh = 0,
+			Object = 1,
+			Character = 2,
+
+			/// <summary>Used for c0000.</summary>
+			Player = 4,
+
+			PhysicsMesh = 5,
+			NavigationMesh = 6,
+
+			/// <summary>Used in a <see cref="Part"/>.</summary>
+			NavigationMeshPart = 8,
+
+			/// <summary>Used with o0200, o0500.</summary>
+			Object2 = 9,
+
+			/// <summary>Used with c1000, c3270.</summary>
+			Character2 = 10,
+
+			PhysicsMesh2 = 11,
+		}
+
 		/// <summary>
 		/// "PARTS_PARAM_ST" in a MapStudio ".msb" file.
 		/// </summary>
-		public class Parts : TableRow {
+		public class Part : TableRow {
 			public const string TableName = "PARTS_PARAM_ST";
 			const int HeaderLength = 0x64;
 
+			[Browsable(false)]
 			public override string DisplayName {
 				get {
 					return string.Format("'{0}', Type = {1}, Index = {2}{3}{4}{7}, Path = '{5}'{6}", Name, Type, Index, Position != Vector3f.Zero ? ", Position = " + Position.ToShortString() : "", Scale != Vector3f.One ? ", Scale = " + Scale.ToShortString() : "", Path, Unknowns.ToCommaPrefixedList(), Rotation != Angle3.Zero ? ", Rotation = " + Rotation.ToShortString() : "");
@@ -237,15 +276,18 @@ namespace Alexandria.Engines.DarkSouls {
 			public Vector3f Position { get; private set; }
 			public Angle3 Rotation { get; private set; }
 			public Vector3f Scale { get; private set; }
-			public int Type { get; private set; }
+			public ModelType Type { get; private set; }
 
-			internal Parts(Table table, int index, AssetLoader loader, int next)
+			[TableRow(null, sortOrder: 100000)]
+			public string UnknownsString { get { return Unknowns.ToCommaSeparatedList(); } }
+
+			internal Part(Table table, int index, AssetLoader loader, int next)
 				: base(table, index) {
 				BinaryReader reader = loader.Reader;
 				long start = reader.BaseStream.Position;
 
 				loader.Expect(HeaderLength);
-				Type = reader.ReadInt32();
+				Type = (ModelType)reader.ReadInt32();
 				Unknowns.ReadInt32s(reader, 1);
 				Index = reader.ReadInt32();
 				int pathOffset = reader.ReadInt32();
@@ -274,19 +316,32 @@ namespace Alexandria.Engines.DarkSouls {
 		/// <summary>
 		/// "POINT_PARAM_ST" in a MapStudio ".msb" file.
 		/// </summary>
+		[PropertyTableRowOrder("@Name", 0)]
 		public class Point : TableRow {
 			public const string TableName = "POINT_PARAM_ST";
 			const int HeaderLength = 0x3C;
 
+			[Browsable(false)]
 			public override string DisplayName {
 				get {
 					return string.Format("{0}, Subtype = {1}, Position = {3}, Rotation = {4}, {2}", Name, Subtype, Unknowns.ToCommaPrefixedList(), Position, Rotation);
 				}
 			}
 
+			[TableRow(null, sortOrder: 2)]
 			public int Subtype { get; private set; }
+
+			[TableRow(null, sortOrder: 3)]
 			public Vector3f Position { get; private set; }
+
+			[TableRow(null, sortOrder: 4)]
 			public Angle3 Rotation { get; private set; }
+
+			[TableRow(null, sortOrder: 1)]
+			public string TranslatedName { get { return Engine.GetTranslation(Name); } }
+
+			[TableRow(null, sortOrder: 5)]
+			public string UnknownsString { get { return Unknowns.ToCommaSeparatedList(); } }
 
 			internal Point(Table table, int index, AssetLoader loader)
 				: base(table, index) {
