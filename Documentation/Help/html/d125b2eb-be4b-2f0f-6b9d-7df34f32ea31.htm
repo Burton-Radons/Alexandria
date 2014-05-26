@@ -1,0 +1,1061 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>ObjectInfo Members</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="ObjectInfo class" />
+    <meta name="System.Keywords" content="ObjectInfo class, all members" />
+    <meta name="System.Keywords" content="Alexandria.Engines.DarkSouls.ObjectInfo class" />
+    <meta name="Microsoft.Help.Id" content="AllMembers.T:Alexandria.Engines.DarkSouls.TableRows.ObjectInfo" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Alexandria.Engines.DarkSouls" />
+    <meta name="file" content="d125b2eb-be4b-2f0f-6b9d-7df34f32ea31" />
+    <meta name="guid" content="d125b2eb-be4b-2f0f-6b9d-7df34f32ea31" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                  <span>    </span>
+                  <span id="memberOptionsDropdown" class="filter" tabindex="0">
+                    <img id="memberOptionsDropdownImage" src="../icons/dropdown.gif" /> <label id="memberOptionsMenuAllLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Show All </nobr></label><label id="memberOptionsMenuMultipleLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuProtectedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuInheritedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <div id="memberOptionsMenu">
+              <input id="ProtectedCheckbox" type="checkbox" data="Protected" value="on" onClick="SetMemberOptions(this, 'vis')" />
+              <label class="checkboxLabel" for="ProtectedCheckbox">Include Protected Members</label>
+              <br />
+              <input id="InheritedCheckbox" type="checkbox" data="Inherited" value="on" onClick="SetMemberOptions(this, 'decl')" />
+              <label class="checkboxLabel" for="InheritedCheckbox">Include Inherited Members</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">ObjectInfo Members</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <a href="3cc82d1e-b102-fab6-5262-a686e19b824a.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ObjectInfo Class</a> <a href="#methodTableToggle" onclick="OpenSection(methodTableToggle)">Methods</a> <a href="#fieldTableToggle" onclick="OpenSection(fieldTableToggle)">Fields</a> <a href="#propertyTableToggle" onclick="OpenSection(propertyTableToggle)">Properties</a> <a href="#eventTableToggle" onclick="OpenSection(eventTableToggle)">Events</a> <a href="#seeAlsoToggle" onclick="OpenSection(seeAlsoToggle)">See Also</a> <span id="headfeedbackarea" class="feedbackhead"><a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a></span></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <p />
+        <p>The <a href="3cc82d1e-b102-fab6-5262-a686e19b824a.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ObjectInfo</a> type exposes the following members.</p>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(methodTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(methodTableToggle, event)" tabindex="0">
+            <img id="methodTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Methods</span>
+        </h1>
+        <div id="methodTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="da6155d9-b2d0-f20f-b9bd-b1520aca267c.htm">AddChild</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="5f2674ad-d0f6-d097-0130-211244f92b8d.htm">Browse</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="5fb8ab6e-dc3c-3a6a-d1dc-8f489e475fd1.htm">BrowseContents</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="57a794f9-bee1-b2dd-6b93-faf21b9452d1.htm">CreateBarPanel</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/bsc2ak47" target="_blank">Equals</a>
+              </td>
+              <td>
+                <div class="summary">Determines whether the specified <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a> is equal to the current <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="9c2cbbc1-654d-a940-4a71-f64607a1268e.htm">FillContextMenu</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/4k87zsw7" target="_blank">Finalize</a>
+              </td>
+              <td>
+                <div class="summary">Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="4b8e113c-a078-fd49-2cf3-9d678e137e0c.htm">GetBitProperty</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="e7c1e7cd-76b4-f432-1d1e-5b076f06eeff.htm">GetBoolProperty</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="98c598f7-2191-680d-f8bd-11b91ce73c1a.htm">GetContextMenu</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/zdee4b3y" target="_blank">GetHashCode</a>
+              </td>
+              <td>
+                <div class="summary">Serves as a hash function for a particular type. </div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="ee984d58-e605-48ca-3b31-64c2a438e4a2.htm">GetLocalisedString</a>
+              </td>
+              <td>
+                <div class="summary">Get a localised string using the <a href="fcaed245-fde8-bb12-ffce-53a49302bc16.htm">Id</a> value as the index.</div> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/dfwy45w9" target="_blank">GetType</a>
+              </td>
+              <td>
+                <div class="summary">Gets the <a href="http://msdn2.microsoft.com/en-us/library/42892f65" target="_blank">Type</a> of the current instance.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="002f1453-6ab8-88eb-01ae-2c12dc56ec75.htm">IsBrowsable</a>
+              </td>
+              <td> (Inherited from <a href="a3c8dbd3-f1bc-0898-edc1-ceef663621e8.htm">TableRowAsset</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/57ctke0a" target="_blank">MemberwiseClone</a>
+              </td>
+              <td>
+                <div class="summary">Creates a shallow copy of the current <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="436dd4c4-a7a4-3919-875d-e576a607bb35.htm">MoveIntoPath(String)</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="6dd73e42-7dfd-262d-6138-17744b69913b.htm">MoveIntoPath(<span class="languageSpecificText"><span class="cpp">array&lt;</span></span>String<span class="languageSpecificText"><span class="cpp">&gt;</span><span class="cs">[]</span><span class="vb">()</span><span class="nu">[]</span><span class="fs">[]</span></span>)</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="29dafc5d-2b3b-dda1-be5c-cd529615918d.htm">OnPropertyChanged<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="fs">&lt;'</span><span class="nu">(</span></span>T<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="fs">&gt;</span><span class="nu">)</span></span></a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="c1441f91-b310-6d09-6b39-327b8908f6fb.htm">OnPropertyChanging<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="fs">&lt;'</span><span class="nu">(</span></span>T<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="fs">&gt;</span><span class="nu">)</span></span></a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="b30f3f6f-e41b-798e-049a-dd3cf5772f36.htm">SetBitProperty(Int32, Int32, Boolean, PropertyInfo)</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="7dc4ead2-52f8-ed26-3169-5f0bf2d0f8b2.htm">SetBitProperty(Int32, Int32, Int32, PropertyInfo)</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="1fa396b0-9326-62d9-8ae0-a599ea5b405e.htm">SetProperty<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="fs">&lt;'</span><span class="nu">(</span></span>T<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="fs">&gt;</span><span class="nu">)</span></span></a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="a2b4b347-60a3-ffb2-babf-a526a1c67f9f.htm">SortChildrenRecursively</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="460f3acd-3909-3385-8bac-1d3703861ea2.htm">ToString</a>
+              </td>
+              <td> (Inherited from <a href="0ef696d1-c910-d1cf-a233-e8246f988963.htm">TableRow</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="982199f4-8f73-3962-ffd2-6681125b9685.htm">Write</a>
+              </td>
+              <td> (Overrides <a href="1fac3a9f-0b4b-a27a-a6ef-05bb31eded9b.htm">ParameterTableRow<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Write(BinaryWriter)</a>.)</td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(fieldTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(fieldTableToggle, event)" tabindex="0">
+            <img id="fieldTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Fields</span>
+        </h1>
+        <div id="fieldTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="b5b875fb-1596-885f-bd0d-25efb906dfb3.htm">AnimBreakIdMaxProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protfield.gif" alt="Protected field" title="Protected field" />
+              </td>
+              <td>
+                <a href="c687a71e-cbcc-810a-a785-d68152db7a83.htm">BitFields</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="d9037884-24a4-d0ff-777d-eb5b893affa0.htm">BreakSfxIdProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="f775de00-59f2-6060-e578-996d2bef2df8.htm">DefaultLodParamIdProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="1c920f57-67b7-cb2e-4e4f-bf8c283e2786.htm">DefenseProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="b60da03f-1f38-6783-19b6-afb8e527892f.htm">ExtRefTexIdProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="b32f6cb2-d493-59a6-9251-e8a714bea298.htm">HpProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="5fbab3fb-550c-f3b2-b6cc-1e88a03bd29e.htm">IsAnimBreakProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="bc3b5d60-552e-2ff2-e80e-cead2fb03a2b.htm">IsAnimPauseOnRemoPlayProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="0031eaab-9370-c45e-6207-6d212f5e265e.htm">IsAttackBacklashProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="c4f65f2a-2cd9-1eb7-8a77-0824cd8ca4f7.htm">IsBreakByPlayerCollideProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="61f3c69a-6643-0ebc-2214-5fee3bc6d568.htm">IsCamHitProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="0bc87b8a-6cca-9402-e86a-da5ff460616a.htm">IsChrHitProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="b2cd8544-cb73-30d2-7069-c17e5573d757.htm">IsDamageNoHitProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="89b0e33a-a7a2-4866-e664-9293a6e779b9.htm">IsDisableBreakForFirstAppearProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="f702d5a2-05b8-8f69-3bd8-f5be3afeba73.htm">IsLadderProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="645f8216-2cf0-3b92-a7c4-d747264e6fb4.htm">IsMoveObjProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="512bad0f-395e-6655-57f7-69c8b350ea07.htm">IsPenetrationBulletHitProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="439f9331-d1ba-7f6f-8fba-bd63e187c226.htm">MaterialIdProperty</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="d5de2d4b-b60e-9a60-b15b-b842bb1bf305.htm">Pad_1Property</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="8e9da21e-5c83-a86b-a572-ef8b49ae11ce.htm">TableName</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(propertyTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(propertyTableToggle, event)" tabindex="0">
+            <img id="propertyTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Properties</span>
+        </h1>
+        <div id="propertyTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="8564807a-6a70-179e-d2d2-299043924743.htm">AnimBreakIdMax</a>
+              </td>
+              <td>
+                <div class="summary">Anime destruction ID maximum value</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="3428b2f6-dede-beb6-0726-a0d66ba26060.htm">AssetFormat</a>
+              </td>
+              <td>
+                <div class="summary">Get the <a href="3428b2f6-dede-beb6-0726-a0d66ba26060.htm">AssetFormat</a> that was used to load this asset, or <span class="code">null</span> if there was none.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="9dee50e3-5ff1-bb35-09fc-920cadde7d38.htm">BreakSfxId</a>
+              </td>
+              <td>
+                <div class="summary">SFXID at break</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="5b3d6484-3463-3eaf-764d-037b191b1811.htm">Children</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="20902ca3-1065-07cc-68b6-591a5a6100b4.htm">DefaultLodParamId</a>
+              </td>
+              <td>
+                <div class="summary">Default LOD Parham ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="0973e86b-aa5b-1eef-0993-98eadaace4ca.htm">Defense</a>
+              </td>
+              <td>
+                <div class="summary">Phylactic power</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="acfc3477-e5fc-8d46-6f1e-5416edd1f14e.htm">Description</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="781ca3a3-061e-c0e6-e4c0-bc6173f11ad4.htm">DisplayName</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="ca59ebb1-2737-3d1b-7774-0016648c1c7b.htm">ExtRefTexId</a>
+              </td>
+              <td>
+                <div class="summary">External reference texture ID</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="6ec1a30c-f8a9-022e-76e9-00db6b9f7080.htm">GlareObject</a>
+              </td>
+              <td>
+                <div class="summary">Get this <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> as something that Glare's <a href="533e5be3-174a-883d-02b4-c0f5802d8195.htm">ResourceManager</a> might want to save/load, or return <span class="code">null</span> (the default).</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c02ba458-89c0-81b3-6b8d-0a9c5cf95e83.htm">HasUnknowns</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="220d8949-ee53-8cdc-11d9-ff26f52acffa.htm">Hp</a>
+              </td>
+              <td>
+                <div class="summary">HP</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="fcaed245-fde8-bb12-ffce-53a49302bc16.htm">Id</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="72ae58e4-2add-5f4f-d94a-3573f62b3863.htm">IsAnimBreak</a>
+              </td>
+              <td>
+                <div class="summary">Anime or destruction</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="856fb5c7-9d7b-6654-e290-aa005fa04cc4.htm">IsAnimPauseOnRemoPlay</a>
+              </td>
+              <td>
+                <div class="summary">You can stop the poly play animation</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="aabe6f94-ed91-24ac-70f6-154ebfb90b62.htm">IsAnyModified</a>
+              </td>
+              <td>
+                <div class="summary">Get whether this <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> or any children have been locked from modification.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c5245ff0-1af7-250d-63d5-4f3b3a50d13c.htm">IsAttackBacklash</a>
+              </td>
+              <td>
+                <div class="summary">Do play the attack</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="053c062d-125a-a00d-9397-8ee5501ab986.htm">IsBreakByPlayerCollide</a>
+              </td>
+              <td>
+                <div class="summary">Or corruption on player collision</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="d5ce88db-1283-c0f1-2772-22e4a0dbf5d3.htm">IsCamHit</a>
+              </td>
+              <td>
+                <div class="summary">Camera is hit</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="80ba3ef4-b013-5244-50d4-f6cf06bd70a3.htm">IsChrHit</a>
+              </td>
+              <td>
+                <div class="summary">Character or hit</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="fa3decd3-5d58-3b2e-99b9-32b16d760d1e.htm">IsDamageNoHit</a>
+              </td>
+              <td>
+                <div class="summary">Damage or does not hit</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="92b1cf02-4aaa-3e5c-31c3-700824672c69.htm">IsDisableBreakForFirstAppear</a>
+              </td>
+              <td>
+                <div class="summary">Initial appearance for breaking ban</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="3fd840bb-7a6d-8114-3924-b02ef6820781.htm">IsLadder</a>
+              </td>
+              <td>
+                <div class="summary">Or ladder</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="224cb3ff-3594-4064-45a7-1697cafdd6f3.htm">IsModified</a>
+              </td>
+              <td>
+                <div class="summary">Get whether the <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> is modified.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="1f762321-0fb8-a3e8-e201-1839b1e7ccae.htm">IsMoveObj</a>
+              </td>
+              <td>
+                <div class="summary">Or moving objects</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="693074c2-a272-af93-eaa1-f84b1a9dba98.htm">IsPenetrationBulletHit</a>
+              </td>
+              <td>
+                <div class="summary">Through bullet or hits</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4cf4c3fb-e0d9-a602-002a-fa86d03781a3.htm">IsReadOnly</a>
+              </td>
+              <td>
+                <div class="summary">Get whether the <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> cannot be modified in any way. The default is <span class="code">true</span>.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="7983cccd-80cd-68a0-de6e-b81f35f0b0e0.htm">LoadContext</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="adb444e7-8692-7687-199e-ab4ed8132f70.htm">LoadErrors</a>
+              </td>
+              <td>
+                <div class="summary">Get a collection of errors that were recorded while trying to load this <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>, or <span class="code">null</span> if this <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> hasn't been loaded.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="90b92f57-ed20-23db-81dc-1c902e30210d.htm">LoadName</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="3c9ae385-ec92-bae3-677a-4f7910eaf83b.htm">Manager</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="bfd5c090-fce8-a854-6e7d-f023df5c978f.htm">MaterialId</a>
+              </td>
+              <td>
+                <div class="summary">Material ID</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="87388d9f-54e3-9120-8094-019b4ae0690b.htm">Name</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="98fb8c23-540b-d01c-6755-8b5467df95f0.htm">Pad_1</a>
+              </td>
+              <td>
+                <div class="summary">Padding</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="93f6a36f-6351-c286-6396-ec0a36a497de.htm">Parent</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e25d03cf-3512-0925-1b7b-bf93a38b30ca.htm">PathName</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="533e5be3-174a-883d-02b4-c0f5802d8195.htm">ResourceManager</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protproperty.gif" alt="Protected property" title="Protected property" />
+              </td>
+              <td>
+                <a href="41ef3458-f636-da17-8376-11dd6dd389fe.htm">ResourcePrefix</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="fd45da7f-ec5f-9131-ced2-52ebb61f731b.htm">TranslatedName</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="17f07aef-edec-f24a-5e5a-b834841a6b63.htm">Unknowns</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(eventTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(eventTableToggle, event)" tabindex="0">
+            <img id="eventTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Events</span>
+        </h1>
+        <div id="eventTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubevent.gif" alt="Public event" title="Public event" />
+              </td>
+              <td>
+                <a href="b168ffe6-cd3d-74be-2f03-61a7e4557cd4.htm">PropertyChanged</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubevent.gif" alt="Public event" title="Public event" />
+              </td>
+              <td>
+                <a href="33b5766d-53b0-515a-05d6-eb0a03b4e832.htm">PropertyChanging</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(seeAlsoToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(seeAlsoToggle, event)" tabindex="0">
+            <img id="seeAlsoToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />See Also</span>
+        </h1>
+        <div id="seeAlsoSection" class="section" name="collapseableSection" style="">
+          <div class="seeAlsoStyle">
+            <a href="3cc82d1e-b102-fab6-5262-a686e19b824a.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ObjectInfo Class</a>
+          </div>
+          <div class="seeAlsoStyle">
+            <a href="e6ff68b6-b478-ad52-a869-3c0dc90b289d.htm">Alexandria.Engines.DarkSouls Namespace</a>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

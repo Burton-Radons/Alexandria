@@ -1,0 +1,584 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>ModelBuilder Members</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="ModelBuilder class" />
+    <meta name="System.Keywords" content="ModelBuilder class, all members" />
+    <meta name="System.Keywords" content="Glare.Graphics.Rendering.ModelBuilder class" />
+    <meta name="Microsoft.Help.Id" content="AllMembers.T:Glare.Graphics.Rendering.ModelBuilder" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Glare.Graphics.Rendering" />
+    <meta name="file" content="0e130f18-cdea-6e42-c5c3-1461a7c3df87" />
+    <meta name="guid" content="0e130f18-cdea-6e42-c5c3-1461a7c3df87" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                  <span>    </span>
+                  <span id="memberOptionsDropdown" class="filter" tabindex="0">
+                    <img id="memberOptionsDropdownImage" src="../icons/dropdown.gif" /> <label id="memberOptionsMenuAllLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Show All </nobr></label><label id="memberOptionsMenuMultipleLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuProtectedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuInheritedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <div id="memberOptionsMenu">
+              <input id="ProtectedCheckbox" type="checkbox" data="Protected" value="on" onClick="SetMemberOptions(this, 'vis')" />
+              <label class="checkboxLabel" for="ProtectedCheckbox">Include Protected Members</label>
+              <br />
+              <input id="InheritedCheckbox" type="checkbox" data="Inherited" value="on" onClick="SetMemberOptions(this, 'decl')" />
+              <label class="checkboxLabel" for="InheritedCheckbox">Include Inherited Members</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">ModelBuilder Members</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <a href="ca0124dd-6eb2-1fd5-0590-172b89c0fd7d.htm">ModelBuilder Class</a> <a href="#constructorTableToggle" onclick="OpenSection(constructorTableToggle)">Constructors</a> <a href="#methodTableToggle" onclick="OpenSection(methodTableToggle)">Methods</a> <a href="#propertyTableToggle" onclick="OpenSection(propertyTableToggle)">Properties</a> <a href="#seeAlsoToggle" onclick="OpenSection(seeAlsoToggle)">See Also</a> <span id="headfeedbackarea" class="feedbackhead"><a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a></span></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <p />
+        <p>The <a href="ca0124dd-6eb2-1fd5-0590-172b89c0fd7d.htm">ModelBuilder</a> type exposes the following members.</p>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(constructorTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(constructorTableToggle, event)" tabindex="0">
+            <img id="constructorTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Constructors</span>
+        </h1>
+        <div id="constructorTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="dd4b04fc-8b54-a3d2-b375-e3dba714a5d0.htm">ModelBuilder</a>
+              </td>
+              <td>
+                <div class="summary">Initializes a new instance of the <a href="ca0124dd-6eb2-1fd5-0590-172b89c0fd7d.htm">ModelBuilder</a> class</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(methodTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(methodTableToggle, event)" tabindex="0">
+            <img id="methodTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Methods</span>
+        </h1>
+        <div id="methodTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="7683bbb9-6c97-4631-79dd-f858deaf550a.htm">AddIndex(Int32)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="52bc885d-6f60-7ccd-0686-a185da3b7974.htm">AddIndex(UInt16)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="85ae8798-a2bc-9a18-499a-55473a8ba4b6.htm">AddIndices(IList<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="fs">&lt;'</span><span class="nu">(</span></span>Int32<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="fs">&gt;</span><span class="nu">)</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="e16fc286-f406-39f0-d5c8-4d5dd7ad3d08.htm">AddIndices(<span class="languageSpecificText"><span class="cpp">array&lt;</span></span>Int32<span class="languageSpecificText"><span class="cpp">&gt;</span><span class="cs">[]</span><span class="vb">()</span><span class="nu">[]</span><span class="fs">[]</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="62ab0818-bf4c-dc8b-07b3-b31edaeac24c.htm">AddIndices(Int32, Int32)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="9142da96-e026-b68e-9dd8-aa9c9058af78.htm">AddIndices(Int32, Int32, Int32)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="548020e8-0dc8-1419-4c7f-66a609c57f6d.htm">AddIndices(Int32, Int32, Int32, Int32)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="8e875348-2663-da6d-3ce7-37b9a8fae1f4.htm">AddIndices(Int32, Int32, Int32, Int32, Int32)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="70e76819-5b57-c19e-6d25-b95a6dce4a93.htm">AddIndices(Int32, Int32, Int32, Int32, Int32, Int32)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="92cd1662-3d68-ce47-dde8-df7ea27d7ad5.htm">AddVertex(Vector3)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="98ccecac-f811-471f-6939-3189cead6f53.htm">AddVertex(Vector3d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="c092c093-c44e-f5cc-47b3-5829d1bc8899.htm">AddVertex(Vector3f)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/bsc2ak47" target="_blank">Equals</a>
+              </td>
+              <td>
+                <div class="summary">Determines whether the specified <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a> is equal to the current <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/4k87zsw7" target="_blank">Finalize</a>
+              </td>
+              <td>
+                <div class="summary">Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="91ad1380-9672-7a99-3bf7-1038baca6d13.htm">Finish</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="70d19880-6b1a-c51d-1ff1-6f07d8e05678.htm">FinishMesh</a>
+              </td>
+              <td>
+                <div class="summary">Finish the current mesh, if any, and start a new one.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="6bb27ca9-49d9-6dc5-8aee-a7ca2a221587.htm">FinishPart</a>
+              </td>
+              <td>
+                <div class="summary">Finish a part of the current mesh of the model.</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/zdee4b3y" target="_blank">GetHashCode</a>
+              </td>
+              <td>
+                <div class="summary">Serves as a hash function for a particular type. </div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/dfwy45w9" target="_blank">GetType</a>
+              </td>
+              <td>
+                <div class="summary">Gets the <a href="http://msdn2.microsoft.com/en-us/library/42892f65" target="_blank">Type</a> of the current instance.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/57ctke0a" target="_blank">MemberwiseClone</a>
+              </td>
+              <td>
+                <div class="summary">Creates a shallow copy of the current <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="dace4f06-858b-2756-b098-6be950fd0d5c.htm">Procedural</a>
+              </td>
+              <td>
+                <div class="summary">Create a model using a simple procedural generator that uses a regular grid over the value range. This can cause too much detail in some areas and too little in others depending upon the shape.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="50bd8d25-87c8-52a0-af4e-41a53455912b.htm">SetBoneIndices</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="b5dba3af-8d5b-dfc5-bbdd-bce3b0b146ae.htm">SetBoneWeights</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="613f5adc-ee79-4b3a-8676-2004321bfa03.htm">SetColor(Vector3d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="a220d776-6a55-e939-dbb8-cfd95f8ed4dc.htm">SetColor(Vector3f)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="84744298-44b3-1d87-b0d2-659d5bc3e79a.htm">SetColor(Vector4rgba)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="e37dddf6-6925-9316-5315-f833569bf873.htm">SetNormal(Vector3d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="9ec8a8d3-1586-74a0-ea7a-febdfe2db7f2.htm">SetNormal(Vector3f)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="45bfe197-c923-23cd-3704-3c13dd6be446.htm">SetNormal(Double, Double, Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="b87ec7d2-c0b4-bba5-6a67-5c25fe4ed2e5.htm">SetTexel(Vector2d, Int32)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="1455d90a-bc58-51f7-2d9d-6174b13e88a0.htm">SetTexel(Vector2f, Int32)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="69ff26b6-aea9-35a1-aca7-50ac273bf50f.htm">StartLathe(ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>CurveGenerator)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="a4839f4d-d19c-d573-b9fb-0950b37cbbf1.htm">StartLathe(ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>LineGenerator)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="055ca436-7568-54a6-a6aa-5965033254d5.htm">StartProcedural(ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SimpleSurfaceGenerator)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="54b770a1-9ea7-1916-f2cf-ec21ce932094.htm">StartProcedural(ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SurfaceGenerator)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="357c065c-aafb-bbca-c0b8-600b99753109.htm">StartSphere<span class="languageSpecificText"><span class="cs">()</span><span class="cpp">()</span><span class="nu">()</span><span class="fs">()</span></span></a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="df41c24d-60dc-a0f7-2c96-7342242a5197.htm">StartSphere(Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="cf639767-a18c-c761-c377-784da0e028aa.htm">StartSphere(Sphere3d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="e1230112-7886-cc10-ef91-c66774905da3.htm">StartTorus</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/7bxwbwt2" target="_blank">ToString</a>
+              </td>
+              <td>
+                <div class="summary">Returns a string that represents the current object.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(propertyTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(propertyTableToggle, event)" tabindex="0">
+            <img id="propertyTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Properties</span>
+        </h1>
+        <div id="propertyTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c6631873-7bc1-c678-e25c-128d888c79b5.htm">IndexCount</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="ddf0839d-1dd1-76e8-c903-e2e17140b40b.htm">VertexCount</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(seeAlsoToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(seeAlsoToggle, event)" tabindex="0">
+            <img id="seeAlsoToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />See Also</span>
+        </h1>
+        <div id="seeAlsoSection" class="section" name="collapseableSection" style="">
+          <div class="seeAlsoStyle">
+            <a href="ca0124dd-6eb2-1fd5-0590-172b89c0fd7d.htm">ModelBuilder Class</a>
+          </div>
+          <div class="seeAlsoStyle">
+            <a href="a027b31b-0b8a-7509-272e-06589c09ca86.htm">Glare.Graphics.Rendering Namespace</a>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

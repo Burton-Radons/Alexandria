@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Charana {
+	/// <summary>
+	/// A hierarchy of <see cref="Node"/> objects.
+	/// </summary>
 	[Serializable]
 	public class Module {
 		public const int MinimumVersion = 1;

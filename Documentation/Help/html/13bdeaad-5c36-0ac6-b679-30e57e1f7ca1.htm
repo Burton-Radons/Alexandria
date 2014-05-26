@@ -1,0 +1,1119 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>Vector2 Members</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="Vector2 structure" />
+    <meta name="System.Keywords" content="Vector2 structure, all members" />
+    <meta name="System.Keywords" content="Glare.Vector2 structure" />
+    <meta name="Microsoft.Help.Id" content="AllMembers.T:Glare.Vector2" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Glare" />
+    <meta name="file" content="13bdeaad-5c36-0ac6-b679-30e57e1f7ca1" />
+    <meta name="guid" content="13bdeaad-5c36-0ac6-b679-30e57e1f7ca1" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                  <span>    </span>
+                  <span id="memberOptionsDropdown" class="filter" tabindex="0">
+                    <img id="memberOptionsDropdownImage" src="../icons/dropdown.gif" /> <label id="memberOptionsMenuAllLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Show All </nobr></label><label id="memberOptionsMenuMultipleLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuProtectedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuInheritedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <div id="memberOptionsMenu">
+              <input id="ProtectedCheckbox" type="checkbox" data="Protected" value="on" onClick="SetMemberOptions(this, 'vis')" />
+              <label class="checkboxLabel" for="ProtectedCheckbox">Include Protected Members</label>
+              <br />
+              <input id="InheritedCheckbox" type="checkbox" data="Inherited" value="on" onClick="SetMemberOptions(this, 'decl')" />
+              <label class="checkboxLabel" for="InheritedCheckbox">Include Inherited Members</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">Vector2 Members</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2 Structure</a> <a href="#constructorTableToggle" onclick="OpenSection(constructorTableToggle)">Constructors</a> <a href="#methodTableToggle" onclick="OpenSection(methodTableToggle)">Methods</a> <a href="#operatorTableToggle" onclick="OpenSection(operatorTableToggle)">Operators</a> <a href="#fieldTableToggle" onclick="OpenSection(fieldTableToggle)">Fields</a> <a href="#propertyTableToggle" onclick="OpenSection(propertyTableToggle)">Properties</a> <a href="#seeAlsoToggle" onclick="OpenSection(seeAlsoToggle)">See Also</a> <span id="headfeedbackarea" class="feedbackhead"><a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a></span></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <p />
+        <p>The <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2</a> type exposes the following members.</p>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(constructorTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(constructorTableToggle, event)" tabindex="0">
+            <img id="constructorTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Constructors</span>
+        </h1>
+        <div id="constructorTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="01a6a060-17cd-43bf-2645-8fd6e7d09869.htm">Vector2(Length)</a>
+              </td>
+              <td>
+                <div class="summary">Initialise a <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2</a> from a single scalar that is applied to all factors.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="b06092e7-f521-29cd-eb24-edb4bb9b8a3d.htm">Vector2(Length, Length)</a>
+              </td>
+              <td>
+                <div class="summary">Initialise a <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2</a> from the provided values for each factor.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="1018e860-2806-b326-330a-be9497a5ccb5.htm">Vector2(IList<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="fs">&lt;'</span><span class="nu">(</span></span>Length<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="fs">&gt;</span><span class="nu">)</span></span>, Int32)</a>
+              </td>
+              <td>
+                <div class="summary">Initialise a <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2</a> from a list.</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(methodTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(methodTableToggle, event)" tabindex="0">
+            <img id="methodTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Methods</span>
+        </h1>
+        <div id="methodTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="86588a3f-2100-c03e-2c24-ad7abd2f911b.htm">Centimetres(Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="7b49590b-f01f-32d5-5e28-dc4503130004.htm">Centimetres(Vector2d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="cb716942-c731-58f7-02a1-858f0e0bfbe5.htm">Centimetres(Vector2d<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="1c0df350-028b-80a9-0ea0-dd24a95bc7da.htm">Centimetres(Double, Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="48dec1b6-6214-6566-c1fd-a4c653b1d9ce.htm">Clamp(Vector2, Vector2)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="5b5d32c4-4814-8ddf-6199-aaad3b04436c.htm">Clamp(Vector2<span class="languageSpecificText"><span class="cpp">%</span></span>, Vector2<span class="languageSpecificText"><span class="cpp">%</span></span>, Vector2<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="fc720a26-9ea4-c7c2-9e60-560f2a054e04.htm">Distance(Vector2)</a>
+              </td>
+              <td>
+                <div class="summary">Get the distance between the vectors.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="4b8ad457-d991-0599-4229-8ac5e4a6b7db.htm">Distance(Vector2<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td>
+                <div class="summary">Get the distance between the vectors.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="f33b09a6-f6ca-0fc7-25ff-4de53561b7c8.htm">DistanceSquared(Vector2)</a>
+              </td>
+              <td>
+                <div class="summary">Get the squared distance between the vectors.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="3adc02b2-dae6-53ab-9f55-395b6f721f74.htm">DistanceSquared(Vector2<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td>
+                <div class="summary">Get the squared distance between the vectors.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="693d1a25-5d61-5414-55ad-0d1a0f2cfcc6.htm">Dot(Vector2)</a>
+              </td>
+              <td>
+                <div class="summary">Compute the dot product of this and other vector, which is the sum of the product of each axis of each vector.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="78c2a5d0-cb11-3e4e-0c7c-5b1fdc318d20.htm">Dot(Vector2<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td>
+                <div class="summary">Compute the dot product of this and other vector, which is the sum of the product of each axis of each vector.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="6d82185c-3633-6d4f-d3e7-ffd28157f859.htm">Equals(Object)</a>
+              </td>
+              <td> (Overrides <a href="http://msdn2.microsoft.com/en-us/library/2dts52z7" target="_blank">ValueType<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Equals(Object)</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="4778dcdc-086d-9042-a4a8-1e8915a136dd.htm">Equals(Vector2)</a>
+              </td>
+              <td>
+                <div class="summary">Get whether this <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2</a> has equal factors as the other <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="f1ac8254-f826-ea47-ceeb-aab8d2223b5d.htm">Feet(Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="6751da9d-0a59-41c4-55ba-fe55c311a791.htm">Feet(Vector2d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="e905af2e-88f1-12fd-469e-7f484832d094.htm">Feet(Vector2d<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="61d065dc-d615-5e02-a635-e2b7d499df49.htm">Feet(Double, Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="85f24295-c229-d4d9-ad47-fc11c8ddbe0e.htm">GetHashCode</a>
+              </td>
+              <td>
+                <div class="summary">Compute a hash code from combining the axes.</div> (Overrides <a href="http://msdn2.microsoft.com/en-us/library/y3509fc2" target="_blank">ValueType<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>GetHashCode<span class="languageSpecificText"><span class="cs">()</span><span class="cpp">()</span><span class="nu">()</span><span class="fs">()</span></span></a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/dfwy45w9" target="_blank">GetType</a>
+              </td>
+              <td>
+                <div class="summary">Gets the <a href="http://msdn2.microsoft.com/en-us/library/42892f65" target="_blank">Type</a> of the current instance.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="e501da99-2466-8860-22ac-22ae6fa28392.htm">Inches(Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="77cd2169-4b41-d450-9174-2dfc90148d0c.htm">Inches(Vector2d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="2227b774-19fd-fe44-2ef7-9ed57376cfb9.htm">Inches(Vector2d<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="ab80c3f4-5c93-af27-e035-930b16cc1202.htm">Inches(Double, Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="4a28463e-6656-87cb-04de-e029aa2e3a18.htm">Kilometres(Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="eca13225-2d7e-d822-c272-88ce63005d57.htm">Kilometres(Vector2d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="fd263050-81dc-d504-57a9-031bc224037c.htm">Kilometres(Vector2d<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="c2390e74-ed3b-689b-b9df-80d2e148c9de.htm">Kilometres(Double, Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="ab23b763-0625-7a17-838d-22dfa428a8c6.htm">Megametres(Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="5030da9d-6492-b336-3fb2-2b0d7551260a.htm">Megametres(Vector2d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="a0a43485-cff0-8181-8687-b91fcd2a3d66.htm">Megametres(Vector2d<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="426c33a4-ad21-e4ba-fcec-dc8eb3bff7fa.htm">Megametres(Double, Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="91aa67b0-5cf3-6f96-2399-73336b720acc.htm">Metres(Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="9a414f7b-d8ed-d0ef-bec9-ce9e39c03943.htm">Metres(Vector2d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="53ec2588-5493-e3fa-fc01-f7b4e1a160c7.htm">Metres(Vector2d<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="60f106bb-f15a-838c-2016-1f1e2ebf2061.htm">Metres(Double, Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="b340690b-e2f2-d4f7-44d3-9ff3257da39e.htm">Micrometres(Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="4737177e-5ae5-3803-c6f2-e3c1ee8726ec.htm">Micrometres(Vector2d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="c9ad1e08-12de-1da6-62cc-58e59cd51357.htm">Micrometres(Vector2d<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="7954dd60-5f7b-badd-0134-ec133bdaf745.htm">Micrometres(Double, Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="33952166-a43f-06c6-4d0a-4946cf65d613.htm">Millimetres(Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="30bf9103-cf79-096c-29fc-db4ca1608ab0.htm">Millimetres(Vector2d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="90b7d392-57dc-499a-8923-2dfaf097d0f0.htm">Millimetres(Vector2d<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="8d23003f-5906-0443-816b-e2fd04a756e6.htm">Millimetres(Double, Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="f6183804-67f7-9d76-5a99-777068fe432b.htm">Nanometres(Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="f46118e7-0b17-66f1-91c9-ec40361ac0a5.htm">Nanometres(Vector2d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="e504fdbf-c8d6-a031-0e03-0d4b57eb7bc3.htm">Nanometres(Vector2d<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="d63b5409-4e41-7167-7709-2b07fb47d271.htm">Nanometres(Double, Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="12a93da9-a132-d3cc-cf02-0a739d84235f.htm">ToCommaSeparatedString</a>
+              </td>
+              <td>
+                <div class="summary">Convert this <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2</a> to a string of the form "X, Y".</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="a0c1ec60-5f04-4876-4450-f1d1efb18c17.htm">ToShortString</a>
+              </td>
+              <td>
+                <div class="summary">Convert this <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2</a> to a string of the form "{X, Y".</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="551efe93-7fc8-6027-26d6-f50661f2b7f7.htm">ToString<span class="languageSpecificText"><span class="cs">()</span><span class="cpp">()</span><span class="nu">()</span><span class="fs">()</span></span></a>
+              </td>
+              <td>
+                <div class="summary">Convert this <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2</a> to a string of the form "Vector2(X, Y)".</div> (Overrides <a href="http://msdn2.microsoft.com/en-us/library/wb77sz3h" target="_blank">ValueType<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ToString<span class="languageSpecificText"><span class="cs">()</span><span class="cpp">()</span><span class="nu">()</span><span class="fs">()</span></span></a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="946f84c4-f76a-ff41-0f76-cd4ae3961cee.htm">ToString(String, IFormatProvider)</a>
+              </td>
+              <td>
+                <div class="summary">Convert this <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2</a> to a string of the form "Vector2(X, Y)".</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="e8f1b2df-81e8-1bd3-83c9-78b37c99c2ed.htm">Universal(Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="d6c07c89-53d6-3454-6630-b1f9de6de414.htm">Universal(Vector2d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="1d4112b0-6196-b189-7d37-ff6b233d741b.htm">Universal(Vector2d<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="31352329-44a9-f3be-3bc3-65d05de43262.htm">Universal(Double, Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="f37ff876-a2f3-b9eb-9e9e-c80007d4c644.htm">Yards(Double)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="fe9dbdb4-4e6a-a701-ec5f-d3695225c050.htm">Yards(Vector2d)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="fbf8b8c9-27ac-afa2-2840-8bf960cab3a7.htm">Yards(Vector2d<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="18eb9131-5f6b-24ae-cb9a-80fabbaefa15.htm">Yards(Double, Double)</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(operatorTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(operatorTableToggle, event)" tabindex="0">
+            <img id="operatorTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Operators</span>
+        </h1>
+        <div id="operatorTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="cc7d0b26-0fed-a92e-3baa-26ff06ddcd9a.htm">Addition(Length, Vector2)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="bf496ce3-6b18-1195-c198-11f6fb27f0d7.htm">Addition(Vector2, Length)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="b9c03238-2c6f-2bb2-a914-3d46a7d693d8.htm">Addition(Vector2, Vector2)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="283a4d7d-3e58-d8d3-fc31-6b5b1ae93f3d.htm">Equality</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="434e09aa-73e8-cdc5-5fec-14cd45c7e6bf.htm">Inequality</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="c4652a68-ca22-57c6-f182-72c271c83f1d.htm">Subtraction(Length, Vector2)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="1b9c0ad2-8569-b2ca-c6fc-1f34a925b28c.htm">Subtraction(Vector2, Length)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="3053846d-0501-23f6-f543-5e19d002bde7.htm">Subtraction(Vector2, Vector2)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="5f39dbcc-59f0-177a-75bd-0259661fb8c4.htm">UnaryNegation</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="67908162-1fb0-50dc-11c1-3cf5f81a9dc2.htm">UnaryPlus</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(fieldTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(fieldTableToggle, event)" tabindex="0">
+            <img id="fieldTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Fields</span>
+        </h1>
+        <div id="fieldTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="829ba9d6-f182-2faa-1f0d-929297bd86c5.htm">X</a>
+              </td>
+              <td>
+                <div class="summary">The first axis of the <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="3c15b096-f778-7b03-0cf2-71fda7fda59d.htm">Y</a>
+              </td>
+              <td>
+                <div class="summary">The second axis of the <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="e71dcf19-085b-f047-5160-04657c822d31.htm">Zero</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(propertyTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(propertyTableToggle, event)" tabindex="0">
+            <img id="propertyTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Properties</span>
+        </h1>
+        <div id="propertyTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="7fc55bce-1036-5296-62ee-ecf8955bf1f7.htm">InCentimetres</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c0a9a9a4-0a77-f220-a7cd-44464f4669cd.htm">InFeet</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="8730f381-6bfb-78b4-a4ed-9146318fd286.htm">InInches</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="aae50642-8451-6e40-f153-2d45c27c89c0.htm">InKilometres</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4a6a0e0c-2ed5-4771-64d2-b7ce94d72d19.htm">InMegametres</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="896f7a34-7df9-31ca-5552-ecd0e4bb21a7.htm">InMetres</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="43a18896-0734-df82-2209-cce287739c0e.htm">InMicrometres</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="101600a7-fd52-f565-abd2-e5a6d3e592db.htm">InMillimetres</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="0ceac146-8585-8385-04b2-741fbf6a6383.htm">InNanometres</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="cf30bd45-ca34-bc26-aeaa-794895feaed7.htm">InUniversal</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="5914ad82-a374-871f-67dd-31057e35259c.htm">InYards</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="6f9a11b3-a6de-876f-f900-91c75e661a08.htm">Magnitude</a>
+              </td>
+              <td>
+                <div class="summary">Compute the magnitude of the vector, which is the distance from the origin.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e5b2b488-3721-0c91-28eb-55457db14591.htm">MagnitudeSquared</a>
+              </td>
+              <td>
+                <div class="summary">Compute the squared magnitude of the vector, which is the distance from the origin squared. Use <a href="6f9a11b3-a6de-876f-f900-91c75e661a08.htm">Magnitude</a> for the unsquared version, which is slower to compute.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="0afff246-a9f5-f74a-d59f-a18196cfb01a.htm">Sum</a>
+              </td>
+              <td>
+                <div class="summary">Get the sum of all of the axes.</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(seeAlsoToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(seeAlsoToggle, event)" tabindex="0">
+            <img id="seeAlsoToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />See Also</span>
+        </h1>
+        <div id="seeAlsoSection" class="section" name="collapseableSection" style="">
+          <div class="seeAlsoStyle">
+            <a href="b56f87b8-d611-fb52-f31b-f4fda6024ab7.htm">Vector2 Structure</a>
+          </div>
+          <div class="seeAlsoStyle">
+            <a href="6e720f6e-c52c-a0ef-8b39-25cea91a5923.htm">Glare Namespace</a>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,426 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>Call Members</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="Call class" />
+    <meta name="System.Keywords" content="Call class, all members" />
+    <meta name="System.Keywords" content="Alexandria.Engines.GoldBox.Resources.Call class" />
+    <meta name="Microsoft.Help.Id" content="AllMembers.T:Alexandria.Engines.GoldBox.Resources.ScriptInstruction.Call" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Alexandria.Engines.GoldBox.Resources" />
+    <meta name="file" content="1698ff92-06ba-4d88-5ecc-35df9b6348d4" />
+    <meta name="guid" content="1698ff92-06ba-4d88-5ecc-35df9b6348d4" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                  <span>    </span>
+                  <span id="memberOptionsDropdown" class="filter" tabindex="0">
+                    <img id="memberOptionsDropdownImage" src="../icons/dropdown.gif" /> <label id="memberOptionsMenuAllLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Show All </nobr></label><label id="memberOptionsMenuMultipleLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuProtectedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuInheritedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <div id="memberOptionsMenu">
+              <input id="ProtectedCheckbox" type="checkbox" data="Protected" value="on" onClick="SetMemberOptions(this, 'vis')" />
+              <label class="checkboxLabel" for="ProtectedCheckbox">Include Protected Members</label>
+              <br />
+              <input id="InheritedCheckbox" type="checkbox" data="Inherited" value="on" onClick="SetMemberOptions(this, 'decl')" />
+              <label class="checkboxLabel" for="InheritedCheckbox">Include Inherited Members</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">Call Members</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <a href="e7eae5fd-cc86-f121-58ae-8df95b305cee.htm">ScriptInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Call Class</a> <a href="#constructorTableToggle" onclick="OpenSection(constructorTableToggle)">Constructors</a> <a href="#methodTableToggle" onclick="OpenSection(methodTableToggle)">Methods</a> <a href="#fieldTableToggle" onclick="OpenSection(fieldTableToggle)">Fields</a> <a href="#propertyTableToggle" onclick="OpenSection(propertyTableToggle)">Properties</a> <a href="#seeAlsoToggle" onclick="OpenSection(seeAlsoToggle)">See Also</a> <span id="headfeedbackarea" class="feedbackhead"><a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a></span></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <p />
+        <p>The <a href="e7eae5fd-cc86-f121-58ae-8df95b305cee.htm">ScriptInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Call</a> type exposes the following members.</p>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(constructorTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(constructorTableToggle, event)" tabindex="0">
+            <img id="constructorTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Constructors</span>
+        </h1>
+        <div id="constructorTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="691ef224-b3e9-cbce-34c9-95a634318e2f.htm">ScriptInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Call</a>
+              </td>
+              <td>
+                <div class="summary">Initializes a new instance of the <a href="e7eae5fd-cc86-f121-58ae-8df95b305cee.htm">ScriptInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Call</a> class</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(methodTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(methodTableToggle, event)" tabindex="0">
+            <img id="methodTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Methods</span>
+        </h1>
+        <div id="methodTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/bsc2ak47" target="_blank">Equals</a>
+              </td>
+              <td>
+                <div class="summary">Determines whether the specified <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a> is equal to the current <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/4k87zsw7" target="_blank">Finalize</a>
+              </td>
+              <td>
+                <div class="summary">Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/zdee4b3y" target="_blank">GetHashCode</a>
+              </td>
+              <td>
+                <div class="summary">Serves as a hash function for a particular type. </div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/dfwy45w9" target="_blank">GetType</a>
+              </td>
+              <td>
+                <div class="summary">Gets the <a href="http://msdn2.microsoft.com/en-us/library/42892f65" target="_blank">Type</a> of the current instance.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="312923df-db18-8b0d-a711-03f3c95c2280.htm">Link</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/57ctke0a" target="_blank">MemberwiseClone</a>
+              </td>
+              <td>
+                <div class="summary">Creates a shallow copy of the current <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="77835b17-a7a6-aa66-627b-1e6d487b23da.htm">ReadOperand(BinaryReader, ScriptArgument)</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="63e96eb7-d423-81ea-1321-b8c5208bf3a3.htm">ReadOperand(BinaryReader, String, Int32<span class="languageSpecificText"><span class="cpp">%</span></span>, ScriptArgument)</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="1e501888-53c0-01ca-f3b7-032e289eb583.htm">ToBaseString</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="c5be0b7d-e499-7127-dba9-2d8a44cb0941.htm">ToRichText</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="907ec9e6-7062-9911-583f-d7bf5c9fd831.htm">ToString</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protmethod.gif" alt="Protected method" title="Protected method" />
+              </td>
+              <td>
+                <a href="34087181-c1b8-b2ed-97af-9492d3ff92d3.htm">ToStringOpcode</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(fieldTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(fieldTableToggle, event)" tabindex="0">
+            <img id="fieldTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Fields</span>
+        </h1>
+        <div id="fieldTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protfield.gif" alt="Protected field" title="Protected field" />
+              </td>
+              <td>
+                <a href="2db17758-8664-22df-0e25-6e336acd318d.htm">OperandsMutable</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(propertyTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(propertyTableToggle, event)" tabindex="0">
+            <img id="propertyTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Properties</span>
+        </h1>
+        <div id="propertyTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="282c4e8a-7671-4503-7214-9ae7eb2c3091.htm">Address</a>
+              </td>
+              <td>
+                <div class="summary">Get the address of the <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>. In the file, this is <span class="nolink">[!:Script.AddressOffset]</span> (<span class="code">0x7FFE</span>) too large.</div> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4f3e2859-45a3-425a-eda3-7c326e8ef642.htm">IsBranch</a>
+              </td>
+              <td>
+                <div class="summary">Get whether this <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a> forces a branch, such as <a href="5c378c7f-01cb-c59d-36d9-b2c67623c81e.htm">Goto</a>.</div> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="73a5413a-3268-a39a-2e28-a75981c97248.htm">IsOpcodeDefined</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="75300dea-b3d7-fd82-2263-3b64e4029627.htm">IsTarget</a>
+              </td>
+              <td>
+                <div class="summary">Get whether this <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a> is the target of another branching <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>. <a href="460da8f6-d2e9-68f8-d37d-cfb1189bb41e.htm">TargetedByTokens</a> and <a href="ebd24f1d-98dd-d100-2ad9-0fc04b2a5212.htm">TargetedByInstructions</a> list these.</div> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b253ff2a-f8ba-25a3-ade3-098128ddf302.htm">IsTest</a>
+              </td>
+              <td>
+                <div class="summary">Get whether this <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a> contains a test, where if the test fails the next instruction is skipped.</div> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="2325089b-11ea-bf25-149e-75f812c4224c.htm">Opcode</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="53204949-b842-6c91-5f17-a11f59092eee.htm">Operands</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4a52835f-c8cf-4ef1-2b82-74aae37462ad.htm">Script</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="ebd24f1d-98dd-d100-2ad9-0fc04b2a5212.htm">TargetedByInstructions</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="460da8f6-d2e9-68f8-d37d-cfb1189bb41e.htm">TargetedByTokens</a>
+              </td>
+              <td> (Inherited from <a href="37e7c3f1-8b9f-a77c-8ea3-c656c8b18673.htm">ScriptInstruction</a>.)</td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(seeAlsoToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(seeAlsoToggle, event)" tabindex="0">
+            <img id="seeAlsoToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />See Also</span>
+        </h1>
+        <div id="seeAlsoSection" class="section" name="collapseableSection" style="">
+          <div class="seeAlsoStyle">
+            <a href="e7eae5fd-cc86-f121-58ae-8df95b305cee.htm">ScriptInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Call Class</a>
+          </div>
+          <div class="seeAlsoStyle">
+            <a href="ae063503-2d19-d8ee-413e-e3b52d3effc4.htm">Alexandria.Engines.GoldBox.Resources Namespace</a>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

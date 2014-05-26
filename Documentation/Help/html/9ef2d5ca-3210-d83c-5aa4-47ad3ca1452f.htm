@@ -1,0 +1,1542 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>FaceGeneration Properties</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="FaceGeneration class, properties" />
+    <meta name="Microsoft.Help.Id" content="Properties.T:Alexandria.Engines.DarkSouls.TableRows.FaceGeneration" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Alexandria.Engines.DarkSouls" />
+    <meta name="file" content="9ef2d5ca-3210-d83c-5aa4-47ad3ca1452f" />
+    <meta name="guid" content="9ef2d5ca-3210-d83c-5aa4-47ad3ca1452f" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                  <span>    </span>
+                  <span id="memberOptionsDropdown" class="filter" tabindex="0">
+                    <img id="memberOptionsDropdownImage" src="../icons/dropdown.gif" /> <label id="memberOptionsMenuAllLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Show All </nobr></label><label id="memberOptionsMenuMultipleLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuProtectedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuInheritedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <div id="memberOptionsMenu">
+              <input id="ProtectedCheckbox" type="checkbox" data="Protected" value="on" onClick="SetMemberOptions(this, 'vis')" />
+              <label class="checkboxLabel" for="ProtectedCheckbox">Include Protected Members</label>
+              <br />
+              <input id="InheritedCheckbox" type="checkbox" data="Inherited" value="on" onClick="SetMemberOptions(this, 'decl')" />
+              <label class="checkboxLabel" for="InheritedCheckbox">Include Inherited Members</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">FaceGeneration Properties</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <a href="6d5d647b-acf5-fa86-d6c7-35a0d98044c0.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>FaceGeneration Class</a> <a href="#seeAlsoToggle" onclick="OpenSection(seeAlsoToggle)">See Also</a> <span id="headfeedbackarea" class="feedbackhead"><a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a></span></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <p>The <a href="6d5d647b-acf5-fa86-d6c7-35a0d98044c0.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>FaceGeneration</a> type exposes the following members.</p>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(propertyTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(propertyTableToggle, event)" tabindex="0">
+            <img id="propertyTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Properties</span>
+        </h1>
+        <div id="propertyTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="3428b2f6-dede-beb6-0726-a0d66ba26060.htm">AssetFormat</a>
+              </td>
+              <td>
+                <div class="summary">Get the <a href="3428b2f6-dede-beb6-0726-a0d66ba26060.htm">AssetFormat</a> that was used to load this asset, or <span class="code">null</span> if there was none.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="5b3d6484-3463-3eaf-764d-037b191b1811.htm">Children</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="acfc3477-e5fc-8d46-6f1e-5416edd1f14e.htm">Description</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="781ca3a3-061e-c0e6-e4c0-bc6173f11ad4.htm">DisplayName</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="6fc4fb74-18a4-3361-4422-420eac605846.htm">EyeColor_B</a>
+              </td>
+              <td>
+                <div class="summary">Eye Color (B)</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="badfed25-8b2a-22d4-9afa-2055e024651d.htm">EyeColor_G</a>
+              </td>
+              <td>
+                <div class="summary">Eye Color (G)</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="728995cc-e315-5167-9341-d60c03ec2ea4.htm">EyeColor_R</a>
+              </td>
+              <td>
+                <div class="summary">Eye Color (R)</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c41f2a25-4454-7372-3de9-84bb117052d9.htm">FaceGeoData00</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 00</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="a83e364b-7e3a-b329-f2e7-ada492278c58.htm">FaceGeoData01</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 01</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="967b3d2a-4d3e-fa3b-74e8-f15da246c05b.htm">FaceGeoData02</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 02</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="59788e91-db52-c1e6-b9bc-b254705b7a2b.htm">FaceGeoData03</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 03</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="75472782-a673-f1af-ec35-5d8ba06948e5.htm">FaceGeoData04</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 04</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="ea3721da-741f-75a5-c8dd-03b357150855.htm">FaceGeoData05</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 05</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="fe5007ce-d955-6d09-6d00-d66c2494146e.htm">FaceGeoData06</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 06</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="8b020b59-b14f-3c36-10e2-733164a18f6d.htm">FaceGeoData07</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 07</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b918c17c-0b6a-1341-4353-3c3e6b70dc4a.htm">FaceGeoData08</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 08</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="18fe7dda-63dc-212c-7257-5f567839adb6.htm">FaceGeoData09</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 09</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="43845a09-0fb9-0767-f7ca-f777f70f6fe1.htm">FaceGeoData10</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 10</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c20c4f16-e699-e08a-fd00-ecbba018d319.htm">FaceGeoData11</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 11</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="136b5c44-9822-368e-273c-d16bbbdda23a.htm">FaceGeoData12</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 12</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c08e55c2-56fe-17ed-f84c-8a3147295710.htm">FaceGeoData13</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 13</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="11dd6d6d-747e-af35-b68c-fc18ee459abc.htm">FaceGeoData14</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 14</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="5e25f483-0741-c09b-1dd0-33da6b4f3c6b.htm">FaceGeoData15</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 15</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="305c4d4e-6348-a155-38ff-04c41809d289.htm">FaceGeoData16</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 16</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="62926c8c-dcd2-b687-6e0b-4e5fb069ad62.htm">FaceGeoData17</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 17</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="ccdb4510-4195-81db-2b5f-fbcf33f4a428.htm">FaceGeoData18</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 18</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="194860cd-da6a-6dbd-701c-c30bbf749e0c.htm">FaceGeoData19</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 19</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="7b1ed130-42f6-ca8a-26ed-629931d3d51a.htm">FaceGeoData20</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 20</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e5583f95-0bac-a8d0-c931-dabeeb2ce79d.htm">FaceGeoData21</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 21</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="ef1cfe7c-f8d1-cbfe-08ad-e2c67a98b236.htm">FaceGeoData22</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 22</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="98b2b5c5-186d-76a2-37ac-ae7931460561.htm">FaceGeoData23</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 23</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4eec8602-20b3-c38c-4371-9d87ae813200.htm">FaceGeoData24</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 24</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="43a73954-f1e5-80b7-318f-d0f1424b6a97.htm">FaceGeoData25</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 25</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="25d28523-cd4e-4f3d-e8fa-b4ecb0820adc.htm">FaceGeoData26</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 26</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="eee3b619-4212-0c0b-5e41-aada3da11da3.htm">FaceGeoData27</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 27</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b85d61e5-0fa4-174a-2068-7010212d7eb0.htm">FaceGeoData28</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 28</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="5424b24c-d46e-74e0-4d6a-0c202f94f17e.htm">FaceGeoData29</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 29</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="dc643a6b-c843-7c97-96b5-a1fe2503bb9d.htm">FaceGeoData30</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 30</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="9ae17a1b-04b0-4cd6-71c1-7a48b218e015.htm">FaceGeoData31</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 31</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="765596f7-57d3-61a9-4364-3d3b6a0ce4be.htm">FaceGeoData32</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 32</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="91378fd5-8b7f-3d8d-b63e-ea8c241858c1.htm">FaceGeoData33</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 33</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="0749ffe6-5b2c-15ea-cfa0-3b206932e3cb.htm">FaceGeoData34</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 34</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c5fd44f5-f0f3-c003-dd03-cf357a3c4f39.htm">FaceGeoData35</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 35</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="02d3477e-4d4a-63cd-8fcd-37d15072dd69.htm">FaceGeoData36</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 36</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="7e787b57-74d1-6f1b-c917-f0d7ab1fec09.htm">FaceGeoData37</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 37</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="9cc8fb92-40ef-ea39-e081-d89afb471fa9.htm">FaceGeoData38</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 38</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b3ea5749-a298-a0bb-ebdc-52e8f26cf266.htm">FaceGeoData39</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 39</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="560a96dc-5085-1fd6-fb80-296bf2df5d31.htm">FaceGeoData40</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 40</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c6e45489-88a2-5fea-9fe9-c4466ff47bac.htm">FaceGeoData41</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 41</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="afb53fe5-4831-0d05-eaf8-b3e50640d7f9.htm">FaceGeoData42</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 42</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="7c60ace0-7d4e-5dc0-c445-be538c78e415.htm">FaceGeoData43</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 43</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="fdd6c6fd-4a9d-f44b-a0c0-3ce2c681642e.htm">FaceGeoData44</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 44</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="7a846bc5-82ff-d9bc-0951-69081f463099.htm">FaceGeoData45</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 45</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="83e9e511-a116-9ce7-7b83-49528c136bbe.htm">FaceGeoData46</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 46</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="57a5ede1-3662-9d7a-8730-9cab50562c1d.htm">FaceGeoData47</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 47</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="2f41c598-507c-bd13-b6cf-cf923f016d76.htm">FaceGeoData48</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 48</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4cc139fe-c8df-c043-147f-7d2b5bad8fc8.htm">FaceGeoData49</a>
+              </td>
+              <td>
+                <div class="summary">Face create geometry data 49</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c9984d7f-9641-fbcb-f10d-63ae2577755c.htm">FaceTexData00</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 00</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="242cee35-027a-2f2c-45af-7956f722f8de.htm">FaceTexData01</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 01</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="6890a65f-8bb6-c88d-f04a-b75c82e49a8a.htm">FaceTexData02</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 02</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="18e6bae3-d937-6f14-ec09-05e0184108a5.htm">FaceTexData03</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 03</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="bc6259cb-3628-862a-f86f-efb591fda647.htm">FaceTexData04</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 04</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b389040e-fc37-1612-c623-853f4d52a0eb.htm">FaceTexData05</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 05</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="38f9e503-533c-a476-e01a-5faac7f43e17.htm">FaceTexData06</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 06</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c1258099-cea8-db4a-1c38-1f80b09667bd.htm">FaceTexData07</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 07</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="3ba00747-6e81-718c-bfd3-9e6083262d37.htm">FaceTexData08</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 08</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="57de258f-589d-cbd4-0591-d176e0b57f76.htm">FaceTexData09</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 09</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4887643e-b0f8-38f4-a02c-1228f511492d.htm">FaceTexData10</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 10</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="04832d82-f8de-f12f-5ced-8d8c52bda4fd.htm">FaceTexData11</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 11</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4353c1cc-855d-75aa-b549-c08e6b142102.htm">FaceTexData12</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 12</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="25de34f0-c718-5863-f810-12250cce5180.htm">FaceTexData13</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 13</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="18e00cae-3db8-814d-bd54-ce7eeed8b2d7.htm">FaceTexData14</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 14</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="dd6f4747-e5b7-42d6-99b1-b7ad94ad78fd.htm">FaceTexData15</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 15</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="fb79e2ee-8542-1ac9-bfad-1237bda85b95.htm">FaceTexData16</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 16</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="d763eef3-40f3-da8c-c784-406ca332f039.htm">FaceTexData17</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 17</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b52defe1-0216-d073-25bb-cab97885982a.htm">FaceTexData18</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 18</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="8ead712f-d318-4739-ec3b-229e405a9f02.htm">FaceTexData19</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 19</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e23a7e0f-70fb-43ad-8b58-c431349fc20a.htm">FaceTexData20</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 20</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="5b40ae8a-3864-bf9e-fd46-36040e4b7247.htm">FaceTexData21</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 21</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="48719a9d-2015-54be-3fe3-d8f6b158a77e.htm">FaceTexData22</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 22</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="1eabac45-c6bf-f2fb-87b0-c756800a29b3.htm">FaceTexData23</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 23</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="f6a3863a-c30a-94fb-cabd-2e7e50d89fd8.htm">FaceTexData24</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 24</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="2d95201f-e862-a495-f918-921a3917c135.htm">FaceTexData25</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 25</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="00ada20b-c0d6-febc-30bb-4143ce793de1.htm">FaceTexData26</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 26</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="7da7003d-6940-da1b-57fb-7e0e3709477e.htm">FaceTexData27</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 27</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e252cba9-4822-565a-7139-95064eb53e58.htm">FaceTexData28</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 28</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="d9e7ade5-ef67-ebb7-7aab-cb263233cee5.htm">FaceTexData29</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 29</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="f1660355-52ed-feee-c571-ed14739d05ed.htm">FaceTexData30</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 30</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="23f16bad-5773-348c-637d-2e3d46129742.htm">FaceTexData31</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 31</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="68b2abe4-8e87-74d1-631d-e5e363f6e800.htm">FaceTexData32</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 32</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c408d1e8-8c9d-c1b4-1e80-b90859d16ede.htm">FaceTexData33</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 33</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e90d8cdd-85df-23f9-ea29-47b0b9666876.htm">FaceTexData34</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 34</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="71c3abb8-8008-040f-9d98-3a30f7a877e4.htm">FaceTexData35</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 35</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="8a7e0c8d-d27c-296c-9ccd-399ec0baa7ce.htm">FaceTexData36</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 36</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="67788ecd-4421-920b-369a-cbfe0cc4bd0a.htm">FaceTexData37</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 37</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="5c2caf85-cbbc-180c-4462-8276cd046e03.htm">FaceTexData38</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 38</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="23c69b17-ce3b-60ff-4578-edebf7af5c08.htm">FaceTexData39</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 39</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="db9f6948-604f-d7de-c127-8e21ed7a9824.htm">FaceTexData40</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 40</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="8f71c952-06b2-9b97-0ecd-d1c218befbb8.htm">FaceTexData41</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 41</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="0557991a-3c1e-e3a8-2733-52a996be49b9.htm">FaceTexData42</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 42</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b1e5be11-21d1-b858-93e7-67dd454a7c07.htm">FaceTexData43</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 43</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="3769067b-4a0f-599e-2f72-99b9cf81aec5.htm">FaceTexData44</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 44</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="520ee65e-bb4e-0d40-becd-155f9a4505d0.htm">FaceTexData45</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 45</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="381ce1ec-516d-e140-a022-2a4d59655e25.htm">FaceTexData46</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 46</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="8659ff77-5c90-7111-5a52-457cd63e8785.htm">FaceTexData47</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 47</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="138d7525-680f-ad1e-a1d2-ddcd15182cc2.htm">FaceTexData48</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 48</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="67e1e43d-0d44-47ee-ce25-43c05b80f8a4.htm">FaceTexData49</a>
+              </td>
+              <td>
+                <div class="summary">Face create texture data 49</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="6ec1a30c-f8a9-022e-76e9-00db6b9f7080.htm">GlareObject</a>
+              </td>
+              <td>
+                <div class="summary">Get this <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> as something that Glare's <a href="533e5be3-174a-883d-02b4-c0f5802d8195.htm">ResourceManager</a> might want to save/load, or return <span class="code">null</span> (the default).</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="96f21d3c-cf81-a56f-e6b4-6d1ab55041fe.htm">HairColor_B</a>
+              </td>
+              <td>
+                <div class="summary">Hair color (B)</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="1a8febcb-7c09-546d-668b-cac570b87021.htm">HairColor_Base</a>
+              </td>
+              <td>
+                <div class="summary">Hair color</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="64cd95b5-1b69-5d9f-645e-c595ce955189.htm">HairColor_G</a>
+              </td>
+              <td>
+                <div class="summary">Hair color (G)</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="9312e233-0193-737b-0b40-b11ea51e6251.htm">HairColor_R</a>
+              </td>
+              <td>
+                <div class="summary">Hair Color (R)</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="98ef4262-82c2-b8e2-7350-bd7b6d47093b.htm">HairStyle</a>
+              </td>
+              <td>
+                <div class="summary">Hairdo</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c02ba458-89c0-81b3-6b8d-0a9c5cf95e83.htm">HasUnknowns</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="fcaed245-fde8-bb12-ffce-53a49302bc16.htm">Id</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="aabe6f94-ed91-24ac-70f6-154ebfb90b62.htm">IsAnyModified</a>
+              </td>
+              <td>
+                <div class="summary">Get whether this <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> or any children have been locked from modification.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="224cb3ff-3594-4064-45a7-1697cafdd6f3.htm">IsModified</a>
+              </td>
+              <td>
+                <div class="summary">Get whether the <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> is modified.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4cf4c3fb-e0d9-a602-002a-fa86d03781a3.htm">IsReadOnly</a>
+              </td>
+              <td>
+                <div class="summary">Get whether the <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> cannot be modified in any way. The default is <span class="code">true</span>.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="7983cccd-80cd-68a0-de6e-b81f35f0b0e0.htm">LoadContext</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="adb444e7-8692-7687-199e-ab4ed8132f70.htm">LoadErrors</a>
+              </td>
+              <td>
+                <div class="summary">Get a collection of errors that were recorded while trying to load this <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>, or <span class="code">null</span> if this <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> hasn't been loaded.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="90b92f57-ed20-23db-81dc-1c902e30210d.htm">LoadName</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="3c9ae385-ec92-bae3-677a-4f7910eaf83b.htm">Manager</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="87388d9f-54e3-9120-8094-019b4ae0690b.htm">Name</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e1a941dd-c95e-8c73-6f13-6b1f044c711c.htm">Pad</a>
+              </td>
+              <td>
+                <div class="summary">Padding</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="93f6a36f-6351-c286-6396-ec0a36a497de.htm">Parent</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e25d03cf-3512-0925-1b7b-bf93a38b30ca.htm">PathName</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="533e5be3-174a-883d-02b4-c0f5802d8195.htm">ResourceManager</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protproperty.gif" alt="Protected property" title="Protected property" />
+              </td>
+              <td>
+                <a href="41ef3458-f636-da17-8376-11dd6dd389fe.htm">ResourcePrefix</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="fd45da7f-ec5f-9131-ced2-52ebb61f731b.htm">TranslatedName</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="17f07aef-edec-f24a-5e5a-b834841a6b63.htm">Unknowns</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(seeAlsoToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(seeAlsoToggle, event)" tabindex="0">
+            <img id="seeAlsoToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />See Also</span>
+        </h1>
+        <div id="seeAlsoSection" class="section" name="collapseableSection" style="">
+          <div class="seeAlsoStyle">
+            <a href="6d5d647b-acf5-fa86-d6c7-35a0d98044c0.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>FaceGeneration Class</a>
+          </div>
+          <div class="seeAlsoStyle">
+            <a href="e6ff68b6-b478-ad52-a869-3c0dc90b289d.htm">Alexandria.Engines.DarkSouls Namespace</a>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

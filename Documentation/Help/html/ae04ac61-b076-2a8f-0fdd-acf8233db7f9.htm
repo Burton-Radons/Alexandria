@@ -1,0 +1,1161 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>ItemLot Properties</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="ItemLot class, properties" />
+    <meta name="Microsoft.Help.Id" content="Properties.T:Alexandria.Engines.DarkSouls.TableRows.ItemLot" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Alexandria.Engines.DarkSouls" />
+    <meta name="file" content="ae04ac61-b076-2a8f-0fdd-acf8233db7f9" />
+    <meta name="guid" content="ae04ac61-b076-2a8f-0fdd-acf8233db7f9" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                  <span>    </span>
+                  <span id="memberOptionsDropdown" class="filter" tabindex="0">
+                    <img id="memberOptionsDropdownImage" src="../icons/dropdown.gif" /> <label id="memberOptionsMenuAllLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Show All </nobr></label><label id="memberOptionsMenuMultipleLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuProtectedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuInheritedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <div id="memberOptionsMenu">
+              <input id="ProtectedCheckbox" type="checkbox" data="Protected" value="on" onClick="SetMemberOptions(this, 'vis')" />
+              <label class="checkboxLabel" for="ProtectedCheckbox">Include Protected Members</label>
+              <br />
+              <input id="InheritedCheckbox" type="checkbox" data="Inherited" value="on" onClick="SetMemberOptions(this, 'decl')" />
+              <label class="checkboxLabel" for="InheritedCheckbox">Include Inherited Members</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">ItemLot Properties</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <a href="6ef84a7c-297e-75ec-ace0-12f4b408a95a.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ItemLot Class</a> <a href="#seeAlsoToggle" onclick="OpenSection(seeAlsoToggle)">See Also</a> <span id="headfeedbackarea" class="feedbackhead"><a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a></span></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <p>The <a href="6ef84a7c-297e-75ec-ace0-12f4b408a95a.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ItemLot</a> type exposes the following members.</p>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(propertyTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(propertyTableToggle, event)" tabindex="0">
+            <img id="propertyTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Properties</span>
+        </h1>
+        <div id="propertyTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="3428b2f6-dede-beb6-0726-a0d66ba26060.htm">AssetFormat</a>
+              </td>
+              <td>
+                <div class="summary">Get the <a href="3428b2f6-dede-beb6-0726-a0d66ba26060.htm">AssetFormat</a> that was used to load this asset, or <span class="code">null</span> if there was none.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="5b3d6484-3463-3eaf-764d-037b191b1811.htm">Children</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="2547359b-31d9-9ac2-170c-24a8cd23cf02.htm">CumulateLotPoint01</a>
+              </td>
+              <td>
+                <div class="summary">The cumulative post- emergence point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="a48eed9d-acca-6bea-847e-ce473d2b67b9.htm">CumulateLotPoint02</a>
+              </td>
+              <td>
+                <div class="summary">The cumulative post- emergence point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b3360cb2-1192-26d6-076c-2e8413cde4c8.htm">CumulateLotPoint03</a>
+              </td>
+              <td>
+                <div class="summary">The cumulative post- emergence point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="95c5be70-1193-75b0-54c4-46e0822f47d8.htm">CumulateLotPoint04</a>
+              </td>
+              <td>
+                <div class="summary">The cumulative post- emergence point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="153dda8e-b53e-f80d-1ef3-8eb1d610c520.htm">CumulateLotPoint05</a>
+              </td>
+              <td>
+                <div class="summary">The cumulative post- emergence point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="f702c9d1-9dce-71dd-f4ea-9645faa39633.htm">CumulateLotPoint06</a>
+              </td>
+              <td>
+                <div class="summary">The cumulative post- emergence point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="f0e4eb47-ea94-7837-2431-1274969a446d.htm">CumulateLotPoint07</a>
+              </td>
+              <td>
+                <div class="summary">The cumulative post- emergence point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e079e40f-17e3-2231-9eed-408b12f3a76d.htm">CumulateLotPoint08</a>
+              </td>
+              <td>
+                <div class="summary">The cumulative post- emergence point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b43d1689-4a70-f2e0-e02e-050fa30518bf.htm">CumulateNumFlagId</a>
+              </td>
+              <td>
+                <div class="summary">Lottery cumulative save flag ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="dafc4271-a51f-2569-518b-20ce431aa51a.htm">CumulateNumMax</a>
+              </td>
+              <td>
+                <div class="summary">Lottery cumulative maximum number</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b217ed05-05b6-45a9-4465-584a7ce93802.htm">CumulateReset01</a>
+              </td>
+              <td>
+                <div class="summary">Cumulative reset</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="d1d97524-ebb0-af2f-2813-365a6733bed6.htm">CumulateReset02</a>
+              </td>
+              <td>
+                <div class="summary">Cumulative reset</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="42cf89c5-ac7f-e059-fb75-71b20dc35fa4.htm">CumulateReset03</a>
+              </td>
+              <td>
+                <div class="summary">Cumulative reset</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="fbe84b67-76fe-e31d-f19a-40579e0322d2.htm">CumulateReset04</a>
+              </td>
+              <td>
+                <div class="summary">Cumulative reset</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b282bd54-4d97-8cf8-cfa9-e2d8789b3867.htm">CumulateReset05</a>
+              </td>
+              <td>
+                <div class="summary">Cumulative reset</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="1dd5619b-d56b-ffc6-1081-b5f9203ca1e3.htm">CumulateReset06</a>
+              </td>
+              <td>
+                <div class="summary">Cumulative reset</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="aedd51cf-d9e7-9730-0382-060bcf51e91d.htm">CumulateReset07</a>
+              </td>
+              <td>
+                <div class="summary">Cumulative reset</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="6748e617-d00f-d791-5cd9-5cbb12b5a626.htm">CumulateReset08</a>
+              </td>
+              <td>
+                <div class="summary">Cumulative reset</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="acfc3477-e5fc-8d46-6f1e-5416edd1f14e.htm">Description</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="781ca3a3-061e-c0e6-e4c0-bc6173f11ad4.htm">DisplayName</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="6e75d47d-b850-82fb-d844-51bdd000f97b.htm">EnableLuck01</a>
+              </td>
+              <td>
+                <div class="summary">Luck parameter validation</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="d364ed8f-796b-d9d3-7de1-eafd5f4c5cc7.htm">EnableLuck02</a>
+              </td>
+              <td>
+                <div class="summary">Luck parameter validation</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="9f7efa48-607e-dd18-7617-c16be3a97b0e.htm">EnableLuck03</a>
+              </td>
+              <td>
+                <div class="summary">Luck parameter validation</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4c6467e2-37cc-83d7-b5f5-ed80474e7c45.htm">EnableLuck04</a>
+              </td>
+              <td>
+                <div class="summary">Luck parameter validation</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="a711d2ec-409d-251c-9c10-8789e2144977.htm">EnableLuck05</a>
+              </td>
+              <td>
+                <div class="summary">Luck parameter validation</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="8fe2ff62-d845-4403-81e1-21afe079032e.htm">EnableLuck06</a>
+              </td>
+              <td>
+                <div class="summary">Luck parameter validation</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="7ccd531f-5f72-a1d3-b14b-c41ac6e40631.htm">EnableLuck07</a>
+              </td>
+              <td>
+                <div class="summary">Luck parameter validation</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c5fb216f-f16e-b090-c91c-e64def079161.htm">EnableLuck08</a>
+              </td>
+              <td>
+                <div class="summary">Luck parameter validation</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b9f2b2e7-0d1b-f7cb-2ecc-d2aba3254bad.htm">GetItemFlagId</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="2daad78c-2632-51d1-c1a4-c74a381daf8b.htm">GetItemFlagId01</a>
+              </td>
+              <td>
+                <div class="summary">Another crunch flag ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="fb0aa1e1-5427-c332-5d3b-eed8bc836426.htm">GetItemFlagId02</a>
+              </td>
+              <td>
+                <div class="summary">Another crunch flag ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="046ebc18-fa34-6c36-112e-314b6ab9c2f6.htm">GetItemFlagId03</a>
+              </td>
+              <td>
+                <div class="summary">Another crunch flag ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="67a9222a-b0b6-c2b9-3fba-dafe6d771c37.htm">GetItemFlagId04</a>
+              </td>
+              <td>
+                <div class="summary">Another crunch flag ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="95d01374-8876-20ae-c118-e9a7b1762060.htm">GetItemFlagId05</a>
+              </td>
+              <td>
+                <div class="summary">Another crunch flag ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="a314c5c3-50dc-ff78-0d4e-532677724194.htm">GetItemFlagId06</a>
+              </td>
+              <td>
+                <div class="summary">Another crunch flag ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4a883061-de0b-d03c-e4c5-999986de2268.htm">GetItemFlagId07</a>
+              </td>
+              <td>
+                <div class="summary">Another crunch flag ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e06ce2ee-2027-c288-df01-477a7caf986a.htm">GetItemFlagId08</a>
+              </td>
+              <td>
+                <div class="summary">Another crunch flag ID</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="6ec1a30c-f8a9-022e-76e9-00db6b9f7080.htm">GlareObject</a>
+              </td>
+              <td>
+                <div class="summary">Get this <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> as something that Glare's <a href="533e5be3-174a-883d-02b4-c0f5802d8195.htm">ResourceManager</a> might want to save/load, or return <span class="code">null</span> (the default).</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c02ba458-89c0-81b3-6b8d-0a9c5cf95e83.htm">HasUnknowns</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="fcaed245-fde8-bb12-ffce-53a49302bc16.htm">Id</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="aabe6f94-ed91-24ac-70f6-154ebfb90b62.htm">IsAnyModified</a>
+              </td>
+              <td>
+                <div class="summary">Get whether this <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> or any children have been locked from modification.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="224cb3ff-3594-4064-45a7-1697cafdd6f3.htm">IsModified</a>
+              </td>
+              <td>
+                <div class="summary">Get whether the <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> is modified.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4cf4c3fb-e0d9-a602-002a-fa86d03781a3.htm">IsReadOnly</a>
+              </td>
+              <td>
+                <div class="summary">Get whether the <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> cannot be modified in any way. The default is <span class="code">true</span>.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="7983cccd-80cd-68a0-de6e-b81f35f0b0e0.htm">LoadContext</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="adb444e7-8692-7687-199e-ab4ed8132f70.htm">LoadErrors</a>
+              </td>
+              <td>
+                <div class="summary">Get a collection of errors that were recorded while trying to load this <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>, or <span class="code">null</span> if this <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a> hasn't been loaded.</div> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="90b92f57-ed20-23db-81dc-1c902e30210d.htm">LoadName</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="07ffd595-bfd5-8918-43ef-7bc191e7a2dd.htm">LotItemBasePoint01</a>
+              </td>
+              <td>
+                <div class="summary">Basic appearance point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="f45b6e59-cae7-7db3-17cf-eecbeeea08f5.htm">LotItemBasePoint02</a>
+              </td>
+              <td>
+                <div class="summary">Basic appearance point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="c8462070-f990-a477-b4c6-20fef4307916.htm">LotItemBasePoint03</a>
+              </td>
+              <td>
+                <div class="summary">Basic appearance point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="183e0276-090a-f034-53ca-76fcb2b10aaf.htm">LotItemBasePoint04</a>
+              </td>
+              <td>
+                <div class="summary">Basic appearance point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="3566f29f-1b59-4dc0-3765-ec6e126a2331.htm">LotItemBasePoint05</a>
+              </td>
+              <td>
+                <div class="summary">Basic appearance point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="592217c1-84e2-9b31-060f-7f1841384899.htm">LotItemBasePoint06</a>
+              </td>
+              <td>
+                <div class="summary">Basic appearance point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="1dc3b576-a0ac-0190-548b-40ea0ce918a9.htm">LotItemBasePoint07</a>
+              </td>
+              <td>
+                <div class="summary">Basic appearance point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="1d756677-7da5-5a22-975e-e0be782e10b1.htm">LotItemBasePoint08</a>
+              </td>
+              <td>
+                <div class="summary">Basic appearance point</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="2a9cd20b-8119-c086-5ceb-a49693b591c6.htm">LotItemCategory01</a>
+              </td>
+              <td>
+                <div class="summary">1 : Item category</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="59377306-80ee-b7fa-b0a5-9e87ffd8d797.htm">LotItemCategory02</a>
+              </td>
+              <td>
+                <div class="summary">2 : Item category</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="f6cc5a69-7ed1-cb8d-769b-ea33b38de640.htm">LotItemCategory03</a>
+              </td>
+              <td>
+                <div class="summary">3 : Item category</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="d43384f1-2421-2ce9-a49a-0d99c3781a5b.htm">LotItemCategory04</a>
+              </td>
+              <td>
+                <div class="summary">4 : Item category</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="d348ebf0-ba85-f5c9-5893-3d664f155ab0.htm">LotItemCategory05</a>
+              </td>
+              <td>
+                <div class="summary">5 : Item category</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="3e3860b6-04b5-e293-cf27-3d7e2592f36e.htm">LotItemCategory06</a>
+              </td>
+              <td>
+                <div class="summary">6 : Item category</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="a98a2c5e-c12d-3078-8be1-49259717fc09.htm">LotItemCategory07</a>
+              </td>
+              <td>
+                <div class="summary">7 : Items category</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b12e39ab-e028-f5f3-de3a-db0d1fb82a7b.htm">LotItemCategory08</a>
+              </td>
+              <td>
+                <div class="summary">8 : Item category</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e4590db7-9cc8-3bcd-b61d-cc96521ff39d.htm">LotItemEnglishName01</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="1e5d49e1-e9e8-0491-978c-0305c7b1bf7b.htm">LotItemEnglishName02</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4728d7fc-a1f6-3572-37fe-489b665f35e2.htm">LotItemEnglishName03</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="d45f44f4-2f6a-4288-5078-fe21ad8206c1.htm">LotItemEnglishName04</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="76996f66-5dd1-d4fe-06cc-ffd9d00b7f56.htm">LotItemEnglishName05</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="670ca10b-a27d-eed4-ec99-50244adad461.htm">LotItemEnglishName06</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="304cfb06-aa31-175b-25ee-b35f509f80a0.htm">LotItemEnglishName07</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e5b0d097-06d2-9753-1608-ecc4c6ec80c2.htm">LotItemEnglishName08</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="4ded13af-e7a3-3861-7116-6b4dd2d122c9.htm">LotItemId01</a>
+              </td>
+              <td>
+                <div class="summary">1 : item ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="86ae032f-8bac-317e-45dc-ee522c58fe59.htm">LotItemId02</a>
+              </td>
+              <td>
+                <div class="summary">2 : item ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="507d7c68-9a7a-9645-d5b6-13ac96c6e974.htm">LotItemId03</a>
+              </td>
+              <td>
+                <div class="summary">3 : Item ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="a18d9fbd-a709-9bc5-c91d-afd78d45853f.htm">LotItemId04</a>
+              </td>
+              <td>
+                <div class="summary">4 : Item ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="dec146b0-534b-392d-747e-c4e18566566e.htm">LotItemId05</a>
+              </td>
+              <td>
+                <div class="summary">5 : Item ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="a587d809-0aa2-3405-dfcb-88e2a2eaa5a7.htm">LotItemId06</a>
+              </td>
+              <td>
+                <div class="summary">6 : item ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="d7bedd88-b77d-b31d-2801-cde987a4ff9d.htm">LotItemId07</a>
+              </td>
+              <td>
+                <div class="summary">7 : item ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="d5b54602-248b-7ac3-c4aa-e67f238d4d5e.htm">LotItemId08</a>
+              </td>
+              <td>
+                <div class="summary">8 : item ID</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="cf8996d9-f7c3-7955-a3e2-16e58cfd0462.htm">LotItemNum01</a>
+              </td>
+              <td>
+                <div class="summary">Number</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="b22ed0d6-be4b-be52-087c-4b09f0e01ed9.htm">LotItemNum02</a>
+              </td>
+              <td>
+                <div class="summary">Number</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="71048a93-4c33-07ae-cb0b-ca1f13dff8b8.htm">LotItemNum03</a>
+              </td>
+              <td>
+                <div class="summary">Number</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="87c2be4d-cfd3-dd3a-d4c0-d4c5e0634fa5.htm">LotItemNum04</a>
+              </td>
+              <td>
+                <div class="summary">Number</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="ebf676b7-1b7f-e53d-5dd8-178d5f6ce820.htm">LotItemNum05</a>
+              </td>
+              <td>
+                <div class="summary">Number</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="8069f4e1-9ee9-441c-5136-bcc9b3104175.htm">LotItemNum06</a>
+              </td>
+              <td>
+                <div class="summary">Number</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="f4915e50-4f92-776c-d022-4b394553d5b1.htm">LotItemNum07</a>
+              </td>
+              <td>
+                <div class="summary">Number</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="427910ff-9b0f-b315-eac4-c6d844fecb1b.htm">LotItemNum08</a>
+              </td>
+              <td>
+                <div class="summary">Number</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="3c9ae385-ec92-bae3-677a-4f7910eaf83b.htm">Manager</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="87388d9f-54e3-9120-8094-019b4ae0690b.htm">Name</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="93f6a36f-6351-c286-6396-ec0a36a497de.htm">Parent</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="e25d03cf-3512-0925-1b7b-bf93a38b30ca.htm">PathName</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="44fb97a7-f525-af2b-2695-ba5f141bc4c2.htm">Rarity</a>
+              </td>
+              <td>
+                <div class="summary">Rarity setting</div>
+              </td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="533e5be3-174a-883d-02b4-c0f5802d8195.htm">ResourceManager</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="protected;inherited;notNetfw;">
+              <td>
+                <img src="../icons/protproperty.gif" alt="Protected property" title="Protected property" />
+              </td>
+              <td>
+                <a href="41ef3458-f636-da17-8376-11dd6dd389fe.htm">ResourcePrefix</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="fd45da7f-ec5f-9131-ced2-52ebb61f731b.htm">TranslatedName</a>
+              </td>
+              <td> (Inherited from <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="17f07aef-edec-f24a-5e5a-b834841a6b63.htm">Unknowns</a>
+              </td>
+              <td> (Inherited from <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>.)</td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(seeAlsoToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(seeAlsoToggle, event)" tabindex="0">
+            <img id="seeAlsoToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />See Also</span>
+        </h1>
+        <div id="seeAlsoSection" class="section" name="collapseableSection" style="">
+          <div class="seeAlsoStyle">
+            <a href="6ef84a7c-297e-75ec-ace0-12f4b408a95a.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ItemLot Class</a>
+          </div>
+          <div class="seeAlsoStyle">
+            <a href="e6ff68b6-b478-ad52-a869-3c0dc90b289d.htm">Alexandria.Engines.DarkSouls Namespace</a>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

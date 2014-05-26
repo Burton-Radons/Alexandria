@@ -1,0 +1,748 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>Alexandria.Engines.Unreal Namespace</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="Alexandria.Engines.Unreal namespace" />
+    <meta name="Microsoft.Help.F1" content="Alexandria.Engines.Unreal" />
+    <meta name="Microsoft.Help.Id" content="N:Alexandria.Engines.Unreal" />
+    <meta name="Description" content="" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Alexandria.Engines.Unreal" />
+    <meta name="file" content="cf8e1740-b071-17c0-158f-c72815489b7a" />
+    <meta name="guid" content="cf8e1740-b071-17c0-158f-c72815489b7a" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">Alexandria.Engines.Unreal Namespace</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <span id="headfeedbackarea" class="feedbackhead">
+                    <a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a>
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <div class="summary" />
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(classToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(classToggle, event)" tabindex="0">
+            <img id="classToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Classes</span>
+        </h1>
+        <div id="classSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Class</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="79406ee9-b9bc-9b42-fc15-f86470452bb7.htm">AttributeDictionary</a>
+              </td>
+              <td>
+                <div class="summary">
+            Contains a map of <span class="code">string</span>s to <span class="code">object</span>s.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="0a54e1a1-3b1f-9518-7db8-8f0082a0ab5a.htm">DataProcessor</a>
+              </td>
+              <td>
+                <div class="summary">
+            A function for loading and saving data. This is used by the <a href="963ec5e6-6b32-b7ee-126c-c9b2aba4b47f.htm">PackagePropertyAttribute</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="27444f23-041f-fc2a-e973-377aa38e5576.htm">DataProcessors</a>
+              </td>
+              <td>
+                <div class="summary">
+            Contains a set of alternate <a href="0a54e1a1-3b1f-9518-7db8-8f0082a0ab5a.htm">DataProcessor</a> types.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="4888c60a-2862-b469-5d16-5a633d9046ca.htm">DataProcessors<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>AsciizByteLength</a>
+              </td>
+              <td>
+                <div class="summary">
+            Reads a <span class="code">string</span> as a <span class="code">byte</span> followed by the given number of ASCII characters, terminated with a NUL.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="8dd2dac5-4fe0-60b7-60d7-d13fd857d083.htm">DataProcessors<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>AsciizIndexLength</a>
+              </td>
+              <td>
+                <div class="summary">
+            Reads a <span class="code">string</span> as a <a href="40adb4c5-9092-b3d8-441b-a27c6e461ad7.htm">UIndex</a> followed by the given number of ASCII characters, terminated with a NUL.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="e8375c02-5845-daf2-4a01-b1d8b184dc7c.htm">DataProcessors<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>IndexInt</a>
+              </td>
+              <td>
+                <div class="summary">
+            Reads an int as a <a href="40adb4c5-9092-b3d8-441b-a27c6e461ad7.htm">UIndex</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="2b52264e-8201-bf99-5a56-ec848a731381.htm">DataProcessors<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>IntCountReferenceList</a>
+              </td>
+              <td>
+                <div class="summary">
+            A <span class="code">List&lt;Reference&gt;</span> reader with a <span class="code">int</span> count.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="19db14fe-e341-38e5-38e7-68c5de0ad61a.htm">DataProcessors<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>IntNameIndex</a>
+              </td>
+              <td>
+                <div class="summary">
+            Reads a 32-bit int as an index into the package's name table, returning a string.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="dcad6127-13f5-5f03-c34a-1e549f06d632.htm">DataProcessors<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>List<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="nu">(</span><span class="fs">&lt;'</span></span>T<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="nu">)</span><span class="fs">&gt;</span></span></a>
+              </td>
+              <td>
+                <div class="summary">
+            Reads a list of objects where the count is encoded as an index.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="85d484a2-8b92-b781-6e49-d80ff5960254.htm">DataProcessors<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ListInt32Count<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="nu">(</span><span class="fs">&lt;'</span></span>T<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="nu">)</span><span class="fs">&gt;</span></span></a>
+              </td>
+              <td>
+                <div class="summary">
+            Reads a list of objects where the count is encoded as a 32-bit integer.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="26a483c6-bc6a-2c97-ac46-8827365eea85.htm">DataProcessors<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>LiteralObject<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="nu">(</span><span class="fs">&lt;'</span></span>T<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="nu">)</span><span class="fs">&gt;</span></span></a>
+              </td>
+              <td>
+                <div class="summary">
+            Reads an object embedded in another object.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a8532e34-45a0-0f5a-9a6e-8d0d8c597875.htm">DataProcessors<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>NulTerminatedAscii</a>
+              </td>
+              <td>
+                <div class="summary">
+            A null-terminated ascii <span class="code">string</span>.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="b6e6f796-bba1-98ec-9376-9088bc3c0dad.htm">DataProcessors<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>UnknownIndex</a>
+              </td>
+              <td>
+                <div class="summary">
+            Reads a <a href="40adb4c5-9092-b3d8-441b-a27c6e461ad7.htm">UIndex</a>, returning it as <span class="code">int</span>. It must be zero, or else there will be an exception.
+            This is for properties that are known to be arrays, but have always been empty.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="992202fa-0b69-c43c-c290-e44dc6f5e1fb.htm">DataProcessors<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ZeroInt32</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="643e6f95-e191-0468-db07-0cd7b14f2e1d.htm">Engine</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="4cb88327-763c-21f8-fe7a-4391431126d0.htm">Export</a>
+              </td>
+              <td>
+                <div class="summary">
+            A symbol exported from a package.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="fe065da4-4842-d3ad-a8a0-3217d36df406.htm">ExportList</a>
+              </td>
+              <td>
+                <div class="summary">
+            A <span class="nolink">[!:List]</span> of <a href="4cb88327-763c-21f8-fe7a-4391431126d0.htm">Export</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a5201168-309d-a9ed-2b35-96884d173d33.htm">Extensions</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="5fc98837-918f-5cf2-ae27-49cb38f4807b.htm">Field</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="e3e7264e-3cd8-c065-e253-06a5470a3c18.htm">Import</a>
+              </td>
+              <td>
+                <div class="summary">
+            An import into a <a href="79eb0def-28be-32c2-4a89-ff9b48297a70.htm">Package</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="899b3a96-ff97-abf3-c48a-8eb2733de03d.htm">ImportList</a>
+              </td>
+              <td>
+                <div class="summary">
+            A <span class="nolink">[!:List]</span> of <a href="e3e7264e-3cd8-c065-e253-06a5470a3c18.htm">Import</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="45ca190a-d861-e232-dd3b-7cbdd12ae5bb.htm">Name</a>
+              </td>
+              <td>
+                <div class="summary">
+            A string in a <a href="b41919b3-6f6a-026c-61b4-612d8c58add1.htm">Package</a> that can be applied to various purposes.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="b709ab9a-41bd-e6a4-33d5-f97a2c9c3dcb.htm">NameList</a>
+              </td>
+              <td>
+                <div class="summary">
+            A <span class="nolink">[!:List]</span> of <a href="45ca190a-d861-e232-dd3b-7cbdd12ae5bb.htm">Name</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="79eb0def-28be-32c2-4a89-ff9b48297a70.htm">Package</a>
+              </td>
+              <td>
+                <div class="summary">
+            A collection of exported and imported objects.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="b131193a-331b-d916-d5b6-6aa434b9b4a9.htm">PackageProperty</a>
+              </td>
+              <td>
+                <div class="summary">
+            A connection between a <a href="963ec5e6-6b32-b7ee-126c-c9b2aba4b47f.htm">PackagePropertyAttribute</a> and the <a href="http://msdn2.microsoft.com/en-us/library/8z852kf5" target="_blank">PropertyInfo</a> property it's attached to.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="963ec5e6-6b32-b7ee-126c-c9b2aba4b47f.htm">PackagePropertyAttribute</a>
+              </td>
+              <td>
+                <div class="summary">
+            Used on a property to enable automatic reading/writing of the attribute.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="7432b248-eec7-d5db-a52e-cec2d2446a00.htm">PackagePropertyCollection</a>
+              </td>
+              <td>
+                <div class="summary">
+            An observable read-only collection of <a href="b131193a-331b-d916-d5b6-6aa434b9b4a9.htm">PackageProperty</a> objects.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a6142f31-e7a2-aef8-b7c5-071f6a4a58d0.htm">Plugin</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="970e8bc1-c36d-5a82-6439-ad7a3adfc070.htm">Reference</a>
+              </td>
+              <td>
+                <div class="summary">
+            The base class of exports and imports.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="780af1f8-fa8f-0b98-4d4f-e4ad2d798bf5.htm">State</a>
+              </td>
+              <td>
+                <div class="summary">
+            Shared engine state.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="4ed1ba06-949b-16d8-75e7-c045842566f3.htm">State2</a>
+              </td>
+              <td>
+                <div class="summary">
+            Unreal 1 or 2 state.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="01b2ddb6-6762-7c58-d2a7-326505c5f294.htm">Unreal3Game</a>
+              </td>
+              <td>
+                <div class="summary">
+            An Unreal engine 3 game.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="bf0035dc-f1d5-57be-1939-c06b13e48f81.htm">UnrealBaseGame</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="db1c391a-09c7-ad6f-527d-fd8febb5a908.htm">UnrealGame</a>
+              </td>
+              <td>
+                <div class="summary">
+            An Unreal 1 or 2 game.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="c47921e0-b0f6-dffd-d57a-c0af46e14d0c.htm">URL</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(structureToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(structureToggle, event)" tabindex="0">
+            <img id="structureToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Structures</span>
+        </h1>
+        <div id="structureSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Structure</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="f84cbc14-94c4-be76-923d-bf8366c99d72.htm">Bounds</a>
+              </td>
+              <td>
+                <div class="summary">
+            A bounding box.
+            </div>
+              </td>
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="ef6f8bdb-effa-4f54-45da-e834836dcb1f.htm">FieldInfo</a>
+              </td>
+              <td>
+                <div class="summary">
+            A description of an attribute field.
+            </div>
+              </td>
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="05d49638-6f1b-69a5-6452-4b4842fd980a.htm">InitialAllianceInfo</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="32eb52a6-ce32-dff9-1988-fc0ece394581.htm">PointRegion</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="1d70f241-6109-2288-2a98-57a3adb39231.htm">Rotator</a>
+              </td>
+              <td>
+                <div class="summary">
+            Rotation parameters.
+            </div>
+              </td>
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="50e93d56-914f-402a-a6e8-0c7908b321ac.htm">Scale</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="40adb4c5-9092-b3d8-441b-a27c6e461ad7.htm">UIndex</a>
+              </td>
+              <td>
+                <div class="summary">
+            A value stored as a compressed integer.
+            </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(enumerationToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(enumerationToggle, event)" tabindex="0">
+            <img id="enumerationToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Enumerations</span>
+        </h1>
+        <div id="enumerationSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Enumeration</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="42664d15-5de6-7b43-03e5-911f04e46401.htm">ExportFlag</a>
+              </td>
+              <td>
+                <div class="summary">
+            Flags that can be applied to an <a href="4cb88327-763c-21f8-fe7a-4391431126d0.htm">Export</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="765e811e-9263-d824-fa0d-958c5412e17e.htm">FieldTypeBase</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="fc975b5d-6e27-f7ee-6931-6287ad531bc6.htm">FieldTypeSize</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="8b6f0c27-e2f6-5029-4b29-309b960680a4.htm">NameFlags</a>
+              </td>
+              <td>
+                <div class="summary">
+            Flags that can be applied to a <a href="45ca190a-d861-e232-dd3b-7cbdd12ae5bb.htm">Name</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="3aa7931f-28f9-9864-335a-3bcc446dc636.htm">PackageFlag</a>
+              </td>
+              <td>
+                <div class="summary">
+            Flags that can be applied to a <a href="79eb0def-28be-32c2-4a89-ff9b48297a70.htm">Package</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="99ef020e-da35-b398-479f-c0e9afe7f286.htm">PackageGame</a>
+              </td>
+              <td>
+                <div class="summary">
+            Game that a <a href="79eb0def-28be-32c2-4a89-ff9b48297a70.htm">Package</a> is for.
+            </div>
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="f81feabe-7abb-cde9-7096-1a7719b8ab43.htm">SheerAxis</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

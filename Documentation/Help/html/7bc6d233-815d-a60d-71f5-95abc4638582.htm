@@ -1,0 +1,591 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>Alexandria.Engines.Sciagi.Resources Namespace</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="Alexandria.Engines.Sciagi.Resources namespace" />
+    <meta name="Microsoft.Help.F1" content="Alexandria.Engines.Sciagi.Resources" />
+    <meta name="Microsoft.Help.Id" content="N:Alexandria.Engines.Sciagi.Resources" />
+    <meta name="Description" content="" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Alexandria.Engines.Sciagi.Resources" />
+    <meta name="file" content="7bc6d233-815d-a60d-71f5-95abc4638582" />
+    <meta name="guid" content="7bc6d233-815d-a60d-71f5-95abc4638582" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">Alexandria.Engines.Sciagi.Resources Namespace</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <span id="headfeedbackarea" class="feedbackhead">
+                    <a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a>
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <div class="summary" />
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(classToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(classToggle, event)" tabindex="0">
+            <img id="classToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Classes</span>
+        </h1>
+        <div id="classSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Class</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="e739da0f-b3b6-fdd5-7d34-021bf7be3b54.htm">Message</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="9748693a-5733-09af-fafa-faa4cc93f19d.htm">MessageItem</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="1efae907-9082-505d-aab5-79962408cf0d.htm">Picture</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="f9c6bc61-65b9-3b94-b998-37e8064019b9.htm">PictureCanvas</a>
+              </td>
+              <td>
+                <div class="summary">Manages the four rasters of an SCI game.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="5fd07b5e-6801-fe92-2ceb-b947c65585f1.htm">PictureInstruction</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="6177e8c6-37af-e073-73e8-edffb11d9a88.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>DisableControl</a>
+              </td>
+              <td>
+                <div class="summary">Disable drawing to the control plane.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="4d5a3b87-8e7a-4329-4321-0a4d0b52319d.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>DisablePriority</a>
+              </td>
+              <td>
+                <div class="summary">Stop drawing to the priority map.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="0a14edd1-2460-caa3-7d79-dd73901eedbb.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>DisableVisual</a>
+              </td>
+              <td>
+                <div class="summary">Stop drawing to the visual layer.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="c8d94e75-330a-250f-0ae0-e8e38f2ff2ed.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>DrawFloodfill</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="383b0391-f58d-c756-cc71-3427c2c3acf3.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>DrawLines</a>
+              </td>
+              <td>
+                <div class="summary">Draw lines.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="2cece634-1795-aca7-d925-894ca4218886.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>DrawPatterns</a>
+              </td>
+              <td>
+                <div class="summary">Draw patterns.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="28638b92-4eab-8a86-2ed0-1e95dc0aa760.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Mono0</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="3519efe6-17d7-40bc-6763-fc2b53ae5df0.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Mono123</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="daabbb75-de09-a39b-b529-9e30026d24f8.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Quit</a>
+              </td>
+              <td>
+                <div class="summary">Stop processing; end of the picture.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="3738d74a-ae0f-05a5-e462-a957b96cfa50.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SetColor</a>
+              </td>
+              <td>
+                <div class="summary">Set colors to <a href="dc8df54e-a7ff-e0e7-bc9d-bfc4a172277c.htm">DitherPaletteIndex</a> into the current dither palette, then enable visual.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="375130e8-4331-5c6a-01bd-6548ab1d5b90.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SetControl</a>
+              </td>
+              <td>
+                <div class="summary">Set the control value to write and enable writing to control.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="3e7fe0a1-7a49-b761-b66c-fdea57fd1879.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SetPalette</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="50bcb43a-3ec9-ef3c-8bbf-bc9496b7dad7.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SetPatternFlags</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="9fc4d2f5-8c8d-eba0-0095-24197e96c9f2.htm">PictureInstruction<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SetPriority</a>
+              </td>
+              <td>
+                <div class="summary">Set the priority value to write, enable the draw priority.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="be867799-bd58-a2e0-9691-d8807a79f2ba.htm">PictureRenderer</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="30676427-9f81-eae6-070a-3885fb163c8c.htm">Script</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="aee0c2ff-6381-f476-b5ea-b8926ac74348.htm">ScriptOpcodeAttribute</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="f708a959-db65-5ab5-38f2-14369a952e5a.htm">ScriptSection</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a330da29-6a19-6b2c-f039-047c89bb529d.htm">ScriptSection<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Locals</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="9605718d-2d5d-c9a9-905b-e01b1a028b8c.htm">ScriptSection<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Object</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="f24c0367-e8c8-74cf-2344-5c116a562188.htm">ScriptSection<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Object<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>FunctionSelector</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="dc9e223a-c4d4-c7d9-b7f7-b3f23af65d8e.htm">ScriptSection<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Object<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Selector</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="d9080a9c-4af5-4ad2-c555-f1905054a48b.htm">ScriptSection<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Object<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>VariableSelector</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="fbe59d0e-a87c-f064-75ae-d7b1f3f5ed23.htm">ScriptSection<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Strings</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="65abe1d8-bc1c-92c7-580e-513148b365bc.htm">ScriptSection<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Unknown</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="43416749-06e3-18cd-51ba-b26bb5eddb0d.htm">Text</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="39c7397f-8054-74fb-9b06-74b494c330c3.htm">View</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="d579ff67-e867-11e9-cbda-c35a0a41c0a6.htm">ViewAnimation</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="e7cb8804-5ead-b215-e938-9426ffa4b57e.htm">ViewCell</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="2bc441a7-1425-d67e-77c3-099c28a8273f.htm">ViewGroup</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(structureToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(structureToggle, event)" tabindex="0">
+            <img id="structureToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Structures</span>
+        </h1>
+        <div id="structureSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Structure</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="870cba3a-015c-78bd-8fe8-436572b18a52.htm">PicturePatternDrawLocation</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="00d18e8f-d595-0204-eb7b-b229bf7cc767.htm">PictureSetPaletteEntry</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="d03e380e-4242-7b5d-d603-5d678a18083c.htm">ScriptBlock</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(enumerationToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(enumerationToggle, event)" tabindex="0">
+            <img id="enumerationToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Enumerations</span>
+        </h1>
+        <div id="enumerationSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Enumeration</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="04e53044-e857-fef7-e72a-c14022d6868e.htm">PictureExtendedOpcode</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="316c632f-8598-a8f8-9180-ad69045018b5.htm">PictureLayer</a>
+              </td>
+              <td>
+                <div class="summary">
+            The layers of the canvas. This acts as a regular enumeration or as a bitmask.
+            </div>
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="45958fd0-b0ae-782e-cd9c-3621e774be9c.htm">PictureOpcode</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="c88652d2-ebe1-a5c7-b49e-06fc3f67b11d.htm">PicturePatternFlags</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="ec9d089c-dc5d-8dc6-c2b0-c41a00d80d47.htm">ScriptBlockType</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="82ec01e9-55c9-899a-5491-de8b2195ee46.htm">ScriptOpcode</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="888c7b8e-b752-631f-d839-346636aeea8d.htm">ScriptOperandType</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

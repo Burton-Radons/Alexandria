@@ -122,123 +122,6 @@ namespace Glare.Internal {
 
 		#endregion Shared by extensions
 
-		#region BinaryReader
-
-		public static bool MatchMagic(this BinaryReader reader, string magic) {
-			var compare = reader.ReadString(magic.Length, Encoding.ASCII);
-			return compare == magic;
-		}
-
-		public static string ReadString(this BinaryReader reader, int byteCount, Encoding encoding) {
-			byte[] bytes = ReadSharedBytes(reader, byteCount, out byteCount);
-			encoding = CheckEncodingEndian(reader, encoding);
-			return encoding.GetString(bytes, 0, byteCount);
-		}
-
-		/// <summary>Read a string terminated with a '\0' character.</summary>
-		/// <param name="reader"></param>
-		/// <param name="encoding"></param>
-		/// <returns></returns>
-		public static string ReadStringz(this BinaryReader reader, Encoding encoding) {
-			Decoder decoder = GetSharedDecoder(encoding);
-			int charCount = 0;
-			byte[] bytes = SharedBytes.Get(16);
-			char[] chars = SharedChars.Get(16);
-
-			encoding = CheckEncodingEndian(reader, encoding);
-
-			while (true) {
-				int byteCount = 0;
-
-				chars = SharedChars.Ensure(charCount, 16);
-
-				do bytes[byteCount++] = reader.ReadByte();
-				while (decoder.GetCharCount(bytes, 0, byteCount, false) == 0);
-
-				int addCount = decoder.GetChars(bytes, 0, byteCount, chars, charCount, false);
-				for (int count = 0; count < addCount; count++, charCount++)
-					if (chars[charCount] == 0)
-						return new String(chars, 0, charCount);
-			}
-		}
-
-		/// <summary>Read a string that is always the same number of bytes, but may have a terminator in it that makes it shorter.</summary>
-		/// <param name="reader">The <see cref="BinaryReader"/> to read the string from.</param>
-		/// <param name="byteCount">The number of bytes in the string.</param>
-		/// <param name="encoding">The encoding to read the string with.</param>
-		/// <param name="stopValue1">The first character to stop the string with. The default is '\0' (the NUL terminator).</param>
-		/// <param name="stopValue2">The second character to stop the string with. The default is '\0' (the NUL terminator).</param>
-		/// <returns></returns>
-		public static string ReadStringz(this BinaryReader reader, int byteCount, Encoding encoding, char stopValue1 = '\0', char stopValue2 = '\0') {
-			Decoder decoder = GetSharedDecoder(encoding);
-			byte[] bytes = reader.ReadSharedBytes(byteCount, out byteCount);
-			char[] chars = SharedChars.Get(encoding.GetMaxCharCount(byteCount));
-			int charCount = decoder.GetChars(bytes, 0, byteCount, chars, 0);
-			int charLength;
-
-			for (charLength = 0; charLength < charCount; charLength++)
-				if (chars[charLength] == stopValue1 || chars[charLength] == stopValue2)
-					break;
-			return new string(chars, 0, charLength);
-		}
-
-		public static string ReadStringzAt(this BinaryReader reader, long offset, Encoding encoding) {
-			reader.BaseStream.Position = offset;
-			return reader.ReadStringz(encoding);
-		}
-
-		public static string ReadStringzAt(this BinaryReader reader, long offset, int maxByteLength, Encoding encoding) {
-			reader.BaseStream.Position = offset;
-			return reader.ReadStringz(maxByteLength, encoding);
-		}
-
-		public static string ReadStringzAtUInt32(this BinaryReader reader, Encoding encoding) { return reader.ReadStringzAtUInt32(ByteOrder.LittleEndian, encoding); }
-
-		/// <summary>Read a <see cref="UInt32"/> offset, read the NUL-terminated string at the offset (or just return <c>null</c> if the offset is 0), and then return the stream position to just after the <see cref="UInt32"/>.</summary>
-		/// <param name="reader"></param>
-		/// <param name="byteOrder"></param>
-		/// <param name="encoding"></param>
-		/// <returns></returns>
-		public static string ReadStringzAtUInt32(this BinaryReader reader, ByteOrder byteOrder, Encoding encoding) {
-			uint offset = reader.ReadUInt32(byteOrder);
-			if (offset == 0)
-				return null;
-
-			long reset = reader.BaseStream.Position;
-			string result = ReadStringzAt(reader, offset, encoding);
-			reader.BaseStream.Position = reset;
-			return result;
-		}
-
-		public static void RequireBE(this BinaryReader reader, int value) {
-			int read = reader.ReadInt32BE();
-			if (read != value)
-				throw new Exception();
-		}
-
-		public static void RequireMagic(this BinaryReader reader, string magic) {
-			if (!reader.MatchMagic(magic))
-				throw new Exception();
-		}
-
-		public static void RequireZeroes(this BinaryReader reader, int count) {
-			for (int index = 0, value; index < count; index++)
-				if ((value = reader.ReadByte()) != 0)
-					throw new Exception();
-		}
-
-		public static int TryReadInt32(this BinaryReader reader) { return reader.BaseStream.TryReadInt32(0); }
-
-		public static void WriteToFile(this BinaryReader reader, string path) {
-			long reset = reader.BaseStream.Position;
-			reader.BaseStream.Position = 0;
-			using (var stream = File.Open(path, FileMode.Create))
-				reader.BaseStream.CopyTo(stream);
-			reader.BaseStream.Position = reset;
-		}
-
-		#endregion BinaryReader
-
 		#region Arrays
 
 		public static void AddRange<T>(this ICollection<T> list, IEnumerable<T> collection) {
@@ -388,6 +271,17 @@ namespace Glare.Internal {
 			return storeIndex;
 		}
 
+		public static T[] SubArray<T>(this IList<T> list, int start) {
+			return list.SubArray(start, list.Count - start);
+		}
+
+		public static T[] SubArray<T>(this IList<T> list, int start, int count) {
+			T[] result = new T[count];
+			for (int index = 0; index < count; index++)
+				result[index] = list[start + index];
+			return result;
+		}
+
 		/// <summary>If the index is within the list, return it; otherwise return a default value.</summary>
 		/// <typeparam name="T">The type of the elements of the list.</typeparam>
 		/// <param name="list">The list to index.</param>
@@ -413,6 +307,123 @@ namespace Glare.Internal {
 		}
 
 		#endregion Arrays
+		#region BinaryReader
+
+		public static bool MatchMagic(this BinaryReader reader, string magic) {
+			var compare = reader.ReadString(magic.Length, Encoding.ASCII);
+			return compare == magic;
+		}
+
+		public static string ReadString(this BinaryReader reader, int byteCount, Encoding encoding) {
+			byte[] bytes = ReadSharedBytes(reader, byteCount, out byteCount);
+			encoding = CheckEncodingEndian(reader, encoding);
+			return encoding.GetString(bytes, 0, byteCount);
+		}
+
+		/// <summary>Read a string terminated with a '\0' character.</summary>
+		/// <param name="reader"></param>
+		/// <param name="encoding"></param>
+		/// <returns></returns>
+		public static string ReadStringz(this BinaryReader reader, Encoding encoding) {
+			Decoder decoder = GetSharedDecoder(encoding);
+			int charCount = 0;
+			byte[] bytes = SharedBytes.Get(16);
+			char[] chars = SharedChars.Get(16);
+
+			encoding = CheckEncodingEndian(reader, encoding);
+
+			while (true) {
+				int byteCount = 0;
+
+				chars = SharedChars.Ensure(charCount, 16);
+
+				do bytes[byteCount++] = reader.ReadByte();
+				while (decoder.GetCharCount(bytes, 0, byteCount, false) == 0);
+
+				int addCount = decoder.GetChars(bytes, 0, byteCount, chars, charCount, false);
+				for (int count = 0; count < addCount; count++, charCount++)
+					if (chars[charCount] == 0)
+						return new String(chars, 0, charCount);
+			}
+		}
+
+		/// <summary>Read a string that is always the same number of bytes, but may have a terminator in it that makes it shorter.</summary>
+		/// <param name="reader">The <see cref="BinaryReader"/> to read the string from.</param>
+		/// <param name="byteCount">The number of bytes in the string.</param>
+		/// <param name="encoding">The encoding to read the string with.</param>
+		/// <param name="stopValue1">The first character to stop the string with. The default is '\0' (the NUL terminator).</param>
+		/// <param name="stopValue2">The second character to stop the string with. The default is '\0' (the NUL terminator).</param>
+		/// <returns></returns>
+		public static string ReadStringz(this BinaryReader reader, int byteCount, Encoding encoding, char stopValue1 = '\0', char stopValue2 = '\0') {
+			Decoder decoder = GetSharedDecoder(encoding);
+			byte[] bytes = reader.ReadSharedBytes(byteCount, out byteCount);
+			char[] chars = SharedChars.Get(encoding.GetMaxCharCount(byteCount));
+			int charCount = decoder.GetChars(bytes, 0, byteCount, chars, 0);
+			int charLength;
+
+			for (charLength = 0; charLength < charCount; charLength++)
+				if (chars[charLength] == stopValue1 || chars[charLength] == stopValue2)
+					break;
+			return new string(chars, 0, charLength);
+		}
+
+		public static string ReadStringzAt(this BinaryReader reader, long offset, Encoding encoding) {
+			reader.BaseStream.Position = offset;
+			return reader.ReadStringz(encoding);
+		}
+
+		public static string ReadStringzAt(this BinaryReader reader, long offset, int maxByteLength, Encoding encoding) {
+			reader.BaseStream.Position = offset;
+			return reader.ReadStringz(maxByteLength, encoding);
+		}
+
+		public static string ReadStringzAtUInt32(this BinaryReader reader, Encoding encoding) { return reader.ReadStringzAtUInt32(ByteOrder.LittleEndian, encoding); }
+
+		/// <summary>Read a <see cref="UInt32"/> offset, read the NUL-terminated string at the offset (or just return <c>null</c> if the offset is 0), and then return the stream position to just after the <see cref="UInt32"/>.</summary>
+		/// <param name="reader"></param>
+		/// <param name="byteOrder"></param>
+		/// <param name="encoding"></param>
+		/// <returns></returns>
+		public static string ReadStringzAtUInt32(this BinaryReader reader, ByteOrder byteOrder, Encoding encoding) {
+			uint offset = reader.ReadUInt32(byteOrder);
+			if (offset == 0)
+				return null;
+
+			long reset = reader.BaseStream.Position;
+			string result = ReadStringzAt(reader, offset, encoding);
+			reader.BaseStream.Position = reset;
+			return result;
+		}
+
+		public static void RequireBE(this BinaryReader reader, int value) {
+			int read = reader.ReadInt32BE();
+			if (read != value)
+				throw new Exception();
+		}
+
+		public static void RequireMagic(this BinaryReader reader, string magic) {
+			if (!reader.MatchMagic(magic))
+				throw new Exception();
+		}
+
+		public static void RequireZeroes(this BinaryReader reader, int count) {
+			for (int index = 0, value; index < count; index++)
+				if ((value = reader.ReadByte()) != 0)
+					throw new Exception();
+		}
+
+		public static int TryReadInt32(this BinaryReader reader) { return reader.BaseStream.TryReadInt32(0); }
+
+		public static void WriteToFile(this BinaryReader reader, string path) {
+			long reset = reader.BaseStream.Position;
+			reader.BaseStream.Position = 0;
+			using (var stream = File.Open(path, FileMode.Create))
+				reader.BaseStream.CopyTo(stream);
+			reader.BaseStream.Position = reset;
+		}
+
+		#endregion BinaryReader
+
 
 		#region BinaryReader
 
@@ -583,6 +594,32 @@ namespace Glare.Internal {
 		#endregion ResourceManager
 
 		#region Stream
+
+		public static byte[] ReadBytes(this Stream stream, int count) {
+			byte[] data = new byte[count];
+			int read = stream.Read(data, 0, count);
+
+			if (read == count)
+				return data;
+			byte[] newData = new byte[read];
+			Array.Copy(data, newData, read);
+			return newData;
+		}
+
+		/// <summary>Read bytes at a <see cref="Stream"/> <see cref="Stream.Position"/>, then reset the <see cref="Stream.Position"/> to what it was before reading.</summary>
+		/// <param name="stream"></param>
+		/// <param name="offset"></param>
+		/// <param name="count"></param>
+		/// <returns></returns>
+		public static byte[] ReadBytesAt(this Stream stream, long offset, int count) {
+			long reset = stream.Position;
+			try {
+				stream.Position = offset;
+				return stream.ReadBytes(count);
+			} finally {
+				stream.Position = reset;
+			}
+		}
 
 		public static byte[] ReadAllBytes(this Stream stream) { return stream.ReadSharedBytes(checked((int)(stream.Length - stream.Position))); }
 

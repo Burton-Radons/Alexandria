@@ -1,0 +1,767 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>Constants Members</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="Constants class" />
+    <meta name="System.Keywords" content="Constants class, all members" />
+    <meta name="System.Keywords" content="Alexandria.Games.Albion.Constants class" />
+    <meta name="Microsoft.Help.Id" content="AllMembers.T:Alexandria.Games.Albion.Constants" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Alexandria.Games.Albion" />
+    <meta name="file" content="ee52cb0e-64ce-7a85-74f9-2846603d03e6" />
+    <meta name="guid" content="ee52cb0e-64ce-7a85-74f9-2846603d03e6" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                  <span>    </span>
+                  <span id="memberOptionsDropdown" class="filter" tabindex="0">
+                    <img id="memberOptionsDropdownImage" src="../icons/dropdown.gif" /> <label id="memberOptionsMenuAllLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Show All </nobr></label><label id="memberOptionsMenuMultipleLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuProtectedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuInheritedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <div id="memberOptionsMenu">
+              <input id="ProtectedCheckbox" type="checkbox" data="Protected" value="on" onClick="SetMemberOptions(this, 'vis')" />
+              <label class="checkboxLabel" for="ProtectedCheckbox">Include Protected Members</label>
+              <br />
+              <input id="InheritedCheckbox" type="checkbox" data="Inherited" value="on" onClick="SetMemberOptions(this, 'decl')" />
+              <label class="checkboxLabel" for="InheritedCheckbox">Include Inherited Members</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">Constants Members</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <a href="bd509c22-c552-766a-7a98-4d459db809ed.htm">Constants Class</a> <a href="#fieldTableToggle" onclick="OpenSection(fieldTableToggle)">Fields</a> <a href="#seeAlsoToggle" onclick="OpenSection(seeAlsoToggle)">See Also</a> <span id="headfeedbackarea" class="feedbackhead"><a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a></span></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <p />
+        <p>The <a href="bd509c22-c552-766a-7a98-4d459db809ed.htm">Constants</a> type exposes the following members.</p>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(fieldTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(fieldTableToggle, event)" tabindex="0">
+            <img id="fieldTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Fields</span>
+        </h1>
+        <div id="fieldTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="f70b88e3-c659-4ef2-9746-bcd9a59e5dd0.htm">AutomapGraphicsLibrary</a>
+              </td>
+              <td>
+                <div class="summary">Automap graphics library, with a scroll map background in the first record and a technological map background in the second record. Each is a set of 16x16 tiles. </div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="1c55c499-8e6d-cda7-f1f4-420ab9668222.htm">Backgrounds3dLibrary</a>
+              </td>
+              <td>
+                <div class="summary">3D backgrounds library.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="42d3c954-c4eb-24c1-2db4-d5911ec1c1b3.htm">BlockListLibrary</a>
+              </td>
+              <td>
+                <div class="summary">Perhaps black list. Seems related to the tilesets.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="d8d4f07f-c2e2-6809-f776-cfe01bc823a4.htm">CombatBackgroundLibrary</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="0209191b-db1e-e54e-8402-4bf42d4927fc.htm">CombatGraphicsLibrary</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="f22fb1bc-306d-638b-04c9-fb0295278180.htm">Current</a>
+              </td>
+              <td>
+                <div class="summary">Relative path to the current game state.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="c8c91125-28bf-7171-20bf-7abcc647eda8.htm">EventSetLibrary</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 0-3 or 9).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="ef332977-faa1-8700-8617-03df4b5bd82e.htm">Floors3dLibrary</a>
+              </td>
+              <td>
+                <div class="summary">3D floors library ({0} is 0-2).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="42d18791-923a-2a73-0a42-89454b2e398e.htm">FontsLibrary</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="c35d2f72-002a-dfff-df6e-59c1257c4a5d.htm">FullBodyPictureLibrary</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="1bc7a325-cb78-ab90-7da5-b063c293e74d.htm">IconDataLibrary</a>
+              </td>
+              <td>
+                <div class="summary">Mappings and information for each tileset.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="b5ee19f5-2067-fa34-c3fc-003c7c3614c9.htm">IconGraphicsLibrary</a>
+              </td>
+              <td>
+                <div class="summary">Tilesets.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="ecdaced8-d617-aca2-258a-a0845cf3b60c.htm">Initial</a>
+              </td>
+              <td>
+                <div class="summary">Relative path to the initial game state.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="0ac403d7-c848-907c-d663-4ba9abbc5662.htm">InitialAutomap</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 1-3).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="8ac5d62c-1281-e59b-e41a-df8ec541ba0d.htm">InitialChestData</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 0-2 or 5).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="5fe248e7-b231-adc9-7b0b-96ce44aa832d.htm">InitialMerchantData</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 0-2).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="bc52ab0b-343e-92cf-a283-d82285b117c8.htm">ItemGraphicsLibrary</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="5ea9eab4-a9e5-59fe-254a-f601a9ed9df5.htm">ItemListLibrary</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="b6cfe704-7228-9608-0e3d-b95c3732b1d7.htm">ItemNamesData</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="6648ab4d-ccd3-463f-d2e8-82926bf66181.htm">LabDataLibrary</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 0-2).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="c442ef1c-332b-bb60-0370-528477fc318a.htm">LanguageEnglish</a>
+              </td>
+              <td>
+                <div class="summary">Subdirectory for the English text.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="c840034d-87db-f514-f771-6e716dac96d7.htm">LanguageEventText</a>
+              </td>
+              <td>
+                <div class="summary">Event text within a language path ({0} is 0-3 or 9).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="6b46e904-c933-23dc-824d-f99a62f7f196.htm">LanguageFlics</a>
+              </td>
+              <td>
+                <div class="summary">Animations within a language path.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="e2b25de9-2d12-0117-af4e-28bd52c8a090.htm">LanguageFrench</a>
+              </td>
+              <td>
+                <div class="summary">Subdirectory for the French text.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="c3402c0f-f4b1-c0be-a27a-9a289c4b4051.htm">LanguageGerman</a>
+              </td>
+              <td>
+                <div class="summary">Subdirectory for the German text.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="11c275c8-7959-bf99-067a-f9881847f2f8.htm">LanguageMapText</a>
+              </td>
+              <td>
+                <div class="summary">Map text within a language path ({0} is 1-3).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="1fd0fc0b-e9ec-a9b1-8cee-be4bc201b8ae.htm">LanguageSystemText</a>
+              </td>
+              <td>
+                <div class="summary">System text within a language path. Line-oriented. Any line not starting with '[' is ignored; otherwise the form is "[{0:D4}:{1}]", where {1} is the text assigned to this index.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="7b1b96e3-9060-aa21-2753-311136d7425c.htm">LanguageWordList</a>
+              </td>
+              <td>
+                <div class="summary">Word list within a language path.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="3b9babc5-8381-6bc9-99fe-e100c340bf85.htm">Library</a>
+              </td>
+              <td>
+                <div class="summary">Subdirectory for the libraries.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="7b7dc465-075f-c249-7c54-fe58d8eee592.htm">MapDataLibrary</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 1-3).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="eff3ad21-d2ca-dd66-1811-6cd12e7645eb.htm">MonsterCharacterLibrary</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="fc4e1d0c-bff5-c73f-2dcc-d1ea5afec183.htm">MonsterGraphicsLibrary</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="343f5999-15da-d9f1-2d6e-f2e986c3dcd2.htm">MonsterGroupLibrary</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 0-2).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="4df23a9a-4908-7302-fb67-5404d6672949.htm">NPCGraphicsLibrary</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 0-1).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="9ececc51-f5a6-7066-2aa6-5d12d1173d93.htm">NPCTinyGraphicsLibrary</a>
+              </td>
+              <td>
+                <div class="summary">Tiny images for some NPCs.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="08661e4b-ffc2-34e4-3c39-c5c5626e4dd8.htm">Objects3dLibrary</a>
+              </td>
+              <td>
+                <div class="summary">3D objects libraries ({0} is 0-3).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="247b98b1-24bc-340d-e4ca-f5e4203a59d3.htm">Overlays3dLibrary</a>
+              </td>
+              <td>
+                <div class="summary">3D overlays library ({0} is 0-2).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="dc314b4a-5543-5924-e4ac-b1b95498cca1.htm">PaletteLibrary</a>
+              </td>
+              <td>
+                <div class="summary">Palette library. Each is {ubyte r, g, b}[192], where each value is between 0 and 255.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="d78086f4-e637-c8c0-6c68-d0f07d665196.htm">PaletteStatic</a>
+              </td>
+              <td>
+                <div class="summary">Static portion of the palette; {byte r, g, b}[64], where each value is between 0 and 255.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="a2aaa982-9e68-db8e-6201-a2fe5438791f.htm">PartyGraphicsLibrary</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="a9d019c9-e992-20bf-3867-d518afa66117.htm">PartyTinyGraphicsLibrary</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="651121ac-563c-7b65-3ffd-65c3d17ce005.htm">PictureLibrary</a>
+              </td>
+              <td>
+                <div class="summary">A library of LBM files (45 in total) containing their own colour maps.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="54b4efd4-76bb-c255-c236-dbadc9d64284.htm">SamplesLibrary</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 0-2).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="2a7ce509-eae0-f230-77e4-99d9f81653ba.htm">ScriptLibrary</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 0-2).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="3b4de6c4-e449-10ca-59fe-4096bebd527f.htm">SlabFile</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="673b5f19-41f7-8f71-2224-59ea7940bd31.htm">SmallPortraitsLibrary</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 0-1).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="c343a3cf-6ef5-3dba-f7ac-66893fa9700a.htm">SongsLibrary</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="8b94ad96-4f7d-24d5-d279-7ba505a9bfcd.htm">SpellDataFile</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="e573ca1c-d912-7212-5a42-9b4e18fe299c.htm">StateNPCCharacterLibrary</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 0-2).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="3772bf3f-f30d-784a-1525-88cee267202e.htm">StatePartyCharacterLibrary</a>
+              </td>
+              <td>
+                <div class="summary">({0} is 0-2).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="e12fde6e-7c87-5fb4-e614-c08a0ca26d26.htm">TacticalObjectLibrary</a>
+              </td>
+              <td>
+                <div class="summary">Party and enemy images for the combat screen.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="2ee8a46e-3020-e39a-b27a-14bdcf9cc1cd.htm">TransparencyTableLibrary</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="445b8de4-6b85-250a-1413-3e95fe3c75d2.htm">Walls3dLibrary</a>
+              </td>
+              <td>
+                <div class="summary">3D walls library ({0} is 0-1).</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="6002c937-cafb-a747-4066-610daaa836e5.htm">WaveLibraryLibrary</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(seeAlsoToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(seeAlsoToggle, event)" tabindex="0">
+            <img id="seeAlsoToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />See Also</span>
+        </h1>
+        <div id="seeAlsoSection" class="section" name="collapseableSection" style="">
+          <div class="seeAlsoStyle">
+            <a href="bd509c22-c552-766a-7a98-4d459db809ed.htm">Constants Class</a>
+          </div>
+          <div class="seeAlsoStyle">
+            <a href="1dd80d5f-de09-fec0-6d58-bd20d520440c.htm">Alexandria.Games.Albion Namespace</a>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

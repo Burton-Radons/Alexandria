@@ -1,0 +1,971 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>Matrix4f Members</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="Matrix4f structure" />
+    <meta name="System.Keywords" content="Matrix4f structure, all members" />
+    <meta name="System.Keywords" content="Glare.Matrix4f structure" />
+    <meta name="Microsoft.Help.Id" content="AllMembers.T:Glare.Matrix4f" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Glare" />
+    <meta name="file" content="c012a960-fd88-e56e-3606-b75f1cddc011" />
+    <meta name="guid" content="c012a960-fd88-e56e-3606-b75f1cddc011" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                  <span>    </span>
+                  <span id="memberOptionsDropdown" class="filter" tabindex="0">
+                    <img id="memberOptionsDropdownImage" src="../icons/dropdown.gif" /> <label id="memberOptionsMenuAllLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Show All </nobr></label><label id="memberOptionsMenuMultipleLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuProtectedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label><label id="memberOptionsMenuInheritedLabel" for="memberOptionsDropdownImage" style="display: none;"><nobr>Members: Filtered </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <div id="memberOptionsMenu">
+              <input id="ProtectedCheckbox" type="checkbox" data="Protected" value="on" onClick="SetMemberOptions(this, 'vis')" />
+              <label class="checkboxLabel" for="ProtectedCheckbox">Include Protected Members</label>
+              <br />
+              <input id="InheritedCheckbox" type="checkbox" data="Inherited" value="on" onClick="SetMemberOptions(this, 'decl')" />
+              <label class="checkboxLabel" for="InheritedCheckbox">Include Inherited Members</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">Matrix4f Members</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f Structure</a> <a href="#constructorTableToggle" onclick="OpenSection(constructorTableToggle)">Constructors</a> <a href="#methodTableToggle" onclick="OpenSection(methodTableToggle)">Methods</a> <a href="#operatorTableToggle" onclick="OpenSection(operatorTableToggle)">Operators</a> <a href="#fieldTableToggle" onclick="OpenSection(fieldTableToggle)">Fields</a> <a href="#propertyTableToggle" onclick="OpenSection(propertyTableToggle)">Properties</a> <a href="#seeAlsoToggle" onclick="OpenSection(seeAlsoToggle)">See Also</a> <span id="headfeedbackarea" class="feedbackhead"><a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a></span></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <p />
+        <p>The <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a> type exposes the following members.</p>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(constructorTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(constructorTableToggle, event)" tabindex="0">
+            <img id="constructorTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Constructors</span>
+        </h1>
+        <div id="constructorTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="be920522-d2b0-3d61-31e0-747c2af1c05e.htm">Matrix4f</a>
+              </td>
+              <td>
+                <div class="summary">Assign the coefficients of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a> to the values provided. The coefficients are in row-major order, so the first coefficient is XX (first row of the first column) and the second coefficient is XY (first row of the <b>second</b> column).</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(methodTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(methodTableToggle, event)" tabindex="0">
+            <img id="methodTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Methods</span>
+        </h1>
+        <div id="methodTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="d739cb2b-ad9c-8ad3-f7f6-84571d28c231.htm">Equals(Object)</a>
+              </td>
+              <td>
+                <div class="summary">Test for equality between this <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a> and the provided object, which must be an equivalent <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a> to return <span class="code">true</span>.</div> (Overrides <a href="http://msdn2.microsoft.com/en-us/library/2dts52z7" target="_blank">ValueType<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Equals(Object)</a>.)</td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="efa8d101-dab2-9bc9-53a5-f5b50497e9b0.htm">Equals(Matrix4f)</a>
+              </td>
+              <td>
+                <div class="summary">Test for equality in all coefficients between this <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a> and the other one.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="30e8aa55-fed3-6100-dde6-7323225a7538.htm">Equals(Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td>
+                <div class="summary">Test for equality in all coefficients between this <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a> and the other one.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="aeb5602a-e5b3-bcef-4045-55c86df73e17.htm">GetHashCode</a>
+              </td>
+              <td>
+                <div class="summary">Compute a hash code containing all of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>'s coefficients.</div> (Overrides <a href="http://msdn2.microsoft.com/en-us/library/y3509fc2" target="_blank">ValueType<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>GetHashCode<span class="languageSpecificText"><span class="cs">()</span><span class="cpp">()</span><span class="nu">()</span><span class="fs">()</span></span></a>.)</td>
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/dfwy45w9" target="_blank">GetType</a>
+              </td>
+              <td>
+                <div class="summary">Gets the <a href="http://msdn2.microsoft.com/en-us/library/42892f65" target="_blank">Type</a> of the current instance.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="30e96d2a-c327-9ec9-e208-9bdc39e6291c.htm">LookAt(Vector3f, Vector3f, Vector3f)</a>
+              </td>
+              <td>
+                <div class="summary">Create a view matrix that transforms a camera and turns it to look towards a specific location.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="9fbc7efd-7040-6090-9a59-fc3c2df0da7b.htm">LookAt(Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>, Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>, Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td>
+                <div class="summary">Create a view matrix that transforms a camera and turns it to look towards a specific location.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="6cb06871-12e5-8f7d-516f-391615a01220.htm">LookAt(Vector3f, Vector3f, Vector3f, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td>
+                <div class="summary">Create a view matrix that transforms a camera and turns it to look towards a specific location.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="febe823e-5816-6612-f105-83ba8cce78fb.htm">LookAt(Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>, Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>, Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td>
+                <div class="summary">Create a view matrix that transforms a camera and turns it to look towards a specific location.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="ef233750-2d44-d7a6-5ffc-845273d55149.htm">Multiply(Matrix4f)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="16064c8a-fa31-27d8-1de2-589e7f05c23c.htm">Multiply(Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="612a01cc-96a0-ae40-179e-25bcd3f9c913.htm">Multiply(Vector3f)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="8aff6c3f-6dfb-2aa9-35c0-b3bfaf052945.htm">Multiply(Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="bd55843a-2630-86e9-c447-347283fc38e5.htm">Multiply(Matrix4f, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="84011e0d-2573-4612-fb6a-40653aabb6a0.htm">Multiply(Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="b2b19042-bf7d-1947-516d-19e01d7bbb72.htm">Multiply(Vector3f, Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="050cd38a-4ebd-5d1c-a1b0-1d90235405d7.htm">Multiply(Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>, Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="5fbed19e-8a28-8027-90fe-30f113244313.htm">PerspectiveFieldOfView(Angle, Single, Single, Single)</a>
+              </td>
+              <td>
+                <div class="summary">Create a perspective matrix with a field of view.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="d8ef9a0d-4522-1e8d-7156-9fea8479900b.htm">PerspectiveFieldOfView(Angle, Single, Single, Single, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td>
+                <div class="summary">Create a perspective matrix with a field of view.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="26ac244e-39de-f9d6-f493-929a28edfb2f.htm">Rotate(Angle3)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="08459307-2842-d173-352a-12da45d8d5e2.htm">Rotate(Angle3<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="0737e35d-d7ea-f2fb-f7cc-99db2310cb98.htm">Rotate(Angle3, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="03dfd962-43b4-e089-1733-712fda871de1.htm">Rotate(Angle3<span class="languageSpecificText"><span class="cpp">%</span></span>, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="19d3a99b-1ab9-7124-e8bf-161d2dc48ecc.htm">Rotate(Angle, Angle, Angle)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="8604ba54-6acc-391c-0d50-cff1c2d00625.htm">Rotate(Angle, Angle, Angle, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="4a6380cf-1263-c8a8-7edd-588895f27ea9.htm">Scale(Single)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="390be939-3856-fd6e-17d9-b07ddbeff5ec.htm">Scale(Vector3f)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="f5f7da68-33e2-d6e9-8071-832fd83afb6d.htm">Scale(Single, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="841a46d5-9653-6cdd-9487-19c5ba12c5e6.htm">Scale(Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="e1d2f834-8e84-1dd2-b7db-c63b891f22ba.htm">Scale(Single, Single, Single)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="9ef697db-c7cd-d3c8-e707-6a461dbd5e32.htm">Scale(Single, Single, Single, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;inherited;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+              </td>
+              <td>
+                <a href="http://msdn2.microsoft.com/en-us/library/wb77sz3h" target="_blank">ToString</a>
+              </td>
+              <td>
+                <div class="summary">Returns the fully qualified type name of this instance.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/aey3s293" target="_blank">ValueType</a>.)</td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="36d288a1-5bc4-d97d-de22-e702aab48e33.htm">Translate(Vector3f)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="7638d558-8f6f-0e23-8ba0-636991c230d0.htm">Translate(Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="444bee60-5298-d6da-1d14-807f7201c916.htm">Translate(Vector3f, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="98aa1d35-731c-2fa7-aaf7-4d2f13e93fcc.htm">Translate(Vector3f<span class="languageSpecificText"><span class="cpp">%</span></span>, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="5f95cb5d-af22-ef84-642c-912af29bab6d.htm">Translate(Single, Single, Single)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="cef7b3dd-f83b-d83c-8a8c-dba0d96a3836.htm">Translate(Single, Single, Single, Matrix4f<span class="languageSpecificText"><span class="cpp">%</span></span>)</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(operatorTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(operatorTableToggle, event)" tabindex="0">
+            <img id="operatorTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Operators</span>
+        </h1>
+        <div id="operatorTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="90f62708-4fa9-1618-72a7-684916e2f3f8.htm">Equality</a>
+              </td>
+              <td>
+                <div class="summary">Test whether the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a> objects have equivalent coefficients.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="e9a8d76d-eea4-c1a3-0e6e-57f67df95bc3.htm">
+                  <span class="languageSpecificText">
+                    <span class="cs">Explicit</span>
+                    <span class="vb">Narrowing</span>
+                    <span class="cpp">Explicit</span>
+                    <span class="nu">Explicit</span>
+                    <span class="fs">Explicit</span>
+                  </span>(Matrix4f to Matrix4d)</a>
+              </td>
+              <td>
+                <div class="summary">Cast to the <a href="0395a821-7c4c-226e-1f10-f676e63eb3dc.htm">Matrix4d</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="5e207b06-8be5-8e5a-b194-e5be6d967063.htm">Inequality</a>
+              </td>
+              <td>
+                <div class="summary">Test whether the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a> objects do not have equivalent coefficients.</div>
+              </td>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="77983bcb-9b17-8f78-b523-2a059b2ebf97.htm">Multiply(Matrix4f, Matrix4f)</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/puboperator.gif" alt="Public operator" title="Public operator" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="edf855bc-8ee2-338d-325b-2fa19cc1fccc.htm">Multiply(Matrix4f, Vector3f)</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(fieldTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(fieldTableToggle, event)" tabindex="0">
+            <img id="fieldTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Fields</span>
+        </h1>
+        <div id="fieldTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;static;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+                <img src="../icons/static.gif" alt="Static member" title="Static member" />
+              </td>
+              <td>
+                <a href="c5416463-36ef-9007-827a-5d39a1d75a41.htm">Identity</a>
+              </td>
+              <td>
+                <div class="summary">Get a <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a> that would have no effect when multiplied against a <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a> or <a href="2a136dfe-a598-b0fd-a147-2ace7b53292f.htm">Vector4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="5f11b79c-401f-7998-7bf3-9b1d4e755974.htm">WW</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the fourth row of the fourth column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="00a504e0-0016-7797-1e30-067df45c7be0.htm">WX</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the fourth row of the first column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="72d3b4b5-4ea6-72ac-1d75-ca23a7e05d88.htm">WY</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the fourth row of the second column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="236a939e-753f-16e1-ba78-46c7fc3e7c63.htm">WZ</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the fourth row of the third column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="1fe21f0e-6738-9090-6772-d7fb3138a69a.htm">XW</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the first row of the fourth column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="43171d8a-8890-ee4f-df9c-775c9e6ff80a.htm">XX</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the first row of the first column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="ce106c26-8146-c85c-a940-fcd2ba4c2713.htm">XY</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the first row of the second column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="db3b7494-12a0-05c3-06c4-e367197dea2a.htm">XZ</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the first row of the third column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="b8bded0d-dfb6-9f10-145e-9f184a949622.htm">YW</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the second row of the fourth column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="ddfe97bb-8dbe-a37c-18cb-e67d61cd75e4.htm">YX</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the second row of the first column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="24253e1a-b994-8397-e9c5-fae3411600d2.htm">YY</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the second row of the second column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="598dc253-313e-1868-88cb-fe6be9821470.htm">YZ</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the second row of the third column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="c55e5bd8-5a2c-2f7c-1575-08a03e732d9c.htm">ZW</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the third row of the fourth column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="bb767fa9-41eb-8c8d-74ed-ec91aa4d8e67.htm">ZX</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the third row of the first column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="0b185a7c-c81e-b8e9-4118-d6fc9dabe447.htm">ZY</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the third row of the second column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubfield.gif" alt="Public field" title="Public field" />
+              </td>
+              <td>
+                <a href="0e5c1b17-4586-bf13-2d27-c64746775a97.htm">ZZ</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the third row of the third column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(propertyTableToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(propertyTableToggle, event)" tabindex="0">
+            <img id="propertyTableToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Properties</span>
+        </h1>
+        <div id="propertyTableSection" class="section" name="collapseableSection" style="">
+          <table id="memberList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+							 
+						</th>
+              <th class="nameColumn">Name</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="6fb89e74-37fd-73b7-03bf-7b25eef0bbd5.htm">Diagonal</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the diagonal Vector4f of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="96416bd1-d793-97db-a294-613be4bcac87.htm">Item</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="f6af81df-6a4f-bf78-ae5d-b012c6cf1802.htm">WColumn</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the fourth column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="ee3c40df-66a5-6b92-a0e9-9a2689562cae.htm">WRow</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the fourth row of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="5a3b9ed3-fa61-c943-8e2b-ea3322e19eb2.htm">XColumn</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the first column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="dd39d298-a8f3-37b5-954e-423ba219015b.htm">XRow</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the first row of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="f3c6be5b-b84c-f69b-2578-171463550b0d.htm">YColumn</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the second column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="544638d2-bdd3-44e9-9a22-34b1cc413504.htm">YRow</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the second row of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="5ca7f931-6c70-aa2e-a203-5aa4bfdb7086.htm">ZColumn</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the third column of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+            <tr data="public;declared;notNetfw;">
+              <td>
+                <img src="../icons/pubproperty.gif" alt="Public property" title="Public property" />
+              </td>
+              <td>
+                <a href="ebd300e6-161b-e741-b802-4229fa4c176f.htm">ZRow</a>
+              </td>
+              <td>
+                <div class="summary">Get or set the third row of the <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f</a>.</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(seeAlsoToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(seeAlsoToggle, event)" tabindex="0">
+            <img id="seeAlsoToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />See Also</span>
+        </h1>
+        <div id="seeAlsoSection" class="section" name="collapseableSection" style="">
+          <div class="seeAlsoStyle">
+            <a href="97b8379e-81f1-21d7-6170-1b4b4113211d.htm">Matrix4f Structure</a>
+          </div>
+          <div class="seeAlsoStyle">
+            <a href="6e720f6e-c52c-a0ef-8b39-25cea91a5923.htm">Glare Namespace</a>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

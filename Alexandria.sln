@@ -59,6 +59,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{97C324
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "Documentation", "Documentation\Documentation.shfbproj", "{110908B2-4B2A-4D0D-8953-A3D255610F05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -411,6 +413,20 @@ Global
 		{C257544B-C940-4278-B56F-E2C9EEA94104}.SingleImage|Any CPU.Build.0 = Debug|Any CPU
 		{C257544B-C940-4278-B56F-E2C9EEA94104}.SingleImage|x86.ActiveCfg = Release|x86
 		{C257544B-C940-4278-B56F-E2C9EEA94104}.SingleImage|x86.Build.0 = Release|x86
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.Release|x86.ActiveCfg = Release|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{110908B2-4B2A-4D0D-8953-A3D255610F05}.SingleImage|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -143,7 +143,7 @@ namespace Alexandria.Engines.DarkSouls {
 		public Engine(Plugin plugin)
 			: base(plugin) {
 			AddFormat(new ArchiveFormat(this));
-			AddFormat(new DSModelFormat(this));
+			AddFormat(new ModelFormat(this));
 			AddFormat(new EffectFormat(this));
 			AddFormat(new FsslFormat(this));
 			AddFormat(new MCGFormat(this));

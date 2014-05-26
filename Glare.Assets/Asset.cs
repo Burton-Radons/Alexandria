@@ -360,7 +360,8 @@ namespace Glare.Assets {
 				Text = DisplayName,
 			};
 
-			var view = new DataGridView() {
+			var view = new DoubleBufferedDataGridView() {
+				AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells,
 				AutoGenerateColumns = false,
 				DataSource = list,
 				Dock = DockStyle.Fill,
@@ -368,7 +369,7 @@ namespace Glare.Assets {
 			};
 
 			view.Columns.Add(new DataGridViewTextBoxColumn() {
-				DataPropertyName = "Offset",
+				DataPropertyName = "OffsetHex",
 				HeaderText = "Offset",
 				SortMode = DataGridViewColumnSortMode.Automatic,
 				AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
@@ -379,6 +380,10 @@ namespace Glare.Assets {
 				HeaderText = "Message",
 				SortMode = DataGridViewColumnSortMode.Automatic,
 				AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+
+				DefaultCellStyle = new DataGridViewCellStyle() {
+					WrapMode = DataGridViewTriState.True,
+				},
 			});
 
 			window.Controls.Add(view);

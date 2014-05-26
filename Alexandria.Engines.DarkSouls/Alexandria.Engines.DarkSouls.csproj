@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Alexandria.Engines.DarkSouls.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -74,13 +75,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Archive.cs" />
-    <Compile Include="DSModel.cs" />
-    <Compile Include="DSModelMaterial.cs" />
-    <Compile Include="DSModelMesh.cs" />
-    <Compile Include="DSModelPart.cs" />
-    <Compile Include="DSModelBone.cs" />
-    <Compile Include="DSModelVertexDeclaration.cs" />
-    <Compile Include="DSModelBoneUnknown.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="ModelMaterial.cs" />
+    <Compile Include="ModelMaterialParameter.cs" />
+    <Compile Include="ModelMesh.cs" />
+    <Compile Include="ModelMeshLevel.cs" />
+    <Compile Include="ModelBone.cs" />
+    <Compile Include="ModelVertexAttribute.cs" />
+    <Compile Include="ModelVertexDeclaration.cs" />
+    <Compile Include="ModelBoneUnknown.cs" />
     <Compile Include="DSPlatform.cs" />
     <Compile Include="Effect.cs" />
     <Compile Include="Enumerations.cs" />
@@ -179,17 +182,11 @@
     <Compile Include="ParameterTables\Throw.cs" />
     <None Include="Resources\dvdbnd0.filelist" />
     <None Include="Resources\dvdbnd1.filelist" />
+    <None Include="Resources\Translations.tsv" />
     <None Include="Resources\Translations.tsv.gz" />
-    <None Include="Resources\Translations.zip" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Names_AtkParam_Npc.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Names_AtkParam_Npc1.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Translations.csv" />
+    <Folder Include="Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

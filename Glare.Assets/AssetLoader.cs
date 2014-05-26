@@ -25,7 +25,11 @@ namespace Glare.Assets {
 		/// <summary>Get the position the <see cref="AssetLoader.Stream"/> was at when this error was generated.</summary>
 		public long Offset { get; private set; }
 
-		public string OffsetHex { get { return Math.Abs(Offset) < 10 ? Offset.ToString() : string.Format("{1}{0}/{0:X}h", Math.Abs(Offset), Offset < 0 ? "-" : ""); } }
+		public string OffsetHex {
+			get {
+				return Math.Abs(Offset) < 10 ? Offset.ToString() : string.Format("{1}{0}/{0:X}h", Math.Abs(Offset), Offset < 0 ? "-" : "");
+			}
+		}
 
 		public AssetLoadError(AssetLoader loader, long? offset, string message) {
 			Loader = loader;

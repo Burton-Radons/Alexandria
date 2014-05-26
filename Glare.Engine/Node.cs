@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Glare.Engine {
+	/// <summary>
+	/// An object stored in a <see cref="Module"/>.
+	/// </summary>
 	[Serializable]
 	public abstract class Node {
 		readonly RichDictionary<NodeTypeProperty, object> assignedProperties = new RichDictionary<NodeTypeProperty, object>();

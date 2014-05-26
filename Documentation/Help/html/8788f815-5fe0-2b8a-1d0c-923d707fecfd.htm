@@ -1,0 +1,507 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>Glare.Assets Namespace</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="Glare.Assets namespace" />
+    <meta name="Microsoft.Help.F1" content="Glare.Assets" />
+    <meta name="Microsoft.Help.Id" content="N:Glare.Assets" />
+    <meta name="Description" content="" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Glare.Assets" />
+    <meta name="file" content="8788f815-5fe0-2b8a-1d0c-923d707fecfd" />
+    <meta name="guid" content="8788f815-5fe0-2b8a-1d0c-923d707fecfd" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">Glare.Assets Namespace</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <span id="headfeedbackarea" class="feedbackhead">
+                    <a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a>
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <div class="summary" />
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(classToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(classToggle, event)" tabindex="0">
+            <img id="classToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Classes</span>
+        </h1>
+        <div id="classSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Class</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="c6e33889-7a08-cd83-ff76-e069f11fbdb6.htm">ArchiveAsset</a>
+              </td>
+              <td>
+                <div class="summary">
+            An archive file, which should contain only a hierarchy of <a href="b65049e7-f64f-001b-775e-fa27c995a77f.htm">FolderAsset</a> and <a href="2ed38f76-db4b-00f0-e2b7-73506971fb7f.htm">DataAsset</a>s.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="3e7ac797-d9fa-f54a-8698-216ed27205bf.htm">AssetFormat</a>
+              </td>
+              <td>
+                <div class="summary">
+            This describes a resource format.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="3470024f-8e67-f0dc-3a55-18cc73175452.htm">AssetLoader</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="b0ee54b1-57aa-a7a7-c029-8a1989f818e1.htm">AssetLoadError</a>
+              </td>
+              <td>
+                <div class="summary">An error that has been recorded while loading an <a href="a94ca409-5ca4-0138-5326-94de99f5c5ac.htm">Asset</a>. This is collected in <a href="3470024f-8e67-f0dc-3a55-18cc73175452.htm">AssetLoader</a>'s <a href="8f43e421-5a98-7b2b-20a4-386a5010ca69.htm">Errors</a> property.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="5b8535ee-0b4d-b3c8-618e-a01d8038325a.htm">AssetLoadError<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>InvalidData</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="d4737ad2-d939-54d2-7c25-4ebbc56ddeb1.htm">AssetLoadError<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>UnexpectedEndOfFile</a>
+              </td>
+              <td>
+                <div class="summary">The file was not as big as it needed to be.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="c2c0f83f-9c34-b94c-2394-fb5e5430f3f2.htm">AssetLoadError<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>UnexpectedPosition</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="9cc6d8fe-14e9-f4f1-ca16-b25c478b6738.htm">AssetManager</a>
+              </td>
+              <td>
+                <div class="summary">
+            Global state manager.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="fdc7211a-c2a5-a274-e228-d64e9c99cd79.htm">AssetPlugin</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="c13b5e09-7f36-96e0-b807-5a789ecf373a.htm">BinaryAsset</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="2ed38f76-db4b-00f0-e2b7-73506971fb7f.htm">DataAsset</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="6b2581a2-f8df-9713-2ba5-b13748fa78f1.htm">FileManager</a>
+              </td>
+              <td>
+                <div class="summary">
+            A file context allows saving, opening, and creating files.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="b65049e7-f64f-001b-775e-fa27c995a77f.htm">FolderAsset</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="48a976bc-6d86-2cf2-b88a-7288f1b9908c.htm">IndexedTextureAsset</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="c2775514-3edb-376c-4132-c3245a1f6b6f.htm">MarkingReader</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="f07208db-0285-10c7-6b32-1152dec201a5.htm">ModelAsset</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="91019cd4-d06b-1e29-0c8a-c99b48f6d910.htm">PaletteAsset</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="dfe4989e-251d-7f1c-1127-048244e731a6.htm">PluginAsset</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="de737aea-d1ee-c196-6f1b-bdae16538593.htm">PluginFormatAsset</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="d676d339-c479-4a10-06ac-2ae5fe82bdd2.htm">PropertyTableRowOrderAttribute</a>
+              </td>
+              <td>
+                <div class="summary">This can be applied to a <span class="nolink">[!:TableRow]</span> to override the order of a property that has a <a href="5d67a0b2-36fa-1940-f58f-13168c6b9f59.htm">TableRowAttribute</a>.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="ee733aa5-049d-1327-af4e-7f214c89b4cd.htm">SaveCheckResult</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="b7d97748-bad4-72e0-e272-a2406b67717a.htm">TableAsset</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="b87de67f-4f3c-1e73-e50d-bf33e921ab7b.htm">TableAsset<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="nu">(</span><span class="fs">&lt;'</span></span>TRow<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="nu">)</span><span class="fs">&gt;</span></span></a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a3c8dbd3-f1bc-0898-edc1-ceef663621e8.htm">TableRowAsset</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="5d67a0b2-36fa-1940-f58f-13168c6b9f59.htm">TableRowAttribute</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="2e26f8b7-157f-0d15-5e8a-c681d9bfc8d1.htm">TableRowPropertyInfo</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="48786262-55e6-1cc3-6085-ae837fb22c77.htm">TextureAsset</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="4b172799-19ac-3ffb-e6da-6b7a3f4f1e95.htm">UnknownBlock</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="674b60b1-cac0-345c-1e8f-78b537398f08.htm">UnknownList</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(structureToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(structureToggle, event)" tabindex="0">
+            <img id="structureToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Structures</span>
+        </h1>
+        <div id="structureSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Structure</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="b880f9d6-8360-c366-ec5b-4c4810db6483.htm">MarkingReader<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>UnreadBlock</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(delegateToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(delegateToggle, event)" tabindex="0">
+            <img id="delegateToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Delegates</span>
+        </h1>
+        <div id="delegateSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Delegate</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="delegate; public">
+              <td>
+                <img src="../icons/pubdelegate.gif" alt="Public delegate" title="Public delegate" />
+              </td>
+              <td>
+                <a href="02ef549e-f96e-1066-8780-6b6bc22405e7.htm">ResolveLoadConflictCallback</a>
+              </td>
+              <td>
+                <div class="summary">
+            This is 
+            </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(enumerationToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(enumerationToggle, event)" tabindex="0">
+            <img id="enumerationToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Enumerations</span>
+        </h1>
+        <div id="enumerationSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Enumeration</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="b83ae703-537e-9824-912b-f86dc1dc891f.htm">LoadMatchStrength</a>
+              </td>
+              <td>
+                <div class="summary">
+            Match level returned by <a href="bc440845-9d72-439f-6512-7116da125307.htm">LoadMatch(AssetLoader)</a>. Each is an integer value, and so there can be values in between if necessary.
+            
+            The general guidelines are these: If you don't match at all, return <a href="b83ae703-537e-9824-912b-f86dc1dc891f.htm">None</a>. If you're a fallback (such as binary or text), return <a href="b83ae703-537e-9824-912b-f86dc1dc891f.htm">Fallback</a>. If you're a fallback overload, return <a href="b83ae703-537e-9824-912b-f86dc1dc891f.htm">Generic</a>. If the match is a poor quality default like file size for a palette or file name, return <a href="b83ae703-537e-9824-912b-f86dc1dc891f.htm">Weak</a>. If you match just a magic number, return <a href="b83ae703-537e-9824-912b-f86dc1dc891f.htm">Medium</a>. If you match a whole header and you're pretty sure you can understand the format, return <a href="b83ae703-537e-9824-912b-f86dc1dc891f.htm">Strong</a>. If you matched the whole file and you know it both can't be anything else and is fully comprehensible, return <a href="b83ae703-537e-9824-912b-f86dc1dc891f.htm">Comprehensive</a>. If you need more than that, return something between <a href="b83ae703-537e-9824-912b-f86dc1dc891f.htm">Comprehensive</a> and <a href="b83ae703-537e-9824-912b-f86dc1dc891f.htm">Perfect</a>. Don't return <a href="b83ae703-537e-9824-912b-f86dc1dc891f.htm">Perfect</a>. Values in between are necessarily based on context; you're trying to prevent some other loader from matching, because if two loaders match at the same level, neither is used.
+            </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

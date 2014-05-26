@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Glare.Assets.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -109,6 +110,7 @@
     <Compile Include="Formats\Dds.cs" />
     <Compile Include="Formats\Direct3D.cs" />
     <Compile Include="IndexedTextureAsset.cs" />
+    <Compile Include="MarkingReader.cs" />
     <Compile Include="ModelAsset.cs" />
     <Compile Include="PaletteAsset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

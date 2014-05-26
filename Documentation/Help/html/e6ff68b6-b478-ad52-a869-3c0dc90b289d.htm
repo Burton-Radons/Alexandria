@@ -1,0 +1,2295 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>Alexandria.Engines.DarkSouls Namespace</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="Alexandria.Engines.DarkSouls namespace" />
+    <meta name="Microsoft.Help.F1" content="Alexandria.Engines.DarkSouls" />
+    <meta name="Microsoft.Help.Id" content="N:Alexandria.Engines.DarkSouls" />
+    <meta name="Description" content="" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Alexandria.Engines.DarkSouls" />
+    <meta name="file" content="e6ff68b6-b478-ad52-a869-3c0dc90b289d" />
+    <meta name="guid" content="e6ff68b6-b478-ad52-a869-3c0dc90b289d" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">Alexandria.Engines.DarkSouls Namespace</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <span id="headfeedbackarea" class="feedbackhead">
+                    <a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a>
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <div class="summary" />
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(classToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(classToggle, event)" tabindex="0">
+            <img id="classToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Classes</span>
+        </h1>
+        <div id="classSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Class</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="88a18865-6d44-cde3-60f3-0a442dae92a2.htm">Archive</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="ce6b59d2-e2f0-eaa9-23d3-8bb8ed6f6a36.htm">ArchiveFormat</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="33eaf3a6-2ae5-34f6-4c9f-d9efdf76454c.htm">ArchiveRecord</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="16812fe0-68f9-c942-4f43-d694a1d869b2.htm">ClothingTableRow</a>
+              </td>
+              <td>
+                <div class="summary">
+                  <span class="nolink">[!:Armor]</span>s and <span class="nolink">[!:Weapon]</span>s.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="94a6fd8e-e090-f971-4064-947a7dcfa5c0.htm">DSModelMaterialParameter</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="8573ac4f-4793-b79c-887c-165e394f2112.htm">Effect</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="bfc6950c-dd65-214a-e43a-46752f3091c3.htm">EffectFormat</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="8b7be606-177d-f8a4-a7dd-fde9db636f9d.htm">EffectInstruction</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="d70f60c7-edb2-45d1-2bad-fffe95c78c8d.htm">EffectToken</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="e824c73b-9f61-dd9f-b17b-364ca52d970b.htm">Engine</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="e66729fc-e541-36a8-3e72-b241ec096e1c.htm">EquipmentTableRow</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="1e8175f2-4126-8003-a39f-30d349eb8258.htm">Fssl</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="f01aff88-e57c-17d4-3668-495ae6869dcf.htm">FsslFormat</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="88aca79c-2eae-80b1-b6d4-5fc805d20974.htm">FsslResource</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="8410c3f1-5f7c-a4dc-4bf1-f0da483c1b9f.htm">FsslThing2</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="99944466-ad50-0510-dc24-1735c7aed112.htm">FsslThing3</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="24b91537-d9bc-7107-f227-a99da036ffb8.htm">FsslThing4</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a1b167c7-ceb9-3bd5-e7d1-085dce0640e9.htm">FsslThing5</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="ccb2cc4c-52f7-9b16-7624-ac18793a8564.htm">FsslWeird</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="35de7c84-1ea3-644f-c4aa-84b03846bff5.htm">MCG</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="576ff7ee-0ceb-2c7f-a567-16fab6987c27.htm">MCGFormat</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a41f50d1-7d27-114e-237c-3640371af96a.htm">MCGTable</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="d434277b-d7fa-9fab-519f-189a92eb674d.htm">MCGTable1</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="c9ce170b-5883-39f5-0b1c-7adefd239b7e.htm">MCGTable2</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="35e88c6f-27cd-8b4c-bfa4-3c5d6c30045b.htm">MCGTable3</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="44b96e84-fbdc-7c3d-477d-fc49bf7f4ede.htm">MCP</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="475acf4f-6e35-8ca5-8d6e-699009085f2b.htm">MCPFormat</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="719754df-d4b4-38a4-dd39-50e9df1a94d8.htm">MCPTable</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="137a5b61-6f2e-1c6b-6a27-f73db5db98dc.htm">MCPTable1</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="80d41116-20fc-4d80-6312-4678a913ffe4.htm">MCPTable2</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="0d5561ab-8e24-d7f9-151c-c5ac5f573efe.htm">Model</a>
+              </td>
+              <td>
+                <div class="summary">
+            A ".flver" file.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="9d7a51df-f5a1-df4c-af41-b3db7c631f6f.htm">ModelBone</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="28938d02-69aa-82da-58a0-e19ee881a22a.htm">ModelBoneUnknown</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="0d2f556e-e5f7-1d1e-3921-94e29c07371f.htm">ModelFormat</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="4fcfa2f2-8e2e-eb01-974a-7608b4e13273.htm">ModelMaterial</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="648dc529-b553-8660-77a0-e7724c0500a8.htm">ModelMesh</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="46c61811-70dc-4cab-d8d2-87d6743fc9a7.htm">ModelMeshLevel</a>
+              </td>
+              <td>
+                <div class="summary">A detail level of a <a href="648dc529-b553-8660-77a0-e7724c0500a8.htm">ModelMesh</a>.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="6da20fa4-6e6d-ba4f-efd6-4f63c9033074.htm">ModelObject</a>
+              </td>
+              <td>
+                <div class="summary">An object contained within a <a href="d71d6501-8501-5407-f827-43b0d0e5d51a.htm">Model</a>.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="e8f394d0-c5b4-ad4c-564e-43520b370e40.htm">ModelVertexAttribute</a>
+              </td>
+              <td>
+                <div class="summary">
+            A channel in a <a href="be9d4753-6f52-4ebd-e8ff-2c9b45a3104e.htm">ModelVertexDeclaration</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="be9d4753-6f52-4ebd-e8ff-2c9b45a3104e.htm">ModelVertexDeclaration</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="d6e44696-4c6e-bf6a-afdf-22fa6270bc05.htm">ParameterDefinition</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a739a955-18a3-4e91-95a7-318037db524f.htm">ParameterDefinitionFormat</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="e83170f4-93f4-00ef-5397-fdf494aa266f.htm">ParameterDefinitionRow</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="f7de8c3a-2677-555c-6aab-1c17c8a13457.htm">ParameterTable</a>
+              </td>
+              <td>
+                <div class="summary">Contains game information like equipment parameters.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="f7493a92-1a7a-4219-0609-dedb1a174272.htm">ParameterTableFormat</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="15892591-e236-4002-5dd1-5425c37001e1.htm">ParameterTableRow</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="24926014-b3a6-5bba-53b9-23560be27175.htm">ParameterTableRowAttribute</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a7fa1392-01fb-85ba-de65-0335c221017e.htm">ParameterTableRowOrderAttribute</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a4da3614-dcea-b69e-24a4-e0bf24957756.htm">Plugin</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a30cd422-13f9-b13c-44b2-e13302c14a95.htm">State</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="afcf4ca0-6fe0-e51d-0f5c-7ec6b6c1b731.htm">StringArchive</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="9dcececa-6e3d-5d73-c97b-ceb2705ec3c3.htm">StringArchiveFormat</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="65c49e98-e64a-2b2f-0356-e28a3edb0913.htm">StringGroup</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="417663b0-9b9a-bf91-34af-8df339c6ffb3.htm">Table</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="271728cf-28e8-9071-b3aa-7705d978f4c4.htm">TableArchive</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="0ef696d1-c910-d1cf-a233-e8246f988963.htm">TableRow</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="30512b5d-24f8-696e-aa0b-9e92c7d7b9af.htm">TableRows</a>
+              </td>
+              <td>
+                <div class="summary">This contains the list of table row classes.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="506f4ad0-6e21-9c3d-d1fc-58d194da8e92.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Accessory</a>
+              </td>
+              <td>
+                <div class="summary">Rings.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="fe1d5221-b4d9-4319-ca32-fffe726ea39e.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>AiStandardInfo</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="65e8a271-e925-2f55-4e8a-f7916c12b587.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Attack</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="fc1a7acb-8322-da7f-5556-0b83b4f0a1aa.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Behavior</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="095ef8ed-f3b8-2a60-26c8-a7f04ff51ac7.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Bullet</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="4c369ed6-0e60-71b1-06b6-92007f45395b.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>CalculationCorrection</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="d7aac4b3-0399-e0cf-0c58-24745b753247.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>CharacterInitialiser</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="d4fe75c6-f84e-d7a6-d556-17f1ae5aab33.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>DepthOfField</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a45a42f3-c637-629b-9785-9374a3ca6ece.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>EnemyStandardInfo</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="85d4ee69-f4e8-916d-78f6-c1df7b768402.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>EnvironmentLight</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="d634302c-e577-b338-b203-3ca26db1d37c.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Event</a>
+              </td>
+              <td>
+                <div class="summary">"EVENT_PARAM_ST" in a MapStudio ".msb" file.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="6d5d647b-acf5-fa86-d6c7-35a0d98044c0.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>FaceGeneration</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="8b014bb0-c6ad-ac55-9702-6274e1bc2da9.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Fog</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="e80bcd22-b9e1-438e-81ad-ff7bcce127c6.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>GameArea</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="32913296-99b6-a585-6fb3-ba3b88610ec7.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Good</a>
+              </td>
+              <td>
+                <div class="summary">An item.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="0b2474a0-b8c9-674a-2f79-848cbda59303.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>HitMaterial</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="6ef84a7c-297e-75ec-ace0-12f4b408a95a.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ItemLot</a>
+              </td>
+              <td>
+                <div class="summary">
+            Item lots to determine rewards for chests, killing NPCs and monsters, etc.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="7bcb606e-d418-7e9c-3590-c0b8d2425be5.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>KnockBack</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="747a9a13-d28d-f965-c74f-7f840e888e64.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>LensFlare</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="580abe93-b56b-aaf5-6c86-3bdf28baf359.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>LensFlareEx</a>
+              </td>
+              <td>
+                <div class="summary">
+            Named "LENS_FLARE_EX_BANK" in Dark Souls; defined in the file "ensFlareExBank.paramdef" (id 02h).
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="4a3ffc26-5de8-3872-6c9c-2eeb637e9f2a.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>LevelOfDetail</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="10645eb8-e321-c89a-fc26-a206d4f1fdd0.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Light</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="94c74f16-3930-2d27-60bd-cb526069223c.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>LightScattering</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="ff97e27a-575a-6209-4909-97e70605a17b.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>LockCamera</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="c3b04834-3b34-21f7-4a4f-d381fd45baf0.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Magic</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="0ff563d0-6b95-723e-ea0c-1f417ad495df.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>MaterialSet</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="2d46852f-7de7-89d9-2fed-feb4c06f752e.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>MenuColor</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="de9d8f2b-de7a-f5b8-b4ec-23eb5cb8aa96.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Model</a>
+              </td>
+              <td>
+                <div class="summary">
+            "MODEL_PARAM_ST" in a MapStudio ".msb" file.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="38f581d1-862a-af29-35e5-3a0afcc27ac9.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Move</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="252fe4ae-bbf1-1e81-e018-56f523457513.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Npc</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="87f55a29-147f-555e-64d9-cdd83a0150b5.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>NpcThink</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="4b66cf7e-82da-c352-ce5b-c3e4517233a5.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ObjectAction</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="3cc82d1e-b102-fab6-5262-a686e19b824a.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ObjectInfo</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="77e9cfe6-39a9-6ea4-dcad-b9dacb916e1d.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Part</a>
+              </td>
+              <td>
+                <div class="summary">
+            "PARTS_PARAM_ST" in a MapStudio ".msb" file.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="6672e02c-fd21-983b-45d6-2f87b7a06a28.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Point</a>
+              </td>
+              <td>
+                <div class="summary">
+            "POINT_PARAM_ST" in a MapStudio ".msb" file.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="369b24a9-1fa1-ae88-d0eb-62d5b7f42925.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>PointLight</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="a953c52f-ccfa-6859-9d29-ca183256f6c3.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Protector</a>
+              </td>
+              <td>
+                <div class="summary">Armor.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="5255074b-f2e5-1778-d47e-e4e408413e0a.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ProtectorReinforcement</a>
+              </td>
+              <td>
+                <div class="summary">Armor upgrade.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="31b5fe73-e897-b287-e38d-4841e581335c.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>QwcChange</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="60e0e3a8-fe5e-cd23-0020-9b0f93e8cbfd.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>QwcJudge</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="22daa015-2128-6717-eab1-415b86c0e558.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Ragdoll</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="27e6dca2-a805-695a-5499-c4b09ffff8fd.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Shadow</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="482f0306-ab09-f4c2-b6c5-518863f12915.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ShopLineup</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="7477b299-4e9e-97d0-c923-55a521eb0716.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Skeleton</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="d7d3e3bd-7406-04e0-3aec-b682b04d1b78.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SpecialEffect</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="6b7c5065-71da-a2c9-dbb4-0aea6468e87f.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SpecialEffectVfx</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="3b68d5dc-b42b-e945-0ea2-1f58655b3d15.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Talk</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="b78e697b-cd63-4e66-f223-fe78141f4251.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Throw</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="ec093df4-0df5-b3c8-4bfe-8d00d584cb6a.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ToneCorrection</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="4ae8684b-4e1b-08e5-5096-16258caaf4c3.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ToneMapping</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="0960cceb-5a0e-a4b4-10b1-0e02be3684a8.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>Weapon</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="839b9d43-7a6a-67c9-e515-1b4b02f8f9c4.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>WeaponUpgrade</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="47140f3e-9c59-c7c8-f146-43d851afcdd1.htm">TextureArchive</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="9595d45d-697a-87a0-967b-1b9d45db4858.htm">TextureArchiveRecord</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="9075b689-9425-d660-c127-6f08e2a8a706.htm">WornTableRow</a>
+              </td>
+              <td>
+                <div class="summary">Equipment that is worn - <span class="nolink">[!:Ring]</span>s and through <a href="16812fe0-68f9-c942-4f43-d694a1d869b2.htm">ClothingTableRow</a>, <span class="nolink">[!:Weapon]</span>s and <span class="nolink">[!:Armor]</span>.</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(structureToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(structureToggle, event)" tabindex="0">
+            <img id="structureToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Structures</span>
+        </h1>
+        <div id="structureSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Structure</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="e77f148e-3005-fd9a-1b48-dfbfd32d7b72.htm">Range</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(enumerationToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(enumerationToggle, event)" tabindex="0">
+            <img id="enumerationToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Enumerations</span>
+        </h1>
+        <div id="enumerationSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Enumeration</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="1b6fcdcf-31c8-6ad1-620e-ebf5c83ae861.htm">AccessoryCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="c51aa38f-c97b-37e9-0992-b7fbb49819ca.htm">ActionPattern</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="4065c8f8-6f89-a411-1e31-fe5f0eff3cfe.htm">ArchiveVariant</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="fb754354-bb3c-2fd6-3808-fa3bc5400efc.htm">ArmorCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="189bcb0e-0b79-c43b-804d-66974b3df1fd.htm">ATKPARAM_REP_DMGTYPE</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="61f67b5c-61a5-2094-30ac-625a7b5bd70e.htm">AttackAttackAttributes</a>
+              </td>
+              <td>
+                <div class="summary">Physical attributes to by set for the attack.</div>
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="0af89118-b714-4d4b-17ac-a099f2c0bc6d.htm">AttackHitSource</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="9b997949-72c6-3201-a21d-468a518dc3b3.htm">AttackHitType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="0275e8b1-0c29-be7b-2ba5-83fb9e89c6e4.htm">AttackMapHit</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="9b4f18e4-c19a-e484-1fe3-0ae0f9a65902.htm">AttackParameterPartDamageType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="714b3bc4-8d4f-994e-be7a-a2b289716645.htm">AttackParameterSpecialAttributes</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="d8b9375e-05a6-44db-79e6-6d42a8d6e0ad.htm">AttackSize</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="b4415740-2ddb-2dc6-e511-3f7cfedfdd0e.htm">AttackThrowFlag</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="2ef6aa35-cd76-97ca-cae7-28b63652eadc.htm">AttackType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="2eb2e22b-af3e-eddb-a15e-d2d04a9be78f.htm">BehaviorAttackSize</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="5b0399a0-9800-702c-7a91-8452bc9f5688.htm">BehaviorAttackType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="0f0a68cf-77fd-15c4-f4c2-c57997f70630.htm">BehaviorCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="83b21c52-5609-9377-4f9f-dd9b07c56745.htm">BehaviorRefType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="c1dca402-d1c9-81dc-2fe4-6b72408a178e.htm">BulletAttachEffect</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="e1a89048-1b5e-9f0b-e68e-b5ce87221af7.htm">BulletEmitterPosition</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="f01c6563-e46c-eed8-0883-0702985b2fc0.htm">BulletFollowType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="01823fbd-1792-00eb-0771-bbe5dd398132.htm">BulletLaunchConditionType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="4ab8d20b-6e5b-fd14-35fa-a0b9ace40ae3.htm">CharacterInitialSex</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="5baca4b9-665c-063d-49b1-35355651d1c9.htm">CharacterInitialVow</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="05be7e03-54f8-1574-33bf-419d2fcfb615.htm">CharacterTyep</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="2a0daf8b-ad19-56c2-f2db-586505909172.htm">DSModelVersion</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="6d13d326-93ea-b8ea-525e-10cda540fc24.htm">DSPlatform</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="309b5808-e2f7-2223-84ee-2abffc40a645.htm">DurabilityDivergenceCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="39385466-280f-99cf-3c58-a501248561e6.htm">EffectTokenCategory</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="6936ea8d-bda3-b941-f73b-0ad77f6d4fb8.htm">EnemyBehaviorId</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="c35ccb8f-7e02-dfc5-c27a-d000f1c276d4.htm">Engine<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ItemArchiveId</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="1be92650-8bdd-16e1-7dfb-50833cda5e0f.htm">EquipModelCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="2940ebce-8e8a-1ad8-f345-b7e783846659.htm">EquipModelGender</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="79737709-bbf8-07af-b684-071e9034ef27.htm">FaceHairColor</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="a964eaac-4320-2c55-deba-539eada4c752.htm">FaceHairStyle</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="fb4e1d32-8c81-a7f3-b232-e2095324bc01.htm">GuardMotionCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="10e69f43-8af9-86f7-d628-598e26aeca25.htm">HitMaterialFloorHeight</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="ac11ef0c-d8c5-6722-6325-eb4de150b05b.htm">HitMaterialFootEffectDirection</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="2a7034d2-f7be-4e4a-5a74-dcb5d57f1ff7.htm">HitMaterialFootEffectHeight</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="e771a243-ad48-6e83-5306-5e9f79b5b88e.htm">ItemCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="23c92035-46a3-cee7-4a1a-f9953343fb9e.htm">ItemType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="7085d11a-95ad-3212-9b96-9da82bc05001.htm">ItemUseAnimation</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="ef27162e-2d81-81cd-c195-5c7eacb22ca2.htm">ItemUseMenu</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="f41d671c-7b42-8915-26ef-64cee637310b.htm">Language</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="83dd4b86-2967-3f28-c199-b15ddbfe842f.htm">MagicCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="de56e58a-c2d7-2d77-1153-efc044359ab5.htm">MagicMotion</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="40372762-6546-68be-3ce1-da56864ec2eb.htm">ModelVertexFormat</a>
+              </td>
+              <td>
+                <div class="summary">Partially from D3DDECLTYPE, but extended and changed.</div>
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="726ae469-fea1-302d-d9c8-de9de497f475.htm">ModelVertexUsage</a>
+              </td>
+              <td>
+                <div class="summary">From D3DDECLUSAGE.</div>
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="b86b3505-d570-4a7d-6e4c-f6795a958368.htm">NpcBurnType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="940e6a3b-5532-691d-56f4-cc814190644f.htm">NpcDrawType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="0272964b-08e3-1cc4-8332-dbd5ac698a8e.htm">NpcHitStopType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="15e77168-9ac5-89e1-50bb-b38ffea18fbf.htm">NpcItemDropType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="ef23ba4a-296a-93db-1650-c74d4ac8dad6.htm">NpcMoveType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="dbf0abee-bcd9-05f8-cf24-c8528e156c99.htm">NpcSfxSize</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="d1bc2adf-cb49-f701-e900-2683d03c5831.htm">NpcTemaType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="9536556f-bdf2-7a5e-5774-5e9460602df7.htm">NpcThoughtGoalAction</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="26c92068-70a8-7158-f642-4e8f32053590.htm">NpcThoughtReplyBehavior</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="91b94553-bdb0-bb48-e559-345f1bc33b80.htm">NpcType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="20a0eb2d-0958-a949-4055-6ac1f33975fe.htm">ObjectActionCharacterSOrbType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="fa0b7254-03ae-c303-607b-3a31c0aa8c9a.htm">ObjectActionEventKickTiming</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="85167b81-8f0e-8077-907a-5f5d028edbf3.htm">ObjectActionSpecialQualifiedType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="f56c1ea2-53bd-dac6-e192-08ba486c81ef.htm">ParameterTableIndex</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="6a3fa5d5-26a1-a333-98d4-80be1f4185f9.htm">ReplacementCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="893deac4-88b4-6d78-ba30-8330577bba49.htm">RewardCumulateReset</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="54e0cfb2-35e2-d73f-e6c1-20ff9f5d97e8.htm">RewardEnableLuck</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="7cd26c13-9c29-5ef2-4a1f-a8d4fc6c5fb1.htm">RewardItemCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="337598de-8a26-2c7a-a9b7-0a9633b60c69.htm">SkeletonKneeAxisDirection</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="5f8c65fc-5de9-7830-38e4-d7a3364781f7.htm">SpecialEffectMoveType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="61050f18-bff5-974a-c6f5-cd5673048a9f.htm">SpecialEffectSaveCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="66d7aad1-5f23-0a88-6ceb-b98ece264b03.htm">SpecialEffectSpCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="3d024c95-5f30-5107-d613-236f26da2ab7.htm">SpecialEffectThrowCondition</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="46c6d9bb-9d81-8680-e279-6cd4a3be0dee.htm">SpecialEffectType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="9900ba16-44ab-e789-cdb6-3ceed69ba649.htm">SpecialEffectUseLimitCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="5e485eb2-4838-10be-efdd-e023ffdebd35.htm">SpecialEffectVfxEffectType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="184db6d1-1acc-8a06-7ec2-4de4ecac4c84.htm">SpecialEffectVfxPlayCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="16842db9-f445-beec-301c-b77f01f9e766.htm">SpecialEffectVfxSoulParameterType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="fd189eb6-3467-56c3-4fda-247574293486.htm">SpecialEffectWeaponChange</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="c5cad6bf-ff55-bf2a-92a0-afb0f9d63cd4.htm">StoreInventoryEquipmentType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="8c741eff-beef-27a4-6c61-3c556dffc2b4.htm">StoreInventoryType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="7d857442-5ea1-e166-bc42-3d5d0633565d.htm">TableRows<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ModelType</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="a20ae9c1-5b30-9889-e43f-cf6b0394d044.htm">ThrowDmyCharacterDirectionType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="a0baeb96-f6c8-6ede-72c2-75b93f408711.htm">ThrowEnableState</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="5a661fe6-86d0-373f-1df5-839f9256390d.htm">ThrowPadType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="8f4809fa-1be9-4b6b-61c4-ae904ca82fdc.htm">ThrowType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="f0a4b508-2181-a7a3-a948-9805a3cd623c.htm">WeaponBaseChangeCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="eedc6eb1-0933-0fef-fe3b-87f95aaf2984.htm">WeaponCategory</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="44bc68fc-dd19-e5b1-4971-65ceeb1a2046.htm">WeaponCorrectType</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="8c275b63-3e74-e10a-7f2c-a74068067498.htm">WeaponMaterialAttack</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="49e4ec91-fc78-70de-f75a-fd256cb52f0d.htm">WeaponMaterialDefend</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="00c62908-53a6-1cf6-815f-2c6c8d7acc92.htm">WeaponMaterialDefendSound</a>
+              </td>
+              <td>
+                <div class="summary" />
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="5ebb7a97-7c88-3a7f-3008-18049cf201f0.htm">WeaponMotionCategory</a>
+              </td>
+              <td>
+                <div class="summary">This value times 100,000 indexes "AtkParam_Pc.param".</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

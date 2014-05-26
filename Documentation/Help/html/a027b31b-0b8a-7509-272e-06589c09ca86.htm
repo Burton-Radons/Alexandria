@@ -1,0 +1,613 @@
+﻿<html>
+  <head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+    <META NAME="save" CONTENT="history" />
+    <title>Glare.Graphics.Rendering Namespace</title>
+    <meta name="Language" content="en-us" />
+    <meta name="System.Keywords" content="Glare.Graphics.Rendering namespace" />
+    <meta name="Microsoft.Help.F1" content="Glare.Graphics.Rendering" />
+    <meta name="Microsoft.Help.Id" content="N:Glare.Graphics.Rendering" />
+    <meta name="Description" content="" />
+    <meta name="Microsoft.Help.ContentType" content="Reference" />
+    <link rel="stylesheet" type="text/css" href="../styles/Presentation.css" />
+    
+    <script type="text/javascript" src="../scripts/EventUtilities.js"> </script>
+    <script type="text/javascript" src="../scripts/SplitScreen.js"> </script>
+    <script type="text/javascript" src="../scripts/Dropdown.js"> </script>
+    <script type="text/javascript" src="../scripts/script_manifold.js"> </script>
+    <script type="text/javascript" src="../scripts/script_feedBack.js"> </script>
+    <script type="text/javascript" src="../scripts/CheckboxMenu.js"> </script>
+    <script type="text/javascript" src="../scripts/CommonUtilities.js"> </script>
+    <meta name="container" content="Glare.Graphics.Rendering" />
+    <meta name="file" content="a027b31b-0b8a-7509-272e-06589c09ca86" />
+    <meta name="guid" content="a027b31b-0b8a-7509-272e-06589c09ca86" />
+    
+  </head>
+  <body>
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <input type="hidden" id="hiddenScrollOffset" />
+    <img id="collapseImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" alt="Collapse image" title="Collapse image" />
+    <img id="expandImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" alt="Expand Image" title="Expand Image" />
+    <img id="collapseAllImage" style="display:none; height:0; width:0;" src="../icons/collapse_all.gif" />
+    <img id="expandAllImage" style="display:none; height:0; width:0;" src="../icons/expand_all.gif" />
+    <img id="dropDownImage" style="display:none; height:0; width:0;" src="../icons/dropdown.gif" />
+    <img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="../icons/dropdownHover.gif" />
+    <img id="copyImage" style="display:none; height:0; width:0;" src="../icons/copycode.gif" alt="Copy image" title="Copy image" />
+    <img id="copyHoverImage" style="display:none; height:0; width:0;" src="../icons/copycodeHighlight.gif" alt="CopyHover image" title="CopyHover image" />
+    <div id="header">
+      <table id="logoTable" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center" style="padding-right: 2px">
+            <img src="../icons/Help.png" />
+          </td>
+          <td valign="top" width="100%">
+            <table id="topTable" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <span onclick="ExpandCollapseAll(toggleAllImage)" style="cursor:default;" onkeypress="ExpandCollapseAll_CheckKey(toggleAllImage, event)" tabindex="0">
+                    <img ID="toggleAllImage" class="toggleAll" src="../icons/collapse_all.gif" /> <label id="collapseAllLabel" for="toggleAllImage" style="display: none;">Collapse All</label><label id="expandAllLabel" for="toggleAllImage" style="display: none;">Expand All</label> </span>
+                  <span>    </span>
+                  <span id="devlangsDropdown" class="filter" tabindex="0">
+                    <img id="devlangsDropdownImage" src="../icons/dropdown.gif" /> <label id="devlangsMenuAllLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: All </nobr></label><label id="devlangsMenuMultipleLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Multiple </nobr></label><label id="devlangsMenuCSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: C# </nobr></label><label id="devlangsMenuVisualBasicLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual Basic </nobr></label><label id="devlangsMenuManagedCPlusPlusLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: Visual C++ </nobr></label><label id="devlangsMenuFSharpLabel" for="devlangsDropdownImage" style="display: none;"><nobr>Code: F# </nobr></label></span>
+                </td>
+              </tr>
+            </table>
+            <div id="devlangsMenu">
+              <input id="CSharpCheckbox" type="checkbox" data="CSharp,cs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="CSharpCheckbox">C#</label>
+              <br />
+              <input id="VisualBasicCheckbox" type="checkbox" data="VisualBasic,vb,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="VisualBasicCheckbox">Visual Basic</label>
+              <br />
+              <input id="ManagedCPlusPlusCheckbox" type="checkbox" data="ManagedCPlusPlus,cpp,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="ManagedCPlusPlusCheckbox">Visual C++</label>
+              <br />
+              <input id="FSharpCheckbox" type="checkbox" data="FSharp,fs,'persist'" value="on" onClick="SetLanguage(this)" />
+              <label class="checkboxLabel" for="FSharpCheckbox">F#</label>
+              <br />
+            </div>
+            <table id="bottomTable" cellpadding="0" cellspacing="0">
+              <tr id="headerTableRow1">
+                <td align="left">
+                  <span id="runningHeaderText">A Sandcastle Documented Class Library</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow2">
+                <td align="left">
+                  <span id="nsrTitle">Glare.Graphics.Rendering Namespace</span>
+                </td>
+              </tr>
+              <tr id="headerTableRow3">
+                <td align="left">
+                  <span id="headfeedbackarea" class="feedbackhead">
+                    <a href="#" onclick="javascript:SubmitFeedback('','A Sandcastle Documented Class Library','','','','%0\dYour%20feedback%20is%20used%20to%20improve%20the%20documentation%20and%20the%20product.%20Your%20e-mail%20address%20will%20not%20be%20used%20for%20any%20other%20purpose%20and%20is%20disposed%20of%20after%20the%20issue%20you%20report%20is%20resolved.%20%20While%20working%20to%20resolve%20the%20issue%20that%20you%20report,%20you%20may%20be%20contacted%20via%20e-mail%20to%20get%20further%20details%20or%20clarification%20on%20the%20feedback%20you%20sent.%20After%20the%20issue%20you%20report%20has%20been%20addressed,%20you%20may%20receive%20an%20e-mail%20to%20let%20you%20know%20that%20your%20feedback%20has%20been%20addressed.%0\A%0\d','Customer%20Feedback'); return false;">Send Feedback</a>
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table id="gradientTable">
+        <tr>
+          <td class="nsrBottom" id="headerBottom">
+            <img id="headerBottomImage" style="display: none;" src="../icons/gradient.gif" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="mainSection">
+      <div id="mainBody">
+        <div id="allHistory" class="saveHistory" onsave="saveAll()" onload="loadAll()" />
+        <span style="color: DarkGray"></span>
+        <div class="summary" />
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(classToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(classToggle, event)" tabindex="0">
+            <img id="classToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Classes</span>
+        </h1>
+        <div id="classSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Class</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="c8557413-0be8-2fb9-b0b4-15f7a9547d04.htm">BasicProgram</a>
+              </td>
+              <td>
+                <div class="summary">
+            A builtin <a href="448f8a7e-0b39-754f-418e-8131312cdaff.htm">Program</a> that offers basic rendering capabilities like lighting and texture support.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="438bbb2e-199e-e4f9-6232-9ec14e45b933.htm">Light</a>
+              </td>
+              <td>
+                <div class="summary">The basic parameters of a light.</div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="81d8cf47-232f-e709-973e-498758b176f0.htm">Model</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="89ad5acc-77c7-6bea-e245-7ffae15fd501.htm">ModelAttribute</a>
+              </td>
+              <td>
+                <div class="summary">
+            A vertex array channel for a <a href="2e365048-90e4-90d7-6aef-92296b3f7f8f.htm">ModelPart</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="1acde372-4b44-757a-76f6-990d5689a969.htm">ModelBone</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="9edbc7ad-2439-4a1e-b9f5-498f473aca88.htm">ModelBoneChildrenCollection</a>
+              </td>
+              <td>
+                <div class="summary">
+            A list of <a href="1acde372-4b44-757a-76f6-990d5689a969.htm">ModelBone</a> objects that are children of another <a href="1acde372-4b44-757a-76f6-990d5689a969.htm">ModelBone</a> in its <a href="c2fb0b63-bc07-4c18-5754-03e3db7134bb.htm">Children</a> property.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="24da9446-ab22-f292-35ec-086da58eb62a.htm">ModelBoneCollection</a>
+              </td>
+              <td>
+                <div class="summary">
+            A list of <a href="1acde372-4b44-757a-76f6-990d5689a969.htm">ModelBone</a> objects that are contained by a <a href="ad78729a-cd7f-336f-ea2e-9ac3f759d6aa.htm">ModelMesh</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="ca0124dd-6eb2-1fd5-0590-172b89c0fd7d.htm">ModelBuilder</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="23d6aca0-6970-e6a2-fe31-83d0c62588ed.htm">ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>CurveGenerators</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="698c2c93-1434-21e2-2b57-ea972b705044.htm">ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ProceduralParameters</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="179b8864-39c9-83f9-7eeb-c2adfec2af3c.htm">ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SurfaceGenerators</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="181c9b4c-3c02-da93-fcfe-7d3a16b36dc1.htm">ModelDetailLevel</a>
+              </td>
+              <td>
+                <div class="summary">
+            A detail level of a <a href="ad78729a-cd7f-336f-ea2e-9ac3f759d6aa.htm">ModelMesh</a>. This is composed of a collection of <a href="2e365048-90e4-90d7-6aef-92296b3f7f8f.htm">ModelPart</a>s, which are the actual rendering calls.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="b9678879-9879-9637-b30e-0e223566ebe8.htm">ModelMaterial</a>
+              </td>
+              <td>
+                <div class="summary">
+            A material for a <a href="ad78729a-cd7f-336f-ea2e-9ac3f759d6aa.htm">ModelMesh</a>. This defines visual characteristics of the mesh.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="ad78729a-cd7f-336f-ea2e-9ac3f759d6aa.htm">ModelMesh</a>
+              </td>
+              <td>
+                <div class="summary">
+            An individual mesh in a <a href="81d8cf47-232f-e709-973e-498758b176f0.htm">Model</a>. These are composed of a number of <a href="2e365048-90e4-90d7-6aef-92296b3f7f8f.htm">ModelPart</a>s.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="3b5ed05d-4875-283e-fb39-a7d41d25f5aa.htm">ModelMeshCollection</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="c3f39976-c3ce-136e-d663-66bf5337732b.htm">ModelObject</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="2e365048-90e4-90d7-6aef-92296b3f7f8f.htm">ModelPart</a>
+              </td>
+              <td>
+                <div class="summary">
+            A part of a <a href="ad78729a-cd7f-336f-ea2e-9ac3f759d6aa.htm">ModelMesh</a>. This is an individual draw call.
+            </div>
+              </td>
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="c3d297d9-afb5-c1c4-263e-8e3142a2df87.htm">ModelPartCollection</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="d0682378-97a0-82b6-5488-18c8acd1e379.htm">ShaderBuilder</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="85d0bc59-1a89-cba7-9ddc-e1a118348486.htm">TextureCache</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="37951985-bc3f-a5d4-d0cb-14205e142461.htm">TextureCache<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="nu">(</span><span class="fs">&lt;'</span></span>TTexture<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="nu">)</span><span class="fs">&gt;</span></span></a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="f394882d-505e-ad40-8373-611534435017.htm">TextureCache2D</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="class; public">
+              <td>
+                <img src="../icons/pubclass.gif" alt="Public class" title="Public class" />
+              </td>
+              <td>
+                <a href="60334176-1f97-16cb-bd83-8afe292fb0a0.htm">TextureCacheRectangle</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(structureToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(structureToggle, event)" tabindex="0">
+            <img id="structureToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Structures</span>
+        </h1>
+        <div id="structureSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Structure</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="97aa3430-90b9-f7bd-f2f2-426e268e4bd6.htm">LightAngleAttenuation</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="structure; public">
+              <td>
+                <img src="../icons/pubstructure.gif" alt="Public structure" title="Public structure" />
+              </td>
+              <td>
+                <a href="2555ce30-d6e4-9e60-d740-587ad01ebcd8.htm">LightLengthAttenuation</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(interfaceToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(interfaceToggle, event)" tabindex="0">
+            <img id="interfaceToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Interfaces</span>
+        </h1>
+        <div id="interfaceSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Interface</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="interface; public">
+              <td>
+                <img src="../icons/pubinterface.gif" alt="Public interface" title="Public interface" />
+              </td>
+              <td>
+                <a href="7bdb48b3-6946-ac88-270a-fc48cec8bfda.htm">IChannelAttributeSource</a>
+              </td>
+              <td>
+                <div class="summary">
+            A source for <a href="56ec66d4-618c-9996-835d-b881de8b13d9.htm">ModelAttributeChannel</a>-based <a href="c4d11633-e166-44ee-d231-d8fef8b65e4a.htm">ProgramAttribute</a>s.
+            </div>
+              </td>
+            </tr>
+            <tr data="interface; public">
+              <td>
+                <img src="../icons/pubinterface.gif" alt="Public interface" title="Public interface" />
+              </td>
+              <td>
+                <a href="b4e06043-00ab-b311-2c1e-deaf964cdda7.htm">ILightAttenuationParameters<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="nu">(</span><span class="fs">&lt;'</span></span>T<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="nu">)</span><span class="fs">&gt;</span></span></a>
+              </td>
+              <td />
+            </tr>
+            <tr data="interface; public">
+              <td>
+                <img src="../icons/pubinterface.gif" alt="Public interface" title="Public interface" />
+              </td>
+              <td>
+                <a href="33517f70-2a80-4749-cbcb-abc7bb7b5514.htm">IModelMaterialBinder</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="interface; public">
+              <td>
+                <img src="../icons/pubinterface.gif" alt="Public interface" title="Public interface" />
+              </td>
+              <td>
+                <a href="0627a5c4-9714-cb7b-2091-e8f31ca78331.htm">ShaderBuilderManager</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(delegateToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(delegateToggle, event)" tabindex="0">
+            <img id="delegateToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Delegates</span>
+        </h1>
+        <div id="delegateSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Delegate</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="delegate; public">
+              <td>
+                <img src="../icons/pubdelegate.gif" alt="Public delegate" title="Public delegate" />
+              </td>
+              <td>
+                <a href="94890700-871b-5593-c4f3-c305463f1d41.htm">Model<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SetWorldMatrixCallback</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="delegate; public">
+              <td>
+                <img src="../icons/pubdelegate.gif" alt="Public delegate" title="Public delegate" />
+              </td>
+              <td>
+                <a href="75a7366b-f543-8b36-1414-8bdaa6ebac00.htm">ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>ChannelGenerator</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="delegate; public">
+              <td>
+                <img src="../icons/pubdelegate.gif" alt="Public delegate" title="Public delegate" />
+              </td>
+              <td>
+                <a href="fa0d4999-a868-608e-f5bf-62ef5a27ae0d.htm">ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>CurveGenerator</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="delegate; public">
+              <td>
+                <img src="../icons/pubdelegate.gif" alt="Public delegate" title="Public delegate" />
+              </td>
+              <td>
+                <a href="7c3bc5f0-cc3b-174e-7fe0-ba505db17a5a.htm">ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>LineGenerator</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="delegate; public">
+              <td>
+                <img src="../icons/pubdelegate.gif" alt="Public delegate" title="Public delegate" />
+              </td>
+              <td>
+                <a href="6a027114-1638-7955-b282-63cd3c92249c.htm">ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>LineGenerator2</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="delegate; public">
+              <td>
+                <img src="../icons/pubdelegate.gif" alt="Public delegate" title="Public delegate" />
+              </td>
+              <td>
+                <a href="e21a17b0-f46e-1da4-0484-0a4e0a245867.htm">ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SimpleSurfaceGenerator</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="delegate; public">
+              <td>
+                <img src="../icons/pubdelegate.gif" alt="Public delegate" title="Public delegate" />
+              </td>
+              <td>
+                <a href="21a2dcfb-20aa-6513-f419-67aa68c6ad7e.htm">ModelBuilder<span class="languageSpecificText"><span class="cs">.</span><span class="vb">.</span><span class="cpp">::</span><span class="nu">.</span><span class="fs">.</span></span>SurfaceGenerator</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+        <h1 class="heading">
+          <span onclick="ExpandCollapse(enumerationToggle)" style="cursor:default;" onkeypress="ExpandCollapse_CheckKey(enumerationToggle, event)" tabindex="0">
+            <img id="enumerationToggle" class="toggle" name="toggleSwitch" src="../icons/collapse_all.gif" />Enumerations</span>
+        </h1>
+        <div id="enumerationSection" class="section" name="collapseableSection" style="">
+          <table id="typeList" class="members" frame="lhs" cellpadding="2">
+            <col width="10%" />
+            <tr>
+              <th class="iconColumn">
+					 
+				</th>
+              <th class="nameColumn">Enumeration</th>
+              <th class="descriptionColumn">Description</th>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="2e07638f-6498-a08c-86f4-d3980cd6ca16.htm">BasicProgramDisplayMode</a>
+              </td>
+              <td />
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="4ab37308-df2b-697d-1bdf-92f3584f9e25.htm">LightAttenuation</a>
+              </td>
+              <td>
+                <div class="summary">
+            The type of distance attenuation to use for a <a href="438bbb2e-199e-e4f9-6232-9ec14e45b933.htm">Light</a>. <a href="4ab37308-df2b-697d-1bdf-92f3584f9e25.htm">InverseSquared</a> is physically correct.
+            </div>
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="6c4e2269-e19c-c9c1-bc09-350196c47f08.htm">LightDistanceFunction</a>
+              </td>
+              <td>
+                <div class="summary">
+            This specifies how distance is calculated for <a href="2555ce30-d6e4-9e60-d740-587ad01ebcd8.htm">LightLengthAttenuation</a>.
+            </div>
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="56ec66d4-618c-9996-835d-b881de8b13d9.htm">ModelAttributeChannel</a>
+              </td>
+              <td>
+                <div class="summary">
+            Indentifies the channel for this model part.
+            </div>
+              </td>
+            </tr>
+            <tr data="enumeration; public">
+              <td>
+                <img src="../icons/pubenumeration.gif" alt="Public enumeration" title="Public enumeration" />
+              </td>
+              <td>
+                <a href="3ce93b30-626b-d040-5b21-2e5df6986a59.htm">ModelMaterialOpacityFalloff</a>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="footerLine">
+          <img width="100%" height="3px" src="../icons/footer.gif" alt="Footer image" title="Footer image" />
+        </div>
+        <A NAME="feedback"></A>
+        <span id="fb" class="feedbackcss"></span>
+      </div>
+    </div>
+  </body>
+</html>

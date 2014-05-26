@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\Glare.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -99,6 +100,9 @@
       <DependentUpon>Extensions.tt</DependentUpon>
     </Compile>
     <Compile Include="Extensions.General.cs" />
+    <Compile Include="Framework\ArrayBackedList.cs" />
+    <Compile Include="Framework\BooleanArray.cs" />
+    <Compile Include="Framework\Extensions.cs" />
     <Compile Include="Framework\ReadOnlyRichDictionary.cs" />
     <Compile Include="Framework\RichDictionary.cs" />
     <Compile Include="Frequency.cs">
