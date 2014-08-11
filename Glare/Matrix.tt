@@ -56,6 +56,7 @@ namespace Glare
 			<#Each((row, column)=>{#><#=Id(row, column)#> = <#=IdLow(row, column)#>;<#});#>
 		}
 
+		/// <summary>Get or set a cell of the <#=SeeThis#>.</summary>
 		public <#=T#> this[int row, int column] {
 			get {
 				<#RowJoin(" else ", (row)=>{#>
@@ -115,6 +116,7 @@ namespace Glare
 
 		// Multiply
 		<#GenerateReferenceReturn(MatrixRR, (r) => {#>
+			/// <summary>Multiply this matrix against the other.</summary>
 			public <#=r.ReturnType#> Multiply(<#=MatrixCR#> other <#=r.Argument#>)
 			{
 				<#=r.Begin#>
@@ -122,6 +124,7 @@ namespace Glare
 				<#=r.Return#>
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public <#=r.ReturnType#> Multiply(ref <#=MatrixCR#> other <#=r.Argument#>)
 			{
 				<#=r.Begin#>
@@ -141,17 +144,18 @@ namespace Glare
 
 		// Translate
 		<#if(Rows > 2) GenerateReferenceReturn(This, (r) => {#>
+			/// <summary>Create a translation matrix.</summary>
 			public static <#=r.ReturnType#> Translate(<#=VectorRM1#> amount <#=r.Argument#>) { <#=r.Begin#> Translate(ref amount, out result); <#=r.Return#> }
 
-			public static <#=r.ReturnType#> Translate(ref <#=VectorRM1#> amount <#=r.Argument#>) 
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static <#=r.ReturnType#> Translate(ref <#=VectorRM1#> amount <#=r.Argument#>) {
 				<#=r.Begin#>
 				<#Each((AxisPair pair) => {#> result.<#=pair.Id#> = <#=pair.IsDiagonal ? "1" : pair.IsLastRow ? "amount." + pair.Column.Id : "0"#>; <#});#>
 				<#=r.Return#>
 			}
 
-			public static <#=r.ReturnType#> Translate(<#Join(", ", (axis) => {#> <#=T#> <#=axis.Id#> <#}, Rows - 1);#> <#=r.Argument#>)
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static <#=r.ReturnType#> Translate(<#Join(", ", (axis) => {#> <#=T#> <#=axis.Id#> <#}, Rows - 1);#> <#=r.Argument#>) {
 				<#=r.Begin#>
 				<#Each((AxisPair pair) => {#> result.<#=pair.Id#> = <#=pair.IsDiagonal ? "1" : pair.IsLastRow ? pair.Column.Id : "0"#>; <#});#>
 				<#=r.Return#>
@@ -163,8 +167,8 @@ namespace Glare
 		<#if(Rows == Columns) {#>
 			<#GenerateReferenceReturn(This, (r) => {#>
 				<#if(MinCR > 2) {#>
-					public static <#=r.ReturnType#> Scale(<#=r.Ref#> <#=VectorM1#> amount <#=r.Argument#>)
-					{
+					/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static <#=r.ReturnType#> Scale(<#=r.Ref#> <#=VectorM1#> amount <#=r.Argument#>) {
 						<#=r.Begin#>
 						<#Each((AxisPair pair) => {#>
 							result.<#=pair.Id#> = <#=pair.Row == pair.Column ? (pair.Row.Index == Rows - 1 || pair.Column.Index == Columns - 1 ? "1" : "amount." + Axes[pair.Row.Index].Id) : "0"#>;
@@ -172,8 +176,8 @@ namespace Glare
 						<#=r.Return#>
 					}
 
-					public static <#=r.ReturnType#> Scale(<#Join(", ", (axis) => {#> <#=T#> <#=axis.IdLow#> <#}, MinCRM1);#> <#=r.Argument#>)
-					{
+					/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static <#=r.ReturnType#> Scale(<#Join(", ", (axis) => {#> <#=T#> <#=axis.IdLow#> <#}, MinCRM1);#> <#=r.Argument#>) {
 						<#=r.Begin#>
 						<#Each((AxisPair pair) => {#>
 							result.<#=pair.Id#> = <#=pair.Row == pair.Column ? (pair.Row.Index == Rows - 1 || pair.Column.Index == Columns - 1 ? "1" : pair.Row.IdLow) : "0"#>;
@@ -181,7 +185,8 @@ namespace Glare
 						<#=r.Return#>
 					}
 				<#}/*MinCR > 2*/#>
-
+				
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static <#=r.ReturnType#> Scale(<#=T#> amount <#=r.Argument#>)
 				{
 					<#=r.Begin#>
@@ -204,6 +209,7 @@ namespace Glare
 					/// <param name="cameraPosition">The position of the camera.</param>
 					/// <param name="cameraTarget">The target to turn the camera towards.</param>
 					/// <param name="cameraUpVector">The direction that is "up" from the camera's point of view. For example, <#=See(Vector3 + ".UnitY")#> would have the vertical aspect of the camera straight down the Y axis.</param>
+					/// <#=r.Comment#>
 					public static <#=r.ReturnType#> LookAt(<#=dref#> <#=Vector3#> cameraPosition, <#=dref#> <#=Vector3#> cameraTarget, <#=dref#> <#=Vector3#> cameraUpVector <#=r.Argument#>)
 					{
 						<#=r.Begin#>
@@ -229,6 +235,7 @@ namespace Glare
 						<#=r.Return#>
 					}
 
+					/// <summary>Create a rotation matrix.</summary>
 					public static <#=r.ReturnType#> Rotate(<#=dref#> Angle3 angle <#=r.Argument#>) { <#=r.Begin#> Rotate(angle.X, angle.Y, angle.Z, out result); <#=r.Return#> }
 				<#});/*ValueAndRef*/#>
 
@@ -237,6 +244,7 @@ namespace Glare
 				/// <param name="aspectRatio">The aspect ratio.</param>
 				/// <param name="nearPlaneDistance">The nearest distance that will be visible; any object before this distance will be clipped. Ideally <paramref name="farPlaneDistance"/> / <paramref name="nearPlaneDistance"/> will be kept as low as possible in order to maximise the fidelity of the depth buffer. This may not be greater than <paramref name="farPlaneDistance"/> or negative.</param>
 				/// <param name="farPlaneDistance">The farthest distance that will be visible; any object after this distance will be clipped. This may not be less than or equal to <paramref name="nearPlaneDistance"/>.</param>
+				/// <#=r.Comment#>
 				public static <#=r.ReturnType#> PerspectiveFieldOfView(Angle fieldOfView, <#=FloatType#> aspectRatio, <#=FloatType#> nearPlaneDistance, <#=FloatType#> farPlaneDistance <#=r.Argument#>) {
 					<#=r.Begin#>
 					if(fieldOfView < Angle.Zero || fieldOfView >= Angle.Flip)
@@ -262,6 +270,7 @@ namespace Glare
 					<#=r.Return#>
 				}
 
+				/// <summary>Create a rotation matrix.</summary>
 				public static <#=r.ReturnType#> Rotate(Angle yaw, Angle pitch, Angle roll <#=r.Argument#>) {
 					<#=r.Begin#>
 					Rotation4d quaternion = new Rotation4d(yaw, pitch, roll);
@@ -276,6 +285,7 @@ namespace Glare
 		<#if (Columns > 2 && Rows > 2) {#>
 			<#GenerateReferenceReturn(VectorCM1, (r) => {#>
 				<#GenerateValueAndRef((dref)=>{#>
+					/// <summary>Multiply the matrix by a vector.</summary>
 					public <#=r.ReturnType#> Multiply(<#=dref#> <#=VectorRM1#> vector <#=r.Argument#>) {
 						<#=r.Begin#>
 						<#Each((column) => {#>
@@ -311,9 +321,11 @@ namespace Glare
 			<#
 		}#>
 
+		/// <summary>Multiply the matrices.</summary>
 		public static <#=MatrixRR#> operator *(<#=This#> a, <#=MatrixCR#> b) { <#=MatrixRR#> result; a.Multiply(ref b, out result); return result; }
 
 		<#if(Columns > 2 && Rows > 2) {#>
+			/// <summary>Multiply the matrix by a vector.</summary>
 			public static <#=VectorCM1#> operator *(<#=This#> a, <#=VectorRM1#> b) { <#=VectorCM1#> result; a.Multiply(ref b, out result); return result; }
 		<#}#>
 

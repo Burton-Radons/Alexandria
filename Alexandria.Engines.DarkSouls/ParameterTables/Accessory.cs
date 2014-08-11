@@ -25,6 +25,7 @@ namespace Alexandria.Engines.DarkSouls {
 		[ParameterTableRowOrder("equipModelGender", 14, 200)]
 		[ParameterTableRowOrder("equipModelId", 46, 300)]
 		public class Accessory : WornTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "EQUIP_PARAM_ACCESSORY_ST";
 
 			Int32 refId, sfxVariationId, behaviorId, qwcId;
@@ -35,6 +36,7 @@ namespace Alexandria.Engines.DarkSouls {
 			BehaviorCategory spEffectCategory;
 			Byte[] pad, pad1;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				RefIdProperty = GetProperty<Accessory>("RefId"),
 				SfxVariationIdProperty = GetProperty<Accessory>("SfxVariationId"),
@@ -57,7 +59,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "呼び出しID", Google translated: "Call ID".
 			/// Japanese description: "装飾品から呼び出すID", Google translated: "ID calling from ornaments".
 			/// </remarks>
-			[ParameterTableRowAttribute("refId", index: 0, minimum: -1, maximum: 1E+08, step: 1, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("refId", index: 0, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 700, unknown2: 1)]
 			[DisplayName("Call ID")]
 			[Description("ID calling from ornaments")]
 			[DefaultValue((Int32)(-1))]
@@ -75,7 +77,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "SFXバリエーションID", Google translated: "SFX variation ID".
 			/// Japanese description: "ＳＦＸのバリエーションを指定（TimeActEditorのＩＤと組み合わせて、ＳＦＸを特定するのに使用する）", Google translated: "( In conjunction with the ID of TimeActEditor, is used to identify the SFX) specifies the variation SFX".
 			/// </remarks>
-			[ParameterTableRowAttribute("sfxVariationId", index: 1, minimum: -1, maximum: 1E+08, step: 1, order: 800, unknown2: 1)]
+			[ParameterTableRowAttribute("sfxVariationId", index: 1, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 800, unknown2: 1)]
 			[DisplayName("SFX variation ID")]
 			[Description("( In conjunction with the ID of TimeActEditor, is used to identify the SFX) specifies the variation SFX")]
 			[DefaultValue((Int32)(-1))]
@@ -93,7 +95,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "行動ID", Google translated: "Action ID".
 			/// Japanese description: "行動ID(=Skill)", Google translated: "Action ID (= Skill)".
 			/// </remarks>
-			[ParameterTableRowAttribute("behaviorId", index: 3, minimum: 0, maximum: 1E+08, step: 1, order: 1200, unknown2: 1)]
+			[ParameterTableRowAttribute("behaviorId", index: 3, minimum: 0, maximum: 1E+08, step: 1, sortOrder: 1200, unknown2: 1)]
 			[DisplayName("Action ID")]
 			[Description("Action ID (= Skill)")]
 			[DefaultValue((Int32)0)]
@@ -111,7 +113,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "QWCID", Google translated: "QWCID".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("qwcId", index: 7, minimum: -1, maximum: 1E+08, step: 1, order: 1900, unknown2: 1)]
+			[ParameterTableRowAttribute("qwcId", index: 7, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 1900, unknown2: 1)]
 			[DisplayName("QWCID")]
 			[Description("")]
 			[DefaultValue((Int32)(-1))]
@@ -129,7 +131,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "アイコンID", Google translated: "Icon ID".
 			/// Japanese description: "メニューアイコンID", Google translated: "Menu icon ID".
 			/// </remarks>
-			[ParameterTableRowAttribute("iconId", index: 9, minimum: 0, maximum: 9999, step: 1, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("iconId", index: 9, minimum: 0, maximum: 9999, step: 1, sortOrder: 400, unknown2: 1)]
 			[DisplayName("Icon ID")]
 			[Description("Menu icon ID")]
 			[DefaultValue((UInt16)0)]
@@ -147,7 +149,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ショップレベル", Google translated: "Shop level".
 			/// Japanese description: "お店で販売できるレベル", Google translated: "Level that can be sold in the shop".
 			/// </remarks>
-			[ParameterTableRowAttribute("shopLv", index: 10, minimum: -1, maximum: 9999, step: 1, order: 1400, unknown2: 1)]
+			[ParameterTableRowAttribute("shopLv", index: 10, minimum: -1, maximum: 9999, step: 1, sortOrder: 1400, unknown2: 1)]
 			[DisplayName("Shop level")]
 			[Description("Level that can be sold in the shop")]
 			[DefaultValue((Int16)0)]
@@ -165,7 +167,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "トロフィー", Google translated: "Trophy".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("trophySGradeId", index: 11, minimum: -1, maximum: 9999, step: 1, order: 1700, unknown2: 1)]
+			[ParameterTableRowAttribute("trophySGradeId", index: 11, minimum: -1, maximum: 9999, step: 1, sortOrder: 1700, unknown2: 1)]
 			[DisplayName("Trophy")]
 			[Description("")]
 			[DefaultValue((Int16)(-1))]
@@ -183,7 +185,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "トロフィーSEQ番号", Google translated: "Trophy SEQ number".
 			/// Japanese description: "トロフィーのSEQ番号", Google translated: "SEQ number of trophy".
 			/// </remarks>
-			[ParameterTableRowAttribute("trophySeqId", index: 12, minimum: -1, maximum: 9999, step: 1, order: 1750, unknown2: 1)]
+			[ParameterTableRowAttribute("trophySeqId", index: 12, minimum: -1, maximum: 9999, step: 1, sortOrder: 1750, unknown2: 1)]
 			[DisplayName("Trophy SEQ number")]
 			[Description("SEQ number of trophy")]
 			[DefaultValue((Int16)(-1))]
@@ -201,7 +203,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "装飾カテゴリ", Google translated: "Decoration category".
 			/// Japanese description: "防具のカテゴリ", Google translated: "Category of Armor".
 			/// </remarks>
-			[ParameterTableRowAttribute("accessoryCategory", index: 15, minimum: 0, maximum: 99, step: 1, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("accessoryCategory", index: 15, minimum: 0, maximum: 99, step: 1, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Decoration category")]
 			[Description("Category of Armor")]
 			[DefaultValue((AccessoryCategory)0)]
@@ -215,7 +217,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "IDカテゴリ", Google translated: "ID category".
 			/// Japanese description: "↓のIDのカテゴリ[攻撃、飛び道具、特殊]", Google translated: "↓ category of ID [ attack , missile , special ]".
 			/// </remarks>
-			[ParameterTableRowAttribute("refCategory", index: 16, minimum: 0, maximum: 255, step: 1, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("refCategory", index: 16, minimum: 0, maximum: 255, step: 1, sortOrder: 600, unknown2: 1)]
 			[DisplayName("ID category")]
 			[Description("↓ category of ID [ attack , missile , special ]")]
 			[DefaultValue((BehaviorRefType)0)]
@@ -229,7 +231,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "特殊効果カテゴリ", Google translated: "Special effects category".
 			/// Japanese description: "スキルや、魔法、アイテムなどで、パラメータが変動する効果（エンチャントウェポンなど）があるので、│定した効果が、「武器攻撃のみをパワーアップする」といった効果に対応できるように行動ごとに設定するバリスタなど、設定の必要のないものは「なし」を設定する", Google translated: "Skills , magic , or item , because the effect of variation in parameters (such as Enchant Weapon ) , and sets the action for each effect it was │ boss is , to cope with effects such as' power up the only weapon attack " things such as varistor , without the need for setting is set to " None"".
 			/// </remarks>
-			[ParameterTableRowAttribute("spEffectCategory", index: 17, minimum: 0, maximum: 255, step: 1, order: 900, unknown2: 1)]
+			[ParameterTableRowAttribute("spEffectCategory", index: 17, minimum: 0, maximum: 255, step: 1, sortOrder: 900, unknown2: 1)]
 			[DisplayName("Special effects category")]
 			[Description("Skills , magic , or item , because the effect of variation in parameters (such as Enchant Weapon ) , and sets the action for each effect it was │ boss is , to cope with effects such as' power up the only weapon attack \" things such as varistor , without the need for setting is set to \" None\"")]
 			[DefaultValue((BehaviorCategory)0)]
@@ -243,7 +245,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad[1]", index: 18, minimum: 0, maximum: 0, step: 0, order: 99999, unknown2: 0)]
+			[ParameterTableRowAttribute("pad[1]", index: 18, minimum: 0, maximum: 0, step: 0, sortOrder: 99999, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("")]
 			[Browsable(false)]
@@ -257,7 +259,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "外すと壊れるか", Google translated: "Or break and remove".
 			/// Japanese description: "装備して外す時に壊れるか", Google translated: "Or broken when removing the equipped".
 			/// </remarks>
-			[ParameterTableRowAttribute("isEquipOutBrake:1", index: 23, minimum: 0, maximum: 1, step: 1, order: 1810, unknown2: 1)]
+			[ParameterTableRowAttribute("isEquipOutBrake:1", index: 23, minimum: 0, maximum: 1, step: 1, sortOrder: 1810, unknown2: 1)]
 			[DisplayName("Or break and remove")]
 			[Description("Or broken when removing the equipped")]
 			[DefaultValue(false)]
@@ -271,7 +273,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "マルチドロップ共有禁止か", Google translated: "Or multi-drop sharing ban".
 			/// Japanese description: "マルチドロップ共有禁止か", Google translated: "Or multi-drop sharing ban".
 			/// </remarks>
-			[ParameterTableRowAttribute("disableMultiDropShare:1", index: 24, minimum: 0, maximum: 1, step: 1, order: 1805, unknown2: 1)]
+			[ParameterTableRowAttribute("disableMultiDropShare:1", index: 24, minimum: 0, maximum: 1, step: 1, sortOrder: 1805, unknown2: 1)]
 			[DisplayName("Or multi-drop sharing ban")]
 			[Description("Or multi-drop sharing ban")]
 			[DefaultValue(false)]
@@ -285,7 +287,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "pad", Google translated: "pad".
 			/// Japanese description: "pad", Google translated: "pad".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad1[3]", index: 25, minimum: 0, maximum: 0, step: 0, order: 100000, unknown2: 0)]
+			[ParameterTableRowAttribute("pad1[3]", index: 25, minimum: 0, maximum: 0, step: 0, sortOrder: 100000, unknown2: 0)]
 			[DisplayName("pad")]
 			[Description("pad")]
 			[Browsable(false)]
@@ -294,10 +296,13 @@ namespace Alexandria.Engines.DarkSouls {
 				set { SetProperty(ref pad1, ref value, Pad1Property); }
 			}
 
+			/// <summary>Get the localized English name of this <see cref="Accessory"/>.</summary>
 			public string EnglishName { get { return GetLocalisedName(Language.English); } }
 
+			/// <summary>Get the localized English description of this <see cref="Accessory"/>.</summary>
 			public string EnglishDescription { get { return GetLocalisedDescription(Language.English).Trim(); } }
 
+			/// <summary>Get the localized English effects of this <see cref="Accessory"/>.</summary>
 			public string EnglishEffects { get { return GetLocalisedEffects(Language.English); } }
 
 			internal Accessory(ParameterTable table, int index, AssetLoader loader, int next)
@@ -355,10 +360,23 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad1 = new Byte[3];
 			}
 
-			public string GetLocalisedName(Language language = Language.English) { return GetLocalisedString(Engine.ItemArchiveId.RingNames, language); }
-			public string GetLocalisedDescription(Language language = Language.English) { return GetLocalisedString(Engine.ItemArchiveId.RingDescriptions, language); }
-			public string GetLocalisedEffects(Language language = Language.English) { return GetLocalisedString(Engine.ItemArchiveId.RingEffects, language); }
+			/// <summary>Get the localised name of this <see cref="Accessory"/>.</summary>
+			/// <param name="language"></param>
+			/// <returns></returns>
+			public string GetLocalisedName(Language language = Language.English) { return GetLocalisedString(Engine.ItemArchiveId.AccessoryNames, language); }
 
+			/// <summary>Get the localised description of this <see cref="Accessory"/>.</summary>
+			/// <param name="language"></param>
+			/// <returns></returns>
+			public string GetLocalisedDescription(Language language = Language.English) { return GetLocalisedString(Engine.ItemArchiveId.AccessoryDescriptions, language); }
+
+			/// <summary>Get the localised effect of this <see cref="Accessory"/>.</summary>
+			/// <param name="language"></param>
+			/// <returns></returns>
+			public string GetLocalisedEffects(Language language = Language.English) { return GetLocalisedString(Engine.ItemArchiveId.AccessoryEffects, language); }
+
+			/// <summary>Write this <see cref="Accessory"/>.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(RefId);
 				writer.Write(SfxVariationId);

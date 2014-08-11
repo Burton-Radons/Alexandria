@@ -16,12 +16,14 @@ namespace Alexandria.Engines.DarkSouls {
 		/// From "GameAreaParam.paramdef" (id 29h).
 		/// </remarks>
 		public class GameArea : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "GAME_AREA_PARAM_ST";
 
 			UInt32 bonusSoul_single, bonusSoul_multi;
 			Int32 humanityPointCountFlagIdTop;
 			Int16 humanityDropPoint1, humanityDropPoint2, humanityDropPoint3, humanityDropPoint4, humanityDropPoint5, humanityDropPoint6, humanityDropPoint7, humanityDropPoint8, humanityDropPoint9, humanityDropPoint10;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				BonusSoul_singleProperty = GetProperty<GameArea>("BonusSoul_single"),
 				BonusSoul_multiProperty = GetProperty<GameArea>("BonusSoul_multi"),
@@ -42,7 +44,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "シングル時クリアボーナスソウル量", Google translated: "Single at the time clear bonus amount Seoul".
 			/// Japanese description: "エリアボスを倒したときに取得できるソウル量(シングルプレイ時)", Google translated: "Seoul amount that can be obtained when defeated the area boss ( single player mode)".
 			/// </remarks>
-			[ParameterTableRowAttribute("bonusSoul_single", index: 0, minimum: 0, maximum: 1E+08, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("bonusSoul_single", index: 0, minimum: 0, maximum: 1E+08, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Single at the time clear bonus amount Seoul")]
 			[Description("Seoul amount that can be obtained when defeated the area boss ( single player mode)")]
 			[DefaultValue((UInt32)0)]
@@ -60,7 +62,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "マルチプレイ時クリアボーナスソウル量", Google translated: "Multiplayer when clear bonus amount Seoul".
 			/// Japanese description: "エリアボスを倒したときに取得できるソウル量(マルチプレイ時)", Google translated: "Seoul amount that can be obtained when defeated the area boss ( Multiplayer mode)".
 			/// </remarks>
-			[ParameterTableRowAttribute("bonusSoul_multi", index: 1, minimum: 0, maximum: 1E+08, step: 1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("bonusSoul_multi", index: 1, minimum: 0, maximum: 1E+08, step: 1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("Multiplayer when clear bonus amount Seoul")]
 			[Description("Seoul amount that can be obtained when defeated the area boss ( Multiplayer mode)")]
 			[DefaultValue((UInt32)0)]
@@ -78,7 +80,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "人間性ドロップポイントカウント先頭フラグID", Google translated: "Humanity drop point count beginning flag ID".
 			/// Japanese description: "人間性ドロップポイントを管理する為の先頭フラグID(20Bit使用)", Google translated: "First flag ID for managing the humanity drop point (20Bit used)".
 			/// </remarks>
-			[ParameterTableRowAttribute("humanityPointCountFlagIdTop", index: 2, minimum: -1, maximum: 1E+08, step: 1, order: 300, unknown2: 1)]
+			[ParameterTableRowAttribute("humanityPointCountFlagIdTop", index: 2, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 300, unknown2: 1)]
 			[DisplayName("Humanity drop point count beginning flag ID")]
 			[Description("First flag ID for managing the humanity drop point (20Bit used)")]
 			[DefaultValue((Int32)(-1))]
@@ -96,7 +98,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "人間性ドロップ必要ポイント1", Google translated: "Humanity drop in points 1".
 			/// Japanese description: "人間性を取得する為の閾値1", Google translated: "1 threshold for obtaining the humanity".
 			/// </remarks>
-			[ParameterTableRowAttribute("humanityDropPoint1", index: 3, minimum: -1, maximum: 32767, step: 1, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("humanityDropPoint1", index: 3, minimum: -1, maximum: 32767, step: 1, sortOrder: 400, unknown2: 1)]
 			[DisplayName("Humanity drop in points 1")]
 			[Description("1 threshold for obtaining the humanity")]
 			[DefaultValue((Int16)(-1))]
@@ -114,7 +116,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "人間性ドロップ必要ポイント2", Google translated: "Humanity drop in points 2".
 			/// Japanese description: "人間性を取得する為の閾値2", Google translated: "2 threshold for obtaining the humanity".
 			/// </remarks>
-			[ParameterTableRowAttribute("humanityDropPoint2", index: 4, minimum: -1, maximum: 32767, step: 1, order: 401, unknown2: 1)]
+			[ParameterTableRowAttribute("humanityDropPoint2", index: 4, minimum: -1, maximum: 32767, step: 1, sortOrder: 401, unknown2: 1)]
 			[DisplayName("Humanity drop in points 2")]
 			[Description("2 threshold for obtaining the humanity")]
 			[DefaultValue((Int16)(-1))]
@@ -132,7 +134,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "人間性ドロップ必要ポイント3", Google translated: "Humanity drop in points 3".
 			/// Japanese description: "人間性を取得する為の閾値3", Google translated: "3 threshold for obtaining the humanity".
 			/// </remarks>
-			[ParameterTableRowAttribute("humanityDropPoint3", index: 5, minimum: -1, maximum: 32767, step: 1, order: 402, unknown2: 1)]
+			[ParameterTableRowAttribute("humanityDropPoint3", index: 5, minimum: -1, maximum: 32767, step: 1, sortOrder: 402, unknown2: 1)]
 			[DisplayName("Humanity drop in points 3")]
 			[Description("3 threshold for obtaining the humanity")]
 			[DefaultValue((Int16)(-1))]
@@ -150,7 +152,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "人間性ドロップ必要ポイント4", Google translated: "Humanity drop in points 4".
 			/// Japanese description: "人間性を取得する為の閾値4", Google translated: "4 threshold for obtaining the humanity".
 			/// </remarks>
-			[ParameterTableRowAttribute("humanityDropPoint4", index: 6, minimum: -1, maximum: 32767, step: 1, order: 403, unknown2: 1)]
+			[ParameterTableRowAttribute("humanityDropPoint4", index: 6, minimum: -1, maximum: 32767, step: 1, sortOrder: 403, unknown2: 1)]
 			[DisplayName("Humanity drop in points 4")]
 			[Description("4 threshold for obtaining the humanity")]
 			[DefaultValue((Int16)(-1))]
@@ -168,7 +170,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "人間性ドロップ必要ポイント5", Google translated: "Humanity drop in points 5".
 			/// Japanese description: "人間性を取得する為の閾値5", Google translated: "5 threshold for obtaining the humanity".
 			/// </remarks>
-			[ParameterTableRowAttribute("humanityDropPoint5", index: 7, minimum: -1, maximum: 32767, step: 1, order: 404, unknown2: 1)]
+			[ParameterTableRowAttribute("humanityDropPoint5", index: 7, minimum: -1, maximum: 32767, step: 1, sortOrder: 404, unknown2: 1)]
 			[DisplayName("Humanity drop in points 5")]
 			[Description("5 threshold for obtaining the humanity")]
 			[DefaultValue((Int16)(-1))]
@@ -186,7 +188,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "人間性ドロップ必要ポイント6", Google translated: "Humanity must drop point 6".
 			/// Japanese description: "人間性を取得する為の閾値6", Google translated: "6 threshold for obtaining the humanity".
 			/// </remarks>
-			[ParameterTableRowAttribute("humanityDropPoint6", index: 8, minimum: -1, maximum: 32767, step: 1, order: 405, unknown2: 1)]
+			[ParameterTableRowAttribute("humanityDropPoint6", index: 8, minimum: -1, maximum: 32767, step: 1, sortOrder: 405, unknown2: 1)]
 			[DisplayName("Humanity must drop point 6")]
 			[Description("6 threshold for obtaining the humanity")]
 			[DefaultValue((Int16)(-1))]
@@ -204,7 +206,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "人間性ドロップ必要ポイント7", Google translated: "Humanity drop in points 7".
 			/// Japanese description: "人間性を取得する為の閾値7", Google translated: "7 threshold for obtaining the humanity".
 			/// </remarks>
-			[ParameterTableRowAttribute("humanityDropPoint7", index: 9, minimum: -1, maximum: 32767, step: 1, order: 406, unknown2: 1)]
+			[ParameterTableRowAttribute("humanityDropPoint7", index: 9, minimum: -1, maximum: 32767, step: 1, sortOrder: 406, unknown2: 1)]
 			[DisplayName("Humanity drop in points 7")]
 			[Description("7 threshold for obtaining the humanity")]
 			[DefaultValue((Int16)(-1))]
@@ -222,7 +224,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "人間性ドロップ必要ポイント8", Google translated: "Humanity must drop point 8".
 			/// Japanese description: "人間性を取得する為の閾値8", Google translated: "8 threshold for obtaining the humanity".
 			/// </remarks>
-			[ParameterTableRowAttribute("humanityDropPoint8", index: 10, minimum: -1, maximum: 32767, step: 1, order: 407, unknown2: 1)]
+			[ParameterTableRowAttribute("humanityDropPoint8", index: 10, minimum: -1, maximum: 32767, step: 1, sortOrder: 407, unknown2: 1)]
 			[DisplayName("Humanity must drop point 8")]
 			[Description("8 threshold for obtaining the humanity")]
 			[DefaultValue((Int16)(-1))]
@@ -240,7 +242,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "人間性ドロップ必要ポイント9", Google translated: "Humanity drop in points 9".
 			/// Japanese description: "人間性を取得する為の閾値9", Google translated: "9 threshold for obtaining the humanity".
 			/// </remarks>
-			[ParameterTableRowAttribute("humanityDropPoint9", index: 11, minimum: -1, maximum: 32767, step: 1, order: 408, unknown2: 1)]
+			[ParameterTableRowAttribute("humanityDropPoint9", index: 11, minimum: -1, maximum: 32767, step: 1, sortOrder: 408, unknown2: 1)]
 			[DisplayName("Humanity drop in points 9")]
 			[Description("9 threshold for obtaining the humanity")]
 			[DefaultValue((Int16)(-1))]
@@ -258,7 +260,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "人間性ドロップ必要ポイント10", Google translated: "Humanity drop in points 10".
 			/// Japanese description: "人間性を取得する為の閾値10", Google translated: "10 threshold for obtaining the humanity".
 			/// </remarks>
-			[ParameterTableRowAttribute("humanityDropPoint10", index: 12, minimum: -1, maximum: 32767, step: 1, order: 409, unknown2: 1)]
+			[ParameterTableRowAttribute("humanityDropPoint10", index: 12, minimum: -1, maximum: 32767, step: 1, sortOrder: 409, unknown2: 1)]
 			[DisplayName("Humanity drop in points 10")]
 			[Description("10 threshold for obtaining the humanity")]
 			[DefaultValue((Int16)(-1))]
@@ -307,6 +309,8 @@ namespace Alexandria.Engines.DarkSouls {
 				HumanityDropPoint10 = (Int16)(-1);
 			}
 
+			/// <summary>Write the row to the writer.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(BonusSoul_single);
 				writer.Write(BonusSoul_multi);

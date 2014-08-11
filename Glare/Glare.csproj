@@ -9,9 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Glare</RootNamespace>
     <AssemblyName>Glare</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,9 +22,11 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>2</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>bin\Debug\Glare.XML</DocumentationFile>
+    <NoWarn>0219</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +36,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -42,6 +47,9 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -52,6 +60,8 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -88,11 +98,14 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Extensions.cs</LastGenOutput>
     </None>
+    <None Include="Framework\Aggregate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Aggregate.cs</LastGenOutput>
+    </None>
     <None Include="Frequency.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Frequency.cs</LastGenOutput>
     </None>
-    <Compile Include="Complex.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="Extensions.cs">
       <AutoGen>True</AutoGen>
@@ -102,9 +115,16 @@
     <Compile Include="Extensions.General.cs" />
     <Compile Include="Framework\ArrayBackedList.cs" />
     <Compile Include="Framework\BooleanArray.cs" />
+    <Compile Include="Framework\Dictionary2.cs" />
     <Compile Include="Framework\Extensions.cs" />
+    <Compile Include="Framework\NotifyingObject.cs" />
     <Compile Include="Framework\ReadOnlyRichDictionary.cs" />
     <Compile Include="Framework\RichDictionary.cs" />
+    <Compile Include="Framework\Aggregate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Aggregate.tt</DependentUpon>
+    </Compile>
     <Compile Include="Frequency.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -124,7 +144,7 @@
     <Compile Include="Framework\ListDebugView.cs" />
     <Compile Include="Framework\ListIterator.cs" />
     <Compile Include="Framework\ListDictionary.cs" />
-    <Compile Include="Framework\ReadOnlyList.cs" />
+    <Compile Include="Framework\ReadOnlyCodex.cs" />
     <Compile Include="Length.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -142,9 +162,15 @@
       <DependentUpon>Matrix.tt</DependentUpon>
     </Compile>
     <Compile Include="NamedObject.cs" />
-    <Compile Include="NormalizedByte.cs" />
-    <Compile Include="NormalizedInt32.cs" />
-    <Compile Include="NormalizedSByte.cs" />
+    <Compile Include="Normalized.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Normalized.tt</DependentUpon>
+    </Compile>
+    <None Include="Normalized.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Normalized.cs</LastGenOutput>
+    </None>
     <None Include="Plane.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Plane.cs</LastGenOutput>

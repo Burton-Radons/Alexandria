@@ -11,26 +11,39 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria {
-	public abstract class Engine : PluginFormatAsset {
+	/// <summary>
+	/// A common engine that has been used for a number of different games. The Unreal Engine is a good example of that.
+	/// </summary>
+	public abstract class Engine : AlexandriaPluginFormatAsset {
 		readonly Codex<Game> GamesMutable = new Codex<Game>();
 
-		public override IEnumerable<AssetFormat> AllFormats {
+		/// <summary>
+		/// Get all the of formats in all of the games in this <see cref="Engine"/>.
+		/// </summary>
+		public override IEnumerable<AssetFormat> AllEnabledFormats {
 			get {
-				foreach (var format in base.AllFormats)
+				foreach (var format in base.AllEnabledFormats)
 					yield return format;
 				foreach (var game in Games)
-					foreach (var format in game.AllFormats)
+					foreach (var format in game.AllEnabledFormats)
 						yield return format;
 			}
 		}
 
+		/// <summary>Get all of the known games used by this engine.</summary>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public ReadOnlyCodex<Game> Games { get { return GamesMutable; } }
 
-		public Engine(AssetPlugin plugin)
-			: base(plugin) {
-		}
+		/// <summary>
+		/// Initialise the engine.
+		/// </summary>
+		/// <param name="plugin">The plugin this is part of.</param>
+		public Engine(AlexandriaPlugin plugin) : base(plugin) { }
 
+		/// <summary>
+		/// Add a game to the engine.
+		/// </summary>
+		/// <param name="game">The game to add.</param>
 		protected void AddGame(Game game) {
 			if (game == null)
 				throw new ArgumentNullException("game");
@@ -39,9 +52,6 @@ namespace Alexandria {
 			if (game.Engine != this)
 				throw new ArgumentException(game.Name + " does not have this " + Name + " as its Engine.");
 			GamesMutable.Add(game);
-		}
-
-		public virtual void Detect(GameInstanceList instances) {
 		}
 	}
 }

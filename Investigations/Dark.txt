@@ -1,0 +1,23 @@
+Dark Engine
+
+.mis file format
+	u4 HeaderOffset
+	z4
+	u4 1
+	z[100h/256]
+	u4 DEADBEEFh
+	<Record data>
+HeaderOffset:
+	u4 RecordCount
+	Record[RecordCount] Records - Each is Ch/12 bytes long
+		cz[12] Name
+		u4 Offset
+		u4 DataLength
+	
+at each Record.Offset:
+	cz[12] Name -- Matches Record.Name
+	u4 Code1
+	u2 ElementSize
+	u2 Code3
+	u4 Code4
+	u1[ElementSize][Record.DataLength] Data

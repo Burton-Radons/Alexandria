@@ -1,0 +1,590 @@
+﻿" !\"↑↓←→'()*+,-./0123456789:;‟=”?’ABCDEFGHIJKLMNOPQRSTUVWXYZ????_‛abcdefghijklmnopqrstuvwxyz"
+
+Address -> Save state, drop 7E, add 0xC13
+
+ROM info
+	Font 2-bit sprites at about tile 5312
+	0x08000 - Palettes (5)
+		0 - first
+	0x0C163 - More palettes [8] - environmental?
+		1 - lots of scenery
+	0x20000 - Palette[4] - might be static palettes
+	0xCEA02 - Strings ((uint8 length, uint8[length] data)[], uint8 255)
+		7Eh - Copyright symbol?
+		
+		80h 81h 82h - A fancy "I"?
+		83h 84h 85h - Second part of fancy "I"?
+		86h 87h 88h - Third part of fancy "I"?
+		
+		89h 8Ah 8Bh - Fancy "U"
+		8Ch 8Dh 8Eh - Second part of fancy "U"
+		8Fh 90h 91h - Third part of fancy "U"
+		
+		92h 93h 94h - First part of fancy "T"
+		95h 96h 97h - Second part of fancy "T"
+		98h 99h 9Ah - Third part of fancy "T"
+		
+		9Bh 9Ch 9Dh - First part of fancy "A"
+		9Eh 9Fh A0h - Second part of fancy "A"
+		A1h A2h A3h - Third part of fancy "A"
+		
+		F0h 0Bh - "<Code> to lift"
+		F0h 12h - Sell price for an item
+		F0h 26h - Color?
+		F1h 9Eh
+		F3h 40h - Integer parameter
+		FDh 40h - "conversation <code>", "merchant <code>", "Goto X <code>", "Goto Y <code>"
+		FDh 54h - Level?
+		FDh 82h - Level part 2?
+		FDh 86h - Experience?
+		FEh 44h - 
+	
+		[0]	"    "	CEA02h	5h
+		[1]	"Yes"	CEA07h	4h
+		[2]	"No"	CEA0Bh	3h
+		[3]	"Again"	CEA0Eh	6h
+		[4]	"Bye!"	CEA14h	5h
+		[5]	"þD"	CEA19h	3h
+		[6]	"EXP:"	CEA1Ch	5h
+		[7]	"ý"	CEA21h	3h
+		[8]	"LEVEL:"	CEA24h	7h
+		[9]	"ýT"	CEA2Bh	3h
+		[10]	"ý "	CEA2Eh	4h
+		[11]	"Nothing there"	CEA32h	Eh
+		[12]	"This may be useful later!"	CEA40h	1Ah
+		[13]	"Cannot drop anything here!"	CEA5Ah	1Bh
+		[14]	"Your pack is full"	CEA75h	12h
+		[15]	"Your purse is too light"	CEA87h	18h
+		[16]	"Press Y to use this item"	CEA9Fh	19h
+		[17]	"More experience is needed"	CEAB8h	1Ah
+		[18]	"ýN in gold"	CEAD2h	Bh
+		[19]	"Your keyring is full"	CEADDh	15h
+		[20]	" given"	CEAF2h	7h
+		[21]	" taken"	CEAF9h	7h
+		[22]	"Thou hast been healed!"	CEB00h	17h
+		[23]	"Use outdoors at night"	CEB17h	16h
+		[24]	"The container is full"	CEB2Dh	16h
+		[25]	"It is ó@"	CEB43h	9h
+		[26]	"in the morning"	CEB4Ch	Fh
+		[27]	"in the day"	CEB5Bh	Bh
+		[28]	"in the evening"	CEB66h	Fh
+		[29]	"You have gained the ó@"	CEB75h	17h
+		[30]	"circle of experience"	CEB8Ch	15h
+		[31]	"It is locked"	CEBA1h	Dh
+		[32]	"It is private"	CEBAEh	Eh
+		[33]	"There are enemies near!"	CEBBCh	18h
+		[34]	"You sleep well"	CEBD4h	Fh
+		[35]	"Zzzz..."	CEBE3h	8h
+		[36]	"You sleep restlessly"	CEBEBh	15h
+		[37]	"Not enough magic"	CEC00h	11h
+		[38]	"Cannot be used "	CEC11h	10h
+		[39]	"ð&inside"	CEC21h	9h
+		[40]	"ð&here"	CEC2Ah	7h
+		[41]	"You have no spells"	CEC31h	13h
+		[42]	"Cannot lift that"	CEC44h	11h
+		[43]	"ð to lift"	CEC55h	Bh
+		[44]	"Successful Save"	CEC60h	10h
+		[45]	"Save Game Error: See manual"	CEC70h	1Ch
+		[46]	"This game is not designed"	CEC8Ch	1Ah
+		[47]	"for your SUPER FAMICOM or"	CECA6h	1Ah
+		[48]	"Super NES."	CECC0h	Bh
+		[49]	<null>	CECCBh	1h
+		[50]	"Origin Systems, Inc."	CECCCh	15h
+		[51]	"conversation ý@"	CECE1h	10h
+		[52]	"merchant ý@"	CECF1h	Ch
+		[53]	"Goto X ý@"	CECFDh	Ah
+		[54]	"Goto Y ý@"	CED07h	Ah
+
+		[55]	"Avatar"	CED11h	7h
+		[56]	"Lord British"	CED18h	Dh
+		[57]	"Wislem"	CED25h	7h
+		[58]	"Sherry"	CED2Ch	7h
+		[59]	"Sherry the Mouse"	CED33h	11h
+		[60]	"Weston"	CED44h	7h
+		[61]	"Flick"	CED4Bh	6h
+		[62]	"Miranda"	CED51h	8h
+		[63]	"Inwisloklem"	CED59h	Ch
+		[64]	"Patterson"	CED65h	Ah
+		[65]	"Figg"	CED6Fh	5h
+		[66]	"Batlin"	CED74h	7h
+		[67]	"Shamino"	CED7Bh	8h
+		[68]	"Lucy"	CED83h	5h
+		[69]	"Coop"	CED88h	5h
+		[70]	"Greg"	CED8Dh	5h
+		[71]	"Clint"	CED92h	6h
+		[72]	"Sean"	CED98h	5h
+		[73]	"Chuckles"	CED9Dh	9h
+		[74]	"Rik"	CEDA6h	4h
+		[75]	"Danag"	CEDAAh	6h
+		[76]	"Hofa"	CEDB0h	5h
+		[77]	"La Fitte"	CEDB5h	9h
+		[78]	"Rudyom"	CEDBEh	7h
+		[79]	"Lord Heather"	CEDC5h	Dh
+		[80]	"Pamela"	CEDD2h	7h
+		[81]	"Zinaida"	CEDD9h	8h
+		[82]	"Mukow"	CEDE1h	6h
+		[83]	"William"	CEDE7h	8h
+		[84]	"Barclay"	CEDEFh	8h
+		[85]	"Mather"	CEDF7h	7h
+		[86]	"Sprellic"	CEDFEh	9h
+		[87]	"Mario"	CEE07h	6h
+		[88]	"Dupre"	CEE0Dh	6h
+		[89]	"Ophelia"	CEE13h	8h
+		[90]	"Vokes"	CEE1Bh	6h
+		[91]	"Jenn"	CEE21h	5h
+		[92]	"Timmons"	CEE26h	8h
+		[93]	"Kliftin"	CEE2Eh	8h
+		[94]	"Gilmore"	CEE36h	8h
+		[95]	"Byrne"	CEE3Eh	6h
+		[96]	"Rachael"	CEE44h	8h
+		[97]	"Zared"	CEE4Ch	6h
+		[98]	"Rothgar"	CEE52h	8h
+		[99]	"Caladin"	CEE5Ah	8h
+		[100]	"Kerowyn"	CEE62h	8h
+		[101]	"Alagner"	CEE6Ah	8h
+		[102]	"Iseult"	CEE72h	7h
+		[103]	"Tibbets"	CEE79h	8h
+		[104]	"Owen"	CEE81h	5h
+		[105]	"Burnside"	CEE86h	9h
+		[106]	"Gregor"	CEE8Fh	7h
+		[107]	"Karl"	CEE96h	5h
+		[108]	"Julia"	CEE9Bh	6h
+		[109]	"Roberto"	CEEA1h	8h
+		[110]	"Elynor"	CEEA9h	7h
+		[111]	"Zorn"	CEEB0h	5h
+		[112]	"Etoile"	CEEB5h	7h
+		[113]	"Lucas"	CEEBCh	6h
+		[114]	"Cameron"	CEEC2h	8h
+		[115]	"Felipa"	CEECAh	7h
+		[116]	"Enrico"	CEED1h	7h
+		[117]	"Rutherford"	CEED8h	Bh
+		[118]	"Nathan"	CEEE3h	7h
+		[119]	"Davies"	CEEEAh	7h
+		[120]	"Brion"	CEEF1h	6h
+		[121]	"Rankin"	CEEF7h	7h
+		[122]	"Balayna"	CEEFEh	8h
+		[123]	"Phearcy"	CEF06h	8h
+		[124]	"Addom"	CEF0Eh	6h
+		[125]	"Penumbra"	CEF14h	9h
+		[126]	"Sarah"	CEF1Dh	6h
+		[127]	"Frances"	CEF23h	8h
+		[128]	"Fuqua"	CEF2Bh	6h
+		[129]	"Benjamin"	CEF31h	9h
+		[130]	"Loomis"	CEF3Ah	7h
+		[131]	"Jason"	CEF41h	6h
+		[132]	"Bear"	CEF47h	5h
+		[133]	"Samuel"	CEF4Ch	7h
+		[134]	"Gaydos"	CEF53h	7h
+		[135]	"Laura"	CEF5Ah	6h
+		[136]	"Lord John-Paul"	CEF60h	Fh
+		[137]	"Sir Richter"	CEF6Fh	Ch
+		[138]	"Sir Horffe"	CEF7Bh	Bh
+		[139]	"Sir Jordan"	CEF86h	Bh
+		[140]	"Sir Denton"	CEF91h	Bh
+		[141]	"Sir Pendaren"	CEF9Ch	Dh
+		[142]	"Lady Jehanne"	CEFA9h	Dh
+		[143]	"Crispin"	CEFB6h	8h
+		[144]	"Ward"	CEFBEh	5h
+		[145]	"Beynard"	CEFC3h	8h
+		[146]	"Rudolfo"	CEFCBh	8h
+		[147]	"Horance"	CEFD3h	8h
+		[148]	"Rowena"	CEFDBh	7h
+		[149]	"Trent"	CEFE2h	6h
+		[150]	"Mistress Mordra"	CEFE8h	10h
+		[151]	"Caine"	CEFF8h	6h
+		[152]	"Draxinusom"	CEFFEh	Bh
+		[153]	"Teregus"	CF009h	8h
+		[154]	"Forbrak"	CF011h	8h
+		[155]	"Silamo"	CF019h	7h
+		[156]	"Quan"	CF020h	5h
+		[157]	"Runeb"	CF025h	6h
+		[158]	"Sarpling"	CF02Bh	9h
+		[159]	"Quaeven"	CF034h	8h
+		[160]	"Grebdil"	CF03Ch	8h
+		[161]	"Iolo"	CF044h	5h
+		[162]	"Finnigan"	CF049h	9h
+		[163]	"Alfred"	CF052h	7h
+		[164]	"Conner"	CF059h	7h
+		[165]	"Spark"	CF060h	6h
+		[166]	"Klog"	CF066h	5h
+		[167]	"Ellen"	CF06Bh	6h
+		[168]	"Petre"	CF071h	6h
+		[169]	"Scarborough"	CF077h	Ch
+		[170]	"Guard"	CF083h	6h
+		[171]	"Time Lord"	CF089h	Ah
+		[172]	"Cador"	CF093h	6h
+		[173]	"Yongi"	CF099h	6h
+		[174]	"Auston"	CF09Fh	7h
+		[175]	"Liana"	CF0A6h	6h
+		[176]	"Blorn"	CF0ACh	6h
+		[177]	"Ansikart"	CF0B2h	9h
+		[178]	"Amanivas"	CF0BBh	9h
+		[179]	"Foranamo"	CF0C4h	9h
+		[180]	"Aurvidlem"	CF0CDh	Ah
+		[181]	"Lap Lem"	CF0D7h	8h
+		[182]	"Arden"	CF0DFh	6h
+		[183]	"Slaskow"	CF0E5h	8h
+		[184]	"Tiery"	CF0EDh	6h
+		[185]	"Taylor"	CF0F3h	7h
+		[186]	"Kreg"	CF0FAh	5h
+		[187]	"Sir Jeff"	CF0FFh	9h
+		[188]	"Gharl"	CF108h	6h
+		[189]	"D'rel"	CF10Eh	6h
+		[190]	"Trellek"	CF114h	8h
+		[191]	"Tavenor"	CF11Ch	8h
+		[192]	"Salamon"	CF124h	8h
+		[193]	"Wisp"	CF12Ch	5h
+		[194]	"Wisps"	CF131h	6h
+		[195]	"Haggerty"	CF137h	9h
+		[196]	"Guardian"	CF140h	9h
+		[197]	"Baaaa"	CF149h	6h
+		[198]	"Snort"	CF14Fh	6h
+		[199]	"Forskis"	CF155h	8h
+		[200]	"Eliza"	CF15Dh	6h
+		[201]	"Abraham"	CF163h	8h	Fg:
+		
+		[202]	"Growl!"	CF16Bh	7h
+		[203]	"Grrrrrrr!"	CF172h	Ah
+		[204]	"Away with thee!"	CF17Ch	10h
+		[205]	"Defend thyself!"	CF18Ch	10h
+		[206]	"Thou shalt be defeated!"	CF19Ch	18h
+		[207]	"Wield thy sword!"	CF1B4h	11h
+		[208]	"Poor Avatar!"	CF1C5h	Dh
+		[209]	"Enough idle chat!"	CF1D2h	12h
+		[210]	"At last we meet!"	CF1E4h	11h
+		[211]	"Skree!"	CF1F5h	7h
+		
+		[212]	"Skeleton Key"	CF1FCh	Dh
+		[213]	"\xFD\x16\xF1\xB9"	CF209h	5h
+		[214]	"\xF0\xD5s"	CF20Eh	4h
+		[215]	"Orb of the Moons"	CF212h	11h
+		[216]	"Ethereal Ring"	CF223h	Eh
+		[217]	"Rowena's Ring"	CF231h	Eh
+		[218]	"Crystal Lens"	CF23Fh	Dh
+		[219]	"Knife Blade"	CF24Ch	Ch
+		[220]	"Hook's Key"	CF258h	Bh
+		[221]	"Dungeon Key"	CF263h	Ch
+		[222]	"Dagger"	CF26Fh	7h
+		[223]	"Serpentine Dagger"	CF276h	12h
+		[224]	"Broad Sword"	CF288h	Ch
+		[225]	"Serpentine Sword"	CF294h	11h
+		[226]	"Axe"	CF2A5h	4h
+		[227]	"Staff"	CF2A9h	6h
+		[228]	"Club"	CF2AFh	5h
+		[229]	"Mace"	CF2B4h	5h
+		[230]	"Bow and Arrow"	CF2B9h	Eh
+		[231]	"Magic Bow and Arrow"	CF2C7h	14h
+		[232]	"Boomerang"	CF2DBh	Ah
+		[233]	"Spear"	CF2E5h	6h
+		[234]	"Morning Star"	CF2EBh	Dh
+		[235]	"Whip"	CF2F8h	5h
+		[236]	"Glass Sword"	CF2FDh	Ch
+		[237]	"Fire Sword"	CF309h	Bh
+		[238]	"Ice Sword"	CF314h	Ah
+		[239]	"Wind Sword"	CF31Eh	Bh
+		[240]	"Water Sword"	CF329h	Ch
+		[241]	"Earth Sword"	CF335h	Ch
+		[242]	"Hammer"	CF341h	7h
+		[243]	"Leather Armour"	CF348h	Fh
+		[244]	"Scale Armour"	CF357h	Dh
+		[245]	"Chain Mail Armour"	CF364h	12h
+		[246]	"Plate Mail Armour"	CF376h	12h
+		[247]	"Magical Armour"	CF388h	Fh
+		[248]	"Ghostly Armour"	CF397h	Fh
+		[249]	"Flame Armour"	CF3A6h	Dh
+		[250]	"Target Shield"	CF3B3h	Eh
+		[251]	"Wooden Shield"	CF3C1h	Eh
+		[252]	"Shield of Reflection"	CF3CFh	15h
+		[253]	"Leather Boots"	CF3E4h	Eh
+		[254]	"Scale Boots"	CF3F2h	Ch
+		[255]	"Swamp Boots"	CF3FEh	Ch
+		[256]	"Caddelite Helmet"	CF40Ah	11h
+		[257]	"Helmet"	CF41Bh	7h
+		[258]	"Great Helm"	CF422h	Bh
+		[259]	"Healing Bracelet"	CF42Dh	11h
+		[260]	"Gem of Paralysis"	CF43Eh	11h
+		[261]	"Fireball Ring"	CF44Fh	Eh
+		[262]	"Magic Fireball Ring"	CF45Dh	14h
+		[263]	"Lightning Rod"	CF471h	Eh
+		[264]	"Poison"	CF47Fh	7h
+		[265]	"Power Bolt Wand"	CF486h	10h
+		[266]	"Energy Crystal"	CF496h	Fh
+		[267]	"Sword Storm Amulet"	CF4A5h	13h
+		[268]	"Hail Storm Amulet"	CF4B8h	12h
+		[269]	"Powder Keg"	CF4CAh	Bh
+		[270]	"Rudyom's Wand"	CF4D5h	Eh
+		[271]	"Food"	CF4E3h	5h
+		[272]	"Ankh"	CF4E8h	5h
+		[273]	"Potion of Healing"	CF4EDh	12h
+		[274]	"Potion of Magic Boost"	CF4FFh	16h
+		[275]	"Potion of Invisibility"	CF515h	17h
+		[276]	"Potion of Invincibility"	CF52Ch	18h
+		[277]	"Potion of Ghosts"	CF544h	11h
+		[278]	"Potion of Awakening"	CF555h	14h
+		[279]	"Magic Formula"	CF569h	Eh
+		[280]	"Torch"	CF577h	6h
+		[281]	"Gold Coins"	CF57Dh	Bh
+		[282]	"Spell Book"	CF588h	Bh
+		[283]	"Magic Boat"	CF593h	Bh
+		[284]	"Chest"	CF59Eh	6h
+		[285]	"Trunk"	CF5A4h	6h
+		[286]	"Bag"	CF5AAh	4h
+		[287]	"Barrel"	CF5AEh	7h
+		[288]	"Bucket"	CF5B5h	7h
+		[289]	"Skeleton"	CF5BCh	9h
+		[290]	"Black Gate Key"	CF5C5h	Fh
+		[291]	"Batlin's Key"	CF5D4h	Dh
+		[292]	"Golden Key"	CF5E1h	Bh
+		[293]	"Ruby Key"	CF5ECh	9h
+		[294]	"Amethyst Key"	CF5F5h	Dh
+		[295]	"Sapphire Key"	CF602h	Dh
+		[296]	"Emerald Key"	CF60Fh	Ch
+		[297]	"Note"	CF61Bh	5h
+		[298]	"Scroll"	CF620h	7h
+		[299]	"Notebook"	CF627h	9h
+		[300]	"Book"	CF630h	5h
+		[301]	"Gold Plaque"	CF635h	Ch
+		[302]	"Telescope"	CF641h	Ah
+		[303]	"Jewelry"	CF64Bh	8h
+		[304]	"Package"	CF653h	8h
+		[305]	"Opened Package"	CF65Bh	Fh
+		[306]	"Smoke Bomb"	CF66Ah	Bh
+		[307]	"Honey Jar"	CF675h	Ah
+		[308]	"Honey Comb"	CF67Fh	Bh
+		[309]	"Magic Cage"	CF68Ah	Bh
+		[310]	"New Banner"	CF695h	Bh
+		[311]	"Blackrock"	CF6A0h	Ah
+		[312]	"Blackrock Talisman"	CF6AAh	13h
+		[313]	"Fellowship Medallion"	CF6BDh	15h
+		[314]	"Magic Lantern"	CF6D2h	Eh
+		[315]	"Enchanted Hourglass"	CF6E0h	14h
+		[316]	"Little Tetrahedron"	CF6F4h	13h
+		[317]	"Little Sphere"	CF707h	Eh
+		[318]	"Little Cube"	CF715h	Ch
+		[319]	"Headstone"	CF721h	Ah
+		[320]	"Dirt"	CF72Bh	5h
+		[321]	"Bones"	CF730h	6h
+		[322]	"Bone"	CF736h	5h
+		[323]	"Mushroom"	CF73Bh	9h
+		[324]	"Rubbish"	CF744h	8h
+		[325]	"Log"	CF74Ch	4h
+		[326]	"Dish"	CF750h	5h
+		[327]	"Music Box"	CF755h	Ah
+		[328]	"Pedestal of Control"	CF75Fh	14h
+		[329]	"Pedestal of Passion"	CF773h	14h
+		[330]	"Pedestal of Diligence"	CF787h	16h
+		[331]	"Sign"	CF79Dh	5h
+		[332]	"Well of Power"	CF7A2h	Eh
+		[333]	"Pot"	CF7B0h	4h
+		[334]	"Well"	CF7B4h	5h
+		[335]	"Clothes"	CF7B9h	8h
+		[336]	"Cloth"	CF7C1h	6h
+		[337]	"Bedroll"	CF7C7h	8h
+		[338]	"Crackling fire"	CF7CFh	Fh
+		[339]	"Wood-burning stove"	CF7DEh	13h
+		[340]	"Stone pedestal"	CF7F1h	Fh
+		[341]	"The statue has been defaced."	CF800h	1Dh
+		[342]	"Fountain"	CF81Dh	9h
+		[343]	"Locating"	CF826h	9h
+		
+		[344]	"Kal Lor"	CF82Fh	8h
+		[345]	"Illumination"	CF837h	Dh
+		[346]	"Healing"	CF844h	8h
+		[347]	"Ring of Fire"	CF84Ch	Dh
+		[348]	"Unlock Door"	CF859h	Ch
+		[349]	"Lifting"	CF865h	8h
+		[350]	"Explosion"	CF86Dh	Ah
+		[351]	"Levitation"	CF877h	Bh
+		[352]	"Unlock Magic"	CF882h	Dh
+		[353]	"Great Heal"	CF88Fh	Bh
+		[354]	"Water Walk"	CF89Ah	Bh
+		[355]	"Invisibility"	CF8A5h	Dh
+		[356]	"Teleportation"	CF8B2h	Eh
+		[357]	"Invincibility"	CF8C0h	Eh
+		[358]	"Tremors"	CF8CEh	8h
+		
+		[359]	"I have so much"	CF8D6h	Fh
+		[360]	"stock now, I"	CF8E5h	Dh
+		[361]	"cannot buy more"	CF8F2h	10h
+		[362]	" - sorry."	CF902h	Ah
+		
+		[363]	"I like it, will"	CF90Ch	10h
+		[364]	"you take, um..."	CF91Ch	10h
+		[365]	"\xF0\x12"	CF92Ch	3h
+		[366]	"for it?"	CF92Fh	8h
+		
+		[367]	"I guess I could"	CF937h	10h
+		[368]	"take it off"	CF947h	Ch
+		[369]	"your hands for"	CF953h	Fh
+		[370]	"\xF0\x12."	CF962h	4h
+		
+		[371]	"Sorry, I'm not"	CF966h	Fh
+		[372]	"interested in"	CF975h	Eh
+		[373]	"that, have you"	CF983h	Fh
+		[374]	"anything else?"	CF992h	Fh
+		
+		[375]	"I can make you"	CF9A1h	Fh
+		[376]	"a good deal on"	CF9B0h	Fh
+		[377]	"this item, only"	CF9BFh	10h
+		[378]	"\xF0\x12!"	CF9CFh	4h
+		
+		[379]	"For only, oh..."	CF9D3h	10h
+		[380]	"\xF0\x12,"	CF9E3h	4h
+		[381]	"you can walk"	CF9E7h	Dh
+		[382]	"away with this."	CF9F4h	10h
+		
+		[383]	"I have nothing"	CFA04h	Fh
+		[384]	"left to sell -"	CFA13h	Fh
+		[385]	"business has"	CFA22h	Dh
+		[386]	"been good!"	CFA2Fh	Bh
+		
+		[387]	<null>	CFA3Ah	1h
+		[388]	<null>	CFA3Bh	1h
+		[389]	" <Hmm-mmm...>"	CFA3Ch	Eh
+		
+		[390]	<null>	CFA4Ah	1h
+		[391]	<null>	CFA4Bh	1h
+		[392]	" <Not bad...>"	CFA4Ch	Eh
+		
+		[393]	<null>	CFA5Ah	1h
+		[394]	<null>	CFA5Bh	1h
+		[395]	"  <Okay...>"	CFA5Ch	Ch
+		
+		[396]	<null>	CFA68h	1h
+		[397]	<null>	CFA69h	1h
+		[398]	"  <Nice...>"	CFA6Ah	Ch
+		
+		[399]	<null>	CFA76h	1h
+		[400]	" <Hmmm... Very"	CFA77h	Fh
+		[401]	"  interesting!>"	CFA86h	10h
+		
+		[402]	<null>	CFA96h	1h
+		[403]	" <Looks as"	CFA97h	Bh
+		[404]	"though it is"	CFAA2h	Dh
+		[405]	"empty now.>"	CFAAFh	Ch
+		
+		[406]	<null>	CFABBh	1h
+		[407]	" <What have I"	CFABCh	Eh
+		[408]	"  already got?"	CFACAh	Fh
+		[409]	"   -Let me"	CFAD9h	Bh
+		[410]	"     see...>"	CFAE4h	Dh
+		
+		[411]	"Choose one, Avatar!"	CFAF1h	14h
+		[412]	"Begin New Game"	CFB05h	Fh
+		[413]	"Restore Saved Game"	CFB14h	13h
+		[414]	"Acknowledgements"	CFB27h	11h
+		[415]	"Load Game or Cancel?"	CFB38h	15h
+		[416]	"Save Game or Cancel?"	CFB4Dh	15h
+		[417]	"Cancel"	CFB62h	7h
+		[418]	"Save Current Game"	CFB69h	12h
+		[419]	"Load Previous Game"	CFB7Bh	13h
+		
+		[420]	"Port-of-Call"	CFB8Eh	Dh
+		[421]	"Yew"	CFB9Bh	4h
+		[422]	"Minoc"	CFB9Fh	6h
+		[423]	"Skara Brae"	CFBA5h	Bh
+		[424]	"Britain"	CFBB0h	8h
+		[425]	"Cove"	CFBB8h	5h
+		[426]	"Vesper"	CFBBDh	7h
+		[427]	"Dagger Island"	CFBC4h	Eh
+		[428]	"Janus Island"	CFBD2h	Dh
+		[429]	"Moonglow"	CFBDFh	9h
+		[430]	"Paws"	CFBE8h	5h
+		[431]	"Trinsic"	CFBEDh	8h
+		[432]	"Buccaneer's Den"	CFBF5h	10h
+		[433]	"Ornery Island"	CFC05h	Eh
+		[434]	"New Magincia"	CFC13h	Dh
+		[435]	"Jhelom"	CFC20h	7h
+		[436]	"Serpent's Hold"	CFC27h	Fh
+		[437]	"Spektran"	CFC36h	9h
+		[438]	"Fellowship Island"	CFC3Fh	12h
+		[439]	"Terfin"	CFC51h	7h
+		[440]	"Isle of the Avatar"	CFC58h	13h
+		[441]	" Teleport Token"	CFC6Bh	10h
+		
+		[442]	"Select a\xF1\xB9"	CFC7Bh	Bh
+		[443]	"No\xF1\xB9s"	CFC86h	6h
+		[444]	"Too many\xF1\xB9s"	CFC8Ch	Ch
+		[445]	"Select a destination"	CFC98h	15h
+		[446]	"You are not on a dock"	CFCADh	16h
+		[447]	"~1994 Origin Systems, Inc."	CFCC3h	1Bh
+		
+	0xE55CE - Palette[1]
+	0xE5830 - Palette[1]
+	0xE5A92 - Palette[1]
+
+Save state
+	0x0C13 - uint8[131072] - WRAM?
+	0x28C1 - uint16 - Legs item type
+	0x28CC - uint16 - Legs item quality
+	0x28CE - uint16 - Right hand weapon quality
+	0x28D0 - uint16 - Left hand weapon quality
+	0x28F9 - uint16 - Gold pieces
+	0x2904 - uint16 - Skeleton keys
+	0x2913 - uint16 - Experience
+	0xF6CB - uint16[41] - Avatar's inventory type
+		Sale price 0.75 of purchase price
+		XXXXh								Buy	Sell
+		0000h/7Fh - Nothing
+		0402h/C0h - Orb of the Moons
+		900Bh/01h - Dagger					30	22
+		100Fh/01h - Broad Sword				50	37
+		1015h/01h - Hammer					50	37
+		102Ch/01h - Whip
+		1048h/20h - Leather Boots			40	30
+		10C0h/40h - Book of the Fellowship	0
+		10C7h/40h - Bedroll					50	37
+		10DAh/00h - Fellowship Medallion
+		10EFh/00h - Log						0
+			string index 325/145h
+		10F2h/00h - Clothes
+			Name at 0x0C:F9B9
+			string index 335/14Fh
+		10F3h/00h - Cloth
+			Name at 0x0C:F9C1
+			string index 336/150h
+		10F4h/00h - Dish
+			Name at 0x0C:F950
+			string index 326/146h
+	0xF71E - uint16[41] - Avatar's inventory quality
+	0x2:0C33 - VRAM
+	
+ZST info
+	Header - header size
+	5a22 regs and stuff - PH65816regsize
+	SPC timers - 8 bytes
+	PPU regs and stuff - 3019 bytes
+	0x0618 - Palette - 512 bytes
+	0x0C13 to 0x20C13 - WRAM - 128kB
+	VRAM - 64kB
+	if sound enabled:
+	# SPC700 RAM and stuff - PHspcsave
+	# BRR buffer and some DSP stuff - PHdspsave
+	# DSP memory - size of DSP memory
+	if ROM has C4 chip:
+	# C4 WRAM - 8kB
+	if ROM has SFX/SFX2 chip:
+	# SFX WRAM - 128kB
+	# SFX regs status - PHnum2writesfxreg
+	if ROM has SA1 chip:
+	# some SA1 regs and stuff - PHnum2writesa1reg
+	# SA1 RAM - 128kB
+	# SA1 Status - 3 bytes
+	# other SA1 regs - 4 bytes
+	# SA1 dma stuff - 8 bytes
+	if ROM has DSP-1/2/3/4 chip:
+	# opcodes status - 2874 bytes
+	if ROM has SETA chip:
+	# SETA RAM - 4kB
+	if ROM has SPC7110 chip:
+	# SPC7110 WRAM - 64kB
+	# SPC7110 regs and stuff - PHnum2writespc7110reg
+	ZSNES emu vars - 227 bytes
+	SRAM - sram size
+	preview pic - 7kB
+	
+Playing:
+	7E1CE6 - uint16be - gold pieces
+	7E1D00 - uint16be - experience
+	7EEB0B - Avatar's inventory
+	7F40CD - Unpacked text

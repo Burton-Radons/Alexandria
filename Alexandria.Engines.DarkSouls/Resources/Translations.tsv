@@ -24753,3 +24753,51 @@ EN弾Ｄ２	EN bullet D2
 【弓】混沌＋3	[ Bow ] chaos +3
 【弓】混沌＋4	[ Bow ] chaos +4
 【弓】混沌＋5	[ Bow ] chaos +5
+コンストラクタ	Constructor
+デストラクタ	Destructor
+プリコンストラクタ	Pre-constructor 
+敵リスポン	Enemy Risupon 
+城下2 チェックポイント通過XX	2 checkpoint pass XX castle 
+城下2 黒敵出現	2 black enemy castle appearance 
+城下2 黒敵消滅	2 black castle enemy annihilation 
+城下2 黒敵タイマー	2 black enemy castle timer 
+ホストが城下2ボス部屋入場	Host two boss room entrance castle 
+クライアントが城下2ボス部屋入場	Client 2 boss room entrance castle 
+ホストが城下2ボス部屋入場完了	Host two boss room entrance completion castle 
+城下2ボスが動き出す	2 boss castle begins to move 
+城下2ボス撃破	Castle 2 boss defeated 
+城下2ボスBGM ON	2 Boss BGM ON castle 
+城下2ボスBGM OFF	2 Boss BGM OFF castle 
+城下2ボスの尻尾が切れる	I cut off the tail of two boss castle 
+城下2ボスの頭部位材質	Head position of material 2 boss castle 
+城下2の腹部位ダメージにAIが反応	AI reaction to abdominal position of damage castle 2 
+背景ネズミが逃げる そのX	The X-background rats escape 
+復帰ルート扉が開かれる	Return route door is opened 
+復帰ルート扉が開かない	Return route door does not open 
+影町への扉が開く	Door to open Kage-machi 
+影町への扉が開かない	Door to Kage-machi does not open 
+城下2 開錠メッセージ_万能鍵ありXX	XX There are two unlock message _ universal castle key 
+通り過ぎるバジリスク	Basilisk to pass 
+巨大ネズミ撃破	Giant Rat Kills 
+コックが調理をやめる	Cock stop cooking 
+テーブルが壊れる	Corrupted tables 
+コックが追ってくる	Cock comes chasing 
+腐肉落下X	Carrion fall X 
+食堂敵制御XX	Cafeteria enemy control XX 
+飛び出す犬ねずみXX	Dog mouse XX to jump out 
+城下2 強敵出現制御XX	Castle 2 nemesis emergence control XX 
+城下2 宝箱XX	2 Treasure Chest XX castle 
+NPC敵対（城下2）	NPC hostile (castle 2) 
+NPC死亡（城下2）	NPC death (castle 2) 
+壷の呪術師 感謝	Shamans appreciation of pot 
+壷の呪術師 呪術を教えたい（城下2離れ）	You want to teach Shaman magic of pot (2 castle away) 
+トリックスター 交換したい（城下2離れ）	I want to exchange trickster (castle 2 away) 
+トリックスター 死亡（城下2）	Trickster death (castle 2) 
+壷の呪術師 解放時無敵	Invincible shamans upon release of pot 
+NPC 協力召喚（城下2）	NPC cooperation summons (castle 2) 
+NPC ボス部屋入場（城下2）	NPC boss room entrance (castle 2) 
+NPC 協力召喚2（城下2）	NPC cooperation summon 2 (castle 2) 
+NPC ボス部屋入場2（城下2）	NPC boss room entrance 2 (castle 2) 
+NPC 敵対侵入（城下2）	NPC hostile intrusion (castle 2) 
+NPC 侵入者撃破（城下2）	NPC intruder defeated (castle 2)
+	

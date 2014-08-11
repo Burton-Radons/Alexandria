@@ -11,8 +11,8 @@ using System.Text;
 namespace Alexandria.Engines.DarkSouls {
 	/// <summary>Contains game information like equipment parameters.</summary>
 	public class ParameterTable : Table {
-		public ParameterTable(AssetManager manager, AssetLoader loader)
-			: base(manager, loader) {
+		internal ParameterTable(AssetLoader loader)
+			: base(loader) {
 			var reader = loader.Reader;
 			int stringsOffset = reader.ReadInt32();
 			int firstRowDataOffset = reader.ReadUInt16();
@@ -58,11 +58,19 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>
+	/// A <see cref="AssetFormat"/> for the <see cref="ParameterTable"/> type.
+	/// </summary>
 	public class ParameterTableFormat : AssetFormat {
-		public ParameterTableFormat(Engine engine)
+		internal ParameterTableFormat(Engine engine)
 			: base(engine, typeof(TableArchive), canLoad: true, extension: ".param") {
 		}
 
+		/// <summary>
+		/// Attempt to match the <see cref="ParameterTable"/>.
+		/// </summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
 		public override LoadMatchStrength LoadMatch(AssetLoader loader) {
 			var reader = loader.Reader;
 
@@ -95,52 +103,93 @@ namespace Alexandria.Engines.DarkSouls {
 			return LoadMatchStrength.Medium;
 		}
 
+		/// <summary>
+		/// Load the <see cref="ParameterTable"/>.
+		/// </summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
 		public override Asset Load(AssetLoader loader) {
-			return new ParameterTable(Manager, loader);
+			return new ParameterTable(loader);
 		}
 	}
 
+	/// <summary>
+	/// An attribute that can be applied to a <see cref="TableRow"/> to provide additional information for browsing it.
+	/// </summary>
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
 	public class ParameterTableRowAttribute : TableRowAttribute {
+		/// <summary>Get the original name, or <c>null</c>.</summary>
 		public string OriginalName { get; private set; }
+
+		/// <summary>Get the zero-based index of the column in the table.</summary>
 		public int Index { get; private set; }
+
+		/// <summary>Get an unknown value.</summary>
 		public int Unknown2 { get; private set; }
 
-		public ParameterTableRowAttribute(string originalName, int index, double minimum, double maximum, double step, int order, int unknown2 = 1)
-			: base(originalName, minimum, maximum, order) {
+		/// <summary>Initialise the object.</summary>
+		/// <param name="originalName"></param>
+		/// <param name="index"></param>
+		/// <param name="minimum"></param>
+		/// <param name="maximum"></param>
+		/// <param name="step"></param>
+		/// <param name="sortOrder"></param>
+		/// <param name="unknown2"></param>
+		public ParameterTableRowAttribute(string originalName, int index, double minimum, double maximum, double step, int sortOrder, int unknown2 = 1)
+			: base(originalName, minimum, maximum, sortOrder) {
 			Index = index;
 			Unknown2 = unknown2;
 			OriginalName = originalName;
 		}
 	}
 
+	/// <summary>An attribute that can be applied to <see cref="Table"/> classes to override the sort order of a property.</summary>
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
 	public class ParameterTableRowOrderAttribute : PropertyTableRowOrderAttribute {
+		/// <summary>Get the zero-based index of the property in the table, or -1 if it's not part of a <see cref="ParameterTable"/>.</summary>
 		public int Index { get; private set; }
 
+		/// <summary>Initialise the object.</summary>
+		/// <param name="id"></param>
+		/// <param name="index"></param>
+		/// <param name="sortOrder"></param>
 		public ParameterTableRowOrderAttribute(string id, int index, int sortOrder)
 			: base(id, sortOrder) {
 			Index = index;
 		}
 	}
 
+	/// <summary>
+	/// A table row of a <see cref="ParameterTable"/>.
+	/// </summary>
 	public abstract class ParameterTableRow : TableRow {
+		/// <summary>Bit fields.</summary>
 		protected byte[] BitFields;
 
+		/// <summary>Get the unique identifier of the row.</summary>
 		public int Id { get; internal set; }
 
+		/// <summary>Get the <see cref="ParameterTable"/> this is in.</summary>
 		[Browsable(false)]
 		public new ParameterTable Parent { get { return (ParameterTable)base.Parent; } }
 
+		/// <summary>Attempt to find a translation of the <see cref="Asset.Name"/>.</summary>
 		public string TranslatedName {
 			get { return Engine.GetTranslation(Name); }
 		}
 
-		public ParameterTableRow(ParameterTable table, int index, AssetLoader loader)
+		/// <summary>Initialize the row.</summary>
+		/// <param name="table">The table this is in.</param>
+		/// <param name="index">The zero-based index of this row.</param>
+		/// <param name="loader">The loader to read from.</param>
+		protected ParameterTableRow(ParameterTable table, int index, AssetLoader loader)
 			: this(table, index) {
 		}
 
-		public ParameterTableRow(ParameterTable table, int index)
+		/// <summary>Initialize the row.</summary>
+		/// <param name="table">The table this is in.</param>
+		/// <param name="index">The zero-based index of this row.</param>
+		protected ParameterTableRow(ParameterTable table, int index)
 			: base(table, index) {
 		}
 
@@ -149,6 +198,11 @@ namespace Alexandria.Engines.DarkSouls {
 			return BitFields[index] | (BitFields.TryGet(index + 1) << 8) | (BitFields.TryGet(index + 2) << 16) | (BitFields.TryGet(index + 3) << 24);
 		}
 
+		/// <summary>Get a bit property from the <see cref="BitFields"/>.</summary>
+		/// <param name="shift">The first bit of the field.</param>
+		/// <param name="count">The number of bits in the field.</param>
+		/// <param name="property">The property this is for.</param>
+		/// <returns>The bit value.</returns>
 		protected int GetBitProperty(int shift, int count, PropertyInfo property) {
 			if (count > 24)
 				throw new ArgumentOutOfRangeException("count");
@@ -158,6 +212,11 @@ namespace Alexandria.Engines.DarkSouls {
 			return (bits >> (shift & 7)) & mask;
 		}
 
+		/// <summary>Get a boolean property from the <see cref="BitFields"/>.</summary>
+		/// <param name="shift">The first bit of the field.</param>
+		/// <param name="count">The number of bits in the field.</param>
+		/// <param name="property">The property this is for.</param>
+		/// <returns>The bit value.</returns>
 		protected bool GetBoolProperty(int shift, int count, PropertyInfo property) {
 			return GetBitProperty(shift, count, property) != 0;
 		}
@@ -168,7 +227,13 @@ namespace Alexandria.Engines.DarkSouls {
 		/// <returns></returns>
 		protected string GetLocalisedString(Engine.ItemArchiveId archive, Language language = Language.English) { return Parent.GetLocalisedString(archive, Id, language); }
 
-		public static ParameterTableRow ReadRow(ParameterTable table, int index, AssetLoader loader, int next) {
+		/// <summary>Read a row of a <see cref="ParameterTable"/>.</summary>
+		/// <param name="table"></param>
+		/// <param name="index"></param>
+		/// <param name="loader"></param>
+		/// <param name="next"></param>
+		/// <returns></returns>
+		internal static ParameterTableRow ReadRow(ParameterTable table, int index, AssetLoader loader, int next) {
 			switch (table.Name) {
 				case TableRows.Protector.TableName: return new TableRows.Protector(table, index, loader, next);
 				case TableRows.Good.TableName: return new TableRows.Good(table, index, loader, next);
@@ -209,7 +274,7 @@ namespace Alexandria.Engines.DarkSouls {
 				case TableRows.Skeleton.TableName: return new TableRows.Skeleton(table, index, loader, next);
 				case TableRows.ShopLineup.TableName: return new TableRows.ShopLineup(table, index, loader, next);
 				case TableRows.Shadow.TableName: return new TableRows.Shadow(table, index, loader, next);
-				case TableRows.WeaponUpgrade.TableName: return new TableRows.WeaponUpgrade(table, index, loader, next);
+				case TableRows.WeaponReinforcement.TableName: return new TableRows.WeaponReinforcement(table, index, loader, next);
 				case TableRows.ProtectorReinforcement.TableName: return new TableRows.ProtectorReinforcement(table, index, loader, next);
 				case TableRows.ToneMapping.TableName: return new TableRows.ToneMapping(table, index, loader, next);
 				case TableRows.ToneCorrection.TableName: return new TableRows.ToneCorrection(table, index, loader, next);
@@ -224,8 +289,18 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>Set a boolean property from the <see cref="BitFields"/>.</summary>
+		/// <param name="shift">The first bit of the field.</param>
+		/// <param name="count">The number of bits in the field.</param>
+		/// <param name="value">The value to assign.</param>
+		/// <param name="property">The property this is for.</param>
 		protected void SetBitProperty(int shift, int count, bool value, PropertyInfo property) { SetBitProperty(shift, count, value ? ~0 : 0, property); }
 
+		/// <summary>Set a bit property from the <see cref="BitFields"/>.</summary>
+		/// <param name="shift">The first bit of the field.</param>
+		/// <param name="count">The number of bits in the field.</param>
+		/// <param name="value">The value to assign.</param>
+		/// <param name="property">The property this is for.</param>
 		protected void SetBitProperty(int shift, int count, int value, PropertyInfo property) {
 			if (count > 24)
 				throw new ArgumentOutOfRangeException("count");
@@ -242,9 +317,23 @@ namespace Alexandria.Engines.DarkSouls {
 			BitFields.TrySet(index + 3, (byte)(bits >> 24));
 		}
 
+		/// <summary>A SetProperty with a different parameter order than the base type, in order to handle a change in operations that created 1435 errors that I really don't want to have to deal with.</summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="slot"></param>
+		/// <param name="value"></param>
+		/// <param name="property"></param>
+		protected void SetProperty<T>(ref T slot, ref T value, PropertyInfo property) {
+			SetProperty(property, ref slot, ref value);
+		}
+
+		/// <summary>
+		/// Write the row.
+		/// </summary>
+		/// <param name="writer">The writer to use.</param>
 		public abstract void Write(BinaryWriter writer);
 	}
 
+	/// <summary>An enumeration of all of the parameter tables. Their values match the <see cref="ArchiveRecord.Id"/> of the <see cref="Archive"/> they are in.</summary>
 	public enum ParameterTableIndex {
 		/// <summary></summary>
 		/// <remarks>"AtkParam_Npc.param" (id 0x0E), using <see cref="TableRows.Attack"/></remarks>
@@ -279,7 +368,7 @@ namespace Alexandria.Engines.DarkSouls {
 		DefaultAiStandardInfos = 0x08,
 
 		/// <summary></summary>
-		/// <remarks>"default_EnemyBehaviorBank.param" (id 0x07), using <see cref="TableRows.EnemyBehavior"/></remarks>
+		/// <remarks>"default_EnemyBehaviorBank.param" (id 0x07), using <see cref="TableRows.Behavior"/></remarks>
 		DefaultEnemyBehaviors = 0x07,
 
 		/// <summary></summary>
@@ -399,10 +488,12 @@ namespace Alexandria.Engines.DarkSouls {
 		Throws = 0x09,
 	}
 
+	/// <summary>Common to <see cref="WornTableRow"/> (and then <see cref="TableRows.Weapon"/> and <see cref="TableRows.Accessory"/>) and <see cref="TableRows.Good"/>.</summary>
 	public abstract class EquipmentTableRow : ParameterTableRow {
 		int basicPrice = 0, sellValue = 0, sortId = 0, vagrantItemLotId = 0, vagrantBonusEneDropItemLotId = 0, vagrantItemEneDropItemLotId = 0;
 		float weight = 1;
 
+		/// <summary>Property information for properties.</summary>
 		public static readonly PropertyInfo
 			BasicPriceProperty = GetProperty<EquipmentTableRow>("BasicPrice"),
 			IsDepositProperty = GetProperty<EquipmentTableRow>("IsDeposit"),
@@ -418,7 +509,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "基本価格", Google translated: "Base price".
 		/// Japanese description: "基本価格", Google translated: "Base price".
 		/// </remarks>
-		[ParameterTableRowAttribute("basicPrice", index: -1, minimum: 0, maximum: 1E+08, step: 1, order: -1, unknown2: 1)]
+		[ParameterTableRowAttribute("basicPrice", index: -1, minimum: 0, maximum: 1E+08, step: 1, sortOrder: -1, unknown2: 1)]
 		[DisplayName("Base price")]
 		[Description("Base price")]
 		[DefaultValue((Int32)0)]
@@ -436,7 +527,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "預けれるか", Google translated: "Either deposit".
 		/// Japanese description: "倉庫に預けれるか", Google translated: "Is either deposited in the warehouse".
 		/// </remarks>
-		[ParameterTableRowAttribute("isDeposit:1", index: 73, minimum: 0, maximum: 1, step: 1, order: 4775, unknown2: 1)]
+		[ParameterTableRowAttribute("isDeposit:1", index: 73, minimum: 0, maximum: 1, step: 1, sortOrder: 4775, unknown2: 1)]
 		[DisplayName("Either deposit")]
 		[Description("Is either deposited in the warehouse")]
 		[DefaultValue(true)]
@@ -450,7 +541,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "販売価格", Google translated: "Selling price".
 		/// Japanese description: "販売価格", Google translated: "Selling price".
 		/// </remarks>
-		[ParameterTableRowAttribute("sellValue", index: -1, minimum: -1, maximum: 1E+08, step: 1, order: -1, unknown2: 1)]
+		[ParameterTableRowAttribute("sellValue", index: -1, minimum: -1, maximum: 1E+08, step: 1, sortOrder: -1, unknown2: 1)]
 		[DisplayName("Selling price")]
 		[Description("Selling price")]
 		[DefaultValue((Int32)0)]
@@ -468,7 +559,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "ソートID", Google translated: "Sort ID".
 		/// Japanese description: "ソートID(-1:集めない)", Google translated: "Sort ID (-1: it is not collected )".
 		/// </remarks>
-		[ParameterTableRowAttribute("sortId", index: -1, minimum: -1, maximum: 999999, step: 1, order: -1, unknown2: 1)]
+		[ParameterTableRowAttribute("sortId", index: -1, minimum: -1, maximum: 999999, step: 1, sortOrder: -1, unknown2: 1)]
 		[DisplayName("Sort ID")]
 		[Description("Sort ID (-1: it is not collected )")]
 		[DefaultValue((Int32)0)]
@@ -486,7 +577,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "ベイグラント時アイテム抽選ID", Google translated: "Vagrant when items lottery ID".
 		/// Japanese description: "-1：ベイグラントなし 0：抽選なし 1～：抽選あり", Google translated: "Yes lottery : 1 to No lottery : 0 No Vagrant : -1".
 		/// </remarks>
-		[ParameterTableRowAttribute("vagrantItemLotId", index: -1, minimum: -1, maximum: 1E+08, step: 1, order: -1, unknown2: 0)]
+		[ParameterTableRowAttribute("vagrantItemLotId", index: -1, minimum: -1, maximum: 1E+08, step: 1, sortOrder: -1, unknown2: 0)]
 		[DisplayName("Vagrant when items lottery ID")]
 		[Description("Yes lottery : 1 to No lottery : 0 No Vagrant : -1")]
 		[DefaultValue((Int32)0)]
@@ -504,7 +595,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "ベイグラントボーナス敵ドロップアイテム抽選ID", Google translated: "Vagrant bonus enemy drop items lottery ID".
 		/// Japanese description: "-1：ドロップなし 0：抽選なし 1～：抽選あり", Google translated: "Yes lottery : 1 to No lottery : 0 No Drop: -1".
 		/// </remarks>
-		[ParameterTableRowAttribute("vagrantBonusEneDropItemLotId", index: -1, minimum: -1, maximum: 1E+08, step: 1, order: -1, unknown2: 0)]
+		[ParameterTableRowAttribute("vagrantBonusEneDropItemLotId", index: -1, minimum: -1, maximum: 1E+08, step: 1, sortOrder: -1, unknown2: 0)]
 		[DisplayName("Vagrant bonus enemy drop items lottery ID")]
 		[Description("Yes lottery : 1 to No lottery : 0 No Drop: -1")]
 		[DefaultValue((Int32)0)]
@@ -522,7 +613,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "ベイグラントアイテム敵ドロップアイテム抽選ID", Google translated: "Vagrant enemy item drop item lottery ID".
 		/// Japanese description: "-1：ドロップなし 0：抽選なし 1～：抽選あり", Google translated: "Yes lottery : 1 to No lottery : 0 No Drop: -1".
 		/// </remarks>
-		[ParameterTableRowAttribute("vagrantItemEneDropItemLotId", index: -1, minimum: -1, maximum: 1E+08, step: 1, order: -1, unknown2: 0)]
+		[ParameterTableRowAttribute("vagrantItemEneDropItemLotId", index: -1, minimum: -1, maximum: 1E+08, step: 1, sortOrder: -1, unknown2: 0)]
 		[DisplayName("Vagrant enemy item drop item lottery ID")]
 		[Description("Yes lottery : 1 to No lottery : 0 No Drop: -1")]
 		[DefaultValue((Int32)0)]
@@ -540,7 +631,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "重量[kg]", Google translated: "Weight [kg]".
 		/// Japanese description: "重量[kg].", Google translated: "Weight [kg].".
 		/// </remarks>
-		[ParameterTableRowAttribute("weight", index: -1, minimum: 0, maximum: 1000, step: 0.1, order: -1, unknown2: 1)]
+		[ParameterTableRowAttribute("weight", index: -1, minimum: 0, maximum: 1000, step: 0.1, sortOrder: -1, unknown2: 1)]
 		[DisplayName("Weight [kg]")]
 		[Description("Weight [kg].")]
 		[DefaultValue((Single)1)]
@@ -553,16 +644,16 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
-		public EquipmentTableRow(ParameterTable table, int index, AssetLoader loader)
+		internal EquipmentTableRow(ParameterTable table, int index, AssetLoader loader)
 			: base(table, index, loader) {
 		}
 
-		public EquipmentTableRow(ParameterTable table, int index)
+		internal EquipmentTableRow(ParameterTable table, int index)
 			: base(table, index) {
 		}
 	}
 
-	/// <summary>Equipment that is worn - <see cref="Ring"/>s and through <see cref="ClothingTableRow"/>, <see cref="Weapon"/>s and <see cref="Armor"/>.</summary>
+	/// <summary>Equipment that is worn - <see cref="TableRows.Accessory"/>s and through <see cref="ClothingTableRow"/>, <see cref="TableRows.Weapon"/>s and <see cref="TableRows.Protector"/>.</summary>
 	public abstract class WornTableRow : EquipmentTableRow {
 		EquipModelCategory equipModelCategory = (EquipModelCategory)0;
 		EquipModelGender equipModelGender = (EquipModelGender)0;
@@ -578,7 +669,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "装備モデル種別", Google translated: "Equipment model type".
 		/// Japanese description: "装備モデルの種別", Google translated: "Type of equipment model".
 		/// </remarks>
-		[ParameterTableRowAttribute("equipModelCategory", index: 13, minimum: 0, maximum: 99, step: 1, order: 100, unknown2: 1)]
+		[ParameterTableRowAttribute("equipModelCategory", index: 13, minimum: 0, maximum: 99, step: 1, sortOrder: 100, unknown2: 1)]
 		[DisplayName("Equipment model type")]
 		[Description("Type of equipment model")]
 		[DefaultValue((EquipModelCategory)0)]
@@ -592,7 +683,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "装備モデル性別", Google translated: "Equipment model sex".
 		/// Japanese description: "装備モデルの性別", Google translated: "Gender model of equipment".
 		/// </remarks>
-		[ParameterTableRowAttribute("equipModelGender", index: 14, minimum: 0, maximum: 99, step: 1, order: 200, unknown2: 1)]
+		[ParameterTableRowAttribute("equipModelGender", index: 14, minimum: 0, maximum: 99, step: 1, sortOrder: 200, unknown2: 1)]
 		[DisplayName("Equipment model sex")]
 		[Description("Gender model of equipment")]
 		[DefaultValue((EquipModelGender)0)]
@@ -606,7 +697,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "装備モデル番号", Google translated: "Equipment model number".
 		/// Japanese description: "装備モデルの番号.", Google translated: "Number of equipment models .".
 		/// </remarks>
-		[ParameterTableRowAttribute("equipModelId", index: -1, minimum: 0, maximum: 9999, step: 1, order: -1, unknown2: 1)]
+		[ParameterTableRowAttribute("equipModelId", index: -1, minimum: 0, maximum: 9999, step: 1, sortOrder: -1, unknown2: 1)]
 		[DisplayName("Equipment model number")]
 		[Description("Number of equipment models .")]
 		[DefaultValue((UInt16)0)]
@@ -619,21 +710,22 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
-		public WornTableRow(ParameterTable table, int index, AssetLoader loader)
+		internal WornTableRow(ParameterTable table, int index, AssetLoader loader)
 			: base(table, index, loader) {
 		}
 
-		public WornTableRow(ParameterTable table, int index)
+		internal WornTableRow(ParameterTable table, int index)
 			: base(table, index) {
 		}
 	}
 
-	/// <summary><see cref="Armor"/>s and <see cref="Weapon"/>s.</summary>
+	/// <summary><see cref="TableRows.Protector"/>s and <see cref="TableRows.Weapon"/>s.</summary>
 	public abstract class ClothingTableRow : WornTableRow {
 		int fixPrice = 0, wanderingEquipId = 0;
 		short oldSortId = 0;
 		ushort durability = 100, durabilityMax = 100;
 
+		/// <summary>A property of the class.</summary>
 		public static readonly PropertyInfo
 			WanderingEquipIdProperty = GetProperty<ClothingTableRow>("WanderingEquipId"),
 			OldSortIdProperty = GetProperty<ClothingTableRow>("OldSortId"),
@@ -646,7 +738,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "耐久度", Google translated: "Durability".
 		/// Japanese description: "初期耐久度.", Google translated: "Initial durability .".
 		/// </remarks>
-		[ParameterTableRowAttribute("durability", index: -1, minimum: 0, maximum: 999, step: 1, order: -1, unknown2: 1)]
+		[ParameterTableRowAttribute("durability", index: -1, minimum: 0, maximum: 999, step: 1, sortOrder: -1, unknown2: 1)]
 		[DisplayName("Durability")]
 		[Description("Initial durability .")]
 		[DefaultValue((UInt16)100)]
@@ -664,7 +756,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "耐久度最大値", Google translated: "Durability maximum value".
 		/// Japanese description: "新品耐久度.", Google translated: "New durability .".
 		/// </remarks>
-		[ParameterTableRowAttribute("durabilityMax", index: -1, minimum: 0, maximum: 999, step: 1, order: -1, unknown2: 1)]
+		[ParameterTableRowAttribute("durabilityMax", index: -1, minimum: 0, maximum: 999, step: 1, sortOrder: -1, unknown2: 1)]
 		[DisplayName("Durability maximum value")]
 		[Description("New durability .")]
 		[DefaultValue((UInt16)100)]
@@ -682,7 +774,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "修理価格", Google translated: "Repair price".
 		/// Japanese description: "修理基本価格", Google translated: "Repair base price".
 		/// </remarks>
-		[ParameterTableRowAttribute("fixPrice", index: -1, minimum: 0, maximum: 1E+08, step: 1, order: -1, unknown2: 1)]
+		[ParameterTableRowAttribute("fixPrice", index: -1, minimum: 0, maximum: 1E+08, step: 1, sortOrder: -1, unknown2: 1)]
 		[DisplayName("Repair price")]
 		[Description("Repair base price")]
 		[DefaultValue((Int32)0)]
@@ -697,12 +789,12 @@ namespace Alexandria.Engines.DarkSouls {
 
 		/// <summary>Old sort ID</summary>
 		/// <remarks>
-		/// Maximum was 10437; <see cref="Armor"/> needed the value.
+		/// Maximum was 10437; <see cref="TableRows.Protector"/> needed the value.
 		/// 
 		/// Japanese short name: "旧ソートID", Google translated: "Old sort ID".
 		/// Japanese description: "旧ソートID(-1:集めない)", Google translated: "Old sort ID (-1: it is not collected )".
 		/// </remarks>
-		[ParameterTableRowAttribute("oldSortId", index: -1, minimum: -32768, maximum: 32767, step: 1, order: -1, unknown2: 1)]
+		[ParameterTableRowAttribute("oldSortId", index: -1, minimum: -32768, maximum: 32767, step: 1, sortOrder: -1, unknown2: 1)]
 		[DisplayName("Old sort ID")]
 		[Description("Old sort ID (-1: it is not collected )")]
 		[DefaultValue((Int16)0)]
@@ -716,7 +808,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Japanese short name: "徘徊装備ID", Google translated: "Loitering equipment ID".
 		/// Japanese description: "徘徊ゴースト用の差し替え装備ID.", Google translated: "Replacement equipment ID of the wandering ghost for .".
 		/// </remarks>
-		[ParameterTableRowAttribute("wanderingEquipId", index: -1, minimum: 0, maximum: 1E+09, step: 1, order: -1, unknown2: 1)]
+		[ParameterTableRowAttribute("wanderingEquipId", index: -1, minimum: 0, maximum: 1E+09, step: 1, sortOrder: -1, unknown2: 1)]
 		[DisplayName("Loitering equipment ID")]
 		[Description("Replacement equipment ID of the wandering ghost for .")]
 		[DefaultValue((Int32)0)]
@@ -729,11 +821,11 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
-		public ClothingTableRow(ParameterTable table, int index, AssetLoader loader)
+		internal ClothingTableRow(ParameterTable table, int index, AssetLoader loader)
 			: base(table, index, loader) {
 		}
 
-		public ClothingTableRow(ParameterTable table, int index)
+		internal ClothingTableRow(ParameterTable table, int index)
 			: base(table, index) {
 		}
 	}

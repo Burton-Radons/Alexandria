@@ -9,11 +9,27 @@ namespace Alexandria.Engines.Sciagi.Resources {
 	/// <summary>Manages the four rasters of an SCI game.</summary>
 	public class PictureCanvas {
 		Vector2i pResolution;
+		Palette Palette;
 
-		public Raster VisualRaster { get; protected set; }
-		public Raster PriorityRaster { get; protected set; }
-		public Raster ControlRaster { get; protected set; }
-		public Raster AuxiliaryRaster { get; protected set; }
+		/// <summary>
+		/// Get the visual raster.
+		/// </summary>
+		public Raster Visual { get; protected set; }
+
+		/// <summary>
+		/// Get the priority raster.
+		/// </summary>
+		public Raster Priority { get; protected set; }
+
+		/// <summary>
+		/// Get the control raster.
+		/// </summary>
+		public Raster Control { get; protected set; }
+
+		/// <summary>
+		/// Get the auxiliary raster.
+		/// </summary>
+		public Raster Auxiliary { get; protected set; }
 
 		/// <summary>Get or set the resolution of the canvas. The default is (320, 190).</summary>
 		public Vector2i Resolution {
@@ -22,23 +38,34 @@ namespace Alexandria.Engines.Sciagi.Resources {
 			set {
 				if (pResolution != value) {
 					pResolution = value;
-					VisualRaster = new Raster(value, Raster.DefaultBlendedEgaColors, colorBlend: true);
-					PriorityRaster = new Raster(value, Raster.DefaultEgaColors);
-					ControlRaster = new Raster(value, Raster.DefaultEgaColors);
-					AuxiliaryRaster = new Raster(value, Raster.DefaultEgaColors);
+					Visual = new Raster(value, Palette != null ? Palette.FlatColors : Raster.DefaultBlendedEgaColors, colorBlend: 16);
+					Priority = new Raster(value, Raster.DefaultEgaColors);
+					Control = new Raster(value, Raster.DefaultEgaColors);
+					Auxiliary = new Raster(value, Raster.DefaultEgaColors);
 				}
 				Clear();
 			}
 		}
 
-		public PictureCanvas(Vector2i resolution) {
+		/// <summary>
+		/// Initialise the canvas.
+		/// </summary>
+		/// <param name="resolution"></param>
+		/// <param name="palette"></param>
+		public PictureCanvas(Vector2i resolution, Palette palette = null) {
+			Palette = palette;
 			Resolution = resolution;
 		}
 
+		/// <summary>
+		/// Initialise the canvas.
+		/// </summary>
+		/// <param name="width"></param>
+		/// <param name="height"></param>
 		public PictureCanvas(int width, int height) : this(new Vector2i(width, height)) { }
 
-		/// <summary>Create a new <see cref="PictureCanvas"/> at the default resolution (320x190).</summary>
-		public PictureCanvas() : this(320, 190) { }
+		/// <summary>Create a new <see cref="PictureCanvas"/> using the <see cref="Picture"/>'s dimensions, and using the <see cref="Picture"/>'s <see cref="Palette"/>, if any.</summary>
+		public PictureCanvas(Picture picture) : this(picture.Dimensions, picture.Palette) { }
 
 		/// <summary>
 		/// Clear all of the layers to their default values (by default), or specific layers with specific values if desired. This locks, then unlocks the bitmaps.
@@ -51,22 +78,27 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		public virtual void Clear(byte visualValue = 15, byte priorityValue = 0, byte controlValue = 0, byte auxiliaryValue = 0, PictureLayer mask = PictureLayer.All) {
 			Lock();
 			if ((mask & PictureLayer.Visual) != 0)
-				VisualRaster.Clear(visualValue);
+				Visual.Clear(visualValue);
 			if ((mask & PictureLayer.Priority) != 0)
-				PriorityRaster.Clear(priorityValue);
+				Priority.Clear(priorityValue);
 			if ((mask & PictureLayer.Control) != 0)
-				ControlRaster.Clear(controlValue);
+				Control.Clear(controlValue);
 			if ((mask & PictureLayer.Auxiliary) != 0)
-				AuxiliaryRaster.Clear(auxiliaryValue);
+				Auxiliary.Clear(auxiliaryValue);
 			Unlock();
 		}
 
+		/// <summary>
+		/// Get a raster layer.
+		/// </summary>
+		/// <param name="layer"></param>
+		/// <returns></returns>
 		public Raster GetRaster(PictureLayer layer) {
 			switch (layer) {
-				case PictureLayer.Visual: return VisualRaster;
-				case PictureLayer.Priority: return PriorityRaster;
-				case PictureLayer.Control: return ControlRaster;
-				case PictureLayer.Auxiliary: return AuxiliaryRaster;
+				case PictureLayer.Visual: return Visual;
+				case PictureLayer.Priority: return Priority;
+				case PictureLayer.Control: return Control;
+				case PictureLayer.Auxiliary: return Auxiliary;
 				default: throw new ArgumentException(typeof(PictureLayer).Name + " value " + layer + " is not valid.", "layer");
 			}
 		}
@@ -75,20 +107,20 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		/// Lock all the raster images to start drawing to them.
 		/// </summary>
 		public void Lock() {
-			VisualRaster.Lock();
-			PriorityRaster.Lock();
-			ControlRaster.Lock();
-			AuxiliaryRaster.Lock();
+			Visual.Lock();
+			Priority.Lock();
+			Control.Lock();
+			Auxiliary.Lock();
 		}
 
 		/// <summary>
 		/// Unlock all the raster images, flushing their changes.
 		/// </summary>
 		public void Unlock() {
-			VisualRaster.Unlock();
-			PriorityRaster.Unlock();
-			ControlRaster.Unlock();
-			AuxiliaryRaster.Unlock();
+			Visual.Unlock();
+			Priority.Unlock();
+			Control.Unlock();
+			Auxiliary.Unlock();
 		}
 	}
 
@@ -107,9 +139,24 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		/// </summary>
 		All = Visual | Priority | Control | Auxiliary,
 
+		/// <summary>
+		/// The visual layer.
+		/// </summary>
 		Visual = 1,
+
+		/// <summary>
+		/// The priority layer.
+		/// </summary>
 		Priority = 2,
+
+		/// <summary>
+		/// The control layer.
+		/// </summary>
 		Control = 4,
+
+		/// <summary>
+		/// The auxiliary layer.
+		/// </summary>
 		Auxiliary = 8,
 	}
 }

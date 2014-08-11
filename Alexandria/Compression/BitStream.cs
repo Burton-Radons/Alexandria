@@ -6,9 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Compression {
+	/// <summary>
+	/// Provides for reading bits from a <see cref="Stream"/>.
+	/// </summary>
 	public struct BitStream {
 		/// <summary>Get the <see cref="System.IO.Stream"/> to read bytes from.</summary>
-		readonly Stream Stream;
+		public readonly Stream Stream;
 
 		/// <summary>Get or set the number of bits that are currently buffered.</summary>
 		public int BitCount;
@@ -16,7 +19,16 @@ namespace Alexandria.Compression {
 		/// <summary>Get or set the buffered bit values.</summary>
 		public uint Bits;
 
+		/// <summary>Get the actual position of the <see cref="Stream"/>, accounting for any buffered bits.</summary>
+		public long Position { get { return Stream.Position - (BitCount + 7) / 8; } }
+
+		/// <summary>Initialise the bitstream with the given stream.</summary>
+		/// <param name="stream">The <see cref="System.IO.Stream"/> to read from.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="stream"/> is <c>null</c>.</exception>
 		public BitStream(Stream stream) {
+			if (stream == null)
+				throw new ArgumentNullException("stream");
+
 			Stream = stream;
 			BitCount = 0;
 			Bits = 0;
@@ -53,6 +65,10 @@ namespace Alexandria.Compression {
 			return (int)(Bits & ~((~0) << count));
 		}
 
+		/// <summary>Read a bit in LSB order and return whether it's non-zero.</summary>
+		/// <returns></returns>
+		public bool BooleanLSB() { return ReadLSB(1) != 0; }
+
 		/// <summary>Fill the bit buffer in MSB order.</summary>
 		public void FetchMSB() {
 			while (BitCount <= 24) {
@@ -82,6 +98,16 @@ namespace Alexandria.Compression {
 				FetchMSB();
 
 			return (int)((Bits >> (32 - count)) & ~((~0) << count));
+		}
+
+		/// <summary>Read a bit in MSB order and return whether it's non-zero.</summary>
+		/// <returns></returns>
+		public bool BooleanMSB() { return ReadMSB(1) != 0; }
+
+		/// <summary>Convert to a string representation of the bit stream.</summary>
+		/// <returns></returns>
+		public override string ToString() {
+			return string.Format("{0}(BitCount = {1}, Bits = {2}, Position = {3})", GetType().Name, BitCount, Bits, Position);
 		}
 	}
 }

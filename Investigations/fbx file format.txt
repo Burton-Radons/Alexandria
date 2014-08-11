@@ -1,0 +1,79 @@
+u1c1
+    u1 length
+    c1[length] string
+u4c1
+	u4 length
+	c1[length] string
+
+Block
+	u4 EndOffset
+	u4 ValueCount
+	u4 ValueLengths
+	u1cs name
+	Object[ValueCount] Values, total length in bytes is ValueLengths
+	[If EndOffset > This offset]
+		Block[...]
+		EndOffset: ZeroBlock
+ZeroBlock
+	Block 0, 0, 0, ''
+	
+Object
+	c1 Type
+	...
+C	Character (Type = 'C')
+	c1 Value
+D	Double (Type = 'D')
+	f8 Value
+I	Integer (Type = 'I')
+	s4 Value
+S	String (Type = 'S')
+	u4c1 Value
+R	Object (Type = 'R')
+	u4 Length
+	u1[Length] Data - GUID?
+	
+"Kaydara FBX Binary  \x00"
+u2 HeaderVersion (26)
+u4 FBXVersion (6100)
+
+ParentBlock 518, 0, 0, "FBXHeaderExtension"
+	IBlock 92, 1, 5, "FBXHeaderVersion", 1003
+	IBlock 120, 1, 5, "FBXVersion", 6100
+	IBlock 152, 1, 5, "EncryptionType, 0
+	ParentBlock 385, 0, 0, "CreationTimeStamp"
+		IBlock 207, 1, 5, "Version", 1000
+		IBlock 229, 1, 5, "Year", 2012
+		IBlock 252, 1, 5, "Month", 8
+		IBlock 273, 1, 5, "Day", 13
+		IBlock 295, 1, 5, "Hour", 5
+		IBlock 319, 1, 5, "Minute", 48
+		IBlock 343, 1, 5, "Second", 34
+		IBlock 372, 1, 5, "Millisecond", 61
+		ZeroBlock
+	SBlock 444, 1, 39, "Creator", "FBX SDK/FBX Plugins version 2009"
+	ParentBlock 505, 0, 0, "OtherFlags"
+		IBlock 492, 1, 5, "FlagPLE", 0
+		ZeroBlock
+	518: ZeroBlock
+Block 558, 1, 21, "FileId", R:[16]
+Block 611, 1, 28, "CreationTime", S:"2012-08-13 05:48:34:06"
+Block 670, 1, 39, "Creator", S:"FBX SDK/FBX Plugins build 20081101"
+ParentBlock 726, 0, 0, "Document"
+	Block 713, 1, 5, "Name", ""
+	ZeroBlock
+ParentBlock 762, 0, 0, "References"	
+	ZeroBlock
+ParentBlock 1269, 0, 0, "Definitions"
+	Block 811, 1, 5, "Version", I:100
+	Block 834, 1, 5, "Count", I:6
+	Block 903, 1, 10, "ObjectType", S:"Model"
+		Block 890, 1, 5, "Count", I:1
+		ZeroBlock
+...
+ParentBlock 17491, 0, 0, "Objects"
+	Block 10674, 2, 26, "Model", S"Box01\0Model"
+	Block 1368, 1, 5, "Version", I:232
+	Block 6255, 0, 0, "Properties60"
+		Block 1459, 4, 45, "Property", S:"QuaternionInterpolate", S:"bool", S:"", I:0
+		Block 1544, 5, 64, "Property", S:"RotationOffset", S:"Vector3D", S:"", D:0, D:0, D:0
+		

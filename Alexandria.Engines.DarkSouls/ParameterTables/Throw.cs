@@ -14,6 +14,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "THROW_INFO_BANK" in Dark Souls in the file "ThrowParam.paramdef" (id 15h).
 		/// </remarks>
 		public class Throw : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "THROW_INFO_BANK";
 
 			Int32 atkChrId, defChrId, throwTypeId, atkAnimId, defAnimId;
@@ -26,6 +27,7 @@ namespace Alexandria.Engines.DarkSouls {
 			ThrowDmyCharacterDirectionType dmyHasChrDirType;
 			Byte[] pad1;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				AtkChrIdProperty = GetProperty<Throw>("AtkChrId"),
 				DefChrIdProperty = GetProperty<Throw>("DefChrId"),
@@ -60,7 +62,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "投げ側キャラID", Google translated: "Character ID side throw".
 			/// Japanese description: "投げ側キャラID", Google translated: "Character ID side throw".
 			/// </remarks>
-			[ParameterTableRowAttribute("AtkChrId", index: 0, minimum: 0, maximum: 10000, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("AtkChrId", index: 0, minimum: 0, maximum: 10000, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Character ID side throw")]
 			[Description("Character ID side throw")]
 			[DefaultValue((Int32)0)]
@@ -78,7 +80,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "受け側キャラID", Google translated: "Character ID receiving side".
 			/// Japanese description: "受け側キャラID", Google translated: "Character ID receiving side".
 			/// </remarks>
-			[ParameterTableRowAttribute("DefChrId", index: 1, minimum: 0, maximum: 10000, step: 1, order: 200, unknown2: 0)]
+			[ParameterTableRowAttribute("DefChrId", index: 1, minimum: 0, maximum: 10000, step: 1, sortOrder: 200, unknown2: 0)]
 			[DisplayName("Character ID receiving side")]
 			[Description("Character ID receiving side")]
 			[DefaultValue((Int32)0)]
@@ -96,7 +98,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "有効距離[m]", Google translated: "Effective distance [m]".
 			/// Japanese description: "この値より近い距離じゃないと投げない[m]", Google translated: "You do not throw 's not a distance smaller than this value [m]".
 			/// </remarks>
-			[ParameterTableRowAttribute("Dist", index: 2, minimum: 0, maximum: 10000, step: 0.1, order: 800, unknown2: 0)]
+			[ParameterTableRowAttribute("Dist", index: 2, minimum: 0, maximum: 10000, step: 0.1, sortOrder: 800, unknown2: 0)]
 			[DisplayName("Effective distance [m]")]
 			[Description("You do not throw 's not a distance smaller than this value [m]")]
 			[DefaultValue((Single)0)]
@@ -114,7 +116,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "自分の向きと相手の向きの角度差範囲min", Google translated: "Angular difference range min in the direction of the other party to the direction of their own".
 			/// Japanese description: "投げ側と受け側の角度差(Y軸)がこの角度より大きくないと投げない", Google translated: "Not throw angle difference between the receiving -side throw (Y -axis ) is not greater than the angle".
 			/// </remarks>
-			[ParameterTableRowAttribute("DiffAngMin", index: 3, minimum: 0, maximum: 180, step: 0.01, order: 1100, unknown2: 0)]
+			[ParameterTableRowAttribute("DiffAngMin", index: 3, minimum: 0, maximum: 180, step: 0.01, sortOrder: 1100, unknown2: 0)]
 			[DisplayName("Angular difference range min in the direction of the other party to the direction of their own")]
 			[Description("Not throw angle difference between the receiving -side throw (Y -axis ) is not greater than the angle")]
 			[DefaultValue((Single)0)]
@@ -132,7 +134,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "自分の向きと相手の向きの角度差範囲max", Google translated: "Angular difference max range of the orientation of the other party to the direction of their own".
 			/// Japanese description: "投げ側と受け側の角度差(Y軸)がこの角度より小さくないと投げない", Google translated: "Not throw angle difference between the receiving -side throw (Y -axis ) is not smaller than the angle".
 			/// </remarks>
-			[ParameterTableRowAttribute("DiffAngMax", index: 4, minimum: 0, maximum: 180, step: 0.01, order: 1200, unknown2: 0)]
+			[ParameterTableRowAttribute("DiffAngMax", index: 4, minimum: 0, maximum: 180, step: 0.01, sortOrder: 1200, unknown2: 0)]
 			[DisplayName("Angular difference max range of the orientation of the other party to the direction of their own")]
 			[Description("Not throw angle difference between the receiving -side throw (Y -axis ) is not smaller than the angle")]
 			[DefaultValue((Single)0)]
@@ -150,7 +152,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "高さ範囲上[m]", Google translated: "Range on height [m]".
 			/// Japanese description: "投げ側から受け側のY軸の相対距離がこの値より小さくないと投げない", Google translated: "Do not throw the relative distance of the Y axis on the receiving side from the side throwing is not smaller than the value".
 			/// </remarks>
-			[ParameterTableRowAttribute("upperYRange", index: 5, minimum: 0, maximum: 10000, step: 0.01, order: 900, unknown2: 0)]
+			[ParameterTableRowAttribute("upperYRange", index: 5, minimum: 0, maximum: 10000, step: 0.01, sortOrder: 900, unknown2: 0)]
 			[DisplayName("Range on height [m]")]
 			[Description("Do not throw the relative distance of the Y axis on the receiving side from the side throwing is not smaller than the value")]
 			[DefaultValue((Single)0.2)]
@@ -168,7 +170,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "高さ範囲下[m]", Google translated: "Range under height [m]".
 			/// Japanese description: "投げ側から受け側のY軸の相対距離がこの値より小さくないと投げない", Google translated: "Do not throw the relative distance of the Y axis on the receiving side from the side throwing is not smaller than the value".
 			/// </remarks>
-			[ParameterTableRowAttribute("lowerYRange", index: 6, minimum: 0, maximum: 10000, step: 0.01, order: 1000, unknown2: 0)]
+			[ParameterTableRowAttribute("lowerYRange", index: 6, minimum: 0, maximum: 10000, step: 0.01, sortOrder: 1000, unknown2: 0)]
 			[DisplayName("Range under height [m]")]
 			[Description("Do not throw the relative distance of the Y axis on the receiving side from the side throwing is not smaller than the value")]
 			[DefaultValue((Single)0.2)]
@@ -186,7 +188,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "自分の向きと自分から相手への方向の角度差", Google translated: "Angular difference of direction to the other from their orientation and their".
 			/// Japanese description: "自分の正面のベクトルと、自分から相手への方向のベクトルの角度差。この値より大きいと投げない", Google translated: "The vector of the front of their angular difference vector in the direction of to the other from their own . You do not throw to be greater than this value".
 			/// </remarks>
-			[ParameterTableRowAttribute("diffAngMyToDef", index: 7, minimum: 0, maximum: 180, step: 0.1, order: 1300, unknown2: 0)]
+			[ParameterTableRowAttribute("diffAngMyToDef", index: 7, minimum: 0, maximum: 180, step: 0.1, sortOrder: 1300, unknown2: 0)]
 			[DisplayName("Angular difference of direction to the other from their orientation and their")]
 			[Description("The vector of the front of their angular difference vector in the direction of to the other from their own . You do not throw to be greater than this value")]
 			[DefaultValue((Single)60)]
@@ -204,7 +206,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "投げタイプID", Google translated: "Type ID throw".
 			/// Japanese description: "投げの種類を特定するID(攻撃パラメタと紐付け)", Google translated: "( Linking the attack parameters ) ID for identifying the type of throw".
 			/// </remarks>
-			[ParameterTableRowAttribute("throwTypeId", index: 8, minimum: 0, maximum: 1E+08, step: 1, order: 600, unknown2: 0)]
+			[ParameterTableRowAttribute("throwTypeId", index: 8, minimum: 0, maximum: 1E+08, step: 1, sortOrder: 600, unknown2: 0)]
 			[DisplayName("Type ID throw")]
 			[Description("( Linking the attack parameters ) ID for identifying the type of throw")]
 			[DefaultValue((Int32)0)]
@@ -222,7 +224,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "投げ側アニメID", Google translated: "Anime ID side throw".
 			/// Japanese description: "攻撃アニメIDを設定(EzStateと紐付け)", Google translated: "( With string and EzState) set the attack animation ID".
 			/// </remarks>
-			[ParameterTableRowAttribute("atkAnimId", index: 9, minimum: 0, maximum: 1E+08, step: 1, order: 300, unknown2: 0)]
+			[ParameterTableRowAttribute("atkAnimId", index: 9, minimum: 0, maximum: 1E+08, step: 1, sortOrder: 300, unknown2: 0)]
 			[DisplayName("Anime ID side throw")]
 			[Description("( With string and EzState) set the attack animation ID")]
 			[DefaultValue((Int32)0)]
@@ -240,7 +242,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "受け側アニメID", Google translated: "Anime ID receiving side".
 			/// Japanese description: "ダメージアニメIDを設定(EzStateと紐付け)", Google translated: "( With string and EzState) set the damage animation ID".
 			/// </remarks>
-			[ParameterTableRowAttribute("defAnimId", index: 10, minimum: 0, maximum: 1E+08, step: 1, order: 400, unknown2: 0)]
+			[ParameterTableRowAttribute("defAnimId", index: 10, minimum: 0, maximum: 1E+08, step: 1, sortOrder: 400, unknown2: 0)]
 			[DisplayName("Anime ID receiving side")]
 			[Description("( With string and EzState) set the damage animation ID")]
 			[DefaultValue((Int32)0)]
@@ -258,7 +260,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "投げ抜けHP", Google translated: "HP missing throw".
 			/// Japanese description: "投げ抜けに耐えられる値", Google translated: "Value to be bear to throw missing".
 			/// </remarks>
-			[ParameterTableRowAttribute("escHp", index: 11, minimum: 0, maximum: 9999, step: 1, order: 1800, unknown2: 0)]
+			[ParameterTableRowAttribute("escHp", index: 11, minimum: 0, maximum: 9999, step: 1, sortOrder: 1800, unknown2: 0)]
 			[DisplayName("HP missing throw")]
 			[Description("Value to be bear to throw missing")]
 			[DefaultValue((UInt16)0)]
@@ -276,7 +278,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "自力投げ抜けサイクル時間[ms]", Google translated: "Missing throw their own cycle time [ms]".
 			/// Japanese description: "自力投げ抜けのサイクル時間[ms]", Google translated: "Cycle time of missing throw themselves [ms]".
 			/// </remarks>
-			[ParameterTableRowAttribute("selfEscCycleTime", index: 12, minimum: 0, maximum: 65535, step: 1, order: 1900, unknown2: 0)]
+			[ParameterTableRowAttribute("selfEscCycleTime", index: 12, minimum: 0, maximum: 65535, step: 1, sortOrder: 1900, unknown2: 0)]
 			[DisplayName("Missing throw their own cycle time [ms]")]
 			[Description("Cycle time of missing throw themselves [ms]")]
 			[DefaultValue((UInt16)0)]
@@ -294,7 +296,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スフィアキャスト半径比率_上[1/100Rate]", Google translated: "Sphere cast radius ratio above _ [1/100Rate]".
 			/// Japanese description: "スフィアキャストの上側半径の比率[80->0.8]", Google translated: "Ratio of the radius of the sphere upper cast [80 - > 0.8 ]".
 			/// </remarks>
-			[ParameterTableRowAttribute("sphereCastRadiusRateTop", index: 13, minimum: 0, maximum: 999, step: 1, order: 2500, unknown2: 1)]
+			[ParameterTableRowAttribute("sphereCastRadiusRateTop", index: 13, minimum: 0, maximum: 999, step: 1, sortOrder: 2500, unknown2: 1)]
 			[DisplayName("Sphere cast radius ratio above _ [1/100Rate]")]
 			[Description("Ratio of the radius of the sphere upper cast [80 - > 0.8 ]")]
 			[DefaultValue((UInt16)80)]
@@ -312,7 +314,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スフィアキャスト半径比率_下[1/100Rate]", Google translated: "Sphere cast radius ratio _ under [1/100Rate]".
 			/// Japanese description: "スフィアキャストの下側半径の比率[80->0.8]", Google translated: "The ratio of the lower radius of the sphere cast [80 - > 0.8 ]".
 			/// </remarks>
-			[ParameterTableRowAttribute("sphereCastRadiusRateLow", index: 14, minimum: 0, maximum: 999, step: 1, order: 2600, unknown2: 1)]
+			[ParameterTableRowAttribute("sphereCastRadiusRateLow", index: 14, minimum: 0, maximum: 999, step: 1, sortOrder: 2600, unknown2: 1)]
 			[DisplayName("Sphere cast radius ratio _ under [1/100Rate]")]
 			[Description("The ratio of the lower radius of the sphere cast [80 - > 0.8 ]")]
 			[DefaultValue((UInt16)80)]
@@ -330,7 +332,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "操作タイプ", Google translated: "Operation Type".
 			/// Japanese description: "操作タイプ", Google translated: "Operation Type".
 			/// </remarks>
-			[ParameterTableRowAttribute("PadType", index: 15, minimum: 0, maximum: 10, step: 1, order: 2100, unknown2: 0)]
+			[ParameterTableRowAttribute("PadType", index: 15, minimum: 0, maximum: 10, step: 1, sortOrder: 2100, unknown2: 0)]
 			[DisplayName("Operation Type")]
 			[Description("Operation Type")]
 			[DefaultValue((ThrowPadType)1)]
@@ -344,7 +346,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "投げ側の投げ可能状態タイプ", Google translated: "The type of state can throw side throw".
 			/// Japanese description: "投げ側の投げが可能な状態タイプを設定してください", Google translated: "Throw on the side of tossing Please set the possible state type".
 			/// </remarks>
-			[ParameterTableRowAttribute("AtkEnableState", index: 16, minimum: 0, maximum: 255, step: 1, order: 700, unknown2: 0)]
+			[ParameterTableRowAttribute("AtkEnableState", index: 16, minimum: 0, maximum: 255, step: 1, sortOrder: 700, unknown2: 0)]
 			[DisplayName("The type of state can throw side throw")]
 			[Description("Throw on the side of tossing Please set the possible state type")]
 			[DefaultValue((ThrowEnableState)0)]
@@ -358,7 +360,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "投げ側 吸着ダミポリID", Google translated: "Damipori ID adsorption side throw".
 			/// Japanese description: "投げ側のどこに受け側を吸着させるか？", Google translated: "Where in the side throw or adsorb the receiving side ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("atkSorbDmyId", index: 17, minimum: 0, maximum: 255, step: 1, order: 1400, unknown2: 0)]
+			[ParameterTableRowAttribute("atkSorbDmyId", index: 17, minimum: 0, maximum: 255, step: 1, sortOrder: 1400, unknown2: 0)]
 			[DisplayName("Damipori ID adsorption side throw")]
 			[Description("Where in the side throw or adsorb the receiving side ?")]
 			[DefaultValue((Byte)0)]
@@ -376,7 +378,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "受け側 吸着ダミポリID", Google translated: "Damipori ID adsorption side received".
 			/// Japanese description: "受け側のどこに投げ側を吸着させるか？", Google translated: "Where on the receiving side or adsorb the side throw ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("defSorbDmyId", index: 18, minimum: 0, maximum: 255, step: 1, order: 1500, unknown2: 0)]
+			[ParameterTableRowAttribute("defSorbDmyId", index: 18, minimum: 0, maximum: 255, step: 1, sortOrder: 1500, unknown2: 0)]
 			[DisplayName("Damipori ID adsorption side received")]
 			[Description("Where on the receiving side or adsorb the side throw ?")]
 			[DefaultValue((Byte)0)]
@@ -394,7 +396,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "投げ種別", Google translated: "Type throw".
 			/// Japanese description: "投げの種別", Google translated: "Type of throw".
 			/// </remarks>
-			[ParameterTableRowAttribute("throwType", index: 19, minimum: 0, maximum: 255, step: 1, order: 500, unknown2: 0)]
+			[ParameterTableRowAttribute("throwType", index: 19, minimum: 0, maximum: 255, step: 1, sortOrder: 500, unknown2: 0)]
 			[DisplayName("Type throw")]
 			[Description("Type of throw")]
 			[DefaultValue((ThrowType)0)]
@@ -408,7 +410,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "自力投げ抜けサイクル回数", Google translated: "Number of cycles missing throw themselves".
 			/// Japanese description: "自力投げ抜けのサイクル回数", Google translated: "Number of cycles of missing throw themselves".
 			/// </remarks>
-			[ParameterTableRowAttribute("selfEscCycleCnt", index: 20, minimum: 0, maximum: 255, step: 1, order: 2000, unknown2: 0)]
+			[ParameterTableRowAttribute("selfEscCycleCnt", index: 20, minimum: 0, maximum: 255, step: 1, sortOrder: 2000, unknown2: 0)]
 			[DisplayName("Number of cycles missing throw themselves")]
 			[Description("Number of cycles of missing throw themselves")]
 			[DefaultValue((Byte)0)]
@@ -426,7 +428,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "投げ発生時のダミポリ所持キャラの向き", Google translated: "Orientation of the character Damipori possession at the time of occurrence throw".
 			/// Japanese description: "投げ発生時のダミポリ所持キャラの向き", Google translated: "Orientation of the character Damipori possession at the time of occurrence throw".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmyHasChrDirType", index: 21, minimum: 0, maximum: 255, step: 1, order: 1600, unknown2: 0)]
+			[ParameterTableRowAttribute("dmyHasChrDirType", index: 21, minimum: 0, maximum: 255, step: 1, sortOrder: 1600, unknown2: 0)]
 			[DisplayName("Orientation of the character Damipori possession at the time of occurrence throw")]
 			[Description("Orientation of the character Damipori possession at the time of occurrence throw")]
 			[DefaultValue((ThrowDmyCharacterDirectionType)0)]
@@ -440,7 +442,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "投げ側が旋回するか？", Google translated: "Side tossing or turning ?".
 			/// Japanese description: "投げ側が旋回するか？", Google translated: "Side tossing or turning ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("isTurnAtker:1", index: 22, minimum: 0, maximum: 1, step: 1, order: 1700, unknown2: 0)]
+			[ParameterTableRowAttribute("isTurnAtker:1", index: 22, minimum: 0, maximum: 1, step: 1, sortOrder: 1700, unknown2: 0)]
 			[DisplayName("Side tossing or turning ?")]
 			[Description("Side tossing or turning ?")]
 			[DefaultValue(false)]
@@ -454,7 +456,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "武器カテゴリチェックをスキップするか？", Google translated: "You can skip the weapon category check ?".
 			/// Japanese description: "攻撃側の武器カテゴリチェックをスキップするか？", Google translated: "You can skip the weapon category check the attacking ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("isSkipWepCate:1", index: 23, minimum: 0, maximum: 1, step: 1, order: 2300, unknown2: 0)]
+			[ParameterTableRowAttribute("isSkipWepCate:1", index: 23, minimum: 0, maximum: 1, step: 1, sortOrder: 2300, unknown2: 0)]
 			[DisplayName("You can skip the weapon category check ?")]
 			[Description("You can skip the weapon category check the attacking ?")]
 			[DefaultValue(false)]
@@ -468,7 +470,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スフィアキャストをスキップするか？", Google translated: "You can skip the sphere cast ?".
 			/// Japanese description: "スフィアキャストをスキップするか？", Google translated: "You can skip the sphere cast ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("isSkipSphereCast:1", index: 24, minimum: 0, maximum: 1, step: 1, order: 2400, unknown2: 0)]
+			[ParameterTableRowAttribute("isSkipSphereCast:1", index: 24, minimum: 0, maximum: 1, step: 1, sortOrder: 2400, unknown2: 0)]
 			[DisplayName("You can skip the sphere cast ?")]
 			[Description("You can skip the sphere cast ?")]
 			[DefaultValue(false)]
@@ -482,7 +484,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "pad", Google translated: "pad".
 			/// Japanese description: "pad", Google translated: "pad".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad0:5", index: 25, minimum: 0, maximum: 0, step: 0, order: 99999998, unknown2: 0)]
+			[ParameterTableRowAttribute("pad0:5", index: 25, minimum: 0, maximum: 0, step: 0, sortOrder: 99999998, unknown2: 0)]
 			[DisplayName("pad")]
 			[Description("pad")]
 			[DefaultValue((Byte)0)]
@@ -501,7 +503,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "pad", Google translated: "pad".
 			/// Japanese description: "pad", Google translated: "pad".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad1[4]", index: 26, minimum: 0, maximum: 0, step: 0, order: 99999999, unknown2: 0)]
+			[ParameterTableRowAttribute("pad1[4]", index: 26, minimum: 0, maximum: 0, step: 0, sortOrder: 99999999, unknown2: 0)]
 			[DisplayName("pad")]
 			[Description("pad")]
 			[Browsable(false)]
@@ -572,6 +574,10 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad1 = new Byte[4];
 			}
 
+			/// <summary>
+			/// Write the <see cref="Throw"/> row to the stream.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(AtkChrId);
 				writer.Write(DefChrId);

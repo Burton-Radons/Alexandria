@@ -33,6 +33,9 @@ namespace Alexandria {
 		/// <param name="path"></param>
 		public IniFile(string path) : this(path, IniFileBehavior.Default) { }
 
+		/// <summary>Initialise the file, loading it from the system.</summary>
+		/// <param name="path"></param>
+		/// <param name="behavior"></param>
 		public IniFile(string path, IniFileBehavior behavior)
 			: this(behavior) {
 			var lines = File.ReadAllLines(path, Encoding.ASCII);
@@ -112,16 +115,25 @@ namespace Alexandria {
 		/// <summary>
 		/// Get a section with the specified name.
 		/// </summary>
-		/// <param name="name"></param>
+		/// <param name="sectionName"></param>
 		/// <returns></returns>
 		public IniFileSection this[string sectionName] {
 			get { return SectionsByName[sectionName]; }
 		}
 
+		/// <summary>Get a value from the .ini file.</summary>
+		/// <param name="sectionName"></param>
+		/// <param name="settingName"></param>
+		/// <returns></returns>
 		public string this[string sectionName, string settingName] {
 			get { return this[sectionName][settingName]; }
 		}
 
+		/// <summary>Get a value from the .ini file, supplying a default value if it's not found.</summary>
+		/// <param name="sectionName"></param>
+		/// <param name="settingName"></param>
+		/// <param name="defaultValue"></param>
+		/// <returns></returns>
 		public string this[string sectionName, string settingName, string defaultValue] {
 			get {
 				IniFileSection section;
@@ -134,9 +146,10 @@ namespace Alexandria {
 	}
 
 	/// <summary>
-	/// Behavior for a <see cref="IniFile"/>.
+	/// Behavior for a <see cref="IniFile"/>. This describes how the file is laid out - delimiters, comments, line continuation escapes, and so on.
 	/// </summary>
 	public struct IniFileBehavior {
+		/// <summary>Get the default behaviour for a .ini file.</summary>
 		public static readonly IniFileBehavior Default = new IniFileBehavior() {
 			Duplicates = IniFileDuplicateBehavior.AllowAll,
 			SettingValueDelimiter = '=',
@@ -224,6 +237,9 @@ namespace Alexandria {
 	/// A section within an <see cref="IniFile"/>.
 	/// </summary>
 	public class IniFileSection {
+		/// <summary>Initialise the section.</summary>
+		/// <param name="file"></param>
+		/// <param name="name"></param>
 		public IniFileSection(IniFile file, string name) {
 			if (file == null)
 				throw new ArgumentNullException("file");
@@ -258,7 +274,7 @@ namespace Alexandria {
 
 		/// <summary>
 		/// The first setting with a given name in the section.
-		/// If the <see cref="File"/>'s <see cref="IniFile.DuplicateBehavior"/> is <see cref="IniFileDuplicateBehavior.AllowChooseLast"/>, then
+		/// If the <see cref="File"/>'s <see cref="IniFileBehavior.Duplicates"/> is <see cref="IniFileDuplicateBehavior.AllowChooseLast"/>, then
 		/// this will be in reverse order from how it was encountered in the file.
 		/// </summary>
 		public Dictionary<string, IniFileSetting> SettingsByName { get; protected set; }
@@ -331,6 +347,10 @@ namespace Alexandria {
 	/// A setting within an <see cref="IniFileSection"/>.
 	/// </summary>
 	public class IniFileSetting {
+		/// <summary>Initialise the setting.</summary>
+		/// <param name="section"></param>
+		/// <param name="name"></param>
+		/// <param name="value"></param>
 		public IniFileSetting(IniFileSection section, string name, string value) {
 			if (section == null)
 				throw new ArgumentNullException("section");
@@ -432,6 +452,8 @@ namespace Alexandria {
 					}
 		}
 
+		/// <summary>Convert to a string of the form "[<see cref="Section"/>].<see cref="Name"/> = <see cref="Value"/>".</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			return string.Format("[{0}].{1}={2}", Section.Name, Name, Value);
 		}

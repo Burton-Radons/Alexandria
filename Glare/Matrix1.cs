@@ -70,6 +70,7 @@ namespace Glare
 		{
 			XX = xx;XY = xy;YX = yx;YY = yy;		}
 
+		/// <summary>Get or set a cell of the <see cref="Matrix2f"/>.</summary>
 		public Single this[int row, int column] {
 			get {
 									if(row == 0) {
@@ -140,13 +141,15 @@ namespace Glare
 		}
 
 		// Multiply
-					public Matrix2f Multiply(Matrix2f other )
+					/// <summary>Multiply this matrix against the other.</summary>
+			public Matrix2f Multiply(Matrix2f other )
 			{
 				Matrix2f result;
 				Multiply(ref other, out result);
 				return result;
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public Matrix2f Multiply(ref Matrix2f other )
 			{
 				Matrix2f result;
@@ -160,13 +163,15 @@ namespace Glare
 											result.YY = vYY;
 									return result;
 			}
-					public void Multiply(Matrix2f other , out Matrix2f result)
+					/// <summary>Multiply this matrix against the other.</summary>
+			public void Multiply(Matrix2f other , out Matrix2f result)
 			{
 				
 				Multiply(ref other, out result);
 				return;
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public void Multiply(ref Matrix2f other , out Matrix2f result)
 			{
 				
@@ -185,7 +190,8 @@ namespace Glare
 		
 		#region Square matrix methods
 
-									
+													
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static Matrix2f Scale(Single amount )
 				{
 					Matrix2f result;
@@ -195,7 +201,8 @@ namespace Glare
 											result.YY = 1;
 										return result;
 				}
-							
+											
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static void Scale(Single amount , out Matrix2f result)
 				{
 					
@@ -225,11 +232,12 @@ namespace Glare
 		public static bool operator !=(Matrix2f a, Matrix2f b) { return !a.Equals(ref b); }
 
 					/// <summary>Cast to the <see cref="Matrix2d"/>.</summary>
-			public static explicit operator Matrix2d(Matrix2f a)
+			public static implicit operator Matrix2d(Matrix2f a)
 			{
 				return new Matrix2d((Double)a.XX, (Double)a.XY, (Double)a.YX, (Double)a.YY);
 			}
 			
+		/// <summary>Multiply the matrices.</summary>
 		public static Matrix2f operator *(Matrix2f a, Matrix2f b) { Matrix2f result; a.Multiply(ref b, out result); return result; }
 
 		
@@ -303,6 +311,7 @@ namespace Glare
 		{
 			XX = xx;XY = xy;YX = yx;YY = yy;		}
 
+		/// <summary>Get or set a cell of the <see cref="Matrix2d"/>.</summary>
 		public Double this[int row, int column] {
 			get {
 									if(row == 0) {
@@ -373,13 +382,15 @@ namespace Glare
 		}
 
 		// Multiply
-					public Matrix2d Multiply(Matrix2d other )
+					/// <summary>Multiply this matrix against the other.</summary>
+			public Matrix2d Multiply(Matrix2d other )
 			{
 				Matrix2d result;
 				Multiply(ref other, out result);
 				return result;
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public Matrix2d Multiply(ref Matrix2d other )
 			{
 				Matrix2d result;
@@ -393,13 +404,15 @@ namespace Glare
 											result.YY = vYY;
 									return result;
 			}
-					public void Multiply(Matrix2d other , out Matrix2d result)
+					/// <summary>Multiply this matrix against the other.</summary>
+			public void Multiply(Matrix2d other , out Matrix2d result)
 			{
 				
 				Multiply(ref other, out result);
 				return;
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public void Multiply(ref Matrix2d other , out Matrix2d result)
 			{
 				
@@ -418,7 +431,8 @@ namespace Glare
 		
 		#region Square matrix methods
 
-									
+													
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static Matrix2d Scale(Double amount )
 				{
 					Matrix2d result;
@@ -428,7 +442,8 @@ namespace Glare
 											result.YY = 1;
 										return result;
 				}
-							
+											
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static void Scale(Double amount , out Matrix2d result)
 				{
 					
@@ -463,6 +478,7 @@ namespace Glare
 				return new Matrix2f((Single)a.XX, (Single)a.XY, (Single)a.YX, (Single)a.YY);
 			}
 			
+		/// <summary>Multiply the matrices.</summary>
 		public static Matrix2d operator *(Matrix2d a, Matrix2d b) { Matrix2d result; a.Multiply(ref b, out result); return result; }
 
 		
@@ -568,6 +584,7 @@ namespace Glare
 		{
 			XX = xx;XY = xy;XZ = xz;YX = yx;YY = yy;YZ = yz;ZX = zx;ZY = zy;ZZ = zz;		}
 
+		/// <summary>Get or set a cell of the <see cref="Matrix3f"/>.</summary>
 		public Single this[int row, int column] {
 			get {
 									if(row == 0) {
@@ -666,13 +683,15 @@ namespace Glare
 		}
 
 		// Multiply
-					public Matrix3f Multiply(Matrix3f other )
+					/// <summary>Multiply this matrix against the other.</summary>
+			public Matrix3f Multiply(Matrix3f other )
 			{
 				Matrix3f result;
 				Multiply(ref other, out result);
 				return result;
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public Matrix3f Multiply(ref Matrix3f other )
 			{
 				Matrix3f result;
@@ -696,13 +715,15 @@ namespace Glare
 											result.ZZ = vZZ;
 									return result;
 			}
-					public void Multiply(Matrix3f other , out Matrix3f result)
+					/// <summary>Multiply this matrix against the other.</summary>
+			public void Multiply(Matrix3f other , out Matrix3f result)
 			{
 				
 				Multiply(ref other, out result);
 				return;
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public void Multiply(ref Matrix3f other , out Matrix3f result)
 			{
 				
@@ -728,37 +749,39 @@ namespace Glare
 			}
 		
 		// Translate
-					public static Matrix3f Translate(Vector2f amount ) { Matrix3f result; Translate(ref amount, out result); return result; }
+					/// <summary>Create a translation matrix.</summary>
+			public static Matrix3f Translate(Vector2f amount ) { Matrix3f result; Translate(ref amount, out result); return result; }
 
-			public static Matrix3f Translate(ref Vector2f amount ) 
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static Matrix3f Translate(ref Vector2f amount ) {
 				Matrix3f result;
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = amount.X;  result.ZY = amount.Y;  result.ZZ = 1; 				return result;
 			}
 
-			public static Matrix3f Translate( Single X ,  Single Y  )
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static Matrix3f Translate( Single X ,  Single Y  ) {
 				Matrix3f result;
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = X;  result.ZY = Y;  result.ZZ = 1; 				return result;
 			}
-					public static void Translate(Vector2f amount , out Matrix3f result) {  Translate(ref amount, out result); return; }
+					/// <summary>Create a translation matrix.</summary>
+			public static void Translate(Vector2f amount , out Matrix3f result) {  Translate(ref amount, out result); return; }
 
-			public static void Translate(ref Vector2f amount , out Matrix3f result) 
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static void Translate(ref Vector2f amount , out Matrix3f result) {
 				
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = amount.X;  result.ZY = amount.Y;  result.ZZ = 1; 				return;
 			}
 
-			public static void Translate( Single X ,  Single Y  , out Matrix3f result)
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static void Translate( Single X ,  Single Y  , out Matrix3f result) {
 				
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = X;  result.ZY = Y;  result.ZZ = 1; 				return;
 			}
 		
 		#region Square matrix methods
 
-														public static Matrix3f Scale( Vector2f amount )
-					{
+														/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static Matrix3f Scale( Vector2f amount ) {
 						Matrix3f result;
 													result.XX = amount.X;
 													result.XY = 0;
@@ -772,8 +795,8 @@ namespace Glare
 												return result;
 					}
 
-					public static Matrix3f Scale( Single x ,  Single y  )
-					{
+					/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static Matrix3f Scale( Single x ,  Single y  ) {
 						Matrix3f result;
 													result.XX = x;
 													result.XY = 0;
@@ -786,7 +809,8 @@ namespace Glare
 													result.ZZ = 1;
 												return result;
 					}
-				
+								
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static Matrix3f Scale(Single amount )
 				{
 					Matrix3f result;
@@ -801,8 +825,8 @@ namespace Glare
 											result.ZZ = 1;
 										return result;
 				}
-												public static void Scale( ref  Vector2f amount , out Matrix3f result)
-					{
+												/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static void Scale( ref  Vector2f amount , out Matrix3f result) {
 						
 													result.XX = amount.X;
 													result.XY = 0;
@@ -816,8 +840,8 @@ namespace Glare
 												return;
 					}
 
-					public static void Scale( Single x ,  Single y  , out Matrix3f result)
-					{
+					/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static void Scale( Single x ,  Single y  , out Matrix3f result) {
 						
 													result.XX = x;
 													result.XY = 0;
@@ -830,7 +854,8 @@ namespace Glare
 													result.ZZ = 1;
 												return;
 					}
-				
+								
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static void Scale(Single amount , out Matrix3f result)
 				{
 					
@@ -853,7 +878,8 @@ namespace Glare
 		
 		#endregion 4x4 methods
 
-														public Vector2f Multiply( Vector2f vector ) {
+														/// <summary>Multiply the matrix by a vector.</summary>
+					public Vector2f Multiply( Vector2f vector ) {
 						Vector2f result;
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -863,7 +889,8 @@ namespace Glare
 							 + ZY;
 												return result;
 					}
-									public Vector2f Multiply( ref  Vector2f vector ) {
+									/// <summary>Multiply the matrix by a vector.</summary>
+					public Vector2f Multiply( ref  Vector2f vector ) {
 						Vector2f result;
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -873,7 +900,8 @@ namespace Glare
 							 + ZY;
 												return result;
 					}
-																public void Multiply( Vector2f vector , out Vector2f result) {
+																/// <summary>Multiply the matrix by a vector.</summary>
+					public void Multiply( Vector2f vector , out Vector2f result) {
 						
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -883,7 +911,8 @@ namespace Glare
 							 + ZY;
 												return;
 					}
-									public void Multiply( ref  Vector2f vector , out Vector2f result) {
+									/// <summary>Multiply the matrix by a vector.</summary>
+					public void Multiply( ref  Vector2f vector , out Vector2f result) {
 						
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -905,14 +934,16 @@ namespace Glare
 		public static bool operator !=(Matrix3f a, Matrix3f b) { return !a.Equals(ref b); }
 
 					/// <summary>Cast to the <see cref="Matrix3d"/>.</summary>
-			public static explicit operator Matrix3d(Matrix3f a)
+			public static implicit operator Matrix3d(Matrix3f a)
 			{
 				return new Matrix3d((Double)a.XX, (Double)a.XY, (Double)a.XZ, (Double)a.YX, (Double)a.YY, (Double)a.YZ, (Double)a.ZX, (Double)a.ZY, (Double)a.ZZ);
 			}
 			
+		/// <summary>Multiply the matrices.</summary>
 		public static Matrix3f operator *(Matrix3f a, Matrix3f b) { Matrix3f result; a.Multiply(ref b, out result); return result; }
 
-					public static Vector2f operator *(Matrix3f a, Vector2f b) { Vector2f result; a.Multiply(ref b, out result); return result; }
+					/// <summary>Multiply the matrix by a vector.</summary>
+			public static Vector2f operator *(Matrix3f a, Vector2f b) { Vector2f result; a.Multiply(ref b, out result); return result; }
 		
 		#endregion Operators
 	}
@@ -1016,6 +1047,7 @@ namespace Glare
 		{
 			XX = xx;XY = xy;XZ = xz;YX = yx;YY = yy;YZ = yz;ZX = zx;ZY = zy;ZZ = zz;		}
 
+		/// <summary>Get or set a cell of the <see cref="Matrix3d"/>.</summary>
 		public Double this[int row, int column] {
 			get {
 									if(row == 0) {
@@ -1114,13 +1146,15 @@ namespace Glare
 		}
 
 		// Multiply
-					public Matrix3d Multiply(Matrix3d other )
+					/// <summary>Multiply this matrix against the other.</summary>
+			public Matrix3d Multiply(Matrix3d other )
 			{
 				Matrix3d result;
 				Multiply(ref other, out result);
 				return result;
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public Matrix3d Multiply(ref Matrix3d other )
 			{
 				Matrix3d result;
@@ -1144,13 +1178,15 @@ namespace Glare
 											result.ZZ = vZZ;
 									return result;
 			}
-					public void Multiply(Matrix3d other , out Matrix3d result)
+					/// <summary>Multiply this matrix against the other.</summary>
+			public void Multiply(Matrix3d other , out Matrix3d result)
 			{
 				
 				Multiply(ref other, out result);
 				return;
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public void Multiply(ref Matrix3d other , out Matrix3d result)
 			{
 				
@@ -1176,37 +1212,39 @@ namespace Glare
 			}
 		
 		// Translate
-					public static Matrix3d Translate(Vector2d amount ) { Matrix3d result; Translate(ref amount, out result); return result; }
+					/// <summary>Create a translation matrix.</summary>
+			public static Matrix3d Translate(Vector2d amount ) { Matrix3d result; Translate(ref amount, out result); return result; }
 
-			public static Matrix3d Translate(ref Vector2d amount ) 
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static Matrix3d Translate(ref Vector2d amount ) {
 				Matrix3d result;
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = amount.X;  result.ZY = amount.Y;  result.ZZ = 1; 				return result;
 			}
 
-			public static Matrix3d Translate( Double X ,  Double Y  )
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static Matrix3d Translate( Double X ,  Double Y  ) {
 				Matrix3d result;
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = X;  result.ZY = Y;  result.ZZ = 1; 				return result;
 			}
-					public static void Translate(Vector2d amount , out Matrix3d result) {  Translate(ref amount, out result); return; }
+					/// <summary>Create a translation matrix.</summary>
+			public static void Translate(Vector2d amount , out Matrix3d result) {  Translate(ref amount, out result); return; }
 
-			public static void Translate(ref Vector2d amount , out Matrix3d result) 
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static void Translate(ref Vector2d amount , out Matrix3d result) {
 				
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = amount.X;  result.ZY = amount.Y;  result.ZZ = 1; 				return;
 			}
 
-			public static void Translate( Double X ,  Double Y  , out Matrix3d result)
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static void Translate( Double X ,  Double Y  , out Matrix3d result) {
 				
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.ZX = X;  result.ZY = Y;  result.ZZ = 1; 				return;
 			}
 		
 		#region Square matrix methods
 
-														public static Matrix3d Scale( Vector2d amount )
-					{
+														/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static Matrix3d Scale( Vector2d amount ) {
 						Matrix3d result;
 													result.XX = amount.X;
 													result.XY = 0;
@@ -1220,8 +1258,8 @@ namespace Glare
 												return result;
 					}
 
-					public static Matrix3d Scale( Double x ,  Double y  )
-					{
+					/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static Matrix3d Scale( Double x ,  Double y  ) {
 						Matrix3d result;
 													result.XX = x;
 													result.XY = 0;
@@ -1234,7 +1272,8 @@ namespace Glare
 													result.ZZ = 1;
 												return result;
 					}
-				
+								
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static Matrix3d Scale(Double amount )
 				{
 					Matrix3d result;
@@ -1249,8 +1288,8 @@ namespace Glare
 											result.ZZ = 1;
 										return result;
 				}
-												public static void Scale( ref  Vector2d amount , out Matrix3d result)
-					{
+												/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static void Scale( ref  Vector2d amount , out Matrix3d result) {
 						
 													result.XX = amount.X;
 													result.XY = 0;
@@ -1264,8 +1303,8 @@ namespace Glare
 												return;
 					}
 
-					public static void Scale( Double x ,  Double y  , out Matrix3d result)
-					{
+					/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static void Scale( Double x ,  Double y  , out Matrix3d result) {
 						
 													result.XX = x;
 													result.XY = 0;
@@ -1278,7 +1317,8 @@ namespace Glare
 													result.ZZ = 1;
 												return;
 					}
-				
+								
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static void Scale(Double amount , out Matrix3d result)
 				{
 					
@@ -1301,7 +1341,8 @@ namespace Glare
 		
 		#endregion 4x4 methods
 
-														public Vector2d Multiply( Vector2d vector ) {
+														/// <summary>Multiply the matrix by a vector.</summary>
+					public Vector2d Multiply( Vector2d vector ) {
 						Vector2d result;
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -1311,7 +1352,8 @@ namespace Glare
 							 + ZY;
 												return result;
 					}
-									public Vector2d Multiply( ref  Vector2d vector ) {
+									/// <summary>Multiply the matrix by a vector.</summary>
+					public Vector2d Multiply( ref  Vector2d vector ) {
 						Vector2d result;
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -1321,7 +1363,8 @@ namespace Glare
 							 + ZY;
 												return result;
 					}
-																public void Multiply( Vector2d vector , out Vector2d result) {
+																/// <summary>Multiply the matrix by a vector.</summary>
+					public void Multiply( Vector2d vector , out Vector2d result) {
 						
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -1331,7 +1374,8 @@ namespace Glare
 							 + ZY;
 												return;
 					}
-									public void Multiply( ref  Vector2d vector , out Vector2d result) {
+									/// <summary>Multiply the matrix by a vector.</summary>
+					public void Multiply( ref  Vector2d vector , out Vector2d result) {
 						
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -1358,9 +1402,11 @@ namespace Glare
 				return new Matrix3f((Single)a.XX, (Single)a.XY, (Single)a.XZ, (Single)a.YX, (Single)a.YY, (Single)a.YZ, (Single)a.ZX, (Single)a.ZY, (Single)a.ZZ);
 			}
 			
+		/// <summary>Multiply the matrices.</summary>
 		public static Matrix3d operator *(Matrix3d a, Matrix3d b) { Matrix3d result; a.Multiply(ref b, out result); return result; }
 
-					public static Vector2d operator *(Matrix3d a, Vector2d b) { Vector2d result; a.Multiply(ref b, out result); return result; }
+					/// <summary>Multiply the matrix by a vector.</summary>
+			public static Vector2d operator *(Matrix3d a, Vector2d b) { Vector2d result; a.Multiply(ref b, out result); return result; }
 		
 		#endregion Operators
 	}
@@ -1504,6 +1550,7 @@ namespace Glare
 		{
 			XX = xx;XY = xy;XZ = xz;XW = xw;YX = yx;YY = yy;YZ = yz;YW = yw;ZX = zx;ZY = zy;ZZ = zz;ZW = zw;WX = wx;WY = wy;WZ = wz;WW = ww;		}
 
+		/// <summary>Get or set a cell of the <see cref="Matrix4f"/>.</summary>
 		public Single this[int row, int column] {
 			get {
 									if(row == 0) {
@@ -1638,13 +1685,15 @@ namespace Glare
 		}
 
 		// Multiply
-					public Matrix4f Multiply(Matrix4f other )
+					/// <summary>Multiply this matrix against the other.</summary>
+			public Matrix4f Multiply(Matrix4f other )
 			{
 				Matrix4f result;
 				Multiply(ref other, out result);
 				return result;
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public Matrix4f Multiply(ref Matrix4f other )
 			{
 				Matrix4f result;
@@ -1682,13 +1731,15 @@ namespace Glare
 											result.WW = vWW;
 									return result;
 			}
-					public void Multiply(Matrix4f other , out Matrix4f result)
+					/// <summary>Multiply this matrix against the other.</summary>
+			public void Multiply(Matrix4f other , out Matrix4f result)
 			{
 				
 				Multiply(ref other, out result);
 				return;
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public void Multiply(ref Matrix4f other , out Matrix4f result)
 			{
 				
@@ -1728,37 +1779,39 @@ namespace Glare
 			}
 		
 		// Translate
-					public static Matrix4f Translate(Vector3f amount ) { Matrix4f result; Translate(ref amount, out result); return result; }
+					/// <summary>Create a translation matrix.</summary>
+			public static Matrix4f Translate(Vector3f amount ) { Matrix4f result; Translate(ref amount, out result); return result; }
 
-			public static Matrix4f Translate(ref Vector3f amount ) 
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static Matrix4f Translate(ref Vector3f amount ) {
 				Matrix4f result;
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = amount.X;  result.WY = amount.Y;  result.WZ = amount.Z;  result.WW = 1; 				return result;
 			}
 
-			public static Matrix4f Translate( Single X ,  Single Y ,  Single Z  )
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static Matrix4f Translate( Single X ,  Single Y ,  Single Z  ) {
 				Matrix4f result;
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = X;  result.WY = Y;  result.WZ = Z;  result.WW = 1; 				return result;
 			}
-					public static void Translate(Vector3f amount , out Matrix4f result) {  Translate(ref amount, out result); return; }
+					/// <summary>Create a translation matrix.</summary>
+			public static void Translate(Vector3f amount , out Matrix4f result) {  Translate(ref amount, out result); return; }
 
-			public static void Translate(ref Vector3f amount , out Matrix4f result) 
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static void Translate(ref Vector3f amount , out Matrix4f result) {
 				
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = amount.X;  result.WY = amount.Y;  result.WZ = amount.Z;  result.WW = 1; 				return;
 			}
 
-			public static void Translate( Single X ,  Single Y ,  Single Z  , out Matrix4f result)
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static void Translate( Single X ,  Single Y ,  Single Z  , out Matrix4f result) {
 				
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = X;  result.WY = Y;  result.WZ = Z;  result.WW = 1; 				return;
 			}
 		
 		#region Square matrix methods
 
-														public static Matrix4f Scale( Vector3f amount )
-					{
+														/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static Matrix4f Scale( Vector3f amount ) {
 						Matrix4f result;
 													result.XX = amount.X;
 													result.XY = 0;
@@ -1779,8 +1832,8 @@ namespace Glare
 												return result;
 					}
 
-					public static Matrix4f Scale( Single x ,  Single y ,  Single z  )
-					{
+					/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static Matrix4f Scale( Single x ,  Single y ,  Single z  ) {
 						Matrix4f result;
 													result.XX = x;
 													result.XY = 0;
@@ -1800,7 +1853,8 @@ namespace Glare
 													result.WW = 1;
 												return result;
 					}
-				
+								
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static Matrix4f Scale(Single amount )
 				{
 					Matrix4f result;
@@ -1822,8 +1876,8 @@ namespace Glare
 											result.WW = 1;
 										return result;
 				}
-												public static void Scale( ref  Vector3f amount , out Matrix4f result)
-					{
+												/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static void Scale( ref  Vector3f amount , out Matrix4f result) {
 						
 													result.XX = amount.X;
 													result.XY = 0;
@@ -1844,8 +1898,8 @@ namespace Glare
 												return;
 					}
 
-					public static void Scale( Single x ,  Single y ,  Single z  , out Matrix4f result)
-					{
+					/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static void Scale( Single x ,  Single y ,  Single z  , out Matrix4f result) {
 						
 													result.XX = x;
 													result.XY = 0;
@@ -1865,7 +1919,8 @@ namespace Glare
 													result.WW = 1;
 												return;
 					}
-				
+								
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static void Scale(Single amount , out Matrix4f result)
 				{
 					
@@ -1896,6 +1951,7 @@ namespace Glare
 					/// <param name="cameraPosition">The position of the camera.</param>
 					/// <param name="cameraTarget">The target to turn the camera towards.</param>
 					/// <param name="cameraUpVector">The direction that is "up" from the camera's point of view. For example, <see cref="Vector3f.UnitY"/> would have the vertical aspect of the camera straight down the Y axis.</param>
+					/// <returns></returns>
 					public static Matrix4f LookAt( Vector3f cameraPosition,  Vector3f cameraTarget,  Vector3f cameraUpVector )
 					{
 						Matrix4f result;
@@ -1921,11 +1977,13 @@ namespace Glare
 						return result;
 					}
 
+					/// <summary>Create a rotation matrix.</summary>
 					public static Matrix4f Rotate( Angle3 angle ) { Matrix4f result; Rotate(angle.X, angle.Y, angle.Z, out result); return result; }
 									/// <summary>Create a view matrix that transforms a camera and turns it to look towards a specific location.</summary>
 					/// <param name="cameraPosition">The position of the camera.</param>
 					/// <param name="cameraTarget">The target to turn the camera towards.</param>
 					/// <param name="cameraUpVector">The direction that is "up" from the camera's point of view. For example, <see cref="Vector3f.UnitY"/> would have the vertical aspect of the camera straight down the Y axis.</param>
+					/// <returns></returns>
 					public static Matrix4f LookAt( ref  Vector3f cameraPosition,  ref  Vector3f cameraTarget,  ref  Vector3f cameraUpVector )
 					{
 						Matrix4f result;
@@ -1951,6 +2009,7 @@ namespace Glare
 						return result;
 					}
 
+					/// <summary>Create a rotation matrix.</summary>
 					public static Matrix4f Rotate( ref  Angle3 angle ) { Matrix4f result; Rotate(angle.X, angle.Y, angle.Z, out result); return result; }
 				
 				/// <summary>Create a perspective matrix with a field of view.</summary>
@@ -1958,6 +2017,7 @@ namespace Glare
 				/// <param name="aspectRatio">The aspect ratio.</param>
 				/// <param name="nearPlaneDistance">The nearest distance that will be visible; any object before this distance will be clipped. Ideally <paramref name="farPlaneDistance"/> / <paramref name="nearPlaneDistance"/> will be kept as low as possible in order to maximise the fidelity of the depth buffer. This may not be greater than <paramref name="farPlaneDistance"/> or negative.</param>
 				/// <param name="farPlaneDistance">The farthest distance that will be visible; any object after this distance will be clipped. This may not be less than or equal to <paramref name="nearPlaneDistance"/>.</param>
+				/// <returns></returns>
 				public static Matrix4f PerspectiveFieldOfView(Angle fieldOfView, Single aspectRatio, Single nearPlaneDistance, Single farPlaneDistance ) {
 					Matrix4f result;
 					if(fieldOfView < Angle.Zero || fieldOfView >= Angle.Flip)
@@ -1983,6 +2043,7 @@ namespace Glare
 					return result;
 				}
 
+				/// <summary>Create a rotation matrix.</summary>
 				public static Matrix4f Rotate(Angle yaw, Angle pitch, Angle roll ) {
 					Matrix4f result;
 					Rotation4d quaternion = new Rotation4d(yaw, pitch, roll);
@@ -1993,6 +2054,7 @@ namespace Glare
 					/// <param name="cameraPosition">The position of the camera.</param>
 					/// <param name="cameraTarget">The target to turn the camera towards.</param>
 					/// <param name="cameraUpVector">The direction that is "up" from the camera's point of view. For example, <see cref="Vector3f.UnitY"/> would have the vertical aspect of the camera straight down the Y axis.</param>
+					/// <param name="result">Receives the output of the operation.</param>
 					public static void LookAt( Vector3f cameraPosition,  Vector3f cameraTarget,  Vector3f cameraUpVector , out Matrix4f result)
 					{
 						
@@ -2018,11 +2080,13 @@ namespace Glare
 						return;
 					}
 
+					/// <summary>Create a rotation matrix.</summary>
 					public static void Rotate( Angle3 angle , out Matrix4f result) {  Rotate(angle.X, angle.Y, angle.Z, out result); return; }
 									/// <summary>Create a view matrix that transforms a camera and turns it to look towards a specific location.</summary>
 					/// <param name="cameraPosition">The position of the camera.</param>
 					/// <param name="cameraTarget">The target to turn the camera towards.</param>
 					/// <param name="cameraUpVector">The direction that is "up" from the camera's point of view. For example, <see cref="Vector3f.UnitY"/> would have the vertical aspect of the camera straight down the Y axis.</param>
+					/// <param name="result">Receives the output of the operation.</param>
 					public static void LookAt( ref  Vector3f cameraPosition,  ref  Vector3f cameraTarget,  ref  Vector3f cameraUpVector , out Matrix4f result)
 					{
 						
@@ -2048,6 +2112,7 @@ namespace Glare
 						return;
 					}
 
+					/// <summary>Create a rotation matrix.</summary>
 					public static void Rotate( ref  Angle3 angle , out Matrix4f result) {  Rotate(angle.X, angle.Y, angle.Z, out result); return; }
 				
 				/// <summary>Create a perspective matrix with a field of view.</summary>
@@ -2055,6 +2120,7 @@ namespace Glare
 				/// <param name="aspectRatio">The aspect ratio.</param>
 				/// <param name="nearPlaneDistance">The nearest distance that will be visible; any object before this distance will be clipped. Ideally <paramref name="farPlaneDistance"/> / <paramref name="nearPlaneDistance"/> will be kept as low as possible in order to maximise the fidelity of the depth buffer. This may not be greater than <paramref name="farPlaneDistance"/> or negative.</param>
 				/// <param name="farPlaneDistance">The farthest distance that will be visible; any object after this distance will be clipped. This may not be less than or equal to <paramref name="nearPlaneDistance"/>.</param>
+				/// <param name="result">Receives the output of the operation.</param>
 				public static void PerspectiveFieldOfView(Angle fieldOfView, Single aspectRatio, Single nearPlaneDistance, Single farPlaneDistance , out Matrix4f result) {
 					
 					if(fieldOfView < Angle.Zero || fieldOfView >= Angle.Flip)
@@ -2080,6 +2146,7 @@ namespace Glare
 					return;
 				}
 
+				/// <summary>Create a rotation matrix.</summary>
 				public static void Rotate(Angle yaw, Angle pitch, Angle roll , out Matrix4f result) {
 					
 					Rotation4d quaternion = new Rotation4d(yaw, pitch, roll);
@@ -2089,7 +2156,8 @@ namespace Glare
 					
 		#endregion 4x4 methods
 
-														public Vector3f Multiply( Vector3f vector ) {
+														/// <summary>Multiply the matrix by a vector.</summary>
+					public Vector3f Multiply( Vector3f vector ) {
 						Vector3f result;
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -2105,7 +2173,8 @@ namespace Glare
 							 + WZ;
 												return result;
 					}
-									public Vector3f Multiply( ref  Vector3f vector ) {
+									/// <summary>Multiply the matrix by a vector.</summary>
+					public Vector3f Multiply( ref  Vector3f vector ) {
 						Vector3f result;
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -2121,7 +2190,8 @@ namespace Glare
 							 + WZ;
 												return result;
 					}
-																public void Multiply( Vector3f vector , out Vector3f result) {
+																/// <summary>Multiply the matrix by a vector.</summary>
+					public void Multiply( Vector3f vector , out Vector3f result) {
 						
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -2137,7 +2207,8 @@ namespace Glare
 							 + WZ;
 												return;
 					}
-									public void Multiply( ref  Vector3f vector , out Vector3f result) {
+									/// <summary>Multiply the matrix by a vector.</summary>
+					public void Multiply( ref  Vector3f vector , out Vector3f result) {
 						
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -2165,14 +2236,16 @@ namespace Glare
 		public static bool operator !=(Matrix4f a, Matrix4f b) { return !a.Equals(ref b); }
 
 					/// <summary>Cast to the <see cref="Matrix4d"/>.</summary>
-			public static explicit operator Matrix4d(Matrix4f a)
+			public static implicit operator Matrix4d(Matrix4f a)
 			{
 				return new Matrix4d((Double)a.XX, (Double)a.XY, (Double)a.XZ, (Double)a.XW, (Double)a.YX, (Double)a.YY, (Double)a.YZ, (Double)a.YW, (Double)a.ZX, (Double)a.ZY, (Double)a.ZZ, (Double)a.ZW, (Double)a.WX, (Double)a.WY, (Double)a.WZ, (Double)a.WW);
 			}
 			
+		/// <summary>Multiply the matrices.</summary>
 		public static Matrix4f operator *(Matrix4f a, Matrix4f b) { Matrix4f result; a.Multiply(ref b, out result); return result; }
 
-					public static Vector3f operator *(Matrix4f a, Vector3f b) { Vector3f result; a.Multiply(ref b, out result); return result; }
+					/// <summary>Multiply the matrix by a vector.</summary>
+			public static Vector3f operator *(Matrix4f a, Vector3f b) { Vector3f result; a.Multiply(ref b, out result); return result; }
 		
 		#endregion Operators
 	}
@@ -2316,6 +2389,7 @@ namespace Glare
 		{
 			XX = xx;XY = xy;XZ = xz;XW = xw;YX = yx;YY = yy;YZ = yz;YW = yw;ZX = zx;ZY = zy;ZZ = zz;ZW = zw;WX = wx;WY = wy;WZ = wz;WW = ww;		}
 
+		/// <summary>Get or set a cell of the <see cref="Matrix4d"/>.</summary>
 		public Double this[int row, int column] {
 			get {
 									if(row == 0) {
@@ -2450,13 +2524,15 @@ namespace Glare
 		}
 
 		// Multiply
-					public Matrix4d Multiply(Matrix4d other )
+					/// <summary>Multiply this matrix against the other.</summary>
+			public Matrix4d Multiply(Matrix4d other )
 			{
 				Matrix4d result;
 				Multiply(ref other, out result);
 				return result;
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public Matrix4d Multiply(ref Matrix4d other )
 			{
 				Matrix4d result;
@@ -2494,13 +2570,15 @@ namespace Glare
 											result.WW = vWW;
 									return result;
 			}
-					public void Multiply(Matrix4d other , out Matrix4d result)
+					/// <summary>Multiply this matrix against the other.</summary>
+			public void Multiply(Matrix4d other , out Matrix4d result)
 			{
 				
 				Multiply(ref other, out result);
 				return;
 			}
 
+			/// <summary>Multiply this matrix against the other.</summary>
 			public void Multiply(ref Matrix4d other , out Matrix4d result)
 			{
 				
@@ -2540,37 +2618,39 @@ namespace Glare
 			}
 		
 		// Translate
-					public static Matrix4d Translate(Vector3d amount ) { Matrix4d result; Translate(ref amount, out result); return result; }
+					/// <summary>Create a translation matrix.</summary>
+			public static Matrix4d Translate(Vector3d amount ) { Matrix4d result; Translate(ref amount, out result); return result; }
 
-			public static Matrix4d Translate(ref Vector3d amount ) 
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static Matrix4d Translate(ref Vector3d amount ) {
 				Matrix4d result;
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = amount.X;  result.WY = amount.Y;  result.WZ = amount.Z;  result.WW = 1; 				return result;
 			}
 
-			public static Matrix4d Translate( Double X ,  Double Y ,  Double Z  )
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static Matrix4d Translate( Double X ,  Double Y ,  Double Z  ) {
 				Matrix4d result;
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = X;  result.WY = Y;  result.WZ = Z;  result.WW = 1; 				return result;
 			}
-					public static void Translate(Vector3d amount , out Matrix4d result) {  Translate(ref amount, out result); return; }
+					/// <summary>Create a translation matrix.</summary>
+			public static void Translate(Vector3d amount , out Matrix4d result) {  Translate(ref amount, out result); return; }
 
-			public static void Translate(ref Vector3d amount , out Matrix4d result) 
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static void Translate(ref Vector3d amount , out Matrix4d result) {
 				
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = amount.X;  result.WY = amount.Y;  result.WZ = amount.Z;  result.WW = 1; 				return;
 			}
 
-			public static void Translate( Double X ,  Double Y ,  Double Z  , out Matrix4d result)
-			{
+			/// <summary>Create a translation matrix.</summary>
+			public static void Translate( Double X ,  Double Y ,  Double Z  , out Matrix4d result) {
 				
 				 result.XX = 1;  result.XY = 0;  result.XZ = 0;  result.XW = 0;  result.YX = 0;  result.YY = 1;  result.YZ = 0;  result.YW = 0;  result.ZX = 0;  result.ZY = 0;  result.ZZ = 1;  result.ZW = 0;  result.WX = X;  result.WY = Y;  result.WZ = Z;  result.WW = 1; 				return;
 			}
 		
 		#region Square matrix methods
 
-														public static Matrix4d Scale( Vector3d amount )
-					{
+														/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static Matrix4d Scale( Vector3d amount ) {
 						Matrix4d result;
 													result.XX = amount.X;
 													result.XY = 0;
@@ -2591,8 +2671,8 @@ namespace Glare
 												return result;
 					}
 
-					public static Matrix4d Scale( Double x ,  Double y ,  Double z  )
-					{
+					/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static Matrix4d Scale( Double x ,  Double y ,  Double z  ) {
 						Matrix4d result;
 													result.XX = x;
 													result.XY = 0;
@@ -2612,7 +2692,8 @@ namespace Glare
 													result.WW = 1;
 												return result;
 					}
-				
+								
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static Matrix4d Scale(Double amount )
 				{
 					Matrix4d result;
@@ -2634,8 +2715,8 @@ namespace Glare
 											result.WW = 1;
 										return result;
 				}
-												public static void Scale( ref  Vector3d amount , out Matrix4d result)
-					{
+												/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static void Scale( ref  Vector3d amount , out Matrix4d result) {
 						
 													result.XX = amount.X;
 													result.XY = 0;
@@ -2656,8 +2737,8 @@ namespace Glare
 												return;
 					}
 
-					public static void Scale( Double x ,  Double y ,  Double z  , out Matrix4d result)
-					{
+					/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
+					public static void Scale( Double x ,  Double y ,  Double z  , out Matrix4d result) {
 						
 													result.XX = x;
 													result.XY = 0;
@@ -2677,7 +2758,8 @@ namespace Glare
 													result.WW = 1;
 												return;
 					}
-				
+								
+				/// <summary>Create a scaling matrix, where all coefficients are zero except for the diagonal.</summary>
 				public static void Scale(Double amount , out Matrix4d result)
 				{
 					
@@ -2708,6 +2790,7 @@ namespace Glare
 					/// <param name="cameraPosition">The position of the camera.</param>
 					/// <param name="cameraTarget">The target to turn the camera towards.</param>
 					/// <param name="cameraUpVector">The direction that is "up" from the camera's point of view. For example, <see cref="Vector3d.UnitY"/> would have the vertical aspect of the camera straight down the Y axis.</param>
+					/// <returns></returns>
 					public static Matrix4d LookAt( Vector3d cameraPosition,  Vector3d cameraTarget,  Vector3d cameraUpVector )
 					{
 						Matrix4d result;
@@ -2733,11 +2816,13 @@ namespace Glare
 						return result;
 					}
 
+					/// <summary>Create a rotation matrix.</summary>
 					public static Matrix4d Rotate( Angle3 angle ) { Matrix4d result; Rotate(angle.X, angle.Y, angle.Z, out result); return result; }
 									/// <summary>Create a view matrix that transforms a camera and turns it to look towards a specific location.</summary>
 					/// <param name="cameraPosition">The position of the camera.</param>
 					/// <param name="cameraTarget">The target to turn the camera towards.</param>
 					/// <param name="cameraUpVector">The direction that is "up" from the camera's point of view. For example, <see cref="Vector3d.UnitY"/> would have the vertical aspect of the camera straight down the Y axis.</param>
+					/// <returns></returns>
 					public static Matrix4d LookAt( ref  Vector3d cameraPosition,  ref  Vector3d cameraTarget,  ref  Vector3d cameraUpVector )
 					{
 						Matrix4d result;
@@ -2763,6 +2848,7 @@ namespace Glare
 						return result;
 					}
 
+					/// <summary>Create a rotation matrix.</summary>
 					public static Matrix4d Rotate( ref  Angle3 angle ) { Matrix4d result; Rotate(angle.X, angle.Y, angle.Z, out result); return result; }
 				
 				/// <summary>Create a perspective matrix with a field of view.</summary>
@@ -2770,6 +2856,7 @@ namespace Glare
 				/// <param name="aspectRatio">The aspect ratio.</param>
 				/// <param name="nearPlaneDistance">The nearest distance that will be visible; any object before this distance will be clipped. Ideally <paramref name="farPlaneDistance"/> / <paramref name="nearPlaneDistance"/> will be kept as low as possible in order to maximise the fidelity of the depth buffer. This may not be greater than <paramref name="farPlaneDistance"/> or negative.</param>
 				/// <param name="farPlaneDistance">The farthest distance that will be visible; any object after this distance will be clipped. This may not be less than or equal to <paramref name="nearPlaneDistance"/>.</param>
+				/// <returns></returns>
 				public static Matrix4d PerspectiveFieldOfView(Angle fieldOfView, Double aspectRatio, Double nearPlaneDistance, Double farPlaneDistance ) {
 					Matrix4d result;
 					if(fieldOfView < Angle.Zero || fieldOfView >= Angle.Flip)
@@ -2795,6 +2882,7 @@ namespace Glare
 					return result;
 				}
 
+				/// <summary>Create a rotation matrix.</summary>
 				public static Matrix4d Rotate(Angle yaw, Angle pitch, Angle roll ) {
 					Matrix4d result;
 					Rotation4d quaternion = new Rotation4d(yaw, pitch, roll);
@@ -2805,6 +2893,7 @@ namespace Glare
 					/// <param name="cameraPosition">The position of the camera.</param>
 					/// <param name="cameraTarget">The target to turn the camera towards.</param>
 					/// <param name="cameraUpVector">The direction that is "up" from the camera's point of view. For example, <see cref="Vector3d.UnitY"/> would have the vertical aspect of the camera straight down the Y axis.</param>
+					/// <param name="result">Receives the output of the operation.</param>
 					public static void LookAt( Vector3d cameraPosition,  Vector3d cameraTarget,  Vector3d cameraUpVector , out Matrix4d result)
 					{
 						
@@ -2830,11 +2919,13 @@ namespace Glare
 						return;
 					}
 
+					/// <summary>Create a rotation matrix.</summary>
 					public static void Rotate( Angle3 angle , out Matrix4d result) {  Rotate(angle.X, angle.Y, angle.Z, out result); return; }
 									/// <summary>Create a view matrix that transforms a camera and turns it to look towards a specific location.</summary>
 					/// <param name="cameraPosition">The position of the camera.</param>
 					/// <param name="cameraTarget">The target to turn the camera towards.</param>
 					/// <param name="cameraUpVector">The direction that is "up" from the camera's point of view. For example, <see cref="Vector3d.UnitY"/> would have the vertical aspect of the camera straight down the Y axis.</param>
+					/// <param name="result">Receives the output of the operation.</param>
 					public static void LookAt( ref  Vector3d cameraPosition,  ref  Vector3d cameraTarget,  ref  Vector3d cameraUpVector , out Matrix4d result)
 					{
 						
@@ -2860,6 +2951,7 @@ namespace Glare
 						return;
 					}
 
+					/// <summary>Create a rotation matrix.</summary>
 					public static void Rotate( ref  Angle3 angle , out Matrix4d result) {  Rotate(angle.X, angle.Y, angle.Z, out result); return; }
 				
 				/// <summary>Create a perspective matrix with a field of view.</summary>
@@ -2867,6 +2959,7 @@ namespace Glare
 				/// <param name="aspectRatio">The aspect ratio.</param>
 				/// <param name="nearPlaneDistance">The nearest distance that will be visible; any object before this distance will be clipped. Ideally <paramref name="farPlaneDistance"/> / <paramref name="nearPlaneDistance"/> will be kept as low as possible in order to maximise the fidelity of the depth buffer. This may not be greater than <paramref name="farPlaneDistance"/> or negative.</param>
 				/// <param name="farPlaneDistance">The farthest distance that will be visible; any object after this distance will be clipped. This may not be less than or equal to <paramref name="nearPlaneDistance"/>.</param>
+				/// <param name="result">Receives the output of the operation.</param>
 				public static void PerspectiveFieldOfView(Angle fieldOfView, Double aspectRatio, Double nearPlaneDistance, Double farPlaneDistance , out Matrix4d result) {
 					
 					if(fieldOfView < Angle.Zero || fieldOfView >= Angle.Flip)
@@ -2892,6 +2985,7 @@ namespace Glare
 					return;
 				}
 
+				/// <summary>Create a rotation matrix.</summary>
 				public static void Rotate(Angle yaw, Angle pitch, Angle roll , out Matrix4d result) {
 					
 					Rotation4d quaternion = new Rotation4d(yaw, pitch, roll);
@@ -2901,7 +2995,8 @@ namespace Glare
 					
 		#endregion 4x4 methods
 
-														public Vector3d Multiply( Vector3d vector ) {
+														/// <summary>Multiply the matrix by a vector.</summary>
+					public Vector3d Multiply( Vector3d vector ) {
 						Vector3d result;
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -2917,7 +3012,8 @@ namespace Glare
 							 + WZ;
 												return result;
 					}
-									public Vector3d Multiply( ref  Vector3d vector ) {
+									/// <summary>Multiply the matrix by a vector.</summary>
+					public Vector3d Multiply( ref  Vector3d vector ) {
 						Vector3d result;
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -2933,7 +3029,8 @@ namespace Glare
 							 + WZ;
 												return result;
 					}
-																public void Multiply( Vector3d vector , out Vector3d result) {
+																/// <summary>Multiply the matrix by a vector.</summary>
+					public void Multiply( Vector3d vector , out Vector3d result) {
 						
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -2949,7 +3046,8 @@ namespace Glare
 							 + WZ;
 												return;
 					}
-									public void Multiply( ref  Vector3d vector , out Vector3d result) {
+									/// <summary>Multiply the matrix by a vector.</summary>
+					public void Multiply( ref  Vector3d vector , out Vector3d result) {
 						
 													result.X = 								XX * vector.X
 							+								YX * vector.Y
@@ -2982,16 +3080,16 @@ namespace Glare
 				return new Matrix4f((Single)a.XX, (Single)a.XY, (Single)a.XZ, (Single)a.XW, (Single)a.YX, (Single)a.YY, (Single)a.YZ, (Single)a.YW, (Single)a.ZX, (Single)a.ZY, (Single)a.ZZ, (Single)a.ZW, (Single)a.WX, (Single)a.WY, (Single)a.WZ, (Single)a.WW);
 			}
 			
+		/// <summary>Multiply the matrices.</summary>
 		public static Matrix4d operator *(Matrix4d a, Matrix4d b) { Matrix4d result; a.Multiply(ref b, out result); return result; }
 
-					public static Vector3d operator *(Matrix4d a, Vector3d b) { Vector3d result; a.Multiply(ref b, out result); return result; }
+					/// <summary>Multiply the matrix by a vector.</summary>
+			public static Vector3d operator *(Matrix4d a, Vector3d b) { Vector3d result; a.Multiply(ref b, out result); return result; }
 		
 		#endregion Operators
 	}
 	
 	}
-
-
 
 
 

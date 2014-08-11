@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Games.Albion {
+	/// <summary>Static game state.</summary>
 	public class State {
 	}
 
+	/// <summary>This contains constants for use throughout the Albion library.</summary>
 	public static class Constants {
 		/// <summary>Subdirectory for the libraries.</summary>
 		public const string Library = "xldlibs/";
@@ -48,12 +50,19 @@ namespace Alexandria.Games.Albion {
 		/// <summary>Perhaps black list. Seems related to the tilesets.</summary>
 		public const string BlockListLibrary = "blklist0.xld";
 
+		/// <summary>Combat background images.</summary>
 		public const string CombatBackgroundLibrary = "comback0.xld";
+
+		/// <summary>Combat graphics.</summary>
 		public const string CombatGraphicsLibrary = "comgfx0.xld";
 
 		/// <summary>({0} is 0-3 or 9).</summary>
 		public const string EventSetLibrary = "evntset{0}.xld";
+
+		/// <summary>Body pictures.</summary>
 		public const string FullBodyPictureLibrary = "fbodpix0.xld";
+
+		/// <summary>Fonts.</summary>
 		public const string FontsLibrary = "fonts0.xld";
 
 		/// <summary>Mappings and information for each tileset.</summary>
@@ -61,8 +70,14 @@ namespace Alexandria.Games.Albion {
 
 		/// <summary>Tilesets.</summary>
 		public const string IconGraphicsLibrary = "icongfx0.xld";
+
+		/// <summary>Item graphics.</summary>
 		public const string ItemGraphicsLibrary = "itemgfx";
+
+		/// <summary>Item list.</summary>
 		public const string ItemListLibrary = "itemlist.dat";
+
+		/// <summary>Item names.</summary>
 		public const string ItemNamesData = "itemname.dat";
 
 		/// <summary>({0} is 0-2).</summary>
@@ -70,7 +85,11 @@ namespace Alexandria.Games.Albion {
 
 		/// <summary>({0} is 1-3).</summary>
 		public const string MapDataLibrary = "mapdata{0}.xld";
+
+		/// <summary>Monster characters.</summary>
 		public const string MonsterCharacterLibrary = "monchar0.xld";
+
+		/// <summary>Monster graphics.</summary>
 		public const string MonsterGraphicsLibrary = "mongfx0.xld";
 
 		/// <summary>({0} is 0-2).</summary>
@@ -88,8 +107,10 @@ namespace Alexandria.Games.Albion {
 		/// <summary>Palette library. Each is {ubyte r, g, b}[192], where each value is between 0 and 255.</summary>
 		public const string PaletteLibrary = "palette0.xld";
 
+		/// <summary>Party graphics.</summary>
 		public const string PartyGraphicsLibrary = "partgr0.xld";
 
+		/// <summary>Tiny party graphics.</summary>
 		public const string PartyTinyGraphicsLibrary = "partkl0.xld";
 
 		/// <summary>A library of LBM files (45 in total) containing their own colour maps.</summary>

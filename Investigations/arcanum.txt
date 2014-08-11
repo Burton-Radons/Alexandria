@@ -1,0 +1,56 @@
+00h: u4 0 or 1
+04h: u4 6 or 8
+08h: u4 8
+0Ch: u4[4] 0 or big numbers, non-zero means there's a palette?
+1Ch: u4 0 or 15 or 9
+20h: u4 1
+24h: u4[8] big numbers
+44h: u4[8] sizes?
+64h: u4[7] 0 or big numbers
+80h: u4[256][?] palettes
+u4 0 or big number
+[]
+	u4 width?
+	u4 height?
+	u4 data length
+	u4 offset x?
+	u4 offset y?
+	u4 0
+	u4 0
+
+CompassN.ART (00h: 1, 04h: 8, 08h: 8, 1Ch: 0Fh, 20h: 10h, 24h+: C91E28h[8], 44h+: 3AE3h[8], 64h: 0[7])
+3AE3h total data length
+16 images, 2 palettes
+4Bh 49h 54Eh 25h 48h 0 0
+49h 3Ch 3ACh 25h 48h 0 0
+4Dh 34h 354h 25h 48h 0 0
+4Ah 42h 2F2h 25h 48h 0 0
+42h 45h 2E9h 25h 48h 0 0
+3Fh 4Ch 361h 25h 48h 0 0
+33h 4Eh 3D7h 25h 48h 0 0
+37h 4Bh 3D9h 25h 48h 0 0
+4Ah 46h 4C0h 25h 48h 0 0
+50h 43h 3B4h 25h 48h 0 0
+51h 36h 395h 25h 48h 0 0
+4Eh 43h 349h 25h 48h 0 0
+43h 47h 367h 25h 48h 0 0
+3Eh 4Fh 392h 25h 48h 0 0
+32h 51h 36Dh 25h 48h 0 0
+48h 50h 3F1h 25h 48h 0 0
+
+ghmv2xaa.ART (00h: 0, 04h: 6, 08h: 8, 1Ch: 0, 20h: 1, 24+h: AB0D50h; AB0C40h; AB0B30h; AB0460h; AB0350h; AB0240h; AB0130h; AB0020h, 44h: 39Ah; 361h; 2B0h; 365h; 39Ah; 36Ah; 2C7h; 37Bh)
+8 images, 4 palettes
+data at: 1164h, 14FEh
+FBFFFFh 
+15h 35h 39Ah 09h 32h 0 0 (1164h)
+13h 36h 361h 09h 31h 0 0 (14FEh)
+0Eh 36h 2B0h 06h 31h 0 0 (185Fh)
+14h 35h 365h 0Bh 30h 0 0 (1B0Fh)
+15h 34h 39Ah 0Bh 31h 0 0 (1E74h)
+14h 36h 36Ah 0Ah 31h 0 0 (220Eh)
+0Eh 37h 2C7h 07h 32h 0 0 (2578h)
+15h 36h 37Bh 09h 32h 0 0 (283Fh)
+
+ghmv2xab.ART
+80/50h images, 3 palettes
+01_060Eh bytes data

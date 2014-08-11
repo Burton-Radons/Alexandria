@@ -11,12 +11,18 @@ using Glare.Assets;
 using Glare.Framework;
 
 namespace Alexandria.Engines.GoldBox {
+	/// <summary>
+	/// A collection of records.
+	/// </summary>
 	public class Archive : FolderAsset {
 		internal BinaryReader Reader { get; private set; }
 
+		/// <summary>
+		/// Get the records indexed by their <see cref="ArchiveRecord.Id"/>.
+		/// </summary>
 		public ReadOnlyObservableDictionary<int, ArchiveRecord> RecordsById { get; private set; }
 
-		public Archive(AssetManager manager, BinaryReader reader, string name, FileManager fileManager)
+		internal Archive(AssetManager manager, BinaryReader reader, string name, FileManager fileManager)
 			: base(manager, name) {
 			Reader = reader;
 
@@ -33,21 +39,29 @@ namespace Alexandria.Engines.GoldBox {
 		}
 	}
 
+	/// <summary>
+	/// A record in an <see cref="Archive"/>.
+	/// </summary>
 	public class ArchiveRecord : DataAsset {
 		/// <summary>Size of a record entry in bytes.</summary>
 		public const int HeaderSize = 9;
 
+		/// <summary>Get the <see cref="Archive"/> that this is in.</summary>
 		public Archive Archive { get { return (Archive)Parent; } }
 
+		/// <summary>Get the compressed size of the record on disk.</summary>
 		public int CompressedSize { get; private set; }
 
+		/// <summary>Get the unique id of the record.</summary>
 		public byte Id { get; private set; }
 
+		/// <summary>Get the offset from the start of the file for the record data.</summary>
 		public int Offset { get; private set; }
 
+		/// <summary>Get the uncompressed size of the record in bytes.</summary>
 		public int UncompressedSize { get; private set; }
 
-		public ArchiveRecord(Archive archive, BinaryReader reader, int index, int dataOffset)
+		internal ArchiveRecord(Archive archive, BinaryReader reader, int index, int dataOffset)
 			: base(archive, "") {
 			Id = reader.ReadByte();
 			Offset = reader.ReadInt32() + dataOffset;
@@ -56,6 +70,8 @@ namespace Alexandria.Engines.GoldBox {
 			Name = Id + " (index " + index + ", size " + UncompressedSize + ")";
 		}
 
+		/// <summary>Decompress the record then open the stream.</summary>
+		/// <returns></returns>
 		public override Stream Open() {
 			Archive.Reader.BaseStream.Position = Offset;
 			byte[] inputData = Archive.Reader.ReadBytes(CompressedSize);

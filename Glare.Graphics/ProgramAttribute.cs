@@ -29,7 +29,7 @@ namespace Glare.Graphics {
 		}
 
 		public void Bind(GraphicsBuffer buffer, int offsetInBytes, Format format, int stride) {
-			VertexAttribPointerType? type = format.VertexAttribPonterType;
+			VertexAttribPointerType? type = format.VertexAttribPointerType;
 
 			if (buffer == null)
 				throw new ArgumentNullException("buffer");
@@ -46,25 +46,25 @@ namespace Glare.Graphics {
 				DoBind();
 		}
 
-		public void Bind<T>(Format format, params T[] vertices) where T : struct {
+		public void BindArray<T>(Format format, params T[] vertices) where T : struct {
 			var buffer = GraphicsBuffer.Create(vertices);
 			Bind(buffer, 0, format, 0);
 		}
 
-		public void Bind(params double[] vertices) { Bind(Formats.Vector1d, vertices); }
-		public void Bind(params Vector2d[] vertices) { Bind(Formats.Vector2d, vertices); }
-		public void Bind(params Vector3d[] vertices) { Bind(Formats.Vector3d, vertices); }
-		public void Bind(params Vector4d[] vertices) { Bind(Formats.Vector4d, vertices); }
+		public void BindArray(params double[] vertices) { BindArray(Formats.Vector1d, vertices); }
+		public void BindArray(params Vector2d[] vertices) { BindArray(Formats.Vector2d, vertices); }
+		public void BindArray(params Vector3d[] vertices) { BindArray(Formats.Vector3d, vertices); }
+		public void BindArray(params Vector4d[] vertices) { BindArray(Formats.Vector4d, vertices); }
 
-		public void Bind(params float[] vertices) { Bind(Formats.Vector1f, vertices); }
-		public void Bind(params Vector2f[] vertices) { Bind(Formats.Vector2f, vertices); }
-		public void Bind(params Vector3f[] vertices) { Bind(Formats.Vector3f, vertices); }
-		public void Bind(params Vector4f[] vertices) { Bind(Formats.Vector4f, vertices); }
+		public void BindArray(params float[] vertices) { BindArray(Formats.Vector1f, vertices); }
+		public void BindArray(params Vector2f[] vertices) { BindArray(Formats.Vector2f, vertices); }
+		public void BindArray(params Vector3f[] vertices) { BindArray(Formats.Vector3f, vertices); }
+		public void BindArray(params Vector4f[] vertices) { BindArray(Formats.Vector4f, vertices); }
 
-		public void Bind(params int[] vertices) { Bind(Formats.Vector1i, vertices); }
-		public void Bind(params Vector2i[] vertices) { Bind(Formats.Vector2i, vertices); }
-		public void Bind(params Vector3i[] vertices) { Bind(Formats.Vector3i, vertices); }
-		public void Bind(params Vector4i[] vertices) { Bind(Formats.Vector4i, vertices); }
+		public void BindArray(params int[] vertices) { BindArray(Formats.Vector1i, vertices); }
+		public void BindArray(params Vector2i[] vertices) { BindArray(Formats.Vector2i, vertices); }
+		public void BindArray(params Vector3i[] vertices) { BindArray(Formats.Vector3i, vertices); }
+		public void BindArray(params Vector4i[] vertices) { BindArray(Formats.Vector4i, vertices); }
 
 
 		void ClearBind() {
@@ -83,7 +83,7 @@ namespace Glare.Graphics {
 				Context.CheckError();
 				GL.BindBuffer(BufferTarget.ArrayBuffer, bindBuffer.Id);
 				Context.CheckError();
-				GL.VertexAttribPointer(index, bindFormat.channels.RowCount, bindFormat.VertexAttribPonterType.Value, bindFormat.IsNormalized, bindStride, bindOffsetInBytes);
+				GL.VertexAttribPointer(index, bindFormat.Channels.RowCount, bindFormat.VertexAttribPointerType.Value, bindFormat.IsNormalized, bindStride, bindOffsetInBytes);
 				Context.CheckError();
 			}
 		}

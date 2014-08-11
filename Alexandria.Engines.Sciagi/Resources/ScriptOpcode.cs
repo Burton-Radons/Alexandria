@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Engines.Sciagi.Resources {
+	/// <summary>
+	/// An opcode in a <see cref="Script"/>.
+	/// </summary>
 	public enum ScriptOpcode {
 		/// <summary>(accumulator = ~accumulator) Invert the bits of the accumulator.</summary>
 		[ScriptOpcode("ii")]
@@ -135,8 +138,14 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		Link = 0x3E,
 	}
 
+	/// <summary>
+	/// An operand to a <see cref="ScriptInstruction"/>.
+	/// </summary>
 	public enum ScriptOperandType {
+		/// <summary>None or invalid value.</summary>
 		None,
+
+		/// <summary>Unknown operand.</summary>
 		Unknown,
 
 		/// <summary>For operands, these are stored as <see cref="Int16"/> when <see cref="ScriptOpcode"/> is even, and <see cref="SByte"/> when <see cref="ScriptOpcode"/> is odd.</summary>
@@ -145,19 +154,33 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		/// <summary>For operands, these are stored as <see cref="UInt16"/> when <see cref="ScriptOpcode"/> is even, and <see cref="Byte"/> when <see cref="ScriptOpcode"/> is odd.</summary>
 		UnsignedInteger,
 
+		/// <summary>Boolean operand.</summary>
 		Boolean,
 
 		/// <summary>Stored as <see cref="Int16"/> when <see cref="ScriptOpcode"/> is even; <see cref="SByte"/> when <see cref="ScriptOpcode"/> is odd.</summary>
 		RelativeOffset,
 	}
 
+	/// <summary>
+	/// Describes a <see cref="ScriptOpcode"/>.
+	/// </summary>
 	public class ScriptOpcodeAttribute : Attribute {
+		/// <summary>Get the accumulator input.</summary>
 		public ScriptOperandType AccumulatorInput { get; set; }
+
+		/// <summary>Get the accumulator output.</summary>
 		public ScriptOperandType AccumulatorOutput { get; set; }
+
+		/// <summary>Get the operand.</summary>
 		public ScriptOperandType Operand { get; set; }
+
+		/// <summary>Get the stack input.</summary>
 		public ScriptOperandType StackInput { get; set; }
+
+		/// <summary>Get the stack output effect.</summary>
 		public ScriptOperandType StackOutput { get; set; }
 
+		/// <summary>Get whether this is a branch.</summary>
 		public bool IsBranch { get { return Operand == ScriptOperandType.RelativeOffset; } }
 
 		/// <summary>

@@ -7,6 +7,9 @@ using Glare;
 using Glare.Internal;
 
 namespace Alexandria.Engines.Unreal {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class Field {
 		static object LoadArrayElement<T>(object current, Func<T> function) {
 			var list = current as List<T>;
@@ -91,7 +94,7 @@ namespace Alexandria.Engines.Unreal {
 						case "Vector":
 							if (!inArray && info.Size != 12)
 								throw new Exception("Vector structure size is a constant 12 bytes.");
-							result =  reader.ReadVector3f();
+							result = reader.ReadVector3f();
 							break;
 
 						default:
@@ -140,6 +143,10 @@ namespace Alexandria.Engines.Unreal {
 	/// A description of an attribute field.
 	/// </summary>
 	public struct FieldInfo {
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="reader"></param>
 		public FieldInfo(BinaryReader reader) {
 			Value = reader.ReadByte();
 			Size = 0;
@@ -159,6 +166,10 @@ namespace Alexandria.Engines.Unreal {
 				ArrayIndex = UIndex.Read(reader);
 		}
 
+		/// <summary>
+		/// Initialise the field information.
+		/// </summary>
+		/// <param name="firstByte"></param>
 		public FieldInfo(byte firstByte) {
 			Value = firstByte;
 			Size = -1;
@@ -187,6 +198,9 @@ namespace Alexandria.Engines.Unreal {
 		/// </summary>
 		public int Size;
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public int ArrayIndex;
 
 		/// <summary>
@@ -199,6 +213,9 @@ namespace Alexandria.Engines.Unreal {
 		/// </summary>
 		public FieldTypeSize SizeForm { get { return (FieldTypeSize)(Value & SizeMask); } }
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public bool IsLiteralSizeForm { get { return SizeForm == FieldTypeSize.SizeByte || SizeForm == FieldTypeSize.SizeShort || SizeForm == FieldTypeSize.SizeInt; } }
 
 		/// <summary>
@@ -207,32 +224,80 @@ namespace Alexandria.Engines.Unreal {
 		public bool IsArray { get { return (Value & ArrayMask) != 0; } }
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	public enum FieldTypeBase : byte {
+		/// <summary></summary>
 		Byte = 1,
+
+		/// <summary></summary>
 		Integer = 2,
+
+		/// <summary></summary>
 		Boolean = 3,
+
+		/// <summary></summary>
 		Float = 4,
+
+		/// <summary></summary>
 		Object = 5,
+
+		/// <summary></summary>
 		Name = 6,
+
+		/// <summary></summary>
 		String = 7,
+
+		/// <summary></summary>
 		Class = 8,
+
+		/// <summary></summary>
 		Array = 9,
+
+		/// <summary></summary>
 		Struct = 10, // 0x0A
+
+		/// <summary></summary>
 		Vector = 11, // 0x0B
+
+		/// <summary></summary>
 		Rotator = 12, // 0x0C
+
+		/// <summary></summary>
 		Str = 13, // 0x0D
+
+		/// <summary></summary>
 		Map = 14, // 0x0E
+
+		/// <summary></summary>
 		FixedArray = 15, // 0x0F
 	}
 
+	/// <summary></summary>
 	public enum FieldTypeSize : byte {
+		/// <summary>Size of one byte.</summary>
 		Size1 = 0 << 4, // Size of 1.
+
+		/// <summary>Size of two bytes.</summary>
 		Size2 = 1 << 4, // Size of 2.
+
+		/// <summary>Size of four bytes.</summary>
 		Size4 = 2 << 4, // Size of 4.
+
+		/// <summary>Size of twelve bytes.</summary>
 		Size12 = 3 << 4, // Size of 12.
+
+		/// <summary>Size of sixteen bytes.</summary>
 		Size16 = 4 << 4, // Size of 15.
+
+		/// <summary>Size that uses a byte.</summary>
 		SizeByte = 5 << 4, // Size that uses a byte.
+
+		/// <summary>Size that uses two bytes.</summary>
 		SizeShort = 6 << 4, // Size that uses a short.
+
+		/// <summary>Size that uses four bytes.</summary>
 		SizeInt = 7 << 4, // Size that uses an int.
 	}
 }

@@ -8,25 +8,50 @@ using System.Windows;
 using System.Globalization;
 
 namespace Alexandria.Engines.Unreal {
+	/// <summary>
+	/// The Unreal Engine.
+	/// </summary>
 	public class Engine : Alexandria.Engine {
-		public Engine(Plugin plugin)
+		internal Engine(Plugin plugin)
 			: base(plugin) {
-			AddGame(AlphaProtocol = new UnrealGame(this, "Alpha Protocol", @"Obsidian\Alpha Protocol", "InstallPath", ue3IniFile, 34010));
-			AddGame(BatmanArkhamAsylum = new UnrealGame(this, "Batman: Arkham Asylum", @"RocksteadyLtd\Batman Arkham Asylum GOTY", "Install Directory", ue3IniFile, 35140));
-			AddGame(Borderlands = new UnrealGame(this, "Borderlands", @"Gearbox Software\Borderlands", "InstallFolder", "../" + ue3IniFile, 8980));
-			AddGame(DeusEx = new UnrealGame(this, "Deus Ex", @"Unreal Technology\Installed Apps\Deus Ex", "Folder", "System/DeusEx.ini", 6910));
-			AddGame(DeusExInvisibleWar = new UnrealGame(this, "Deus Ex: Invisible War", @"Ion Storm\Deus Ex - Invisible War", "ION_ROOT_PC", "System/Default.ini", 6920));
-			AddGame(Dishonored = new UnrealGame(this, "Dishonored", null, null, ue3IniFile, 205100));
-			AddGame(MassEffect1 = new UnrealGame(this, "Mass Effect", null, null, ue3IniFile, null));
-			AddGame(MassEffect2 = new UnrealGame(this, "Mass Effect 2", null, null, ue3IniFile, null));
-			AddGame(MassEffect3 = new UnrealGame(this, "Mass Effect 3", @"BioWare\Mass Effect 3", null, ue3IniFile, null));
-			AddGame(TheLastRemnant = new UnrealGame(this, "The Last Remnant", null, null, ue3IniFile, 23310));
-			AddGame(ThiefDeadlyShadows = new UnrealGame(this, "Thief: Deadly Shadows", @"Ion Storm\Thief - Deadly Shadows", "ION_ROOT", "System/DEFAULT.INI", 6980));
-			AddGame(Unreal2TheAwakening = new UnrealGame(this, "Unreal II: The Awakening", null, null, ue2IniFile, 13200));
-			AddGame(UnrealGold = new UnrealGame(this, "Unreal Gold", @"Unreal Technology\Installed Apps\Unreal Gold", "Folder", ue2IniFile, 13250));
-			AddGame(UnrealTournament = new UnrealGame(this, "Unreal Tournament", @"Unreal Technology\Installed Apps\UnrealTournament", "Folder", ue2IniFile, 13240));
-			AddGame(UnrealTournament2004 = new UnrealGame(this, "Unreal Tournament 2004", @"Unreal Technology\Installed Apps\UT2004", "Folder", ue2IniFile, 13230));
-			AddGame(UnrealTournament3 = new UnrealGame(this, "Unreal Tournament 3", null, null, ue3IniFile, 13210));
+			AddGame(AlphaProtocol = new UnrealGame(this, "Alpha Protocol", @"Obsidian\Alpha Protocol", "InstallPath", ue3IniFile, 34010,
+				guid: new Guid("5E7A67E6-0BF4-47C7-A31F-56BBFEF7B053")));
+			AddGame(BatmanArkhamAsylum = new UnrealGame(this, "Batman: Arkham Asylum", @"RocksteadyLtd\Batman Arkham Asylum GOTY", "Install Directory", ue3IniFile, 35140,
+				guid: new Guid("9117ED86-ED8F-4D2C-9EA2-DE63BCA67AF3")));
+			AddGame(Borderlands = new UnrealGame(this, "Borderlands", @"Gearbox Software\Borderlands", "InstallFolder", "../" + ue3IniFile, 8980,
+				guid: new Guid("3EAC3608-1C4D-4549-9299-209C0EFF068E")));
+			AddGame(DeusEx = new UnrealGame(this, "Deus Ex", @"Unreal Technology\Installed Apps\Deus Ex", "Folder", "System/DeusEx.ini", 6910,
+				guid: new Guid("B329275B-55A3-4A01-A7A6-C9585F49082D")));
+			AddGame(DeusExInvisibleWar = new UnrealGame(this, "Deus Ex: Invisible War", @"Ion Storm\Deus Ex - Invisible War", "ION_ROOT_PC", "System/Default.ini", 6920,
+				guid: new Guid("32A4BAA7-4AA3-425D-B0E1-BB747CA9709B")));
+			AddGame(Dishonored = new UnrealGame(this, "Dishonored", registryPath: null, registryFolderName: null, iniFileName: ue3IniFile, steamApplicationId: 205100,
+				guid: new Guid("9C143AC5-7551-48F6-9AD3-353AA4250A07")));
+			AddGame(MassEffect = new UnrealGame(this, "Mass Effect", null, null, ue3IniFile, null,
+				guid: new Guid("A762255E-0BA9-41DF-B81B-CB7C5FE91BEF")));
+			AddGame(MassEffect2 = new UnrealGame(this, "Mass Effect 2", null, null, ue3IniFile, null,
+				guid: new Guid("3D877FAC-7346-499A-8F7E-80468F795862")));
+			AddGame(MassEffect3 = new UnrealGame(this, "Mass Effect 3", @"BioWare\Mass Effect 3", null, ue3IniFile, null,
+				guid: new Guid("7C03A8A4-8D3D-46C9-BEA4-962E7CFF9CB6")));
+			AddGame(TheLastRemnant = new UnrealGame(this, "The Last Remnant", null, null, ue3IniFile, steamApplicationId: 23310,
+				guid: new Guid("EDAEBDAD-6FB4-41A1-B954-660B5CEDBCB4")));
+			AddGame(ThiefDeadlyShadows = new UnrealGame(this, "Thief: Deadly Shadows", @"Ion Storm\Thief - Deadly Shadows", "ION_ROOT", "System/DEFAULT.INI", 
+				steamApplicationId: 6980,
+				guid: new Guid("400BD744-F163-4D23-B801-FE9A1B8A385C")));
+			AddGame(Unreal2TheAwakening = new UnrealGame(this, "Unreal II: The Awakening", null, null, ue2IniFile, 
+				steamApplicationId: 13200,
+				guid: new Guid("6CB43728-3E79-4B7A-BC4D-AFD17EDB38BC")));
+			AddGame(UnrealGold = new UnrealGame(this, "Unreal Gold", @"Unreal Technology\Installed Apps\Unreal Gold", "Folder", ue2IniFile, 
+				steamApplicationId: 13250,
+				guid: new Guid("9A418801-8D65-4020-B697-E0CF8A9D1047")));
+			AddGame(UnrealTournament = new UnrealGame(this, "Unreal Tournament", @"Unreal Technology\Installed Apps\UnrealTournament", "Folder", ue2IniFile,
+				steamApplicationId: 13240,
+				guid: new Guid("F8570C6A-442E-40BA-8183-B171FD69E2E2")));
+			AddGame(UnrealTournament2004 = new UnrealGame(this, "Unreal Tournament 2004", @"Unreal Technology\Installed Apps\UT2004", "Folder", ue2IniFile,
+				steamApplicationId: 13230,
+				guid: new Guid("8023FA95-7B0B-43E3-9A2C-8CC8526C3367")));
+			AddGame(UnrealTournament3 = new UnrealGame(this, "Unreal Tournament 3", null, null, ue3IniFile,
+				steamApplicationId: 13210,
+				guid: new Guid("CF9D07EE-93CE-4E82-8232-30B578BEA915")));
 		}
 
 		const string ue2IniFile = "System/Default.ini";
@@ -43,31 +68,59 @@ namespace Alexandria.Engines.Unreal {
 		static readonly CultureInfo Russian = CultureInfo.GetCultureInfo("ru");
 		static readonly CultureInfo SpanishSpain = CultureInfo.GetCultureInfo("es-ES");
 
+		/// <summary>Alpha Protocol.</summary>
 		public readonly UnrealGame AlphaProtocol;
+
+		/// <summary>Batman: Arkham Asylum</summary>
 		public readonly UnrealGame BatmanArkhamAsylum;
+
+		/// <summary>Borderlands</summary>
 		public readonly UnrealGame Borderlands;
+
+		/// <summary>Deus Ex (Deus Ex 1)</summary>
 		public readonly UnrealGame DeusEx;
-		public UnrealGame DeusEx1 { get { return DeusEx; } }
-		public UnrealGame DeusEx2 { get { return DeusExInvisibleWar; } }
+		
+		/// <summary>Deus Ex: Invisible War (Deus Ex 2)</summary>
 		public readonly UnrealGame DeusExInvisibleWar;
+
+		/// <summary>Dishonored</summary>
 		public readonly UnrealGame Dishonored;
-		public readonly UnrealGame MassEffect1;
+
+		/// <summary>Mass Effect</summary>
+		public readonly UnrealGame MassEffect;
+
+		/// <summary>Mass Effect 2</summary>
 		public readonly UnrealGame MassEffect2;
+
+		/// <summary>Mass Effect 3</summary>
 		public readonly UnrealGame MassEffect3;
+
+		/// <summary>The Last Remnant</summary>
 		public readonly UnrealGame TheLastRemnant;
+
+		/// <summary>Thief: Deadly Shadows (Thief 3)</summary>
 		public readonly UnrealGame ThiefDeadlyShadows;
-		public UnrealGame Thief3 { get { return ThiefDeadlyShadows; } }
+
+		/// <summary>Unreal 2: The Awakening (Unreal 2).</summary>
 		public readonly UnrealGame Unreal2TheAwakening;
-		public UnrealGame Unreal2 { get { return Unreal2TheAwakening; } }
+
+		/// <summary>Unreal Gold</summary>
 		public readonly UnrealGame UnrealGold;
+
+		/// <summary>Unreal Tournament.</summary>
 		public readonly UnrealGame UnrealTournament;
+
+		/// <summary>Unreal Tournament 2004.</summary>
 		public readonly UnrealGame UnrealTournament2004;
+
+		/// <summary>Unreal Tournament 3.</summary>
 		public readonly UnrealGame UnrealTournament3;
 	}
 
+	/// <summary>Base class of the Unreal <see cref="Game"/>s.</summary>
 	public abstract class UnrealBaseGame : Game {
-		public UnrealBaseGame(Engine engine, string name, string iniFileName)
-			: base(engine) {
+		public UnrealBaseGame(Engine engine, string name, string iniFileName, Guid guid)
+			: base(engine, guid) {
 			Name = name;
 			IniFileName = iniFileName;
 		}
@@ -87,7 +140,7 @@ namespace Alexandria.Engines.Unreal {
 		/// <returns></returns>
 		protected abstract string SearchRegistry();
 
-		public override void Detect(GameInstanceList instances) {
+		public override void Detect(ICollection<GameInstance> instances) {
 			base.Detect(instances);
 			var path = SearchRegistry();
 			if (path != null && Directory.Exists(path))
@@ -99,63 +152,11 @@ namespace Alexandria.Engines.Unreal {
 	/// An Unreal 1 or 2 game.
 	/// </summary>
 	public class UnrealGame : UnrealBaseGame {
-		public UnrealGame(Engine engine, string name, string registryPath, string registryFolderName, string iniFileName, int? steamApplicationId)
-			: base(engine, name, iniFileName) {
+		public UnrealGame(Engine engine, string name, string registryPath, string registryFolderName, string iniFileName, int? steamApplicationId, Guid guid)
+			: base(engine, name, iniFileName, guid) {
 			RegistryPath = registryPath;
 			RegistryFolderName = registryFolderName;
 			SteamApplicationId = steamApplicationId;
-		}
-
-		/// <summary>
-		/// The location of the registry keys for Unreal products under the LocalMachine registry.
-		/// </summary>
-		public const string RegistryBase = @"SOFTWARE\";
-
-		/// <summary>
-		/// The location of the registry keys for Unreal products under the 32-bit abstraction layer, under the LocalMachine registry.
-		/// </summary>
-		public const string RegistryBase32 = @"SOFTWARE\Wow6432Node\";
-
-		/// <summary>
-		/// The location of Steam application keys under <see cref="RegistryBase"/> or <see cref="RegistryBase32"/>.
-		/// </summary>
-		public const string SteamBase = @"Microsoft\Windows\CurrentVersion\Uninstall\Steam App ";
-
-		public const string SteamFolderKeyName = "InstallLocation";
-
-		/// <summary>
-		/// The path within the LocalMachine registry for the game, relative to both <see cref="RegistryBase32"/> and <see cref="RegistryBase"/>.
-		/// </summary>
-		public string RegistryPath { get; protected set; }
-
-		/// <summary>
-		/// Get the name of the folder registry key within the <see cref="RegistryPath"/> for this game.
-		/// </summary>
-		public string RegistryFolderName { get; protected set; }
-
-		/// <summary>
-		/// Get the identifier of this game on Steam, or <c>null</c> if it's not on Steam.
-		/// </summary>
-		public int? SteamApplicationId { get; protected set; }
-
-		string GetRegistryValue(RegistryKey baseKey, string path, string name) {
-			var key = baseKey.OpenSubKey(path);
-			if (key == null)
-				return null;
-			return key.GetValue(name, null) as string;
-		}
-
-		string GetRegistrySoftwareValue(RegistryKey baseKey, string subpath, string name) {
-			return GetRegistryValue(baseKey, RegistryBase + subpath, name) ??
-				GetRegistryValue(baseKey, RegistryBase32 + subpath, name);
-		}
-
-		string GetSoftwareRegistryValue(string subpath, string folderKeyName) {
-			return (string.IsNullOrEmpty(subpath) ? null :
-					GetRegistrySoftwareValue(Registry.LocalMachine, subpath, folderKeyName)
-					?? GetRegistrySoftwareValue(Registry.CurrentUser, subpath, folderKeyName))
-				?? (SteamApplicationId.HasValue ?
-					GetRegistrySoftwareValue(Registry.LocalMachine, SteamBase + SteamApplicationId.Value, SteamFolderKeyName) : null);
 		}
 
 		protected override string SearchRegistry() {
@@ -176,8 +177,8 @@ namespace Alexandria.Engines.Unreal {
 	public class Unreal3Game : UnrealBaseGame {
 		#region Constructors
 
-		public Unreal3Game(Engine engine, string name, string idPath, string iniFileName, string[] packagePaths, Dictionary<CultureInfo, string> languagePackagePaths)
-			: base(engine, name, iniFileName) {
+		public Unreal3Game(Engine engine, string name, string idPath, string iniFileName, string[] packagePaths, Dictionary<CultureInfo, string> languagePackagePaths, Guid guid)
+			: base(engine, name, iniFileName, guid) {
 			if (idPath == null)
 				throw new ArgumentNullException("idPath");
 			if (packagePaths == null)

@@ -18,50 +18,104 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		readonly int CoreIntegerValue;
 		readonly string CoreStringValue;
 
+		/// <summary></summary>
 		public ScriptInstruction Instruction { get; internal set; }
 
+		/// <summary></summary>
 		public Script Script { get { return Instruction != null ? Instruction.Script : null; } }
 
+		/// <summary></summary>
 		public ScriptInstruction Target { get; internal set; }
 
 		void RequireType(ScriptOperandType type) { if (Type != type) throw new InvalidOperationException("This is not a " + type + " " + typeof(ScriptOperand).Name + "; it is a " + Type + "."); }
 
+		/// <summary></summary>
 		public int AsAddress { get { if (!IsAddress) throw new InvalidOperationException("This is not an address token."); return CoreIntegerValue; } }
+		
+		/// <summary></summary>
 		public ScriptComparison AsComparison { get { RequireType(ScriptOperandType.Comparison); return (ScriptComparison)CoreIntegerValue; } }
+
+		/// <summary></summary>
 		public ScriptOpcode AsOpcode { get { if (!IsOpcode) throw new InvalidOperationException("This is not an opcode token."); return (ScriptOpcode)CoreIntegerValue; } }
+
+		/// <summary></summary>
 		public string AsString { get { if (!IsString) throw new InvalidOperationException("This is not a string token."); return CoreStringValue; } }
+
+		/// <summary></summary>
 		public int AsStringVariable { get { if (!IsStringVariable) throw new InvalidOperationException("This is not a string variable token."); return CoreIntegerValue; } }
+
+		/// <summary></summary>
 		public int AsUnknownVariable { get { RequireType(ScriptOperandType.UnknownVariable); return CoreIntegerValue; } }
+
+		/// <summary></summary>
 		public byte AsValue { get { RequireType(ScriptOperandType.Value); return (byte)CoreIntegerValue; } }
+
+		/// <summary></summary>
 		public int AsVariable { get { if (!IsVariable) throw new InvalidOperationException("This is not a variable."); return CoreIntegerValue; } }
 
+		/// <summary></summary>
 		public int? TryAddress { get { return IsAddress ? (int?)CoreIntegerValue : null; } }
+
+		/// <summary></summary>
 		public ScriptComparison? TryComparison { get { return IsComparison ? (ScriptComparison?)CoreIntegerValue : null; } }
+
+		/// <summary></summary>
 		public ScriptOpcode? TryOpcode { get { return IsOpcode ? (ScriptOpcode?)CoreIntegerValue : null; } }
+
+		/// <summary></summary>
 		public string TryString { get { return IsString ? CoreStringValue : null; } }
+
+		/// <summary></summary>
 		public int? TryStringVariable { get { return IsStringVariable ? (int?)CoreIntegerValue : null; } }
+
+		/// <summary></summary>
 		public int? TryUnknownVariable { get { return IsUnknownVariable ? (int?)CoreIntegerValue : null; } }
+
+		/// <summary></summary>
 		public byte? TryValue { get { return IsValue ? (byte?)CoreIntegerValue : null; } }
+
+		/// <summary></summary>
 		public int? TryVariable { get { return IsVariable ? (int?)CoreIntegerValue : null; } }
 
+		/// <summary></summary>
 		public bool IsAddress { get { return Type == ScriptOperandType.Address; } }
+
+		/// <summary></summary>
 		public bool IsComparison { get { return Type == ScriptOperandType.Comparison; } }
+
+		/// <summary></summary>
 		public bool IsComparisonDefined { get { return IsComparison && typeof(ScriptComparison).IsEnumDefined((ScriptComparison)CoreIntegerValue); } }
+
+		/// <summary></summary>
 		public bool IsOpcode { get { return Type == ScriptOperandType.Opcode; } }
+
+		/// <summary></summary>
 		public bool IsString { get { return Type == ScriptOperandType.String; } }
+
+		/// <summary></summary>
 		public bool IsStringVariable { get { return Type == ScriptOperandType.StringVariable; } }
+
+		/// <summary></summary>
 		public bool IsUnknownVariable { get { return Type == ScriptOperandType.UnknownVariable; } }
+
+		/// <summary></summary>
 		public bool IsValue { get { return Type == ScriptOperandType.Value; } }
+
+		/// <summary></summary>
 		public bool IsVariable { get { return Type == ScriptOperandType.Variable; } }
 
+		/// <summary></summary>
 		public bool IsValid { get { return valid; } internal set { valid = value; } }
 
+		/// <summary></summary>
 		public static readonly ScriptOperand Empty = new ScriptOperand();
 
 		ScriptOperand() { }
 
+		/// <summary></summary>
 		public ScriptOperand(byte value) { Type = ScriptOperandType.Value; CoreIntegerValue = value; }
 
+		/// <summary></summary>
 		public ScriptOperand(BinaryReader reader, ScriptArgument expected) {
 			ScriptOperandType value = (ScriptOperandType)reader.ReadByte();
 
@@ -134,6 +188,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			}
 		}
 
+		/// <summary></summary>
 		public ScriptOpcode GetOpcode() { if (!IsOpcode) throw new InvalidOperationException("This is not an opcode token."); return (ScriptOpcode)CoreIntegerValue; }
 
 		internal void Link() {
@@ -171,6 +226,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			}
 		}
 
+		/// <summary></summary>
 		public void ToRichText(RichTextBuilder builder) {
 			Color foregroundColor = builder.ForegroundColor;
 
@@ -188,6 +244,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			}
 		}
 
+		/// <summary></summary>
 		public override string ToString() {
 			string validString = IsValid ? "" : "!!INVALID!!";
 			string text = "";

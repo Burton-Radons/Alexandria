@@ -11,18 +11,24 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace Alexandria.Engines.DarkSouls {
+	/// <summary>
+	/// A definition of a <see cref="ParameterTable"/>.
+	/// </summary>
 	public class ParameterDefinition : FolderAsset {
+		/// <summary>
+		/// Get a display name for the object.
+		/// </summary>
 		public override string DisplayName {
 			get {
 				return Name + " (" + Unknowns.ToCommaSeparatedList() + ")";
 			}
 		}
 
-		internal ParameterDefinition(AssetManager manager, AssetLoader loader)
-			: base(manager, loader) {
+		internal ParameterDefinition(AssetLoader loader)
+			: base(loader) {
 			var reader = loader.Reader;
 
-			loader.Expect(loader.ShortLength);
+			loader.Expect(loader.CheckedShortLength);
 			loader.Expect((ushort)0x30); // Offset of rows
 			Unknowns.ReadInt16s(reader, 1); // 1-4
 			int rowCount = reader.ReadUInt16();
@@ -35,6 +41,10 @@ namespace Alexandria.Engines.DarkSouls {
 				new ParameterDefinitionRow(this, index, loader);
 		}
 
+		/// <summary>
+		/// Add elements to the context menu.
+		/// </summary>
+		/// <param name="strip"></param>
 		public override void FillContextMenu(ContextMenuStrip strip) {
 			base.FillContextMenu(strip);
 
@@ -297,7 +307,11 @@ namespace Alexandria.Engines.DarkSouls {
 			Clipboard.SetText(builder.ToString());
 		}
 
-		public override System.Windows.Forms.Control Browse() {
+		/// <summary>
+		/// Get a control to browse the object.
+		/// </summary>
+		/// <returns></returns>
+		public override System.Windows.Forms.Control Browse(Action<double> progressUpdateCallback = null) {
 			List<ParameterDefinitionRow> children = new List<ParameterDefinitionRow>();
 			foreach (var child in Children)
 				children.Add((ParameterDefinitionRow)child);
@@ -322,11 +336,18 @@ namespace Alexandria.Engines.DarkSouls {
 			return view;
 		}
 
-		public override Control BrowseContents() {
-			return CreateBarPanel(Browse());
+		/// <summary>
+		/// Get a control to browse the contents of the object.
+		/// </summary>
+		/// <returns></returns>
+		public override Control BrowseContents(Action<double> progressUpdateCallback = null) {
+			return CreateBarPanel(Browse(progressUpdateCallback));
 		}
 	}
 
+	/// <summary>
+	/// A column for a <see cref="ParameterTable"/>.
+	/// </summary>
 	public class ParameterDefinitionRow : Asset {
 		string DotNetBaseName {
 			get {
@@ -355,12 +376,19 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>Get whether this is an enumeration type.</summary>
 		public bool IsEnum { get { return DataType != Type; } }
 
+		/// <summary>Get whether this is an array.</summary>
 		public bool IsArray { get { return Name.Contains('['); } }
+
+		/// <summary>Get whether this is a bitfield.</summary>
 		public bool IsBitField { get { return Name.Contains(':'); } }
+
+		/// <summary>Get whether this is a boolean type.</summary>
 		public bool IsBoolean { get { return DotNetType == "Boolean" || BitFieldBits == 1; } }
 
+		/// <summary>Get the number of bits in this bitfield column, or -1 if it is not a bitfield column.</summary>
 		public int BitFieldBits {
 			get {
 				int index = Name.IndexOf(':');
@@ -390,33 +418,46 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>Get the Japanese description of the parameter.</summary>
 		public string JapaneseDescription { get; private set; }
 
+		/// <summary>Get the Japanese short name of the parameter.</summary>
 		public string JapaneseShortName { get; private set; }
 
+		/// <summary>Get the printing format of the column.</summary>
 		public string PrintFormat { get; private set; }
 
 		/// <summary>Size in bytes.</summary>
 		public int Size { get; private set; }
 
+		/// <summary>Get the storage type of the column.</summary>
 		public string DataType { get; private set; }
 
+		/// <summary>Get the type of the column.</summary>
 		public string Type { get; private set; }
 
+		/// <summary>Get the default value of the column, if it has any.</summary>
 		public float ValueDefault { get; private set; }
 
+		/// <summary>Get the minimum value of the column, if it has any.</summary>
 		public float ValueMinimum { get; private set; }
 
+		/// <summary>Get the maximum value of the column, if it has any.</summary>
 		public float ValueMaximum { get; private set; }
 
+		/// <summary>Get the step between values of the column, if it has any.</summary>
 		public float ValueStep { get; private set; }
 
+		/// <summary>Unknown value.</summary>
 		public int UnknownValue1 { get; private set; }
 
+		/// <summary>Unknown value.</summary>
 		public int UnknownValue2 { get; private set; }
 
+		/// <summary>Get the zero-based index of this column in the table.</summary>
 		public int Index { get; private set; }
 
+		/// <summary>Get the C# default value of the column.</summary>
 		public string CSharpValueDefault {
 			get {
 				if(IsBoolean)
@@ -462,6 +503,9 @@ namespace Alexandria.Engines.DarkSouls {
 			return null;
 		}
 
+		/// <summary>Get the .NET type of the column.</summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
 		public static string GetDotNetType(string type) {
 			switch (type) {
 				case "f32": return "Single";
@@ -559,17 +603,23 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary><see cref="AssetFormat"/> for a <see cref="ParameterDefinition"/>.</summary>
 	public class ParameterDefinitionFormat : AssetFormat {
-		public ParameterDefinitionFormat(Engine engine)
+		internal ParameterDefinitionFormat(Engine engine)
 			: base(engine, typeof(ParameterDefinition), canLoad: true, extension: ".paramdef") {
 		}
-
+		
+		/// <summary>
+		/// Attempt to match a <see cref="ParameterDefinition"/>.
+		/// </summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
 		public override LoadMatchStrength LoadMatch(AssetLoader loader) {
 			var reader = loader.Reader;
 
-			if (loader.Length < 0x30)
+			if (loader.Length < 0x30 || loader.Length > int.MaxValue)
 				return LoadMatchStrength.None;
-			if (!reader.ReadMatch(loader.ShortLength) || !reader.ReadMatch((ushort)0x30))
+			if (!reader.ReadMatch(loader.CheckedShortLength) || !reader.ReadMatch((ushort)0x30))
 				return LoadMatchStrength.None;
 			ushort value = reader.ReadUInt16();
 			int rowCount = reader.ReadUInt16();
@@ -582,8 +632,13 @@ namespace Alexandria.Engines.DarkSouls {
 			return LoadMatchStrength.Medium;
 		}
 
+		/// <summary>
+		/// Load the <see cref="ParameterDefinition"/>.
+		/// </summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
 		public override Asset Load(AssetLoader loader) {
-			return new ParameterDefinition(Manager, loader);
+			return new ParameterDefinition(loader);
 		}
 	}
 }

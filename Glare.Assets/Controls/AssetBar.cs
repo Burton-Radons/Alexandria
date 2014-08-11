@@ -10,9 +10,13 @@ using System.Windows.Forms;
 using Glare.Assets;
 
 namespace Glare.Assets.Controls {
+	/// <summary>
+	/// Provides information about an asset at the top of displaying its contents.
+	/// </summary>
 	public partial class AssetBar : UserControl {
 		Asset asset;
 
+		/// <summary>Get or set the asset this displays.</summary>
 		public Asset Asset {
 			get { return asset; }
 
@@ -20,9 +24,12 @@ namespace Glare.Assets.Controls {
 				asset = value;
 				label.Text = asset != null ? asset.DisplayName : "";
 				new ToolTip().SetToolTip(label, label.Text);
+				if (asset != null && asset.LoadErrors != null && asset.LoadErrors.Count > 0)
+					bar.BackColor = Color.OrangeRed;
 			}
 		}
 
+		/// <summary>Initialise the control.</summary>
 		public AssetBar() {
 			InitializeComponent();
 		}

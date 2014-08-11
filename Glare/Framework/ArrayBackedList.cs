@@ -37,6 +37,9 @@ namespace Glare.Framework {
 			}
 		}
 
+		/// <summary>
+		/// Get or set the capacity of the list. If the value is less than the current capacity, assignment is ignored.
+		/// </summary>
 		public int Capacity {
 			get { return pArray.Length; }
 
@@ -55,6 +58,10 @@ namespace Glare.Framework {
 
 		bool ICollection<T>.IsReadOnly { get { return false; } }
 
+		/// <summary>Get or set an element of the list.</summary>
+		/// <param name="index">The zero-based index of the element to read or assign.</param>
+		/// <returns>The value at the given index.</returns>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is out of range.</exception>
 		public T this[int index] {
 			get {
 				if (index >= pCount)
@@ -69,12 +76,15 @@ namespace Glare.Framework {
 			}
 		}
 
+		/// <summary>Create a list with a <see cref="Capacity"/> of 16.</summary>
 		public ArrayBackedList() : this(16) { }
 
+		/// <summary>Create a list with the given initial capacity.</summary>
+		/// <param name="capacity">The capacity of the list.</param>
 		public ArrayBackedList(int capacity) { pArray = new T[capacity]; }
 
-		/// <summary>Copy the values into a new array.</summary>
-		/// <param name="values"></param>
+		/// <summary>Copy the values into a new list.</summary>
+		/// <param name="values">The values to copy into the new list.</param>
 		public ArrayBackedList(params T[] values) {
 			pArray = new T[values.Length];
 			values.CopyTo(pArray, 0);
@@ -95,6 +105,13 @@ namespace Glare.Framework {
 			pCount = pArray.Length;
 		}
 
+		/// <summary>Create a list by taking provided values directly.</summary>
+		/// <param name="values">The initial <see cref="Array"/> value.</param>
+		/// <param name="start">The start of the <paramref name="values"/> array to read from; if this is not zero, then <see cref="Array"/> will be a copy.</param>
+		/// <param name="count">The initial <see cref="Count"/> value.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="values"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="start"/> is less than 0 or greater than <paramref name="values"/>.length.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="count"/> is less than 0 or <paramref name="start"/> + <paramref name="count"/> is greater than <paramref name="values"/>.length.</exception>
 		ArrayBackedList(T[] values, int start, int count) {
 			if (values == null)
 				throw new ArgumentNullException("values");
@@ -140,12 +157,17 @@ namespace Glare.Framework {
 				pReallocate(adding);
 		}
 
+		/// <summary>Add an element to the end of the list.</summary>
+		/// <param name="item">The element to add.</param>
 		public void Add(T item) {
 			if (pCount >= pArray.Length)
 				pReallocate(1);
 			pArray[pCount++] = item;
 		}
 
+		/// <summary>Add all elements in the enumerable to the list. There are optimizations for providing arrays, lists, and collections.</summary>
+		/// <param name="values">The values to add to the list.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="values"/> is <c>null</c>.</exception>
 		public void AddRange(IEnumerable<T> values) {
 			if (values == null)
 				throw new ArgumentNullException("values");
@@ -173,8 +195,18 @@ namespace Glare.Framework {
 			}
 		}
 
+		/// <summary>Add an array to the end of the list.</summary>
+		/// <param name="values">The array of values to add.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="values"/> is <c>null</c>.</exception>
 		public void AddRange(params T[] values) { AddRange((IEnumerable<T>)values); }
 
+		/// <summary>Add elements of a list to the end of this list. There are optimizations for arrays and lists.</summary>
+		/// <param name="values">The values to add to the list.</param>
+		/// <param name="start">The first item in <paramref name="values"/> to add.</param>
+		/// <param name="count">The number of items in <paramref name="values"/> to add.</param>
+		/// <exception cref="ArgumentNullException"><paramref name="values"/> is <c>null</c>.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="start"/> is less than 0 or greater than <paramref name="values"/>' length.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="count"/> is less than 0 or <paramref name="start"/> + <paramref name="count"/> is greater than <paramref name="values"/>' length.</exception>
 		public void AddRange(IList<T> values, int start, int count) {
 			if (values == null)
 				throw new ArgumentNullException("values");
@@ -198,16 +230,29 @@ namespace Glare.Framework {
 			}
 		}
 
+		/// <summary>
+		/// Set the <see cref="Count"/> to zero. This does not clear the entries of the list.
+		/// </summary>
 		public void Clear() { pCount = 0; }
 
+		/// <summary>Get whether the list contains the item.</summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
 		public bool Contains(T item) { return IndexOf(item) >= 0; }
 
+		/// <summary>Copy the list to an array.</summary>
+		/// <param name="array"></param>
+		/// <param name="arrayIndex"></param>
 		public void CopyTo(T[] array, int arrayIndex) {
 			if (array == null)
 				throw new ArgumentNullException("array");
 			System.Array.Copy(this.pArray, 0, array, arrayIndex, pCount);
 		}
 
+		/// <summary>Copy the list to an array.</summary>
+		/// <param name="array"></param>
+		/// <param name="arrayIndex"></param>
+		/// <param name="count"></param>
 		public void CopyTo(T[] array, int arrayIndex, int count) {
 			if (array == null)
 				throw new ArgumentNullException("array");
@@ -216,6 +261,11 @@ namespace Glare.Framework {
 			System.Array.Copy(this.pArray, 0, array, arrayIndex, count);
 		}
 
+		/// <summary>Copy the list to an array.</summary>
+		/// <param name="startIndex"></param>
+		/// <param name="array"></param>
+		/// <param name="arrayIndex"></param>
+		/// <param name="count"></param>
 		public void CopyTo(int startIndex, T[] array, int arrayIndex, int count) {
 			if (array == null)
 				throw new ArgumentNullException("array");
@@ -226,19 +276,44 @@ namespace Glare.Framework {
 			System.Array.Copy(this.pArray, startIndex, array, arrayIndex, count);
 		}
 
+		/// <summary>Create a list by taking the <paramref name="values"/> array directly as <see cref="Array"/>.</summary>
+		/// <param name="values"></param>
+		/// <returns></returns>
 		public static ArrayBackedList<T> CreateFromReference(params T[] values) { return new ArrayBackedList<T>(values, 0, values != null ? values.Length : 0); }
+
+		/// <summary>Create a list by taking the <paramref name="values"/> array directly as <see cref="Array"/>.</summary>
+		/// <param name="values"></param>
+		/// <param name="start"></param>
+		/// <param name="count"></param>
+		/// <returns></returns>
 		public static ArrayBackedList<T> CreateFromReference(T[] values, int start, int count) { return new ArrayBackedList<T>(values, start, count); }
+
+		/// <summary>Create a list by taking the <paramref name="values"/> array directly as <see cref="Array"/>.</summary>
 		public static ArrayBackedList<T> CreateFromReference(T[] values, int count) { return new ArrayBackedList<T>(values, 0, count); }
 
+		/// <summary>Get an enumerator over the items of the list.</summary>
+		/// <returns></returns>
 		public Enumerator GetEnumerator() { return new Enumerator(this); }
+
+		/// <summary>Get an enumerator over the items of the list.</summary>
+		/// <returns></returns>
 		IEnumerator<T> IEnumerable<T>.GetEnumerator() { return new Enumerator(this); }
+
+		/// <summary>Get an enumerator over the items of the list.</summary>
+		/// <returns></returns>
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { return new Enumerator(this); }
 
+		/// <summary>Find an item in the list and return its zero-based index, or return -1 if the item is not in the list.</summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
 		public int IndexOf(T item) {
 			var result = ((IList<T>)pArray).IndexOf(item);
 			return result >= pCount ? -1 : result;
 		}
 
+		/// <summary>Insert an item into the list at the given index.</summary>
+		/// <param name="index"></param>
+		/// <param name="item"></param>
 		public void Insert(int index, T item) {
 			if (index < 0 || index > pCount)
 				throw new ArgumentOutOfRangeException("index");
@@ -249,6 +324,9 @@ namespace Glare.Framework {
 				pArray[shift] = pArray[shift - 1];
 		}
 
+		/// <summary>Insert a range of items into the list at the given index.</summary>
+		/// <param name="index"></param>
+		/// <param name="collection"></param>
 		public void InsertRange(int index, ICollection<T> collection) {
 			if (collection == null)
 				throw new ArgumentNullException("collection");
@@ -258,6 +336,11 @@ namespace Glare.Framework {
 			collection.CopyTo(pArray, index);
 		}
 
+		/// <summary>Insert a range of items into the list at the given index.</summary>
+		/// <param name="index"></param>
+		/// <param name="list"></param>
+		/// <param name="start"></param>
+		/// <param name="count"></param>
 		public void InsertRange(int index, IList<T> list, int start, int count) {
 			if (list == null)
 				throw new ArgumentNullException("list");
@@ -285,6 +368,9 @@ namespace Glare.Framework {
 					pArray[index + offset] = list[start + offset];
 		}
 
+		/// <summary>Attempt to remove the first item found from the list, returning success.</summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
 		public bool Remove(T item) {
 			int index = IndexOf(item);
 			if (index < 0)
@@ -293,6 +379,8 @@ namespace Glare.Framework {
 			return true;
 		}
 
+		/// <summary>Remove an element from the list.</summary>
+		/// <param name="index"></param>
 		public void RemoveAt(int index) {
 			if (index < 0 || index >= pCount)
 				throw new ArgumentOutOfRangeException("index");
@@ -354,11 +442,15 @@ namespace Glare.Framework {
 
 		#endregion ICollection
 
+		/// <summary>An enumerator for the list.</summary>
 		public struct Enumerator : IEnumerator<T> {
 			readonly ArrayBackedList<T> list;
 			int index;
 
+			/// <summary>Get the current value.</summary>
 			public T Current { get { return list[index]; } }
+
+			/// <summary>Get the current value.</summary>
 			object IEnumerator.Current { get { return list[index]; } }
 
 			internal Enumerator(ArrayBackedList<T> list) {
@@ -367,7 +459,12 @@ namespace Glare.Framework {
 			}
 
 			void IDisposable.Dispose() { }
+
+			/// <summary>Move to the next value in the list, returning whether the enumeration has not ended.</summary>
+			/// <returns></returns>
 			public bool MoveNext() { return ++index >= list.pCount; }
+
+			/// <summary>Reset the enumerator.</summary>
 			public void Reset() { index = -1; }
 		}
 	}

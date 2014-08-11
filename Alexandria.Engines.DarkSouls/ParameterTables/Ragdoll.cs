@@ -14,6 +14,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "RAGDOLL_PARAM_ST" in Dark Souls in the file "RagdollParam.paramdef" (id 26h).
 		/// </remarks>
 		public class Ragdoll : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "RAGDOLL_PARAM_ST";
 
 			Single hierarchyGain, velocityDamping, accelGain, velocityGain, positionGain, maxLinerVelocity, maxAngularVelocity, snapGain;
@@ -21,6 +22,7 @@ namespace Alexandria.Engines.DarkSouls {
 			SByte partsHitMaskNo;
 			Byte[] pad;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				HierarchyGainProperty = GetProperty<Ragdoll>("HierarchyGain"),
 				VelocityDampingProperty = GetProperty<Ragdoll>("VelocityDamping"),
@@ -39,7 +41,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ヒエラルキーゲイン", Google translated: "Hierarchy gain".
 			/// Japanese description: "低くすると元のポーズに近づき、大きくするとぐにゃぐにゃになる。", Google translated: "The closer to the original pose , mush Increasing Decreasing .".
 			/// </remarks>
-			[ParameterTableRowAttribute("hierarchyGain", index: 0, minimum: 0, maximum: 1, step: 0.01, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("hierarchyGain", index: 0, minimum: 0, maximum: 1, step: 0.01, sortOrder: 400, unknown2: 1)]
 			[DisplayName("Hierarchy gain")]
 			[Description("The closer to the original pose , mush Increasing Decreasing .")]
 			[DefaultValue((Single)0.17)]
@@ -57,7 +59,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "速度減衰", Google translated: "Velocity decay".
 			/// Japanese description: "ラグドールの移動スピードの減速率。0に近づくとゆっくり戻り、1に近づくとぱっと戻る", Google translated: "Deceleration rate of movement speed of ragdoll . Returning slowly approaches 0 , the process returns putt approaches 1".
 			/// </remarks>
-			[ParameterTableRowAttribute("velocityDamping", index: 1, minimum: 0, maximum: 1, step: 0.01, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("velocityDamping", index: 1, minimum: 0, maximum: 1, step: 0.01, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Velocity decay")]
 			[Description("Deceleration rate of movement speed of ragdoll . Returning slowly approaches 0 , the process returns putt approaches 1")]
 			[DefaultValue((Single)0)]
@@ -75,7 +77,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "加速度ゲイン", Google translated: "Acceleration gain".
 			/// Japanese description: "リジッドの加速度の調整パラメータ。低くすると動きが柔らかくなり、高くすると硬くなる。加速度ゲインよりも低い値にするらしい。", Google translated: "Adjustment parameters of the acceleration of the rigid . Movement is soft and low , it is hard and higher . It seems to be to a value lower than the acceleration gain .".
 			/// </remarks>
-			[ParameterTableRowAttribute("accelGain", index: 2, minimum: 0, maximum: 1, step: 0.01, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("accelGain", index: 2, minimum: 0, maximum: 1, step: 0.01, sortOrder: 600, unknown2: 1)]
 			[DisplayName("Acceleration gain")]
 			[Description("Adjustment parameters of the acceleration of the rigid . Movement is soft and low , it is hard and higher . It seems to be to a value lower than the acceleration gain .")]
 			[DefaultValue((Single)1)]
@@ -93,7 +95,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "速度ゲイン", Google translated: "Speed ​​gain".
 			/// Japanese description: "リジッドの速度の調整パラメータ。低くすると動きが柔らかくなり、高くすると硬くなる。速度ゲインよりも低い値にするらしい。", Google translated: "Adjustment parameters of the velocity of the rigid . Movement is soft and low , it is hard and higher . It seems to be to a value lower than the speed gain .".
 			/// </remarks>
-			[ParameterTableRowAttribute("velocityGain", index: 3, minimum: 0, maximum: 1, step: 0.01, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("velocityGain", index: 3, minimum: 0, maximum: 1, step: 0.01, sortOrder: 700, unknown2: 1)]
 			[DisplayName("Speed ​​gain")]
 			[Description("Adjustment parameters of the velocity of the rigid . Movement is soft and low , it is hard and higher . It seems to be to a value lower than the speed gain .")]
 			[DefaultValue((Single)0.6)]
@@ -111,7 +113,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "位置ゲイン", Google translated: "Position gain".
 			/// Japanese description: "リジッドの移動位置の調整パラメータ。低くすると動きが柔らかくなり、高くすると硬くなる。", Google translated: "Adjust parameters of movement of the rigid position . Movement is soft and low , it is hard and higher .".
 			/// </remarks>
-			[ParameterTableRowAttribute("positionGain", index: 4, minimum: 0, maximum: 1, step: 0.01, order: 800, unknown2: 1)]
+			[ParameterTableRowAttribute("positionGain", index: 4, minimum: 0, maximum: 1, step: 0.01, sortOrder: 800, unknown2: 1)]
 			[DisplayName("Position gain")]
 			[Description("Adjust parameters of movement of the rigid position . Movement is soft and low , it is hard and higher .")]
 			[DefaultValue((Single)0.05)]
@@ -129,7 +131,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "最大速度", Google translated: "Maximum velocity".
 			/// Japanese description: "リジッドの最大移動速度", Google translated: "Maximum moving speed of the rigid".
 			/// </remarks>
-			[ParameterTableRowAttribute("maxLinerVelocity", index: 5, minimum: 0, maximum: 10, step: 0.01, order: 900, unknown2: 1)]
+			[ParameterTableRowAttribute("maxLinerVelocity", index: 5, minimum: 0, maximum: 10, step: 0.01, sortOrder: 900, unknown2: 1)]
 			[DisplayName("Maximum velocity")]
 			[Description("Maximum moving speed of the rigid")]
 			[DefaultValue((Single)1.4)]
@@ -147,7 +149,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "最大角速度", Google translated: "Maximal angular velocity".
 			/// Japanese description: "リジッドの最大角速度", Google translated: "Maximum angular velocity of the rigid".
 			/// </remarks>
-			[ParameterTableRowAttribute("maxAngularVelocity", index: 6, minimum: 0, maximum: 10, step: 0.01, order: 1000, unknown2: 1)]
+			[ParameterTableRowAttribute("maxAngularVelocity", index: 6, minimum: 0, maximum: 10, step: 0.01, sortOrder: 1000, unknown2: 1)]
 			[DisplayName("Maximal angular velocity")]
 			[Description("Maximum angular velocity of the rigid")]
 			[DefaultValue((Single)1.8)]
@@ -165,7 +167,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スナップゲイン", Google translated: "Snap gain".
 			/// Japanese description: "元のポーズに近づけるための調整値。位置ゲインと似た効果", Google translated: "Adjustment value to approximate the original pose . Effect similar to the position gain".
 			/// </remarks>
-			[ParameterTableRowAttribute("snapGain", index: 7, minimum: 0, maximum: 1, step: 0.01, order: 1100, unknown2: 1)]
+			[ParameterTableRowAttribute("snapGain", index: 7, minimum: 0, maximum: 1, step: 0.01, sortOrder: 1100, unknown2: 1)]
 			[DisplayName("Snap gain")]
 			[Description("Adjustment value to approximate the original pose . Effect similar to the position gain")]
 			[DefaultValue((Single)0.1)]
@@ -183,7 +185,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "動くか", Google translated: "It works".
 			/// Japanese description: "ダメージラグドール時に動くか", Google translated: "Or move to damage during Ragdoll".
 			/// </remarks>
-			[ParameterTableRowAttribute("enable", index: 8, minimum: 0, maximum: 1, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("enable", index: 8, minimum: 0, maximum: 1, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("It works")]
 			[Description("Or move to damage during Ragdoll")]
 			[DefaultValue(false)]
@@ -197,7 +199,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "部位あたりマスク番号", Google translated: "Mask number per site".
 			/// Japanese description: "部位あたりマスク番号。-1:マスク無効", Google translated: "Mask number per site . -1 : Invalid mask".
 			/// </remarks>
-			[ParameterTableRowAttribute("partsHitMaskNo", index: 9, minimum: -1, maximum: 7, step: 1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("partsHitMaskNo", index: 9, minimum: -1, maximum: 7, step: 1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("Mask number per site")]
 			[Description("Mask number per site . -1 : Invalid mask")]
 			[DefaultValue((SByte)(-1))]
@@ -215,7 +217,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "パディング", Google translated: "Padding".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad[14]", index: 10, minimum: 0, maximum: 1, step: 1, order: 99999999, unknown2: 1)]
+			[ParameterTableRowAttribute("pad[14]", index: 10, minimum: 0, maximum: 1, step: 1, sortOrder: 99999999, unknown2: 1)]
 			[DisplayName("Padding")]
 			[Description("Padding")]
 			[Browsable(false)]
@@ -256,6 +258,10 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad = new Byte[14];
 			}
 
+			/// <summary>
+			/// Write the <see cref="Ragdoll"/> row.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(HierarchyGain);
 				writer.Write(VelocityDamping);

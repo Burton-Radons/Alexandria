@@ -14,11 +14,13 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "POINT_LIGHT_BANK" in Dark Souls in the file "PointLightBank.paramdef" (id 03h).
 		/// </remarks>
 		public class PointLight : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "POINT_LIGHT_BANK";
 
 			Single dwindleBegin, dwindleEnd;
 			Int16 colR, colG, colB, colA;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				DwindleBeginProperty = GetProperty<PointLight>("DwindleBegin"),
 				DwindleEndProperty = GetProperty<PointLight>("DwindleEnd"),
@@ -32,7 +34,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "減衰開始距離[m]", Google translated: "Attenuation start distance [m]".
 			/// Japanese description: "点光源", Google translated: "Point light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("dwindleBegin", index: 0, minimum: 0, maximum: 9999, step: 0.1, order: 1, unknown2: 0)]
+			[ParameterTableRowAttribute("dwindleBegin", index: 0, minimum: 0, maximum: 9999, step: 0.1, sortOrder: 1, unknown2: 0)]
 			[DisplayName("Attenuation start distance [m]")]
 			[Description("Point light source")]
 			[DefaultValue((Single)0.5)]
@@ -50,7 +52,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "減衰終了距離[m]", Google translated: "Attenuation end distance [m]".
 			/// Japanese description: "点光源", Google translated: "Point light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("dwindleEnd", index: 1, minimum: 0, maximum: 9999, step: 0.1, order: 2, unknown2: 0)]
+			[ParameterTableRowAttribute("dwindleEnd", index: 1, minimum: 0, maximum: 9999, step: 0.1, sortOrder: 2, unknown2: 0)]
 			[DisplayName("Attenuation end distance [m]")]
 			[Description("Point light source")]
 			[DefaultValue((Single)2)]
@@ -68,7 +70,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "点光源", Google translated: "Point light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR", index: 2, minimum: 0, maximum: 255, step: 1, order: 3, unknown2: 0)]
+			[ParameterTableRowAttribute("colR", index: 2, minimum: 0, maximum: 255, step: 1, sortOrder: 3, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Point light source")]
 			[DefaultValue((Int16)255)]
@@ -86,7 +88,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "点光源", Google translated: "Point light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG", index: 3, minimum: 0, maximum: 255, step: 1, order: 4, unknown2: 0)]
+			[ParameterTableRowAttribute("colG", index: 3, minimum: 0, maximum: 255, step: 1, sortOrder: 4, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Point light source")]
 			[DefaultValue((Int16)255)]
@@ -104,7 +106,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "点光源", Google translated: "Point light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB", index: 4, minimum: 0, maximum: 255, step: 1, order: 5, unknown2: 0)]
+			[ParameterTableRowAttribute("colB", index: 4, minimum: 0, maximum: 255, step: 1, sortOrder: 5, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Point light source")]
 			[DefaultValue((Int16)255)]
@@ -122,7 +124,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [%]".
 			/// Japanese description: "点光源", Google translated: "Point light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA", index: 5, minimum: 0, maximum: 1000, step: 1, order: 6, unknown2: 0)]
+			[ParameterTableRowAttribute("colA", index: 5, minimum: 0, maximum: 1000, step: 1, sortOrder: 6, unknown2: 0)]
 			[DisplayName("RGB magnification [%]")]
 			[Description("Point light source")]
 			[DefaultValue((Int16)100)]
@@ -157,6 +159,10 @@ namespace Alexandria.Engines.DarkSouls {
 				ColA = (Int16)100;
 			}
 
+			/// <summary>
+			/// Write the <see cref="PointLight"/> row.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(DwindleBegin);
 				writer.Write(DwindleEnd);

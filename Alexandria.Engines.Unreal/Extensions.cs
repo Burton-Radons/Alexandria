@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 
 namespace Alexandria.Engines.Unreal {
+	/// <summary></summary>
 	public static class Extensions {
+		/// <summary></summary>
 		public static T[] ReadIndexCountArray<T>(this BinaryReader reader, Func<T> function, bool nullIfEmpty = false) {
 			int count = UIndex.Read(reader);
 			if(count == 0 && nullIfEmpty)
@@ -17,6 +19,7 @@ namespace Alexandria.Engines.Unreal {
 			return array;
 		}
 
+		/// <summary></summary>
 		public static List<T> ReadIndexCountList<T>(this BinaryReader reader, Func<T> function, bool nullIfEmpty = false) {
 			int count = UIndex.Read(reader);
 			if(count == 0 && nullIfEmpty)

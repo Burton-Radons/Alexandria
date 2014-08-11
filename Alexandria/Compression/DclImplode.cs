@@ -63,6 +63,10 @@ namespace Alexandria.Compression {
 				dictionaryOffset = 0;
 		}
 
+		/// <summary>Decompress the <paramref name="source"/> into the <paramref name="output"/>, then return the number of decompressed bytes.</summary>
+		/// <param name="source">The <see cref="Stream"/> to decompress from.</param>
+		/// <param name="output">The <c>byte</c> array to store the decompressed data in.</param>
+		/// <returns>The number of bytes written to <paramref name="output"/>.</returns>
 		public static int Decompress(Stream source, byte[] output) {
 			int outputOffset = 0;
 

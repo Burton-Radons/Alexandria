@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Engines.Sciagi {
-	public enum ResourceType : byte {
+	/// <summary>The type of a <see cref="Resource"/>.</summary>
+	public enum ResourceType : ushort {
 		/// <summary>In SCI1+ (type 0x80) these are 256-colour views (extension ".v56").</summary>
 		View = 0x00,
 
@@ -21,6 +22,7 @@ namespace Alexandria.Engines.Sciagi {
 		/// <summary>In SCI1+ (type 0x84) these are MIDI music (extension ".snd").</summary>
 		Sound = 0x04,
 
+		/// <summary></summary>
 		Memory = 0x05,
 
 		/// <summary>In SCI1+ (type 0x86) these are not used (extension ".voc").</summary>
@@ -29,7 +31,7 @@ namespace Alexandria.Engines.Sciagi {
 		/// <summary>In SCI1+ (type 0x87) these have the extension ".fon".</summary>
 		Font = 0x07,
 
-		/// <summary>In SCI1+ (type 0x88) these are deprecated in favour of <see cref="ViewSci1"/>-based cursors (extension ".cur").</summary>
+		/// <summary>In SCI1+ (type 0x88) these are deprecated in favour of <see cref="View"/>-based cursors (extension ".cur").</summary>
 		Cursor = 0x08,
 
 		/// <summary>In SCI1+ (type 0x89) audio patches have the file extension ".pat".</summary>
@@ -58,11 +60,23 @@ namespace Alexandria.Engines.Sciagi {
 
 		/// <summary>In SCI1+ (type 0x91) these have the file extension ".hep" and describe dynamic script data.</summary>
 		Heap = 0x11,
+
+		/// <summary></summary>
 		Audio36 = 0x12,
+
+		/// <summary></summary>
 		Sync36 = 0x13,
+
+		/// <summary></summary>
 		Unknown1 = 0x14,
+
+		/// <summary></summary>
 		Unknown2 = 0x15,
+
+		/// <summary></summary>
 		Robot = 0x16,
+
+		/// <summary></summary>
 		Invalid = 0x17,
 
 		/// <summary>A mask to isolate the <see cref="ResourceType"/> from the <see cref="Sci1Mask"/>.</summary>
@@ -71,6 +85,7 @@ namespace Alexandria.Engines.Sciagi {
 		/// <summary>A mask to indicate that the <see cref="ResourceType"/> is for SCI1+.</summary>
 		Sci1Mask = 0x80,
 
+		/// <summary>Terminates a resource type list.</summary>
 		End = 0xFF,
 	}
 }

@@ -1,0 +1,140 @@
+﻿<#@ template  debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core" #>
+<#@ Assembly Name="System.Windows.Forms" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+
+using System;
+using System.Collections.Generic;
+
+namespace Glare.Framework {
+	/// <summary>Provides static methods for constructing aggregate types.</summary>
+	public static class Aggregate {
+		<#foreach(Element[] e in Elements) {
+			string Types = "<" + GetTypes(e) + ">";
+			string Self = "Aggregate" + Types;
+		#>/// <summary>Create an aggregate from the parameters.</summary>
+		public static <#=Self#> Create<#=Types#>(<#EmitArguments(e);#>) { return new <#=Self#>(<#EmitParameters(e);#>); }
+
+		<#if(e.Length < TupleMax - 1) {#>
+		/// <summary>Create an aggregate from a tuple.</summary>
+		public static <#=Self#> Create<#=Types#>(Tuple<#=Types#> tuple) { return new <#=Self#>(tuple); }
+		<#}#>
+
+		<#}#>
+
+		/// <summary>Create an aggregate from the key value pair.</summary>
+		public static Aggregate<T1, T2> Create<T1, T2>(KeyValuePair<T1, T2> value) { return new Aggregate<T1, T2>(value); }
+	}
+
+	<#foreach(Element[] e in Elements) {
+	#>/// <summary>A structure that contains <#=e.Length#> object<#=e.Length > 1 ? "s" : ""#>. This is similar to <see cref="Tuple"/>, but this is a struct, not a class</summary>
+	public partial struct Aggregate<<#EmitTypes(e);#>> : IEquatable<Aggregate<<#EmitTypes(e);#>>> {
+		<#foreach(var p in e) {
+		#>/// <summary>The field for this element of the aggregate.</summary>
+		public <#=p.Type#> <#=p.Property#>;
+		<#}#>
+
+		/// <summary>Construct the aggregate by assigning the elements to the values provided.</summary>
+		public Aggregate(<#Comma(e, (Element p) => {#><#=p.Type#> <#=p.Argument#> = default(<#=p.Type#>)<#});#>) {
+			<#foreach(var p in e) {
+			#><#=p.Property#> = <#=p.Argument#>; 
+			<#}#>}
+
+		<#if(e.Length < TupleMax - 1) {#>
+		/// <summary>Copy the elements of a tuple.</summary>
+		/// <param name="tuple"></param>
+		public Aggregate(Tuple<<#EmitTypes(e);#>> tuple) {
+			if(tuple == null)
+				throw new ArgumentNullException("tuple");
+			<#foreach(var p in e) {
+			#><#=p.Property#> = tuple.<#=p.Property#>;
+			<#}#>}
+		<#}#>
+
+		/// <summary>Get whether the elements of the other aggregate match this one.</summary>
+		public bool Equals(Aggregate<<#EmitTypes(e);#>> other) {
+			return <#Each(e, " && ", (Element p) => {#>EqualityComparer<<#=p.Type#>>.Default.Equals(<#=p.Property#>, other.<#=p.Property#>)<#});#>;
+		}
+
+		/// <summary>If the object is an aggregate of the same type, then the elements will be compared and returned; otherwise false will be returned.</summary>
+		public override bool Equals(Object obj) {
+			if(obj is Aggregate<<#EmitTypes(e);#>>)
+				return Equals((Aggregate<<#EmitTypes(e);#>>)obj);
+			return base.Equals(obj);
+		}
+
+		/// <summary>Get a hash code from the elements of the aggregate.</summary>
+		public override int GetHashCode() { return <#Each(e, " ^ ", (Element p) => {#><#=p.Property#>.GetHashCode()<#});#>; }
+
+		/// <summary>Convert to a comma-separated string of each element surrounded with "&lt;" and "&gt;" braces.</summary>
+		public override string ToString() { return "<" + <#Each(e, " + \", \" + ", (Element p) => {#><#=p.Property#>.ToString()<#});#> + ">"; }
+
+		/// <summary>Get whether the elements of the aggregates are equal.</summary>
+		public static bool operator ==(Aggregate<<#EmitTypes(e);#>> a, Aggregate<<#EmitTypes(e);#>> b) { return a.Equals(b); }
+
+		/// <summary>Get whether the elements of the aggregates are unequal.</summary>
+		public static bool operator !=(Aggregate<<#EmitTypes(e);#>>a, Aggregate<<#EmitTypes(e);#>>b) { return !a.Equals(b); }
+	}
+
+	<#}#>
+	partial struct Aggregate<T1, T2> {
+		/// <summary>Initialise the aggregate based on the items from the key value pair.</summary>
+		public Aggregate(KeyValuePair<T1, T2> value) { Item1 = value.Key; Item2 = value.Value; }
+	}
+}
+
+<#+
+
+struct Element {
+	public readonly int Index;
+
+	/// <summary>Return "T[index]", used as a template type parameter reference.</summary>
+	public string Type { get { return "T" + Index; } }
+
+	/// <summary>Return "Item[index]", used as the field for the element.</summary>
+	public string Property { get { return "Item" + Index; } }
+
+	/// <summary>Return "item[index]", used as parameters to a method.</summary>
+	public string Argument { get { return "item" + Index; } }
+
+	public Element(int index) { Index = index; }
+}
+
+const int TupleMax = 8;
+const int MinOrder = 1, MaxOrder = 10;
+
+IEnumerable<Element[]> Elements {
+	get {
+		for(int i = MinOrder; i < MaxOrder; i++) {
+			Element[] elements = new Element[i];
+			for(int j = 0; j < i; j++)
+				elements[j] = new Element(j + 1);
+			yield return elements;
+		}
+	}
+}
+
+string GetTypes(IEnumerable<Element> elements) { return string.Join(", ", from t in elements select t.Type); }
+void EmitArguments(IEnumerable<Element> elements) { Comma(elements, (Element t) => {#><#=t.Type#> <#=t.Argument#><#+}); }
+void EmitTypes(IEnumerable<Element> elements) { Comma(elements, (Element t) => {#><#=t.Type#><#+}); }
+void EmitParameters(IEnumerable<Element> elements) { Comma(elements, (Element t) => {#><#=t.Argument#><#+}); }
+
+
+void Comma<T>(IEnumerable<T> collection, Action<T> action) { Each(collection, ", ", action); }
+
+void Each<T>(IEnumerable<T> collection, string separator, Action<T> each) {
+	bool first = true;
+	foreach(T item in collection) {
+		if(!first)
+			Write(separator);
+		first = false;
+		each(item);
+	}
+}
+#>

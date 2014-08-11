@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Alexandria.Games.Albion {
 	class Game : Alexandria.Game {
 		public Game(Plugin plugin)
-			: base(plugin) {
+			: base(plugin, null) {
 			AddFormat(new LibraryFormat(this));
 			AddFormat(new PaletteFormat(this));
 		}

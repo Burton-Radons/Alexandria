@@ -13,7 +13,17 @@ namespace Glare.Assets {
 		/// <summary>Get whether this archive can be modified.</summary>
 		public virtual bool CanSave { get; private set; }
 
+		/// <summary>Initialise the archive asset.</summary>
+		/// <param name="manager"></param>
+		/// <param name="name"></param>
+		/// <param name="description"></param>
 		public ArchiveAsset(AssetManager manager, string name, string description = null) : base(manager, name, description) {
+		}
+
+		/// <summary>Initialise the archive asset.</summary>
+		/// <param name="loader"></param>
+		public ArchiveAsset(AssetLoader loader)
+			: base(loader) {
 		}
 	}
 }

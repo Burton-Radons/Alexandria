@@ -14,11 +14,13 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "REINFORCE_PARAM_PROTECTOR_ST" in Dark Souls in the file "ReinforceParamProtector.paramdef" (id 11h).
 		/// </remarks>
 		public class ProtectorReinforcement : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "REINFORCE_PARAM_PROTECTOR_ST";
 
 			Single physicsDefRate, magicDefRate, fireDefRate, thunderDefRate, slashDefRate, blowDefRate, thrustDefRate, resistPoisonRate, resistDiseaseRate, resistBloodRate, resistCurseRate;
 			Byte residentSpEffectId1, residentSpEffectId2, residentSpEffectId3, materialSetId;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				PhysicsDefRateProperty = GetProperty<ProtectorReinforcement>("PhysicsDefRate"),
 				MagicDefRateProperty = GetProperty<ProtectorReinforcement>("MagicDefRate"),
@@ -41,7 +43,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "物理防御力", Google translated: "Physical Def".
 			/// Japanese description: "物理防御力の補正値", Google translated: "Correction value of the physical defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("physicsDefRate", index: 0, minimum: 0, maximum: 99.99, step: 0.01, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("physicsDefRate", index: 0, minimum: 0, maximum: 99.99, step: 0.01, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Physical Def")]
 			[Description("Correction value of the physical defense")]
 			[DefaultValue((Single)1)]
@@ -59,7 +61,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "魔法防御力", Google translated: "Magic defense".
 			/// Japanese description: "魔法防御力の補正値", Google translated: "Correction value of magic defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("magicDefRate", index: 1, minimum: 0, maximum: 99.99, step: 0.01, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("magicDefRate", index: 1, minimum: 0, maximum: 99.99, step: 0.01, sortOrder: 200, unknown2: 1)]
 			[DisplayName("Magic defense")]
 			[Description("Correction value of magic defense")]
 			[DefaultValue((Single)1)]
@@ -77,7 +79,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "炎防御力", Google translated: "Flame Defense".
 			/// Japanese description: "炎防御力の補正値", Google translated: "Correction value of flame Defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("fireDefRate", index: 2, minimum: 0, maximum: 99.99, step: 0.01, order: 300, unknown2: 1)]
+			[ParameterTableRowAttribute("fireDefRate", index: 2, minimum: 0, maximum: 99.99, step: 0.01, sortOrder: 300, unknown2: 1)]
 			[DisplayName("Flame Defense")]
 			[Description("Correction value of flame Defense")]
 			[DefaultValue((Single)1)]
@@ -95,7 +97,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "電撃防御力", Google translated: "Blitz Defense".
 			/// Japanese description: "電撃防御力の補正値", Google translated: "Correction value of blitz defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("thunderDefRate", index: 3, minimum: 0, maximum: 99.99, step: 0.01, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("thunderDefRate", index: 3, minimum: 0, maximum: 99.99, step: 0.01, sortOrder: 400, unknown2: 1)]
 			[DisplayName("Blitz Defense")]
 			[Description("Correction value of blitz defense")]
 			[DefaultValue((Single)1)]
@@ -113,7 +115,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "斬撃防御力", Google translated: "Slashing Defense".
 			/// Japanese description: "斬撃防御力の補正値", Google translated: "Correction value of slashing defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("slashDefRate", index: 4, minimum: 0, maximum: 99.99, step: 0.01, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("slashDefRate", index: 4, minimum: 0, maximum: 99.99, step: 0.01, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Slashing Defense")]
 			[Description("Correction value of slashing defense")]
 			[DefaultValue((Single)1)]
@@ -131,7 +133,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "打撃防御力", Google translated: "Blow Defense".
 			/// Japanese description: "打撃防御力の補正値", Google translated: "Correction value of the striking defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("blowDefRate", index: 5, minimum: 0, maximum: 99.99, step: 0.01, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("blowDefRate", index: 5, minimum: 0, maximum: 99.99, step: 0.01, sortOrder: 600, unknown2: 1)]
 			[DisplayName("Blow Defense")]
 			[Description("Correction value of the striking defense")]
 			[DefaultValue((Single)1)]
@@ -149,7 +151,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "刺突防御力", Google translated: "Piercing Defense".
 			/// Japanese description: "刺突防御力の補正値", Google translated: "Correction value of piercing defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("thrustDefRate", index: 6, minimum: 0, maximum: 99.99, step: 0.01, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("thrustDefRate", index: 6, minimum: 0, maximum: 99.99, step: 0.01, sortOrder: 700, unknown2: 1)]
 			[DisplayName("Piercing Defense")]
 			[Description("Correction value of piercing defense")]
 			[DefaultValue((Single)1)]
@@ -167,7 +169,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "毒耐性", Google translated: "Poison Resistance".
 			/// Japanese description: "毒耐性の補正値", Google translated: "Correction value of poison-resistant".
 			/// </remarks>
-			[ParameterTableRowAttribute("resistPoisonRate", index: 7, minimum: 0, maximum: 99.99, step: 0.01, order: 800, unknown2: 1)]
+			[ParameterTableRowAttribute("resistPoisonRate", index: 7, minimum: 0, maximum: 99.99, step: 0.01, sortOrder: 800, unknown2: 1)]
 			[DisplayName("Poison Resistance")]
 			[Description("Correction value of poison-resistant")]
 			[DefaultValue((Single)1)]
@@ -185,7 +187,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "疫病耐性", Google translated: "Plague-resistant".
 			/// Japanese description: "疫病耐性の補正値", Google translated: "Correction value of plague-resistant".
 			/// </remarks>
-			[ParameterTableRowAttribute("resistDiseaseRate", index: 8, minimum: 0, maximum: 99.99, step: 0.01, order: 900, unknown2: 1)]
+			[ParameterTableRowAttribute("resistDiseaseRate", index: 8, minimum: 0, maximum: 99.99, step: 0.01, sortOrder: 900, unknown2: 1)]
 			[DisplayName("Plague-resistant")]
 			[Description("Correction value of plague-resistant")]
 			[DefaultValue((Single)1)]
@@ -203,7 +205,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "出血耐性", Google translated: "Bleeding-resistant".
 			/// Japanese description: "出血耐性の補正値", Google translated: "Correction value of bleeding resistant".
 			/// </remarks>
-			[ParameterTableRowAttribute("resistBloodRate", index: 9, minimum: 0, maximum: 99.99, step: 0.01, order: 1000, unknown2: 1)]
+			[ParameterTableRowAttribute("resistBloodRate", index: 9, minimum: 0, maximum: 99.99, step: 0.01, sortOrder: 1000, unknown2: 1)]
 			[DisplayName("Bleeding-resistant")]
 			[Description("Correction value of bleeding resistant")]
 			[DefaultValue((Single)1)]
@@ -221,7 +223,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "呪耐性", Google translated: "Curse resistance".
 			/// Japanese description: "呪耐性の補正値", Google translated: "Correction value of curse resistance".
 			/// </remarks>
-			[ParameterTableRowAttribute("resistCurseRate", index: 10, minimum: 0, maximum: 99.99, step: 0.01, order: 1100, unknown2: 1)]
+			[ParameterTableRowAttribute("resistCurseRate", index: 10, minimum: 0, maximum: 99.99, step: 0.01, sortOrder: 1100, unknown2: 1)]
 			[DisplayName("Curse resistance")]
 			[Description("Correction value of curse resistance")]
 			[DefaultValue((Single)1)]
@@ -239,7 +241,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "常駐特殊効果ID1", Google translated: "Resident special effects ID1".
 			/// Japanese description: "常駐特殊効果ID1の加算補正値", Google translated: "Adding the correction value of the resident special effects ID1".
 			/// </remarks>
-			[ParameterTableRowAttribute("residentSpEffectId1", index: 11, minimum: 0, maximum: 255, step: 1, order: 1200, unknown2: 1)]
+			[ParameterTableRowAttribute("residentSpEffectId1", index: 11, minimum: 0, maximum: 255, step: 1, sortOrder: 1200, unknown2: 1)]
 			[DisplayName("Resident special effects ID1")]
 			[Description("Adding the correction value of the resident special effects ID1")]
 			[DefaultValue((Byte)0)]
@@ -257,7 +259,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "常駐特殊効果ID2", Google translated: "Resident special effects ID2".
 			/// Japanese description: "常駐特殊効果ID2の加算補正値", Google translated: "Adding the correction value of the resident special effects ID2".
 			/// </remarks>
-			[ParameterTableRowAttribute("residentSpEffectId2", index: 12, minimum: 0, maximum: 255, step: 1, order: 1300, unknown2: 1)]
+			[ParameterTableRowAttribute("residentSpEffectId2", index: 12, minimum: 0, maximum: 255, step: 1, sortOrder: 1300, unknown2: 1)]
 			[DisplayName("Resident special effects ID2")]
 			[Description("Adding the correction value of the resident special effects ID2")]
 			[DefaultValue((Byte)0)]
@@ -275,7 +277,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "常駐特殊効果ID3", Google translated: "Resident special effects ID3".
 			/// Japanese description: "常駐特殊効果ID3の加算補正値", Google translated: "Adding the correction value of the resident special effects ID3".
 			/// </remarks>
-			[ParameterTableRowAttribute("residentSpEffectId3", index: 13, minimum: 0, maximum: 255, step: 1, order: 1400, unknown2: 1)]
+			[ParameterTableRowAttribute("residentSpEffectId3", index: 13, minimum: 0, maximum: 255, step: 1, sortOrder: 1400, unknown2: 1)]
 			[DisplayName("Resident special effects ID3")]
 			[Description("Adding the correction value of the resident special effects ID3")]
 			[DefaultValue((Byte)0)]
@@ -293,7 +295,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "素材ID加算値", Google translated: "Material ID added value".
 			/// Japanese description: "素材パラメータIDの加算補正値", Google translated: "Adding the correction value of the material parameter ID".
 			/// </remarks>
-			[ParameterTableRowAttribute("materialSetId", index: 14, minimum: 0, maximum: 255, step: 1, order: 1500, unknown2: 1)]
+			[ParameterTableRowAttribute("materialSetId", index: 14, minimum: 0, maximum: 255, step: 1, sortOrder: 1500, unknown2: 1)]
 			[DisplayName("Material ID added value")]
 			[Description("Adding the correction value of the material parameter ID")]
 			[DefaultValue((Byte)0)]
@@ -346,6 +348,10 @@ namespace Alexandria.Engines.DarkSouls {
 				MaterialSetId = (Byte)0;
 			}
 
+			/// <summary>
+			/// Write the <see cref="ProtectorReinforcement"/> row.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(PhysicsDefRate);
 				writer.Write(MagicDefRate);

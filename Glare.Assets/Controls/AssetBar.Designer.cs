@@ -25,11 +25,11 @@
 		private void InitializeComponent() {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetBar));
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.bar = new System.Windows.Forms.TableLayoutPanel();
 			this.label = new System.Windows.Forms.Label();
 			this.button = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
-			this.tableLayoutPanel1.SuspendLayout();
+			this.bar.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panel1
@@ -37,15 +37,15 @@
 			resources.ApplyResources(this.panel1, "panel1");
 			this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel1.Controls.Add(this.tableLayoutPanel1);
+			this.panel1.Controls.Add(this.bar);
 			this.panel1.Name = "panel1";
 			// 
-			// tableLayoutPanel1
+			// bar
 			// 
-			resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-			this.tableLayoutPanel1.Controls.Add(this.label, 0, 0);
-			this.tableLayoutPanel1.Controls.Add(this.button, 1, 0);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+			resources.ApplyResources(this.bar, "bar");
+			this.bar.Controls.Add(this.label, 0, 0);
+			this.bar.Controls.Add(this.button, 1, 0);
+			this.bar.Name = "bar";
 			// 
 			// label
 			// 
@@ -69,8 +69,8 @@
 			this.Name = "AssetBar";
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
-			this.tableLayoutPanel1.ResumeLayout(false);
-			this.tableLayoutPanel1.PerformLayout();
+			this.bar.ResumeLayout(false);
+			this.bar.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -79,7 +79,7 @@
 		#endregion
 
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.TableLayoutPanel bar;
 		private System.Windows.Forms.Label label;
 		private System.Windows.Forms.Button button;
 

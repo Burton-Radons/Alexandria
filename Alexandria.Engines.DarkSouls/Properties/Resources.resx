@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArchiveFormatName" xml:space="preserve">
+    <value>Archive format (.bhd, .bdt, and many others)</value>
+  </data>
+  <data name="EffectFormatName" xml:space="preserve">
+    <value>Effect format (.ffx)</value>
+  </data>
+  <data name="EmeldFormatName" xml:space="preserve">
+    <value>Emeld format (.emeld)</value>
+  </data>
   <data name="EngineDescription" xml:space="preserve">
     <value>This engine provides functionality for From Software's engine used for Demon Souls, Dark Souls, and Dark Souls 2.</value>
   </data>
@@ -130,11 +139,38 @@
   <data name="FileList2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dvdbnd1.filelist;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="FsslFormatName" xml:space="preserve">
+    <value>FSSL format (.fssl)</value>
+  </data>
+  <data name="MCGFormatName" xml:space="preserve">
+    <value>MCG format (.mcg)</value>
+  </data>
+  <data name="MCPFormatName" xml:space="preserve">
+    <value>MCP format (.mcp)</value>
+  </data>
+  <data name="ModelFormatName" xml:space="preserve">
+    <value>Model format (.flver)</value>
+  </data>
+  <data name="ParameterDefinitionFormatName" xml:space="preserve">
+    <value>Parameter definition format (.paramdef)</value>
+  </data>
+  <data name="ParameterTableFormatName" xml:space="preserve">
+    <value>Parameter table format (.param)</value>
+  </data>
   <data name="PluginDescription" xml:space="preserve">
     <value>A plugin for Demon Souls, Dark Souls, and Dark Souls 2.</value>
   </data>
   <data name="PluginName" xml:space="preserve">
     <value>Dark Souls plugin</value>
+  </data>
+  <data name="StringArchiveFormatName" xml:space="preserve">
+    <value>String archive format</value>
+  </data>
+  <data name="TableArchiveFormatName" xml:space="preserve">
+    <value>Table archive format</value>
+  </data>
+  <data name="TextureArchiveFormatName" xml:space="preserve">
+    <value>Texture archive format (.tpf)</value>
   </data>
   <data name="Translations" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Translations.tsv.gz;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

@@ -14,6 +14,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "NPC_THINK_PARAM_ST" in Dark Souls in the file "NpcThinkParam.paramdef" (id 1Ah).
 		/// </remarks>
 		public class NpcThink : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "NPC_THINK_PARAM_ST";
 
 			Int32 logicId, battleGoalID, goalID_ToCaution, idAttackCannotMove, goalID_ToFind, callHelp_ActionAnimId, callHelp_CallActionId;
@@ -25,6 +26,7 @@ namespace Alexandria.Engines.DarkSouls {
 			bool skipArrivalVisibleCheck, thinkAttr_doAdmirer;
 			Byte[] enableNaviFlg_reserve1, pad0;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				LogicIdProperty = GetProperty<NpcThink>("LogicId"),
 				BattleGoalIDProperty = GetProperty<NpcThink>("BattleGoalID"),
@@ -85,7 +87,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ロジックスクリプトID", Google translated: "Logic script ID".
 			/// Japanese description: "スクリプトで作成したロジックのIDを設定します。", Google translated: "You can set the ID of the logic that you create in the Script .".
 			/// </remarks>
-			[ParameterTableRowAttribute("logicId", index: 0, minimum: -1, maximum: 999999, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("logicId", index: 0, minimum: -1, maximum: 999999, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Logic script ID")]
 			[Description("You can set the ID of the logic that you create in the Script .")]
 			[DefaultValue((Int32)(-1))]
@@ -103,7 +105,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "戦闘ゴールID", Google translated: "Goal combat ID".
 			/// Japanese description: "戦闘ゴールID", Google translated: "Goal combat ID".
 			/// </remarks>
-			[ParameterTableRowAttribute("battleGoalID", index: 1, minimum: -1, maximum: 999999, step: 1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("battleGoalID", index: 1, minimum: -1, maximum: 999999, step: 1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("Goal combat ID")]
 			[Description("Goal combat ID")]
 			[DefaultValue((Int32)(-1))]
@@ -121,7 +123,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "近距離 距離[m]", Google translated: "Short-range distance [m]".
 			/// Japanese description: "近距離とみなす範囲です。近接格闘の判定に使用します。", Google translated: "The range to be considered a short distance . I used to determine the proximity of fighting .".
 			/// </remarks>
-			[ParameterTableRowAttribute("nearDist", index: 2, minimum: 0, maximum: 99999, step: 0.1, order: 800, unknown2: 1)]
+			[ParameterTableRowAttribute("nearDist", index: 2, minimum: 0, maximum: 99999, step: 0.1, sortOrder: 800, unknown2: 1)]
 			[DisplayName("Short-range distance [m]")]
 			[Description("The range to be considered a short distance . I used to determine the proximity of fighting .")]
 			[DefaultValue((Single)0)]
@@ -139,7 +141,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "中距離 距離[m]", Google translated: "Medium-range distance [m]".
 			/// Japanese description: "中距離とみなす範囲です。中距離格闘の判定に使用します。", Google translated: "The range to be considered a middle distance . I use to determine the medium-range fighting .".
 			/// </remarks>
-			[ParameterTableRowAttribute("midDist", index: 3, minimum: 0, maximum: 99999, step: 0.1, order: 900, unknown2: 1)]
+			[ParameterTableRowAttribute("midDist", index: 3, minimum: 0, maximum: 99999, step: 0.1, sortOrder: 900, unknown2: 1)]
 			[DisplayName("Medium-range distance [m]")]
 			[Description("The range to be considered a middle distance . I use to determine the medium-range fighting .")]
 			[DefaultValue((Single)0)]
@@ -157,7 +159,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "遠距離 距離[m]", Google translated: "Long distance distance [m]".
 			/// Japanese description: "遠距離とみなす範囲です。飛び道具の判定に使用します。", Google translated: "The range to be considered a long distance . I use to determine the missile .".
 			/// </remarks>
-			[ParameterTableRowAttribute("farDist", index: 4, minimum: 0, maximum: 99999, step: 0.1, order: 1000, unknown2: 1)]
+			[ParameterTableRowAttribute("farDist", index: 4, minimum: 0, maximum: 99999, step: 0.1, sortOrder: 1000, unknown2: 1)]
 			[DisplayName("Long distance distance [m]")]
 			[Description("The range to be considered a long distance . I use to determine the missile .")]
 			[DefaultValue((Single)0)]
@@ -175,7 +177,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "範囲外 距離[m]", Google translated: "Out-of-range distance [m]".
 			/// Japanese description: "戦闘範囲外とみなす距離です。範囲外の敵には戦闘行動を行おうとはしなくなります。", Google translated: "The distance to be considered a combat range. So that it no longer is it attempts to combat the enemy is out of range .".
 			/// </remarks>
-			[ParameterTableRowAttribute("outDist", index: 5, minimum: 0, maximum: 99999, step: 0.1, order: 1100, unknown2: 1)]
+			[ParameterTableRowAttribute("outDist", index: 5, minimum: 0, maximum: 99999, step: 0.1, sortOrder: 1100, unknown2: 1)]
 			[DisplayName("Out-of-range distance [m]")]
 			[Description("The distance to be considered a combat range. So that it no longer is it attempts to combat the enemy is out of range .")]
 			[DefaultValue((Single)0)]
@@ -193,7 +195,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "敵壁接触時のBackHome時間[sec]", Google translated: "BackHome time enemy of wall contact time [sec]".
 			/// Japanese description: "ブロックをさえぎる敵壁に接触したとき、BackToHomeゴールの寿命", Google translated: "When in contact with the enemy wall blocking the line of block , the life of the goal BackToHome".
 			/// </remarks>
-			[ParameterTableRowAttribute("BackHomeLife_OnHitEneWal", index: 6, minimum: 0, maximum: 999, step: 0.1, order: 3000, unknown2: 1)]
+			[ParameterTableRowAttribute("BackHomeLife_OnHitEneWal", index: 6, minimum: 0, maximum: 999, step: 0.1, sortOrder: 3000, unknown2: 1)]
 			[DisplayName("BackHome time enemy of wall contact time [sec]")]
 			[Description("When in contact with the enemy wall blocking the line of block , the life of the goal BackToHome")]
 			[DefaultValue((Single)5)]
@@ -211,7 +213,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ゴール：警戒状態", Google translated: "Goal : alert status".
 			/// Japanese description: "ゴール：警戒状態", Google translated: "Goal : alert status".
 			/// </remarks>
-			[ParameterTableRowAttribute("goalID_ToCaution", index: 7, minimum: -1, maximum: 999999, step: 1, order: 3400, unknown2: 1)]
+			[ParameterTableRowAttribute("goalID_ToCaution", index: 7, minimum: -1, maximum: 999999, step: 1, sortOrder: 3400, unknown2: 1)]
 			[DisplayName("Goal : alert status")]
 			[Description("Goal : alert status")]
 			[DefaultValue((Int32)0)]
@@ -229,7 +231,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "動けなくなったときに行うEzState番号", Google translated: "EzState number to be performed when it is stuck".
 			/// Japanese description: "破壊可能なオブジェクトによって動きが止まっている場合、自動的に実行する行動。", Google translated: "When the motion is stopped by a breakable objects , actions to be executed automatically .".
 			/// </remarks>
-			[ParameterTableRowAttribute("idAttackCannotMove", index: 8, minimum: -1, maximum: 999999, step: 1, order: 2900, unknown2: 1)]
+			[ParameterTableRowAttribute("idAttackCannotMove", index: 8, minimum: -1, maximum: 999999, step: 1, sortOrder: 2900, unknown2: 1)]
 			[DisplayName("EzState number to be performed when it is stuck")]
 			[Description("When the motion is stopped by a breakable objects , actions to be executed automatically .")]
 			[DefaultValue((Int32)0)]
@@ -247,7 +249,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ゴール：発見状態", Google translated: "Goal : finding state".
 			/// Japanese description: "ゴール：発見状態", Google translated: "Goal : finding state".
 			/// </remarks>
-			[ParameterTableRowAttribute("goalID_ToFind", index: 9, minimum: -1, maximum: 999999, step: 1, order: 3800, unknown2: 1)]
+			[ParameterTableRowAttribute("goalID_ToFind", index: 9, minimum: -1, maximum: 999999, step: 1, sortOrder: 3800, unknown2: 1)]
 			[DisplayName("Goal : finding state")]
 			[Description("Goal : finding state")]
 			[DefaultValue((Int32)0)]
@@ -265,7 +267,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "仲間呼び 応答アクションアニメID", Google translated: "Response action anime and ID fellow".
 			/// Japanese description: "応答する時のアニメID(EzStateAnimID)", Google translated: "Anime of ID when responding (EzStateAnimID)".
 			/// </remarks>
-			[ParameterTableRowAttribute("callHelp_ActionAnimId", index: 10, minimum: -1, maximum: 1E+08, step: 1, order: 10100, unknown2: 1)]
+			[ParameterTableRowAttribute("callHelp_ActionAnimId", index: 10, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 10100, unknown2: 1)]
 			[DisplayName("Response action anime and ID fellow")]
 			[Description("Anime of ID when responding (EzStateAnimID)")]
 			[DefaultValue((Int32)(-1))]
@@ -283,7 +285,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "仲間呼び_仲間呼びアクションID", Google translated: "Action and ID fellow _ called fellow".
 			/// Japanese description: "仲間呼ぶときのアクションID(EzStateAnimID)", Google translated: "ID of the action when calling fellow (EzStateAnimID)".
 			/// </remarks>
-			[ParameterTableRowAttribute("callHelp_CallActionId", index: 11, minimum: -1, maximum: 1E+08, step: 1, order: 10110, unknown2: 1)]
+			[ParameterTableRowAttribute("callHelp_CallActionId", index: 11, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 10110, unknown2: 1)]
 			[DisplayName("Action and ID fellow _ called fellow")]
 			[Description("ID of the action when calling fellow (EzStateAnimID)")]
 			[DefaultValue((Int32)(-1))]
@@ -301,7 +303,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "視覚_距離[m]", Google translated: "_ Visual distance [m]".
 			/// Japanese description: "視覚による索敵範囲.", Google translated: "The search operation visual range .".
 			/// </remarks>
-			[ParameterTableRowAttribute("eye_dist", index: 12, minimum: 0, maximum: 65535, step: 1, order: 1200, unknown2: 1)]
+			[ParameterTableRowAttribute("eye_dist", index: 12, minimum: 0, maximum: 65535, step: 1, sortOrder: 1200, unknown2: 1)]
 			[DisplayName("_ Visual distance [m]")]
 			[Description("The search operation visual range .")]
 			[DefaultValue((UInt16)0)]
@@ -319,7 +321,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "聴覚_距離[cm]", Google translated: "_ Hearing distance [cm]".
 			/// Japanese description: "聴覚による索敵範囲.。", Google translated: "The search operation range . Auditory .".
 			/// </remarks>
-			[ParameterTableRowAttribute("ear_dist", index: 13, minimum: 0, maximum: 65535, step: 1, order: 1500, unknown2: 1)]
+			[ParameterTableRowAttribute("ear_dist", index: 13, minimum: 0, maximum: 65535, step: 1, sortOrder: 1500, unknown2: 1)]
 			[DisplayName("_ Hearing distance [cm]")]
 			[Description("The search operation range . Auditory .")]
 			[DefaultValue((UInt16)0)]
@@ -337,7 +339,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "聴覚　影響カット距離[m]", Google translated: "Hearing impact cut distance [m]".
 			/// Japanese description: "音源のサイズを小さくする距離。この距離未満の音が聞こえなくなります。", Google translated: "Distance to reduce the size of the sound source . Sound of this distance is less than will not be heard .".
 			/// </remarks>
-			[ParameterTableRowAttribute("ear_soundcut_dist", index: 14, minimum: 0, maximum: 65535, step: 1, order: 1600, unknown2: 1)]
+			[ParameterTableRowAttribute("ear_soundcut_dist", index: 14, minimum: 0, maximum: 65535, step: 1, sortOrder: 1600, unknown2: 1)]
 			[DisplayName("Hearing impact cut distance [m]")]
 			[Description("Distance to reduce the size of the sound source . Sound of this distance is less than will not be heard .")]
 			[DefaultValue((UInt16)0)]
@@ -355,7 +357,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "嗅覚_距離[m]", Google translated: "_ Olfactory distance [m]".
 			/// Japanese description: "嗅覚による索敵範囲.", Google translated: "The search operation range by the sense of smell .".
 			/// </remarks>
-			[ParameterTableRowAttribute("nose_dist", index: 15, minimum: 0, maximum: 65535, step: 1, order: 2000, unknown2: 1)]
+			[ParameterTableRowAttribute("nose_dist", index: 15, minimum: 0, maximum: 65535, step: 1, sortOrder: 2000, unknown2: 1)]
 			[DisplayName("_ Olfactory distance [m]")]
 			[Description("The search operation range by the sense of smell .")]
 			[DefaultValue((UInt16)0)]
@@ -373,7 +375,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "何があっても帰宅する距離[m]", Google translated: "Distance to go home no matter what [m]".
 			/// Japanese description: "COMMON_SetBattleActLogicの引き数", Google translated: "Argument of COMMON_SetBattleActLogic".
 			/// </remarks>
-			[ParameterTableRowAttribute("maxBackhomeDist", index: 16, minimum: 0, maximum: 65535, step: 1, order: 2100, unknown2: 1)]
+			[ParameterTableRowAttribute("maxBackhomeDist", index: 16, minimum: 0, maximum: 65535, step: 1, sortOrder: 2100, unknown2: 1)]
 			[DisplayName("Distance to go home no matter what [m]")]
 			[Description("Argument of COMMON_SetBattleActLogic")]
 			[DefaultValue((UInt16)0)]
@@ -391,7 +393,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "戦闘しつつ帰宅する距離[m]", Google translated: "Distance to go home while fighting [m]".
 			/// Japanese description: "COMMON_SetBattleActLogicの引き数", Google translated: "Argument of COMMON_SetBattleActLogic".
 			/// </remarks>
-			[ParameterTableRowAttribute("backhomeDist", index: 17, minimum: 0, maximum: 65535, step: 1, order: 2200, unknown2: 1)]
+			[ParameterTableRowAttribute("backhomeDist", index: 17, minimum: 0, maximum: 65535, step: 1, sortOrder: 2200, unknown2: 1)]
 			[DisplayName("Distance to go home while fighting [m]")]
 			[Description("Argument of COMMON_SetBattleActLogic")]
 			[DefaultValue((UInt16)0)]
@@ -409,7 +411,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "巣に帰るのをあきらめて戦闘する距離[m]", Google translated: "Distance to battle to give up and go home to the nest [m]".
 			/// Japanese description: "COMMON_SetBattleActLogicの引き数", Google translated: "Argument of COMMON_SetBattleActLogic".
 			/// </remarks>
-			[ParameterTableRowAttribute("backhomeBattleDist", index: 18, minimum: 0, maximum: 65535, step: 1, order: 2300, unknown2: 1)]
+			[ParameterTableRowAttribute("backhomeBattleDist", index: 18, minimum: 0, maximum: 65535, step: 1, sortOrder: 2300, unknown2: 1)]
 			[DisplayName("Distance to battle to give up and go home to the nest [m]")]
 			[Description("Argument of COMMON_SetBattleActLogic")]
 			[DefaultValue((UInt16)0)]
@@ -427,7 +429,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "敵を意識しているときの非戦闘行動時間[sec]", Google translated: "Non- combat time when you are aware of the enemy [sec]".
 			/// Japanese description: "COMMON_SetBattleActLogicの引き数", Google translated: "Argument of COMMON_SetBattleActLogic".
 			/// </remarks>
-			[ParameterTableRowAttribute("nonBattleActLife", index: 19, minimum: 0, maximum: 65534, step: 1, order: 2400, unknown2: 1)]
+			[ParameterTableRowAttribute("nonBattleActLife", index: 19, minimum: 0, maximum: 65534, step: 1, sortOrder: 2400, unknown2: 1)]
 			[DisplayName("Non- combat time when you are aware of the enemy [sec]")]
 			[Description("Argument of COMMON_SetBattleActLogic")]
 			[DefaultValue((UInt16)0)]
@@ -445,7 +447,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "帰宅時：ターゲットを見ている時間[sec]", Google translated: "Returning home : you are looking at the target time [sec]".
 			/// Japanese description: "帰宅時：ターゲットを見ている時間[sec]", Google translated: "Returning home : you are looking at the target time [sec]".
 			/// </remarks>
-			[ParameterTableRowAttribute("BackHome_LookTargetTime", index: 20, minimum: 0, maximum: 65534, step: 1, order: 2500, unknown2: 1)]
+			[ParameterTableRowAttribute("BackHome_LookTargetTime", index: 20, minimum: 0, maximum: 65534, step: 1, sortOrder: 2500, unknown2: 1)]
 			[DisplayName("Returning home : you are looking at the target time [sec]")]
 			[Description("Returning home : you are looking at the target time [sec]")]
 			[DefaultValue((UInt16)3)]
@@ -463,7 +465,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "帰宅時：ターゲットを見ている距離[m]", Google translated: "Returning home : distance looking at the target [m]".
 			/// Japanese description: "帰宅時：ターゲットを見ている距離[m]", Google translated: "Returning home : distance looking at the target [m]".
 			/// </remarks>
-			[ParameterTableRowAttribute("BackHome_LookTargetDist", index: 21, minimum: 0, maximum: 65534, step: 1, order: 2600, unknown2: 1)]
+			[ParameterTableRowAttribute("BackHome_LookTargetDist", index: 21, minimum: 0, maximum: 65534, step: 1, sortOrder: 2600, unknown2: 1)]
 			[DisplayName("Returning home : distance looking at the target [m]")]
 			[Description("Returning home : distance looking at the target [m]")]
 			[DefaultValue((UInt16)10)]
@@ -481,7 +483,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "視覚ターゲット忘れる時間[frame]", Google translated: "Time to forget the visual target [frame]".
 			/// Japanese description: "視覚ターゲット忘れる時間。フレームで入力です。", Google translated: "Time to forget the visual target . It is entered in the frame .".
 			/// </remarks>
-			[ParameterTableRowAttribute("SightTargetForgetTime", index: 22, minimum: 0, maximum: 65534, step: 1, order: 2700, unknown2: 1)]
+			[ParameterTableRowAttribute("SightTargetForgetTime", index: 22, minimum: 0, maximum: 65534, step: 1, sortOrder: 2700, unknown2: 1)]
 			[DisplayName("Time to forget the visual target [frame]")]
 			[Description("Time to forget the visual target . It is entered in the frame .")]
 			[DefaultValue((UInt16)600)]
@@ -499,7 +501,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "音ターゲット忘れる時間[frame]", Google translated: "Time to forget the target sound [frame]".
 			/// Japanese description: "音ターゲット忘れる時間。フレームで入力です。", Google translated: "Time to forget the target sound . It is entered in the frame .".
 			/// </remarks>
-			[ParameterTableRowAttribute("SoundTargetForgetTime", index: 23, minimum: 0, maximum: 65534, step: 1, order: 2800, unknown2: 1)]
+			[ParameterTableRowAttribute("SoundTargetForgetTime", index: 23, minimum: 0, maximum: 65534, step: 1, sortOrder: 2800, unknown2: 1)]
 			[DisplayName("Time to forget the target sound [frame]")]
 			[Description("Time to forget the target sound . It is entered in the frame .")]
 			[DefaultValue((UInt16)150)]
@@ -517,7 +519,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "敵を発見してから戦闘を開始する距離[m]", Google translated: "Distance to start the battle after you discover the enemy [m]".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("BattleStartDist", index: 24, minimum: 0, maximum: 65534, step: 1, order: 3500, unknown2: 1)]
+			[ParameterTableRowAttribute("BattleStartDist", index: 24, minimum: 0, maximum: 65534, step: 1, sortOrder: 3500, unknown2: 1)]
 			[DisplayName("Distance to start the battle after you discover the enemy [m]")]
 			[Description("")]
 			[DefaultValue((UInt16)0)]
@@ -535,7 +537,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "仲間呼び 自分の仲間グループID", Google translated: "Fellow group ID of their fellow called".
 			/// Japanese description: "自分の仲間グループID", Google translated: "Fellow group ID of their".
 			/// </remarks>
-			[ParameterTableRowAttribute("callHelp_MyPeerId", index: 25, minimum: 0, maximum: 65534, step: 1, order: 9800, unknown2: 1)]
+			[ParameterTableRowAttribute("callHelp_MyPeerId", index: 25, minimum: 0, maximum: 65534, step: 1, sortOrder: 9800, unknown2: 1)]
 			[DisplayName("Fellow group ID of their fellow called")]
 			[Description("Fellow group ID of their")]
 			[DefaultValue((UInt16)0)]
@@ -553,7 +555,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "仲間呼び 呼ぶ仲間グループID", Google translated: "Fellow group ID is referred to as call fellow".
 			/// Japanese description: "仲間を呼ぶ対象となる仲間グループID", Google translated: "Fellow group ID to be called the fellow".
 			/// </remarks>
-			[ParameterTableRowAttribute("callHelp_CallPeerId", index: 26, minimum: 0, maximum: 65534, step: 1, order: 9900, unknown2: 1)]
+			[ParameterTableRowAttribute("callHelp_CallPeerId", index: 26, minimum: 0, maximum: 65534, step: 1, sortOrder: 9900, unknown2: 1)]
 			[DisplayName("Fellow group ID is referred to as call fellow")]
 			[Description("Fellow group ID to be called the fellow")]
 			[DefaultValue((UInt16)0)]
@@ -571,7 +573,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ダメージ影響率[％]", Google translated: "Damage impact rate [ %]".
 			/// Japanese description: "ダメージ影響率取得(ターゲットシステム評価情報)", Google translated: "Impact damage rate acquisition ( target system evaluation information )".
 			/// </remarks>
-			[ParameterTableRowAttribute("targetSys_DmgEffectRate", index: 27, minimum: 0, maximum: 1000, step: 1, order: 550, unknown2: 1)]
+			[ParameterTableRowAttribute("targetSys_DmgEffectRate", index: 27, minimum: 0, maximum: 1000, step: 1, sortOrder: 550, unknown2: 1)]
 			[DisplayName("Damage impact rate [ %]")]
 			[Description("Impact damage rate acquisition ( target system evaluation information )")]
 			[DefaultValue((UInt16)100)]
@@ -589,7 +591,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "チーム攻撃影響力[0-100]", Google translated: "Team attack influence [ 0-100 ]".
 			/// Japanese description: "チーム内の同時攻撃人数を決めるための値。値を大きくすると、同時に攻撃参加できる人数が少なくなる。", Google translated: "Value for determining the number of simultaneous attack team . If you increase the value , many people can participate at the same time attack is reduced.".
 			/// </remarks>
-			[ParameterTableRowAttribute("TeamAttackEffectivity", index: 28, minimum: 0, maximum: 100, step: 1, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("TeamAttackEffectivity", index: 28, minimum: 0, maximum: 100, step: 1, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Team attack influence [ 0-100 ]")]
 			[Description("Value for determining the number of simultaneous attack team . If you increase the value , many people can participate at the same time attack is reduced.")]
 			[DefaultValue((Byte)25)]
@@ -607,7 +609,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "視覚_角度（高さ）[deg]", Google translated: "_ Visual angle ( height ) [deg]".
 			/// Japanese description: "視覚による索敵範囲.", Google translated: "The search operation visual range .".
 			/// </remarks>
-			[ParameterTableRowAttribute("eye_angX", index: 29, minimum: 0, maximum: 180, step: 1, order: 1300, unknown2: 1)]
+			[ParameterTableRowAttribute("eye_angX", index: 29, minimum: 0, maximum: 180, step: 1, sortOrder: 1300, unknown2: 1)]
 			[DisplayName("_ Visual angle ( height ) [deg]")]
 			[Description("The search operation visual range .")]
 			[DefaultValue((Byte)0)]
@@ -625,7 +627,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "視覚_角度（幅）[deg]", Google translated: "_ Visual angle ( width ) [deg]".
 			/// Japanese description: "視覚による索敵範囲.", Google translated: "The search operation visual range .".
 			/// </remarks>
-			[ParameterTableRowAttribute("eye_angY", index: 30, minimum: 0, maximum: 180, step: 1, order: 1400, unknown2: 1)]
+			[ParameterTableRowAttribute("eye_angY", index: 30, minimum: 0, maximum: 180, step: 1, sortOrder: 1400, unknown2: 1)]
 			[DisplayName("_ Visual angle ( width ) [deg]")]
 			[Description("The search operation visual range .")]
 			[DefaultValue((Byte)0)]
@@ -643,7 +645,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "聴覚　角度（高さ）[deg]", Google translated: "Hearing angle ( height ) [deg]".
 			/// Japanese description: "聴覚による索敵範囲。", Google translated: "The search operation range of the hearing .".
 			/// </remarks>
-			[ParameterTableRowAttribute("ear_angX", index: 31, minimum: 0, maximum: 90, step: 1, order: 1700, unknown2: 1)]
+			[ParameterTableRowAttribute("ear_angX", index: 31, minimum: 0, maximum: 90, step: 1, sortOrder: 1700, unknown2: 1)]
 			[DisplayName("Hearing angle ( height ) [deg]")]
 			[Description("The search operation range of the hearing .")]
 			[DefaultValue((Byte)90)]
@@ -661,7 +663,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "聴覚　角度（幅）[deg]", Google translated: "Hearing angle ( width ) [deg]".
 			/// Japanese description: "聴覚による索敵範囲。", Google translated: "The search operation range of the hearing .".
 			/// </remarks>
-			[ParameterTableRowAttribute("ear_angY", index: 32, minimum: 0, maximum: 180, step: 1, order: 1800, unknown2: 1)]
+			[ParameterTableRowAttribute("ear_angY", index: 32, minimum: 0, maximum: 180, step: 1, sortOrder: 1800, unknown2: 1)]
 			[DisplayName("Hearing angle ( width ) [deg]")]
 			[Description("The search operation range of the hearing .")]
 			[DefaultValue((Byte)180)]
@@ -679,7 +681,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "仲間呼び_ターゲットとの最低距離[m]", Google translated: "Minimum distance to the target is called _ fellow [m]".
 			/// Japanese description: "この値より近い場合は仲間呼びできない.", Google translated: "I can not call fellow if closer than this value .".
 			/// </remarks>
-			[ParameterTableRowAttribute("callHelp_CallValidMinDistTarget", index: 33, minimum: 0, maximum: 255, step: 1, order: 10400, unknown2: 1)]
+			[ParameterTableRowAttribute("callHelp_CallValidMinDistTarget", index: 33, minimum: 0, maximum: 255, step: 1, sortOrder: 10400, unknown2: 1)]
 			[DisplayName("Minimum distance to the target is called _ fellow [m]")]
 			[Description("I can not call fellow if closer than this value .")]
 			[DefaultValue((Byte)5)]
@@ -697,7 +699,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "仲間呼び_仲間を呼ぶ有効距離[m]", Google translated: "Effective distance calling fellow _ called fellow [m]".
 			/// Japanese description: "この値より仲間が遠い場合は呼ばない。", Google translated: "It is not known if fellow is far from this value .".
 			/// </remarks>
-			[ParameterTableRowAttribute("callHelp_CallValidRange", index: 34, minimum: 0, maximum: 255, step: 1, order: 10350, unknown2: 1)]
+			[ParameterTableRowAttribute("callHelp_CallValidRange", index: 34, minimum: 0, maximum: 255, step: 1, sortOrder: 10350, unknown2: 1)]
 			[DisplayName("Effective distance calling fellow _ called fellow [m]")]
 			[Description("It is not known if fellow is far from this value .")]
 			[DefaultValue((Byte)15)]
@@ -715,7 +717,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "仲間呼び 応答してから忘れる時間[sec]", Google translated: "Time to forget it after response called fellow [sec]".
 			/// Japanese description: "応答する時間", Google translated: "Time to respond".
 			/// </remarks>
-			[ParameterTableRowAttribute("callHelp_ForgetTimeByArrival", index: 35, minimum: 0, maximum: 255, step: 1, order: 10300, unknown2: 1)]
+			[ParameterTableRowAttribute("callHelp_ForgetTimeByArrival", index: 35, minimum: 0, maximum: 255, step: 1, sortOrder: 10300, unknown2: 1)]
 			[DisplayName("Time to forget it after response called fellow [sec]")]
 			[Description("Time to respond")]
 			[DefaultValue((Byte)0)]
@@ -733,7 +735,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "応答時の待機最小時間[ssm=>ss．mSec]", Google translated: "[Ssm => ss wait minimum time of response. mSec]".
 			/// Japanese description: "応答ゴールの最初の待機ゴールでの最小時間[101=>10．1sec]", Google translated: "Minimum waiting time in the first goal of the response goal [101 => 10.1sec]".
 			/// </remarks>
-			[ParameterTableRowAttribute("callHelp_MinWaitTime", index: 36, minimum: 0, maximum: 255, step: 1, order: 10450, unknown2: 1)]
+			[ParameterTableRowAttribute("callHelp_MinWaitTime", index: 36, minimum: 0, maximum: 255, step: 1, sortOrder: 10450, unknown2: 1)]
 			[DisplayName("[Ssm => ss wait minimum time of response. mSec]")]
 			[Description("Minimum waiting time in the first goal of the response goal [101 => 10.1sec]")]
 			[DefaultValue((Byte)0)]
@@ -751,7 +753,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "応答時の待機最大時間[ssm=>ss．mSec]", Google translated: "[Ssm => ss waiting time of maximum response. mSec]".
 			/// Japanese description: "応答ゴールの最初の待機ゴールでの最大時間[101=>10．1sec]", Google translated: "The maximum waiting time at the first goal of the response goal [101 => 10.1sec]".
 			/// </remarks>
-			[ParameterTableRowAttribute("callHelp_MaxWaitTime", index: 37, minimum: 0, maximum: 255, step: 1, order: 10460, unknown2: 1)]
+			[ParameterTableRowAttribute("callHelp_MaxWaitTime", index: 37, minimum: 0, maximum: 255, step: 1, sortOrder: 10460, unknown2: 1)]
 			[DisplayName("[Ssm => ss waiting time of maximum response. mSec]")]
 			[Description("The maximum waiting time at the first goal of the response goal [101 => 10.1sec]")]
 			[DefaultValue((Byte)0)]
@@ -769,7 +771,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ゴールアクション：警戒状態", Google translated: "Action goal : alert status".
 			/// Japanese description: "ゴールアクション：ターゲットが警戒状態になった", Google translated: "Goal action : target becomes alert state".
 			/// </remarks>
-			[ParameterTableRowAttribute("goalAction_ToCaution", index: 38, minimum: 0, maximum: 5, step: 1, order: 3200, unknown2: 1)]
+			[ParameterTableRowAttribute("goalAction_ToCaution", index: 38, minimum: 0, maximum: 5, step: 1, sortOrder: 3200, unknown2: 1)]
 			[DisplayName("Action goal : alert status")]
 			[Description("Goal action : target becomes alert state")]
 			[DefaultValue((NpcThoughtGoalAction)0)]
@@ -783,7 +785,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ゴールアクション：発見状態", Google translated: "Action goal : finding state".
 			/// Japanese description: "ゴールアクション：ターゲットが発見状態になった", Google translated: "Goal action : target becomes the discovery state".
 			/// </remarks>
-			[ParameterTableRowAttribute("goalAction_ToFind", index: 39, minimum: 0, maximum: 5, step: 1, order: 3600, unknown2: 1)]
+			[ParameterTableRowAttribute("goalAction_ToFind", index: 39, minimum: 0, maximum: 5, step: 1, sortOrder: 3600, unknown2: 1)]
 			[DisplayName("Action goal : finding state")]
 			[Description("Goal action : target becomes the discovery state")]
 			[DefaultValue((NpcThoughtGoalAction)0)]
@@ -797,7 +799,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "仲間呼び 応答後の行動タイプ", Google translated: "Action type of response after call fellow".
 			/// Japanese description: "応答後、目標位置までの行動タイプ", Google translated: "After the response , type of behavior to the target position".
 			/// </remarks>
-			[ParameterTableRowAttribute("callHelp_ReplyBehaviorType", index: 40, minimum: 0, maximum: 3, step: 1, order: 10200, unknown2: 1)]
+			[ParameterTableRowAttribute("callHelp_ReplyBehaviorType", index: 40, minimum: 0, maximum: 3, step: 1, sortOrder: 10200, unknown2: 1)]
 			[DisplayName("Action type of response after call fellow")]
 			[Description("After the response , type of behavior to the target position")]
 			[DefaultValue((NpcThoughtReplyBehavior)0)]
@@ -811,7 +813,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パス移動しない", Google translated: "Do not pass move".
 			/// Japanese description: "パス移動命令が来てもパスを辿らずに直接移動するか", Google translated: "You can go directly to not follow the path path movement command is also coming".
 			/// </remarks>
-			[ParameterTableRowAttribute("disablePathMove", index: 41, minimum: 0, maximum: 1, step: 1, order: 300, unknown2: 1)]
+			[ParameterTableRowAttribute("disablePathMove", index: 41, minimum: 0, maximum: 1, step: 1, sortOrder: 300, unknown2: 1)]
 			[DisplayName("Do not pass move")]
 			[Description("You can go directly to not follow the path path movement command is also coming")]
 			[DefaultValue((Byte)0)]
@@ -829,7 +831,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "視線による到着判定をスキップするか？", Google translated: "You can skip the arrival decision by line-of-sight ?".
 			/// Japanese description: "視線による到着判定をスキップするか？Onにすると、視線が通っていなくても、到着判定を行う。", Google translated: "You can skip the arrival decision by line-of-sight ? If this is On, the line of sight may not be through , to perform the arrival determination .".
 			/// </remarks>
-			[ParameterTableRowAttribute("skipArrivalVisibleCheck", index: 42, minimum: 0, maximum: 1, step: 1, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("skipArrivalVisibleCheck", index: 42, minimum: 0, maximum: 1, step: 1, sortOrder: 600, unknown2: 1)]
 			[DisplayName("You can skip the arrival decision by line-of-sight ?")]
 			[Description("You can skip the arrival decision by line-of-sight ? If this is On, the line of sight may not be through , to perform the arrival determination .")]
 			[DefaultValue(false)]
@@ -843,7 +845,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "取巻き役になるか？", Google translated: "Become surrounds the role ?".
 			/// Japanese description: "思考属性：ＯＮにすると取巻き役を演じます。", Google translated: "It plays a role surrounds If you ON: thinking attribute .".
 			/// </remarks>
-			[ParameterTableRowAttribute("thinkAttr_doAdmirer", index: 43, minimum: 0, maximum: 1, step: 1, order: 5200, unknown2: 1)]
+			[ParameterTableRowAttribute("thinkAttr_doAdmirer", index: 43, minimum: 0, maximum: 1, step: 1, sortOrder: 5200, unknown2: 1)]
 			[DisplayName("Become surrounds the role ?")]
 			[Description("It plays a role surrounds If you ON: thinking attribute .")]
 			[DefaultValue(false)]
@@ -857,7 +859,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "フラグ「崖」通れるか？", Google translated: "Flag " cliff " or pass along ?".
 			/// Japanese description: "ノード「崖」を通過できるか？(def:1)", Google translated: "Is it possible to pass through the node " cliff " ? (def: 1)".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableNaviFlg_Edge:1", index: 44, minimum: 0, maximum: 1, step: 1, order: 10600, unknown2: 1)]
+			[ParameterTableRowAttribute("enableNaviFlg_Edge:1", index: 44, minimum: 0, maximum: 1, step: 1, sortOrder: 10600, unknown2: 1)]
 			[DisplayName("Flag \" cliff \" or pass along ?")]
 			[Description("Is it possible to pass through the node \" cliff \" ? (def: 1)")]
 			[DefaultValue(true)]
@@ -871,7 +873,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "フラグ「広い」通れるか？", Google translated: "Flag " wide " or pass along ?".
 			/// Japanese description: "ノード「広い」を通過できるか？(def:1)", Google translated: "Is it possible to pass through the node " wide " ? (def: 1)".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableNaviFlg_LargeSpace:1", index: 45, minimum: 0, maximum: 1, step: 1, order: 10700, unknown2: 1)]
+			[ParameterTableRowAttribute("enableNaviFlg_LargeSpace:1", index: 45, minimum: 0, maximum: 1, step: 1, sortOrder: 10700, unknown2: 1)]
 			[DisplayName("Flag \" wide \" or pass along ?")]
 			[Description("Is it possible to pass through the node \" wide \" ? (def: 1)")]
 			[DefaultValue(true)]
@@ -885,7 +887,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "フラグ「梯子」通れるか？", Google translated: "Flag " ladder " or pass along ?".
 			/// Japanese description: "ノード「梯子」を通過できるか？(def:0)", Google translated: "Is it possible to pass through the node " ladder " ? (def: 0)".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableNaviFlg_Ladder:1", index: 46, minimum: 0, maximum: 1, step: 1, order: 10800, unknown2: 1)]
+			[ParameterTableRowAttribute("enableNaviFlg_Ladder:1", index: 46, minimum: 0, maximum: 1, step: 1, sortOrder: 10800, unknown2: 1)]
 			[DisplayName("Flag \" ladder \" or pass along ?")]
 			[Description("Is it possible to pass through the node \" ladder \" ? (def: 0)")]
 			[DefaultValue(false)]
@@ -899,7 +901,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "フラグ「穴」通れるか？", Google translated: "Flag or pass along "hole" ?".
 			/// Japanese description: "ノード「穴」を通過できるか？(def:0)", Google translated: "Is it possible to pass through the node "hole" ? (def: 0)".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableNaviFlg_Hole:1", index: 47, minimum: 0, maximum: 1, step: 1, order: 10900, unknown2: 1)]
+			[ParameterTableRowAttribute("enableNaviFlg_Hole:1", index: 47, minimum: 0, maximum: 1, step: 1, sortOrder: 10900, unknown2: 1)]
 			[DisplayName("Flag or pass along \"hole\" ?")]
 			[Description("Is it possible to pass through the node \"hole\" ? (def: 0)")]
 			[DefaultValue(false)]
@@ -913,7 +915,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "フラグ「扉」通れるか？", Google translated: "Flag " door " or pass along ?".
 			/// Japanese description: "ノード「扉」を通過できるか？(def:0)", Google translated: "Is it possible to pass through the node " door " ? (def: 0)".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableNaviFlg_Door:1", index: 48, minimum: 0, maximum: 1, step: 1, order: 11000, unknown2: 1)]
+			[ParameterTableRowAttribute("enableNaviFlg_Door:1", index: 48, minimum: 0, maximum: 1, step: 1, sortOrder: 11000, unknown2: 1)]
 			[DisplayName("Flag \" door \" or pass along ?")]
 			[Description("Is it possible to pass through the node \" door \" ? (def: 0)")]
 			[DefaultValue(false)]
@@ -927,7 +929,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "フラグ「壁中」通れるか？", Google translated: "Flag " wall " or pass along ?".
 			/// Japanese description: "ノード「壁中」を通過できるか？(def:0)", Google translated: "Is it possible to pass through the node " wall " ? (def: 0)".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableNaviFlg_InSideWall:1", index: 49, minimum: 0, maximum: 1, step: 1, order: 12000, unknown2: 1)]
+			[ParameterTableRowAttribute("enableNaviFlg_InSideWall:1", index: 49, minimum: 0, maximum: 1, step: 1, sortOrder: 12000, unknown2: 1)]
 			[DisplayName("Flag \" wall \" or pass along ?")]
 			[Description("Is it possible to pass through the node \" wall \" ? (def: 0)")]
 			[DefaultValue(false)]
@@ -941,7 +943,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ほんとに予約", Google translated: "Reservations really".
 			/// Japanese description: "フラグが新しく必要になったらここにいれます（NotPadding)", Google translated: "Flag when you need a new one you put in here (NotPadding)".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableNaviFlg_reserve0:2", index: 50, minimum: 0, maximum: 0, step: 0, order: 13000, unknown2: 1)]
+			[ParameterTableRowAttribute("enableNaviFlg_reserve0:2", index: 50, minimum: 0, maximum: 0, step: 0, sortOrder: 13000, unknown2: 1)]
 			[DisplayName("Reservations really")]
 			[Description("Flag when you need a new one you put in here (NotPadding)")]
 			[DefaultValue((Byte)0)]
@@ -960,7 +962,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ほんとに予約", Google translated: "Reservations really".
 			/// Japanese description: "フラグが新しく必要になったらここにいれます（NotPadding)", Google translated: "Flag when you need a new one you put in here (NotPadding)".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableNaviFlg_reserve1[3]", index: 51, minimum: 0, maximum: 0, step: 0, order: 14000, unknown2: 0)]
+			[ParameterTableRowAttribute("enableNaviFlg_reserve1[3]", index: 51, minimum: 0, maximum: 0, step: 0, sortOrder: 14000, unknown2: 0)]
 			[DisplayName("Reservations really")]
 			[Description("Flag when you need a new one you put in here (NotPadding)")]
 			[Browsable(false)]
@@ -974,7 +976,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パッド", Google translated: "Pad".
 			/// Japanese description: "pad", Google translated: "pad".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad0[12]", index: 52, minimum: 0, maximum: 0, step: 0, order: 14001, unknown2: 0)]
+			[ParameterTableRowAttribute("pad0[12]", index: 52, minimum: 0, maximum: 0, step: 0, sortOrder: 14001, unknown2: 0)]
 			[DisplayName("Pad")]
 			[Description("pad")]
 			[Browsable(false)]
@@ -1094,6 +1096,10 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad0 = new Byte[12];
 			}
 
+			/// <summary>
+			/// Write the <see cref="NpcThink"/> row to the stream.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(LogicId);
 				writer.Write(BattleGoalID);

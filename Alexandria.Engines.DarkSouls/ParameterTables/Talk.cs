@@ -14,12 +14,14 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "TALK_PARAM_ST" in Dark Souls in the file "TalkParam.paramdef" (id 21h).
 		/// </remarks>
 		public class Talk : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "TALK_PARAM_ST";
 
 			Int32 msgId, voiceId, motionId, returnPos, reactionId, eventId;
 			Byte isMotionLoop;
 			Byte[] pad0;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				MsgIdProperty = GetProperty<Talk>("MsgId"),
 				VoiceIdProperty = GetProperty<Talk>("VoiceId"),
@@ -35,7 +37,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "メッセージID", Google translated: "Message ID".
 			/// Japanese description: "メッセージを指定->メニュー", Google translated: "Specifies the message -> menu".
 			/// </remarks>
-			[ParameterTableRowAttribute("msgId", index: 0, minimum: -1, maximum: 4.294967E+09, step: 1, order: 1, unknown2: 1)]
+			[ParameterTableRowAttribute("msgId", index: 0, minimum: -1, maximum: 4.294967E+09, step: 1, sortOrder: 1, unknown2: 1)]
 			[DisplayName("Message ID")]
 			[Description("Specifies the message -> menu")]
 			[DefaultValue((Int32)(-1))]
@@ -53,7 +55,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ボイスID", Google translated: "Voice ID".
 			/// Japanese description: "ボイスを指定->サウンド", Google translated: "Specifies the voice -> Sound".
 			/// </remarks>
-			[ParameterTableRowAttribute("voiceId", index: 1, minimum: -1, maximum: 4.294967E+09, step: 1, order: 2, unknown2: 1)]
+			[ParameterTableRowAttribute("voiceId", index: 1, minimum: -1, maximum: 4.294967E+09, step: 1, sortOrder: 2, unknown2: 1)]
 			[DisplayName("Voice ID")]
 			[Description("Specifies the voice -> Sound")]
 			[DefaultValue((Int32)(-1))]
@@ -71,7 +73,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "モーションID", Google translated: "Motion ID".
 			/// Japanese description: "モーションを指定->キャラ", Google translated: "Specifies the motion -> Character".
 			/// </remarks>
-			[ParameterTableRowAttribute("motionId", index: 2, minimum: -1, maximum: 4.294967E+09, step: 1, order: 3, unknown2: 1)]
+			[ParameterTableRowAttribute("motionId", index: 2, minimum: -1, maximum: 4.294967E+09, step: 1, sortOrder: 3, unknown2: 1)]
 			[DisplayName("Motion ID")]
 			[Description("Specifies the motion -> Character")]
 			[DefaultValue((Int32)(-1))]
@@ -89,7 +91,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "復帰位置", Google translated: "Return position".
 			/// Japanese description: "復帰する会話の相対位置->会話", Google translated: "> Conversation - the relative position of the conversation to return".
 			/// </remarks>
-			[ParameterTableRowAttribute("returnPos", index: 3, minimum: -1, maximum: 4.294967E+09, step: 1, order: 4, unknown2: 1)]
+			[ParameterTableRowAttribute("returnPos", index: 3, minimum: -1, maximum: 4.294967E+09, step: 1, sortOrder: 4, unknown2: 1)]
 			[DisplayName("Return position")]
 			[Description("> Conversation - the relative position of the conversation to return")]
 			[DefaultValue((Int32)(-1))]
@@ -107,7 +109,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "リアクションID", Google translated: "Notes ID".
 			/// Japanese description: "復帰時の会話指定->会話", Google translated: "> Conversation - conversation specify when returning".
 			/// </remarks>
-			[ParameterTableRowAttribute("reactionId", index: 4, minimum: -1, maximum: 4.294967E+09, step: 1, order: 5, unknown2: 1)]
+			[ParameterTableRowAttribute("reactionId", index: 4, minimum: -1, maximum: 4.294967E+09, step: 1, sortOrder: 5, unknown2: 1)]
 			[DisplayName("Notes ID")]
 			[Description("> Conversation - conversation specify when returning")]
 			[DefaultValue((Int32)(-1))]
@@ -125,7 +127,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "イベントID", Google translated: "Event ID".
 			/// Japanese description: "イベントID->イベント", Google translated: "Event ID-> events".
 			/// </remarks>
-			[ParameterTableRowAttribute("eventId", index: 5, minimum: -1, maximum: 4.294967E+09, step: 1, order: 6, unknown2: 1)]
+			[ParameterTableRowAttribute("eventId", index: 5, minimum: -1, maximum: 4.294967E+09, step: 1, sortOrder: 6, unknown2: 1)]
 			[DisplayName("Event ID")]
 			[Description("Event ID-> events")]
 			[DefaultValue((Int32)(-1))]
@@ -143,7 +145,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "モーションループ有効", Google translated: "Motion loop effective".
 			/// Japanese description: "モーションループするか？", Google translated: "Or motion loop?".
 			/// </remarks>
-			[ParameterTableRowAttribute("isMotionLoop", index: 6, minimum: 0, maximum: 1, step: 1, order: 7, unknown2: 1)]
+			[ParameterTableRowAttribute("isMotionLoop", index: 6, minimum: 0, maximum: 1, step: 1, sortOrder: 7, unknown2: 1)]
 			[DisplayName("Motion loop effective")]
 			[Description("Or motion loop?")]
 			[DefaultValue((Byte)0)]
@@ -161,7 +163,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "dummy", Google translated: "dummy".
 			/// Japanese description: "padding", Google translated: "padding".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad0[7]", index: 7, minimum: 0, maximum: 0, step: 0, order: 9, unknown2: 0)]
+			[ParameterTableRowAttribute("pad0[7]", index: 7, minimum: 0, maximum: 0, step: 0, sortOrder: 9, unknown2: 0)]
 			[DisplayName("dummy")]
 			[Description("padding")]
 			[Browsable(false)]
@@ -196,6 +198,10 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad0 = new Byte[7];
 			}
 
+			/// <summary>
+			/// Write the <see cref="Talk"/> row.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(MsgId);
 				writer.Write(VoiceId);

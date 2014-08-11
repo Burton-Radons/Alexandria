@@ -22,6 +22,7 @@ namespace Alexandria.Engines.DarkSouls {
 		[ParameterTableRowOrder("vagrantBonusEneDropItemLotId", 67, 10000)]
 		[ParameterTableRowOrder("vagrantItemEneDropItemLotId", 68, 10000)]
 		public class Good : EquipmentTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "EQUIP_PARAM_GOODS_ST";
 
 			Int32 refId, sfxVariationId, behaviorId, replaceItemId, qwcId, yesNoDialogMessageId, magicId;
@@ -38,6 +39,7 @@ namespace Alexandria.Engines.DarkSouls {
 			ReplacementCategory replaceCategory;
 			Byte[] pad;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				RefIdProperty = GetProperty<Good>("RefId"),
 				SfxVariationIdProperty = GetProperty<Good>("SfxVariationId"),
@@ -106,7 +108,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "呼び出しID", Google translated: "Call ID".
 			/// Japanese description: "アイテムから呼び出されるID", Google translated: "ID to be called from the item".
 			/// </remarks>
-			[ParameterTableRowAttribute("refId", index: 0, minimum: -1, maximum: 1E+08, step: 1, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("refId", index: 0, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 400, unknown2: 1)]
 			[DisplayName("Call ID")]
 			[Description("ID to be called from the item")]
 			[DefaultValue((Int32)(-1))]
@@ -124,7 +126,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "SFXバリエーションID", Google translated: "SFX variation ID".
 			/// Japanese description: "ＳＦＸのバリエーションを指定（TimeActEditorのＩＤと組み合わせて、ＳＦＸを特定するのに使用する）", Google translated: "( In conjunction with the ID of TimeActEditor, is used to identify the SFX) specifies the variation SFX".
 			/// </remarks>
-			[ParameterTableRowAttribute("sfxVariationId", index: 1, minimum: -1, maximum: 1E+08, step: 1, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("sfxVariationId", index: 1, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 500, unknown2: 1)]
 			[DisplayName("SFX variation ID")]
 			[Description("( In conjunction with the ID of TimeActEditor, is used to identify the SFX) specifies the variation SFX")]
 			[DefaultValue((Int32)(-1))]
@@ -142,7 +144,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "行動ID", Google translated: "Action ID".
 			/// Japanese description: "道具を使ったときに発生する効果を設定します", Google translated: "You can set the effect that occurs when you use the tool".
 			/// </remarks>
-			[ParameterTableRowAttribute("behaviorId", index: 5, minimum: -1, maximum: 1E+08, step: 1, order: 1600, unknown2: 1)]
+			[ParameterTableRowAttribute("behaviorId", index: 5, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 1600, unknown2: 1)]
 			[DisplayName("Action ID")]
 			[Description("You can set the effect that occurs when you use the tool")]
 			[DefaultValue((Int32)0)]
@@ -160,7 +162,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "差し替えアイテムID", Google translated: "Replacement item ID".
 			/// Japanese description: "差し替えるときのアイテムID", Google translated: "Item ID when you replace".
 			/// </remarks>
-			[ParameterTableRowAttribute("replaceItemId", index: 6, minimum: -1, maximum: 1E+09, step: 1, order: 3500, unknown2: 1)]
+			[ParameterTableRowAttribute("replaceItemId", index: 6, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 3500, unknown2: 1)]
 			[DisplayName("Replacement item ID")]
 			[Description("Item ID when you replace")]
 			[DefaultValue((Int32)(-1))]
@@ -178,7 +180,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "QWCID", Google translated: "QWCID".
 			/// Japanese description: "QWCのパラメタiD", Google translated: "ID parameters of QWC".
 			/// </remarks>
-			[ParameterTableRowAttribute("qwcId", index: 8, minimum: -1, maximum: 1E+08, step: 1, order: 3900, unknown2: 1)]
+			[ParameterTableRowAttribute("qwcId", index: 8, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 3900, unknown2: 1)]
 			[DisplayName("QWCID")]
 			[Description("ID parameters of QWC")]
 			[DefaultValue((Int32)(-1))]
@@ -197,7 +199,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "YES/NOメッセージID", Google translated: "YES / NO message ID".
 			/// Japanese description: "YesNoダイアログ表示時に使用するメッセージID", Google translated: "Message ID that is used to display the time YesNo dialog".
 			/// </remarks>
-			[ParameterTableRowAttribute("yesNoDialogMessageId", index: 9, minimum: -1, maximum: 1E+08, step: 1, order: 4300, unknown2: 1)]
+			[ParameterTableRowAttribute("yesNoDialogMessageId", index: 9, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 4300, unknown2: 1)]
 			[DisplayName("YES / NO message ID")]
 			[Description("Message ID that is used to display the time YesNo dialog")]
 			[DefaultValue((Int32)(-1))]
@@ -215,7 +217,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "魔法ID", Google translated: "Magic ID".
 			/// Japanese description: "巻物と紐づいた魔法ID", Google translated: "Magic ID that Zui string and scroll".
 			/// </remarks>
-			[ParameterTableRowAttribute("magicId", index: 10, minimum: -1, maximum: 1E+08, step: 1, order: 15000, unknown2: 1)]
+			[ParameterTableRowAttribute("magicId", index: 10, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 15000, unknown2: 1)]
 			[DisplayName("Magic ID")]
 			[Description("Magic ID that Zui string and scroll")]
 			[DefaultValue((Int32)(-1))]
@@ -233,7 +235,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "アイコンID", Google translated: "Icon ID".
 			/// Japanese description: "メニュー用アイコンID", Google translated: "Menu icon ID".
 			/// </remarks>
-			[ParameterTableRowAttribute("iconId", index: 11, minimum: 0, maximum: 9999, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("iconId", index: 11, minimum: 0, maximum: 9999, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Icon ID")]
 			[Description("Menu icon ID")]
 			[DefaultValue((UInt16)0)]
@@ -251,7 +253,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "モデルID", Google translated: "Model ID".
 			/// Japanese description: "モデルID", Google translated: "Model ID".
 			/// </remarks>
-			[ParameterTableRowAttribute("modelId", index: 12, minimum: 0, maximum: 9999, step: 1, order: 1000, unknown2: 1)]
+			[ParameterTableRowAttribute("modelId", index: 12, minimum: 0, maximum: 9999, step: 1, sortOrder: 1000, unknown2: 1)]
 			[DisplayName("Model ID")]
 			[Description("Model ID")]
 			[DefaultValue((UInt16)0)]
@@ -270,7 +272,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ショップレベル", Google translated: "Shop level".
 			/// Japanese description: "お店で販売できるレベル", Google translated: "Level that can be sold in the shop".
 			/// </remarks>
-			[ParameterTableRowAttribute("shopLv", index: 13, minimum: -1, maximum: 9999, step: 1, order: 2800, unknown2: 1)]
+			[ParameterTableRowAttribute("shopLv", index: 13, minimum: -1, maximum: 9999, step: 1, sortOrder: 2800, unknown2: 1)]
 			[DisplayName("Shop level")]
 			[Description("Level that can be sold in the shop")]
 			[DefaultValue((Int16)0)]
@@ -289,7 +291,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "コンプトロフィーSEQ番号", Google translated: "Comp trophy SEQ number".
 			/// Japanese description: "コンプリート系トロフィのSEQ番号", Google translated: "SEQ number of complete system trophy".
 			/// </remarks>
-			[ParameterTableRowAttribute("compTrophySedId", index: 14, minimum: -1, maximum: 99, step: 1, order: 3700, unknown2: 1)]
+			[ParameterTableRowAttribute("compTrophySedId", index: 14, minimum: -1, maximum: 99, step: 1, sortOrder: 3700, unknown2: 1)]
 			[DisplayName("Comp trophy SEQ number")]
 			[Description("SEQ number of complete system trophy")]
 			[DefaultValue((Int16)(-1))]
@@ -307,7 +309,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "トロフィーSEQ番号", Google translated: "Trophy SEQ number".
 			/// Japanese description: "トロフィーのSEQ番号", Google translated: "SEQ number of trophy".
 			/// </remarks>
-			[ParameterTableRowAttribute("trophySeqId", index: 15, minimum: -1, maximum: 99, step: 1, order: 3800, unknown2: 1)]
+			[ParameterTableRowAttribute("trophySeqId", index: 15, minimum: -1, maximum: 99, step: 1, sortOrder: 3800, unknown2: 1)]
 			[DisplayName("Trophy SEQ number")]
 			[Description("SEQ number of trophy")]
 			[DefaultValue((Int16)(-1))]
@@ -325,7 +327,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "最大所持数", Google translated: "The maximum number of possession".
 			/// Japanese description: "最大所持数", Google translated: "The maximum number of possession".
 			/// </remarks>
-			[ParameterTableRowAttribute("maxNum", index: 16, minimum: 0, maximum: 9999, step: 1, order: 610, unknown2: 1)]
+			[ParameterTableRowAttribute("maxNum", index: 16, minimum: 0, maximum: 9999, step: 1, sortOrder: 610, unknown2: 1)]
 			[DisplayName("The maximum number of possession")]
 			[Description("The maximum number of possession")]
 			[DefaultValue((Int16)0)]
@@ -343,7 +345,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "消費人間性", Google translated: "Consumption humanity".
 			/// Japanese description: "消費人間性", Google translated: "Consumption humanity".
 			/// </remarks>
-			[ParameterTableRowAttribute("consumeHeroPoint", index: 17, minimum: 0, maximum: 255, step: 1, order: 611, unknown2: 1)]
+			[ParameterTableRowAttribute("consumeHeroPoint", index: 17, minimum: 0, maximum: 255, step: 1, sortOrder: 611, unknown2: 1)]
 			[DisplayName("Consumption humanity")]
 			[Description("Consumption humanity")]
 			[DefaultValue((Byte)0)]
@@ -362,7 +364,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "技量オーバー開始値", Google translated: "Workmanship over the starting value".
 			/// Japanese description: "技量オーバー開始値", Google translated: "Workmanship over the starting value".
 			/// </remarks>
-			[ParameterTableRowAttribute("overDexterity", index: 18, minimum: 0, maximum: 99, step: 1, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("overDexterity", index: 18, minimum: 0, maximum: 99, step: 1, sortOrder: 700, unknown2: 1)]
 			[DisplayName("Workmanship over the starting value")]
 			[Description("Workmanship over the starting value")]
 			[DefaultValue((Byte)0)]
@@ -380,7 +382,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "道具のタイプ", Google translated: "Type of tool".
 			/// Japanese description: "道具の種類", Google translated: "Type of tool".
 			/// </remarks>
-			[ParameterTableRowAttribute("goodsType", index: 19, minimum: 0, maximum: 99, step: 1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("goodsType", index: 19, minimum: 0, maximum: 99, step: 1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("Type of tool")]
 			[Description("Type of tool")]
 			[DefaultValue((ItemType)0)]
@@ -394,7 +396,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "IDカテゴリ", Google translated: "ID category".
 			/// Japanese description: "↓のIDのカテゴリ[攻撃、飛び道具、特殊]", Google translated: "↓ category of ID [ attack , missile , special ]".
 			/// </remarks>
-			[ParameterTableRowAttribute("refCategory", index: 20, minimum: 0, maximum: 255, step: 1, order: 300, unknown2: 1)]
+			[ParameterTableRowAttribute("refCategory", index: 20, minimum: 0, maximum: 255, step: 1, sortOrder: 300, unknown2: 1)]
 			[DisplayName("ID category")]
 			[Description("↓ category of ID [ attack , missile , special ]")]
 			[DefaultValue((BehaviorRefType)0)]
@@ -408,7 +410,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "特殊効果カテゴリ", Google translated: "Special effects category".
 			/// Japanese description: "スキルや、魔法、アイテムなどで、パラメータが変動する効果（エンチャントウェポンなど）があるので、│定した効果が、「武器攻撃のみをパワーアップする」といった効果に対応できるように行動ごとに設定するバリスタなど、設定の必要のないものは「なし」を設定する", Google translated: "Skills , magic , or item , because the effect of variation in parameters (such as Enchant Weapon ) , and sets the action for each effect it was │ boss is , to cope with effects such as' power up the only weapon attack " things such as varistor , without the need for setting is set to " None"".
 			/// </remarks>
-			[ParameterTableRowAttribute("spEffectCategory", index: 21, minimum: 0, maximum: 255, step: 1, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("spEffectCategory", index: 21, minimum: 0, maximum: 255, step: 1, sortOrder: 600, unknown2: 1)]
 			[DisplayName("Special effects category")]
 			[Description("Skills , magic , or item , because the effect of variation in parameters (such as Enchant Weapon ) , and sets the action for each effect it was │ boss is , to cope with effects such as' power up the only weapon attack \" things such as varistor , without the need for setting is set to \" None\"")]
 			[DefaultValue((BehaviorCategory)0)]
@@ -422,7 +424,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "道具カテゴリ", Google translated: "Tool category".
 			/// Japanese description: "道具カテゴリ", Google translated: "Tool category".
 			/// </remarks>
-			[ParameterTableRowAttribute("goodsCategory", index: 22, minimum: 0, maximum: 99, step: 1, order: 1300, unknown2: 1)]
+			[ParameterTableRowAttribute("goodsCategory", index: 22, minimum: 0, maximum: 99, step: 1, sortOrder: 1300, unknown2: 1)]
 			[DisplayName("Tool category")]
 			[Description("Tool category")]
 			[DefaultValue((ItemCategory)0)]
@@ -436,7 +438,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "道具使用時アニメ", Google translated: "Animation tool use when".
 			/// Japanese description: "道具を使ったときに再生するアニメを設定します", Google translated: "You can set the animation that plays when you use the tool".
 			/// </remarks>
-			[ParameterTableRowAttribute("goodsUseAnim", index: 23, minimum: 0, maximum: 99, step: 1, order: 1500, unknown2: 1)]
+			[ParameterTableRowAttribute("goodsUseAnim", index: 23, minimum: 0, maximum: 99, step: 1, sortOrder: 1500, unknown2: 1)]
 			[DisplayName("Animation tool use when")]
 			[Description("You can set the animation that plays when you use the tool")]
 			[DefaultValue((ItemUseAnimation)0)]
@@ -450,7 +452,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "メニュー開くか", Google translated: "Open or menu".
 			/// Japanese description: "アイテム使用時に開くメニュータイプ", Google translated: "Menu type you want to open an item when using".
 			/// </remarks>
-			[ParameterTableRowAttribute("opmeMenuType", index: 24, minimum: 0, maximum: 255, step: 1, order: 4100, unknown2: 1)]
+			[ParameterTableRowAttribute("opmeMenuType", index: 24, minimum: 0, maximum: 255, step: 1, sortOrder: 4100, unknown2: 1)]
 			[DisplayName("Open or menu")]
 			[Description("Menu type you want to open an item when using")]
 			[DefaultValue((ItemUseMenu)0)]
@@ -464,7 +466,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "特殊効果カテゴリによる使用制限", Google translated: "Use limited by special effects category".
 			/// Japanese description: "かかっている特殊効果によって使用可能かを制御する為に指定", Google translated: "The specify to control the availability of the special effects are applied".
 			/// </remarks>
-			[ParameterTableRowAttribute("useLimitCategory", index: 25, minimum: 0, maximum: 255, step: 1, order: 1610, unknown2: 1)]
+			[ParameterTableRowAttribute("useLimitCategory", index: 25, minimum: 0, maximum: 255, step: 1, sortOrder: 1610, unknown2: 1)]
 			[DisplayName("Use limited by special effects category")]
 			[Description("The specify to control the availability of the special effects are applied")]
 			[DefaultValue((SpecialEffectUseLimitCategory)0)]
@@ -478,7 +480,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "差し替えカテゴリ", Google translated: "Replacement category".
 			/// Japanese description: "呼び出しIDに加算しる条件カテゴリ", Google translated: "In addition sill condition category to call ID".
 			/// </remarks>
-			[ParameterTableRowAttribute("replaceCategory", index: 26, minimum: 0, maximum: 255, step: 1, order: 15001, unknown2: 1)]
+			[ParameterTableRowAttribute("replaceCategory", index: 26, minimum: 0, maximum: 255, step: 1, sortOrder: 15001, unknown2: 1)]
 			[DisplayName("Replacement category")]
 			[Description("In addition sill condition category to call ID")]
 			[DefaultValue((ReplacementCategory)0)]
@@ -492,7 +494,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約0", Google translated: "Pledge 0".
 			/// Japanese description: "誓約0で使用可能か", Google translated: "Compatible with the available commitment 0".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType0:1", index: 27, minimum: 0, maximum: 1, step: 1, order: 20001, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType0:1", index: 27, minimum: 0, maximum: 1, step: 1, sortOrder: 20001, unknown2: 1)]
 			[DisplayName("Pledge 0")]
 			[Description("Compatible with the available commitment 0")]
 			[DefaultValue(false)]
@@ -506,7 +508,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約1", Google translated: "Pledge 1".
 			/// Japanese description: "誓約1で使用可能か", Google translated: "Or can be used in one pledge".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType1:1", index: 28, minimum: 0, maximum: 1, step: 1, order: 20002, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType1:1", index: 28, minimum: 0, maximum: 1, step: 1, sortOrder: 20002, unknown2: 1)]
 			[DisplayName("Pledge 1")]
 			[Description("Or can be used in one pledge")]
 			[DefaultValue(false)]
@@ -520,7 +522,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約2", Google translated: "Pledge 2".
 			/// Japanese description: "誓約2で使用可能か", Google translated: "Or available on the pledge 2".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType2:1", index: 29, minimum: 0, maximum: 1, step: 1, order: 20003, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType2:1", index: 29, minimum: 0, maximum: 1, step: 1, sortOrder: 20003, unknown2: 1)]
 			[DisplayName("Pledge 2")]
 			[Description("Or available on the pledge 2")]
 			[DefaultValue(false)]
@@ -534,7 +536,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約3", Google translated: "Pledge 3".
 			/// Japanese description: "誓約3で使用可能か", Google translated: "Or available on the pledge 3".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType3:1", index: 30, minimum: 0, maximum: 1, step: 1, order: 20004, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType3:1", index: 30, minimum: 0, maximum: 1, step: 1, sortOrder: 20004, unknown2: 1)]
 			[DisplayName("Pledge 3")]
 			[Description("Or available on the pledge 3")]
 			[DefaultValue(false)]
@@ -548,7 +550,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約4", Google translated: "Pledge 4".
 			/// Japanese description: "誓約4で使用可能か", Google translated: "Or available on the pledge 4".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType4:1", index: 31, minimum: 0, maximum: 1, step: 1, order: 20005, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType4:1", index: 31, minimum: 0, maximum: 1, step: 1, sortOrder: 20005, unknown2: 1)]
 			[DisplayName("Pledge 4")]
 			[Description("Or available on the pledge 4")]
 			[DefaultValue(false)]
@@ -562,7 +564,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約5", Google translated: "Pledge 5".
 			/// Japanese description: "誓約5で使用可能か", Google translated: "Compatible with the available commitment 5".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType5:1", index: 32, minimum: 0, maximum: 1, step: 1, order: 20006, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType5:1", index: 32, minimum: 0, maximum: 1, step: 1, sortOrder: 20006, unknown2: 1)]
 			[DisplayName("Pledge 5")]
 			[Description("Compatible with the available commitment 5")]
 			[DefaultValue(false)]
@@ -576,7 +578,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約6", Google translated: "Pledge 6".
 			/// Japanese description: "誓約6で使用可能か", Google translated: "Compatible with the available six pledge".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType6:1", index: 33, minimum: 0, maximum: 1, step: 1, order: 20007, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType6:1", index: 33, minimum: 0, maximum: 1, step: 1, sortOrder: 20007, unknown2: 1)]
 			[DisplayName("Pledge 6")]
 			[Description("Compatible with the available six pledge")]
 			[DefaultValue(false)]
@@ -590,7 +592,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約7", Google translated: "Pledge 7".
 			/// Japanese description: "誓約7で使用可能か", Google translated: "Or available on the pledge 7".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType7:1", index: 34, minimum: 0, maximum: 1, step: 1, order: 20008, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType7:1", index: 34, minimum: 0, maximum: 1, step: 1, sortOrder: 20008, unknown2: 1)]
 			[DisplayName("Pledge 7")]
 			[Description("Or available on the pledge 7")]
 			[DefaultValue(false)]
@@ -604,7 +606,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約8", Google translated: "Pledge 8".
 			/// Japanese description: "誓約8で使用可能か", Google translated: "Or available on the pledge 8".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType8:1", index: 35, minimum: 0, maximum: 1, step: 1, order: 20009, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType8:1", index: 35, minimum: 0, maximum: 1, step: 1, sortOrder: 20009, unknown2: 1)]
 			[DisplayName("Pledge 8")]
 			[Description("Or available on the pledge 8")]
 			[DefaultValue(false)]
@@ -618,7 +620,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約9", Google translated: "Pledge 9".
 			/// Japanese description: "誓約9で使用可能か", Google translated: "Compatible with the available commitment 9".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType9:1", index: 36, minimum: 0, maximum: 1, step: 1, order: 20010, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType9:1", index: 36, minimum: 0, maximum: 1, step: 1, sortOrder: 20010, unknown2: 1)]
 			[DisplayName("Pledge 9")]
 			[Description("Compatible with the available commitment 9")]
 			[DefaultValue(false)]
@@ -632,7 +634,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約10", Google translated: "Pledge 10".
 			/// Japanese description: "誓約10で使用可能か", Google translated: "Or available in 10 pledge".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType10:1", index: 37, minimum: 0, maximum: 1, step: 1, order: 20011, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType10:1", index: 37, minimum: 0, maximum: 1, step: 1, sortOrder: 20011, unknown2: 1)]
 			[DisplayName("Pledge 10")]
 			[Description("Or available in 10 pledge")]
 			[DefaultValue(false)]
@@ -646,7 +648,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約11", Google translated: "Pledge 11".
 			/// Japanese description: "誓約11で使用可能か", Google translated: "Or available in 11 pledge".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType11:1", index: 38, minimum: 0, maximum: 1, step: 1, order: 20012, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType11:1", index: 38, minimum: 0, maximum: 1, step: 1, sortOrder: 20012, unknown2: 1)]
 			[DisplayName("Pledge 11")]
 			[Description("Or available in 11 pledge")]
 			[DefaultValue(false)]
@@ -660,7 +662,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約12", Google translated: "Pledge 12".
 			/// Japanese description: "誓約12で使用可能か", Google translated: "Or available in 12 pledge".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType12:1", index: 39, minimum: 0, maximum: 1, step: 1, order: 20013, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType12:1", index: 39, minimum: 0, maximum: 1, step: 1, sortOrder: 20013, unknown2: 1)]
 			[DisplayName("Pledge 12")]
 			[Description("Or available in 12 pledge")]
 			[DefaultValue(false)]
@@ -674,7 +676,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約13", Google translated: "Pledge 13".
 			/// Japanese description: "誓約13で使用可能か", Google translated: "Or available in 13 pledge".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType13:1", index: 40, minimum: 0, maximum: 1, step: 1, order: 20014, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType13:1", index: 40, minimum: 0, maximum: 1, step: 1, sortOrder: 20014, unknown2: 1)]
 			[DisplayName("Pledge 13")]
 			[Description("Or available in 13 pledge")]
 			[DefaultValue(false)]
@@ -688,7 +690,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約14", Google translated: "Pledge 14".
 			/// Japanese description: "誓約14で使用可能か", Google translated: "Or available in 14 pledge".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType14:1", index: 41, minimum: 0, maximum: 1, step: 1, order: 20015, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType14:1", index: 41, minimum: 0, maximum: 1, step: 1, sortOrder: 20015, unknown2: 1)]
 			[DisplayName("Pledge 14")]
 			[Description("Or available in 14 pledge")]
 			[DefaultValue(false)]
@@ -702,7 +704,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約15", Google translated: "Pledge 15".
 			/// Japanese description: "誓約15で使用可能か", Google translated: "Or available in 15 pledge".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType15:1", index: 42, minimum: 0, maximum: 1, step: 1, order: 20016, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType15:1", index: 42, minimum: 0, maximum: 1, step: 1, sortOrder: 20016, unknown2: 1)]
 			[DisplayName("Pledge 15")]
 			[Description("Or available in 15 pledge")]
 			[DefaultValue(false)]
@@ -716,7 +718,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "生存使用可", Google translated: "Survival usable".
 			/// Japanese description: "生存プレイヤー使用可能か", Google translated: "Or survival player available".
 			/// </remarks>
-			[ParameterTableRowAttribute("enable_live:1", index: 43, minimum: 0, maximum: 1, step: 1, order: 1700, unknown2: 1)]
+			[ParameterTableRowAttribute("enable_live:1", index: 43, minimum: 0, maximum: 1, step: 1, sortOrder: 1700, unknown2: 1)]
 			[DisplayName("Survival usable")]
 			[Description("Or survival player available")]
 			[DefaultValue(false)]
@@ -730,7 +732,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "グレイ使用可", Google translated: "Gray usable".
 			/// Japanese description: "グレイゴースト使用可能か", Google translated: "Or gray ghost available".
 			/// </remarks>
-			[ParameterTableRowAttribute("enable_gray:1", index: 44, minimum: 0, maximum: 1, step: 1, order: 1800, unknown2: 1)]
+			[ParameterTableRowAttribute("enable_gray:1", index: 44, minimum: 0, maximum: 1, step: 1, sortOrder: 1800, unknown2: 1)]
 			[DisplayName("Gray usable")]
 			[Description("Or gray ghost available")]
 			[DefaultValue(false)]
@@ -744,7 +746,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "白使用可", Google translated: "White usable".
 			/// Japanese description: "ホワイトゴースト使用可能か", Google translated: "White or ghost available".
 			/// </remarks>
-			[ParameterTableRowAttribute("enable_white:1", index: 45, minimum: 0, maximum: 1, step: 1, order: 1900, unknown2: 1)]
+			[ParameterTableRowAttribute("enable_white:1", index: 45, minimum: 0, maximum: 1, step: 1, sortOrder: 1900, unknown2: 1)]
 			[DisplayName("White usable")]
 			[Description("White or ghost available")]
 			[DefaultValue(false)]
@@ -758,7 +760,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "黒使用可", Google translated: "Black usable".
 			/// Japanese description: "ブラックゴーストしよう可能か", Google translated: "Is it possible you are trying to black ghost".
 			/// </remarks>
-			[ParameterTableRowAttribute("enable_black:1", index: 46, minimum: 0, maximum: 1, step: 1, order: 2000, unknown2: 1)]
+			[ParameterTableRowAttribute("enable_black:1", index: 46, minimum: 0, maximum: 1, step: 1, sortOrder: 2000, unknown2: 1)]
 			[DisplayName("Black usable")]
 			[Description("Is it possible you are trying to black ghost")]
 			[DefaultValue(false)]
@@ -772,7 +774,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "マルチプレイ可", Google translated: "Multiplayer Allowed".
 			/// Japanese description: "マルチプレイ中に使用可能か？", Google translated: "Or available in multiplayer ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("enable_multi:1", index: 47, minimum: 0, maximum: 1, step: 1, order: 2100, unknown2: 1)]
+			[ParameterTableRowAttribute("enable_multi:1", index: 47, minimum: 0, maximum: 1, step: 1, sortOrder: 2100, unknown2: 1)]
 			[DisplayName("Multiplayer Allowed")]
 			[Description("Or available in multiplayer ?")]
 			[DefaultValue(false)]
@@ -786,7 +788,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "オフラインで使用不可", Google translated: "Not available offline".
 			/// Japanese description: "オフライン中に使用不可か？", Google translated: "Do not use while offline ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("disable_offline:1", index: 48, minimum: 0, maximum: 1, step: 1, order: 2200, unknown2: 1)]
+			[ParameterTableRowAttribute("disable_offline:1", index: 48, minimum: 0, maximum: 1, step: 1, sortOrder: 2200, unknown2: 1)]
 			[DisplayName("Not available offline")]
 			[Description("Do not use while offline ?")]
 			[DefaultValue(false)]
@@ -800,7 +802,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "装備可能", Google translated: "Can be equipped".
 			/// Japanese description: "装備できるかどうか", Google translated: "Whether equipment".
 			/// </remarks>
-			[ParameterTableRowAttribute("isEquip:1", index: 49, minimum: 0, maximum: 1, step: 1, order: 2400, unknown2: 1)]
+			[ParameterTableRowAttribute("isEquip:1", index: 49, minimum: 0, maximum: 1, step: 1, sortOrder: 2400, unknown2: 1)]
 			[DisplayName("Can be equipped")]
 			[Description("Whether equipment")]
 			[DefaultValue(true)]
@@ -814,7 +816,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "消耗品か", Google translated: "Or consumables".
 			/// Japanese description: "使用時に消耗するか(所持数が減るか)", Google translated: "( Possession or decrease the number ) or consumed at the time of use".
 			/// </remarks>
-			[ParameterTableRowAttribute("isConsume:1", index: 50, minimum: 0, maximum: 1, step: 1, order: 2500, unknown2: 1)]
+			[ParameterTableRowAttribute("isConsume:1", index: 50, minimum: 0, maximum: 1, step: 1, sortOrder: 2500, unknown2: 1)]
 			[DisplayName("Or consumables")]
 			[Description("( Possession or decrease the number ) or consumed at the time of use")]
 			[DefaultValue(true)]
@@ -828,7 +830,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "自動装備するか？", Google translated: "Or automatic equipment ?".
 			/// Japanese description: "拾った時に自動で装備するか？", Google translated: "You can equip automatically when you picked up ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("isAutoEquip:1", index: 51, minimum: 0, maximum: 1, step: 1, order: 2600, unknown2: 1)]
+			[ParameterTableRowAttribute("isAutoEquip:1", index: 51, minimum: 0, maximum: 1, step: 1, sortOrder: 2600, unknown2: 1)]
 			[DisplayName("Or automatic equipment ?")]
 			[Description("You can equip automatically when you picked up ?")]
 			[DefaultValue(true)]
@@ -842,7 +844,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "設置型アイテムか？", Google translated: "Or installation type item?".
 			/// Japanese description: "設置型アイテムか？", Google translated: "Or installation type item?".
 			/// </remarks>
-			[ParameterTableRowAttribute("isEstablishment:1", index: 52, minimum: 0, maximum: 1, step: 1, order: 2700, unknown2: 1)]
+			[ParameterTableRowAttribute("isEstablishment:1", index: 52, minimum: 0, maximum: 1, step: 1, sortOrder: 2700, unknown2: 1)]
 			[DisplayName("Or installation type item?")]
 			[Description("Or installation type item?")]
 			[DefaultValue(false)]
@@ -856,7 +858,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "1個しか持てないか", Google translated: "Do not you have only one".
 			/// Japanese description: "1個しか持てないアイテムか", Google translated: "Or items that you can only have one".
 			/// </remarks>
-			[ParameterTableRowAttribute("isOnlyOne:1", index: 53, minimum: 0, maximum: 1, step: 1, order: 2900, unknown2: 1)]
+			[ParameterTableRowAttribute("isOnlyOne:1", index: 53, minimum: 0, maximum: 1, step: 1, sortOrder: 2900, unknown2: 1)]
 			[DisplayName("Do not you have only one")]
 			[Description("Or items that you can only have one")]
 			[DefaultValue(false)]
@@ -870,7 +872,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "捨てれるか", Google translated: "Either discarded".
 			/// Japanese description: "アイテムを捨てれるか？TRUE=捨てれる", Google translated: "Is either discard the item? Is discarded TRUE =".
 			/// </remarks>
-			[ParameterTableRowAttribute("isDrop:1", index: 54, minimum: 0, maximum: 1, step: 1, order: 3100, unknown2: 1)]
+			[ParameterTableRowAttribute("isDrop:1", index: 54, minimum: 0, maximum: 1, step: 1, sortOrder: 3100, unknown2: 1)]
 			[DisplayName("Either discarded")]
 			[Description("Is either discard the item? Is discarded TRUE =")]
 			[DefaultValue(true)]
@@ -884,7 +886,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "右素手に使えないか", Google translated: "Do not use bare hands to the right".
 			/// Japanese description: "右手武器が素手の場合に使用不可か", Google translated: "Right hand weapon or disabled in the case of bare hands".
 			/// </remarks>
-			[ParameterTableRowAttribute("isDisableHand:1", index: 56, minimum: 0, maximum: 1, step: 1, order: 3200, unknown2: 1)]
+			[ParameterTableRowAttribute("isDisableHand:1", index: 56, minimum: 0, maximum: 1, step: 1, sortOrder: 3200, unknown2: 1)]
 			[DisplayName("Do not use bare hands to the right")]
 			[Description("Right hand weapon or disabled in the case of bare hands")]
 			[DefaultValue(false)]
@@ -898,7 +900,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "旅するアイテムか", Google translated: "Or items to travel".
 			/// Japanese description: "旅するアイテム判別に使用します", Google translated: "It is used to determine items to travel".
 			/// </remarks>
-			[ParameterTableRowAttribute("IsTravelItem:1", index: 57, minimum: 0, maximum: 1, step: 1, order: 3300, unknown2: 1)]
+			[ParameterTableRowAttribute("IsTravelItem:1", index: 57, minimum: 0, maximum: 1, step: 1, sortOrder: 3300, unknown2: 1)]
 			[DisplayName("Or items to travel")]
 			[Description("It is used to determine items to travel")]
 			[DefaultValue(false)]
@@ -912,7 +914,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "補充アイテムか", Google translated: "Or replenishment items".
 			/// Japanese description: "補充可能アイテムを判別するのに使用します", Google translated: "It is used to determine the refillable items".
 			/// </remarks>
-			[ParameterTableRowAttribute("isSuppleItem:1", index: 58, minimum: 0, maximum: 1, step: 1, order: 3310, unknown2: 1)]
+			[ParameterTableRowAttribute("isSuppleItem:1", index: 58, minimum: 0, maximum: 1, step: 1, sortOrder: 3310, unknown2: 1)]
 			[DisplayName("Or replenishment items")]
 			[Description("It is used to determine the refillable items")]
 			[DefaultValue(false)]
@@ -926,7 +928,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "補充済みアイテムか", Google translated: "Or supplementation Items".
 			/// Japanese description: "補充済みアイテムを判別するのに使用します", Google translated: "It is used to determine the replenishment Items".
 			/// </remarks>
-			[ParameterTableRowAttribute("isFullSuppleItem:1", index: 59, minimum: 0, maximum: 1, step: 1, order: 3311, unknown2: 1)]
+			[ParameterTableRowAttribute("isFullSuppleItem:1", index: 59, minimum: 0, maximum: 1, step: 1, sortOrder: 3311, unknown2: 1)]
 			[DisplayName("Or supplementation Items")]
 			[Description("It is used to determine the replenishment Items")]
 			[DefaultValue(false)]
@@ -940,7 +942,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "エンチャントするか？", Google translated: "Or enchant ?".
 			/// Japanese description: "武器にエンチャントするか？", Google translated: "You can enchant weapons ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("isEnhance:1", index: 60, minimum: 0, maximum: 1, step: 1, order: 4000, unknown2: 1)]
+			[ParameterTableRowAttribute("isEnhance:1", index: 60, minimum: 0, maximum: 1, step: 1, sortOrder: 4000, unknown2: 1)]
 			[DisplayName("Or enchant ?")]
 			[Description("You can enchant weapons ?")]
 			[DefaultValue(false)]
@@ -954,7 +956,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "修理アイテムか", Google translated: "Or repair items".
 			/// Japanese description: "修理するアイテムか？", Google translated: "The item to be repaired ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("isFixItem:1", index: 61, minimum: 0, maximum: 1, step: 1, order: 3250, unknown2: 1)]
+			[ParameterTableRowAttribute("isFixItem:1", index: 61, minimum: 0, maximum: 1, step: 1, sortOrder: 3250, unknown2: 1)]
 			[DisplayName("Or repair items")]
 			[Description("The item to be repaired ?")]
 			[DefaultValue(false)]
@@ -968,7 +970,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "マルチドロップ共有禁止か", Google translated: "Or multi-drop sharing ban".
 			/// Japanese description: "マルチドロップ共有禁止か", Google translated: "Or multi-drop sharing ban".
 			/// </remarks>
-			[ParameterTableRowAttribute("disableMultiDropShare:1", index: 62, minimum: 0, maximum: 1, step: 1, order: 3155, unknown2: 1)]
+			[ParameterTableRowAttribute("disableMultiDropShare:1", index: 62, minimum: 0, maximum: 1, step: 1, sortOrder: 3155, unknown2: 1)]
 			[DisplayName("Or multi-drop sharing ban")]
 			[Description("Or multi-drop sharing ban")]
 			[DefaultValue(false)]
@@ -982,7 +984,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "闘技場で使用禁止か", Google translated: "Or disabled in the arena".
 			/// Japanese description: "闘技場で使用禁止か", Google translated: "Or disabled in the arena".
 			/// </remarks>
-			[ParameterTableRowAttribute("disableUseAtColiseum:1", index: 63, minimum: 0, maximum: 1, step: 1, order: 3160, unknown2: 1)]
+			[ParameterTableRowAttribute("disableUseAtColiseum:1", index: 63, minimum: 0, maximum: 1, step: 1, sortOrder: 3160, unknown2: 1)]
 			[DisplayName("Or disabled in the arena")]
 			[Description("Or disabled in the arena")]
 			[DefaultValue(false)]
@@ -996,7 +998,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "闘技場以外で使用禁止か", Google translated: "Or disabled in the arena other than".
 			/// Japanese description: "闘技場以外で使用禁止か", Google translated: "Or disabled in the arena other than".
 			/// </remarks>
-			[ParameterTableRowAttribute("disableUseAtOutOfColiseum:1", index: 64, minimum: 0, maximum: 1, step: 1, order: 3160, unknown2: 1)]
+			[ParameterTableRowAttribute("disableUseAtOutOfColiseum:1", index: 64, minimum: 0, maximum: 1, step: 1, sortOrder: 3160, unknown2: 1)]
 			[DisplayName("Or disabled in the arena other than")]
 			[Description("Or disabled in the arena other than")]
 			[DefaultValue(false)]
@@ -1010,7 +1012,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad[9]", index: 65, minimum: 0, maximum: 0, step: 0, order: 99999, unknown2: 0)]
+			[ParameterTableRowAttribute("pad[9]", index: 65, minimum: 0, maximum: 0, step: 0, sortOrder: 99999, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("")]
 			public Byte[] Pad {
@@ -1018,10 +1020,13 @@ namespace Alexandria.Engines.DarkSouls {
 				set { SetProperty(ref pad, ref value, PadProperty); }
 			}
 
+			/// <summary>Get the localised English name of this <see cref="Good"/>.</summary>
 			public string EnglishName { get { return GetLocalisedName(Language.English); } }
 
+			/// <summary>Get the localised English description of this <see cref="Good"/>.</summary>
 			public string EnglishDescription { get { return GetLocalisedDescription(Language.English).Trim(); } }
 
+			/// <summary>Get the localised English effect of this <see cref="Good"/>.</summary>
 			public string EnglishEffects { get { return GetLocalisedEffects(Language.English); } }
 
 			internal Good(ParameterTable table, int index, AssetLoader loader, int next)
@@ -1133,10 +1138,23 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad = new Byte[9];
 			}
 
-			public string GetLocalisedName(Language language = Language.English) { return GetLocalisedString(Engine.ItemArchiveId.ItemNames, language); }
-			public string GetLocalisedDescription(Language language = Language.English) { return GetLocalisedString(Engine.ItemArchiveId.ItemDescriptions, language); }
+			/// <summary>Get the localised name of this <see cref="Good"/>.</summary>
+			/// <param name="language"></param>
+			/// <returns></returns>
+			public string GetLocalisedName(Language language = Language.English) { return GetLocalisedString(Engine.ItemArchiveId.GoodsNames, language); }
+
+			/// <summary>Get the localised description of this <see cref="Good"/>.</summary>
+			/// <param name="language"></param>
+			/// <returns></returns>
+			public string GetLocalisedDescription(Language language = Language.English) { return GetLocalisedString(Engine.ItemArchiveId.GoodsDescriptions, language); }
+
+			/// <summary>Get the localised effect of this <see cref="Good"/>.</summary>
+			/// <param name="language"></param>
+			/// <returns></returns>
 			public string GetLocalisedEffects(Language language = Language.English) { return GetLocalisedString(Engine.ItemArchiveId.ItemEffects, language); }
 
+			/// <summary>Write the <see cref="Good"/>.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(RefId);
 				writer.Write(SfxVariationId);

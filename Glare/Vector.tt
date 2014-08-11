@@ -12,22 +12,22 @@ namespace Glare
 	{
 		#region Properties
 		
-			<#if(!IsIntegral) {#>
-				/// <summary>Compute the squared magnitude of the vector, which is the distance from the origin squared. Use <#=See("Magnitude")#> for the unsquared version, which is slower to compute.</summary>
-				public <#=SquaredType#> MagnitudeSquared { get { return <#Join("+", (axis) => {#> <#=axis.Id#> * <#=axis.Id#> <#});#>; } }
+			/// <summary>Compute the squared magnitude of the vector, which is the distance from the origin squared. Use <#=See("Magnitude")#> for the unsquared version, which is slower to compute.</summary>
+			public <#=SquaredType#> MagnitudeSquared { get { return (<#=SquaredType#>)(<#Join("+", (axis) => {#> <#=axis.Id#> * <#=axis.Id#> <#});#>); } }
 			
-				/// <summary>Compute the magnitude of the vector, which is the distance from the origin.</summary>
-				public <#=FloatType#> Magnitude {
-					get {
-						return <#ToUniversal(() => {#>
-							Math.Sqrt(
-								<#Join("+", (axis) => {#>
-									<#FromUniversal(() => {#> <#=axis.Id#><#});#>.Squared() 
-								<#});#>
-							)<#});#>;
-					}
+			/// <summary>Compute the magnitude of the vector, which is the distance from the origin.</summary>
+			public <#=FloatType#> Magnitude {
+				get {
+					return <#ToUniversal(() => {#>
+						Math.Sqrt(
+							<#Join("+", (axis) => {#>
+								<#FromUniversal(() => {#> <#=axis.Id#><#});#>.Squared() 
+							<#});#>
+						)<#});#>;
 				}
+			}
 
+			<#if(!IsIntegral) {#>
 				<#if(!IsMeasurement) {#>
 					/// <summary>Get the normalized form of this vector, with a magnitude of one.</summary>
 					public <#=This#> Normalized { get { <#=This#> result; Normalize(out result); return result; } }
@@ -51,6 +51,7 @@ namespace Glare
 				public <#=This#>(<#Comma((axis)=>{#>double <#=axis.IdLow#><#});#>) : this(<#Comma((axis)=>{#>(<#=T#>)<#=axis.IdLow#><#});#>) { }
 
 				<#RefForm((r) => {#>
+					/// <summary>Initialize a vector from double values that are converted into normalized form.</summary>
 					public <#=This#>(<#=r.Ref#> <#=VectorDouble#> value) : this(<#Comma((axis)=>{#>(<#=T#>)value.<#=axis.Id#><#});#>) { }
 				<#});#>
 					
@@ -58,15 +59,18 @@ namespace Glare
 
 			<#if(IsMeasurement) {#>
 				<#foreach(var unit in AddUniversalUnit(LengthUnits)) {#>
+					/// <summary>Initialize the vector from values provided in <#=unit.Plural#> units.</summary>.
 					public static <#=This#> <#=unit.FromMethod#>(<#Join(", ", (axis) => {#> double <#=axis.IdLow#> <#});#>) {
 						return new <#=This#>(<#Join(", ", (axis) => {#> <#=T#>.<#=unit.FromMethod#>(<#=axis.IdLow#>) <#});#>);
 					}
 				
+					/// <summary>Initialize the vector from the <#=unit.Plural#> value.</summary>.
 					public static <#=This#> <#=unit.FromMethod#>(double value) {
 						return new <#=This#>(<#=T#>.<#=unit.FromMethod#>(value));
 					}
 
 					<#RefForm((r) => {#>
+						/// <summary>Initialize the vector from values provided in <#=unit.Plural#> units.</summary>.
 						public static <#=This#> <#=unit.Plural#>(<#=r.Ref#> <#=VectorFloat#> value) {
 							return new <#=This#>(<#Join(", ", (axis) => {#>
 								<#=T#>.<#=unit.FromMethod#>(value.<#=axis.Id#>)
@@ -74,7 +78,7 @@ namespace Glare
 						}
 					<#});#>
 				
-
+					/// <summary>Convert into a vector in <#=unit.Plural#> unit.</summary>
 					public <#=VectorFloat#> <#=unit.InMethod#> {
 						get {
 							return new <#=VectorFloat#>(<#Join(", ", (axis) => {#>
@@ -87,6 +91,7 @@ namespace Glare
 			<#}#>
 
 			<#if(!IsMeasurement) {#>
+				/// <summary>Get a vector that has one for each axis.</summary>
 				public static readonly <#=This#> One = <#New((axis)=>{#><#=ToT#>1<#});#>;
 
 				<#Each((axis)=>{#>
@@ -99,6 +104,7 @@ namespace Glare
 			// Constructors built up of smaller vectors.
 			<#if(Order > 2 && Order - 1 >= Type.MinOrder) {#>
 				<#RefForm((r) => {#>
+					/// <summary>Initialise the vector.</summary>
 					public <#=This#>(<#=r.Ref#> <#=VectorM1#> <#Each((axis)=>{#><#=axis.IdLow#><#}, Order - 1);#>, <#=T#> <#=Axes[Order - 1].IdLow#>) {
 						<#Each((assignAxis) => {#>
 							<#=assignAxis.Id#> = <#Each((axis)=>{#><#=axis.IdLow#><#}, Order - 1);#>.<#=assignAxis.Id#>;
@@ -107,6 +113,7 @@ namespace Glare
 						<#=Axes[Order - 1].Id#> = <#=Axes[Order - 1].IdLow#>;
 					}
 				
+					/// <summary>Initialise the vector.</summary>
 					public <#=This#>(<#=T#> <#=Axes[0].IdLow#>, <#=r.Ref#> <#=VectorM1#> <#Each((axis)=>{#><#=axis.IdLow#><#}, Order - 1, 1);#>) {
 						<#=Axes[0].Id#> = <#=Axes[0].IdLow#>;
 
@@ -120,9 +127,16 @@ namespace Glare
 			// Constructors from much smaller vectors.
 			<#if(Order == 4 && Order - 2 >= Type.MinOrder) {#>
 				<#RefForm((r) => {#>
+					/// <summary>Initialise the vector.</summary>
 					public <#=This#>(<#=r.Ref#> <#=VectorM2#> xy, <#=T#> z, <#=T#> w) { X = xy.X; Y = xy.Y; Z = z; W = w; }
+
+					/// <summary>Initialise the vector.</summary>
 					public <#=This#>(<#=T#> x, <#=r.Ref#> <#=VectorM2#> yz, <#=T#> w) { X = x; Y = yz.X; Z = yz.Y; W = w; }
+
+					/// <summary>Initialise the vector.</summary>
 					public <#=This#>(<#=T#> x, <#=T#> y, <#=r.Ref#> <#=VectorM2#> zw) { X = x; Y = y; Z = zw.X; W = zw.Y; }
+
+					/// <summary>Initialise the vector.</summary>
 					public <#=This#>(<#=r.Ref#> <#=VectorM2#> xy, <#=r.Ref#> <#=VectorM2#> zw) { X = xy.X; Y = xy.Y; Z = zw.X; W = zw.Y; }
 				<#});#>
 			<#}#>
@@ -139,6 +153,7 @@ namespace Glare
 			<#});#>
 
 			<#GenerateReferenceReturn(This, (r) => {#>
+				/// <summary>Get a vector that clamps each axis to the given range.</summary>
 				public <#=r.ReturnType#> Clamp(<#=r.Ref#> <#=This#> min, <#=r.Ref#> <#=This#> max <#=r.Argument#>) {
 					<#=r.Begin#>
 					<#Each((axis) => {#>
@@ -161,10 +176,7 @@ namespace Glare
 
 				/// <summary>Get the squared distance between the vectors.</summary>
 				public <#=SquaredType#> DistanceSquared(<#=r.Ref#> <#=This#> other) {
-					return 
-						<#Join("+", (axis) => {#>
-							(<#=axis.Id#> - other.<#=axis.Id#>).Squared()
-						<#});#>;
+					return (<#=SquaredType#>)(<#Join(" + ", (axis) => {#>(<#=axis.Id#> - other.<#=axis.Id#>).Squared()<#});#>);
 				}
 			<#});#>
 
@@ -219,12 +231,19 @@ namespace Glare
 			<#if(!IsMeasurement) {#>
 				<#foreach(MatrixTypeInfo type in TypeEnumerator()) {
 					if(type.Name == This || Order != type.Order || type.Type.IsMeasurement) continue;
-					#>public static <#=Type.ImplicitCastTo(type.Type)#> operator <#=type.Name#>(<#=This#> a) { return new <#=type.Name#>(<#Comma((axis)=>{#>(<#=type.Type.Name#>)a.<#=axis.Id#><#});#>); }
+					
+					#>/// <summary>An <#=Type.ImplicitCastTo(type.Type)#> cast from <#=SeeThis#> to <see cref="<#=type.Name#>"/></summary>
+					/// <param name="a">The value to cast.</param>
+					/// <returns>The casted value.</returns>
+					public static <#=Type.ImplicitCastTo(type.Type)#> operator <#=type.Name#>(<#=This#> a) {
+						return new <#=type.Name#>(<#Comma((axis)=>{#>(<#=type.Type.Name#>)a.<#=axis.Id#><#});#>);
+					}
 					<#
 				}#>
 
 				// Explicit casting to vectors with a lower order, trimming off axes.
 				<#for(int trimOrder = Order - 1; trimOrder >= 2 && trimOrder >= Type.MinOrder; trimOrder--) {#>
+					/// <summary>Explicitly cast to a vector with fewer axes, dropping the final ones.</summary>
 					public static explicit operator <#=VectorType(trimOrder)#>(<#=This#> a) {
 						return new <#=VectorType(trimOrder)#>(<#Comma((axis) => {
 								Write("a." + axis.Id);
@@ -233,18 +252,27 @@ namespace Glare
 				<#}#>
 			<#}#>
 
+			/// <summary>Get the positive of this vector, which is this vector.</summary>
 			public static <#=This#> operator +(<#=This#> a) { return <#New((axis)=>{#><#=ToT#>(+a.<#=axis.Id#>)<#});#>; }
+
+			/// <summary>Get the negative of this vector.</summary>
 			public static <#=This#> operator -(<#=This#> a) { return <#New((axis)=>{#><#=ToT#>(-a.<#=axis.Id#>)<#});#>; }
 			<#foreach(OperatorInfo op in Operators) {
 				if(!op.IsMeasurement && IsMeasurement)
 					continue;
 				if(op.IsShift) {
 					if(IsIntegral) {#>
+						/// <summary><#=op.Name#> the vector and the scalar.</summary>
 						public static <#=This#> operator <#=op.Id#>(<#=This#> a, int b) { return <#New((axis)=>{#><#=ToT#>(a.<#=axis.Id#> <#=op.Id#> b)<#});#>; }
 					<#}
 				} else if(!op.IsInteger || IsIntegral) {#>
+					/// <summary><#=op.Name#> the vector.</summary>
 					public static <#=This#> operator <#=op.Id#>(<#=This#> a, <#=This#> b) { return <#New((axis)=>{#><#=ToT#>(a.<#=axis.Id#> <#=op.Id#> b.<#=axis.Id#>)<#});#>; }
+
+					/// <summary><#=op.Name#> the vector and the scalar.</summary>
 					public static <#=This#> operator <#=op.Id#>(<#=This#> a, <#=T#> b) { return <#New((axis)=>{#><#=ToT#>(a.<#=axis.Id#> <#=op.Id#> b)<#});#>; }
+
+					/// <summary><#=op.Name#> the scalar and the vector.</summary>
 					public static <#=This#> operator <#=op.Id#>(<#=T#> a, <#=This#> b) { return <#New((axis)=>{#><#=ToT#>(a <#=op.Id#> b.<#=axis.Id#>)<#});#>; }
 				<#}
 			}#>

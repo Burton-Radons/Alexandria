@@ -10,10 +10,20 @@ namespace Alexandria.Compression {
 	/// Lempel-Ziv-Welch compression support.
 	/// </summary>
 	public static class LZW {
+		/// <summary>Decompress the LZW-compressed <see cref="Stream"/> <paramref name="source"/> into the <paramref name="output"/>, returning the number of bytes decompressed.</summary>
+		/// <param name="source">The <see cref="Stream"/> to decompress from.</param>
+		/// <param name="output">The byte array to write into.</param>
+		/// <returns>The number of bytes written.</returns>
 		public static int Decompress(Stream source, byte[] output) {
 			return Decompress(source, output, 0, output.Length);
 		}
 
+		/// <summary>Decompress the LZW-compressed <see cref="Stream"/> <paramref name="source"/> into the <paramref name="output"/>, returning the number of bytes decompressed.</summary>
+		/// <param name="source">The <see cref="Stream"/> to decompress from.</param>
+		/// <param name="output">The byte array to write into.</param>
+		/// <param name="start">The first byte offset in <paramref name="output"/> to write into.</param>
+		/// <param name="count">The number of bytes in <paramref name="source"/> to write to at a maximum.</param>
+		/// <returns>The number of bytes written.</returns>
 		public static int Decompress(Stream source, byte[] output, int start, int count) {
 			var bits = new BitStream(source);
 			int offset = start, end = start + count;

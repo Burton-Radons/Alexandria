@@ -15,7 +15,6 @@ namespace Glare.Graphics.Terrains.Planar
 
 		/// <summary>
 		/// Get the total number of triangles drawn.
-		/// If a <see cref="EffectTechnique"/> has multiple passes, each pass is counted.
 		/// </summary>
 		public int TrianglesDrawn { get; internal set; }
 

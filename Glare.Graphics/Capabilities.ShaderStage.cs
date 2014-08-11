@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Glare.Graphics {
 	/// <summary>
-	/// Capabilities for a <see cref="ShaderStage"/>, which are subclasses of <see cref="Shader"/> (<see cref="ComputeShader"/>, <see cref="FragmentShader"/>, <see cref="GeometryShader"/>, <see cref="TessellationControlShader"/>, <see cref="TessellationEvaluationShader"/>, and <see cref="VertexShader"/>). Instances of subclasses of this class are returned by properties in <see cref="Capabilities"/> (<see cref="Capabilities.Compute"/>, <see cref="Capabilities.Fragment"/>, <see cref="Capabilities.Geometry"/>, <see cref="Capabilities.TesselationControl"/>, <see cref="Capabilities.TesselationEvaluation"/>, and <see cref="Capabilities.Vertex"/>). For the combined values, see OpenGL 4.4, table 23.63, page 584.
+	/// Capabilities for a <see cref="ShaderStage"/>, which are subclasses of <see cref="Shader"/> (<see cref="ComputeShader"/>, <see cref="FragmentShader"/>, <see cref="GeometryShader"/>, <see cref="TessellationControlShader"/>, <see cref="TessellationEvaluationShader"/>, and <see cref="VertexShader"/>). Instances of subclasses of this class are returned by properties in <see cref="Capabilities"/> (<see cref="Capabilities.ComputeStage"/>, <see cref="Capabilities.FragmentStage"/>, <see cref="Capabilities.GeometryStage"/>, <see cref="Capabilities.TesselationControlStage"/>, <see cref="Capabilities.TesselationEvaluationStage"/>, and <see cref="Capabilities.VertexStage"/>). For the combined values, see OpenGL 4.4, table 23.63, page 584.
 	/// </summary>
 	public class ShaderStageCapabilities {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -85,7 +85,7 @@ namespace Glare.Graphics {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		readonly GetPName maxCombinedUniformComponents, maxUniformComponents;
 
-		/// <summary>Get the number of words for the <see cref="Shader"/> <see cref="Stage"/>'s uniform variables in all uniform blocks (including default). The value must be at least <see cref="MaxUniformBlocks"/> * <see cref="MaxUniformBlockSize"/> / 4 + <see cref="MaxUniformComponents"/>. See OpenGL 4.4, table 7.5, page 118; and table 23.66, page 587.</summary>
+		/// <summary>Get the number of words for the <see cref="Shader"/> <see cref="ShaderStageCapabilities.Stage"/>'s uniform variables in all uniform blocks (including default). The value must be at least <see cref="ShaderStageCapabilities.MaxUniformBlocks"/> * <see cref="Capabilities.MaxUniformBlockSize"/> / 4 + <see cref="MaxUniformComponents"/>. See OpenGL 4.4, table 7.5, page 118; and table 23.66, page 587.</summary>
 		public int MaxCombinedUniformComponents { get { return Device.GetInt32(maxCombinedUniformComponents); } }
 
 		/// <summary>Get the maximum number of individual floating-point, integer, or boolean values that can be held in uniform variable storage for a shader. The limit must be at least 512 for compute and geometry shaders, and 1024 for all other shaders.</summary>
@@ -127,7 +127,7 @@ namespace Glare.Graphics {
 	public class FragmentShaderStageCapabilities : PipelineShaderStageCapabilities {
 		public int MaxInputComponents { get { return Device.GetInt32(GetPName.MaxFragmentInputComponents); } }
 
-		/// <summary>The number of vectors for vertex shader uniform variables. Defined to be <see cref="MaxUniformComponents"/> divided by 4. See OpenGL 4.4, section 7.6, page 117.</summary>
+		/// <summary>The number of vectors for vertex shader uniform variables. Defined to be <see cref="PipelineShaderStageCapabilities.MaxUniformComponents"/> divided by 4. See OpenGL 4.4, section 7.6, page 117.</summary>
 		public override int MaxUniformVectors { get { return Device.GetInt32(GetPName.MaxFragmentUniformVectors); } }
 
 		internal FragmentShaderStageCapabilities()

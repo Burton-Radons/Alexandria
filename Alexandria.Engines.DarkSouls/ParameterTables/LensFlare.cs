@@ -16,6 +16,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Named "LENS_FLARE_BANK" in Dark Souls, defined in the file "LensFlareBank.paramdef" (id 04h).
 		/// </remarks>
 		public class LensFlare : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "LENS_FLARE_BANK";
 
 			SByte texId;
@@ -23,6 +24,7 @@ namespace Alexandria.Engines.DarkSouls {
 			Single locateDistRate, texScale;
 			Int16 colR, colG, colB, colA;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				TexIdProperty = GetProperty<LensFlare>("TexId"),
 				IsFlareProperty = GetProperty<LensFlare>("IsFlare"),
@@ -40,7 +42,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "テクスチャID", Google translated: "Texture ID".
 			/// Japanese description: "テクスチャ(lensflare_??)", Google translated: "Texture (lensflare_??)".
 			/// </remarks>
-			[ParameterTableRowAttribute("texId", index: 0, minimum: -1, maximum: 99, step: 1, order: 1, unknown2: 0)]
+			[ParameterTableRowAttribute("texId", index: 0, minimum: -1, maximum: 99, step: 1, sortOrder: 1, unknown2: 0)]
 			[DisplayName("Texture ID")]
 			[Description("Texture (lensflare_??)")]
 			[DefaultValue((SByte)(-1))]
@@ -58,7 +60,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "フレアか", Google translated: "Or flare".
 			/// Japanese description: "0:ゴースト, 1:フレア", Google translated: "0: ghost, 1: flare".
 			/// </remarks>
-			[ParameterTableRowAttribute("isFlare", index: 1, minimum: 0, maximum: 1, step: 1, order: 2, unknown2: 1)]
+			[ParameterTableRowAttribute("isFlare", index: 1, minimum: 0, maximum: 1, step: 1, sortOrder: 2, unknown2: 1)]
 			[DisplayName("Or flare")]
 			[Description("0: ghost, 1: flare")]
 			[DefaultValue((Byte)0)]
@@ -76,7 +78,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "回転有効", Google translated: "Enable rotation".
 			/// Japanese description: "0:無効, 1:有効", Google translated: "0: Disabled, 1: Enabled".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableRoll", index: 2, minimum: 0, maximum: 1, step: 1, order: 3, unknown2: 1)]
+			[ParameterTableRowAttribute("enableRoll", index: 2, minimum: 0, maximum: 1, step: 1, sortOrder: 3, unknown2: 1)]
 			[DisplayName("Enable rotation")]
 			[Description("0: Disabled, 1: Enabled")]
 			[DefaultValue((Byte)0)]
@@ -94,7 +96,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スケール有効", Google translated: "Scale effective".
 			/// Japanese description: "0:無効, 1:有効", Google translated: "0: Disabled, 1: Enabled".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableScale", index: 3, minimum: 0, maximum: 1, step: 1, order: 4, unknown2: 1)]
+			[ParameterTableRowAttribute("enableScale", index: 3, minimum: 0, maximum: 1, step: 1, sortOrder: 4, unknown2: 1)]
 			[DisplayName("Scale effective")]
 			[Description("0: Disabled, 1: Enabled")]
 			[DefaultValue((Byte)0)]
@@ -112,7 +114,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "配置距離率", Google translated: "Placement range rate".
 			/// Japanese description: "0.0:光源位置～1.0:画面中心", Google translated: "The center of the screen: 0.0: 1.0-source position".
 			/// </remarks>
-			[ParameterTableRowAttribute("locateDistRate", index: 4, minimum: -10, maximum: 10, step: 0.01, order: 5, unknown2: 0)]
+			[ParameterTableRowAttribute("locateDistRate", index: 4, minimum: -10, maximum: 10, step: 0.01, sortOrder: 5, unknown2: 0)]
 			[DisplayName("Placement range rate")]
 			[Description("The center of the screen: 0.0: 1.0-source position")]
 			[DefaultValue((Single)0)]
@@ -130,7 +132,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "テクスチャスケール", Google translated: "Texture scale".
 			/// Japanese description: "テクスチャのスケール", Google translated: "Scale of the texture".
 			/// </remarks>
-			[ParameterTableRowAttribute("texScale", index: 5, minimum: 0, maximum: 100, step: 0.1, order: 6, unknown2: 0)]
+			[ParameterTableRowAttribute("texScale", index: 5, minimum: 0, maximum: 100, step: 0.1, sortOrder: 6, unknown2: 0)]
 			[DisplayName("Texture scale")]
 			[Description("Scale of the texture")]
 			[DefaultValue((Single)1)]
@@ -148,7 +150,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "テクスチャ乗算色", Google translated: "Texture multiply color".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR", index: 6, minimum: 0, maximum: 255, step: 1, order: 7, unknown2: 0)]
+			[ParameterTableRowAttribute("colR", index: 6, minimum: 0, maximum: 255, step: 1, sortOrder: 7, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Texture multiply color")]
 			[DefaultValue((Int16)255)]
@@ -166,7 +168,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "テクスチャ乗算色", Google translated: "Texture multiply color".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG", index: 7, minimum: 0, maximum: 255, step: 1, order: 8, unknown2: 0)]
+			[ParameterTableRowAttribute("colG", index: 7, minimum: 0, maximum: 255, step: 1, sortOrder: 8, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Texture multiply color")]
 			[DefaultValue((Int16)255)]
@@ -184,7 +186,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "テクスチャ乗算色", Google translated: "Texture multiply color".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB", index: 8, minimum: 0, maximum: 255, step: 1, order: 9, unknown2: 0)]
+			[ParameterTableRowAttribute("colB", index: 8, minimum: 0, maximum: 255, step: 1, sortOrder: 9, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Texture multiply color")]
 			[DefaultValue((Int16)255)]
@@ -202,7 +204,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ａ", Google translated: "A".
 			/// Japanese description: "テクスチャ乗算色", Google translated: "Texture multiply color".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA", index: 9, minimum: 0, maximum: 255, step: 1, order: 10, unknown2: 0)]
+			[ParameterTableRowAttribute("colA", index: 9, minimum: 0, maximum: 255, step: 1, sortOrder: 10, unknown2: 0)]
 			[DisplayName("A")]
 			[Description("Texture multiply color")]
 			[DefaultValue((Int16)255)]
@@ -245,6 +247,8 @@ namespace Alexandria.Engines.DarkSouls {
 				ColA = (Int16)255;
 			}
 
+			/// <summary>Write the <see cref="LensFlare"/> row.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(TexId);
 				writer.Write(IsFlare);

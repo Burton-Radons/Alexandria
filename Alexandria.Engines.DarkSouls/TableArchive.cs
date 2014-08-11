@@ -14,14 +14,20 @@ using System.Reflection;
 using System.Collections;
 
 namespace Alexandria.Engines.DarkSouls {
+	/// <summary>
+	/// A collection of <see cref="Table"/>s in a file.
+	/// </summary>
 	public class TableArchive : FolderAsset {
-		internal TableArchive(AssetManager manager, AssetLoader loader)
-			: base(manager, loader.Name) {
+		internal TableArchive(AssetLoader loader)
+			: base(loader) {
 			while (loader.Position < loader.Length)
 				new Table(this, loader);
 		}
 	}
 
+	/// <summary>
+	/// A collection of <see cref="TableRow"/>s within a <see cref="TableArchive"/>.
+	/// </summary>
 	public partial class Table : TableAsset<TableRow> {
 		Archive RootArchive {
 			get {
@@ -29,7 +35,7 @@ namespace Alexandria.Engines.DarkSouls {
 				if (archiveRecord == null)
 					return null;
 				Archive parent = archiveRecord.Archive;
-				ArchiveRecord parentContext = parent.Context as ArchiveRecord;
+				ArchiveRecord parentContext = parent.LoadContext as ArchiveRecord;
 				if (parentContext == null)
 					return null;
 				return parentContext.Archive;
@@ -50,7 +56,7 @@ namespace Alexandria.Engines.DarkSouls {
 			int[] offsets = reader.ReadArrayInt32(count);
 
 			if (offsets[count - 1] == 0)
-				offsets[count - 1] = loader.ShortLength;
+				offsets[count - 1] = loader.CheckedShortLength;
 
 			for (int index = 0; index < count - 1; index++) {
 				reader.BaseStream.Position = offsets[index];
@@ -60,12 +66,20 @@ namespace Alexandria.Engines.DarkSouls {
 			reader.BaseStream.Position = offsets[count - 1];
 		}
 
-		protected Table(AssetManager manager, AssetLoader loader) : base(manager, loader) { }
+		/// <summary>
+		/// Initialise the table.
+		/// </summary>
+		/// <param name="loader"></param>
+		protected Table(AssetLoader loader) : base(loader) { }
 
 		Dictionary<Engine.ItemArchiveId, Dictionary<Language, StringArchive>> StringArchives = new Dictionary<Engine.ItemArchiveId, Dictionary<Language, StringArchive>>();
 		Dictionary<ParameterTableIndex, ParameterTable> ParameterTables = new Dictionary<ParameterTableIndex, ParameterTable>();
 		Archive GameParametersArchive;
 
+		/// <summary>
+		/// Get the game parameters archive.
+		/// </summary>
+		/// <returns></returns>
 		public Archive GetGameParametersArchive() {
 			if (GameParametersArchive != null)
 				return GameParametersArchive;
@@ -81,6 +95,11 @@ namespace Alexandria.Engines.DarkSouls {
 			return GameParametersArchive = (Archive)archive.Contents;
 		}
 
+		/// <summary>
+		/// Get the game parameters.
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
 		public ParameterTable GetGameParameters(ParameterTableIndex index) {
 			ParameterTable table;
 
@@ -96,6 +115,12 @@ namespace Alexandria.Engines.DarkSouls {
 			return table;
 		}
 
+		/// <summary>
+		/// Get the localised string archive.
+		/// </summary>
+		/// <param name="archive"></param>
+		/// <param name="language"></param>
+		/// <returns></returns>
 		public StringArchive GetLocalisedStringArchive(Engine.ItemArchiveId archive, Language language = Language.English) {
 			if (archive == Engine.ItemArchiveId.None)
 				return null;
@@ -114,6 +139,14 @@ namespace Alexandria.Engines.DarkSouls {
 			return stringArchive;
 		}
 
+		/// <summary>
+		/// Get a localised string.
+		/// </summary>
+		/// <param name="archive"></param>
+		/// <param name="id"></param>
+		/// <param name="language"></param>
+		/// <param name="defaultValue"></param>
+		/// <returns></returns>
 		public string GetLocalisedString(Engine.ItemArchiveId archive, int id, Language language = Language.English, string defaultValue = "") {
 			StringArchive strings = GetLocalisedStringArchive(archive, language);
 			if (strings == null)
@@ -125,12 +158,31 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>
+	/// A row in a <see cref="Table"/>.
+	/// </summary>
 	public abstract class TableRow : TableRowAsset {
+		/// <summary>
+		/// Get the <see cref="Table"/> this is a row in.
+		/// </summary>
 		[Browsable(false)]
 		public new Table Parent { get { return (Table)base.Parent; } }
 
+		/// <summary>
+		/// Initialise the row.
+		/// </summary>
+		/// <param name="table"></param>
+		/// <param name="index"></param>
 		public TableRow(Table table, int index) : base(table, index) { }
 
+		/// <summary>
+		/// Read a row.
+		/// </summary>
+		/// <param name="table"></param>
+		/// <param name="index"></param>
+		/// <param name="loader"></param>
+		/// <param name="next"></param>
+		/// <returns></returns>
 		public static TableRow ReadRow(Table table, int index, AssetLoader loader, int next) {
 			switch (table.Name) {
 				case TableRows.Event.TableName: return new TableRows.Event(table, index, loader, next);
@@ -142,6 +194,10 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>
+		/// Create a string representation of the row.
+		/// </summary>
+		/// <returns></returns>
 		public override string ToString() {
 			return GetType().Name + "(" + DisplayName + ")";
 		}
@@ -152,9 +208,14 @@ namespace Alexandria.Engines.DarkSouls {
 		/// <summary>"EVENT_PARAM_ST" in a MapStudio ".msb" file.</summary>
 		[PropertyTableRowOrder("@Name", 100100)]
 		public class Event : TableRow {
+			/// <summary>The name of the table to match.</summary>
 			public const string TableName = "EVENT_PARAM_ST";
+
 			const int HeaderLength = 0x1C;
 
+			/// <summary>
+			/// Get a name with some context.
+			/// </summary>
 			[Browsable(false)]
 			public override string DisplayName {
 				get {
@@ -162,15 +223,27 @@ namespace Alexandria.Engines.DarkSouls {
 				}
 			}
 
+			/// <summary>
+			/// Attempt to translate the <see cref="Asset.Name"/> property.
+			/// </summary>
 			[TableRow(null, sortOrder: 100)]
 			public string TranslatedName { get { return Engine.GetTranslation(Name); } }
 
+			/// <summary>
+			/// Get the type of the event.
+			/// </summary>
 			[TableRow(null, sortOrder: 25)]
 			public int Type { get; private set; }
 
+			/// <summary>
+			/// Get the index of the event within its type.
+			/// </summary>
 			[TableRow(null, sortOrder: 50)]
 			public int Index { get; private set; }
 
+			/// <summary>
+			/// Get the <see cref="Asset.Unknowns"/> data in a string.
+			/// </summary>
 			[TableRow(null, sortOrder: 100000)]
 			public string UnknownsString { get { return Unknowns.ToCommaSeparatedList(); } }
 
@@ -200,9 +273,13 @@ namespace Alexandria.Engines.DarkSouls {
 		/// "MODEL_PARAM_ST" in a MapStudio ".msb" file.
 		/// </summary>
 		public class Model : TableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "MODEL_PARAM_ST";
 			const int HeaderLength = 0x20;
 
+			/// <summary>
+			/// Get a display name of the object.
+			/// </summary>
 			[Browsable(false)]
 			public override string DisplayName {
 				get {
@@ -210,10 +287,24 @@ namespace Alexandria.Engines.DarkSouls {
 				}
 			}
 
+			/// <summary>
+			/// Get the type of the object.
+			/// </summary>
 			public ModelType Type { get; private set; }
+
+			/// <summary>
+			/// Get the index of the object of this <see cref="Type"/>.
+			/// </summary>
 			public int Index { get; private set; }
+
+			/// <summary>
+			/// Get the path to the object.
+			/// </summary>
 			public string Path { get; private set; }
 
+			/// <summary>
+			/// Get the unknowns in a string form.
+			/// </summary>
 			[TableRow(null, sortOrder: 100000)]
 			public string UnknownsString { get { return Unknowns.ToCommaSeparatedList(); } }
 
@@ -234,15 +325,26 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>
+		/// The type of a <see cref="Model"/>.
+		/// </summary>
 		public enum ModelType {
+			/// <summary>A mesh object.</summary>
 			Mesh = 0,
+
+			/// <summary>An object object.</summary>
 			Object = 1,
+
+			/// <summary>An NPC object.</summary>
 			Character = 2,
 
 			/// <summary>Used for c0000.</summary>
 			Player = 4,
 
+			/// <summary>A physics mesh object.</summary>
 			PhysicsMesh = 5,
+
+			/// <summary>A navigation mesh object.</summary>
 			NavigationMesh = 6,
 
 			/// <summary>Used in a <see cref="Part"/>.</summary>
@@ -254,6 +356,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// <summary>Used with c1000, c3270.</summary>
 			Character2 = 10,
 
+			/// <summary>Also a physics mesh object (maybe dynamic?)</summary>
 			PhysicsMesh2 = 11,
 		}
 
@@ -261,9 +364,11 @@ namespace Alexandria.Engines.DarkSouls {
 		/// "PARTS_PARAM_ST" in a MapStudio ".msb" file.
 		/// </summary>
 		public class Part : TableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "PARTS_PARAM_ST";
 			const int HeaderLength = 0x64;
 
+			/// <summary>Get the display name of the object.</summary>
 			[Browsable(false)]
 			public override string DisplayName {
 				get {
@@ -271,13 +376,27 @@ namespace Alexandria.Engines.DarkSouls {
 				}
 			}
 
+			/// <summary>Get the zero-based index of this <see cref="Part"/>.</summary>
 			public int Index { get; private set; }
+
+			/// <summary>Get the path to the part.</summary>
 			public string Path { get; private set; }
+
+			/// <summary>Get the position of the part.</summary>
 			public Vector3f Position { get; private set; }
+
+			/// <summary>Get the rotation of the part.</summary>
 			public Angle3 Rotation { get; private set; }
+
+			/// <summary>Get the scale of the part.</summary>
 			public Vector3f Scale { get; private set; }
+
+			/// <summary>Get the type of the part.</summary>
 			public ModelType Type { get; private set; }
 
+			/// <summary>
+			/// Get the unknowns translated into a comma-separated string.
+			/// </summary>
 			[TableRow(null, sortOrder: 100000)]
 			public string UnknownsString { get { return Unknowns.ToCommaSeparatedList(); } }
 
@@ -318,9 +437,13 @@ namespace Alexandria.Engines.DarkSouls {
 		/// </summary>
 		[PropertyTableRowOrder("@Name", 0)]
 		public class Point : TableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "POINT_PARAM_ST";
 			const int HeaderLength = 0x3C;
 
+			/// <summary>
+			/// Get a display name of the object.
+			/// </summary>
 			[Browsable(false)]
 			public override string DisplayName {
 				get {
@@ -328,18 +451,33 @@ namespace Alexandria.Engines.DarkSouls {
 				}
 			}
 
+			/// <summary>
+			/// Get the sub-type of the point.
+			/// </summary>
 			[TableRow(null, sortOrder: 2)]
 			public int Subtype { get; private set; }
 
+			/// <summary>
+			/// Get the position of the point.
+			/// </summary>
 			[TableRow(null, sortOrder: 3)]
 			public Vector3f Position { get; private set; }
 
+			/// <summary>
+			/// Get the rotation of the point.
+			/// </summary>
 			[TableRow(null, sortOrder: 4)]
 			public Angle3 Rotation { get; private set; }
 
+			/// <summary>
+			/// Get the translated name of the point.
+			/// </summary>
 			[TableRow(null, sortOrder: 1)]
 			public string TranslatedName { get { return Engine.GetTranslation(Name); } }
 
+			/// <summary>
+			/// Get the unknowns in a string form.
+			/// </summary>
 			[TableRow(null, sortOrder: 5)]
 			public string UnknownsString { get { return Unknowns.ToCommaSeparatedList(); } }
 
@@ -380,7 +518,7 @@ namespace Alexandria.Engines.DarkSouls {
 		public override LoadMatchStrength LoadMatch(AssetLoader loader) {
 			var reader = loader.Reader;
 
-			if (loader.Length < 256)
+			if (loader.Length < 256 || loader.Length > int.MaxValue)
 				return LoadMatchStrength.None;
 
 			int zero = reader.ReadInt32();
@@ -394,7 +532,7 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 
 		public override Asset Load(AssetLoader loader) {
-			return new TableArchive(Manager, loader);
+			return new TableArchive(loader);
 		}
 	}
 }

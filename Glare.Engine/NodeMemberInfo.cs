@@ -49,12 +49,15 @@ namespace Glare.Engine {
 		/// <summary>Get the name of the declaration.</summary>
 		public string Name { get { return member.Name; } }
 
+		/// <summary>Get the <see cref="MemberInfo"/> object for this member.</summary>
 		protected MemberInfo Member { get { return member; } }
 
 		/// <summary>Get a short name for the property, using a <see cref="DisplayAttribute"/> if possible. If there is no short name or there is no attribute, this returns <see cref="DisplayName"/>.</summary>
 		public string ShortName { get { return displayAttribute != null ? displayAttribute.GetShortName() ?? DisplayName : DisplayName; } }
 
-		public NodeMemberInfo(MemberInfo member) {
+		/// <summary>Initialise the object.</summary>
+		/// <param name="member"></param>
+		protected NodeMemberInfo(MemberInfo member) {
 			if (member == null)
 				throw new ArgumentNullException("member");
 			this.member = member;

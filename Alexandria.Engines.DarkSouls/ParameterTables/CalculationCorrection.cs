@@ -12,11 +12,13 @@ namespace Alexandria.Engines.DarkSouls {
 		/// <summary></summary>
 		/// <remarks>From CalcCorrectGraph.paramdef (id 2Bh).</remarks>
 		public class CalculationCorrection : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "CACL_CORRECT_GRAPH_ST";
 
 			Single stageMaxVal0, stageMaxVal1, stageMaxVal2, stageMaxVal3, stageMaxVal4, stageMaxGrowVal0, stageMaxGrowVal1, stageMaxGrowVal2, stageMaxGrowVal3, stageMaxGrowVal4, adjPt_maxGrowVal0, adjPt_maxGrowVal1, adjPt_maxGrowVal2, adjPt_maxGrowVal3, adjPt_maxGrowVal4, init_inclination_soul, adjustment_value, boundry_inclination_soul, boundry_value;
 			Byte[] pad;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				StageMaxVal0Property = GetProperty<CalculationCorrection>("StageMaxVal0"),
 				StageMaxVal1Property = GetProperty<CalculationCorrection>("StageMaxVal1"),
@@ -44,7 +46,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "閾値ポイント0", Google translated: "Threshold point 0".
 			/// Japanese description: "仕様書に「n次閾値[point]」と書いてあるもの", Google translated: "Which it is written, " n-th threshold [point] " and in the specifications".
 			/// </remarks>
-			[ParameterTableRowAttribute("stageMaxVal0", index: 0, minimum: 0, maximum: 999, step: 0.1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("stageMaxVal0", index: 0, minimum: 0, maximum: 999, step: 0.1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Threshold point 0")]
 			[Description("Which it is written, \" n-th threshold [point] \" and in the specifications")]
 			[DefaultValue((Single)0)]
@@ -62,7 +64,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "閾値ポイント1", Google translated: "Threshold point 1".
 			/// Japanese description: "仕様書に「n次閾値[point]」と書いてあるもの", Google translated: "Which it is written, " n-th threshold [point] " and in the specifications".
 			/// </remarks>
-			[ParameterTableRowAttribute("stageMaxVal1", index: 1, minimum: 0, maximum: 999, step: 0.1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("stageMaxVal1", index: 1, minimum: 0, maximum: 999, step: 0.1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("Threshold point 1")]
 			[Description("Which it is written, \" n-th threshold [point] \" and in the specifications")]
 			[DefaultValue((Single)0)]
@@ -80,7 +82,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "閾値ポイント2", Google translated: "Threshold point 2".
 			/// Japanese description: "仕様書に「n次閾値[point]」と書いてあるもの", Google translated: "Which it is written, " n-th threshold [point] " and in the specifications".
 			/// </remarks>
-			[ParameterTableRowAttribute("stageMaxVal2", index: 2, minimum: 0, maximum: 999, step: 0.1, order: 300, unknown2: 1)]
+			[ParameterTableRowAttribute("stageMaxVal2", index: 2, minimum: 0, maximum: 999, step: 0.1, sortOrder: 300, unknown2: 1)]
 			[DisplayName("Threshold point 2")]
 			[Description("Which it is written, \" n-th threshold [point] \" and in the specifications")]
 			[DefaultValue((Single)0)]
@@ -98,7 +100,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "閾値ポイント3", Google translated: "Threshold point 3".
 			/// Japanese description: "仕様書に「n次閾値[point]」と書いてあるもの", Google translated: "Which it is written, " n-th threshold [point] " and in the specifications".
 			/// </remarks>
-			[ParameterTableRowAttribute("stageMaxVal3", index: 3, minimum: 0, maximum: 999, step: 0.1, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("stageMaxVal3", index: 3, minimum: 0, maximum: 999, step: 0.1, sortOrder: 400, unknown2: 1)]
 			[DisplayName("Threshold point 3")]
 			[Description("Which it is written, \" n-th threshold [point] \" and in the specifications")]
 			[DefaultValue((Single)0)]
@@ -116,7 +118,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "閾値ポイント4", Google translated: "Threshold point 4".
 			/// Japanese description: "仕様書に「n次閾値[point]」と書いてあるもの", Google translated: "Which it is written, " n-th threshold [point] " and in the specifications".
 			/// </remarks>
-			[ParameterTableRowAttribute("stageMaxVal4", index: 4, minimum: 0, maximum: 999, step: 0.1, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("stageMaxVal4", index: 4, minimum: 0, maximum: 999, step: 0.1, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Threshold point 4")]
 			[Description("Which it is written, \" n-th threshold [point] \" and in the specifications")]
 			[DefaultValue((Single)0)]
@@ -134,7 +136,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "閾値係数0", Google translated: "Threshold coefficient 0".
 			/// Japanese description: "仕様書に「n次閾値[係数]」と書いてあるもの", Google translated: "Which it is written, " n-order threshold [ factor ] " and in the specifications".
 			/// </remarks>
-			[ParameterTableRowAttribute("stageMaxGrowVal0", index: 5, minimum: 0, maximum: 9999, step: 0.1, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("stageMaxGrowVal0", index: 5, minimum: 0, maximum: 9999, step: 0.1, sortOrder: 700, unknown2: 1)]
 			[DisplayName("Threshold coefficient 0")]
 			[Description("Which it is written, \" n-order threshold [ factor ] \" and in the specifications")]
 			[DefaultValue((Single)0)]
@@ -152,7 +154,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "閾値係数1", Google translated: "Threshold coefficient 1".
 			/// Japanese description: "仕様書に「n次閾値[係数]」と書いてあるもの", Google translated: "Which it is written, " n-order threshold [ factor ] " and in the specifications".
 			/// </remarks>
-			[ParameterTableRowAttribute("stageMaxGrowVal1", index: 6, minimum: 0, maximum: 9999, step: 0.1, order: 800, unknown2: 1)]
+			[ParameterTableRowAttribute("stageMaxGrowVal1", index: 6, minimum: 0, maximum: 9999, step: 0.1, sortOrder: 800, unknown2: 1)]
 			[DisplayName("Threshold coefficient 1")]
 			[Description("Which it is written, \" n-order threshold [ factor ] \" and in the specifications")]
 			[DefaultValue((Single)0)]
@@ -170,7 +172,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "閾値係数2", Google translated: "Threshold factor 2".
 			/// Japanese description: "仕様書に「n次閾値[係数]」と書いてあるもの", Google translated: "Which it is written, " n-order threshold [ factor ] " and in the specifications".
 			/// </remarks>
-			[ParameterTableRowAttribute("stageMaxGrowVal2", index: 7, minimum: 0, maximum: 9999, step: 0.1, order: 900, unknown2: 1)]
+			[ParameterTableRowAttribute("stageMaxGrowVal2", index: 7, minimum: 0, maximum: 9999, step: 0.1, sortOrder: 900, unknown2: 1)]
 			[DisplayName("Threshold factor 2")]
 			[Description("Which it is written, \" n-order threshold [ factor ] \" and in the specifications")]
 			[DefaultValue((Single)0)]
@@ -188,7 +190,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "閾値係数3", Google translated: "Threshold coefficient 3".
 			/// Japanese description: "仕様書に「n次閾値[係数]」と書いてあるもの", Google translated: "Which it is written, " n-order threshold [ factor ] " and in the specifications".
 			/// </remarks>
-			[ParameterTableRowAttribute("stageMaxGrowVal3", index: 8, minimum: 0, maximum: 9999, step: 0.1, order: 1000, unknown2: 1)]
+			[ParameterTableRowAttribute("stageMaxGrowVal3", index: 8, minimum: 0, maximum: 9999, step: 0.1, sortOrder: 1000, unknown2: 1)]
 			[DisplayName("Threshold coefficient 3")]
 			[Description("Which it is written, \" n-order threshold [ factor ] \" and in the specifications")]
 			[DefaultValue((Single)0)]
@@ -206,7 +208,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "閾値係数4", Google translated: "Threshold factor of 4".
 			/// Japanese description: "仕様書に「n次閾値[係数]」と書いてあるもの", Google translated: "Which it is written, " n-order threshold [ factor ] " and in the specifications".
 			/// </remarks>
-			[ParameterTableRowAttribute("stageMaxGrowVal4", index: 9, minimum: 0, maximum: 9999, step: 0.1, order: 1100, unknown2: 1)]
+			[ParameterTableRowAttribute("stageMaxGrowVal4", index: 9, minimum: 0, maximum: 9999, step: 0.1, sortOrder: 1100, unknown2: 1)]
 			[DisplayName("Threshold factor of 4")]
 			[Description("Which it is written, \" n-order threshold [ factor ] \" and in the specifications")]
 			[DefaultValue((Single)0)]
@@ -224,7 +226,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "調整係数0", Google translated: "Adjustment factor 0".
 			/// Japanese description: "調整係数", Google translated: "Adjustment factor".
 			/// </remarks>
-			[ParameterTableRowAttribute("adjPt_maxGrowVal0", index: 10, minimum: -99, maximum: 99, step: 0.01, order: 1300, unknown2: 1)]
+			[ParameterTableRowAttribute("adjPt_maxGrowVal0", index: 10, minimum: -99, maximum: 99, step: 0.01, sortOrder: 1300, unknown2: 1)]
 			[DisplayName("Adjustment factor 0")]
 			[Description("Adjustment factor")]
 			[DefaultValue((Single)0)]
@@ -242,7 +244,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "調整係数1", Google translated: "Adjustment factor 1".
 			/// Japanese description: "調整係数", Google translated: "Adjustment factor".
 			/// </remarks>
-			[ParameterTableRowAttribute("adjPt_maxGrowVal1", index: 11, minimum: -99, maximum: 99, step: 0.01, order: 1400, unknown2: 1)]
+			[ParameterTableRowAttribute("adjPt_maxGrowVal1", index: 11, minimum: -99, maximum: 99, step: 0.01, sortOrder: 1400, unknown2: 1)]
 			[DisplayName("Adjustment factor 1")]
 			[Description("Adjustment factor")]
 			[DefaultValue((Single)0)]
@@ -260,7 +262,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "調整係数2", Google translated: "Adjustment factor 2".
 			/// Japanese description: "調整係数", Google translated: "Adjustment factor".
 			/// </remarks>
-			[ParameterTableRowAttribute("adjPt_maxGrowVal2", index: 12, minimum: -99, maximum: 99, step: 0.01, order: 1500, unknown2: 1)]
+			[ParameterTableRowAttribute("adjPt_maxGrowVal2", index: 12, minimum: -99, maximum: 99, step: 0.01, sortOrder: 1500, unknown2: 1)]
 			[DisplayName("Adjustment factor 2")]
 			[Description("Adjustment factor")]
 			[DefaultValue((Single)0)]
@@ -278,7 +280,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "調整係数3", Google translated: "Adjustment factor 3".
 			/// Japanese description: "調整係数", Google translated: "Adjustment factor".
 			/// </remarks>
-			[ParameterTableRowAttribute("adjPt_maxGrowVal3", index: 13, minimum: -99, maximum: 99, step: 0.01, order: 1600, unknown2: 1)]
+			[ParameterTableRowAttribute("adjPt_maxGrowVal3", index: 13, minimum: -99, maximum: 99, step: 0.01, sortOrder: 1600, unknown2: 1)]
 			[DisplayName("Adjustment factor 3")]
 			[Description("Adjustment factor")]
 			[DefaultValue((Single)0)]
@@ -296,7 +298,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "調整係数4", Google translated: "Adjustment factor 4".
 			/// Japanese description: "調整係数", Google translated: "Adjustment factor".
 			/// </remarks>
-			[ParameterTableRowAttribute("adjPt_maxGrowVal4", index: 14, minimum: -99, maximum: 99, step: 0.01, order: 1700, unknown2: 1)]
+			[ParameterTableRowAttribute("adjPt_maxGrowVal4", index: 14, minimum: -99, maximum: 99, step: 0.01, sortOrder: 1700, unknown2: 1)]
 			[DisplayName("Adjustment factor 4")]
 			[Description("Adjustment factor")]
 			[DefaultValue((Single)0)]
@@ -314,7 +316,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "成長ソウル 初期のグラフの傾きα1", Google translated: "Α1 slope of the graph of growth Seoul initial".
 			/// Japanese description: "成長ソウル 初期のグラフの傾きα1", Google translated: "Α1 slope of the graph of growth Seoul initial".
 			/// </remarks>
-			[ParameterTableRowAttribute("init_inclination_soul", index: 15, minimum: -99, maximum: 99, step: 0.01, order: 1800, unknown2: 1)]
+			[ParameterTableRowAttribute("init_inclination_soul", index: 15, minimum: -99, maximum: 99, step: 0.01, sortOrder: 1800, unknown2: 1)]
 			[DisplayName("Α1 slope of the graph of growth Seoul initial")]
 			[Description("Α1 slope of the graph of growth Seoul initial")]
 			[DefaultValue((Single)0)]
@@ -332,7 +334,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "成長ソウル 初期のsoul調整α2", Google translated: "Adjust α2 soul of Seoul initial growth".
 			/// Japanese description: "成長ソウル 初期のsoul調整α2", Google translated: "Adjust α2 soul of Seoul initial growth".
 			/// </remarks>
-			[ParameterTableRowAttribute("adjustment_value", index: 16, minimum: -99, maximum: 99, step: 0.01, order: 1900, unknown2: 1)]
+			[ParameterTableRowAttribute("adjustment_value", index: 16, minimum: -99, maximum: 99, step: 0.01, sortOrder: 1900, unknown2: 1)]
 			[DisplayName("Adjust α2 soul of Seoul initial growth")]
 			[Description("Adjust α2 soul of Seoul initial growth")]
 			[DefaultValue((Single)0)]
@@ -350,7 +352,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "成長ソウル 閾値後のグラフの傾きに影響α3", Google translated: "Effect α3 to the slope of the graph of growth Seoul threshold after".
 			/// Japanese description: "成長ソウル 閾値後のグラフの傾きに影響α3", Google translated: "Effect α3 to the slope of the graph of growth Seoul threshold after".
 			/// </remarks>
-			[ParameterTableRowAttribute("boundry_inclination_soul", index: 17, minimum: -99, maximum: 99, step: 0.01, order: 2000, unknown2: 1)]
+			[ParameterTableRowAttribute("boundry_inclination_soul", index: 17, minimum: -99, maximum: 99, step: 0.01, sortOrder: 2000, unknown2: 1)]
 			[DisplayName("Effect α3 to the slope of the graph of growth Seoul threshold after")]
 			[Description("Effect α3 to the slope of the graph of growth Seoul threshold after")]
 			[DefaultValue((Single)0)]
@@ -368,7 +370,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "成長ソウル 閾値 t", Google translated: "Seoul growth threshold t".
 			/// Japanese description: "成長ソウル 閾値 t", Google translated: "Seoul growth threshold t".
 			/// </remarks>
-			[ParameterTableRowAttribute("boundry_value", index: 18, minimum: 0, maximum: 1000000, step: 1, order: 2100, unknown2: 1)]
+			[ParameterTableRowAttribute("boundry_value", index: 18, minimum: 0, maximum: 1000000, step: 1, sortOrder: 2100, unknown2: 1)]
 			[DisplayName("Seoul growth threshold t")]
 			[Description("Seoul growth threshold t")]
 			[DefaultValue((Single)0)]
@@ -386,7 +388,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad[4]", index: 19, minimum: 0, maximum: 0, step: 0, order: 2101, unknown2: 0)]
+			[ParameterTableRowAttribute("pad[4]", index: 19, minimum: 0, maximum: 0, step: 0, sortOrder: 2101, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("")]
 			[Browsable(false)]
@@ -445,6 +447,8 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad = new Byte[4];
 			}
 
+			/// <summary>Write the row to the writer.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(StageMaxVal0);
 				writer.Write(StageMaxVal1);

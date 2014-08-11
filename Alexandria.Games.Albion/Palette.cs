@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Games.Albion {
+	/// <summary>A palette asset.</summary>
 	public class Palette : PaletteAsset {
 		internal Palette(AssetManager manager, AssetLoader loader)
 			: base(manager, loader.Name) {
@@ -19,7 +20,7 @@ namespace Alexandria.Games.Albion {
 	}
 
 	class PaletteFormat : AssetFormat {
-		public PaletteFormat(Game game)
+		internal PaletteFormat(Game game)
 			: base(game, typeof(Palette), canLoad: true) {
 		}
 

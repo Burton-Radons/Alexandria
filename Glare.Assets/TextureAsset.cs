@@ -11,17 +11,43 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Glare.Assets {
+	/// <summary>A simple <see cref="Texture"/> asset.</summary>
 	public class TextureAsset : Asset {
+		/// <summary>
+		/// Get the texture.
+		/// </summary>
 		public override object GlareObject { get { return Content; } }
 
+		/// <summary>Get the texture that is the content of this asset.</summary>
 		public Glare.Graphics.Texture Content { get; protected set; }
 
-		public TextureAsset(AssetManager manager, Glare.Graphics.Texture texture, string name, string description = null)
-			: base(manager, name, description) {
+		/// <summary>Initialise the asset.</summary>
+		/// <param name="loader"></param>
+		/// <param name="texture"></param>
+		public TextureAsset(AssetLoader loader, Glare.Graphics.Texture texture)
+			: base(loader) {
 			Content = texture;
 		}
 
-		public override Control Browse() {
+		/// <summary>Initialise the asset.</summary>
+		/// <param name="manager"></param>
+		/// <param name="name"></param>
+		/// <param name="texture"></param>
+		public TextureAsset(AssetManager manager, string name, Texture texture)
+			: base(manager, name) {
+			Content = texture;
+		}
+
+		/// <summary>Initialise the asset.</summary>
+		/// <param name="parent"></param>
+		/// <param name="loader"></param>
+		/// <param name="texture"></param>
+		public TextureAsset(FolderAsset parent, AssetLoader loader, Glare.Graphics.Texture texture) : base(parent, loader) { }
+
+		/// <summary>Display the texture in a window.</summary>
+		/// <param name="progressUpdateCallback"></param>
+		/// <returns></returns>
+		public override Control Browse(Action<double> progressUpdateCallback = null) {
 			Texture2D texture2d = Content as Texture2D;
 			TextureLevel level;
 
@@ -30,7 +56,7 @@ namespace Glare.Assets {
 			} else
 				throw new NotImplementedException();
 
-			byte[] data = level.Read<byte>(TextureFormats.Vector4nbBGRA);//Vector4srgba);
+			byte[] data = level.Read<byte>(Glare.Graphics.Formats.Vector4nbBGRA);//Vector4srgba);
 
 			/*for (int index = 0; index < data.Length; index += 4) {
 				byte a = data[index], b = data[index + 1], c = data[index + 2], d = data[index = 3];
@@ -51,7 +77,7 @@ namespace Glare.Assets {
 				Image = bitmap
 			};
 
-			var panel = new Panel() { 
+			var panel = new Panel() {
 				AutoScroll = true,
 				AutoSize = true,
 				AutoSizeMode = AutoSizeMode.GrowAndShrink,

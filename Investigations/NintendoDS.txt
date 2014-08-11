@@ -1,0 +1,181 @@
+Resource
+
+Normal header
+	c[4] Magic
+	u2 Bom - Either 0xFFFE or 0xFEFF, doesn't seem to matter
+	u2 Format - Either 0x0100, 0x0101, 0x0002, or 0x0001
+	u4 Length - From start of header
+	u2 HeaderSize - Must be 16
+	u2 SectionCount
+	[if Format == 0x0002 or 0x0001]
+		u4[SectionCount] SectionOffsets -- Relative to start of resource
+	[SectionCount]
+		c[4] SectionMagic
+		u4 SectionLength -- Including header
+		u1[SectionLength - 8] SectionData
+Offsets in a section are relative to the start of the section header
+
+BMD0
+	MDL0
+	
+<7> = Alice_Champi2.nsbta
+<A> = Alice_Champi1.nsbta
+<21> = Alice_Menu.nsbta
+BTA0
+	SRT0
+		08h: u1 0
+		09h: u1 Count
+		0Ah: u2 HeaderSize = Count * 18h + 10h
+		0Ch: u2 8
+		0Eh: u2 Count * 4 + Ch
+		10h: u2 17Fh, 0
+		14h: [Count] - 4 bytes each
+			u2 276, 36eh, 46dh, 566h, 5eh
+			u1[2]
+			<7> [14 u2s]
+				u2 246h, 601h, 33eh, 104h, 36h, 3, 53ch, 204h, 63bh, 407h, 63ah, 302h, 739h, 505h
+			<A> [20 u2s]
+				u2 246h, a07h, 33eh, 104h, 36h, 3, 53ch, 204h, 63bh, 407h, 63ah, 302h, 839h, 609h, 734h, 908h, 538h, 509h, a44h, 801h
+			<B> [22 u2s]
+				u2 246h, 60ah, 33eh, 105h, 36h, 4, 333h, 904h, 63ch, 205h, 73bh, 408h, 73ah, 302h, 839h, 509h, 633h, 709h, a44h, a0bh, b43h, 801h
+			<21>
+				{276h, 1ch, 0Ah}
+				{36eh, 02h, 09h}
+				{46dh, 14h, 08h}
+				{566h, 0bh, 00h}
+				{05eh, 06h, 02h}
+				{75ch, 0Ah, 05h}
+				{75ah, 08h, 14h}
+				{958h, 05h, 03h}
+				{854h, 09h, 15h}
+				{a5ah, 06h, 16h}
+				{c64h, 13h, 04h}
+				{d63h, 0Fh, 01h}
+				{433h, 0Eh, 07h}
+				{e30h, 0Dh, 17h}
+				{104ch, 12h, 13h}
+				{1133h, 10h, 12h}
+				{1132h, 0Ch, 1Fh}
+				{1233h, 0Fh, 20h}
+				{135ah, 0Bh, 06h}
+				{1569h, 18h, 0Bh}
+				{1646h, 15h, 10h}
+				{1740h, 16h, 1Dh}
+				{1733h, 14h, 1Bh}
+				{1968h, 1Bh, 0Ch}
+				{1a41h, 19h, 0Eh}
+				{1a33h, 03h, 1Bh}
+				{1b41h, 18h, 19h}
+				{1d74h, 1Ch, 11h}
+				{1e41h, 1Fh, 0Dh}
+				{1e33h, 01h, 1Ah}
+				{2040h, 21h, 0Fh}
+				{2033h, 1Dh, 1Ch}
+				{2133h, 1Fh, 1Eh}
+		u2 4
+		u2 Count * 4 + 4
+		u4[Count] Offsets
+		c[16][Count] Names - "C_STAND", "C_TLK_NE", "C_TLK_SU", "C_TLK_LA", etc.
+		
+		<7> sizes: B8h, F4h, 130h, F4h, 130h, F4h (increments of 3Ch)
+		
+	At each offset:
+		00h: u2 4Dh, 5441h
+		04h: u4 <21> 37h; D8h
+		08h: z1
+		09h: u1 Count
+		0Ah: u2 10h + Count * 3Ch
+			<21>[0] Count = 1
+				08h: 8, 10h, 17Fh, 0, 2Eh, 1, 28h, 2Ch,
+					37h, 3000h, 1000h, 0,
+					37h, 3000h, 1000h, 0,
+					37h, 2000h, 0, 1000h,
+					37h, 3000h, 0, 0,
+					37h, 3000h, 0, 0
+			<21>[1] Count = 2
+				08h: 8, 14h, 17fh, 236h, 101h, 2eh, 2, 28h, 54h,
+					d8h, 3000h, 1000h, 0,
+					d8h, 3000h, 1000h, 0,
+					d8h, 2000h, 0, 1000h,
+					d8h, 1000h, 9ch, 0,
+					d8h, 3000h, 0, 0,
+					d8h, 3000h, 1000h, 0,
+					d8h, 3000h, 1000h, 0,
+					d8h, 2000h, 0, 1000h,
+					d8h, 3000h, 0, 0,
+					d8h, 3000h, 0, 0
+		44h: c[16][Count] Name "m_eyes", "m_mouth"
+			<21>[0]: 54h: u2 1000h, 0, 1000h, 0, 0, 1000h, 0, 0, 0, 0
+			<21>[1]: 1D4h bytes, EAh pairs, 75h quads
+	
+BTX0 - ".nsbtx"
+	TEX0
+		00h: z4
+		04h: u2 textureDataLength / 8 (500h * 8 = 2800h)
+		06h: u2 3Ch/60 (textureOffset + 8?)
+		08h: z4
+		0Ch: u2 textureDataBaseOffset + 8 (ACh - 8 = A8h)
+		0Eh: z8
+		16h: u2 3Ch/60
+		18h: z4
+		1Ch: u4 1090h::2078h::28ACh
+		20h: u4 1090h::2078h::28ACh
+		24h: z4
+		28h: u2 paletteDataLength / 8 (02h * 8 = 10h)
+		2Ah: z2
+		2Ch: u4 paletteOffset + 8 (84h - 8 = 7Ch)
+		30h: u4 paletteDataBaseOffset + 8 (28ACh - 8 = 28A8h)
+	textureOffset:
+		34h: z1
+		35h: u1 textureCount
+		36h: u2 textureHeaderLength = 10h + textureCount * 28 (16 for name, 8 for info, 4 for something else)
+		38h: u2 8
+		3Ah: u2 10h (14h for 2 textures)
+		3Ch: u4 17Fh/383
+		one texture:
+			40h: u2[] 46h, 1, 8, Ch
+		two texture:
+			40h: u2[] 25Eh, 101h, 25h, 2, 8, 14h
+	textureOffset + 0x10 + textureCount * 4:
+		48h: [] - 8 bytes each
+			00h: u2 textureDataOffset = value * 8 + textureDataBaseOffset
+			02h: u2 param = 11B0h/4528 :: 1DB0h/7600
+				unknown = param & 7
+				width = 8 << ((param >> 4) & 7) -- 0=8, 1=16, 2=32, 3=64, 4=128, 5=256, 6=512, 7=1024
+				height = 8 << ((param >> 7) & 7)
+				format = ((param >> 10) & 7
+					0 = None
+					1 = A3I5 (8 bits per pixel)
+					2 = Bit2 (2 bits per pixel)
+					3 = Bit4 (4 bits per pixel)
+					4 = Bit8 (8 bits per pixel)
+					5 = Texel4x4 (2 bits per pixel)
+					6 = A5I3 (8 bits per pixel)
+					7 = Bit16 (16 bits per pixel)
+				color0 = (param >> 13) & 1
+				unknown = param >> 14
+			04h: u2 40h, 8002h
+	textureOffset + 0x10 + textureCount * 0x0C:
+		50h: cz[16][textureCount] textureNames ("ACO_alice")
+	paletteOffset:
+		60h: z1
+		61h: u1 paletteCount
+		62h: u2 paletteHeaderLength = 0x10 + paletteCount * 18h (10h name, 4h data offset, 4h other thing)
+		when paletteCount == 1
+			64h: u2 8, 10h/16
+			68h: u4 17Fh/383
+			6Ch: u2 5Eh/94::3Eh/62, 1, 4, 8
+		when paletteCount == 0
+			62h: u2 8, Ch, 7Fh, 0, 4, 4
+	paletteOffset + 10h + paletteCount * 4:
+		74h: u4[] paletteDataOffset - paletteDataBaseOffset
+	paletteOffset + 10h + paletteCount * 8:
+		78h: cz[16][paletteCount] paletteNames ("ACO_alice_pl")
+	textureDataOffset:
+		88h:
+		
+	at each paletteDataOffset:
+		Color[256] palette
+		
+		
+		

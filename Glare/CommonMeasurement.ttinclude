@@ -1,6 +1,4 @@
-﻿<#@ IntelliSenseLanguage processor="tangibleT4Editor" language="C#" #>
-
-<#+
+﻿<#+
 
 class Unit {
 	public readonly string Plural, Singular, Symbol, ConvertTo;
@@ -71,53 +69,88 @@ void GenerateUnits(params Unit[] units) {
 		throw new Exception("No primary unit defined");
 
 	foreach(Unit unit in units) {
-		#>internal const <#=T#> To<#=unit.Plural#> = <#=ToT#>(<#=unit.ConvertTo#>);
+		#>/// <summary>This is the constant value for conversion from the <#=unit.Singular#> unit to the stored value when divided, or back to <#=unit.Singular#> when multiplied.</summary>
+		internal const <#=T#> To<#=unit.Plural#> = <#=ToT#>(<#=unit.ConvertTo#>);
 
+		/// <summary>Create a <#=SeeThis#> by providing a <#=unit.Singular#> value.</summary>
 		public static <#=This#> <#=unit.Plural#>(<#=T#> value) { return new <#=This#>(value / To<#=unit.Plural#>); }
 
+		/// <summary>Get the <#=SeeThis#> value in the <#=unit.Singular#> unit.</summary>
 		public <#=T#> In<#=unit.Plural#> { get { return value * To<#=unit.Plural#>; } }
 
-		public static readonly <#=This#> <#=unit.Singular#> = <#=unit.Plural#>(1);
-
+		/// <summary>Clamp this <#=SeeThis#> value to the <#=unit.Singular#> range, returning the clamped value.</summary>
 		public <#=This#> Clamp<#=unit.Plural#>(<#=T#> min, <#=T#> max) {
 			min = min / To<#=unit.Plural#>;
 			max = max / To<#=unit.Plural#>;
 			return new <#=This#>(value > max ? max : value < min ? min : value);
 		}
 
-		public void ClampInPlace<#=unit.Plural#>(<#=T#> min, <#=T#> max) {
+		/// <summary>Clamp this <#=SeeThis#> value to the <#=unit.Singular#> range, changing this value, then return it.</summary>
+		public <#=This#> ClampInPlace<#=unit.Plural#>(<#=T#> min, <#=T#> max) {
 			if(value > (max = max / To<#=unit.Plural#>))
 				value = max;
 			else if(value < (min = min / To<#=unit.Plural#>))
 				value = min;
+			return this;
 		}
 
 		<#+
 	}
 
-	#>
-		public <#=This#> Absolute { get { return new <#=This#>(Math.Abs(value)); }}
+	
+		#>/// <summary>Get the absolute value of this <#=SeeThis#>.</summary>
+		public <#=This#> AsUnsigned { get { return new <#=This#>(Math.Abs(value)); }}
 
+		/// <summary>Create a <#=SeeThis#> by providing the universal unit, which is <#=primaryUnit.Plural#>.</summary>
 		public static <#=This#> Universal(double value) { return <#=primaryUnit.Plural#>(value); }
+
+		/// <summary>Get this <#=SeeThis#> in the universal unit, which is <#=primaryUnit.Plural#>.</summary>
 		public double InUniversal { get { return In<#=primaryUnit.Plural#>; } }
 
+		/// <summary>The coded value.</summary>
 		<#=T#> value;
+
+		/// <summary>Private constructor for the <#=SeeThis#>; the real constructors are the static unit methods.</summary>
 		<#=This#>(<#=T#> value) { this.value = value; }
 
+		/// <summary>Get the zero value for <#=SeeThis#>.</summary>
 		public static readonly <#=This#> Zero = new <#=This#>(0);
+
+		/// <summary>Get the positive infinity value for <#=SeeThis#>.</summary>
 		public static readonly <#=This#> PositiveInfinity = new <#=This#>(<#=T#>.PositiveInfinity);
+
+		/// <summary>Get the negative infinity value for <#=SeeThis#>.</summary>
 		public static readonly <#=This#> NegativeInfinity = new <#=This#>(<#=T#>.NegativeInfinity);
+
+		/// <summary>Get the not-a-number value for <#=SeeThis#>.</summary>
 		public static readonly <#=This#> NaN = new <#=This#>(<#=T#>.NaN);
 
+		/// <summary>Clamp this <#=SeeThis#> to the provided range, returning the result.</summary>
 		public <#=This#> Clamp(<#=This#> min, <#=This#> max) { return new <#=This#>(value > max.value ? max.value : value < min.value ? min.value : value); }
 
-		public void ClampInPlace(<#=This#> min, <#=This#> max) { if(value > max.value) value = min.value; else if(value < min.value) value = min.value; }
+		/// <summary>Clamp this <#=SeeThis#> to the provided range, storing the result in this value and returning it.</summary>
+		public <#=This#> ClampInPlace(<#=This#> min, <#=This#> max) {
+			if(value > max.value)
+				value = min.value;
+			else if(value < min.value)
+				value = min.value;
+			return this;
+		}
 
+		/// <summary>Compare this <#=SeeThis#> to the other value, returning the relative order.</summary>.
 		public int CompareTo(<#=This#> other) { return value.CompareTo(other.value); }
 
+		/// <summary>Compare this <#=SeeThis#> to the other value, returning whether they are equal.</summary>
 		public bool Equals(<#=This#> other) { return value == other.value; }
-		public override bool Equals(object other) { if(other is <#=This#>) return value == ((<#=This#>)other).value; return base.Equals(other); }
 
+		/// <summary>If the other object is <#=SeeThis#>, determine equality and return the result; otherwise return <c>null</c>.</summary>
+		public override bool Equals(object other) {
+			if(other is <#=This#>)
+				return value == ((<#=This#>)other).value;
+			return base.Equals(other);
+		}
+
+		/// <summary>Get a hash code from the value.</summary>
 		public override int GetHashCode() { return value.GetHashCode(); }
 
 		/// <summary>Return the maximum of this value or the passed value.</summary>
@@ -132,28 +165,55 @@ void GenerateUnits(params Unit[] units) {
 		/// <summary>Assign this <#=SeeThis#> to the minimum of this value or the other one.</summary>
 		public void MinInPlace(<#=This#> other) { if(other.value < value) value = other.value; }
 
-		/// <summary>Convert to a string of the form "<value><#=primaryUnit.Symbol#>".</summary>
+		/// <summary>Convert to a string of the form "&lt;value&gt;<#=primaryUnit.Symbol#>".</summary>
 		public override string ToString() { return ToString(null, null); }
 
-		/// <summary>Convert to a string of the form "<value><#=primaryUnit.Symbol#>".</summary>
+		/// <summary>Convert to a string of the form "&lt;value&gt;<#=primaryUnit.Symbol#>".</summary>
 		public string ToString(string format, IFormatProvider provider) { return <#=primaryUnit.InMethod#>.ToString(format, provider) + "<#=primaryUnit.Symbol#>"; }
 
+		/// <summary>Test for equality between the <#=SeeThis#> values.</summary>
 		public static bool operator ==(<#=This#> a, <#=This#> b) { return a.value == b.value; }
+
+		/// <summary>Test for inequality between the <#=SeeThis#> values.</summary>
 		public static bool operator !=(<#=This#> a, <#=This#> b) { return a.value != b.value; }
+
+		/// <summary>Compare the <#=SeeThis#> values.</summary>
 		public static bool operator >(<#=This#> a, <#=This#> b) { return a.value > b.value; }
+
+		/// <summary>Compare the <#=SeeThis#> values.</summary>
 		public static bool operator >=(<#=This#> a, <#=This#> b) { return a.value >= b.value; }
+
+		/// <summary>Compare the <#=SeeThis#> values.</summary>
 		public static bool operator <(<#=This#> a, <#=This#> b) { return a.value < b.value; }
+
+		/// <summary>Compare the <#=SeeThis#> values.</summary>
 		public static bool operator <=(<#=This#> a, <#=This#> b) { return a.value <= b.value; }
 
+		/// <summary>Return the positive of the <#=SeeThis#> value, which is itself.</summary>
 		public static <#=This#> operator +(<#=This#> value) { return new <#=This#>(+value.value); }
+
+		/// <summary>Return the negative of the <#=SeeThis#> value.</summary>
 		public static <#=This#> operator -(<#=This#> value) { return new <#=This#>(-value.value); }
 
+		/// <summary>Add the <#=SeeThis#> values.</summary>
 		public static <#=This#> operator +(<#=This#> a, <#=This#> b) { return new <#=This#>(a.value + b.value); }
+
+		/// <summary>Subtract the <#=SeeThis#> values.</summary>
 		public static <#=This#> operator -(<#=This#> a, <#=This#> b) { return new <#=This#>(a.value - b.value); }
+
+		/// <summary>Multiply the <#=SeeThis#> value to a scalar.</summary>
 		public static <#=This#> operator *(<#=This#> a, <#=T#> b) { return new <#=This#>(a.value * b); }
+
+		/// <summary>Multiply the <#=SeeThis#> value to a scalar.</summary>
 		public static <#=This#> operator *(<#=T#> a, <#=This#> b) { return new <#=This#>(a * b.value); }
+
+		/// <summary>Divide the <#=SeeThis#> value by a scalar.</summary>
 		public static <#=This#> operator /(<#=This#> a, <#=T#> b) { return new <#=This#>(a.value / b); }
+
+		/// <summary>Divide the <#=SeeThis#> values, producing the scalar magnitude difference between them.</summary>
 		public static <#=T#> operator /(<#=This#> a, <#=This#> b) { return a.value / b.value; }
+
+		/// <summary>Modulo the <#=SeeThis#> values, producing the scalar result.</summary>
 		public static <#=T#> operator %(<#=This#> a, <#=This#> b) { return a.value % b.value; }
 	<#+
 }

@@ -8,28 +8,49 @@ using System.Threading.Tasks;
 using Glare.Internal;
 using System.IO;
 using Glare.Framework;
+using System.Diagnostics;
 
 namespace Glare.Assets {
+	/// <summary>
+	/// A block of unknown data.
+	/// </summary>
 	public class UnknownBlock {
 #if StackTraceUnknowns
 		public StackTrace Trace { get; private set; }
 #endif // StackTraceUnknowns
+
+		/// <summary>Get the offset of the data.</summary>
 		public long Offset { get; private set; }
+
+		/// <summary>Get the type of the elements of the data.</summary>
 		public Type Type { get; private set; }
+
+		/// <summary>Get string representations of the values of the data.</summary>
 		public string[] Strings { get; private set; }
+
+		/// <summary>Get the values of the data.</summary>
 		public object[] Values { get; private set; }
+
+		/// <summary>Get an optional tag string, or <c>null</c> if there is none.</summary>
 		public string Tag { get; private set; }
 
+		/// <summary>Get a string that joins the <see cref="Strings"/> together.</summary>
 		public string JoinedValues { get { return string.Join(" ", Strings); } }
 
-		internal UnknownBlock(
-#if StackTraceUnknowns
-			StackTrace trace, 
-#endif // StackTraceUnknowns
-long offset, Type type, string[] strings, object[] values, string tag) {
+		internal UnknownBlock(StackTrace trace, long offset, Type type, string[] strings, object[] values, string tag)
+			: this(offset, type, strings, values, tag) {
 #if StackTraceUnknowns
 			Trace = trace;
 #endif // StackTraceUnknowns
+		}
+
+		/// <summary>Initialise the block.</summary>
+		/// <param name="offset"></param>
+		/// <param name="type"></param>
+		/// <param name="strings"></param>
+		/// <param name="values"></param>
+		/// <param name="tag"></param>
+		public UnknownBlock(long offset, Type type, string[] strings, object[] values, string tag) {
 			Offset = offset;
 			Type = type;
 			Strings = strings;
@@ -37,6 +58,8 @@ long offset, Type type, string[] strings, object[] values, string tag) {
 			Tag = tag;
 		}
 
+		/// <summary>Convert to a string representation of the unknown block.</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			string text = string.Format("{0}(", GetType().Name);
 			if (Tag != null)
@@ -49,6 +72,9 @@ long offset, Type type, string[] strings, object[] values, string tag) {
 		}
 	}
 
+	/// <summary>
+	/// A collection of <see cref="UnknownBlock"/>s.
+	/// </summary>
 	public class UnknownList : List<UnknownBlock> {
 		void Read(BinaryReader reader, Type type, Func<BinaryReader, ByteOrder, KeyValuePair<string, object>> read, int count, string tag, ByteOrder order) {
 #if StackTraceUnknowns
@@ -70,9 +96,32 @@ long offset, Type type, string[] strings, object[] values, string tag) {
 offset, type, strings, values, tag));
 		}
 
+		/// <summary>Read a collection of bytes as an unknown block.</summary>
+		/// <param name="reader"></param>
+		/// <param name="count"></param>
+		/// <param name="tag"></param>
+		/// <param name="order"></param>
 		public void ReadBytes(BinaryReader reader, int count, string tag = null, ByteOrder order = ByteOrder.LittleEndian) { Read(reader, typeof(Byte), ReadByte, count, tag, order); }
+
+		/// <summary>Read a collection of 16-bit integers as an unknown block.</summary>
+		/// <param name="reader"></param>
+		/// <param name="count"></param>
+		/// <param name="tag"></param>
+		/// <param name="order"></param>
 		public void ReadInt16s(BinaryReader reader, int count, string tag = null, ByteOrder order = ByteOrder.LittleEndian) { Read(reader, typeof(Int16), ReadInt16, count, tag, order); }
+
+		/// <summary>Read a collection of 32-bit integers as an unknown block.</summary>
+		/// <param name="reader"></param>
+		/// <param name="count"></param>
+		/// <param name="tag"></param>
+		/// <param name="order"></param>
 		public void ReadInt32s(BinaryReader reader, int count, string tag = null, ByteOrder order = ByteOrder.LittleEndian) { Read(reader, typeof(Int32), ReadInt32, count, tag, order); }
+
+		/// <summary>Read a collection of 32-bit floating-point values as an unknown block.</summary>
+		/// <param name="reader"></param>
+		/// <param name="count"></param>
+		/// <param name="tag"></param>
+		/// <param name="order"></param>
 		public void ReadSingles(BinaryReader reader, int count, string tag = null, ByteOrder order = ByteOrder.LittleEndian) { Read(reader, typeof(Single), ReadSingle, count, tag, order); }
 
 		static KeyValuePair<string, object> ReadByte(BinaryReader reader, ByteOrder order) { return ToString(reader.ReadByte()); }
@@ -103,12 +152,16 @@ offset, type, strings, values, tag));
 			return new KeyValuePair<string, object>(text, value);
 		}
 
+		/// <summary>Convert the unknown blocks to a comma-separated list that starts with a comma, or "" if there are no elements.</summary>
+		/// <returns></returns>
 		public string ToCommaPrefixedList() {
 			if (Count == 0)
 				return "";
 			return ", " + ToCommaSeparatedList();
 		}
 
+		/// <summary>Convert the unknown blocks to a comma-separated list.</summary>
+		/// <returns></returns>
 		public string ToCommaSeparatedList() {
 			string text = "";
 			foreach (UnknownBlock block in this) {

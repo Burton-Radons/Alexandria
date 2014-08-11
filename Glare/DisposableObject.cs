@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glare
-{
+namespace Glare {
 	/// <summary>
 	/// A <see cref="NamedObject"/> that can also be disposed, sends an event when disposed, and can be tested for disposal state.
 	/// </summary>
-	public abstract class DisposableObject : NamedObject, IDisposable
-	{
+	public abstract class DisposableObject : NamedObject, IDisposable {
 		bool isDisposed;
 
 		/// <summary>This event is activated when the <see cref="DisposableObject"/> has had <see cref="Dispose"/> caleld on it.</summary>
@@ -19,10 +17,13 @@ namespace Glare
 		/// <summary>Get whether this <see cref="DisposableObject"/> has been disposed of.</summary>
 		public bool IsDisposed { get { return isDisposed; } }
 
+		/// <summary>Dispose of the object.</summary>
 		~DisposableObject() { Dispose(); }
 
-		public void Dispose()
-		{
+		/// <summary>
+		/// Dispose of the object.
+		/// </summary>
+		public void Dispose() {
 			if (isDisposed)
 				return;
 			isDisposed = true;
@@ -31,6 +32,7 @@ namespace Glare
 				Disposed.Invoke(this, new EventArgs());
 		}
 
+		/// <summary>Dispose of the object.</summary>
 		protected abstract void DisposeBase();
 	}
 }

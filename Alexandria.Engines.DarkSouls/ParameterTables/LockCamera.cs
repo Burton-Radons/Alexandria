@@ -16,11 +16,13 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "LOCK_CAM_PARAM_ST" in the file "LockCaramParam.paramdef" (id 2Eh).
 		/// </remarks>
 		public class LockCamera : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "LOCK_CAM_PARAM_ST";
 
 			Single camDistTarget, rotRangeMinX, lockRotXShiftRatio, chrOrgOffset_Y, chrLockRangeMaxRadius, camFovY;
 			Byte[] pad;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				CamDistTargetProperty = GetProperty<LockCamera>("CamDistTarget"),
 				RotRangeMinXProperty = GetProperty<LockCamera>("RotRangeMinX"),
@@ -35,7 +37,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "カメラ距離目標[m]", Google translated: "Camera distance goal [m]".
 			/// Japanese description: "カメラ用", Google translated: "Camera".
 			/// </remarks>
-			[ParameterTableRowAttribute("camDistTarget", index: 0, minimum: 0.1, maximum: 100, step: 0.01, order: 1, unknown2: 0)]
+			[ParameterTableRowAttribute("camDistTarget", index: 0, minimum: 0.1, maximum: 100, step: 0.01, sortOrder: 1, unknown2: 0)]
 			[DisplayName("Camera distance goal [m]")]
 			[Description("Camera")]
 			[DefaultValue((Single)4)]
@@ -53,7 +55,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "X軸回転最小値[deg]", Google translated: "X-axis rotation minimum value [deg]".
 			/// Japanese description: "カメラ用", Google translated: "Camera".
 			/// </remarks>
-			[ParameterTableRowAttribute("rotRangeMinX", index: 1, minimum: -80, maximum: 80, step: 0.1, order: 2, unknown2: 0)]
+			[ParameterTableRowAttribute("rotRangeMinX", index: 1, minimum: -80, maximum: 80, step: 0.1, sortOrder: 2, unknown2: 0)]
 			[DisplayName("X-axis rotation minimum value [deg]")]
 			[Description("Camera")]
 			[DefaultValue((Single)(-40))]
@@ -71,7 +73,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ロックX回転シフト率(0.0～1.0)", Google translated: "X lock rotation shift ratio (0.0 and 1.0)".
 			/// Japanese description: "カメラ用", Google translated: "Camera".
 			/// </remarks>
-			[ParameterTableRowAttribute("lockRotXShiftRatio", index: 2, minimum: 0, maximum: 1, step: 0.01, order: 3, unknown2: 0)]
+			[ParameterTableRowAttribute("lockRotXShiftRatio", index: 2, minimum: 0, maximum: 1, step: 0.01, sortOrder: 3, unknown2: 0)]
 			[DisplayName("X lock rotation shift ratio (0.0 and 1.0)")]
 			[Description("Camera")]
 			[DefaultValue((Single)0.6)]
@@ -89,7 +91,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "キャラ基点オフセット(キャラ空間)", Google translated: "Character origin offset (character space)".
 			/// Japanese description: "カメラ用", Google translated: "Camera".
 			/// </remarks>
-			[ParameterTableRowAttribute("chrOrgOffset_Y", index: 3, minimum: -10, maximum: 10, step: 0.01, order: 4, unknown2: 0)]
+			[ParameterTableRowAttribute("chrOrgOffset_Y", index: 3, minimum: -10, maximum: 10, step: 0.01, sortOrder: 4, unknown2: 0)]
 			[DisplayName("Character origin offset (character space)")]
 			[Description("Camera")]
 			[DefaultValue((Single)1.42)]
@@ -107,7 +109,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "キャラ範囲最大半径[m]", Google translated: "Character range maximum radius [m]".
 			/// Japanese description: "ロック用", Google translated: "Locking".
 			/// </remarks>
-			[ParameterTableRowAttribute("chrLockRangeMaxRadius", index: 4, minimum: 0, maximum: 30, step: 0.01, order: 5, unknown2: 0)]
+			[ParameterTableRowAttribute("chrLockRangeMaxRadius", index: 4, minimum: 0, maximum: 30, step: 0.01, sortOrder: 5, unknown2: 0)]
 			[DisplayName("Character range maximum radius [m]")]
 			[Description("Locking")]
 			[DefaultValue((Single)15)]
@@ -125,7 +127,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "縦画角[deg]", Google translated: "Tate-ga angle [deg]".
 			/// Japanese description: "カメラ用", Google translated: "Camera".
 			/// </remarks>
-			[ParameterTableRowAttribute("camFovY", index: 5, minimum: 38, maximum: 48, step: 0.1, order: 6, unknown2: 0)]
+			[ParameterTableRowAttribute("camFovY", index: 5, minimum: 38, maximum: 48, step: 0.1, sortOrder: 6, unknown2: 0)]
 			[DisplayName("Tate-ga angle [deg]")]
 			[Description("Camera")]
 			[DefaultValue((Single)43)]
@@ -143,7 +145,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad[8]", index: 6, minimum: 0, maximum: 30, step: 0.01, order: 8, unknown2: 0)]
+			[ParameterTableRowAttribute("pad[8]", index: 6, minimum: 0, maximum: 30, step: 0.01, sortOrder: 8, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("")]
 			[Browsable(false)]
@@ -176,6 +178,8 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad = new Byte[8];
 			}
 
+			/// <summary>Write the <see cref="LockCamera"/> row.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(CamDistTarget);
 				writer.Write(RotRangeMinX);

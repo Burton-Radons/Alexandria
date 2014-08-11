@@ -11,26 +11,55 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Engines.DarkSouls {
+	/// <summary>
+	/// Identifies the major <see cref="Archive"/> variant.
+	/// </summary>
 	public enum ArchiveVariant {
+		/// <summary>No or invalid value.</summary>
 		None,
+
+		/// <summary>V3, used in Dark Souls.</summary>
 		V3,
+
+		/// <summary>Used in Dark Souls and Dark Souls 2.</summary>
 		V4,
+
+		/// <summary>Used in Dark Souls 2.</summary>
 		V5,
 	}
 
+	/// <summary>
+	/// A collection of files.
+	/// </summary>
 	public class Archive : ArchiveAsset {
+		/// <summary>Get the extension of a normal contents file.</summary>
 		public const string ContentsExtensionEnd = "bdt";
+
+		/// <summary>Get the extension of a normal headers file.</summary>
 		public const string HeadersExtensionEnd = "bhd", HeadersExtension5End = "bhd5";
 
+		/// <summary>"BDF3" content magic; a V5 file.</summary>
 		public const string ContentsMagicBDF3 = "BDF3";
+
+		/// <summary>"BDF4" content magic.</summary>
 		public const string ContentsMagicBDF4 = "BDF4";
 
+		/// <summary>"BHF3" headers magic.</summary>
 		public const string HeadersMagicBHF3 = "BHF3";
+
+		/// <summary>"BHF4" headers magic.</summary>
 		public const string HeadersMagicBHF4 = "BHF4";
+
+		/// <summary>"BHD5" headers magic.</summary>
 		public const string HeadersMagicBHD5 = "BHD5";
 
+		/// <summary>Get the extension for a package file.</summary>
 		public const string PackageExtensionBND = ".bnd";
+
+		/// <summary>"BND3" package magic.</summary>
 		public const string PackageMagicBND3 = "BND3";
+
+		/// <summary>"BND4" package magic.</summary>
 		public const string PackageMagicBND4 = "BND4";
 
 		internal readonly Codex<ArchiveRecord> records = new Codex<ArchiveRecord>();
@@ -38,30 +67,38 @@ namespace Alexandria.Engines.DarkSouls {
 		readonly Dictionary<string, ArchiveRecord> RecordsByPath = new Dictionary<string, ArchiveRecord>();
 		readonly Dictionary<int, ArchiveRecord> RecordsById = new Dictionary<int, ArchiveRecord>();
 
+		/// <summary>Get the text encoding to use.</summary>
 		public Encoding Encoding { get { return IsBigEndian ? Encoding.BigEndianUnicode : Encoding.Unicode; } }
-		public static readonly Encoding ShiftJis = Encoding.GetEncoding("shift-jis");
 
-		public Asset Context { get; private set; }
+		/// <summary>Get the "Shift-JIS" encoding which is used throughout Dark/Demon Souls.</summary>
+		public static readonly Encoding ShiftJis = Encoding.GetEncoding("shift-jis");
 
 		internal FileManager FileManager { get; private set; }
 
 		/// <summary>Null or a string up to eight characters of the form "307D7R6", "14B27P30" or "14B24G16", depending upon archive type; maybe revision-control related?</summary>
 		public string Id { get; private set; }
 
+		/// <summary>Get whether this is a big-endian archive.</summary>
 		public bool IsBigEndian { get; private set; }
 
+		/// <summary>Get whether this is a Dark Souls 2 archive.</summary>
 		public bool IsDarkSoulsII { get; private set; }
 
+		/// <summary>Get whether this is a package archive, as opposed to a header/content pair of files.</summary>
 		public bool IsHeaderlessPackage { get; private set; }
 
+		/// <summary>Get the reader for the archive.</summary>
 		public readonly BinaryReader DataReader;
 
+		/// <summary>Get the stream for the archive.</summary>
 		public readonly Stream DataStream;
 
 		internal static readonly Dictionary<int, string> KnownFiles = new Dictionary<int, string>();
 
+		/// <summary>Get the records in the archive.</summary>
 		public ReadOnlyCodex<ArchiveRecord> Records { get { return records; } }
 
+		/// <summary>Get the archive variant.</summary>
 		public ArchiveVariant Variant { get; private set; }
 
 		static Archive() {
@@ -85,14 +122,13 @@ namespace Alexandria.Engines.DarkSouls {
 			return path;
 		}
 
-		public Archive(AssetManager manager, AssetLoader loader)
+		internal Archive(AssetManager manager, AssetLoader loader)
 			: base(manager, "Dark Souls archive - " + loader.Name) {
 			FileManager = new ArchiveFileManager(this);
 			var reader = loader.Reader;
 			var path = loader.Name;
 			var context = loader.FileManager;
 
-			Context = loader.Context;
 			string magic = reader.ReadString(4, Encoding.ASCII);
 			string extension = System.IO.Path.GetExtension(path);
 
@@ -232,10 +268,21 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>
+		/// Find an <see cref="ArchiveRecord"/> by its id, or return <c>null</c> if not found.
+		/// </summary>
+		/// <param name="id">The id of the <see cref="ArchiveRecord"/> to search for.</param>
+		/// <returns>The <see cref="ArchiveRecord"/> or <c>null</c> for none.</returns>
 		public ArchiveRecord FindRecordById(int id) { return RecordsById.TryGetValue(id); }
 
+		/// <summary>Find an <see cref="ArchiveRecord"/> by its path, or return <c>null</c> if not found.</summary>
+		/// <param name="path">The path of the <see cref="ArchiveRecord"/> to search for.</param>
+		/// <returns>The <see cref="ArchiveRecord"/> or <c>null</c> if not found.</returns>
 		public ArchiveRecord FindRecordByPath(string path) { return RecordsByPath.TryGetValue(path); }
 
+		/// <summary>Produce a hash of the filename used in Dark Souls main archives' record ids.</summary>
+		/// <param name="input">The string to hash.</param>
+		/// <returns>The hash value.</returns>
 		public static int HashFilename(string input) {
 			if (string.IsNullOrEmpty(input))
 				return 0;
@@ -247,6 +294,16 @@ namespace Alexandria.Engines.DarkSouls {
 
 		class ArchiveFileManager : FileManager {
 			readonly Archive Archive;
+
+			/// <summary>Get an id based on the archive name and the contexts.</summary>
+			public override string Id {
+				get {
+					string id = Archive.Name;
+					for (Asset context = Archive.LoadContext; context != null; context = context.LoadContext)
+						id += "\n" + context.Name;
+					return id;
+				}
+			}
 
 			public ArchiveFileManager(Archive archive) {
 				Archive = archive;
@@ -268,10 +325,14 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>
+	/// A record in an <see cref="Archive"/>.
+	/// </summary>
 	public class ArchiveRecord : DataAsset {
 		int Compression;
 		long fixedUncompressedSize;
 
+		/// <summary>Get the archive this is in.</summary>
 		public Archive Archive {
 			get {
 				Archive archive;
@@ -282,8 +343,12 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
-		public Asset ArchiveContext { get { return Archive.Context; } }
+		/// <summary>
+		/// Get the <see cref="Asset.LoadContext"/> of the <see cref="Archive"/>.
+		/// </summary>
+		public Asset ArchiveContext { get { return Archive.LoadContext; } }
 
+		/// <summary>Get a display name that includes the <see cref="Id"/> and <see cref="Size"/>.</summary>
 		public override string DisplayName {
 			get {
 				string text = Name;
@@ -292,15 +357,27 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>
+		/// Get the <see cref="FileManager"/> of the <see cref="Archive"/>.
+		/// </summary>
 		public override FileManager FileManager { get { return Archive.FileManager; } }
 
+		/// <summary>
+		/// Get the id of the record.
+		/// </summary>
 		public int Id { get; private set; }
 
+		/// <summary>
+		/// Get the zero-based index of the record in the <see cref="Archive"/>.
+		/// </summary>
 		public int Index { get; private set; }
 
+		/// <summary>
+		/// Get the offset of the record in the archive content data.
+		/// </summary>
 		public long Offset { get; private set; }
 
-		/// <summary>Get the <see cref="Name"/> of the <see cref="Asset"/> along with its path.</summary>
+		/// <summary>Get the <see cref="Asset.Name"/> of the <see cref="Asset"/> along with its path.</summary>
 		public override string PathName {
 			get {
 				string text = "";
@@ -313,6 +390,9 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>
+		/// Get the size in bytes of the record data. This may not be the raw size, as the record could be compressed.
+		/// </summary>
 		public long Size { get; private set; }
 
 		internal ArchiveRecord(Archive archive, int index, BinaryReader reader, int recordHeaderSize)
@@ -347,6 +427,7 @@ namespace Alexandria.Engines.DarkSouls {
 						// 'Compression' = 2, Unknown = 0, Encoding = UTF8
 						Name = reader.ReadStringzAtUInt32(Archive.ShiftJis);
 					}
+					Id = DarkSouls.Archive.HashFilename(Name);
 					break;
 
 				case ArchiveVariant.V5:
@@ -369,6 +450,10 @@ namespace Alexandria.Engines.DarkSouls {
 			MoveIntoPath(Name);
 		}
 
+		/// <summary>
+		/// Open the record, decompressing it as necessary.
+		/// </summary>
+		/// <returns>A <see cref="Stream"/> for reading the record.</returns>
 		public override Stream Open() {
 			var archive = Archive;
 			var reader = archive.DataReader;
@@ -492,6 +577,10 @@ namespace Alexandria.Engines.DarkSouls {
 			return BigEndianBinaryReader.Create(Archive.IsBigEndian ? ByteOrder.BigEndian : ByteOrder.LittleEndian, Open());
 		}*/
 
+		/// <summary>
+		/// Get a string representing the record.
+		/// </summary>
+		/// <returns>A string representing the record.</returns>
 		public override string ToString() {
 			return string.Format("{0}(Id 0x{4:X}, \"{1}\", Offset {2:X}h, Size {3})", GetType().Name, PathName, Offset, Size, Id);
 		}
@@ -503,7 +592,14 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>
+	/// The <see cref="AssetFormat"/> for handling an <see cref="Archive"/>.
+	/// </summary>
 	public class ArchiveFormat : AssetFormat {
+		/// <summary>
+		/// Initialise the archive format.
+		/// </summary>
+		/// <param name="engine">The engine to associate with.</param>
 		public ArchiveFormat(Engine engine)
 			: base(engine, typeof(Archive), canLoad: true) {
 		}
@@ -519,8 +615,13 @@ namespace Alexandria.Engines.DarkSouls {
 			return Convert.FromBase64String(base64);
 		}
 
-		public override LoadMatchStrength LoadMatch(AssetLoader context) {
-			var reader = context.Reader;
+		/// <summary>
+		/// Get whether the loader matches an archive.
+		/// </summary>
+		/// <param name="loader">The loader to test.</param>
+		/// <returns>The match strength.</returns>
+		public override LoadMatchStrength LoadMatch(AssetLoader loader) {
+			var reader = loader.Reader;
 
 			/*const string keyFile = @"D:\Steam\steamapps\common\Dark Souls II\Game\GameDataKeyCode.pem";
 			var keyData = LoadKey(keyFile, "RSA PUBLIC KEY");
@@ -536,8 +637,13 @@ namespace Alexandria.Engines.DarkSouls {
 			return LoadMatchStrength.None;
 		}
 
-		public override Asset Load(AssetLoader info) {
-			return new Archive(Manager, info);
+		/// <summary>
+		/// Read the archive from the loader.
+		/// </summary>
+		/// <param name="loader">The loader to read from.</param>
+		/// <returns>The new archive.</returns>
+		public override Asset Load(AssetLoader loader) {
+			return new Archive(Manager, loader);
 		}
 	}
 }

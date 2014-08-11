@@ -11,20 +11,30 @@ using Glare.Framework;
 using System.Windows.Forms;
 
 namespace Alexandria.Engines.Sciagi.Resources {
+	/// <summary>
+	/// A script resource.
+	/// </summary>
 	public class Script : ResourceData {
 		Codex<ScriptSection> blocks = new Codex<ScriptSection>();
 
+		/// <summary>
+		/// Get the sections of the script.
+		/// </summary>
 		public Codex<ScriptSection> Blocks { get { return blocks; } }
 
-		public Script(AssetLoader loader)
-			: base(loader.Context as Resource) {
+		internal Script(AssetLoader loader)
+			: base(loader) {
 			ScriptSection block;
 
 			while ((block = ScriptSection.Read(this, loader)) != null)
 				blocks.Add(block);
 		}
 
-		public override Control Browse() {
+		/// <summary>
+		/// Create a control to browse the script.
+		/// </summary>
+		/// <returns></returns>
+		public override Control Browse(Action<double> progressUpdateCallback = null) {
 			TreeView tree = new TreeView() {
 			};
 
@@ -35,14 +45,28 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		}
 	}
 
+	/// <summary>A block in a <see cref="Script"/>.</summary>
 	public struct ScriptBlock {
+		/// <summary>Get the offset of the content of the block.</summary>
 		public long ContentOffset { get { return HeaderOffset + (Type == ScriptBlockType.End ? 2 : 4); } }
+
+		/// <summary>Get the size in bytes of the block.</summary>
 		public int ContentSize { get { return TotalSize > 0 ? TotalSize - 4 : 0; } }
+
+		/// <summary>Get the offset after the end of the block.</summary>
 		public long EndOffset { get { return HeaderOffset + TotalSize; } }
+
+		/// <summary>Get the offset of the header of the block.</summary>
 		public readonly long HeaderOffset;
+
+		/// <summary>Get the total size of the block including the header.</summary>
 		public readonly int TotalSize;
+
+		/// <summary>Get the type of the block.</summary>
 		public readonly ScriptBlockType Type;
 
+		/// <summary>Load the block.</summary>
+		/// <param name="loader"></param>
 		public ScriptBlock(AssetLoader loader) {
 			HeaderOffset = loader.Position;
 			Type = (ScriptBlockType)loader.Reader.ReadUInt16();
@@ -60,17 +84,26 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		}
 	}
 
+	/// <summary>
+	/// A section of a <see cref="Script"/>.
+	/// </summary>
 	public abstract class ScriptSection {
+		/// <summary>
+		/// Get the block data for this section.
+		/// </summary>
 		public ScriptBlock Block { get; private set; }
 
+		/// <summary>
+		/// Get the containing <see cref="Script"/>.
+		/// </summary>
 		public Script Script { get; private set; }
 
-		public ScriptSection(Script script, ScriptBlock block) {
+		internal ScriptSection(Script script, ScriptBlock block) {
 			Block = block;
 			Script = script;
 		}
 
-		public static ScriptSection Read(Script script, AssetLoader loader) {
+		internal static ScriptSection Read(Script script, AssetLoader loader) {
 			ScriptBlock block = new ScriptBlock(loader);
 
 			switch (block.Type) {
@@ -82,18 +115,30 @@ namespace Alexandria.Engines.Sciagi.Resources {
 			}
 		}
 
+		/// <summary>Convert to a string representation of the section.</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			return string.Format("{0} ({1} byte(s))", Block.Type, Block.ContentSize);
 		}
 
+		/// <summary>Convert to a tree node control.</summary>
+		/// <returns></returns>
 		public abstract TreeNode ToTreeNode();
 
+		/// <summary>A local variable section for a script.</summary>
 		public class Locals : ScriptSection {
+			/// <summary>Get the number of <see cref="Values"/>.</summary>
 			public int Count { get { return Values.Count; } }
+
+			/// <summary>Get the values of the locals.</summary>
 			public Codex<ushort> Values { get; private set; }
+
+			/// <summary>Get the value of a local.</summary>
+			/// <param name="index"></param>
+			/// <returns></returns>
 			public ushort this[int index] { get { return Values[index]; } }
 
-			public Locals(Script script, ScriptBlock block, AssetLoader loader)
+			internal Locals(Script script, ScriptBlock block, AssetLoader loader)
 				: base(script, block) {
 				Codex<ushort> values = new Codex<ushort>(block.ContentSize / 2);
 				Values = values;
@@ -101,10 +146,18 @@ namespace Alexandria.Engines.Sciagi.Resources {
 					values.Add(loader.Reader.ReadUInt16());
 			}
 
+			/// <summary>
+			/// Convert to a string.
+			/// </summary>
+			/// <returns></returns>
 			public override string ToString() {
 				return string.Format("{0}({1} local(s))", GetType().Name, Count);
 			}
 
+			/// <summary>
+			/// Convert to a tree node control.
+			/// </summary>
+			/// <returns></returns>
 			public override TreeNode ToTreeNode() {
 				TreeNode node = new TreeNode(ToString());
 				for (int index = 0; index < Count; index++)
@@ -113,27 +166,44 @@ namespace Alexandria.Engines.Sciagi.Resources {
 			}
 		}
 
+		/// <summary>
+		/// Describes an object.
+		/// </summary>
 		public class Object : ScriptSection {
+			/// <summary>The species selector index.</summary>
 			public const int SpeciesSelectorIndex = 0;
+
+			/// <summary>The super class selector index.</summary>
 			public const int SuperClassSelectorIndex = 1;
+
+			/// <summary>The info selector index.</summary>
 			public const int InfoSelectorIndex = 2;
+
+			/// <summary>The name selector index.</summary>
 			public const int NameSelectorIndex = 3;
 
+			/// <summary>Get the functions defined on the object.</summary>
 			public Codex<FunctionSelector> Functions { get; private set; }
 
+			/// <summary>Get the info selector variable object.</summary>
 			public VariableSelector Info { get { return Variables[InfoSelectorIndex]; } }
 
+			/// <summary>Get the offset of the local variables.</summary>
 			public int LocalVariableOffset { get; private set; }
 
+			/// <summary>Get the name selector.</summary>
 			public VariableSelector Name { get { return Variables[NameSelectorIndex]; } }
 
+			/// <summary>Get the species selector variable.</summary>
 			public VariableSelector Species { get { return Variables[SpeciesSelectorIndex]; } }
 
+			/// <summary>Get the super class selector variable.</summary>
 			public VariableSelector SuperClass { get { return Variables[SuperClassSelectorIndex]; } }
 
+			/// <summary>Get the variable selectors of the object.</summary>
 			public Codex<VariableSelector> Variables { get; private set; }
 
-			public Object(Script script, ScriptBlock block, AssetLoader loader)
+			internal Object(Script script, ScriptBlock block, AssetLoader loader)
 				: base(script, block) {
 				var reader = loader.Reader;
 
@@ -160,17 +230,35 @@ namespace Alexandria.Engines.Sciagi.Resources {
 				loader.ExpectPosition(block.EndOffset);
 			}
 
+			/// <summary>
+			/// Create a string representation of the object.
+			/// </summary>
+			/// <returns></returns>
 			public override string ToString() {
 				return string.Format("{0}({1} variable(s), {2} function(s))", GetType().Name, Variables.Count, Functions.Count);
 			}
 
+			/// <summary>
+			/// Convert this object to a tree node control.
+			/// </summary>
+			/// <returns></returns>
 			public override TreeNode ToTreeNode() {
 				var node = new TreeNode(ToString());
 				return node;
 			}
 
+			/// <summary>
+			/// A selector in the object.
+			/// </summary>
 			public abstract class Selector {
+				/// <summary>
+				/// Get the index of the selector.
+				/// </summary>
 				public int Index { get; private set; }
+
+				/// <summary>
+				/// Get the object this selector is in.
+				/// </summary>
 				public Object Object { get; private set; }
 
 				internal Selector(Object @object, AssetLoader loader) {
@@ -183,27 +271,55 @@ namespace Alexandria.Engines.Sciagi.Resources {
 				}
 			}
 
+			/// <summary>
+			/// A function selector in the object.
+			/// </summary>
 			public class FunctionSelector : Selector {
+				/// <summary>
+				/// Get the offset of the code.
+				/// </summary>
 				public int CodeOffset { get; private set; }
 
 				internal FunctionSelector(Object @object, AssetLoader loader) : base(@object, loader) { }
 
 				internal void ReadCodeOffset(AssetLoader loader) { CodeOffset = loader.Reader.ReadUInt16(); }
 
+				/// <summary>
+				/// Create a string representation of the object.
+				/// </summary>
+				/// <returns></returns>
 				public override string ToString() {
 					return string.Format("{0}({1}, {2})", GetType().Name, Index, CodeOffset);
 				}
 			}
 
+			/// <summary>
+			/// A variable selector in the object.
+			/// </summary>
 			public class VariableSelector : Selector {
 				internal VariableSelector(Object @object, AssetLoader loader) : base(@object, loader) { }
 			}
 		}
 
+		/// <summary>
+		/// A collection of strings.
+		/// </summary>
 		public class Strings : ScriptSection {
+			/// <summary>
+			/// Get the number of strings.
+			/// </summary>
 			public int Count { get { return Values.Count; } }
+
+			/// <summary>
+			/// Get the values of the strings.
+			/// </summary>
 			public Codex<string> Values { get; private set; }
 
+			/// <summary>
+			/// Get an indexed string.
+			/// </summary>
+			/// <param name="index"></param>
+			/// <returns></returns>
 			public string this[int index] { get { return Values[index]; } }
 
 			internal Strings(Script script, ScriptBlock block, AssetLoader loader)
@@ -214,10 +330,18 @@ namespace Alexandria.Engines.Sciagi.Resources {
 					list.Add(loader.Reader.ReadStringz(Encoding.ASCII));
 			}
 
+			/// <summary>
+			/// Get a string representation of the object.
+			/// </summary>
+			/// <returns></returns>
 			public override string ToString() {
 				return string.Format("{0}({1} string(s))", GetType().Name, Count);
 			}
 
+			/// <summary>
+			/// Create a tree node control for this object.
+			/// </summary>
+			/// <returns></returns>
 			public override TreeNode ToTreeNode() {
 				TreeNode node = new TreeNode(ToString());
 				for (int index = 0; index < Count; index++)
@@ -226,7 +350,13 @@ namespace Alexandria.Engines.Sciagi.Resources {
 			}
 		}
 
+		/// <summary>
+		/// An unknown script section.
+		/// </summary>
 		public class Unknown : ScriptSection {
+			/// <summary>
+			/// Get the data content.
+			/// </summary>
 			public Codex<byte> Content { get; private set; }
 
 			internal Unknown(Script script, ScriptBlock block, AssetLoader loader)
@@ -234,6 +364,10 @@ namespace Alexandria.Engines.Sciagi.Resources {
 				Content = new Codex<byte>(loader.Reader.ReadBytes(block.ContentSize));
 			}
 
+			/// <summary>
+			/// Get a string representation of the section.
+			/// </summary>
+			/// <returns></returns>
 			public override TreeNode ToTreeNode() {
 				var node = new TreeNode(ToString());
 				return node;
@@ -241,17 +375,41 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		}
 	}
 
+	/// <summary>
+	/// The type of a script block.
+	/// </summary>
 	public enum ScriptBlockType : ushort {
+		/// <summary>Marks the end of the script blocks.</summary>
 		End = 0,
+
+		/// <summary>An object.</summary>
 		Object = 1,
+
+		/// <summary></summary>
 		Code = 2,
+
+		/// <summary></summary>
 		Synonyms = 3,
+
+		/// <summary></summary>
 		Said = 4,
+
+		/// <summary></summary>
 		Strings = 5,
+
+		/// <summary></summary>
 		Class = 6,
+
+		/// <summary></summary>
 		Exports = 7,
+
+		/// <summary></summary>
 		Relocations = 8,
+
+		/// <summary></summary>
 		Preload = 9,
+
+		/// <summary></summary>
 		Locals = 10,
 	}
 }

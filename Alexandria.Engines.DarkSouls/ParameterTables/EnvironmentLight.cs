@@ -14,6 +14,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// </summary>
 		/// <remarks>From "EnvLightTexBank.paramdef" (id 0Ah).</remarks>
 		public class EnvironmentLight : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "ENV_LIGHT_TEX_BANK";
 
 			SByte isUse, autoUpdate;
@@ -21,6 +22,7 @@ namespace Alexandria.Engines.DarkSouls {
 			Int16 invMulCol, resNameId_Dif0, invMulCol_Dif0, resNameId_Spc0, invMulCol_Spc0, resNameId_Spc1, invMulCol_Spc1, resNameId_Spc2, invMulCol_Spc2, resNameId_Spc3, invMulCol_Spc3, degRotX_00, degRotY_00, colR_00, colG_00, colB_00, colA_00, degRotX_01, degRotY_01, colR_01, colG_01, colB_01, colA_01, degRotX_02, degRotY_02, colR_02, colG_02, colB_02, colA_02, degRotX_03, degRotY_03, colR_03, colG_03, colB_03, colA_03, degRotX_04, degRotY_04, colR_04, colG_04, colB_04, colA_04, degRotX_05, degRotY_05, colR_05, colG_05, colB_05, colA_05, degRotX_06, degRotY_06, colR_06, colG_06, colB_06, colA_06, degRotX_07, degRotY_07, colR_07, colG_07, colB_07, colA_07, degRotX_08, degRotY_08, colR_08, colG_08, colB_08, colA_08, degRotX_09, degRotY_09, colR_09, colG_09, colB_09, colA_09;
 			Single sepcPow_Dif0, sepcPow_Spc0, sepcPow_Spc1, sepcPow_Spc2, sepcPow_Spc3;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				IsUseProperty = GetProperty<EnvironmentLight>("IsUse"),
 				AutoUpdateProperty = GetProperty<EnvironmentLight>("AutoUpdate"),
@@ -122,7 +124,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "使用するか", Google translated: "Whether to use".
 			/// Japanese description: "0:しない, 1:する", Google translated: "And without it to 1 : 0:".
 			/// </remarks>
-			[ParameterTableRowAttribute("isUse", index: 0, minimum: 0, maximum: 1, step: 1, order: 1, unknown2: 0)]
+			[ParameterTableRowAttribute("isUse", index: 0, minimum: 0, maximum: 1, step: 1, sortOrder: 1, unknown2: 0)]
 			[DisplayName("Whether to use")]
 			[Description("And without it to 1 : 0:")]
 			[DefaultValue((SByte)0)]
@@ -140,7 +142,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "自動更新するか", Google translated: "Or automatic update".
 			/// Japanese description: "0:しない, 1:する", Google translated: "And without it to 1 : 0:".
 			/// </remarks>
-			[ParameterTableRowAttribute("autoUpdate", index: 1, minimum: 0, maximum: 1, step: 1, order: 2, unknown2: 0)]
+			[ParameterTableRowAttribute("autoUpdate", index: 1, minimum: 0, maximum: 1, step: 1, sortOrder: 2, unknown2: 0)]
 			[DisplayName("Or automatic update")]
 			[Description("And without it to 1 : 0:")]
 			[DefaultValue((SByte)0)]
@@ -158,7 +160,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "ダミー", Google translated: "Dummy".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_0[12]", index: 2, minimum: 0, maximum: 0, step: 0, order: 95, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_0[12]", index: 2, minimum: 0, maximum: 0, step: 0, sortOrder: 95, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Dummy")]
 			public Byte[] Pad_0 {
@@ -171,7 +173,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB逆倍率[％]", Google translated: "RGB reverse magnification [ %]".
 			/// Japanese description: "全ての光源色にこの値の逆数を掛けます", Google translated: "I multiplied by the reciprocal of this value to the light source color of all".
 			/// </remarks>
-			[ParameterTableRowAttribute("invMulCol", index: 3, minimum: 1, maximum: 10000, step: 1, order: 3, unknown2: 0)]
+			[ParameterTableRowAttribute("invMulCol", index: 3, minimum: 1, maximum: 10000, step: 1, sortOrder: 3, unknown2: 0)]
 			[DisplayName("RGB reverse magnification [ %]")]
 			[Description("I multiplied by the reciprocal of this value to the light source color of all")]
 			[DefaultValue((Int16)100)]
@@ -189,7 +191,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "リソース名ID", Google translated: "Resource name ID".
 			/// Japanese description: "[DIF0] テクスチャファイル名のID(-1:なし)", Google translated: "ID of [DIF0] texture file name ( -1 : none)".
 			/// </remarks>
-			[ParameterTableRowAttribute("resNameId_Dif0", index: 4, minimum: -1, maximum: 999, step: 1, order: 4, unknown2: 4)]
+			[ParameterTableRowAttribute("resNameId_Dif0", index: 4, minimum: -1, maximum: 999, step: 1, sortOrder: 4, unknown2: 4)]
 			[DisplayName("Resource name ID")]
 			[Description("ID of [DIF0] texture file name ( -1 : none)")]
 			[DefaultValue((Int16)0)]
@@ -207,7 +209,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB逆倍率[％]", Google translated: "RGB reverse magnification [ %]".
 			/// Japanese description: "[DIF0] 光源色にこの値の逆数を掛けます", Google translated: "I multiplied by the reciprocal of this value to [DIF0] light source color".
 			/// </remarks>
-			[ParameterTableRowAttribute("invMulCol_Dif0", index: 5, minimum: 1, maximum: 10000, step: 1, order: 5, unknown2: 0)]
+			[ParameterTableRowAttribute("invMulCol_Dif0", index: 5, minimum: 1, maximum: 10000, step: 1, sortOrder: 5, unknown2: 0)]
 			[DisplayName("RGB reverse magnification [ %]")]
 			[Description("I multiplied by the reciprocal of this value to [DIF0] light source color")]
 			[DefaultValue((Int16)100)]
@@ -225,7 +227,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スペキュラ次数", Google translated: "Specular order".
 			/// Japanese description: "[DIF0] スペキュラ次数", Google translated: "[DIF0] specular order".
 			/// </remarks>
-			[ParameterTableRowAttribute("sepcPow_Dif0", index: 6, minimum: 0, maximum: 100, step: 0.01, order: 6, unknown2: 0)]
+			[ParameterTableRowAttribute("sepcPow_Dif0", index: 6, minimum: 0, maximum: 100, step: 0.01, sortOrder: 6, unknown2: 0)]
 			[DisplayName("Specular order")]
 			[Description("[DIF0] specular order")]
 			[DefaultValue((Single)1)]
@@ -243,7 +245,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "[DIF0]  ダミー", Google translated: "[DIF0] dummy".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_Dif0[8]", index: 7, minimum: 0, maximum: 0, step: 0, order: 96, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_Dif0[8]", index: 7, minimum: 0, maximum: 0, step: 0, sortOrder: 96, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("[DIF0] dummy")]
 			public Byte[] Pad_Dif0 {
@@ -256,7 +258,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "リソース名ID", Google translated: "Resource name ID".
 			/// Japanese description: "[SPC0] テクスチャファイル名のID(-1:なし)", Google translated: "ID of [SPC0] texture file name ( -1 : none)".
 			/// </remarks>
-			[ParameterTableRowAttribute("resNameId_Spc0", index: 8, minimum: -1, maximum: 999, step: 1, order: 7, unknown2: 4)]
+			[ParameterTableRowAttribute("resNameId_Spc0", index: 8, minimum: -1, maximum: 999, step: 1, sortOrder: 7, unknown2: 4)]
 			[DisplayName("Resource name ID")]
 			[Description("ID of [SPC0] texture file name ( -1 : none)")]
 			[DefaultValue((Int16)0)]
@@ -274,7 +276,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB逆倍率[％]", Google translated: "RGB reverse magnification [ %]".
 			/// Japanese description: "[SPC0] 光源色にこの値の逆数を掛けます", Google translated: "I multiplied by the reciprocal of this value to [SPC0] light source color".
 			/// </remarks>
-			[ParameterTableRowAttribute("invMulCol_Spc0", index: 9, minimum: 1, maximum: 10000, step: 1, order: 8, unknown2: 0)]
+			[ParameterTableRowAttribute("invMulCol_Spc0", index: 9, minimum: 1, maximum: 10000, step: 1, sortOrder: 8, unknown2: 0)]
 			[DisplayName("RGB reverse magnification [ %]")]
 			[Description("I multiplied by the reciprocal of this value to [SPC0] light source color")]
 			[DefaultValue((Int16)100)]
@@ -292,7 +294,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スペキュラ次数", Google translated: "Specular order".
 			/// Japanese description: "[SPC0] スペキュラ次数", Google translated: "[SPC0] specular order".
 			/// </remarks>
-			[ParameterTableRowAttribute("sepcPow_Spc0", index: 10, minimum: 0, maximum: 100, step: 0.01, order: 9, unknown2: 0)]
+			[ParameterTableRowAttribute("sepcPow_Spc0", index: 10, minimum: 0, maximum: 100, step: 0.01, sortOrder: 9, unknown2: 0)]
 			[DisplayName("Specular order")]
 			[Description("[SPC0] specular order")]
 			[DefaultValue((Single)1)]
@@ -310,7 +312,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "[SPC0]  ダミー", Google translated: "[SPC0] dummy".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_Spc0[8]", index: 11, minimum: 0, maximum: 0, step: 0, order: 97, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_Spc0[8]", index: 11, minimum: 0, maximum: 0, step: 0, sortOrder: 97, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("[SPC0] dummy")]
 			public Byte[] Pad_Spc0 {
@@ -323,7 +325,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "リソース名ID", Google translated: "Resource name ID".
 			/// Japanese description: "[SPC1] テクスチャファイル名のID(-1:なし)", Google translated: "ID of [SPC1] texture file name ( -1 : none)".
 			/// </remarks>
-			[ParameterTableRowAttribute("resNameId_Spc1", index: 12, minimum: -1, maximum: 999, step: 1, order: 10, unknown2: 4)]
+			[ParameterTableRowAttribute("resNameId_Spc1", index: 12, minimum: -1, maximum: 999, step: 1, sortOrder: 10, unknown2: 4)]
 			[DisplayName("Resource name ID")]
 			[Description("ID of [SPC1] texture file name ( -1 : none)")]
 			[DefaultValue((Int16)1)]
@@ -341,7 +343,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB逆倍率[％]", Google translated: "RGB reverse magnification [ %]".
 			/// Japanese description: "[SPC1] 光源色にこの値の逆数を掛けます", Google translated: "I multiplied by the reciprocal of this value to [SPC1] light source color".
 			/// </remarks>
-			[ParameterTableRowAttribute("invMulCol_Spc1", index: 13, minimum: 1, maximum: 10000, step: 1, order: 11, unknown2: 0)]
+			[ParameterTableRowAttribute("invMulCol_Spc1", index: 13, minimum: 1, maximum: 10000, step: 1, sortOrder: 11, unknown2: 0)]
 			[DisplayName("RGB reverse magnification [ %]")]
 			[Description("I multiplied by the reciprocal of this value to [SPC1] light source color")]
 			[DefaultValue((Int16)100)]
@@ -359,7 +361,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スペキュラ次数", Google translated: "Specular order".
 			/// Japanese description: "[SPC1] スペキュラ次数", Google translated: "[SPC1] specular order".
 			/// </remarks>
-			[ParameterTableRowAttribute("sepcPow_Spc1", index: 14, minimum: 0, maximum: 100, step: 0.01, order: 12, unknown2: 0)]
+			[ParameterTableRowAttribute("sepcPow_Spc1", index: 14, minimum: 0, maximum: 100, step: 0.01, sortOrder: 12, unknown2: 0)]
 			[DisplayName("Specular order")]
 			[Description("[SPC1] specular order")]
 			[DefaultValue((Single)1)]
@@ -377,7 +379,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "[SPC1]  ダミー", Google translated: "[SPC1] dummy".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_Spc1[8]", index: 15, minimum: 0, maximum: 0, step: 0, order: 98, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_Spc1[8]", index: 15, minimum: 0, maximum: 0, step: 0, sortOrder: 98, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("[SPC1] dummy")]
 			public Byte[] Pad_Spc1 {
@@ -390,7 +392,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "リソース名ID", Google translated: "Resource name ID".
 			/// Japanese description: "[SPC2] テクスチャファイル名のID(-1:なし)", Google translated: "ID of [SPC2] texture file name ( -1 : none)".
 			/// </remarks>
-			[ParameterTableRowAttribute("resNameId_Spc2", index: 16, minimum: -1, maximum: 999, step: 1, order: 13, unknown2: 4)]
+			[ParameterTableRowAttribute("resNameId_Spc2", index: 16, minimum: -1, maximum: 999, step: 1, sortOrder: 13, unknown2: 4)]
 			[DisplayName("Resource name ID")]
 			[Description("ID of [SPC2] texture file name ( -1 : none)")]
 			[DefaultValue((Int16)2)]
@@ -408,7 +410,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB逆倍率[％]", Google translated: "RGB reverse magnification [ %]".
 			/// Japanese description: "[SPC2] 光源色にこの値の逆数を掛けます", Google translated: "I multiplied by the reciprocal of this value to [SPC2] light source color".
 			/// </remarks>
-			[ParameterTableRowAttribute("invMulCol_Spc2", index: 17, minimum: 1, maximum: 10000, step: 1, order: 14, unknown2: 0)]
+			[ParameterTableRowAttribute("invMulCol_Spc2", index: 17, minimum: 1, maximum: 10000, step: 1, sortOrder: 14, unknown2: 0)]
 			[DisplayName("RGB reverse magnification [ %]")]
 			[Description("I multiplied by the reciprocal of this value to [SPC2] light source color")]
 			[DefaultValue((Int16)100)]
@@ -426,7 +428,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スペキュラ次数", Google translated: "Specular order".
 			/// Japanese description: "[SPC2] スペキュラ次数", Google translated: "[SPC2] specular order".
 			/// </remarks>
-			[ParameterTableRowAttribute("sepcPow_Spc2", index: 18, minimum: 0, maximum: 100, step: 0.01, order: 15, unknown2: 0)]
+			[ParameterTableRowAttribute("sepcPow_Spc2", index: 18, minimum: 0, maximum: 100, step: 0.01, sortOrder: 15, unknown2: 0)]
 			[DisplayName("Specular order")]
 			[Description("[SPC2] specular order")]
 			[DefaultValue((Single)1)]
@@ -444,7 +446,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "[SPC2]  ダミー", Google translated: "[SPC2] dummy".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_Spc2[8]", index: 19, minimum: 0, maximum: 0, step: 0, order: 99, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_Spc2[8]", index: 19, minimum: 0, maximum: 0, step: 0, sortOrder: 99, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("[SPC2] dummy")]
 			public Byte[] Pad_Spc2 {
@@ -457,7 +459,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "リソース名ID", Google translated: "Resource name ID".
 			/// Japanese description: "[SPC3] テクスチャファイル名のID(-1:なし)", Google translated: "ID of [SPC3] texture file name ( -1 : none)".
 			/// </remarks>
-			[ParameterTableRowAttribute("resNameId_Spc3", index: 20, minimum: -1, maximum: 999, step: 1, order: 16, unknown2: 4)]
+			[ParameterTableRowAttribute("resNameId_Spc3", index: 20, minimum: -1, maximum: 999, step: 1, sortOrder: 16, unknown2: 4)]
 			[DisplayName("Resource name ID")]
 			[Description("ID of [SPC3] texture file name ( -1 : none)")]
 			[DefaultValue((Int16)3)]
@@ -475,7 +477,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB逆倍率[％]", Google translated: "RGB reverse magnification [ %]".
 			/// Japanese description: "[SPC3] 光源色にこの値の逆数を掛けます", Google translated: "I multiplied by the reciprocal of this value in [SPC3] light source color".
 			/// </remarks>
-			[ParameterTableRowAttribute("invMulCol_Spc3", index: 21, minimum: 1, maximum: 10000, step: 1, order: 17, unknown2: 0)]
+			[ParameterTableRowAttribute("invMulCol_Spc3", index: 21, minimum: 1, maximum: 10000, step: 1, sortOrder: 17, unknown2: 0)]
 			[DisplayName("RGB reverse magnification [ %]")]
 			[Description("I multiplied by the reciprocal of this value in [SPC3] light source color")]
 			[DefaultValue((Int16)100)]
@@ -493,7 +495,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スペキュラ次数", Google translated: "Specular order".
 			/// Japanese description: "[SPC3] スペキュラ次数", Google translated: "[SPC3] specular order".
 			/// </remarks>
-			[ParameterTableRowAttribute("sepcPow_Spc3", index: 22, minimum: 0, maximum: 100, step: 0.01, order: 18, unknown2: 0)]
+			[ParameterTableRowAttribute("sepcPow_Spc3", index: 22, minimum: 0, maximum: 100, step: 0.01, sortOrder: 18, unknown2: 0)]
 			[DisplayName("Specular order")]
 			[Description("[SPC3] specular order")]
 			[DefaultValue((Single)1)]
@@ -511,7 +513,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "[SPC3]  ダミー", Google translated: "[SPC3] dummy".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_Spc3[8]", index: 23, minimum: 0, maximum: 0, step: 0, order: 100, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_Spc3[8]", index: 23, minimum: 0, maximum: 0, step: 0, sortOrder: 100, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("[SPC3] dummy")]
 			public Byte[] Pad_Spc3 {
@@ -524,7 +526,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "X角度", Google translated: "X angle".
 			/// Japanese description: "平行光源：００", Google translated: "Collimated light source : 00".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotX_00", index: 24, minimum: -90, maximum: 90, step: 1, order: 19, unknown2: 0)]
+			[ParameterTableRowAttribute("degRotX_00", index: 24, minimum: -90, maximum: 90, step: 1, sortOrder: 19, unknown2: 0)]
 			[DisplayName("X angle")]
 			[Description("Collimated light source : 00")]
 			[DefaultValue((Int16)0)]
@@ -542,7 +544,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｙ角度", Google translated: "Y angle".
 			/// Japanese description: "平行光源：００", Google translated: "Collimated light source : 00".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotY_00", index: 25, minimum: -180, maximum: 180, step: 1, order: 20, unknown2: 1)]
+			[ParameterTableRowAttribute("degRotY_00", index: 25, minimum: -180, maximum: 180, step: 1, sortOrder: 20, unknown2: 1)]
 			[DisplayName("Y angle")]
 			[Description("Collimated light source : 00")]
 			[DefaultValue((Int16)0)]
@@ -560,7 +562,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "平行光源：００", Google translated: "Collimated light source : 00".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR_00", index: 26, minimum: 0, maximum: 255, step: 1, order: 21, unknown2: 0)]
+			[ParameterTableRowAttribute("colR_00", index: 26, minimum: 0, maximum: 255, step: 1, sortOrder: 21, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Collimated light source : 00")]
 			[DefaultValue((Int16)255)]
@@ -578,7 +580,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "平行光源：００", Google translated: "Collimated light source : 00".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG_00", index: 27, minimum: 0, maximum: 255, step: 1, order: 22, unknown2: 0)]
+			[ParameterTableRowAttribute("colG_00", index: 27, minimum: 0, maximum: 255, step: 1, sortOrder: 22, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Collimated light source : 00")]
 			[DefaultValue((Int16)255)]
@@ -596,7 +598,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "平行光源：００", Google translated: "Collimated light source : 00".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB_00", index: 28, minimum: 0, maximum: 255, step: 1, order: 23, unknown2: 0)]
+			[ParameterTableRowAttribute("colB_00", index: 28, minimum: 0, maximum: 255, step: 1, sortOrder: 23, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Collimated light source : 00")]
 			[DefaultValue((Int16)255)]
@@ -614,7 +616,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [ %]".
 			/// Japanese description: "平行光源：００ (0:未使用)", Google translated: "Collimated light source : 00 ( 0 : not used)".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA_00", index: 29, minimum: 0, maximum: 10000, step: 1, order: 24, unknown2: 0)]
+			[ParameterTableRowAttribute("colA_00", index: 29, minimum: 0, maximum: 10000, step: 1, sortOrder: 24, unknown2: 0)]
 			[DisplayName("RGB magnification [ %]")]
 			[Description("Collimated light source : 00 ( 0 : not used)")]
 			[DefaultValue((Int16)100)]
@@ -632,7 +634,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "平行光源：００", Google translated: "Collimated light source : 00".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_00[4]", index: 30, minimum: 0, maximum: 0, step: 0, order: 101, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_00[4]", index: 30, minimum: 0, maximum: 0, step: 0, sortOrder: 101, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Collimated light source : 00")]
 			public Byte[] Pad_00 {
@@ -645,7 +647,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "X角度", Google translated: "X angle".
 			/// Japanese description: "平行光源：０１", Google translated: "Collimated light source : 01".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotX_01", index: 31, minimum: -90, maximum: 90, step: 1, order: 25, unknown2: 0)]
+			[ParameterTableRowAttribute("degRotX_01", index: 31, minimum: -90, maximum: 90, step: 1, sortOrder: 25, unknown2: 0)]
 			[DisplayName("X angle")]
 			[Description("Collimated light source : 01")]
 			[DefaultValue((Int16)0)]
@@ -663,7 +665,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｙ角度", Google translated: "Y angle".
 			/// Japanese description: "平行光源：０１", Google translated: "Collimated light source : 01".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotY_01", index: 32, minimum: -180, maximum: 180, step: 1, order: 26, unknown2: 1)]
+			[ParameterTableRowAttribute("degRotY_01", index: 32, minimum: -180, maximum: 180, step: 1, sortOrder: 26, unknown2: 1)]
 			[DisplayName("Y angle")]
 			[Description("Collimated light source : 01")]
 			[DefaultValue((Int16)0)]
@@ -681,7 +683,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "平行光源：０１", Google translated: "Collimated light source : 01".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR_01", index: 33, minimum: 0, maximum: 255, step: 1, order: 27, unknown2: 0)]
+			[ParameterTableRowAttribute("colR_01", index: 33, minimum: 0, maximum: 255, step: 1, sortOrder: 27, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Collimated light source : 01")]
 			[DefaultValue((Int16)255)]
@@ -699,7 +701,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "平行光源：０１", Google translated: "Collimated light source : 01".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG_01", index: 34, minimum: 0, maximum: 255, step: 1, order: 28, unknown2: 0)]
+			[ParameterTableRowAttribute("colG_01", index: 34, minimum: 0, maximum: 255, step: 1, sortOrder: 28, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Collimated light source : 01")]
 			[DefaultValue((Int16)255)]
@@ -717,7 +719,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "平行光源：０１", Google translated: "Collimated light source : 01".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB_01", index: 35, minimum: 0, maximum: 255, step: 1, order: 29, unknown2: 0)]
+			[ParameterTableRowAttribute("colB_01", index: 35, minimum: 0, maximum: 255, step: 1, sortOrder: 29, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Collimated light source : 01")]
 			[DefaultValue((Int16)255)]
@@ -735,7 +737,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [ %]".
 			/// Japanese description: "平行光源：０１ (0:未使用)", Google translated: "Collimated light source : 01 ( 0 : not used)".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA_01", index: 36, minimum: 0, maximum: 10000, step: 1, order: 30, unknown2: 0)]
+			[ParameterTableRowAttribute("colA_01", index: 36, minimum: 0, maximum: 10000, step: 1, sortOrder: 30, unknown2: 0)]
 			[DisplayName("RGB magnification [ %]")]
 			[Description("Collimated light source : 01 ( 0 : not used)")]
 			[DefaultValue((Int16)0)]
@@ -753,7 +755,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "平行光源：０１", Google translated: "Collimated light source : 01".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_01[4]", index: 37, minimum: 0, maximum: 0, step: 0, order: 102, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_01[4]", index: 37, minimum: 0, maximum: 0, step: 0, sortOrder: 102, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Collimated light source : 01")]
 			public Byte[] Pad_01 {
@@ -766,7 +768,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "X角度", Google translated: "X angle".
 			/// Japanese description: "平行光源：０２", Google translated: "Collimated light source : 02".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotX_02", index: 38, minimum: -90, maximum: 90, step: 1, order: 31, unknown2: 0)]
+			[ParameterTableRowAttribute("degRotX_02", index: 38, minimum: -90, maximum: 90, step: 1, sortOrder: 31, unknown2: 0)]
 			[DisplayName("X angle")]
 			[Description("Collimated light source : 02")]
 			[DefaultValue((Int16)0)]
@@ -784,7 +786,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｙ角度", Google translated: "Y angle".
 			/// Japanese description: "平行光源：０２", Google translated: "Collimated light source : 02".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotY_02", index: 39, minimum: -180, maximum: 180, step: 1, order: 32, unknown2: 1)]
+			[ParameterTableRowAttribute("degRotY_02", index: 39, minimum: -180, maximum: 180, step: 1, sortOrder: 32, unknown2: 1)]
 			[DisplayName("Y angle")]
 			[Description("Collimated light source : 02")]
 			[DefaultValue((Int16)0)]
@@ -802,7 +804,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "平行光源：０２", Google translated: "Collimated light source : 02".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR_02", index: 40, minimum: 0, maximum: 255, step: 1, order: 33, unknown2: 0)]
+			[ParameterTableRowAttribute("colR_02", index: 40, minimum: 0, maximum: 255, step: 1, sortOrder: 33, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Collimated light source : 02")]
 			[DefaultValue((Int16)255)]
@@ -820,7 +822,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "平行光源：０２", Google translated: "Collimated light source : 02".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG_02", index: 41, minimum: 0, maximum: 255, step: 1, order: 34, unknown2: 0)]
+			[ParameterTableRowAttribute("colG_02", index: 41, minimum: 0, maximum: 255, step: 1, sortOrder: 34, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Collimated light source : 02")]
 			[DefaultValue((Int16)255)]
@@ -838,7 +840,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "平行光源：０２", Google translated: "Collimated light source : 02".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB_02", index: 42, minimum: 0, maximum: 255, step: 1, order: 35, unknown2: 0)]
+			[ParameterTableRowAttribute("colB_02", index: 42, minimum: 0, maximum: 255, step: 1, sortOrder: 35, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Collimated light source : 02")]
 			[DefaultValue((Int16)255)]
@@ -856,7 +858,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [ %]".
 			/// Japanese description: "平行光源：０２ (0:未使用)", Google translated: "Collimated light source : 02 ( 0 : not used)".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA_02", index: 43, minimum: 0, maximum: 10000, step: 1, order: 36, unknown2: 0)]
+			[ParameterTableRowAttribute("colA_02", index: 43, minimum: 0, maximum: 10000, step: 1, sortOrder: 36, unknown2: 0)]
 			[DisplayName("RGB magnification [ %]")]
 			[Description("Collimated light source : 02 ( 0 : not used)")]
 			[DefaultValue((Int16)0)]
@@ -874,7 +876,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "平行光源：０２", Google translated: "Collimated light source : 02".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_02[4]", index: 44, minimum: 0, maximum: 0, step: 0, order: 103, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_02[4]", index: 44, minimum: 0, maximum: 0, step: 0, sortOrder: 103, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Collimated light source : 02")]
 			public Byte[] Pad_02 {
@@ -887,7 +889,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "X角度", Google translated: "X angle".
 			/// Japanese description: "平行光源：０３", Google translated: "Collimated light source : 03".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotX_03", index: 45, minimum: -90, maximum: 90, step: 1, order: 37, unknown2: 0)]
+			[ParameterTableRowAttribute("degRotX_03", index: 45, minimum: -90, maximum: 90, step: 1, sortOrder: 37, unknown2: 0)]
 			[DisplayName("X angle")]
 			[Description("Collimated light source : 03")]
 			[DefaultValue((Int16)0)]
@@ -905,7 +907,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｙ角度", Google translated: "Y angle".
 			/// Japanese description: "平行光源：０３", Google translated: "Collimated light source : 03".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotY_03", index: 46, minimum: -180, maximum: 180, step: 1, order: 38, unknown2: 1)]
+			[ParameterTableRowAttribute("degRotY_03", index: 46, minimum: -180, maximum: 180, step: 1, sortOrder: 38, unknown2: 1)]
 			[DisplayName("Y angle")]
 			[Description("Collimated light source : 03")]
 			[DefaultValue((Int16)0)]
@@ -923,7 +925,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "平行光源：０３", Google translated: "Collimated light source : 03".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR_03", index: 47, minimum: 0, maximum: 255, step: 1, order: 39, unknown2: 0)]
+			[ParameterTableRowAttribute("colR_03", index: 47, minimum: 0, maximum: 255, step: 1, sortOrder: 39, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Collimated light source : 03")]
 			[DefaultValue((Int16)255)]
@@ -941,7 +943,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "平行光源：０３", Google translated: "Collimated light source : 03".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG_03", index: 48, minimum: 0, maximum: 255, step: 1, order: 40, unknown2: 0)]
+			[ParameterTableRowAttribute("colG_03", index: 48, minimum: 0, maximum: 255, step: 1, sortOrder: 40, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Collimated light source : 03")]
 			[DefaultValue((Int16)255)]
@@ -959,7 +961,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "平行光源：０３", Google translated: "Collimated light source : 03".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB_03", index: 49, minimum: 0, maximum: 255, step: 1, order: 41, unknown2: 0)]
+			[ParameterTableRowAttribute("colB_03", index: 49, minimum: 0, maximum: 255, step: 1, sortOrder: 41, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Collimated light source : 03")]
 			[DefaultValue((Int16)255)]
@@ -977,7 +979,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [ %]".
 			/// Japanese description: "平行光源：０３ (0:未使用)", Google translated: "Collimated light source : 03 ( 0 : not used)".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA_03", index: 50, minimum: 0, maximum: 10000, step: 1, order: 42, unknown2: 0)]
+			[ParameterTableRowAttribute("colA_03", index: 50, minimum: 0, maximum: 10000, step: 1, sortOrder: 42, unknown2: 0)]
 			[DisplayName("RGB magnification [ %]")]
 			[Description("Collimated light source : 03 ( 0 : not used)")]
 			[DefaultValue((Int16)0)]
@@ -995,7 +997,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "平行光源：０３", Google translated: "Collimated light source : 03".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_03[4]", index: 51, minimum: 0, maximum: 0, step: 0, order: 104, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_03[4]", index: 51, minimum: 0, maximum: 0, step: 0, sortOrder: 104, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Collimated light source : 03")]
 			public Byte[] Pad_03 {
@@ -1008,7 +1010,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "X角度", Google translated: "X angle".
 			/// Japanese description: "平行光源：０４", Google translated: "Collimated light source : 04".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotX_04", index: 52, minimum: -90, maximum: 90, step: 1, order: 43, unknown2: 0)]
+			[ParameterTableRowAttribute("degRotX_04", index: 52, minimum: -90, maximum: 90, step: 1, sortOrder: 43, unknown2: 0)]
 			[DisplayName("X angle")]
 			[Description("Collimated light source : 04")]
 			[DefaultValue((Int16)0)]
@@ -1026,7 +1028,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｙ角度", Google translated: "Y angle".
 			/// Japanese description: "平行光源：０４", Google translated: "Collimated light source : 04".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotY_04", index: 53, minimum: -180, maximum: 180, step: 1, order: 44, unknown2: 1)]
+			[ParameterTableRowAttribute("degRotY_04", index: 53, minimum: -180, maximum: 180, step: 1, sortOrder: 44, unknown2: 1)]
 			[DisplayName("Y angle")]
 			[Description("Collimated light source : 04")]
 			[DefaultValue((Int16)0)]
@@ -1044,7 +1046,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "平行光源：０４", Google translated: "Collimated light source : 04".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR_04", index: 54, minimum: 0, maximum: 255, step: 1, order: 45, unknown2: 0)]
+			[ParameterTableRowAttribute("colR_04", index: 54, minimum: 0, maximum: 255, step: 1, sortOrder: 45, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Collimated light source : 04")]
 			[DefaultValue((Int16)255)]
@@ -1062,7 +1064,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "平行光源：０４", Google translated: "Collimated light source : 04".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG_04", index: 55, minimum: 0, maximum: 255, step: 1, order: 46, unknown2: 0)]
+			[ParameterTableRowAttribute("colG_04", index: 55, minimum: 0, maximum: 255, step: 1, sortOrder: 46, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Collimated light source : 04")]
 			[DefaultValue((Int16)255)]
@@ -1080,7 +1082,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "平行光源：０４", Google translated: "Collimated light source : 04".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB_04", index: 56, minimum: 0, maximum: 255, step: 1, order: 47, unknown2: 0)]
+			[ParameterTableRowAttribute("colB_04", index: 56, minimum: 0, maximum: 255, step: 1, sortOrder: 47, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Collimated light source : 04")]
 			[DefaultValue((Int16)255)]
@@ -1098,7 +1100,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [ %]".
 			/// Japanese description: "平行光源：０４ (0:未使用)", Google translated: "Collimated light source : 04 ( 0 : not used)".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA_04", index: 57, minimum: 0, maximum: 10000, step: 1, order: 48, unknown2: 0)]
+			[ParameterTableRowAttribute("colA_04", index: 57, minimum: 0, maximum: 10000, step: 1, sortOrder: 48, unknown2: 0)]
 			[DisplayName("RGB magnification [ %]")]
 			[Description("Collimated light source : 04 ( 0 : not used)")]
 			[DefaultValue((Int16)0)]
@@ -1116,7 +1118,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "平行光源：０４", Google translated: "Collimated light source : 04".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_04[4]", index: 58, minimum: 0, maximum: 0, step: 0, order: 105, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_04[4]", index: 58, minimum: 0, maximum: 0, step: 0, sortOrder: 105, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Collimated light source : 04")]
 			public Byte[] Pad_04 {
@@ -1129,7 +1131,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "X角度", Google translated: "X angle".
 			/// Japanese description: "平行光源：０５", Google translated: "Collimated light source : 05".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotX_05", index: 59, minimum: -90, maximum: 90, step: 1, order: 49, unknown2: 0)]
+			[ParameterTableRowAttribute("degRotX_05", index: 59, minimum: -90, maximum: 90, step: 1, sortOrder: 49, unknown2: 0)]
 			[DisplayName("X angle")]
 			[Description("Collimated light source : 05")]
 			[DefaultValue((Int16)0)]
@@ -1147,7 +1149,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｙ角度", Google translated: "Y angle".
 			/// Japanese description: "平行光源：０５", Google translated: "Collimated light source : 05".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotY_05", index: 60, minimum: -180, maximum: 180, step: 1, order: 50, unknown2: 1)]
+			[ParameterTableRowAttribute("degRotY_05", index: 60, minimum: -180, maximum: 180, step: 1, sortOrder: 50, unknown2: 1)]
 			[DisplayName("Y angle")]
 			[Description("Collimated light source : 05")]
 			[DefaultValue((Int16)0)]
@@ -1165,7 +1167,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "平行光源：０５", Google translated: "Collimated light source : 05".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR_05", index: 61, minimum: 0, maximum: 255, step: 1, order: 51, unknown2: 0)]
+			[ParameterTableRowAttribute("colR_05", index: 61, minimum: 0, maximum: 255, step: 1, sortOrder: 51, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Collimated light source : 05")]
 			[DefaultValue((Int16)255)]
@@ -1183,7 +1185,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "平行光源：０５", Google translated: "Collimated light source : 05".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG_05", index: 62, minimum: 0, maximum: 255, step: 1, order: 52, unknown2: 0)]
+			[ParameterTableRowAttribute("colG_05", index: 62, minimum: 0, maximum: 255, step: 1, sortOrder: 52, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Collimated light source : 05")]
 			[DefaultValue((Int16)255)]
@@ -1201,7 +1203,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "平行光源：０５", Google translated: "Collimated light source : 05".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB_05", index: 63, minimum: 0, maximum: 255, step: 1, order: 53, unknown2: 0)]
+			[ParameterTableRowAttribute("colB_05", index: 63, minimum: 0, maximum: 255, step: 1, sortOrder: 53, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Collimated light source : 05")]
 			[DefaultValue((Int16)255)]
@@ -1219,7 +1221,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [ %]".
 			/// Japanese description: "平行光源：０５ (0:未使用)", Google translated: "Collimated light source : 05 ( 0 : not used)".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA_05", index: 64, minimum: 0, maximum: 10000, step: 1, order: 54, unknown2: 0)]
+			[ParameterTableRowAttribute("colA_05", index: 64, minimum: 0, maximum: 10000, step: 1, sortOrder: 54, unknown2: 0)]
 			[DisplayName("RGB magnification [ %]")]
 			[Description("Collimated light source : 05 ( 0 : not used)")]
 			[DefaultValue((Int16)0)]
@@ -1237,7 +1239,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "平行光源：０５", Google translated: "Collimated light source : 05".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_05[4]", index: 65, minimum: 0, maximum: 0, step: 0, order: 106, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_05[4]", index: 65, minimum: 0, maximum: 0, step: 0, sortOrder: 106, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Collimated light source : 05")]
 			public Byte[] Pad_05 {
@@ -1250,7 +1252,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "X角度", Google translated: "X angle".
 			/// Japanese description: "平行光源：０６", Google translated: "Collimated light source : 06".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotX_06", index: 66, minimum: -90, maximum: 90, step: 1, order: 55, unknown2: 0)]
+			[ParameterTableRowAttribute("degRotX_06", index: 66, minimum: -90, maximum: 90, step: 1, sortOrder: 55, unknown2: 0)]
 			[DisplayName("X angle")]
 			[Description("Collimated light source : 06")]
 			[DefaultValue((Int16)0)]
@@ -1268,7 +1270,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｙ角度", Google translated: "Y angle".
 			/// Japanese description: "平行光源：０６", Google translated: "Collimated light source : 06".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotY_06", index: 67, minimum: -180, maximum: 180, step: 1, order: 56, unknown2: 1)]
+			[ParameterTableRowAttribute("degRotY_06", index: 67, minimum: -180, maximum: 180, step: 1, sortOrder: 56, unknown2: 1)]
 			[DisplayName("Y angle")]
 			[Description("Collimated light source : 06")]
 			[DefaultValue((Int16)0)]
@@ -1286,7 +1288,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "平行光源：０６", Google translated: "Collimated light source : 06".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR_06", index: 68, minimum: 0, maximum: 255, step: 1, order: 57, unknown2: 0)]
+			[ParameterTableRowAttribute("colR_06", index: 68, minimum: 0, maximum: 255, step: 1, sortOrder: 57, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Collimated light source : 06")]
 			[DefaultValue((Int16)255)]
@@ -1304,7 +1306,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "平行光源：０６", Google translated: "Collimated light source : 06".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG_06", index: 69, minimum: 0, maximum: 255, step: 1, order: 58, unknown2: 0)]
+			[ParameterTableRowAttribute("colG_06", index: 69, minimum: 0, maximum: 255, step: 1, sortOrder: 58, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Collimated light source : 06")]
 			[DefaultValue((Int16)255)]
@@ -1322,7 +1324,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "平行光源：０６", Google translated: "Collimated light source : 06".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB_06", index: 70, minimum: 0, maximum: 255, step: 1, order: 59, unknown2: 0)]
+			[ParameterTableRowAttribute("colB_06", index: 70, minimum: 0, maximum: 255, step: 1, sortOrder: 59, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Collimated light source : 06")]
 			[DefaultValue((Int16)255)]
@@ -1340,7 +1342,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [ %]".
 			/// Japanese description: "平行光源：０６ (0:未使用)", Google translated: "Collimated light source : 06 ( 0 : not used)".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA_06", index: 71, minimum: 0, maximum: 10000, step: 1, order: 60, unknown2: 0)]
+			[ParameterTableRowAttribute("colA_06", index: 71, minimum: 0, maximum: 10000, step: 1, sortOrder: 60, unknown2: 0)]
 			[DisplayName("RGB magnification [ %]")]
 			[Description("Collimated light source : 06 ( 0 : not used)")]
 			[DefaultValue((Int16)0)]
@@ -1358,7 +1360,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "平行光源：０６", Google translated: "Collimated light source : 06".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_06[4]", index: 72, minimum: 0, maximum: 0, step: 0, order: 107, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_06[4]", index: 72, minimum: 0, maximum: 0, step: 0, sortOrder: 107, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Collimated light source : 06")]
 			public Byte[] Pad_06 {
@@ -1371,7 +1373,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "X角度", Google translated: "X angle".
 			/// Japanese description: "平行光源：０７", Google translated: "Collimated light source : 07".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotX_07", index: 73, minimum: -90, maximum: 90, step: 1, order: 61, unknown2: 0)]
+			[ParameterTableRowAttribute("degRotX_07", index: 73, minimum: -90, maximum: 90, step: 1, sortOrder: 61, unknown2: 0)]
 			[DisplayName("X angle")]
 			[Description("Collimated light source : 07")]
 			[DefaultValue((Int16)0)]
@@ -1389,7 +1391,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｙ角度", Google translated: "Y angle".
 			/// Japanese description: "平行光源：０７", Google translated: "Collimated light source : 07".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotY_07", index: 74, minimum: -180, maximum: 180, step: 1, order: 62, unknown2: 1)]
+			[ParameterTableRowAttribute("degRotY_07", index: 74, minimum: -180, maximum: 180, step: 1, sortOrder: 62, unknown2: 1)]
 			[DisplayName("Y angle")]
 			[Description("Collimated light source : 07")]
 			[DefaultValue((Int16)0)]
@@ -1407,7 +1409,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "平行光源：０７", Google translated: "Collimated light source : 07".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR_07", index: 75, minimum: 0, maximum: 255, step: 1, order: 63, unknown2: 0)]
+			[ParameterTableRowAttribute("colR_07", index: 75, minimum: 0, maximum: 255, step: 1, sortOrder: 63, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Collimated light source : 07")]
 			[DefaultValue((Int16)255)]
@@ -1425,7 +1427,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "平行光源：０７", Google translated: "Collimated light source : 07".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG_07", index: 76, minimum: 0, maximum: 255, step: 1, order: 64, unknown2: 0)]
+			[ParameterTableRowAttribute("colG_07", index: 76, minimum: 0, maximum: 255, step: 1, sortOrder: 64, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Collimated light source : 07")]
 			[DefaultValue((Int16)255)]
@@ -1443,7 +1445,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "平行光源：０７", Google translated: "Collimated light source : 07".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB_07", index: 77, minimum: 0, maximum: 255, step: 1, order: 65, unknown2: 0)]
+			[ParameterTableRowAttribute("colB_07", index: 77, minimum: 0, maximum: 255, step: 1, sortOrder: 65, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Collimated light source : 07")]
 			[DefaultValue((Int16)255)]
@@ -1461,7 +1463,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [ %]".
 			/// Japanese description: "平行光源：０７ (0:未使用)", Google translated: "Collimated light source : 07 ( 0 : not used)".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA_07", index: 78, minimum: 0, maximum: 10000, step: 1, order: 66, unknown2: 0)]
+			[ParameterTableRowAttribute("colA_07", index: 78, minimum: 0, maximum: 10000, step: 1, sortOrder: 66, unknown2: 0)]
 			[DisplayName("RGB magnification [ %]")]
 			[Description("Collimated light source : 07 ( 0 : not used)")]
 			[DefaultValue((Int16)0)]
@@ -1479,7 +1481,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "平行光源：０７", Google translated: "Collimated light source : 07".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_07[4]", index: 79, minimum: 0, maximum: 0, step: 0, order: 108, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_07[4]", index: 79, minimum: 0, maximum: 0, step: 0, sortOrder: 108, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Collimated light source : 07")]
 			public Byte[] Pad_07 {
@@ -1492,7 +1494,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "X角度", Google translated: "X angle".
 			/// Japanese description: "平行光源：０８", Google translated: "Collimated light source : 08".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotX_08", index: 80, minimum: -90, maximum: 90, step: 1, order: 67, unknown2: 0)]
+			[ParameterTableRowAttribute("degRotX_08", index: 80, minimum: -90, maximum: 90, step: 1, sortOrder: 67, unknown2: 0)]
 			[DisplayName("X angle")]
 			[Description("Collimated light source : 08")]
 			[DefaultValue((Int16)0)]
@@ -1510,7 +1512,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｙ角度", Google translated: "Y angle".
 			/// Japanese description: "平行光源：０８", Google translated: "Collimated light source : 08".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotY_08", index: 81, minimum: -180, maximum: 180, step: 1, order: 68, unknown2: 1)]
+			[ParameterTableRowAttribute("degRotY_08", index: 81, minimum: -180, maximum: 180, step: 1, sortOrder: 68, unknown2: 1)]
 			[DisplayName("Y angle")]
 			[Description("Collimated light source : 08")]
 			[DefaultValue((Int16)0)]
@@ -1528,7 +1530,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "平行光源：０８", Google translated: "Collimated light source : 08".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR_08", index: 82, minimum: 0, maximum: 255, step: 1, order: 69, unknown2: 0)]
+			[ParameterTableRowAttribute("colR_08", index: 82, minimum: 0, maximum: 255, step: 1, sortOrder: 69, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Collimated light source : 08")]
 			[DefaultValue((Int16)255)]
@@ -1546,7 +1548,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "平行光源：０８", Google translated: "Collimated light source : 08".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG_08", index: 83, minimum: 0, maximum: 255, step: 1, order: 70, unknown2: 0)]
+			[ParameterTableRowAttribute("colG_08", index: 83, minimum: 0, maximum: 255, step: 1, sortOrder: 70, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Collimated light source : 08")]
 			[DefaultValue((Int16)255)]
@@ -1564,7 +1566,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "平行光源：０８", Google translated: "Collimated light source : 08".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB_08", index: 84, minimum: 0, maximum: 255, step: 1, order: 71, unknown2: 0)]
+			[ParameterTableRowAttribute("colB_08", index: 84, minimum: 0, maximum: 255, step: 1, sortOrder: 71, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Collimated light source : 08")]
 			[DefaultValue((Int16)255)]
@@ -1582,7 +1584,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [ %]".
 			/// Japanese description: "平行光源：０８ (0:未使用)", Google translated: "Collimated light source : 08 ( 0 : not used)".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA_08", index: 85, minimum: 0, maximum: 10000, step: 1, order: 72, unknown2: 0)]
+			[ParameterTableRowAttribute("colA_08", index: 85, minimum: 0, maximum: 10000, step: 1, sortOrder: 72, unknown2: 0)]
 			[DisplayName("RGB magnification [ %]")]
 			[Description("Collimated light source : 08 ( 0 : not used)")]
 			[DefaultValue((Int16)0)]
@@ -1600,7 +1602,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "平行光源：０８", Google translated: "Collimated light source : 08".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_08[4]", index: 86, minimum: 0, maximum: 0, step: 0, order: 109, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_08[4]", index: 86, minimum: 0, maximum: 0, step: 0, sortOrder: 109, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Collimated light source : 08")]
 			public Byte[] Pad_08 {
@@ -1613,7 +1615,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "X角度", Google translated: "X angle".
 			/// Japanese description: "平行光源：０９", Google translated: "Collimated light source : 09".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotX_09", index: 87, minimum: -90, maximum: 90, step: 1, order: 73, unknown2: 0)]
+			[ParameterTableRowAttribute("degRotX_09", index: 87, minimum: -90, maximum: 90, step: 1, sortOrder: 73, unknown2: 0)]
 			[DisplayName("X angle")]
 			[Description("Collimated light source : 09")]
 			[DefaultValue((Int16)0)]
@@ -1631,7 +1633,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｙ角度", Google translated: "Y angle".
 			/// Japanese description: "平行光源：０９", Google translated: "Collimated light source : 09".
 			/// </remarks>
-			[ParameterTableRowAttribute("degRotY_09", index: 88, minimum: -180, maximum: 180, step: 1, order: 74, unknown2: 1)]
+			[ParameterTableRowAttribute("degRotY_09", index: 88, minimum: -180, maximum: 180, step: 1, sortOrder: 74, unknown2: 1)]
 			[DisplayName("Y angle")]
 			[Description("Collimated light source : 09")]
 			[DefaultValue((Int16)0)]
@@ -1649,7 +1651,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "平行光源：０９", Google translated: "Collimated light source : 09".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR_09", index: 89, minimum: 0, maximum: 255, step: 1, order: 75, unknown2: 0)]
+			[ParameterTableRowAttribute("colR_09", index: 89, minimum: 0, maximum: 255, step: 1, sortOrder: 75, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Collimated light source : 09")]
 			[DefaultValue((Int16)255)]
@@ -1667,7 +1669,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "平行光源：０９", Google translated: "Collimated light source : 09".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG_09", index: 90, minimum: 0, maximum: 255, step: 1, order: 76, unknown2: 0)]
+			[ParameterTableRowAttribute("colG_09", index: 90, minimum: 0, maximum: 255, step: 1, sortOrder: 76, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Collimated light source : 09")]
 			[DefaultValue((Int16)255)]
@@ -1685,7 +1687,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "平行光源：０９", Google translated: "Collimated light source : 09".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB_09", index: 91, minimum: 0, maximum: 255, step: 1, order: 77, unknown2: 0)]
+			[ParameterTableRowAttribute("colB_09", index: 91, minimum: 0, maximum: 255, step: 1, sortOrder: 77, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Collimated light source : 09")]
 			[DefaultValue((Int16)255)]
@@ -1703,7 +1705,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [ %]".
 			/// Japanese description: "平行光源：０９ (0:未使用)", Google translated: "Collimated light source : 09 ( 0 : not used)".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA_09", index: 92, minimum: 0, maximum: 10000, step: 1, order: 78, unknown2: 0)]
+			[ParameterTableRowAttribute("colA_09", index: 92, minimum: 0, maximum: 10000, step: 1, sortOrder: 78, unknown2: 0)]
 			[DisplayName("RGB magnification [ %]")]
 			[Description("Collimated light source : 09 ( 0 : not used)")]
 			[DefaultValue((Int16)0)]
@@ -1721,7 +1723,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "平行光源：０９", Google translated: "Collimated light source : 09".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_09[4]", index: 93, minimum: 0, maximum: 0, step: 0, order: 110, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_09[4]", index: 93, minimum: 0, maximum: 0, step: 0, sortOrder: 110, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Collimated light source : 09")]
 			public Byte[] Pad_09 {
@@ -1927,6 +1929,8 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad_09 = new Byte[4];
 			}
 
+			/// <summary>Write the row to the writer.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(IsUse);
 				writer.Write(AutoUpdate);

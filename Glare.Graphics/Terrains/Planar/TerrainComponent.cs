@@ -104,7 +104,7 @@ namespace Glare.Graphics.Terrains.Planar
 		}
 
 		/// <summary>
-		/// This is called by <see cref="Terrain.PostOpaqueRender"/>. The opaque scene has been drawn, and if the
+		/// This is called by <see cref="PlanarTerrain.PostOpaqueRender"/>. The opaque scene has been drawn, and if the
 		/// module can extract information from it (like occlusion queries), this is the time.
 		/// </summary>
 		public virtual void PostOpaqueRender(ref Matrix4d world, ref Matrix4d view, ref Matrix4d projection)
@@ -122,7 +122,7 @@ namespace Glare.Graphics.Terrains.Planar
 		public virtual bool SupportsNodeLodBlend { get { return false; } }
 
 		/// <summary>
-		/// This is called by <see cref="Terrain.ResetMetrics"/>. Reset any metrics that have been gathered to zero.
+		/// This is called by <see cref="PlanarTerrain.ResetMetrics"/>. Reset any metrics that have been gathered to zero.
 		/// </summary>
 		public virtual void ResetMetrics() { }
 

@@ -13,7 +13,7 @@ namespace Glare.Graphics.Terrains.Planar.Components
 		#region Constructors
 
 		/// <summary>Initialize the <see cref="OcclusionQueryTerrainComponent"/>.</summary>
-		/// <param name="terrain">The <see cref="PlanarTerrain"/> this is to be a <see cref="Module"/> for.</param>
+		/// <param name="terrain">The <see cref="PlanarTerrain"/> this is to be a <see cref="TerrainComponent"/> for.</param>
 		public OcclusionQueryTerrainComponent(PlanarTerrain terrain)
 			: base(terrain)
 		{
@@ -31,7 +31,7 @@ namespace Glare.Graphics.Terrains.Planar.Components
 
 		#region Interior classes
 
-		/// <summary>The <see cref="BaseAttachedTreeNode"/> that will be attached to every <see cref="TerrainTreeNode"/> in the <see cref="PlanarTerrain"/>.</summary>
+		/// <summary>The <see cref="AttachedTreeTerrainModule{TModule, TAttachedNode}.BaseAttachedTreeNode"/> that will be attached to every <see cref="TerrainTreeNode"/> in the <see cref="PlanarTerrain"/>.</summary>
 		public class AttachedTreeNode : BaseAttachedTreeNode
 		{
 			/// <summary>Get the level-of-detail blend state for the given distance.</summary>

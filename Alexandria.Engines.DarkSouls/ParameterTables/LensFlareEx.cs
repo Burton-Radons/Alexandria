@@ -13,11 +13,13 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Named "LENS_FLARE_EX_BANK" in Dark Souls; defined in the file "ensFlareExBank.paramdef" (id 02h).
 		/// </summary>
 		public class LensFlareEx : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "LENS_FLARE_EX_BANK";
 
 			Int16 lightDegRotX, lightDegRotY, colR, colG, colB, colA;
 			Single lightDist;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				LightDegRotXProperty = GetProperty<LensFlareEx>("LightDegRotX"),
 				LightDegRotYProperty = GetProperty<LensFlareEx>("LightDegRotY"),
@@ -32,7 +34,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "光源X角度[deg]", Google translated: "X light source angle [deg]".
 			/// Japanese description: "光源のX角度", Google translated: "X angle of the light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("lightDegRotX", index: 0, minimum: -90, maximum: 90, step: 1, order: 1, unknown2: 0)]
+			[ParameterTableRowAttribute("lightDegRotX", index: 0, minimum: -90, maximum: 90, step: 1, sortOrder: 1, unknown2: 0)]
 			[DisplayName("X light source angle [deg]")]
 			[Description("X angle of the light source")]
 			[DefaultValue((Int16)0)]
@@ -50,7 +52,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "光源Y角度[deg]", Google translated: "Light source Y angle [deg]".
 			/// Japanese description: "光源のY角度", Google translated: "Y angle of the light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("lightDegRotY", index: 1, minimum: -180, maximum: 180, step: 1, order: 2, unknown2: 1)]
+			[ParameterTableRowAttribute("lightDegRotY", index: 1, minimum: -180, maximum: 180, step: 1, sortOrder: 2, unknown2: 1)]
 			[DisplayName("Light source Y angle [deg]")]
 			[Description("Y angle of the light source")]
 			[DefaultValue((Int16)0)]
@@ -68,7 +70,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "色R", Google translated: "Color R".
 			/// Japanese description: "レンズフレア乗算色", Google translated: "Lens flare multiply color".
 			/// </remarks>
-			[ParameterTableRowAttribute("colR", index: 2, minimum: 0, maximum: 255, step: 1, order: 3, unknown2: 0)]
+			[ParameterTableRowAttribute("colR", index: 2, minimum: 0, maximum: 255, step: 1, sortOrder: 3, unknown2: 0)]
 			[DisplayName("Color R")]
 			[Description("Lens flare multiply color")]
 			[DefaultValue((Int16)255)]
@@ -86,7 +88,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "色G", Google translated: "Color G".
 			/// Japanese description: "レンズフレア乗算色", Google translated: "Lens flare multiply color".
 			/// </remarks>
-			[ParameterTableRowAttribute("colG", index: 3, minimum: 0, maximum: 255, step: 1, order: 4, unknown2: 0)]
+			[ParameterTableRowAttribute("colG", index: 3, minimum: 0, maximum: 255, step: 1, sortOrder: 4, unknown2: 0)]
 			[DisplayName("Color G")]
 			[Description("Lens flare multiply color")]
 			[DefaultValue((Int16)255)]
@@ -104,7 +106,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "色B", Google translated: "Color B".
 			/// Japanese description: "レンズフレア乗算色", Google translated: "Lens flare multiply color".
 			/// </remarks>
-			[ParameterTableRowAttribute("colB", index: 4, minimum: 0, maximum: 255, step: 1, order: 5, unknown2: 0)]
+			[ParameterTableRowAttribute("colB", index: 4, minimum: 0, maximum: 255, step: 1, sortOrder: 5, unknown2: 0)]
 			[DisplayName("Color B")]
 			[Description("Lens flare multiply color")]
 			[DefaultValue((Int16)255)]
@@ -122,7 +124,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "色RGB倍率[％]", Google translated: "RGB color magnification [%]".
 			/// Japanese description: "レンズフレア乗算色", Google translated: "Lens flare multiply color".
 			/// </remarks>
-			[ParameterTableRowAttribute("colA", index: 5, minimum: 0, maximum: 1000, step: 1, order: 6, unknown2: 0)]
+			[ParameterTableRowAttribute("colA", index: 5, minimum: 0, maximum: 1000, step: 1, sortOrder: 6, unknown2: 0)]
 			[DisplayName("RGB color magnification [%]")]
 			[Description("Lens flare multiply color")]
 			[DefaultValue((Int16)100)]
@@ -140,7 +142,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "光源距離[m]", Google translated: "Light source distance [m]".
 			/// Japanese description: "光源距離", Google translated: "Light source distance".
 			/// </remarks>
-			[ParameterTableRowAttribute("lightDist", index: 6, minimum: 0, maximum: 999999, step: 0.1, order: 7, unknown2: 0)]
+			[ParameterTableRowAttribute("lightDist", index: 6, minimum: 0, maximum: 999999, step: 0.1, sortOrder: 7, unknown2: 0)]
 			[DisplayName("Light source distance [m]")]
 			[Description("Light source distance")]
 			[DefaultValue((Single)300)]
@@ -177,6 +179,8 @@ namespace Alexandria.Engines.DarkSouls {
 				LightDist = (Single)300;
 			}
 
+			/// <summary>Write the <see cref="LensFlareEx"/> row.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(LightDegRotX);
 				writer.Write(LightDegRotY);

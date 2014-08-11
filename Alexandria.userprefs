@@ -1,0 +1,51 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Glare.Assets/Controls/AssetBar.cs">
+    <Files>
+      <File FileName="Glare.Assets/Lover.Template.cs" Line="534" Column="9" />
+      <File FileName="Glare.Assets/Lover.Template.tt" Line="60" Column="81" />
+      <File FileName="Glare.Assets/Lover.cs" Line="21" Column="18" />
+      <File FileName="Glare.Assets/AssetManager.cs" Line="129" Column="43" />
+      <File FileName="Glare/Vector.cs" Line="5717" Column="50" />
+      <File FileName="Glare.Graphics/Loaders/Fbx/Fbx.cs" Line="67" Column="50" />
+      <File FileName="Glare.Graphics/Device.cs" Line="24" Column="62" />
+      <File FileName="Glare.Assets/Formats/PcxFormat.cs" Line="48" Column="51" />
+      <File FileName="Glare.Assets/Controls/AssetBar.cs" Line="13" Column="2" />
+      <File FileName="Glare.Assets/Controls/AssetBar.resx" Line="1" Column="1" />
+      <File FileName="Glare.Assets/Controls/AssetBar.Designer.cs" Line="28" Column="19" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Glare" expanded="True">
+            <Node name="Glare" expanded="True">
+              <Node name="Vector.tt" expanded="True" />
+            </Node>
+            <Node name="Glare.Assets" expanded="True">
+              <Node name="Controls" expanded="True">
+                <Node name="AssetBar.cs" expanded="True" selected="True" />
+              </Node>
+              <Node name="Formats" expanded="True" />
+              <Node name="Lover.Template.tt" expanded="True" />
+            </Node>
+            <Node name="Glare.Graphics" expanded="True">
+              <Node name="Loaders" expanded="True">
+                <Node name="Fbx" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+          <Node name="Alexandria" expanded="True">
+            <Node name="Compression" expanded="True" />
+            <Node name="Controls" expanded="True" />
+            <Node name="Properties" expanded="True" />
+          </Node>
+          <Node name="Alexandria.Browser" expanded="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

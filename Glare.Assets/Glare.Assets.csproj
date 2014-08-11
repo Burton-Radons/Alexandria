@@ -9,9 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Glare.Assets</RootNamespace>
     <AssemblyName>Glare.Assets</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,8 +22,10 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>1</WarningLevel>
     <DocumentationFile>bin\Debug\Glare.Assets.XML</DocumentationFile>
+    <NoWarn>0219</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +44,9 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -48,14 +56,15 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenTK.1.1.1508.5724\lib\NET40\OpenTK.dll</HintPath>
+    <Reference Include="Aga.Controls">
+      <HintPath>..\packages\TreeViewAdv.1.7.0.0\lib\net\Aga.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="OpenTK.GLControl, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\OpenTK.GLControl.1.1.1508.5724\lib\NET40\OpenTK.GLControl.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,12 +75,19 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4">
+      <HintPath>..\packages\OpenTK.1.1.1508.5724\lib\NET40\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl">
+      <HintPath>..\packages\OpenTK.GLControl.1.1.1508.5724\lib\NET40\OpenTK.GLControl.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchiveAsset.cs" />
     <Compile Include="Asset.cs" />
     <Compile Include="AssetFormat.cs" />
     <Compile Include="AssetLoader.cs" />
+    <Compile Include="AssetLoaderError.cs" />
     <Compile Include="AssetManager.cs" />
     <Compile Include="AssetPlugin.cs" />
     <Compile Include="BinaryAsset.cs" />
@@ -107,10 +123,18 @@
     <Compile Include="FileManager.cs" />
     <Compile Include="FolderAsset.cs" />
     <Compile Include="Formats\Autodesk3ds.cs" />
-    <Compile Include="Formats\Dds.cs" />
+    <Compile Include="Formats\DdsFormat.cs" />
     <Compile Include="Formats\Direct3D.cs" />
+    <Compile Include="Formats\PcxFormat.cs" />
+    <Compile Include="Formats\ZipFormat.cs" />
     <Compile Include="IndexedTextureAsset.cs" />
-    <Compile Include="MarkingReader.cs" />
+    <Compile Include="Lover.cs" />
+    <Compile Include="Lover.Template.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Lover.Template.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MarkingStream.cs" />
     <Compile Include="ModelAsset.cs" />
     <Compile Include="PaletteAsset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,21 +143,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SliceStream.cs" />
     <Compile Include="TableAsset.cs" />
     <Compile Include="TextureAsset.cs" />
     <Compile Include="Unknown.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Glare.Graphics\Glare.Graphics.csproj">
-      <Project>{6ec9bd9e-da82-48db-a01b-7bb90e1a1f71}</Project>
+      <Project>{6EC9BD9E-DA82-48DB-A01B-7BB90E1A1F71}</Project>
       <Name>Glare.Graphics</Name>
     </ProjectReference>
     <ProjectReference Include="..\Glare\Glare.csproj">
-      <Project>{125d9251-7cd0-4801-ab84-cb3f1f6978b1}</Project>
+      <Project>{125D9251-7CD0-4801-AB84-CB3F1F6978B1}</Project>
       <Name>Glare %28Glare\Glare%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Lover.Template.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Lover.Template.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DownArrowImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

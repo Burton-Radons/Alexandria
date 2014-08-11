@@ -80,7 +80,7 @@ namespace Glare.Graphics {
 				if (format.IsCompressed)
 					GL.GetCompressedTexImage((TextureTarget)Target, Level, data);
 				else
-					GL.GetTexImage((TextureTarget)Target, Level, format.pixelFormat, format.pixelType, data);
+					GL.GetTexImage((TextureTarget)Target, Level, format.PixelFormat.Value, format.PixelType.Value, data);
 			}
 		}
 
@@ -89,9 +89,9 @@ namespace Glare.Graphics {
 			int imageSize = format.ByteSize(dimensions);
 			using (Texture.Lock())
 				if (format.IsCompressed)
-					GL.CompressedTexImage2D((TextureTarget)Target, Level, format.pixelInternalFormat, dimensions.X, dimensions.Y, 0, imageSize, data);
+					GL.CompressedTexImage2D((TextureTarget)Target, Level, format.PixelInternalFormat.Value, dimensions.X, dimensions.Y, 0, imageSize, data);
 				else
-					GL.TexImage2D((TextureTarget)Target, Level, format.pixelInternalFormat, dimensions.X, dimensions.Y, 0, format.pixelFormat, format.pixelType, data);
+					GL.TexImage2D((TextureTarget)Target, Level, format.PixelInternalFormat.Value, dimensions.X, dimensions.Y, 0, format.PixelFormat.Value, format.PixelType.Value, data);
 		}
 	}
 

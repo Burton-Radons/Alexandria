@@ -171,7 +171,7 @@ namespace Glare.Graphics {
 			}
 		}
 
-		/// <summary>Read a section of the <see cref="GraphicsBuffer"/>. Use <see cref="ReadAt"/> to make <paramref name="offsetInBytes"/> into an index of <typeparamref name="T"/> instead.</summary>
+		/// <summary>Read a section of the <see cref="GraphicsBuffer"/>. Use <see cref="ReadAt{T}(long,long)"/> to make <paramref name="offsetInBytes"/> into an index of <typeparamref name="T"/> instead.</summary>
 		/// <typeparam name="T">The type of the object to read; it must be a struct.</typeparam>
 		/// <param name="offsetInBytes">The offset in bytes from the start of the <see cref="GraphicsBuffer"/> to start writing at.</param>
 		/// <param name="data">The data to read from the <see cref="GraphicsBuffer"/>.</param>
@@ -247,7 +247,7 @@ namespace Glare.Graphics {
 			Storage(SizeOf<T>(count), usage);
 		}
 
-		/// <summary>Write to a section of the <see cref="GraphicsBuffer"/> that has already been initialised with <see cref="Data"/> or <see cref="Storage"/>. Use <see cref="WriteAt"/> to make <paramref name="offsetInBytes"/> into an index of <typeparamref name="T"/> instead.</summary>
+		/// <summary>Write to a section of the <see cref="GraphicsBuffer"/> that has already been initialised with <see cref="Data"/> or <see cref="Storage"/>. Use <see cref="WriteAt&lt;T&gt;(long,T[],long,long)"/> to make <paramref name="offsetInBytes"/> into an index of <typeparamref name="T"/> instead.</summary>
 		/// <typeparam name="T">The type of the object to write; it must be a struct.</typeparam>
 		/// <param name="offsetInBytes">The offset in bytes from the start of the <see cref="GraphicsBuffer"/> to start writing at.</param>
 		/// <param name="data">The data to write to the <see cref="GraphicsBuffer"/>.</param>
@@ -272,7 +272,7 @@ namespace Glare.Graphics {
 			}
 		}
 
-		/// <summary>Write to a section of the <see cref="GraphicsBuffer"/> that has already been initialised with <see cref="Data"/> or <see cref="Storage"/>. Use <see cref="WriteAt"/> to make <paramref name="offsetInBytes"/> into an index of <typeparamref name="T"/> instead.</summary>
+		/// <summary>Write to a section of the <see cref="GraphicsBuffer"/> that has already been initialised with <see cref="Data"/> or <see cref="Storage"/>. Use <see cref="WriteAt&lt;T&gt;(long, T[])"/> to make <paramref name="offsetInBytes"/> into an index of <typeparamref name="T"/> instead.</summary>
 		/// <typeparam name="T">The type of the object to write; it must be a struct.</typeparam>
 		/// <param name="offsetInBytes">The offset in bytes from the start of the <see cref="GraphicsBuffer"/> to start writing at.</param>
 		/// <param name="data">The data to write to the <see cref="GraphicsBuffer"/>.</param>
@@ -327,7 +327,7 @@ namespace Glare.Graphics {
 		/// <summary>The <see cref="GraphicsBuffer"/> data can be read from without error.</summary>
 		Read = BufferAccessMask.MapReadBit,
 
-		/// <summary>The <see cref="BufferMap"/> data can be written to without error.</summary>
+		/// <summary>The <see cref="GraphicsBuffer"/> data can be written to without error.</summary>
 		Write = BufferAccessMask.MapWriteBit,
 
 		/// <summary>A combination of <see cref="Read"/> and <see cref="Write"/>.</summary>
@@ -339,7 +339,7 @@ namespace Glare.Graphics {
 		/// <summary>The previous contents of the range may be discarded, with the assumption that the user will write to the data while mapped.  This may not be used in combination with <see cref="Read"/>. This automatically includes <see cref="Write"/> permissions.</summary>
 		InvalidateRange = BufferAccessMask.MapInvalidateRangeBit | Write,
 
-		/// <summary>One or more discrete subranges of the mapping may be modified. <see cref="BufferMap.Flush"/> must be called to explicitly flush modifications. This automatically includes <see cref="Write"/> permissions.</summary>
+		/// <summary>One or more discrete subranges of the mapping may be modified. <see cref="BufferMap{T}.Flush"/> must be called to explicitly flush modifications. This automatically includes <see cref="Write"/> permissions.</summary>
 		FlushExplicit = BufferAccessMask.MapFlushExplicitBit | Write,
 
 		/// <summary>The GL should not attempt to synchronize pending operations on the buffer before mapping it. No error is generated if pending operations which source or modify the buffer overlap the mapped region, but the result of such previous and any subsequent operations is undefined.</summary>

@@ -10,8 +10,6 @@ namespace Glare.Internal {
 	public static partial class ExtensionMethods {
 		#region BinaryReader
 
-		#endregion BinaryReader
-
 		<#foreach(string type in new string[] { "Byte", "SByte", "Int16", "Int32", "Int64", "UInt16", "UInt32", "UInt64", "Single", "Double" }) {
 			bool isFloat = type == "Single" || type == "Double";
 			bool isByte = type == "Byte" || type == "SByte";
@@ -45,11 +43,12 @@ namespace Glare.Internal {
 			}
 
 			<#if(!isByte) {#>
-				/// <summary>Read a <c><#=type#></c> value in big-endian byte order.</summary>
+				/// <summary>Read a <see cref="<#=type#>"/> value in big-endian byte order.</summary>
 				public static <#=type#> Read<#=type#>BE(this BinaryReader reader) {
 					return reader.Read<#=type#>().ReverseBytes();
 				}
 
+				/// <summary>Read a <see cref="<#=type#>"/> value in the specified byte order.</summary>
 				public static <#=type#> Read<#=type#>(this BinaryReader reader, ByteOrder byteOrder) {
 					switch (byteOrder) {
 						case ByteOrder.LittleEndian: return reader.Read<#=type#>();
@@ -82,13 +81,16 @@ namespace Glare.Internal {
 			<#}#>
 		<#}#>
 
-		<#foreach(TypeInfo type in ArithmeticTypes) {#>
-			public static <#=type.Name#> Squared(this <#=type.Name#> value) { return (<#=type.Name#>)(value * value); }
-		<#}#>
-
 		static InvalidDataException CreateExpectationException<T>(T expected, T value)  {
 			return new InvalidDataException("Expected a " + expected + " " + typeof(T).Name + " value, but received " + value + ".");
 		}
+
+		#endregion BinaryReader
+
+		<#foreach(TypeInfo type in ArithmeticTypes) {#>
+			/// <summary>Get the squared value of the input.</summary>
+			public static <#=type.Name#> Squared(this <#=type.Name#> value) { return (<#=type.Name#>)(value * value); }
+		<#}#>
 
 
 	}

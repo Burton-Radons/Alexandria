@@ -10,18 +10,21 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace Alexandria.Engines.DarkSouls {
+	/// <summary>An MCP file.</summary>
 	public class MCP : Asset {
 		internal const int HeaderDataSize = 0x10;
 		internal const int Magic1 = 2;
 		internal const int Magic2 = 0x4085D1;
 
+		/// <summary>Get the first table of <see cref="MCPTable1"/> rows.</summary>
 		public Codex<MCPTable1> Table1 { get; private set; }
 
 		int Table1Offset, Table2Offset, EndOffset;
 
+		/// <summary>Get the second list of <see cref="MCPTable2"/> rows.</summary>
 		public Codex<MCPTable2> Table2 { get; private set; }
 
-		public MCP(AssetManager manager, AssetLoader loader)
+		internal MCP(AssetManager manager, AssetLoader loader)
 			: base(manager, loader.Name) {
 			var reader = loader.Reader;
 
@@ -47,7 +50,9 @@ namespace Alexandria.Engines.DarkSouls {
 				table2.Add(new MCPTable2(this, index, loader));
 		}
 
-		public override System.Windows.Forms.Control Browse() {
+		/// <summary>Create a control to browse the <see cref="MCP"/>.</summary>
+		/// <returns></returns>
+		public override System.Windows.Forms.Control Browse(Action<double> progressUpdateCallback = null) {
 			var tree = new TreeView();
 
 			var table1 = CreateTreeNode(tree, Table1, Table1Offset, Table2Offset);
@@ -85,54 +90,95 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>
+	/// A table row in an <see cref="MCP"/>.
+	/// </summary>
 	public abstract class MCPTable {
+		/// <summary>
+		/// Zero-based index of this row.
+		/// </summary>
 		public int Index { get; private set; }
 
+		/// <summary>
+		/// Get the <see cref="MCP"/> this is contained in.
+		/// </summary>
 		public MCP MCP { get; private set; }
 
+		/// <summary>
+		/// Get the collection of unknown values.
+		/// </summary>
 		public UnknownList Unknowns { get; private set; }
 
-		public MCPTable(MCP mcp, int index) {
+		internal MCPTable(MCP mcp, int index) {
 			MCP = mcp;
 			Index = index;
 			Unknowns = new UnknownList();
 		}
 
+		/// <summary>Get a short string representation of the object.</summary>
+		/// <returns></returns>
 		public string ToShortString() {
 			return Unknowns.ToCommaSeparatedList();
 		}
 
+		/// <summary>
+		/// Get a string representation of the object.
+		/// </summary>
+		/// <returns></returns>
 		public override string ToString() {
 			var content = ToStringContent();
 			return string.Format("{0}({1}{2})", GetType().Name, content, string.IsNullOrEmpty(content) ? Unknowns.ToCommaSeparatedList() : Unknowns.ToCommaPrefixedList());
 		}
 
+		/// <summary>
+		/// Get a string representation of the content of the object.
+		/// </summary>
+		/// <returns></returns>
 		protected virtual string ToStringContent() { return ""; }
 
+		/// <summary>
+		/// Create a tree node for this object.
+		/// </summary>
+		/// <returns></returns>
 		public virtual TreeNode CreateTreeNode() {
 			return new TreeNode(ToString());
 		}
 	}
 
+	/// <summary>
+	/// A table row in an <see cref="MCP"/>.
+	/// </summary>
 	public class MCPTable1 : MCPTable {
 		internal const int DataSize = 4;
 
+		/// <summary>
+		/// The value of the row.
+		/// </summary>
 		public int Value { get; private set; }
 
-		public MCPTable1(MCP mcp, int index, AssetLoader loader)
+		internal MCPTable1(MCP mcp, int index, AssetLoader loader)
 			: base(mcp, index) {
 			Unknowns.ReadInt32s(loader.Reader, 1);
 		}
 	}
 
+	/// <summary>
+	/// A table row in an <see cref="MCP"/>.
+	/// </summary>
 	public class MCPTable2 : MCPTable {
 		internal const int DataSize = 40;
 
+		/// <summary>
+		/// Get a list of <see cref="MCPTable1"/> indices.
+		/// </summary>
 		public Codex<MCPTable1> Table1U1 { get; private set; }
 
+		/// <summary>
+		/// Get the bounding box.
+		/// </summary>
 		public Box3f Box { get; private set; }
 
-		public MCPTable2(MCP mcp, int index, AssetLoader loader)
+		internal MCPTable2(MCP mcp, int index, AssetLoader loader)
 			: base(mcp, index) {
 			var reader = loader.Reader;
 
@@ -146,27 +192,39 @@ namespace Alexandria.Engines.DarkSouls {
 			Box = loader.ReadCheckedAbsoluteBox3f();
 		}
 
+		/// <summary>
+		/// Get a string representation of the content.
+		/// </summary>
+		/// <returns></returns>
 		protected override string ToStringContent() {
 			return string.Format("{0}, {1}", MCP.Table1ToString(Table1U1), Box);
 		}
 	}
 
+	/// <summary>
+	/// <see cref="AssetFormat"/> for the <see cref="MCP"/> type.
+	/// </summary>
 	public class MCPFormat : AssetFormat {
-		public MCPFormat(Engine engine)
+		internal MCPFormat(Engine engine)
 			: base(engine, typeof(MCP), canLoad: true, extension: ".mcp") {
 		}
 
+		/// <summary>
+		/// Attempt to match the loader as a <see cref="MCP"/>.
+		/// </summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
 		public override LoadMatchStrength LoadMatch(AssetLoader loader) {
 			var reader = loader.Reader;
 
-			if (loader.Length < MCP.HeaderDataSize)
+			if (loader.Length < MCP.HeaderDataSize || loader.Length > int.MaxValue)
 				return LoadMatchStrength.None;
 			if ((reader.ReadInt32() != MCP.Magic1) || (reader.ReadInt32() != MCP.Magic2))
 				return LoadMatchStrength.None;
 			var table2Count = reader.ReadInt32();
 			var table2Offset = reader.ReadInt32();
 
-			int table2Size = loader.ShortLength - table2Offset;
+			int table2Size = loader.CheckedShortLength - table2Offset;
 			if (table2Size % MCPTable2.DataSize != 0 || table2Size / MCPTable2.DataSize != table2Count)
 				return LoadMatchStrength.None;
 			if (table2Offset < MCP.HeaderDataSize)
@@ -175,6 +233,11 @@ namespace Alexandria.Engines.DarkSouls {
 			return LoadMatchStrength.Medium;
 		}
 
+		/// <summary>
+		/// Load the <see cref="MCP"/>.
+		/// </summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
 		public override Asset Load(AssetLoader loader) {
 			return new MCP(Manager, loader);
 		}

@@ -14,10 +14,12 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "QWC_JUDGE_PARAM_ST" in Dark Souls in the file "QwcJudgeParam.paramdef" (id 28h).
 		/// </remarks>
 		public class QwcJudge : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "QWC_JUDGE_PARAM_ST";
 
 			Int16 pcJudgeUnderWB, pcJudgeTopWB, pcJudgeUnderLR, pcJudgeTopLR, areaJudgeUnderWB, areaJudgeTopWB, areaJudgeUnderLR, areaJudgeTopLR;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				PcJudgeUnderWBProperty = GetProperty<QwcJudge>("PcJudgeUnderWB"),
 				PcJudgeTopWBProperty = GetProperty<QwcJudge>("PcJudgeTopWB"),
@@ -33,7 +35,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "PC-黒条件（下限）", Google translated: "PC-black conditions (lower limit)".
 			/// Japanese description: "PC白黒属性条件（下限）", Google translated: "PC black-and-white attribute condition (lower limit)".
 			/// </remarks>
-			[ParameterTableRowAttribute("pcJudgeUnderWB", index: 0, minimum: -200, maximum: 200, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("pcJudgeUnderWB", index: 0, minimum: -200, maximum: 200, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("PC-black conditions (lower limit)")]
 			[Description("PC black-and-white attribute condition (lower limit)")]
 			[DefaultValue((Int16)(-200))]
@@ -51,7 +53,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "PC-白条件（上限）", Google translated: "PC-white conditions (upper limit)".
 			/// Japanese description: "PC白黒属性条件（上限）", Google translated: "PC black-and-white attribute condition (upper limit)".
 			/// </remarks>
-			[ParameterTableRowAttribute("pcJudgeTopWB", index: 1, minimum: -200, maximum: 200, step: 1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("pcJudgeTopWB", index: 1, minimum: -200, maximum: 200, step: 1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("PC-white conditions (upper limit)")]
 			[Description("PC black-and-white attribute condition (upper limit)")]
 			[DefaultValue((Int16)200)]
@@ -69,7 +71,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "PC-左条件（下限）", Google translated: "PC-left condition (lower limit)".
 			/// Japanese description: "PC左右属性条件（下限）", Google translated: "PC left and right attribute condition (lower limit)".
 			/// </remarks>
-			[ParameterTableRowAttribute("pcJudgeUnderLR", index: 2, minimum: -200, maximum: 200, step: 1, order: 300, unknown2: 1)]
+			[ParameterTableRowAttribute("pcJudgeUnderLR", index: 2, minimum: -200, maximum: 200, step: 1, sortOrder: 300, unknown2: 1)]
 			[DisplayName("PC-left condition (lower limit)")]
 			[Description("PC left and right attribute condition (lower limit)")]
 			[DefaultValue((Int16)(-200))]
@@ -87,7 +89,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "PC-右条件（上限）", Google translated: "PC-right conditions (upper limit)".
 			/// Japanese description: "PC左右属性条件（上限）", Google translated: "PC left and right attribute condition (upper limit)".
 			/// </remarks>
-			[ParameterTableRowAttribute("pcJudgeTopLR", index: 3, minimum: -200, maximum: 200, step: 1, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("pcJudgeTopLR", index: 3, minimum: -200, maximum: 200, step: 1, sortOrder: 400, unknown2: 1)]
 			[DisplayName("PC-right conditions (upper limit)")]
 			[Description("PC left and right attribute condition (upper limit)")]
 			[DefaultValue((Int16)200)]
@@ -105,7 +107,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "エリア-黒条件（下限）", Google translated: "Area - black conditions (lower limit)".
 			/// Japanese description: "エリア白黒属性条件（下限）", Google translated: "Black-and-white area attribute condition (lower limit)".
 			/// </remarks>
-			[ParameterTableRowAttribute("areaJudgeUnderWB", index: 4, minimum: -200, maximum: 200, step: 1, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("areaJudgeUnderWB", index: 4, minimum: -200, maximum: 200, step: 1, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Area - black conditions (lower limit)")]
 			[Description("Black-and-white area attribute condition (lower limit)")]
 			[DefaultValue((Int16)(-200))]
@@ -123,7 +125,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "エリア-白条件（上限）", Google translated: "Area - white conditions (upper limit)".
 			/// Japanese description: "エリア白黒属性条件（上限）", Google translated: "Black-and-white area attribute condition (upper limit)".
 			/// </remarks>
-			[ParameterTableRowAttribute("areaJudgeTopWB", index: 5, minimum: -200, maximum: 200, step: 1, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("areaJudgeTopWB", index: 5, minimum: -200, maximum: 200, step: 1, sortOrder: 600, unknown2: 1)]
 			[DisplayName("Area - white conditions (upper limit)")]
 			[Description("Black-and-white area attribute condition (upper limit)")]
 			[DefaultValue((Int16)200)]
@@ -141,7 +143,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "エリア-左条件（下限）", Google translated: "Area - left condition (lower limit)".
 			/// Japanese description: "エリア左右属性条件（下限）", Google translated: "Area left and right attribute condition (lower limit)".
 			/// </remarks>
-			[ParameterTableRowAttribute("areaJudgeUnderLR", index: 6, minimum: -200, maximum: 200, step: 1, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("areaJudgeUnderLR", index: 6, minimum: -200, maximum: 200, step: 1, sortOrder: 700, unknown2: 1)]
 			[DisplayName("Area - left condition (lower limit)")]
 			[Description("Area left and right attribute condition (lower limit)")]
 			[DefaultValue((Int16)(-200))]
@@ -159,7 +161,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "エリア-右条件（上限）", Google translated: "Area - right conditions (upper limit)".
 			/// Japanese description: "エリア左右属性条件（上限）", Google translated: "Area left and right attribute condition (upper limit)".
 			/// </remarks>
-			[ParameterTableRowAttribute("areaJudgeTopLR", index: 7, minimum: -200, maximum: 200, step: 1, order: 800, unknown2: 1)]
+			[ParameterTableRowAttribute("areaJudgeTopLR", index: 7, minimum: -200, maximum: 200, step: 1, sortOrder: 800, unknown2: 1)]
 			[DisplayName("Area - right conditions (upper limit)")]
 			[Description("Area left and right attribute condition (upper limit)")]
 			[DefaultValue((Int16)200)]
@@ -198,6 +200,10 @@ namespace Alexandria.Engines.DarkSouls {
 				AreaJudgeTopLR = (Int16)200;
 			}
 
+			/// <summary>
+			/// Write the <see cref="QwcJudge"/> row.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(PcJudgeUnderWB);
 				writer.Write(PcJudgeTopWB);

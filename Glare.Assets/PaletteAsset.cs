@@ -12,27 +12,49 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Glare.Assets {
+	/// <summary>A collection of color values.</summary>
 	public class PaletteAsset : Asset {
+		/// <summary>Get the collection of colors.</summary>
 		protected readonly Codex<Color> ColorsMutable = new Codex<Color>();
 
+		/// <summary>Get the collection of colors.</summary>
 		public Codex<Color> Colors { get { return ColorsMutable; } }
 
+		/// <summary>Initialise the asset.</summary>
+		/// <param name="manager"></param>
+		/// <param name="name"></param>
+		/// <param name="colors"></param>
 		public PaletteAsset(AssetManager manager, string name, params Color[] colors) : this(manager, name, (IEnumerable<Color>)colors) { }
+
+		/// <summary>Initialise the asset.</summary>
+		/// <param name="folder"></param>
+		/// <param name="name"></param>
+		/// <param name="colors"></param>
 		public PaletteAsset(FolderAsset folder, string name, params Color[] colors) : this(folder, name, (IEnumerable<Color>)colors) { }
 
+		/// <summary>Initialise the asset.</summary>
+		/// <param name="manager"></param>
+		/// <param name="name"></param>
+		/// <param name="colors"></param>
 		public PaletteAsset(AssetManager manager, string name, IEnumerable<Color> colors)
 			: base(manager, name) {
 			if (colors != null)
 				ColorsMutable.AddRange(colors);
 		}
 
+		/// <summary>Initialise the asset.</summary>
+		/// <param name="folder"></param>
+		/// <param name="name"></param>
+		/// <param name="colors"></param>
 		public PaletteAsset(FolderAsset folder, string name, IEnumerable<Color> colors)
 			: base(folder, name) {
 			if (colors != null)
 				ColorsMutable.AddRange(colors);
 		}
 
-		public override Control Browse() {
+		/// <summary>Produces a picture box showing the colors.</summary>
+		/// <returns></returns>
+		public override Control Browse(Action<double> progressUpdateCallback = null) {
 			int scale = 4;
 			Bitmap bitmap = new Bitmap(64, Colors.Count * scale);
 			PictureBox box = new PictureBox() { Image = bitmap };
@@ -58,6 +80,8 @@ namespace Glare.Assets {
 		/// <param name="count"></param>
 		/// <param name="max"></param>
 		/// <param name="transparentIndex"></param>
+		/// <param name="leftPadding">Colors that are added to the start of the palette, if non-null.</param>
+		/// <param name="rightPadding">Colors that are added to the end of the palette, if non-null.</param>
 		/// <returns></returns>
 		public static PaletteAsset ReadRgb(AssetManager manager, string name, BinaryReader reader, int count, int max, int transparentIndex = -1, IEnumerable<Color> leftPadding = null, IEnumerable<Color> rightPadding = null) {
 			PaletteAsset palette = new PaletteAsset(manager, name);

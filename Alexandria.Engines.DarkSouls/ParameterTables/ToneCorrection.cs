@@ -14,10 +14,12 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "TONE_CORRECT_BANK" in Dark Souls in the file "ToneCorrectBank.paramdef" (id 07h).
 		/// </remarks>
 		public class ToneCorrection : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "TONE_CORRECT_BANK";
 
 			Single brightnessR, brightnessG, brightnessB, contrastR, contrastG, contrastB, saturation, hue;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				BrightnessRProperty = GetProperty<ToneCorrection>("BrightnessR"),
 				BrightnessGProperty = GetProperty<ToneCorrection>("BrightnessG"),
@@ -33,7 +35,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "輝度R", Google translated: "Brightness R".
 			/// Japanese description: "輝度", Google translated: "Brightness".
 			/// </remarks>
-			[ParameterTableRowAttribute("brightnessR", index: 0, minimum: 0, maximum: 5, step: 0.01, order: 1, unknown2: 0)]
+			[ParameterTableRowAttribute("brightnessR", index: 0, minimum: 0, maximum: 5, step: 0.01, sortOrder: 1, unknown2: 0)]
 			[DisplayName("Brightness R")]
 			[Description("Brightness")]
 			[DefaultValue((Single)1)]
@@ -51,7 +53,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "輝度G", Google translated: "Brightness G".
 			/// Japanese description: "輝度", Google translated: "Brightness".
 			/// </remarks>
-			[ParameterTableRowAttribute("brightnessG", index: 1, minimum: 0, maximum: 5, step: 0.01, order: 2, unknown2: 0)]
+			[ParameterTableRowAttribute("brightnessG", index: 1, minimum: 0, maximum: 5, step: 0.01, sortOrder: 2, unknown2: 0)]
 			[DisplayName("Brightness G")]
 			[Description("Brightness")]
 			[DefaultValue((Single)1)]
@@ -69,7 +71,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "輝度B", Google translated: "Brightness B".
 			/// Japanese description: "輝度", Google translated: "Brightness".
 			/// </remarks>
-			[ParameterTableRowAttribute("brightnessB", index: 2, minimum: 0, maximum: 5, step: 0.01, order: 3, unknown2: 0)]
+			[ParameterTableRowAttribute("brightnessB", index: 2, minimum: 0, maximum: 5, step: 0.01, sortOrder: 3, unknown2: 0)]
 			[DisplayName("Brightness B")]
 			[Description("Brightness")]
 			[DefaultValue((Single)1)]
@@ -87,7 +89,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "コントラストR", Google translated: "Contrast R".
 			/// Japanese description: "コントラスト", Google translated: "Contrast".
 			/// </remarks>
-			[ParameterTableRowAttribute("contrastR", index: 3, minimum: -5, maximum: 5, step: 0.01, order: 4, unknown2: 0)]
+			[ParameterTableRowAttribute("contrastR", index: 3, minimum: -5, maximum: 5, step: 0.01, sortOrder: 4, unknown2: 0)]
 			[DisplayName("Contrast R")]
 			[Description("Contrast")]
 			[DefaultValue((Single)1)]
@@ -105,7 +107,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "コントラストG", Google translated: "Contrast G".
 			/// Japanese description: "コントラスト", Google translated: "Contrast".
 			/// </remarks>
-			[ParameterTableRowAttribute("contrastG", index: 4, minimum: -5, maximum: 5, step: 0.01, order: 5, unknown2: 0)]
+			[ParameterTableRowAttribute("contrastG", index: 4, minimum: -5, maximum: 5, step: 0.01, sortOrder: 5, unknown2: 0)]
 			[DisplayName("Contrast G")]
 			[Description("Contrast")]
 			[DefaultValue((Single)1)]
@@ -123,7 +125,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "コントラストB", Google translated: "Contrast B".
 			/// Japanese description: "コントラスト", Google translated: "Contrast".
 			/// </remarks>
-			[ParameterTableRowAttribute("contrastB", index: 5, minimum: -5, maximum: 5, step: 0.01, order: 6, unknown2: 0)]
+			[ParameterTableRowAttribute("contrastB", index: 5, minimum: -5, maximum: 5, step: 0.01, sortOrder: 6, unknown2: 0)]
 			[DisplayName("Contrast B")]
 			[Description("Contrast")]
 			[DefaultValue((Single)1)]
@@ -141,7 +143,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "彩度", Google translated: "Saturation".
 			/// Japanese description: "彩度", Google translated: "Saturation".
 			/// </remarks>
-			[ParameterTableRowAttribute("saturation", index: 6, minimum: -5, maximum: 5, step: 0.01, order: 7, unknown2: 0)]
+			[ParameterTableRowAttribute("saturation", index: 6, minimum: -5, maximum: 5, step: 0.01, sortOrder: 7, unknown2: 0)]
 			[DisplayName("Saturation")]
 			[Description("Saturation")]
 			[DefaultValue((Single)1)]
@@ -159,7 +161,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "色相", Google translated: "Hue".
 			/// Japanese description: "色相", Google translated: "Hue".
 			/// </remarks>
-			[ParameterTableRowAttribute("hue", index: 7, minimum: 0, maximum: 360, step: 1, order: 8, unknown2: 1)]
+			[ParameterTableRowAttribute("hue", index: 7, minimum: 0, maximum: 360, step: 1, sortOrder: 8, unknown2: 1)]
 			[DisplayName("Hue")]
 			[Description("Hue")]
 			[DefaultValue((Single)0)]
@@ -198,6 +200,10 @@ namespace Alexandria.Engines.DarkSouls {
 				Hue = (Single)0;
 			}
 
+			/// <summary>
+			/// Write the <see cref="ToneCorrection"/> row to the stream.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(BrightnessR);
 				writer.Write(BrightnessG);

@@ -1,9 +1,6 @@
 ﻿using Alexandria.Controls;
 using Glare.Assets;
 using Glare.Graphics.Loaders.Fbx;
-using Moki.Compiler;
-using Moki.Compilers.CSharp;
-using Moki.Syntax;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,17 +15,6 @@ namespace Alexandria.Browser {
 		static void Main(string[] args) {
 			//new FbxReader(new BinaryReader(File.OpenRead(@"D:\fuck.fbx")));
 		
-			/*MessageHandler messages = new MessageHandler();
-			Source source = new Source("string", "int Floop;");
-			Lexer lexer = new CSharpLexer(source, messages);
-			Parser parser = new CSharpParser(lexer);
-
-			Statement statement = parser.ParseStatement();
-			Console.WriteLine(statement != null ? statement.ToString() : "Null returned");
-
-			Console.Write("Press any key...");
-			Console.ReadKey();*/
-
 			AlexandriaManager manager = new AlexandriaManager();
 			manager.LoadPlugins();
 

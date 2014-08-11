@@ -22,6 +22,9 @@ namespace Glare.Framework {
 		/// <summary>Get the number of bits in a unit value.</summary>
 		public const int BitsPerUnit = 1 << UnitShift;
 
+		/// <summary>Get the number of bytes in a unit value.</summary>
+		public const int BytesPerUnit = (BitsPerUnit + 7) / 8;
+
 		/// <summary>Get a unit value of 1.</summary>
 		public const Unit UnitOne = 1;
 
@@ -32,23 +35,33 @@ namespace Glare.Framework {
 		public const Unit UnitMax = ~UnitZero;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly int pCount;
+		readonly long pCount;
 
-		readonly int pUnitCount;
+		readonly long pUnitCount;
 
 		internal readonly unsafe Unit* pUnits;
 
-		public int Count { get { return pCount; } }
+		/// <summary>Get the number of bits in the array.</summary>
+		public long Count { get { return pCount; } }
+
+		int ICollection<bool>.Count { get { return checked((int)pCount); } }
+		int ICollection.Count { get { return checked((int)pCount); } }
+		
 
 		/// <summary>Get the number of bit packed units in the array.</summary>
-		public int UnitCount { get { return pUnitCount; } }
+		public long UnitCount { get { return pUnitCount; } }
 
-		public bool this[int index] {
+		bool IList<bool>.this[int index] { get { return this[index]; } set { this[index] = value; } }
+
+		/// <summary>Get or set a boolean value in the array.</summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		public bool this[long index] {
 			get {
 				if (index < 0 || index >= pCount)
 					throw new ArgumentOutOfRangeException("index");
 				unsafe {
-					return (pUnits[index >> UnitShift] & (UnitOne << (index & UnitMask))) != 0;
+					return (pUnits[index >> UnitShift] & (UnitOne << (int)(index & UnitMask))) != 0;
 				}
 			}
 
@@ -56,8 +69,8 @@ namespace Glare.Framework {
 				if (index < 0 || index >= pCount)
 					throw new ArgumentOutOfRangeException("index");
 
-				int unitIndex = index >> UnitShift;
-				Unit unitBit = UnitOne << (index & UnitMask);
+				int unitIndex = checked((int)(index >> UnitShift));
+				Unit unitBit = UnitOne << (int)(index & UnitMask);
 
 				unsafe {
 					if (value)
@@ -68,23 +81,24 @@ namespace Glare.Framework {
 			}
 		}
 
-		public BooleanArray(int length) {
+		/// <summary>Initialise the boolean array.</summary>
+		/// <param name="length"></param>
+		public BooleanArray(long length) {
 			pUnitCount = (length + BitsPerUnit - 1) / BitsPerUnit;
 			unsafe {
-				pUnits = (Unit*)Marshal.AllocHGlobal(pUnitCount * (BitsPerUnit / 8)).ToPointer();
+				pUnits = (Unit*)Marshal.AllocHGlobal(new IntPtr(pUnitCount * BytesPerUnit)).ToPointer();
 			}
 			//pUnits = new Unit[(length + BitsPerUnit - 1) / BitsPerUnit];
 			pCount = length;
 		}
 
-		public BooleanArray(long length) : this(checked((int)length)) { }
-
+		/// <summary>Frees the memory allocated for the array.</summary>
 		~BooleanArray() { unsafe { Marshal.FreeHGlobal(new IntPtr(pUnits)); } }
 
 		/// <summary>Check the range of values that is inclusive to the end.</summary>
 		/// <param name="start">The first index.</param>
 		/// <param name="count">The number of elements.</param>
-		void pCheckRange(int start, int count) {
+		void pCheckRange(long start, long count) {
 			if (start < 0 || start > pCount)
 				throw new ArgumentOutOfRangeException("start");
 			if (count < 0 || start + count > pCount)
@@ -104,17 +118,26 @@ namespace Glare.Framework {
 			unsafe { return pUnits[index]; }
 		}
 
-		public int IndexOf(bool item) {
+		int IList<bool>.IndexOf(bool item) { return checked((int)IndexOf(item)); }
+
+		/// <summary>Get the first index of the array with the given value, or -1 if not found.</summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
+		public long IndexOf(bool item) {
 			return IndexOf(item, 0);
 		}
 
-		public int IndexOf(bool item, int startIndex) {
+		/// <summary>Get the first index of the array with the given value, or -1 if not found.</summary>
+		/// <param name="item"></param>
+		/// <param name="startIndex"></param>
+		/// <returns></returns>
+		public long IndexOf(bool item, long startIndex) {
 			if (startIndex < 0 || startIndex > Count)
 				throw new ArgumentOutOfRangeException("startIndex");
 
-			int blockCount = pUnitCount;
-			int blockIndex = startIndex / BitsPerUnit;
-			int bitIndex = startIndex & UnitMask;
+			long blockCount = pUnitCount;
+			long blockIndex = checked((int)startIndex / BitsPerUnit);
+			int bitIndex = (int)(startIndex & UnitMask);
 
 			unsafe {
 				for (; blockIndex < blockCount; bitIndex = 0, blockIndex++) {
@@ -124,7 +147,7 @@ namespace Glare.Framework {
 						for (; bitIndex < BitsPerUnit; bitIndex++) {
 							bool value = (block & (UnitOne << bitIndex)) != 0;
 							if (value == item) {
-								int index = bitIndex + blockIndex * BitsPerUnit;
+								long index = bitIndex + blockIndex * BitsPerUnit;
 								return index < Count ? index : -1;
 							}
 						}
@@ -139,19 +162,19 @@ namespace Glare.Framework {
 		/// <param name="count">The number of elements to set to the value.</param>
 		/// <param name="value">The value to assign to the elements.</param>
 		/// <remarks>The <see cref="BooleanArray"/> will efficiently assign values.</remarks>
-		public void Set(int start, int count, bool value) {
+		public void Set(long start, long count, bool value) {
 			pCheckRange(start, count);
 
-			int end = start + count;
-			int endUnit = (end - 1) >> UnitShift;
-			int unit = start >> UnitShift;
+			long end = start + count;
+			long endUnit = (end - 1) >> UnitShift;
+			long unit = start >> UnitShift;
 			Unit mask;
 
 			// Get bits to the end of the range or to the end of the start unit.
 			if (endUnit == unit)
-				mask = GetMask(count, start & UnitMask);
+				mask = GetMask((int)count, (int)(start & UnitMask));
 			else
-				mask = UnitMax << (start & UnitMask);
+				mask = UnitMax << (int)(start & UnitMask);
 
 			unsafe {
 				while (true) {
@@ -164,10 +187,11 @@ namespace Glare.Framework {
 					if (unit < endUnit)
 						// At least BitsPerUnit more to go...
 						mask = UnitMax;
-					else if (unit == endUnit)
+					else if (unit == endUnit) {
 						// Last unit, get the final bit mask.
-						mask = GetMask(end & UnitMask);
-					else // unit > endUnit
+						int bitCount = (int)(end & UnitMask);
+						mask = bitCount == 0 ? UnitMax : GetMask(bitCount);
+					} else // unit > endUnit
 						break;
 				}
 			}
@@ -184,8 +208,14 @@ namespace Glare.Framework {
 
 		void ICollection<bool>.Clear() { throw FixedSizeException(); }
 
+		/// <summary>Get whether the array contains the item.</summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
 		public bool Contains(bool item) { return IndexOf(item) >= 0; }
 
+		/// <summary>Copy into another array.</summary>
+		/// <param name="array"></param>
+		/// <param name="arrayIndex"></param>
 		public void CopyTo(bool[] array, int arrayIndex) {
 			for (int index = 0; index < Count; index++)
 				array[index + arrayIndex] = this[index];
@@ -196,6 +226,8 @@ namespace Glare.Framework {
 
 		bool ICollection<bool>.Remove(bool item) { throw FixedSizeException(); }
 
+		/// <summary>Get an enumerator over the elements of this array.</summary>
+		/// <returns></returns>
 		public Enumerator GetEnumerator() { return new Enumerator(this); }
 
 		IEnumerator<bool> IEnumerable<bool>.GetEnumerator() { return GetEnumerator(); }
@@ -208,7 +240,7 @@ namespace Glare.Framework {
 
 		bool IList.Contains(object value) { return Contains((bool)value); }
 
-		int IList.IndexOf(object value) { return IndexOf((bool)value); }
+		int IList.IndexOf(object value) { return checked((int)IndexOf((bool)value)); }
 
 		void IList.Insert(int index, object value) { throw FixedSizeException(); }
 
@@ -234,10 +266,14 @@ namespace Glare.Framework {
 
 		#endregion Interfaces
 
+		/// <summary>
+		/// An enumerator for a boolean array.
+		/// </summary>
 		public struct Enumerator : IEnumerator<bool> {
 			unsafe readonly Unit* Units;
-			readonly int Count;
-			int BlockIndex, BitIndex;
+			readonly long Count;
+			long BlockIndex;
+			int BitIndex;
 			Unit BlockValue;
 
 			internal Enumerator(BooleanArray array) {
@@ -251,6 +287,7 @@ namespace Glare.Framework {
 				BlockValue = 0;
 			}
 
+			/// <summary>Get the current value.</summary>
 			public bool Current {
 				get { return (BlockValue & (UnitOne << BitIndex)) != 0; }
 			}
@@ -259,6 +296,8 @@ namespace Glare.Framework {
 
 			object IEnumerator.Current { get { return Current; } }
 
+			/// <summary>Move to the next value in the array, returning whether the end has been reached.</summary>
+			/// <returns></returns>
 			public bool MoveNext() {
 				BitIndex++;
 				if (BitIndex + BlockIndex * BitsPerUnit >= Count)
@@ -275,6 +314,7 @@ namespace Glare.Framework {
 				return true;
 			}
 
+			/// <summary>Reset the enumerator parameters.</summary>
 			public void Reset() {
 				BitIndex = BitsPerUnit;
 				BlockIndex = -1;

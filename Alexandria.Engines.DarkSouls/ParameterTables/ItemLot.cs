@@ -16,6 +16,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Called "ITEMLOT_PARAM_ST" in Dark Souls; from "ItemLotParam.paramdef" (id 23h).
 		/// </remarks>
 		public class ItemLot : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "ITEMLOT_PARAM_ST";
 
 			Int32 lotItemId01, lotItemId02, lotItemId03, lotItemId04, lotItemId05, lotItemId06, lotItemId07, lotItemId08, getItemFlagId01, getItemFlagId02, getItemFlagId03, getItemFlagId04, getItemFlagId05, getItemFlagId06, getItemFlagId07, getItemFlagId08, getItemFlagId, cumulateNumFlagId;
@@ -23,6 +24,7 @@ namespace Alexandria.Engines.DarkSouls {
 			UInt16 lotItemBasePoint01, lotItemBasePoint02, lotItemBasePoint03, lotItemBasePoint04, lotItemBasePoint05, lotItemBasePoint06, lotItemBasePoint07, lotItemBasePoint08, cumulateLotPoint01, cumulateLotPoint02, cumulateLotPoint03, cumulateLotPoint04, cumulateLotPoint05, cumulateLotPoint06, cumulateLotPoint07, cumulateLotPoint08;
 			Byte cumulateNumMax, rarity, lotItemNum01, lotItemNum02, lotItemNum03, lotItemNum04, lotItemNum05, lotItemNum06, lotItemNum07, lotItemNum08;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				LotItemId01Property = GetProperty<ItemLot>("LotItemId01"),
 				LotItemId02Property = GetProperty<ItemLot>("LotItemId02"),
@@ -95,9 +97,9 @@ namespace Alexandria.Engines.DarkSouls {
 
 			Engine.ItemArchiveId GetNameArchiveId(RewardItemCategory category) {
 				switch (category) {
-					case RewardItemCategory.Armor: return Engine.ItemArchiveId.ArmorNames;
-					case RewardItemCategory.Item: return Engine.ItemArchiveId.ItemNames;
-					case RewardItemCategory.Ring: return Engine.ItemArchiveId.RingNames;
+					case RewardItemCategory.Protector: return Engine.ItemArchiveId.ProtectorNames;
+					case RewardItemCategory.Goods: return Engine.ItemArchiveId.GoodsNames;
+					case RewardItemCategory.Accessory: return Engine.ItemArchiveId.AccessoryNames;
 					case RewardItemCategory.Weapon: return Engine.ItemArchiveId.WeaponNames;
 					case RewardItemCategory.None: return Engine.ItemArchiveId.None;
 					default: throw new ArgumentOutOfRangeException("category");
@@ -117,28 +119,36 @@ namespace Alexandria.Engines.DarkSouls {
 			string GetLotItemName07(Language language = Language.English, string defaultValue = "") { return GetLotItemName(LotItemCategory07, LotItemId07, language, defaultValue); }
 			string GetLotItemName08(Language language = Language.English, string defaultValue = "") { return GetLotItemName(LotItemCategory08, LotItemId08, language, defaultValue); }
 
-			[ParameterTableRow("@lotItemEnglishName01", index: -1, minimum: 0, maximum: 0, step: 0, order: 401)]
+			/// <summary>Get the localised English name of the first item, or "" if there is no item for this entry.</summary>
+			[ParameterTableRow("@lotItemEnglishName01", index: -1, minimum: 0, maximum: 0, step: 0, sortOrder: 401)]
 			public string LotItemEnglishName01 { get { return GetLotItemName01(); } }
 
-			[ParameterTableRow("@lotItemEnglishName02", index: -1, minimum: 0, maximum: 0, step: 0, order: 1201)]
+			/// <summary>Get the localised English name of the second item, or "" if there is no item for this entry.</summary>
+			[ParameterTableRow("@lotItemEnglishName02", index: -1, minimum: 0, maximum: 0, step: 0, sortOrder: 1201)]
 			public string LotItemEnglishName02 { get { return GetLotItemName02(); } }
 
-			[ParameterTableRow("@lotItemEnglishName03", index: -1, minimum: 0, maximum: 0, step: 0, order: 2001)]
+			/// <summary>Get the localised English name of the third item, or "" if there is no item for this entry.</summary>
+			[ParameterTableRow("@lotItemEnglishName03", index: -1, minimum: 0, maximum: 0, step: 0, sortOrder: 2001)]
 			public string LotItemEnglishName03 { get { return GetLotItemName03(); } }
 
-			[ParameterTableRow("@lotItemEnglishName04", index: -1, minimum: 0, maximum: 0, step: 0, order: 2801)]
+			/// <summary>Get the localised English name of the fourth item, or "" if there is no item for this entry.</summary>
+			[ParameterTableRow("@lotItemEnglishName04", index: -1, minimum: 0, maximum: 0, step: 0, sortOrder: 2801)]
 			public string LotItemEnglishName04 { get { return GetLotItemName04(); } }
 
-			[ParameterTableRow("@lotItemEnglishName05", index: -1, minimum: 0, maximum: 0, step: 0, order: 3601)]
+			/// <summary>Get the localised English name of the fifth item, or "" if there is no item for this entry.</summary>
+			[ParameterTableRow("@lotItemEnglishName05", index: -1, minimum: 0, maximum: 0, step: 0, sortOrder: 3601)]
 			public string LotItemEnglishName05 { get { return GetLotItemName05(); } }
 
-			[ParameterTableRow("@lotItemEnglishName06", index: -1, minimum: 0, maximum: 0, step: 0, order: 4401)]
+			/// <summary>Get the localised English name of the sixth item, or "" if there is no item for this entry.</summary>
+			[ParameterTableRow("@lotItemEnglishName06", index: -1, minimum: 0, maximum: 0, step: 0, sortOrder: 4401)]
 			public string LotItemEnglishName06 { get { return GetLotItemName06(); } }
 
-			[ParameterTableRow("@lotItemEnglishName07", index: -1, minimum: 0, maximum: 0, step: 0, order: 5201)]
+			/// <summary>Get the localised English name of the seventh item, or "" if there is no item for this entry.</summary>
+			[ParameterTableRow("@lotItemEnglishName07", index: -1, minimum: 0, maximum: 0, step: 0, sortOrder: 5201)]
 			public string LotItemEnglishName07 { get { return GetLotItemName07(); } }
 
-			[ParameterTableRow("@lotItemEnglishName08", index: -1, minimum: 0, maximum: 0, step: 0, order: 6001)]
+			/// <summary>Get the localised English name of the eighth item, or "" if there is no item for this entry.</summary>
+			[ParameterTableRow("@lotItemEnglishName08", index: -1, minimum: 0, maximum: 0, step: 0, sortOrder: 6001)]
 			public string LotItemEnglishName08 { get { return GetLotItemName08(); } }
 
 			/// <summary>1 : item ID</summary>
@@ -146,7 +156,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "１：アイテムID", Google translated: "1 : item ID".
 			/// Japanese description: "取得できるアイテムのID", Google translated: "ID of the item that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemId01", index: 0, minimum: -1, maximum: 1E+09, step: 1, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemId01", index: 0, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 400, unknown2: 1)]
 			[DisplayName("1 : item ID")]
 			[Description("ID of the item that can be retrieved")]
 			[DefaultValue((Int32)0)]
@@ -164,7 +174,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "２：アイテムID", Google translated: "2 : item ID".
 			/// Japanese description: "取得できるアイテムのID", Google translated: "ID of the item that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemId02", index: 1, minimum: -1, maximum: 1E+09, step: 1, order: 1200, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemId02", index: 1, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 1200, unknown2: 1)]
 			[DisplayName("2 : item ID")]
 			[Description("ID of the item that can be retrieved")]
 			[DefaultValue((Int32)0)]
@@ -182,7 +192,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "３：アイテムID", Google translated: "3 : Item ID".
 			/// Japanese description: "取得できるアイテムのID", Google translated: "ID of the item that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemId03", index: 2, minimum: -1, maximum: 1E+09, step: 1, order: 2000, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemId03", index: 2, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 2000, unknown2: 1)]
 			[DisplayName("3 : Item ID")]
 			[Description("ID of the item that can be retrieved")]
 			[DefaultValue((Int32)0)]
@@ -200,7 +210,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "４：アイテムID", Google translated: "4 : Item ID".
 			/// Japanese description: "取得できるアイテムのID", Google translated: "ID of the item that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemId04", index: 3, minimum: -1, maximum: 1E+09, step: 1, order: 2800, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemId04", index: 3, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 2800, unknown2: 1)]
 			[DisplayName("4 : Item ID")]
 			[Description("ID of the item that can be retrieved")]
 			[DefaultValue((Int32)0)]
@@ -218,7 +228,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "５：アイテムID", Google translated: "5 : Item ID".
 			/// Japanese description: "取得できるアイテムのID", Google translated: "ID of the item that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemId05", index: 4, minimum: -1, maximum: 1E+09, step: 1, order: 3600, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemId05", index: 4, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 3600, unknown2: 1)]
 			[DisplayName("5 : Item ID")]
 			[Description("ID of the item that can be retrieved")]
 			[DefaultValue((Int32)0)]
@@ -236,7 +246,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "６：アイテムID", Google translated: "6 : item ID".
 			/// Japanese description: "取得できるアイテムのID", Google translated: "ID of the item that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemId06", index: 5, minimum: -1, maximum: 1E+09, step: 1, order: 4400, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemId06", index: 5, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 4400, unknown2: 1)]
 			[DisplayName("6 : item ID")]
 			[Description("ID of the item that can be retrieved")]
 			[DefaultValue((Int32)0)]
@@ -254,7 +264,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "７：アイテムID", Google translated: "7 : item ID".
 			/// Japanese description: "取得できるアイテムのID", Google translated: "ID of the item that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemId07", index: 6, minimum: -1, maximum: 1E+09, step: 1, order: 5200, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemId07", index: 6, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 5200, unknown2: 1)]
 			[DisplayName("7 : item ID")]
 			[Description("ID of the item that can be retrieved")]
 			[DefaultValue((Int32)0)]
@@ -272,7 +282,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "８：アイテムID", Google translated: "8 : item ID".
 			/// Japanese description: "取得できるアイテムのID", Google translated: "ID of the item that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemId08", index: 7, minimum: -1, maximum: 1E+09, step: 1, order: 6000, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemId08", index: 7, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 6000, unknown2: 1)]
 			[DisplayName("8 : item ID")]
 			[Description("ID of the item that can be retrieved")]
 			[DefaultValue((Int32)0)]
@@ -290,7 +300,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "１：アイテムカテゴリ", Google translated: "1 : Item category".
 			/// Japanese description: "取得できるアイテムのカテゴリ", Google translated: "Category of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemCategory01", index: 8, minimum: -1, maximum: 2.147484E+09, step: 1, order: 300, unknown2: 5)]
+			[ParameterTableRowAttribute("lotItemCategory01", index: 8, minimum: -1, maximum: 2.147484E+09, step: 1, sortOrder: 300, unknown2: 5)]
 			[DisplayName("1 : Item category")]
 			[Description("Category of items that can be retrieved")]
 			[DefaultValue((RewardItemCategory)0)]
@@ -304,7 +314,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "２：アイテムカテゴリ", Google translated: "2 : Item category".
 			/// Japanese description: "取得できるアイテムのカテゴリ", Google translated: "Category of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemCategory02", index: 9, minimum: -1, maximum: 2.147484E+09, step: 1, order: 1100, unknown2: 5)]
+			[ParameterTableRowAttribute("lotItemCategory02", index: 9, minimum: -1, maximum: 2.147484E+09, step: 1, sortOrder: 1100, unknown2: 5)]
 			[DisplayName("2 : Item category")]
 			[Description("Category of items that can be retrieved")]
 			[DefaultValue((RewardItemCategory)0)]
@@ -318,7 +328,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "３：アイテムカテゴリ", Google translated: "3 : Item category".
 			/// Japanese description: "取得できるアイテムのカテゴリ", Google translated: "Category of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemCategory03", index: 10, minimum: -1, maximum: 2.147484E+09, step: 1, order: 1900, unknown2: 5)]
+			[ParameterTableRowAttribute("lotItemCategory03", index: 10, minimum: -1, maximum: 2.147484E+09, step: 1, sortOrder: 1900, unknown2: 5)]
 			[DisplayName("3 : Item category")]
 			[Description("Category of items that can be retrieved")]
 			[DefaultValue((RewardItemCategory)0)]
@@ -332,7 +342,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "４：アイテムカテゴリ", Google translated: "4 : Item category".
 			/// Japanese description: "取得できるアイテムのカテゴリ", Google translated: "Category of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemCategory04", index: 11, minimum: -1, maximum: 2.147484E+09, step: 1, order: 2700, unknown2: 5)]
+			[ParameterTableRowAttribute("lotItemCategory04", index: 11, minimum: -1, maximum: 2.147484E+09, step: 1, sortOrder: 2700, unknown2: 5)]
 			[DisplayName("4 : Item category")]
 			[Description("Category of items that can be retrieved")]
 			[DefaultValue((RewardItemCategory)0)]
@@ -346,7 +356,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "５：アイテムカテゴリ", Google translated: "5 : Item category".
 			/// Japanese description: "取得できるアイテムのカテゴリ", Google translated: "Category of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemCategory05", index: 12, minimum: -1, maximum: 2.147484E+09, step: 1, order: 3500, unknown2: 5)]
+			[ParameterTableRowAttribute("lotItemCategory05", index: 12, minimum: -1, maximum: 2.147484E+09, step: 1, sortOrder: 3500, unknown2: 5)]
 			[DisplayName("5 : Item category")]
 			[Description("Category of items that can be retrieved")]
 			[DefaultValue((RewardItemCategory)0)]
@@ -360,7 +370,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "６：アイテムカテゴリ", Google translated: "6 : Item category".
 			/// Japanese description: "取得できるアイテムのカテゴリ", Google translated: "Category of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemCategory06", index: 13, minimum: -1, maximum: 2.147484E+09, step: 1, order: 4300, unknown2: 5)]
+			[ParameterTableRowAttribute("lotItemCategory06", index: 13, minimum: -1, maximum: 2.147484E+09, step: 1, sortOrder: 4300, unknown2: 5)]
 			[DisplayName("6 : Item category")]
 			[Description("Category of items that can be retrieved")]
 			[DefaultValue((RewardItemCategory)0)]
@@ -374,7 +384,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "７：アイテムカテゴリ", Google translated: "7 : Items category".
 			/// Japanese description: "取得できるアイテムのカテゴリ", Google translated: "Category of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemCategory07", index: 14, minimum: -1, maximum: 2.147484E+09, step: 1, order: 5100, unknown2: 5)]
+			[ParameterTableRowAttribute("lotItemCategory07", index: 14, minimum: -1, maximum: 2.147484E+09, step: 1, sortOrder: 5100, unknown2: 5)]
 			[DisplayName("7 : Items category")]
 			[Description("Category of items that can be retrieved")]
 			[DefaultValue((RewardItemCategory)0)]
@@ -388,7 +398,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "８：アイテムカテゴリ", Google translated: "8 : Item category".
 			/// Japanese description: "取得できるアイテムのカテゴリ", Google translated: "Category of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemCategory08", index: 15, minimum: -1, maximum: 2.147484E+09, step: 1, order: 5900, unknown2: 5)]
+			[ParameterTableRowAttribute("lotItemCategory08", index: 15, minimum: -1, maximum: 2.147484E+09, step: 1, sortOrder: 5900, unknown2: 5)]
 			[DisplayName("8 : Item category")]
 			[Description("Category of items that can be retrieved")]
 			[DefaultValue((RewardItemCategory)0)]
@@ -402,7 +412,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "基本出現ポイント", Google translated: "Basic appearance point".
 			/// Japanese description: "通常時の出現ポイント", Google translated: "Emergence point at the normal time".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemBasePoint01", index: 16, minimum: 0, maximum: 2000, step: 1, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemBasePoint01", index: 16, minimum: 0, maximum: 2000, step: 1, sortOrder: 600, unknown2: 1)]
 			[DisplayName("Basic appearance point")]
 			[Description("Emergence point at the normal time")]
 			[DefaultValue((UInt16)0)]
@@ -420,7 +430,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "基本出現ポイント", Google translated: "Basic appearance point".
 			/// Japanese description: "通常時の出現ポイント", Google translated: "Emergence point at the normal time".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemBasePoint02", index: 17, minimum: 0, maximum: 2000, step: 1, order: 1400, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemBasePoint02", index: 17, minimum: 0, maximum: 2000, step: 1, sortOrder: 1400, unknown2: 1)]
 			[DisplayName("Basic appearance point")]
 			[Description("Emergence point at the normal time")]
 			[DefaultValue((UInt16)0)]
@@ -438,7 +448,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "基本出現ポイント", Google translated: "Basic appearance point".
 			/// Japanese description: "通常時の出現ポイント", Google translated: "Emergence point at the normal time".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemBasePoint03", index: 18, minimum: 0, maximum: 2000, step: 1, order: 2200, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemBasePoint03", index: 18, minimum: 0, maximum: 2000, step: 1, sortOrder: 2200, unknown2: 1)]
 			[DisplayName("Basic appearance point")]
 			[Description("Emergence point at the normal time")]
 			[DefaultValue((UInt16)0)]
@@ -456,7 +466,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "基本出現ポイント", Google translated: "Basic appearance point".
 			/// Japanese description: "通常時の出現ポイント", Google translated: "Emergence point at the normal time".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemBasePoint04", index: 19, minimum: 0, maximum: 2000, step: 1, order: 3000, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemBasePoint04", index: 19, minimum: 0, maximum: 2000, step: 1, sortOrder: 3000, unknown2: 1)]
 			[DisplayName("Basic appearance point")]
 			[Description("Emergence point at the normal time")]
 			[DefaultValue((UInt16)0)]
@@ -474,7 +484,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "基本出現ポイント", Google translated: "Basic appearance point".
 			/// Japanese description: "通常時の出現ポイント", Google translated: "Emergence point at the normal time".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemBasePoint05", index: 20, minimum: 0, maximum: 2000, step: 1, order: 3800, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemBasePoint05", index: 20, minimum: 0, maximum: 2000, step: 1, sortOrder: 3800, unknown2: 1)]
 			[DisplayName("Basic appearance point")]
 			[Description("Emergence point at the normal time")]
 			[DefaultValue((UInt16)0)]
@@ -492,7 +502,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "基本出現ポイント", Google translated: "Basic appearance point".
 			/// Japanese description: "通常時の出現ポイント", Google translated: "Emergence point at the normal time".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemBasePoint06", index: 21, minimum: 0, maximum: 2000, step: 1, order: 4600, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemBasePoint06", index: 21, minimum: 0, maximum: 2000, step: 1, sortOrder: 4600, unknown2: 1)]
 			[DisplayName("Basic appearance point")]
 			[Description("Emergence point at the normal time")]
 			[DefaultValue((UInt16)0)]
@@ -510,7 +520,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "基本出現ポイント", Google translated: "Basic appearance point".
 			/// Japanese description: "通常時の出現ポイント", Google translated: "Emergence point at the normal time".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemBasePoint07", index: 22, minimum: 0, maximum: 2000, step: 1, order: 5400, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemBasePoint07", index: 22, minimum: 0, maximum: 2000, step: 1, sortOrder: 5400, unknown2: 1)]
 			[DisplayName("Basic appearance point")]
 			[Description("Emergence point at the normal time")]
 			[DefaultValue((UInt16)0)]
@@ -528,7 +538,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "基本出現ポイント", Google translated: "Basic appearance point".
 			/// Japanese description: "通常時の出現ポイント", Google translated: "Emergence point at the normal time".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemBasePoint08", index: 23, minimum: 0, maximum: 2000, step: 1, order: 6200, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemBasePoint08", index: 23, minimum: 0, maximum: 2000, step: 1, sortOrder: 6200, unknown2: 1)]
 			[DisplayName("Basic appearance point")]
 			[Description("Emergence point at the normal time")]
 			[DefaultValue((UInt16)0)]
@@ -546,7 +556,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積後出現ポイント", Google translated: "The cumulative post- emergence point".
 			/// Japanese description: "最大累積時の出現ポイント", Google translated: "Appearance point of maximum cumulative time".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateLotPoint01", index: 24, minimum: 0, maximum: 2000, step: 1, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateLotPoint01", index: 24, minimum: 0, maximum: 2000, step: 1, sortOrder: 700, unknown2: 1)]
 			[DisplayName("The cumulative post- emergence point")]
 			[Description("Appearance point of maximum cumulative time")]
 			[DefaultValue((UInt16)0)]
@@ -564,7 +574,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積後出現ポイント", Google translated: "The cumulative post- emergence point".
 			/// Japanese description: "最大累積時の出現ポイント", Google translated: "Appearance point of maximum cumulative time".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateLotPoint02", index: 25, minimum: 0, maximum: 2000, step: 1, order: 1500, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateLotPoint02", index: 25, minimum: 0, maximum: 2000, step: 1, sortOrder: 1500, unknown2: 1)]
 			[DisplayName("The cumulative post- emergence point")]
 			[Description("Appearance point of maximum cumulative time")]
 			[DefaultValue((UInt16)0)]
@@ -582,7 +592,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積後出現ポイント", Google translated: "The cumulative post- emergence point".
 			/// Japanese description: "最大累積時の出現ポイント", Google translated: "Appearance point of maximum cumulative time".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateLotPoint03", index: 26, minimum: 0, maximum: 2000, step: 1, order: 2300, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateLotPoint03", index: 26, minimum: 0, maximum: 2000, step: 1, sortOrder: 2300, unknown2: 1)]
 			[DisplayName("The cumulative post- emergence point")]
 			[Description("Appearance point of maximum cumulative time")]
 			[DefaultValue((UInt16)0)]
@@ -600,7 +610,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積後出現ポイント", Google translated: "The cumulative post- emergence point".
 			/// Japanese description: "最大累積時の出現ポイント", Google translated: "Appearance point of maximum cumulative time".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateLotPoint04", index: 27, minimum: 0, maximum: 2000, step: 1, order: 3100, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateLotPoint04", index: 27, minimum: 0, maximum: 2000, step: 1, sortOrder: 3100, unknown2: 1)]
 			[DisplayName("The cumulative post- emergence point")]
 			[Description("Appearance point of maximum cumulative time")]
 			[DefaultValue((UInt16)0)]
@@ -618,7 +628,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積後出現ポイント", Google translated: "The cumulative post- emergence point".
 			/// Japanese description: "最大累積時の出現ポイント", Google translated: "Appearance point of maximum cumulative time".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateLotPoint05", index: 28, minimum: 0, maximum: 2000, step: 1, order: 3900, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateLotPoint05", index: 28, minimum: 0, maximum: 2000, step: 1, sortOrder: 3900, unknown2: 1)]
 			[DisplayName("The cumulative post- emergence point")]
 			[Description("Appearance point of maximum cumulative time")]
 			[DefaultValue((UInt16)0)]
@@ -636,7 +646,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積後出現ポイント", Google translated: "The cumulative post- emergence point".
 			/// Japanese description: "最大累積時の出現ポイント", Google translated: "Appearance point of maximum cumulative time".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateLotPoint06", index: 29, minimum: 0, maximum: 2000, step: 1, order: 4700, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateLotPoint06", index: 29, minimum: 0, maximum: 2000, step: 1, sortOrder: 4700, unknown2: 1)]
 			[DisplayName("The cumulative post- emergence point")]
 			[Description("Appearance point of maximum cumulative time")]
 			[DefaultValue((UInt16)0)]
@@ -654,7 +664,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積後出現ポイント", Google translated: "The cumulative post- emergence point".
 			/// Japanese description: "最大累積時の出現ポイント", Google translated: "Appearance point of maximum cumulative time".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateLotPoint07", index: 30, minimum: 0, maximum: 2000, step: 1, order: 5500, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateLotPoint07", index: 30, minimum: 0, maximum: 2000, step: 1, sortOrder: 5500, unknown2: 1)]
 			[DisplayName("The cumulative post- emergence point")]
 			[Description("Appearance point of maximum cumulative time")]
 			[DefaultValue((UInt16)0)]
@@ -672,7 +682,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積後出現ポイント", Google translated: "The cumulative post- emergence point".
 			/// Japanese description: "最大累積時の出現ポイント", Google translated: "Appearance point of maximum cumulative time".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateLotPoint08", index: 31, minimum: 0, maximum: 2000, step: 1, order: 6300, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateLotPoint08", index: 31, minimum: 0, maximum: 2000, step: 1, sortOrder: 6300, unknown2: 1)]
 			[DisplayName("The cumulative post- emergence point")]
 			[Description("Appearance point of maximum cumulative time")]
 			[DefaultValue((UInt16)0)]
@@ -690,7 +700,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "別ザクザクフラグID", Google translated: "Another crunch flag ID".
 			/// Japanese description: "取得済みフラグとザクザク枠兼用(0:共通使用)", Google translated: "Crunch frame shared with the acquired flag ( 0 : common usage )".
 			/// </remarks>
-			[ParameterTableRowAttribute("getItemFlagId01", index: 32, minimum: -1E+08, maximum: 1E+08, step: 1, order: 800, unknown2: 5)]
+			[ParameterTableRowAttribute("getItemFlagId01", index: 32, minimum: -1E+08, maximum: 1E+08, step: 1, sortOrder: 800, unknown2: 5)]
 			[DisplayName("Another crunch flag ID")]
 			[Description("Crunch frame shared with the acquired flag ( 0 : common usage )")]
 			[DefaultValue((Int32)0)]
@@ -708,7 +718,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "別ザクザクフラグID", Google translated: "Another crunch flag ID".
 			/// Japanese description: "取得済みフラグとザクザク枠兼用(0:共通使用)", Google translated: "Crunch frame shared with the acquired flag ( 0 : common usage )".
 			/// </remarks>
-			[ParameterTableRowAttribute("getItemFlagId02", index: 33, minimum: -1E+08, maximum: 1E+08, step: 1, order: 1600, unknown2: 5)]
+			[ParameterTableRowAttribute("getItemFlagId02", index: 33, minimum: -1E+08, maximum: 1E+08, step: 1, sortOrder: 1600, unknown2: 5)]
 			[DisplayName("Another crunch flag ID")]
 			[Description("Crunch frame shared with the acquired flag ( 0 : common usage )")]
 			[DefaultValue((Int32)0)]
@@ -726,7 +736,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "別ザクザクフラグID", Google translated: "Another crunch flag ID".
 			/// Japanese description: "取得済みフラグとザクザク枠兼用(0:共通使用)", Google translated: "Crunch frame shared with the acquired flag ( 0 : common usage )".
 			/// </remarks>
-			[ParameterTableRowAttribute("getItemFlagId03", index: 34, minimum: -1E+08, maximum: 1E+08, step: 1, order: 2400, unknown2: 5)]
+			[ParameterTableRowAttribute("getItemFlagId03", index: 34, minimum: -1E+08, maximum: 1E+08, step: 1, sortOrder: 2400, unknown2: 5)]
 			[DisplayName("Another crunch flag ID")]
 			[Description("Crunch frame shared with the acquired flag ( 0 : common usage )")]
 			[DefaultValue((Int32)0)]
@@ -744,7 +754,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "別ザクザクフラグID", Google translated: "Another crunch flag ID".
 			/// Japanese description: "取得済みフラグとザクザク枠兼用(0:共通使用)", Google translated: "Crunch frame shared with the acquired flag ( 0 : common usage )".
 			/// </remarks>
-			[ParameterTableRowAttribute("getItemFlagId04", index: 35, minimum: -1E+08, maximum: 1E+08, step: 1, order: 3200, unknown2: 5)]
+			[ParameterTableRowAttribute("getItemFlagId04", index: 35, minimum: -1E+08, maximum: 1E+08, step: 1, sortOrder: 3200, unknown2: 5)]
 			[DisplayName("Another crunch flag ID")]
 			[Description("Crunch frame shared with the acquired flag ( 0 : common usage )")]
 			[DefaultValue((Int32)0)]
@@ -762,7 +772,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "別ザクザクフラグID", Google translated: "Another crunch flag ID".
 			/// Japanese description: "取得済みフラグとザクザク枠兼用(0:共通使用)", Google translated: "Crunch frame shared with the acquired flag ( 0 : common usage )".
 			/// </remarks>
-			[ParameterTableRowAttribute("getItemFlagId05", index: 36, minimum: -1E+08, maximum: 1E+08, step: 1, order: 4000, unknown2: 5)]
+			[ParameterTableRowAttribute("getItemFlagId05", index: 36, minimum: -1E+08, maximum: 1E+08, step: 1, sortOrder: 4000, unknown2: 5)]
 			[DisplayName("Another crunch flag ID")]
 			[Description("Crunch frame shared with the acquired flag ( 0 : common usage )")]
 			[DefaultValue((Int32)0)]
@@ -780,7 +790,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "別ザクザクフラグID", Google translated: "Another crunch flag ID".
 			/// Japanese description: "取得済みフラグとザクザク枠兼用(0:共通使用)", Google translated: "Crunch frame shared with the acquired flag ( 0 : common usage )".
 			/// </remarks>
-			[ParameterTableRowAttribute("getItemFlagId06", index: 37, minimum: -1E+08, maximum: 1E+08, step: 1, order: 4800, unknown2: 5)]
+			[ParameterTableRowAttribute("getItemFlagId06", index: 37, minimum: -1E+08, maximum: 1E+08, step: 1, sortOrder: 4800, unknown2: 5)]
 			[DisplayName("Another crunch flag ID")]
 			[Description("Crunch frame shared with the acquired flag ( 0 : common usage )")]
 			[DefaultValue((Int32)0)]
@@ -798,7 +808,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "別ザクザクフラグID", Google translated: "Another crunch flag ID".
 			/// Japanese description: "取得済みフラグとザクザク枠兼用(0:共通使用)", Google translated: "Crunch frame shared with the acquired flag ( 0 : common usage )".
 			/// </remarks>
-			[ParameterTableRowAttribute("getItemFlagId07", index: 38, minimum: -1E+08, maximum: 1E+08, step: 1, order: 5600, unknown2: 5)]
+			[ParameterTableRowAttribute("getItemFlagId07", index: 38, minimum: -1E+08, maximum: 1E+08, step: 1, sortOrder: 5600, unknown2: 5)]
 			[DisplayName("Another crunch flag ID")]
 			[Description("Crunch frame shared with the acquired flag ( 0 : common usage )")]
 			[DefaultValue((Int32)0)]
@@ -816,7 +826,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "別ザクザクフラグID", Google translated: "Another crunch flag ID".
 			/// Japanese description: "取得済みフラグとザクザク枠兼用(0:共通使用)", Google translated: "Crunch frame shared with the acquired flag ( 0 : common usage )".
 			/// </remarks>
-			[ParameterTableRowAttribute("getItemFlagId08", index: 39, minimum: -1E+08, maximum: 1E+08, step: 1, order: 6400, unknown2: 5)]
+			[ParameterTableRowAttribute("getItemFlagId08", index: 39, minimum: -1E+08, maximum: 1E+08, step: 1, sortOrder: 6400, unknown2: 5)]
 			[DisplayName("Another crunch flag ID")]
 			[Description("Crunch frame shared with the acquired flag ( 0 : common usage )")]
 			[DefaultValue((Int32)0)]
@@ -832,9 +842,9 @@ namespace Alexandria.Engines.DarkSouls {
 			/// <summary>Crunch flag ID</summary>
 			/// <remarks>
 			/// Japanese short name: "ザクザクフラグID", Google translated: "Crunch flag ID".
-			/// Japanese description: "取得済みフラグとザクザク枠兼用(<0:フラグ無効)", Google translated: "Crunch frame shared with the acquired flag ( < 0 : invalid flag )".
+			/// Japanese description: "取得済みフラグとザクザク枠兼用(&lt;0:フラグ無効)", Google translated: "Crunch frame shared with the acquired flag ( &lt; 0 : invalid flag )".
 			/// </remarks>
-			[ParameterTableRowAttribute("getItemFlagId", index: 40, minimum: -1E+08, maximum: 1E+08, step: 1, order: 150, unknown2: 5)]
+			[ParameterTableRowAttribute("getItemFlagId", index: 40, minimum: -1E+08, maximum: 1E+08, step: 1, sortOrder: 150, unknown2: 5)]
 			[DisplayName("Crunch flag ID")]
 			[Description("Crunch frame shared with the acquired flag ( < 0 : invalid flag )")]
 			[DefaultValue((Int32)(-1))]
@@ -852,7 +862,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "抽選累積保存フラグID", Google translated: "Lottery cumulative save flag ID".
 			/// Japanese description: "抽選回数保存用(※8フラグ連番使用)", Google translated: "Lottery number storage (※ 8 flag sequence number used)".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateNumFlagId", index: 41, minimum: -1, maximum: 1E+08, step: 1, order: 160, unknown2: 5)]
+			[ParameterTableRowAttribute("cumulateNumFlagId", index: 41, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 160, unknown2: 5)]
 			[DisplayName("Lottery cumulative save flag ID")]
 			[Description("Lottery number storage (※ 8 flag sequence number used)")]
 			[DefaultValue((Int32)(-1))]
@@ -870,7 +880,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "抽選累積最大数", Google translated: "Lottery cumulative maximum number".
 			/// Japanese description: "抽選累積最大数(0:累積なし)", Google translated: "Lottery cumulative maximum number (0: non-accumulative )".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateNumMax", index: 42, minimum: 0, maximum: 255, step: 1, order: 170, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateNumMax", index: 42, minimum: 0, maximum: 255, step: 1, sortOrder: 170, unknown2: 1)]
 			[DisplayName("Lottery cumulative maximum number")]
 			[Description("Lottery cumulative maximum number (0: non-accumulative )")]
 			[DefaultValue((Byte)0)]
@@ -888,7 +898,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "レアリティ設定", Google translated: "Rarity setting".
 			/// Japanese description: "宝箱などに、どれくらい貴重なアイテムが入っているかを指定する", Google translated: "I will be identified as such the treasure chest , valuable items whether on how much".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItem_Rarity", index: 43, minimum: 0, maximum: 10, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItem_Rarity", index: 43, minimum: 0, maximum: 10, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Rarity setting")]
 			[Description("I will be identified as such the treasure chest , valuable items whether on how much")]
 			[DefaultValue((Byte)0)]
@@ -906,7 +916,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数", Google translated: "Number".
 			/// Japanese description: "取得できるアイテムの個数", Google translated: "Number of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemNum01", index: 44, minimum: 0, maximum: 99, step: 1, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemNum01", index: 44, minimum: 0, maximum: 99, step: 1, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Number")]
 			[Description("Number of items that can be retrieved")]
 			[DefaultValue((Byte)0)]
@@ -924,7 +934,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数", Google translated: "Number".
 			/// Japanese description: "取得できるアイテムの個数", Google translated: "Number of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemNum02", index: 45, minimum: 0, maximum: 99, step: 1, order: 1300, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemNum02", index: 45, minimum: 0, maximum: 99, step: 1, sortOrder: 1300, unknown2: 1)]
 			[DisplayName("Number")]
 			[Description("Number of items that can be retrieved")]
 			[DefaultValue((Byte)0)]
@@ -942,7 +952,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数", Google translated: "Number".
 			/// Japanese description: "取得できるアイテムの個数", Google translated: "Number of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemNum03", index: 46, minimum: 0, maximum: 99, step: 1, order: 2100, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemNum03", index: 46, minimum: 0, maximum: 99, step: 1, sortOrder: 2100, unknown2: 1)]
 			[DisplayName("Number")]
 			[Description("Number of items that can be retrieved")]
 			[DefaultValue((Byte)0)]
@@ -960,7 +970,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数", Google translated: "Number".
 			/// Japanese description: "取得できるアイテムの個数", Google translated: "Number of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemNum04", index: 47, minimum: 0, maximum: 99, step: 1, order: 2900, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemNum04", index: 47, minimum: 0, maximum: 99, step: 1, sortOrder: 2900, unknown2: 1)]
 			[DisplayName("Number")]
 			[Description("Number of items that can be retrieved")]
 			[DefaultValue((Byte)0)]
@@ -978,7 +988,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数", Google translated: "Number".
 			/// Japanese description: "取得できるアイテムの個数", Google translated: "Number of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemNum05", index: 48, minimum: 0, maximum: 99, step: 1, order: 3700, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemNum05", index: 48, minimum: 0, maximum: 99, step: 1, sortOrder: 3700, unknown2: 1)]
 			[DisplayName("Number")]
 			[Description("Number of items that can be retrieved")]
 			[DefaultValue((Byte)0)]
@@ -996,7 +1006,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数", Google translated: "Number".
 			/// Japanese description: "取得できるアイテムの個数", Google translated: "Number of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemNum06", index: 49, minimum: 0, maximum: 99, step: 1, order: 4500, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemNum06", index: 49, minimum: 0, maximum: 99, step: 1, sortOrder: 4500, unknown2: 1)]
 			[DisplayName("Number")]
 			[Description("Number of items that can be retrieved")]
 			[DefaultValue((Byte)0)]
@@ -1014,7 +1024,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数", Google translated: "Number".
 			/// Japanese description: "取得できるアイテムの個数", Google translated: "Number of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemNum07", index: 50, minimum: 0, maximum: 99, step: 1, order: 5300, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemNum07", index: 50, minimum: 0, maximum: 99, step: 1, sortOrder: 5300, unknown2: 1)]
 			[DisplayName("Number")]
 			[Description("Number of items that can be retrieved")]
 			[DefaultValue((Byte)0)]
@@ -1032,7 +1042,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数", Google translated: "Number".
 			/// Japanese description: "取得できるアイテムの個数", Google translated: "Number of items that can be retrieved".
 			/// </remarks>
-			[ParameterTableRowAttribute("lotItemNum08", index: 51, minimum: 0, maximum: 99, step: 1, order: 6100, unknown2: 1)]
+			[ParameterTableRowAttribute("lotItemNum08", index: 51, minimum: 0, maximum: 99, step: 1, sortOrder: 6100, unknown2: 1)]
 			[DisplayName("Number")]
 			[Description("Number of items that can be retrieved")]
 			[DefaultValue((Byte)0)]
@@ -1050,7 +1060,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "運パラメータ有効", Google translated: "Luck parameter validation".
 			/// Japanese description: "抽選の確率をプレイヤーの運を反映させるか", Google translated: "Or to reflect the luck of the player the probability of lottery".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableLuck01:1", index: 52, minimum: 0, maximum: 1, step: 1, order: 900, unknown2: 1)]
+			[ParameterTableRowAttribute("enableLuck01:1", index: 52, minimum: 0, maximum: 1, step: 1, sortOrder: 900, unknown2: 1)]
 			[DisplayName("Luck parameter validation")]
 			[Description("Or to reflect the luck of the player the probability of lottery")]
 			[DefaultValue((RewardEnableLuck)0)]
@@ -1064,7 +1074,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "運パラメータ有効", Google translated: "Luck parameter validation".
 			/// Japanese description: "抽選の確率をプレイヤーの運を反映させるか", Google translated: "Or to reflect the luck of the player the probability of lottery".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableLuck02:1", index: 53, minimum: 0, maximum: 1, step: 1, order: 1700, unknown2: 1)]
+			[ParameterTableRowAttribute("enableLuck02:1", index: 53, minimum: 0, maximum: 1, step: 1, sortOrder: 1700, unknown2: 1)]
 			[DisplayName("Luck parameter validation")]
 			[Description("Or to reflect the luck of the player the probability of lottery")]
 			[DefaultValue((RewardEnableLuck)0)]
@@ -1078,7 +1088,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "運パラメータ有効", Google translated: "Luck parameter validation".
 			/// Japanese description: "抽選の確率をプレイヤーの運を反映させるか", Google translated: "Or to reflect the luck of the player the probability of lottery".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableLuck03:1", index: 54, minimum: 0, maximum: 1, step: 1, order: 2500, unknown2: 1)]
+			[ParameterTableRowAttribute("enableLuck03:1", index: 54, minimum: 0, maximum: 1, step: 1, sortOrder: 2500, unknown2: 1)]
 			[DisplayName("Luck parameter validation")]
 			[Description("Or to reflect the luck of the player the probability of lottery")]
 			[DefaultValue((RewardEnableLuck)0)]
@@ -1092,7 +1102,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "運パラメータ有効", Google translated: "Luck parameter validation".
 			/// Japanese description: "抽選の確率をプレイヤーの運を反映させるか", Google translated: "Or to reflect the luck of the player the probability of lottery".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableLuck04:1", index: 55, minimum: 0, maximum: 1, step: 1, order: 3300, unknown2: 1)]
+			[ParameterTableRowAttribute("enableLuck04:1", index: 55, minimum: 0, maximum: 1, step: 1, sortOrder: 3300, unknown2: 1)]
 			[DisplayName("Luck parameter validation")]
 			[Description("Or to reflect the luck of the player the probability of lottery")]
 			[DefaultValue((RewardEnableLuck)0)]
@@ -1106,7 +1116,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "運パラメータ有効", Google translated: "Luck parameter validation".
 			/// Japanese description: "抽選の確率をプレイヤーの運を反映させるか", Google translated: "Or to reflect the luck of the player the probability of lottery".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableLuck05:1", index: 56, minimum: 0, maximum: 1, step: 1, order: 4100, unknown2: 1)]
+			[ParameterTableRowAttribute("enableLuck05:1", index: 56, minimum: 0, maximum: 1, step: 1, sortOrder: 4100, unknown2: 1)]
 			[DisplayName("Luck parameter validation")]
 			[Description("Or to reflect the luck of the player the probability of lottery")]
 			[DefaultValue((RewardEnableLuck)0)]
@@ -1120,7 +1130,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "運パラメータ有効", Google translated: "Luck parameter validation".
 			/// Japanese description: "抽選の確率をプレイヤーの運を反映させるか", Google translated: "Or to reflect the luck of the player the probability of lottery".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableLuck06:1", index: 57, minimum: 0, maximum: 1, step: 1, order: 4900, unknown2: 1)]
+			[ParameterTableRowAttribute("enableLuck06:1", index: 57, minimum: 0, maximum: 1, step: 1, sortOrder: 4900, unknown2: 1)]
 			[DisplayName("Luck parameter validation")]
 			[Description("Or to reflect the luck of the player the probability of lottery")]
 			[DefaultValue((RewardEnableLuck)0)]
@@ -1134,7 +1144,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "運パラメータ有効", Google translated: "Luck parameter validation".
 			/// Japanese description: "抽選の確率をプレイヤーの運を反映させるか", Google translated: "Or to reflect the luck of the player the probability of lottery".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableLuck07:1", index: 58, minimum: 0, maximum: 1, step: 1, order: 5700, unknown2: 1)]
+			[ParameterTableRowAttribute("enableLuck07:1", index: 58, minimum: 0, maximum: 1, step: 1, sortOrder: 5700, unknown2: 1)]
 			[DisplayName("Luck parameter validation")]
 			[Description("Or to reflect the luck of the player the probability of lottery")]
 			[DefaultValue((RewardEnableLuck)0)]
@@ -1148,7 +1158,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "運パラメータ有効", Google translated: "Luck parameter validation".
 			/// Japanese description: "抽選の確率をプレイヤーの運を反映させるか", Google translated: "Or to reflect the luck of the player the probability of lottery".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableLuck08:1", index: 59, minimum: 0, maximum: 1, step: 1, order: 6500, unknown2: 1)]
+			[ParameterTableRowAttribute("enableLuck08:1", index: 59, minimum: 0, maximum: 1, step: 1, sortOrder: 6500, unknown2: 1)]
 			[DisplayName("Luck parameter validation")]
 			[Description("Or to reflect the luck of the player the probability of lottery")]
 			[DefaultValue((RewardEnableLuck)0)]
@@ -1162,7 +1172,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積リセット", Google translated: "Cumulative reset".
 			/// Japanese description: "累積リセットするか", Google translated: "Or reset the cumulative".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateReset01:1", index: 60, minimum: 0, maximum: 1, step: 1, order: 950, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateReset01:1", index: 60, minimum: 0, maximum: 1, step: 1, sortOrder: 950, unknown2: 1)]
 			[DisplayName("Cumulative reset")]
 			[Description("Or reset the cumulative")]
 			[DefaultValue((RewardCumulateReset)0)]
@@ -1176,7 +1186,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積リセット", Google translated: "Cumulative reset".
 			/// Japanese description: "累積リセットするか", Google translated: "Or reset the cumulative".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateReset02:1", index: 61, minimum: 0, maximum: 1, step: 1, order: 1750, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateReset02:1", index: 61, minimum: 0, maximum: 1, step: 1, sortOrder: 1750, unknown2: 1)]
 			[DisplayName("Cumulative reset")]
 			[Description("Or reset the cumulative")]
 			[DefaultValue((RewardCumulateReset)0)]
@@ -1190,7 +1200,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積リセット", Google translated: "Cumulative reset".
 			/// Japanese description: "累積リセットするか", Google translated: "Or reset the cumulative".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateReset03:1", index: 62, minimum: 0, maximum: 1, step: 1, order: 2550, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateReset03:1", index: 62, minimum: 0, maximum: 1, step: 1, sortOrder: 2550, unknown2: 1)]
 			[DisplayName("Cumulative reset")]
 			[Description("Or reset the cumulative")]
 			[DefaultValue((RewardCumulateReset)0)]
@@ -1204,7 +1214,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積リセット", Google translated: "Cumulative reset".
 			/// Japanese description: "累積リセットするか", Google translated: "Or reset the cumulative".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateReset04:1", index: 63, minimum: 0, maximum: 1, step: 1, order: 3350, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateReset04:1", index: 63, minimum: 0, maximum: 1, step: 1, sortOrder: 3350, unknown2: 1)]
 			[DisplayName("Cumulative reset")]
 			[Description("Or reset the cumulative")]
 			[DefaultValue((RewardCumulateReset)0)]
@@ -1218,7 +1228,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積リセット", Google translated: "Cumulative reset".
 			/// Japanese description: "累積リセットするか", Google translated: "Or reset the cumulative".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateReset05:1", index: 64, minimum: 0, maximum: 1, step: 1, order: 4150, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateReset05:1", index: 64, minimum: 0, maximum: 1, step: 1, sortOrder: 4150, unknown2: 1)]
 			[DisplayName("Cumulative reset")]
 			[Description("Or reset the cumulative")]
 			[DefaultValue((RewardCumulateReset)0)]
@@ -1232,7 +1242,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積リセット", Google translated: "Cumulative reset".
 			/// Japanese description: "累積リセットするか", Google translated: "Or reset the cumulative".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateReset06:1", index: 65, minimum: 0, maximum: 1, step: 1, order: 4950, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateReset06:1", index: 65, minimum: 0, maximum: 1, step: 1, sortOrder: 4950, unknown2: 1)]
 			[DisplayName("Cumulative reset")]
 			[Description("Or reset the cumulative")]
 			[DefaultValue((RewardCumulateReset)0)]
@@ -1246,7 +1256,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積リセット", Google translated: "Cumulative reset".
 			/// Japanese description: "累積リセットするか", Google translated: "Or reset the cumulative".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateReset07:1", index: 66, minimum: 0, maximum: 1, step: 1, order: 5750, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateReset07:1", index: 66, minimum: 0, maximum: 1, step: 1, sortOrder: 5750, unknown2: 1)]
 			[DisplayName("Cumulative reset")]
 			[Description("Or reset the cumulative")]
 			[DefaultValue((RewardCumulateReset)0)]
@@ -1260,7 +1270,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "累積リセット", Google translated: "Cumulative reset".
 			/// Japanese description: "累積リセットするか", Google translated: "Or reset the cumulative".
 			/// </remarks>
-			[ParameterTableRowAttribute("cumulateReset08:1", index: 67, minimum: 0, maximum: 1, step: 1, order: 6550, unknown2: 1)]
+			[ParameterTableRowAttribute("cumulateReset08:1", index: 67, minimum: 0, maximum: 1, step: 1, sortOrder: 6550, unknown2: 1)]
 			[DisplayName("Cumulative reset")]
 			[Description("Or reset the cumulative")]
 			[DefaultValue((RewardCumulateReset)0)]
@@ -1401,6 +1411,8 @@ namespace Alexandria.Engines.DarkSouls {
 				CumulateReset08 = (RewardCumulateReset)0;
 			}
 
+			/// <summary>Write the <see cref="ItemLot"/> row.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(LotItemId01);
 				writer.Write(LotItemId02);

@@ -27,12 +27,17 @@ namespace Glare.Framework {
 	public class ListDebugView<T> {
 		private ICollection<T> collection;
 
+		/// <summary>
+		/// Initialise the debug view.
+		/// </summary>
+		/// <param name="collection"></param>
 		public ListDebugView(ICollection<T> collection) {
 			if (collection == null)
 				throw new ArgumentNullException("collection");
 			this.collection = collection;
 		}
 
+		/// <summary>Present the items of the collection.</summary>
 		[DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
 		public T[] Items {
 			get {
@@ -43,15 +48,27 @@ namespace Glare.Framework {
 		}
 	}
 
+	/// <summary>
+	/// A debug view for a dictionary.
+	/// </summary>
+	/// <typeparam name="TKey"></typeparam>
+	/// <typeparam name="TValue"></typeparam>
 	public class DictionaryDebugView<TKey, TValue> {
 		private ICollection<KeyValuePair<TKey, TValue>> collection;
 
+		/// <summary>
+		/// Initialise the debug view.
+		/// </summary>
+		/// <param name="collection"></param>
 		public DictionaryDebugView(ICollection<KeyValuePair<TKey, TValue>> collection) {
 			if (collection == null)
 				throw new ArgumentNullException("collection");
 			this.collection = collection;
 		}
 
+		/// <summary>
+		/// Get the array of items for browsing the dictionary.
+		/// </summary>
 		[DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
 		public KeyValuePair<TKey, TValue>[] Items {
 			get {

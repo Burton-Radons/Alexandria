@@ -12,6 +12,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// <summary></summary>
 		/// <remarks>From BehaviorParam.paramdef (id 17h).</remarks>
 		public class Behavior : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "BEHAVIOR_PARAM_ST";
 
 			Int32 variationId, behaviorJudgeId, referenceId, sfxVariationId, stamina, mp;
@@ -20,6 +21,7 @@ namespace Alexandria.Engines.DarkSouls {
 			Byte[] pad0, pad1;
 			BehaviorCategory category;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				VariationIdProperty = GetProperty<Behavior>("VariationId"),
 				BehaviorJudgeIdProperty = GetProperty<Behavior>("BehaviorJudgeId"),
@@ -39,7 +41,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "行動バリエーションID", Google translated: "Behavioral variation ID".
 			/// Japanese description: "攻撃パラメータ用のIDを算出する際に使用します。実機上では直接使用しません。", Google translated: "It is used when calculating the ID of the attack parameter. It is not used directly in the actual machine .".
 			/// </remarks>
-			[ParameterTableRowAttribute("variationId", index: 0, minimum: 0, maximum: 1E+09, step: 1, order: 1, unknown2: 1)]
+			[ParameterTableRowAttribute("variationId", index: 0, minimum: 0, maximum: 1E+09, step: 1, sortOrder: 1, unknown2: 1)]
 			[DisplayName("Behavioral variation ID")]
 			[Description("It is used when calculating the ID of the attack parameter. It is not used directly in the actual machine .")]
 			[DefaultValue((Int32)0)]
@@ -57,7 +59,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "行動判定ID", Google translated: "Behavior determining ID".
 			/// Japanese description: "攻撃パラメータ用のIDを算出する際に使用します。このIDはTimeActEditorで入力される行動判定IDと一致させます。実機上では直接使用しません。", Google translated: "It is used when calculating the ID of the attack parameter. This ID must match the behavior determining ID that is entered in the TimeActEditor. It is not used directly in the actual machine .".
 			/// </remarks>
-			[ParameterTableRowAttribute("behaviorJudgeId", index: 1, minimum: 0, maximum: 999, step: 1, order: 2, unknown2: 1)]
+			[ParameterTableRowAttribute("behaviorJudgeId", index: 1, minimum: 0, maximum: 999, step: 1, sortOrder: 2, unknown2: 1)]
 			[DisplayName("Behavior determining ID")]
 			[Description("It is used when calculating the ID of the attack parameter. This ID must match the behavior determining ID that is entered in the TimeActEditor. It is not used directly in the actual machine .")]
 			[DefaultValue((Int32)0)]
@@ -75,7 +77,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "IDルール用", Google translated: "ID rules for".
 			/// Japanese description: "ID算出ルール用", Google translated: "ID calculation rule for".
 			/// </remarks>
-			[ParameterTableRowAttribute("ezStateBehaviorType_old", index: 2, minimum: 0, maximum: 255, step: 1, order: 3, unknown2: 1)]
+			[ParameterTableRowAttribute("ezStateBehaviorType_old", index: 2, minimum: 0, maximum: 255, step: 1, sortOrder: 3, unknown2: 1)]
 			[DisplayName("ID rules for")]
 			[Description("ID calculation rule for")]
 			[DefaultValue((Byte)0)]
@@ -93,7 +95,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "参照IDタイプ", Google translated: "Reference ID type".
 			/// Japanese description: "参照IDを間違わないように指定.", Google translated: "Specifies not mistaken reference ID.".
 			/// </remarks>
-			[ParameterTableRowAttribute("refType", index: 3, minimum: 0, maximum: 255, step: 1, order: 4, unknown2: 1)]
+			[ParameterTableRowAttribute("refType", index: 3, minimum: 0, maximum: 255, step: 1, sortOrder: 4, unknown2: 1)]
 			[DisplayName("Reference ID type")]
 			[Description("Specifies not mistaken reference ID.")]
 			[DefaultValue((BehaviorRefType)0)]
@@ -107,7 +109,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング0", Google translated: "Padding 0".
 			/// Japanese description: "パディング0.", Google translated: "Padding 0 .".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad0[2]", index: 4, minimum: 0, maximum: 0, step: 0, order: 301, unknown2: 0)]
+			[ParameterTableRowAttribute("pad0[2]", index: 4, minimum: 0, maximum: 0, step: 0, sortOrder: 301, unknown2: 0)]
 			[DisplayName("Padding 0")]
 			[Description("Padding 0 .")]
 			[Browsable(false)]
@@ -121,7 +123,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "参照ID", Google translated: "Reference ID".
 			/// Japanese description: "攻撃力、飛び道具、特殊効果パラメータのID、refTypeによって使い分けられる。", Google translated: "ID attack power , missile , special effects parameters , can be used for different refType.".
 			/// </remarks>
-			[ParameterTableRowAttribute("refId", index: 5, minimum: -1, maximum: 1E+09, step: 1, order: 5, unknown2: 1)]
+			[ParameterTableRowAttribute("refId", index: 5, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 5, unknown2: 1)]
 			[DisplayName("Reference ID")]
 			[Description("ID attack power , missile , special effects parameters , can be used for different refType.")]
 			[DefaultValue((Int32)(-1))]
@@ -139,7 +141,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "SFX バリエーションID", Google translated: "SFX variation ID".
 			/// Japanese description: "ＳＦＸのバリエーションを指定（TimeActEditorのＩＤと組み合わせて、ＳＦＸを特定するのに使用する）", Google translated: "( In conjunction with the ID of TimeActEditor, is used to identify the SFX) specifies the variation SFX".
 			/// </remarks>
-			[ParameterTableRowAttribute("sfxVariationId", index: 6, minimum: -1, maximum: 1E+10, step: 1, order: 6, unknown2: 1)]
+			[ParameterTableRowAttribute("sfxVariationId", index: 6, minimum: -1, maximum: 1E+10, step: 1, sortOrder: 6, unknown2: 1)]
 			[DisplayName("SFX variation ID")]
 			[Description("( In conjunction with the ID of TimeActEditor, is used to identify the SFX) specifies the variation SFX")]
 			[DefaultValue((Int32)0)]
@@ -157,7 +159,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "消費スタミナ", Google translated: "Consumption stamina".
 			/// Japanese description: "行動時の消費スタミナ量を設定.", Google translated: "Set the amount of stamina consumption behavior at the time .".
 			/// </remarks>
-			[ParameterTableRowAttribute("stamina", index: 7, minimum: 0, maximum: 9999, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("stamina", index: 7, minimum: 0, maximum: 9999, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Consumption stamina")]
 			[Description("Set the amount of stamina consumption behavior at the time .")]
 			[DefaultValue((Int32)0)]
@@ -175,7 +177,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "消費MP", Google translated: "MP consumption".
 			/// Japanese description: "行動時の消費MP量を設定.", Google translated: "Set the MP consumption amount of action at the time .".
 			/// </remarks>
-			[ParameterTableRowAttribute("mp", index: 8, minimum: 0, maximum: 9999, step: 1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("mp", index: 8, minimum: 0, maximum: 9999, step: 1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("MP consumption")]
 			[Description("Set the MP consumption amount of action at the time .")]
 			[DefaultValue((Int32)0)]
@@ -193,7 +195,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "カテゴリ", Google translated: "Category".
 			/// Japanese description: "スキルや、魔法、アイテムなどで、パラメータが変動する効果（エンチャントウェポンなど）があるので、│定した効果が、「武器攻撃のみをパワーアップする」といった効果に対応できるように行動ごとに設定するバリスタなど、設定の必要のないものは「なし」を設定する", Google translated: "Skills , magic , or item , because the effect of variation in parameters (such as Enchant Weapon ) , and sets the action for each effect it was │ boss is , to cope with effects such as' power up the only weapon attack " things such as varistor , without the need for setting is set to " None"".
 			/// </remarks>
-			[ParameterTableRowAttribute("category", index: 9, minimum: 0, maximum: 255, step: 1, order: 7, unknown2: 1)]
+			[ParameterTableRowAttribute("category", index: 9, minimum: 0, maximum: 255, step: 1, sortOrder: 7, unknown2: 1)]
 			[DisplayName("Category")]
 			[Description("Skills , magic , or item , because the effect of variation in parameters (such as Enchant Weapon ) , and sets the action for each effect it was │ boss is , to cope with effects such as' power up the only weapon attack \" things such as varistor , without the need for setting is set to \" None\"")]
 			[DefaultValue((BehaviorCategory)0)]
@@ -207,7 +209,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "消費人間性", Google translated: "Consumption humanity".
 			/// Japanese description: "行動時の消費人間性量を設定", Google translated: "Set the consumption humanity amount of action at the time".
 			/// </remarks>
-			[ParameterTableRowAttribute("heroPoint", index: 10, minimum: 0, maximum: 255, step: 1, order: 300, unknown2: 1)]
+			[ParameterTableRowAttribute("heroPoint", index: 10, minimum: 0, maximum: 255, step: 1, sortOrder: 300, unknown2: 1)]
 			[DisplayName("Consumption humanity")]
 			[Description("Set the consumption humanity amount of action at the time")]
 			[DefaultValue((Byte)0)]
@@ -225,7 +227,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング1", Google translated: "Padding 1".
 			/// Japanese description: "パディング1.", Google translated: "Padding 1 .".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad1[2]", index: 11, minimum: 0, maximum: 0, step: 0, order: 302, unknown2: 0)]
+			[ParameterTableRowAttribute("pad1[2]", index: 11, minimum: 0, maximum: 0, step: 0, sortOrder: 302, unknown2: 0)]
 			[DisplayName("Padding 1")]
 			[Description("Padding 1 .")]
 			[Browsable(false)]
@@ -268,6 +270,8 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad1 = new Byte[2];
 			}
 
+			/// <summary>Write the row to the writer.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(VariationId);
 				writer.Write(BehaviorJudgeId);

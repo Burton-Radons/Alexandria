@@ -19,8 +19,8 @@ namespace Alexandria {
 	public class Raster {
 		#region Internal fields
 
-		byte ColorA, ColorB;
-		byte BaseColorA, BaseColorB;
+		int ColorA, ColorB;
+		int BaseColorA, BaseColorB;
 		int Stride;
 		int DirtyMaxX, DirtyMaxY, DirtyMinX, DirtyMinY;
 		Graphics Graphics4x;
@@ -32,7 +32,10 @@ namespace Alexandria {
 		#region Backing Fields
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		byte[] data;
+		readonly int ColorBlendBaseCount;
+
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		int[] data;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		bool ditherBlend;
@@ -49,7 +52,8 @@ namespace Alexandria {
 
 		#region Properties
 
-		public byte[] Data { get { return data; } }
+		/// <summary>Get the color indices.</summary>
+		public int[] Data { get { return data; } }
 
 		/// <summary>Get a palette containing the default colors for an EGA adapter.</summary>
 		public static Codex<Color> DefaultEgaColors {
@@ -87,6 +91,7 @@ namespace Alexandria {
 			}
 		}
 
+		/// <summary>Get a codex of the default EGA colors in a blended palette.</summary>
 		public static Codex<Color> DefaultBlendedEgaColors {
 			get { return defaultBlendedEgaColors ?? (defaultBlendedEgaColors = BlendPalette(DefaultEgaColors)); }
 		}
@@ -102,12 +107,28 @@ namespace Alexandria {
 			}
 		}
 
+		/// <summary>Get or set whether to dither or blend.</summary>
 		public bool DitherBlend { get { return ditherBlend; } set { ditherBlend = value; } }
 
+		/// <summary>Get or set whether to override dithering and blending.</summary>
+		public bool DitherBlendOverride {
+			get {
+				return ditherBlendOverride;
+			}
+
+			set {
+				ditherBlendOverride = value;
+				SetColor(BaseColorA, BaseColorB);
+			}
+		}
+
+		/// <summary>Get the <see cref="Bitmap"/> image this writes to.</summary>
 		public Bitmap Image { get; protected set; }
 
+		/// <summary>Get or set a scaled <see cref="Bitmap"/> image that this writes to.</summary>
 		public Bitmap Image4x { get; protected set; }
 
+		/// <summary>Get the height in pixels of the raster.</summary>
 		public int Height { get { return size.Y; } }
 
 		/// <summary>
@@ -115,6 +136,7 @@ namespace Alexandria {
 		/// </summary>
 		bool IsDirtied { get { return DirtyMinX != int.MaxValue; } }
 
+		/// <summary>Get whether this raster is currently locked.</summary>
 		public bool IsLocked { get { return LockCounter > 0; } }
 
 		/// <summary>
@@ -122,15 +144,22 @@ namespace Alexandria {
 		/// </summary>
 		public int LockCounter { get; protected set; }
 
+		/// <summary>Get the dimensions of the raster.</summary>
 		public Vector2i Size { get { return size; } }
 
+		/// <summary>Get the width in pixels of the raster.</summary>
 		public int Width { get { return size.X; } }
 
 		#endregion Properties
 
 		#region Constructors
 
-		public Raster(Vector2i size, IList<Color> palette, bool colorBlend = false, byte[] sourceData = null) {
+		/// <summary>Initialize the <see cref="Raster"/>.</summary>
+		/// <param name="size">The dimensions of the raster image.</param>
+		/// <param name="palette">The palette to use for colours. This may be a regular palette or a colour blend palette.</param>
+		/// <param name="colorBlend">If non-negative this is the number of colours in the base palette for a colour-blended palette.</param>
+		/// <param name="sourceData"></param>
+		public Raster(Vector2i size, IList<Color> palette, int? colorBlend = null, byte[] sourceData = null) {
 			this.size = size;
 			Palette = palette;
 
@@ -138,9 +167,10 @@ namespace Alexandria {
 			Image4x = new Bitmap(size.X * 4, size.Y * 4, PixelFormat.Format32bppArgb);
 			Graphics4x = Graphics.FromImage(Image4x);
 
-			ditherBlend = colorBlend;
+			ColorBlendBaseCount = colorBlend.GetValueOrDefault(16);
+			ditherBlend = colorBlend.HasValue;
 			ArgbRow = new byte[size.X * 4];
-			data = new byte[size.X * size.Y];
+			data = new int[size.X * size.Y];
 			Stride = size.X;
 
 			if (sourceData != null) {
@@ -151,39 +181,44 @@ namespace Alexandria {
 			}
 		}
 
-		public Raster(int width, int height, IList<Color> palette, bool colorBlend = false, byte[] data = null)
-			: this(new Vector2i(width, height), palette, colorBlend, data) {
+		/// <summary>Initialize the <see cref="Raster"/>.</summary>
+		/// <param name="width">The width in pixels of the raster image.</param>
+		/// <param name="height">The height in pixels of the raster image.</param>
+		/// <param name="palette">The palette to use for colours. This may be a regular palette or a colour blend palette.</param>
+		/// <param name="colorBlendBaseCount">If non-negative this is the number of colours in the base palette for a colour-blended palette.</param>
+		/// <param name="data">The optional data for the raster.</param>
+		public Raster(int width, int height, IList<Color> palette, int? colorBlendBaseCount = null, byte[] data = null)
+			: this(new Vector2i(width, height), palette, colorBlendBaseCount, data) {
 		}
 
 		#endregion Constructors
 
 		#region Methods
 
+		/// <summary>Get the blend colour index in a blended palette.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <param name="colorCount"></param>
+		/// <returns></returns>
 		public static int BlendColorIndex(int a, int b, int colorCount) {
 			if (a == b)
 				return a;
 			return colorCount + a * (colorCount - 1) + b - (b > a ? 1 : 0);
 		}
 
-		/// <summary>Returns a blend palette colour index, such that the first 16 colours are the normal EGA set (where a == b), and the subsequent colours are used for blending.
-		/// This allows unblended colours to just use the normal palette. Spanzy!</summary>
-		/// <param name="a"></param>
-		/// <param name="b"></param>
-		/// <returns></returns>
-		public static byte BlendColorIndex16(byte a, byte b) {
-			return (byte)BlendColorIndex(a, b, 16);
-		}
+		int BlendColorIndex(int a, int b) { return BlendColorIndex(a, b, ColorBlendBaseCount); }
 
-		/// <summary>Create a blended palette, which blends colors from the perspective of either A and B or B and A, but unevenly (unless if <paramref name="blend"/> is <c>0.5</c>). The first colour has <paramref name="blend"/> influence on the result; the second colour has (1 - <paramref name="blend"/>) influence. <see cref="BlendColorIndex"/> and <see cref="BlendColorIndex16"/> can be used to create proper indices.</summary>
-		/// <param name="original"></param>
-		/// <returns></returns>
+		/// <summary>Create a blended palette, which blends colors from the perspective of either A and B or B and A, but unevenly (unless if <paramref name="blend"/> is <c>0.5</c>). The first colour has <paramref name="blend"/> influence on the result; the second colour has (1 - <paramref name="blend"/>) influence. <see cref="BlendColorIndex(int,int,int)"/> can be used to create proper indices.</summary>
+		/// <param name="original">The original set of colours.</param>
+		/// <param name="blend">The blending between colours used in a combination. Making this a value other than 0.5 puts more variety into the dithering.</param>
+		/// <returns>The dithered palette values.</returns>
 		public static Codex<Color> BlendPalette(IList<Color> original, double blend = 2.0 / 3.0) {
 			int count = original.Count;
 			var colors = new Color[count * count];
+			double ta = blend, tb = 1 - blend;
 
 			for (var a = 0; a < count; a++) {
 				var ca = original[a];
-				double ta = blend, tb = 1 - blend;
 
 				for (var b = 0; b < count; b++) {
 					var cb = original[b];
@@ -222,6 +257,85 @@ namespace Alexandria {
 			DirtyPoint(maxX, maxY);
 		}
 
+		void SetupDrawImage(ref Vector2i position, ref Vector2i size, ref int[] data, ref int offset, ref int pitch) {
+			if (size.X < 0)
+				throw new ArgumentOutOfRangeException("Size's X field cannot be less than zero.", "size");
+			if (size.Y < 0)
+				throw new ArgumentOutOfRangeException("Size's Y field cannot be less than zero.", "size");
+			if (data == null)
+				throw new ArgumentNullException("data");
+			if (offset < 0)
+				throw new ArgumentOutOfRangeException("Offset cannot be less than zero.", "offset");
+			if (offset + pitch * (long)size.Y < 0 || offset + pitch * (long)(size.Y - 1) + size.X > data.Length)
+				throw new ArgumentOutOfRangeException("The combination of offset, pitch, and size are out of range for the data.", "pitch");
+
+			if (position.X < 0) {
+				size.X += position.X;
+				offset -= position.X;
+			}
+
+			if (position.Y < 0) {
+				size.Y += position.Y;
+				offset -= position.Y * pitch;
+			}
+
+			if (position.X + size.X > Width)
+				size.X = Width - position.X;
+
+			if (position.Y + size.Y > Height)
+				size.Y = Height - position.Y;
+
+			if(size.X > 0 && size.Y > 0)
+				DirtyArea(position.X, position.Y, position.X + size.X - 1, position.Y + size.Y - 1);
+		}
+
+		/// <summary>Draw the image data.</summary>
+		/// <param name="position"></param>
+		/// <param name="size"></param>
+		/// <param name="data"></param>
+		/// <param name="offset"></param>
+		/// <param name="pitch"></param>
+		/// <param name="maskIndex"></param>
+		public void DrawImage(Vector2i position, Vector2i size, int[] data, int offset, int pitch, int maskIndex) {
+			SetupDrawImage(ref position, ref size, ref data, ref offset, ref pitch);
+			for (int y = 0; y < size.Y; y++) {
+				int inputIndex = offset + y * pitch;
+				int outputIndex = (y + position.Y) * Stride + position.X;
+				int endInputIndex = inputIndex + size.X;
+
+				for (; inputIndex < endInputIndex; inputIndex++, outputIndex++) {
+					int value = data[inputIndex];
+
+					if (value != maskIndex)
+						this.data[outputIndex] = value;
+				}
+			}
+		}
+
+		/// <summary>Draw the image data, using the currently assigned color indices for any non-transparent parts of the image.</summary>
+		/// <param name="position"></param>
+		/// <param name="size"></param>
+		/// <param name="data"></param>
+		/// <param name="offset"></param>
+		/// <param name="pitch"></param>
+		/// <param name="maskIndex"></param>
+		public void DrawImageSilhouette(Vector2i position, Vector2i size, int[] data, int offset, int pitch, int maskIndex) {
+			SetupDrawImage(ref position, ref size, ref data, ref offset, ref pitch);
+			for (int y = 0; y < size.Y; y++) {
+				int inputIndex = offset + y * pitch;
+				int outputIndex = (y + position.Y) * this.size.X + position.X;
+				int endInputIndex = inputIndex + size.X;
+				bool code = (position.X ^ y) != 1;
+
+				for (; inputIndex < endInputIndex; inputIndex++, outputIndex++, code = !code) {
+					int value = data[inputIndex];
+
+					if (value != maskIndex)
+						this.data[outputIndex] = code ? ColorB : ColorA;
+				}
+			}
+		}
+
 		/// <summary>
 		/// Add the dirtied rectangle to the bitmap, then clear the dirtied area.
 		/// </summary>
@@ -238,8 +352,8 @@ namespace Alexandria {
 					int input = (y + DirtyMinY) * Stride + DirtyMinX;
 
 					for (int output = 0, end = rowWidth * 4; output < end; output += 4, input++) {
-						byte index = data[input];
-						Color color = index < paletteCount ? Palette[index] : Color.Purple;
+						int index = data[input];
+						Color color = index >= 0 && index < paletteCount ? Palette[index] : Color.Purple;
 						ArgbRow[output + 3] = color.A;
 						ArgbRow[output + 2] = color.R;
 						ArgbRow[output + 1] = color.G;
@@ -273,44 +387,63 @@ namespace Alexandria {
 
 		#endregion Methods
 
-		public bool DitherBlendOverride {
-			get {
-				return ditherBlendOverride;
-			}
+		/// <summary>Set the colour index to write.</summary>
+		/// <param name="color"></param>
+		public void SetColor(int color) { SetColor(color, color); }
 
-			set {
-				ditherBlendOverride = value;
-				SetColor(BaseColorA, BaseColorB);
-			}
-		}
-
-		public void SetColor(byte color) { SetColor(color, color); }
-
-		public void SetColor(byte colorA, byte colorB) {
+		/// <summary>Set a dithered colour index to write.</summary>
+		/// <param name="colorA"></param>
+		/// <param name="colorB"></param>
+		public void SetColor(int colorA, int colorB) {
 			BaseColorA = colorA;
 			BaseColorB = colorB;
 
 			if (ditherBlend) {
 				if (DitherBlendOverride) {
-					ColorA = ProcessColor(colorA);
-					ColorB = ProcessColor(colorB);
+					ColorA = ProcessColor((byte)colorA);
+					ColorB = ProcessColor((byte)colorB);
 				} else
-					ColorA = ColorB = BlendColorIndex16(colorA, colorB);
+					ColorA = ColorB = BlendColorIndex((byte)colorA, (byte)colorB, ColorBlendBaseCount);
 			} else {
 				ColorA = colorA;
 				ColorB = colorB;
 			}
 		}
 
+		/// <summary>Get whether the coordinates are within the <see cref="Raster"/>.</summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <returns></returns>
 		public bool Contains(int x, int y) { return ContainsX(x) && ContainsY(y); }
+
+		/// <summary>Get whehter the coordinates are within the <see cref="Raster"/>.</summary>
+		/// <param name="position"></param>
+		/// <returns></returns>
 		public bool Contains(Vector2i position) { return Contains(position.X, position.Y); }
 
+		/// <summary>Get whether the <see cref="Raster"/> contains this X coordinate.</summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public bool ContainsX(int value) { return value >= 0 && value < size.X; }
+
+		/// <summary>Get whether the <see cref="Raster"/> contains this Y coordinate.</summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public bool ContainsY(int value) { return value >= 0 && value < size.Y; }
 
+		/// <summary>Clamp the value so that it is within the bounds of the <see cref="Raster"/>.</summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public Vector2i Clamp(Vector2i value) { return new Vector2i(ClampX(value.X), ClampY(value.Y)); }
 
+		/// <summary>Clamp the X coordinate to be within the bounds of the <see cref="Raster"/>.</summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public int ClampX(int value) { return value < 0 ? 0 : value >= size.X ? size.X - 1 : value; }
+
+		/// <summary>Clamp the Y coordinate to be within the bounds of the <see cref="Raster"/>.</summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public int ClampY(int value) { return value < 0 ? 0 : value >= size.Y ? size.Y - 1 : value; }
 
 		int PointerTo(Vector2i position) { return position.X + position.Y * Stride; }
@@ -326,6 +459,8 @@ namespace Alexandria {
 				data[PointerTo(x, y)] = ColorAt(x, y);
 		}
 
+		/// <summary>Draw a pixel in the <see cref="Raster"/>.</summary>
+		/// <param name="position"></param>
 		public void DrawPixel(Vector2i position) { DrawPixel(position.X, position.Y); }
 
 		/// <summary>
@@ -336,6 +471,10 @@ namespace Alexandria {
 		void DrawPixelUnsafe(int x, int y) { data[PointerTo(x, y)] = ColorAt(x, y); }
 		void DrawPixelUnsafe(Vector2i position) { DrawPixelUnsafe(position.X, position.Y); }
 
+		/// <summary>Draw a horizontal line.</summary>
+		/// <param name="sx"></param>
+		/// <param name="y"></param>
+		/// <param name="ex"></param>
 		public void DrawHorizontalLine(int sx, int y, int ex) {
 			if (!ContainsY(y))
 				return;
@@ -349,6 +488,10 @@ namespace Alexandria {
 				DrawPixel(x, y);
 		}
 
+		/// <summary>Draw a vertical line.</summary>
+		/// <param name="x"></param>
+		/// <param name="sy"></param>
+		/// <param name="ey"></param>
 		public void DrawVerticalLine(int x, int sy, int ey) {
 			if (!ContainsX(x))
 				return;
@@ -362,6 +505,9 @@ namespace Alexandria {
 				DrawPixel(x, y);
 		}
 
+		/// <summary>Draw a line using Sierra SCI's algorithm</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
 		public void DrawLineSci(Vector2i a, Vector2i b) {
 			DrawLineSci(a.X, a.Y, b.X, b.Y);
 		}
@@ -415,8 +561,16 @@ namespace Alexandria {
 			}
 		}
 
-		public byte ColorAt(int x, int y) { return ((x ^ y) & 1) != 0 ? ColorB : ColorA; }
-		public byte ColorAt(Vector2i position) { return ColorAt(position.X, position.Y); }
+		/// <summary>Get the colour index that will be used with dithering at the given position.</summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <returns></returns>
+		public int ColorAt(int x, int y) { return ((x ^ y) & 1) != 0 ? ColorB : ColorA; }
+
+		/// <summary>Get the colour index that will be used with dithering at the given position.</summary>
+		/// <param name="position"></param>
+		/// <returns></returns>
+		public int ColorAt(Vector2i position) { return ColorAt(position.X, position.Y); }
 
 		/// <summary>
 		/// Floodfill drawing in such a way that specifically emulates SCI. Its logical cannot be changed without breaking things.
@@ -428,7 +582,10 @@ namespace Alexandria {
 			DrawFillSci(at, GetPixel(at));
 		}
 
-		public void DrawFillSci(Vector2i at, byte matchColor) {
+		/// <summary>Perform a flood-fill in a way that Sierra's SCI engine does it.</summary>
+		/// <param name="at"></param>
+		/// <param name="matchColor"></param>
+		public void DrawFillSci(Vector2i at, int matchColor) {
 			var stack = new Stack<Vector2i>(100);
 
 			matchColor = ProcessColor(matchColor);
@@ -481,12 +638,14 @@ namespace Alexandria {
 			}
 		}
 
-		void DrawFillAddToStackUnsafe(Stack<Vector2i> queue, int x, int y, byte matchColor) {
+		void DrawFillAddToStackUnsafe(Stack<Vector2i> queue, int x, int y, int matchColor) {
 			if (data[x + y * Stride] == matchColor)
 				queue.Push(new Vector2i(x, y));
 		}
 
-		public void Clear(byte value = 0) {
+		/// <summary>Clear the raster to a given index.</summary>
+		/// <param name="value"></param>
+		public void Clear(int value = 0) {
 			value = ProcessColor(value);
 
 			for (int index = 0, count = Stride * Height; index < count; index++)
@@ -494,16 +653,20 @@ namespace Alexandria {
 			DirtyArea(0, 0, Width - 1, Height - 1);
 		}
 
-		public byte GetPixel(Vector2i position) {
+		/// <summary>Get the index at a position, or return the default value if the position is out of range.</summary>
+		/// <param name="position"></param>
+		/// <param name="defaultValue">The default value to return if th position is out of range.</param>
+		/// <returns></returns>
+		public int GetPixel(Vector2i position, int defaultValue = 0) {
 			if (Contains(position))
 				return data[position.X + position.Y * Stride];
-			return 0;
+			return defaultValue;
 		}
 
-		byte ProcessColor(byte value) {
+		int ProcessColor(int value) {
 			value &= 15;
 			if (ditherBlend)
-				return BlendColorIndex16(value, value);
+				return BlendColorIndex(value, value);
 			return value;
 		}
 

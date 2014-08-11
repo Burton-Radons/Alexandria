@@ -1,4 +1,5 @@
 ﻿using Glare.Assets;
+using Glare.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,9 +11,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Glare.Assets {
+	/// <summary>
+	/// An asset that can be loaded as binary data, which is then loaded as data.
+	/// </summary>
 	public abstract class DataAsset : Asset {
 		WeakReference contents;
 
+		/// <summary>Load the contents of the asset.</summary>
 		public Asset Contents {
 			get {
 				Asset target;
@@ -26,20 +31,37 @@ namespace Glare.Assets {
 			}
 		}
 
+		/// <summary>Get the file manager to use...</summary>
 		public virtual FileManager FileManager { get { return FileManager.System; } }
-
+		
+		/// <summary>
+		/// Initialise the data asset.
+		/// </summary>
+		/// <param name="parent"></param>
+		/// <param name="name"></param>
+		/// <param name="description"></param>
 		public DataAsset(FolderAsset parent, string name, string description = null)
 			: base(parent, name, description) {
 		}
 
-		public override Control Browse() {
-			return Contents.Browse();
+		/// <summary>Browse the contents.</summary>
+		/// <param name="progressUpdateCallback"></param>
+		/// <returns></returns>
+		public override Control Browse(Action<double> progressUpdateCallback = null) {
+			return Contents.Browse(progressUpdateCallback);
 		}
 
-		public override Control BrowseContents() {
-			return Contents.BrowseContents();
+		/// <summary>Browse the contents.</summary>
+		/// <param name="progressUpdateCallback"></param>
+		/// <returns></returns>
+		public override Control BrowseContents(Action<double> progressUpdateCallback = null) {
+			return Contents.BrowseContents(progressUpdateCallback);
 		}
 
+		/// <summary>
+		/// Fill out a context menu.
+		/// </summary>
+		/// <param name="strip"></param>
 		public override void FillContextMenu(ContextMenuStrip strip) {
 			ToolStripMenuItem saveBinary;
 
@@ -62,7 +84,6 @@ namespace Glare.Assets {
 
 			try {
 				Contents.FillContextMenu(strip);
-				Contents.BrowseContents();
 			} catch (Exception) {
 				ToolStripMenuItem debugException = new ToolStripMenuItem("Debug exception thrown when reading...") {
 				};
@@ -84,12 +105,25 @@ namespace Glare.Assets {
 			}
 		}
 
+		/// <summary>
+		/// Load the data.
+		/// </summary>
+		/// <returns></returns>
 		protected virtual Asset Load() {
 			return Manager.Load(OpenReader(), PathName, FileManager, this);
 		}
 
+		/// <summary>Open a stream to the data.</summary>
+		/// <returns></returns>
 		public abstract Stream Open();
 
+		/// <summary>Open a binary reader for the stream.</summary>
+		/// <returns></returns>
 		public virtual BinaryReader OpenReader() { return new BinaryReader(Open()); }
+
+		/// <summary>Open a binary reader for the stream.</summary>
+		/// <param name="byteOrder"></param>
+		/// <returns></returns>
+		public virtual BinaryReader OpenReader(ByteOrder byteOrder) { return BigEndianBinaryReader.Create(byteOrder, Open()); }
 	}
 }

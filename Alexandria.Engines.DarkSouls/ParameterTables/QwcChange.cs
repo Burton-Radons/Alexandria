@@ -14,10 +14,12 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "QWC_CHANGE_PARAM_ST" in Dark Souls in the file "QwcChangeParam.paramdef" (id 27h).
 		/// </remarks>
 		public class QwcChange : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "QWC_CHANGE_PARAM_ST";
 
 			Int16 pcAttrB, pcAttrW, pcAttrL, pcAttrR, areaAttrB, areaAttrW, areaAttrL, areaAttrR;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				PcAttrBProperty = GetProperty<QwcChange>("PcAttrB"),
 				PcAttrWProperty = GetProperty<QwcChange>("PcAttrW"),
@@ -33,7 +35,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "PC-黒", Google translated: "PC-Black".
 			/// Japanese description: "PC黒属性変化値", Google translated: "PC black attribute change value".
 			/// </remarks>
-			[ParameterTableRowAttribute("pcAttrB", index: 0, minimum: 0, maximum: 200, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("pcAttrB", index: 0, minimum: 0, maximum: 200, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("PC-Black")]
 			[Description("PC black attribute change value")]
 			[DefaultValue((Int16)0)]
@@ -51,7 +53,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "PC-白", Google translated: "PC-White".
 			/// Japanese description: "PC白属性変化値", Google translated: "PC white attribute change value".
 			/// </remarks>
-			[ParameterTableRowAttribute("pcAttrW", index: 1, minimum: 0, maximum: 200, step: 1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("pcAttrW", index: 1, minimum: 0, maximum: 200, step: 1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("PC-White")]
 			[Description("PC white attribute change value")]
 			[DefaultValue((Int16)0)]
@@ -69,7 +71,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "PC-左", Google translated: "PC-left".
 			/// Japanese description: "PC左属性変化値", Google translated: "PC left attribute change value".
 			/// </remarks>
-			[ParameterTableRowAttribute("pcAttrL", index: 2, minimum: 0, maximum: 200, step: 1, order: 300, unknown2: 1)]
+			[ParameterTableRowAttribute("pcAttrL", index: 2, minimum: 0, maximum: 200, step: 1, sortOrder: 300, unknown2: 1)]
 			[DisplayName("PC-left")]
 			[Description("PC left attribute change value")]
 			[DefaultValue((Int16)0)]
@@ -87,7 +89,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "PC-右", Google translated: "PC-right".
 			/// Japanese description: "PC右属性変化値", Google translated: "PC right attribute value change".
 			/// </remarks>
-			[ParameterTableRowAttribute("pcAttrR", index: 3, minimum: 0, maximum: 200, step: 1, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("pcAttrR", index: 3, minimum: 0, maximum: 200, step: 1, sortOrder: 400, unknown2: 1)]
 			[DisplayName("PC-right")]
 			[Description("PC right attribute value change")]
 			[DefaultValue((Int16)0)]
@@ -105,7 +107,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "エリア-黒", Google translated: "Area - black".
 			/// Japanese description: "エリア黒属性変化値", Google translated: "Black area attribute change value".
 			/// </remarks>
-			[ParameterTableRowAttribute("areaAttrB", index: 4, minimum: 0, maximum: 200, step: 1, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("areaAttrB", index: 4, minimum: 0, maximum: 200, step: 1, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Area - black")]
 			[Description("Black area attribute change value")]
 			[DefaultValue((Int16)0)]
@@ -123,7 +125,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "エリア-白", Google translated: "Area - White".
 			/// Japanese description: "エリア白属性変化値", Google translated: "White area attribute change value".
 			/// </remarks>
-			[ParameterTableRowAttribute("areaAttrW", index: 5, minimum: 0, maximum: 200, step: 1, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("areaAttrW", index: 5, minimum: 0, maximum: 200, step: 1, sortOrder: 600, unknown2: 1)]
 			[DisplayName("Area - White")]
 			[Description("White area attribute change value")]
 			[DefaultValue((Int16)0)]
@@ -141,7 +143,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "エリア-左", Google translated: "Area - left".
 			/// Japanese description: "エリア左属性変化値", Google translated: "Area left attribute change value".
 			/// </remarks>
-			[ParameterTableRowAttribute("areaAttrL", index: 6, minimum: 0, maximum: 200, step: 1, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("areaAttrL", index: 6, minimum: 0, maximum: 200, step: 1, sortOrder: 700, unknown2: 1)]
 			[DisplayName("Area - left")]
 			[Description("Area left attribute change value")]
 			[DefaultValue((Int16)0)]
@@ -159,7 +161,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "エリア-右", Google translated: "Area - right".
 			/// Japanese description: "エリア右属性変化値", Google translated: "Area right attribute value change".
 			/// </remarks>
-			[ParameterTableRowAttribute("areaAttrR", index: 7, minimum: 0, maximum: 200, step: 1, order: 800, unknown2: 1)]
+			[ParameterTableRowAttribute("areaAttrR", index: 7, minimum: 0, maximum: 200, step: 1, sortOrder: 800, unknown2: 1)]
 			[DisplayName("Area - right")]
 			[Description("Area right attribute value change")]
 			[DefaultValue((Int16)0)]
@@ -198,6 +200,10 @@ namespace Alexandria.Engines.DarkSouls {
 				AreaAttrR = (Int16)0;
 			}
 
+			/// <summary>
+			/// Write the <see cref="QwcChange"/> row.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(PcAttrB);
 				writer.Write(PcAttrW);

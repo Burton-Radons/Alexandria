@@ -103,10 +103,11 @@ namespace Alexandria.Engines.DarkSouls {
 	/// <summary></summary>
 	/// <remarks>"BEHAVIOR_ATK_TYPE" in Dark Souls.</remarks>
 	public enum BehaviorAttackType : byte {
+		/// <summary>Slashing attacks.</summary>
 		Slash = 0,
 
 		/// <summary>Ladder punches and kicks.</summary>
-		Pound = 1,
+		Blunt = 1,
 
 		/// <summary>Throwing knives, arrows, bolts, stabbing with daggers and swords.</summary>
 		Pierce = 2,
@@ -120,11 +121,13 @@ namespace Alexandria.Engines.DarkSouls {
 	/// <summary></summary>
 	/// <remarks>"BEHAVIOR_REF_TYPE" in Dark Souls.</remarks>
 	public enum BehaviorRefType : byte {
+		/// <summary>Matches an NPC <see cref="TableRows.Attack"/>.</summary>
 		NpcAttack = 0,
 
 		/// <summary>Seems to be magic-related, but matches nothing in Magic or SpecialEffects.</summary>
 		Unknown1 = 1,
 
+		/// <summary>Matches a <see cref="SpecialEffect"/>.</summary>
 		SpecialEffect = 2,
 	}
 
@@ -201,15 +204,19 @@ namespace Alexandria.Engines.DarkSouls {
 	/// <summary></summary>
 	/// <remarks>"GOODS_TYPE" in Dark Souls.</remarks>
 	public enum ItemType : byte {
+		/// <summary>General category.</summary>
 		General = 0,
 
 		/// <summary>Ember; also used for the Peculiar Doll.</summary>
 		Ember = 1,
 
+		/// <summary>Forms of Titanite.</summary>
 		Titanite = 2,
 
+		/// <summary>Used only for Humanity.</summary>
 		Humanity = 4,
 
+		/// <summary>Spell scrolls.</summary>
 		Scroll = 5,
 	}
 
@@ -225,16 +232,36 @@ namespace Alexandria.Engines.DarkSouls {
 		None = 0,
 	}
 
+	/// <summary>Identifies one of the localization languages.</summary>
 	public enum Language {
+		/// <summary>English language</summary>
 		English,
+
+		/// <summary>French language (le français)</summary>
 		French,
+
+		/// <summary>German language (Deutsch)</summary>
 		German,
+
+		/// <summary>Italian language (italiano)</summary>
 		Italian,
+
+		/// <summary>Japanese language (日本語)</summary>
 		Japanese,
+
+		/// <summary>Korean language (한국어)</summary>
 		Korean,
+
+		/// <summary>Polish language (polszczyzna)</summary>
 		Polish,
+
+		/// <summary>Russian language (ру́сский язы́к)</summary>
 		Russian,
+
+		/// <summary>Spanish language (español)</summary>
 		Spanish,
+
+		/// <summary>Traditional Chinese writing system and language (正體字/繁體字)</summary>
 		Chinese,
 	}
 
@@ -286,11 +313,20 @@ namespace Alexandria.Engines.DarkSouls {
 	/// <summary></summary>
 	/// <remarks>"ITEMLOT_ITEMCATEGORY" in Dark Souls.</remarks>
 	public enum RewardItemCategory : int {
+		/// <summary>Refers to nothing.</summary>
 		None = -1,
+
+		/// <summary>Refers to a <see cref="TableRows.Weapon"/>.</summary>
 		Weapon = 0,
-		Armor = 0x10000000,
-		Ring = 0x20000000,
-		Item = 0x40000000,
+
+		/// <summary>Refers to a <see cref="TableRows.Protector"/></summary>
+		Protector = 0x10000000,
+
+		/// <summary>Refers to a <see cref="TableRows.Accessory"/>.</summary>
+		Accessory = 0x20000000,
+
+		/// <summary>Refers to a <see cref="TableRows.Good"/>.</summary>
+		Goods = 0x40000000,
 	}
 
 	/// <summary></summary>
@@ -400,11 +436,20 @@ namespace Alexandria.Engines.DarkSouls {
 	/// <summary></summary>
 	/// <remarks>"SHOP_LINEUP_EQUIPTYPE" in Dark Souls.</remarks>
 	public enum StoreInventoryEquipmentType : byte {
+		/// <summary>Refers to a <see cref="TableRows.Weapon"/>.</summary>
 		Weapon = 0,
-		Armor = 1,
-		Ring = 2,
-		Item = 3,
-		Spell = 4,
+
+		/// <summary>Refers to a <see cref="TableRows.Protector"/>.</summary>
+		Protector = 1,
+
+		/// <summary>Refers to a <see cref="TableRows.Accessory"/>.</summary>
+		Accessory = 2,
+
+		/// <summary>Refers to a <see cref="TableRows.Good"/>.</summary>
+		Good = 3,
+
+		/// <summary>Refers to a <see cref="TableRows.Magic"/>.</summary>
+		Magic = 4,
 	}
 
 	/// <summary></summary>
@@ -435,6 +480,7 @@ namespace Alexandria.Engines.DarkSouls {
 	/// <summary></summary>
 	/// <remarks>"WEAPON_CATEGORY" in Dark Souls.</remarks>
 	public enum WeaponCategory : byte {
+		/// <summary>A dagger type.</summary>
 		Dagger = 0,
 
 		/// <summary>Short swords, long swords, whips.</summary>
@@ -464,14 +510,19 @@ namespace Alexandria.Engines.DarkSouls {
 		/// <summary>Fists, caestus, claws, dark hand.</summary>
 		Fist = 9,
 
+		/// <summary>Short bows, long bows, great bows.</summary>
 		Bow = 10,
 
+		/// <summary>Crossbows.</summary>
 		Crossbow = 11,
 
+		/// <summary>Shields.</summary>
 		Shield = 12,
 
+		/// <summary>Arrows.</summary>
 		Arrow = 13,
 
+		/// <summary>Bolts.</summary>
 		Bolt = 14,
 	}
 
@@ -498,7 +549,10 @@ namespace Alexandria.Engines.DarkSouls {
 	/// <summary>This value times 100,000 indexes "AtkParam_Pc.param".</summary>
 	/// <remarks>"WEPMOTION_CATEGORY" in Dark Souls.</remarks>
 	public enum WeaponMotionCategory : byte {
+		/// <summary>Daggers.</summary>
 		Dagger = 20,
+
+		/// <summary>Swords.</summary>
 		Sword = 23,
 
 		/// <summary>Claymores, Man-serpent Greatswords, Flamberges, Black Knight Sword, Greatsword of Artorias, Server, Murakumo.</summary>

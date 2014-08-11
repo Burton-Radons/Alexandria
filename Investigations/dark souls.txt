@@ -1,0 +1,1063 @@
+﻿Filenames
+	c#### - Characters or NPCs
+		dvdbnd0:/chr
+			/c{Id:####}.anibnd.dcx
+			/c{Id:####}.chrbnd.dcx
+	f#######.ffx - Effects
+		dvdbnd0:/sfx
+			/f#######.ffx
+	h{Id:####}B{Section:#} - Physics
+		dvdbnd0:/map/m{Area:##}_{Section:##}_00_00
+			/h{Area:##}_{Section:##}_00_00.hkxbhd::
+				/m{Area:##}_{Section:##}_00_00
+					/h{Id:####}B{Section:#}A{Area:##}.hkx.dcx
+	m{Id:####}B{Section:#} - Map meshes
+		dvdbnd0:/map/m[Area:##]_{Section:##}_00_00
+			/m{Id:####}B{Section:#}A{Area:##}.flver.dcx
+	o{Id:####} - Objects
+		dvdbnd1:/obj
+			o{Id:####}.objbnd.dcx
+	mtd (materials)
+		[D] - Diffuse only
+		[DSB] - Diffuse/Specular/Normal maps
+		[L] - Lightmap?
+		
+		Ids
+			A10_Stone[DSB][L].mtd -> 29Ah/666, 29Eh/670
+			M[D]_Alp.mtd -> 118h/280
+			M[D][L].mtd -> 184h/388, 182h/386, 174h/372
+			M_7Metal[DSB][L].mtd -> 2A2h/674
+		
+	
+MODEL_PARAM_ST Type
+	4 - Player - used for c0000
+PARTS_PARAM_ST Type
+	0 - Mesh
+	1 - Object
+	2 - Character
+	4 - Unknown4 - Used for index 123 with name "c0000_0000" and "c0000_0001".
+	5 - PhysicsMesh
+	8 - NavigationMesh
+	9 - Object2 - Used for o0200, o0500
+	10 - Character2 - Used for c1000 (index 108), c3270_0008 (index 117)
+	11 - PhysicsMesh2
+
+Translations
+	Places
+		Abyss - New Londo Ruins
+		Base - Firelink Shrine
+		Castle 1 - Undead Burg and Undead Parish
+		Castle 2 - The Depths
+		Crystal Tower - The Duke's Archives
+		Daihaka - Kiln of the First Flame
+		Giant cemetery - Tomb of Giants
+		Immortal - Undead
+		Immortality institute - Painted World of Ariamis
+		Kage-machi - Blighttown
+		Metropolitan Waste - Demon Ruins/Lost Izalith
+		Moriniwa - Darkroot Garden
+		Ojo 1 - Sen's Fortress
+		Ojo 2 - Anor Londo
+		Onion knight - Siegmeyer of Catarina
+		Past forest - Oolacile
+		Underground lake - The Great Hollow
+	Weapon enchantments
+		A Magic - Magic
+		Crude - Raw
+		Daemon - Chaos
+		Dark - Occult
+		Dragon - Dragon
+		Flame - Fire
+		Holy - Divine
+		Magic A - Magic
+		Magic B - Enchanted
+		Sacred - Divine
+		Special - Unique
+		Thunder - Lightning
+		Usually - Normal
+		Usually dedicated - Normal (Google Translate picking up weird context)
+		
+	
+NPCs
+	People
+		Andre of Astora (264000)
+	Enemies
+		Heavy Knight (Behavior Variation Id 25700)
+			at Painted World of Ariamis
+				257020 - Greatsword
+				257021 - Large Mace
+				257022 - Greatsword with Black Soul (???)
+
+Script
+	Globals (Functions unless specified as different)
+		AI:
+			Globals:
+				*_Act01 to 20
+				*_ActAfter_AdjustSpace
+				*Battle_Activate
+				*Battle_Interupt : Number (spelling error in original)
+				*Battle_Terminate
+				*Battle_Update
+			Methods:
+				AddTopGoal(GOAL, ..., TARGET, ...) -> Object
+					GOAL_COMMON_ApproachTarget, Number, POINT*
+					GOAL_COMMON_MoveToSomewhere, Number, POINT*
+					GOAL_COMMON_Wait, Number
+					
+					POINT_AutoWalkAroundTest, AI_DIR_TYPE, Number
+					POINT_EVENT, Number
+
+					TARGET_LOCALPLAYER, Boolean
+					TARGET_NONE, Number, Number, Number
+				ClearSubGoal()
+				DbgAutoRemo_GetWaitCommandTime()
+				DbgAutoRemo_IsWaitCommand() -> Boolean
+				DbgAutoRemo_ResetWaitCommand()
+			Variables:
+				IsSearchTarget
+			Prefixes:
+				Hammer_m10_225000
+				HeldKnight_laughtrec6590
+				Inunezumi120000
+				Kiaran6740
+				Magician_of_Pot6130
+				SmallInunezumi120100
+				sunKnight6540
+		Kiaran6740_ActAfter
+		Kiaran6740_ActAfter_AdjustSpace
+		Kiaran6740Battle_Activate
+		Kiaran6740Battle_Interupt : Number
+		Kiaran6740Battle_Update
+		Kiaran6740Battle_Terminate
+		Onlf_6740
+		Wataa1540_Logic(Object) -> Object
+		Wataa1540_Interupt() -> Object
+
+	Constants:
+		AI_DIR_TYPE_CENTER
+		
+		ANIMEID_CLOSE = 7402
+		ANIMEID_COFFER_PICK = 7522
+		ANIMEID_KICK = 7400
+		ANIMEID_OPEN = 7401
+		ANIMEID_PICK = 7520
+		ANIMEID_PULL_LEVER = 8000 (Same as ANIMEID_PUSH_LEVER)
+		ANIMEID_PUSH_LEVER = 8000 (Same as ANIMEID_PULL_LEVER)
+		ANIMEID_TURN_HANDLE = 8010
+		ANIMEID_WALK = 7410
+		
+		ATTR_ALL = 255
+		ATTR_BLACK = 128
+		ATTR_CLIENT = 8
+		ATTR_GREY = 32
+		ATTR_HOST = 4
+		ATTR_LIVE = 16
+		ATTR_NOSESSION = 2
+		ATTR_SESSION = 1
+		ATTR_WHITE = 64
+		
+		CHR_TYPE_BlackGhost = 2
+		CHR_TYPE_GreyGhost = 8
+		CHR_TYPE_LivePlayer = 0
+		CHR_TYPE_WhiteGhost = 1
+		
+		CLEAR_GETSOUL_DELAYTIME = 3
+		CLEAR_LEAVE_DELAYTIME = 5
+		
+		DEATH_STATE_MagicResurrection = 1
+		DEATH_STATE_Normal = 0
+		DEATH_STATE_RingCurseResurrection = 3
+		DEATH_STATE_RingNormalResurrection = 2
+		
+		EV_HIT_ALL = 3
+		EV_HIT_CHR = 1
+		EV_HIT_HIT = 2
+
+		GOAL_COMMON_MoveToSomewhere
+		GOAL_COMMON_Wait
+
+		HELPID_DOWN = 10010301
+		HELPID_UP = 10010300
+		
+		IGNORE_TIME = 3
+		
+		INFOMENU_TYPE_LIST = 0
+		INFOMENU_TYPE_SIMPLE = 1
+		
+		INVADE_TYPE_BlackRescue = 6
+		INVADE_TYPE_ColiseumBrB = 16
+		INVADE_TYPE_ColiseumBrC = 17
+		INVADE_TYPE_ColiseumBrD = 18
+		INVADE_TYPE_ColiseumOneB = 12
+		INVADE_TYPE_ColiseumTwoA2 = 13
+		INVADE_TYPE_ColiseumTwoB1 = 14
+		INVADE_TYPE_ColiseumTwoB2 = 15
+		INVADE_TYPE_DetectBlack = 4
+		INVADE_TYPE_Dragonewt = 10
+		INVADE_TYPE_ForceJoinBlack = 3
+		INVADE_TYPE_InvadeBounty = 11
+		INVADE_TYPE_Nito = 7
+		INVADE_TYPE_NormalBlack = 2
+		INVADE_TYPE_NormalWhite = 1
+		INVADE_TYPE_None = 0
+		INVADE_TYPE_OtoutoUmbasa = 9
+		INVADE_TYPE_ThievesGuild = 8
+		INVADE_TYPE_WhiteRescue = 5
+		
+		LadderAngle_A = 90
+		LadderDist_A = 1.5
+		LadderTime_A = 0.2
+		
+		LOCAL_PLAYER = 10000
+		NET_PLAYER = 10001
+		
+		MSG_CATEGORY_ACC = 13
+		MSG_CATEGORY_ACC_EXP = 23
+		MSG_CATEGORY_BLOOD = 2
+		MSG_CATEGORY_DIALOG = 78
+		MSG_CATEGORY_EVENT = 30
+		MSG_CATEGORY_ITEM = 10
+		MSG_CATEGORY_ITEM_EXP = 20
+		MSG_CATEGORY_PRO = 12
+		MSG_CATEGORY_PRO_EXP = 22
+		MSG_CATEGORY_SAMPLE = 0
+		MSG_CATEGORY_TALK = 1
+		MSG_CATEGORY_WEP = 11
+		MSG_CATEGORY_WEP_EXP = 21
+
+		POINT_AutoWalkAroundTest
+
+		REGIST_FUNC
+		
+		SOUL_RATE_L = 0.5
+		SOUL_RATE_M = 0.25
+		SOUL_RATE_S = 0.1
+		
+		SOUND_TYPE_A = 0
+		SOUND_TYPE_B = 9
+		SOUND_TYPE_C = 1
+		SOUND_TYPE_F = 2
+		SOUND_TYPE_G = 10
+		SOUND_TYPE_O = 3
+		SOUND_TYPE_P = 4
+		SOUND_TYPE_S = 5
+		SOUND_TYPE_M = 6
+		SOUND_TYPE_V = 7
+		SOUND_TYPE_X = 8
+		
+		SUMMONPARAM_TYPE_Black = -2
+		SUMMONPARAM_TYPE_Coliseum = -12
+		SUMMONPARAM_TYPE_DetectBlack = -4
+		SUMMONPARAM_TYPE_Dragonewt = -10
+		SUMMONPARAM_TYPE_FroceJoinBlack = -3 (Spelling error in original)
+		SUMMONPARAM_TYPE_InvadeBounty = -11
+		SUMMONPARAM_TYPE_InvadeNito = -7
+		SUMMONPARAM_TYPE_None = 0
+		SUMMONPARAM_TYPE_White = -1
+		
+		SYNCHROANIM = 4013
+		
+		SYSTEM_CHECK_POINT = 4054
+		SYSTEM_GENDIALOG = 4061
+		SYSTEM_ID_IGNORE = 4048
+		SYSTEM_WARP = 4052
+		
+		TAG_IDX_deadChara = 2
+		TAG_IDX_joinChara = 1
+		TAG_IDX_leaveChara = 3
+		TAG_IDX_liveChara = 0
+		
+		TALK_ATTR_ALL = 255
+		TALK_ATTR_DRAW = 4
+		TALK_ATTR_REPEAT = 1
+		TALK_ATTR_PAD = 2
+		TALK_ATTR_VOICE = 8
+
+		TARGET_ENE_0
+		TARGET_LOCALPLAYER
+		TARGET_NONE
+		
+		TEAM_TYPE_AngryFriend = 9
+		TEAM_TYPE_BattleFriend = 12
+		TEAM_TYPE_BlackGhost = 3
+		TEAM_TYPE_BloodChild = 11
+		TEAM_TYPE_Boss = 7
+		TEAM_TYPE_DecoyEnemy = 10
+		TEAM_TYPE_Enemy = 6
+		TEAM_TYPE_Friend = 8
+		TEAM_TYPE_GlayGhost = 4 (Spelling error in original)
+		TEAM_TYPE_Live = 1
+		TEAM_TYPE_None = 0
+		TEAM_TYPE_WanderGhost = 5
+		TEAM_TYPE_WhiteGhost = 2
+		
+		TEXT_TYPE_BlackClear = 7
+		TEXT_TYPE_Bonfire = 13
+		TEXT_TYPE_Congratulations = 12
+		TEXT_TYPE_Dead = 2
+		TEXT_TYPE_GhostDead = 6
+		TEXT_TYPE_KillDemon = 1
+		TEXT_TYPE_MagicResurrection = 9
+		TEXT_TYPE_MapName = 8
+		TEXT_TYPE_Revival = 3
+		TEXT_TYPE_RingCurseResurrection = 11
+		TEXT_TYPE_RingNormalResurrection = 10
+		TEXT_TYPE_SoulGet = 4
+		TEXT_TYPE_TargetClear = 5
+		
+		TURNSKIP_ANGLE = 10
+		
+		TURNTIME = 0.05
+
+		TYPE_ACCESSOR = 0x2000_0000
+		TYPE_GOODS = 0x4000_0000
+		TYPE_MASK = 0xF000_0000
+		TYPE_PROTECTOR = 0x1000_0000
+		TYPE_WEAPON = 0
+		
+		USER_IDX_Unknow = -1
+		USER_ID_Event_GetItem = 7
+		USER_ID_Event_SosLost_Black = 6
+		USER_ID_Event_SosLost_Red = 5
+		USER_ID_Event_SosLost_White = 4
+		USER_ID_Network_Error = 0
+		USER_ID_Network_Login = 3
+		USER_ID_Network_MultiPlay = 2
+		USER_ID_Network_Notice = 1
+		
+		everytime = 0
+		once = 1
+
+		Common_Battle_Activate
+		
+	Global variables:
+		ClearBoss = false
+		ClearBossId = -1
+		DeadtextEffectId = TEXT_TYPE_Dead
+		deathState = 0
+		isDeathPenaltySkip = 0
+		isKill_Host = false
+		
+	Global functions:
+		AliveMotion_End
+		AliveMotion_wait
+		DeadInfoMsg_White
+		HostDead
+		HostDead_1
+		InGameStart
+		OnDisableInvincible
+		OnEnableDraw
+		OnEvent_4000
+		OnEvent_4000_3
+		OnEvent_4000_Hp
+		OnMatchingCheck
+		OnMatchingError
+		PartyGhostDeath
+		PartyGhostDeath_1
+		PartyGhostDeath_2
+		PartyGhostDeath_wait
+		SoloPlayDeath
+		SoloPlayDeath_1
+		SoloPlayDeath_2
+		SoloPlayDeath_TextWait
+		SummonMotion_wait
+		
+		g_Initialize
+		g_second_Initialize
+		
+	Player object:
+		OnCharacterDead : Function
+
+		AddBlockClearBonus(String)
+			"g_Initialize global_event begin"
+		CheckPenalty()
+		GetDeathState()
+		InitDeathState()
+		
+.nvm
+total: 6240h
+packed block of floats: 80h
+
+u4 1
+u4 16dh - vectors count
+u4 80h - vectors offset
+u4 1a0h
+u4 119ch
+u4 6200h
+z[68h]
+
+vectors offset:
+f4[3][16dh] vectors
+
+119ch:
+[] 
+	u4 0
+	u4 1
+	u4 2
+	u4 7Bh
+	u4 1
+	s4 -1
+	u4 0
+	u4 3
+	u4 2
+	u4 1
+	u4 33h
+	u4 0
+	u4 -1
+	u4 0
+	u4 4
+	u4 5
+	u4 6
+	u4 36h
+	u4 3
+	u4 38h
+	u4 0
+	u3 7
+	u4 6
+	u4 5
+	u4 -1
+	u4 2
+	u4 -1
+	u4 0
+	u4 8
+	u4 9
+	u4 ah
+	u4 beh
+	u4 5
+	u4 -5
+	u4 0
+	u4 bh
+	u4 ah
+	u4 9
+	u4 39h
+	u4 4
+	s4 -1
+	u4 0
+	u4 ch
+	u4 dh
+	u4 eh
+	u4 64h
+	u4 7
+	s4 -1
+	u4 0
+	u4 fh
+	u4 eh
+	u4 dh
+	u4 19ch
+	u4 6
+	u4 -1
+1278h:
+
+.paramdef
+u4 total file size (2180h)
+u2 30h - offset of rows (constant)
+u2 1-4
+u2 28h - element count
+u2 b0h - constant (size in bytes of a row)
+cz[20h] bank name ("AI_STANDARD_INFO_BANK")
+u2 0 - constant
+u2 68h - constant
+[]
+	cz<shift-jis>[40h] Japanese short name
+	cz[8] type
+		"dummy8"
+		"f32"
+		"s8"
+		"s16"
+		"s32"
+		"u8"
+		"u16"
+	cz[8] print format
+		"u16", "s32" -> "%d"
+	f4 20 (default value?)
+	f4 0 (minimum value?)
+	f4 30000 (maximum value?)
+	f4 1 (step?)
+	u4 1
+	u4 4 - byte size
+	u4 1BB0h - offset of a cz<shift-jis> string description in Japanese
+	cz[20h] type2
+		same as type with some extensions
+		"ACCESSORY_CATEGORY"
+		"ACTION_PATTERN"
+		"ATK_PARAM_BOOL"
+		"ATK_PARAM_HIT_SOURCE"
+		"ATK_PARAM_HIT_TYPE"
+		"ATK_PARAM_PARTSDMGTYPE"
+		"ATK_PATAM_THROWFLAG_TYPE"
+		"ATK_SIZE"
+		"ATK_TYPE"
+		"ATKPARAM_ATKATTR_TYPE"
+		"ATKPARAM_REP_DMGTYPE"
+		"ATKPARAM_SPATTR_TYPE"
+		"BEHAVIOR_ATK_TYPE"
+		"BEHAVIOR_CATEGORY"
+		"BEHAVIOR_REF_TYPE"
+		"BULLET_ATTACH_EFFECT_TYPE"
+		"BULLET_EMITTE_POS_TYPE"
+		"BULLET_FOLLOW_TYPE"
+		"BULLET_LAUNCH_CONDITION_TYPE"
+		"CHARACTER_INIT_SEX"
+		"CHRINIT_VOW_TYPE"
+		"DURABILITY_DIVERGENCE_CATEGORY"
+		"ENEMY_BEHAVIOR_ID"
+		"EQUIP_BOOL"
+		"EQUIP_MODEL_CATEGORY"
+		"EQUIP_MODEL_GENDER"
+		"FACE_PARAM_HAIRCOLOR_TYPE"
+		"FACE_PARAM_HAIRSTYLE_TYPE"
+		"GUARDMOTION_CATEGORY"
+		"HMP_FLOOR_HEIGHT_TYPE"
+		"HMP_FOOT_EFFECT_DIR_TYPE"
+		"HMP_FOOT_EFFECT_HEIGHT_TYPE"
+		"ITEMLOT_CUMULATE_RESET"
+		"ITEMLOT_ENABLE_LUCK"
+		"ITEMLOT_ITEMCATEGORY"
+		"NPC_BOOL"
+		"NPC_BURN_TYPE"
+		"NPC_DRAW_TYPE"
+		"NPC_HITSTOP_TYPE"
+		"NPC_ITEMDROP_TYPE"
+		"NPC_MOVE_TYPE"
+		"NPC_SFX_SIZE"
+		"NPC_TEMA_TYPE"
+		"NPC_THINK_GOAL_ACTION"
+		"NPC_THINK_REPLY_BEHAVIOR_TYPE"
+		"NPC_TYPE"
+		"OBJACT_CHR_SORB_TYPE"
+		"OBJACT_EVENT_KICK_TIMING"
+		"OBJACT_SP_QUALIFIED_TYPE"
+		"ON_OFF"
+		"PROTECTOR_CATEGORY"
+		"RAGDOLL_PARAM_BOOL"
+		"SKELETON_PARAM_KNEE_AXIS_DIR"
+		"SHOP_LINEUP_EQUIPTYPE"
+		"SHOP_LINEUP_SHOPTYPE"
+		"SP_EFE_WEP_CHANGE_PARAM"
+		"SP_EFFECT_MOVE_TYPE"
+		"SP_EFFECT_SAVE_CATEGORY"
+		"SP_EFFECT_SPCATEGORY"
+		"SP_EFFECT_THROW_CONDITION_TYPE"
+		"SP_EFFECT_TYPE"
+		"SP_EFFECT_VFX_EFFECT_TYPE"
+		"SP_EFFECT_VFX_PLAYCATEGORY"
+		"SP_EFFECT_VFX_SOUL_PARAM_TYPE"
+		"THROW_DMY_CHR_DIR_TYPE"
+		"THROW_ENABLE_STATE"
+		"THROW_PAD_TYPE"
+		"THROW_TYPE"
+		"WEAPON_CATEGORY"
+		"WEP_BASE_CHANGE_CATEGORY"
+		"WEP_CORRECT_TYPE"
+		"WEP_MATERIAL_ATK"
+		"WEP_MATERIAL_DEF"
+		"WEP_MATERIAL_DEF_SFX"
+		"WEPMOTION_CATEGORY"
+		"ChrType"
+	cz[20h] name2
+		"RadarRange"
+	u4 1
+	
+AI_STANDARD_INFO_BANK ("AiStandardInfo.paramdef", 1)
+ATK_PARAM_ST ("AtkParam.paramdef", 1)
+BEHAVIOR_PARAM_ST ("BehaviorParam.paramdef", 2)
+BULLET_PARAM_ST ("BulletParam.paramdef", 2)
+CACL_CORRECT_GRAPH_ST ("CalcCorrectGraph.paramdef", 1)
+CHARACTER_INIT_PARAM ("CharaInitParam.paramdef", 1)
+DOF_BANK ("DofBank.paramdef", 1)
+ENEMY_STANDARD_INFO_BANK ("EnemyStandardInfo.paramdef", 1)
+ENV_LIGHT_TEX_BANK ("EnvLightTexBank.paramdef", 1)
+EQUIP_MTRL_SET_PARAM_ST ("EquipMtrlSetParam.paramdef", 1)
+EQUIP_PARAM_ACCESSORY_ST ("EquipParamAccessory.paramdef", 1
+EQUIP_PARAM_GOODS_ST ("EquipParamGoods.paramdef", 1)
+EQUIP_PARAM_PROTECTOR_ST, "EquipParamProtector.paramdef", 2
+"EQUIP_PARAM_WEAPON_ST", "EquipParamWeapon.paramdef", 1
+"FACE_PARAM_ST", "FaceGenParam.paramdef", 1
+"FOG_BANK", "FogBank.paramdef", 1
+"GAME_AREA_PARAM_ST", "GameAreaParam.paramdef", 1
+"HIT_MTRL_PARAM_ST", "HitMtrlParam.paramdef", 2
+"ITEMLOT_PARAM_ST", "ItemLotParam.paramdef", 2
+"KNOCKBACK_PARAM_ST", "KnockBackParam.paramdef", 1
+"LENS_FLARE_BANK", "LensFlareBank.paramdef", 1
+"LENS_FLARE_EX_BANK", "LensFlareExBank.paramdef", 1
+"LIGHT_BANK", "LightBank.paramdef", 4
+"LIGHT_SCATTERING_BANK", "LightScatteringBank.paramdef", 1
+"LOCK_CAM_PARAM_ST", "LockCamParam.paramdef", 1
+"LOD_BANK", "LodBank.paramdef"
+"MAGIC_PARAM_ST", "MagicParam.paramredf", 2
+"MENU_PARAM_COLOR_TABLE_ST", "MenuParamColorTable.paramdef", 1
+"MOVE_PARAM_ST", "MoveParam.paramdef", 1
+"NPC_PARAM_ST", "NpcParam.paramdef", 3
+"NPC_THINK_PARAM_ST", "NpcThinkParam.paramdef", 1
+"OBJ_ACT_PARAM_ST", "ObjActParam.paramdef", 1
+"OBJECT_PARAM_ST", "ObjectParam.paramdef", 1
+"POINT_LIGHT_BANK", "PointLightBank.paramdef", 1
+"QWC_CHANGE_PARAM_ST", "QwcChangeParam.paramdef", 1
+"QWC_JUDGE_PARAM_ST", "QwcJudgeParam.paramdef", 1
+"RAGDOLL_PARAM_ST", "RagdollParam.paramdef", 1
+"REINFORCE_PARAM_PROTECTOR_ST", "ReinforceParamProtector.paramdef", 1
+"REINFORCE_PARAM_WEAPON_ST", "ReinforceParamWeapon.paramdef", 1
+"SHADOW_BANK", "ShadowBank.paramdef", 1
+"SHOP_LINEUP_PARAM", "ShopLineupParam.paramdef", 1
+	s32 equipId
+	s32 value
+	s32 mtrlId
+	s32 eventFlag
+	s32 qwcId
+	s16 sellQuantity
+	u8:SHOP_LINEUP_SHOPTYPE shopType
+	u8:SHOP_LINEUP_EQUIPTYPE equipType
+	dummy8[8]
+	
+	equipId	value	mtrlId	eventFlag	qwcId	sellQty	shopTp	equipType
+	240		100		-1		-1			-1		-1		3		0
+	106		100		-1		A81B3Ch		-1		1		3		0
+	280		500		-1		-1			-1		-1		3		0
+	290		10		-1		-1			-1		-1		3		0
+	292		50		-1		-1			-1		-1		3		0
+	
+	
+"SKELETON_PARAM_ST", "SkeletonParam.paramdef", 1
+"SP_EFFECT_PARAM_ST", "SpEffect.paramdef", 1
+"SP_EFFECT_VFX_PARAM_ST", "SpEffectVfx.paramdef", 1
+"TALK_PARAM_ST", "TalkParam.paramdef", 1
+"THROW_INFO_BANK", "ThrowParam.paramdef", 1
+"TONE_CORRECT_BANK", "ToneCorrectBank.paramdef", 1
+"TONE_MAP_BANK", "ToneMapBank.paramdef", 3
+
+dvdbnd1.bhd5
+	msg\[Language] where [Language] is "ENGLISH", "FRENCH", "GERMAN", "ITALIAN", "JAPANESE", "KOREAN", "POLISH", "RUSSIAN", "SPANISH", or "TCHINESE".
+		\item.msgbnd.dcx (Archive)
+			N:\FRPG\data\Msg\Data_[LANGUAGE]\win32
+				\NPC名.fmg (StringArchive, id 12h) - NPC names, i.e. 600 = Knight Solaire.
+				\アイテムうんちく.fmg (StringArchive, id 18h) - Usable item descriptions, i.e. 100 = Online play item. Leave summon sign. Be summoned to another world...
+				\アイテム名.fmg (StringArchive,id 0Ah) - Usable item names, i.e. 100 = White Sign Soapstone.
+				\アイテム説明.fmg (StringArchive, id 14h) - Usable item actions, i.e. 100 = Leave summon sign.
+				\アクセサリうんちく.fmg (StringArchive, id 1Bh) - Ring descriptions, i.e. 100 = "This ring was named after Havel the Rock..."
+				\アクセサリ名.fmg (StringArchive, id 0Dh) - Ring names, i.e. 100 = "Havel's Ring".
+				\アクセサリ説明.fmg (StringArchive, id 17h) - Ring effects, i.e. 100 = "Boosts maximum equipment load".
+				\地名.fmg (StringArchive, id 13h) - Area names, i.e. 1000 = "Depths", 1400 = "Blighttown".
+				\武器うんちく.fmg (StringArchive, id 19h) - Weapon descriptions, i.e. 100000 = "Weapon type: Dagger, Attack type: Slash/Thrust, This standard small dagger has only a modest attack..."
+				\武器名.fmg (StringArchive, id 0Bh) - Weapon names with enchantments, i.e. 100000 = Dagger, 100001 = "Dagger+1".
+				\武器説明.fmg (StringArchive, id 15h) - Weapon types (no enchantments), i.e. 100000 = "Dagger", 406200 = "Curved Sword".
+				\防具うんちく.fmg (StringArchive, id 1Ah) - Armor descriptions, i.e. 10000 = "Distinctively shaped helm worn by the Knights of Catarina..."
+				\防具名.fmg (StringArchive, id 0Ch) - Armor and hairstyle names with enchantments, i.e. 1000 = "Shaved", 10000 = "Catarina Helm", 40001 = "Dark Mask +1".
+				\魔法うんちく.fmg (StringArchive, id 1Dh) - Sorcery descriptions, i.e. 3000 = "Elementary sorcery. Fire soul arrow..."
+				\魔法名.fmg (StringArchive, id 0Eh) - Sorcery names, i.e. 3000 = "Soul Arrow".
+				\魔法説明.fmg (StringArchive, id 1Ch) - Sorcery actions, i.e. 3000 = "Fire soul arrow".
+				
+				\特徴うんちく.fmg (StringArchive, id 11h) - Not used; only item is 0 = "For Test".
+				\特徴説明.fmg (StringArchive, id 0Fh) - Not used; only item is 0 = "For Test".
+				\特徴説明.fmg (StringArchive, id 10h) - Not used; only item is 0 = "For Test".
+				\防具説明.fmg (StringArchive, id 16h) - Not used; entries correspond to armor types but are all empty.
+".param"
+u4 strings offset
+u2 230h - first row data offset
+u2 0-4
+u2 1-4 (matches same value in paramdef)
+u2 28h - row count
+cz[20h] table name
+u4 100h/200h
+34h: [row count] - last row is zeroes
+	u4 100000/100100 - id
+	u4 3A8Ch - data offset - first matches first row data offset
+	u4 5655Ch - string offset
+	
+ParameterTableIndex
+	
+	/// <summary></summary>
+	/// <remarks>"AtkParam_Npc.param" (id 0x0E), using <see cref="TableRows.Attack"/></remarks>
+	NpcAttacks = 0x0E,
+	
+	/// <summary></summary>
+	/// <remarks>"AtkParam_Pc.param" (id 0x0D), using <see cref="TableRows.Attack"/></remarks>
+	PcAttacks = 0x0D,
+	
+	/// <summary></summary>
+	/// <remarks>"BehaviorParam.param" (id 0x0A), using <see cref="TableRows.Behavior"/></remarks>
+	Behaviors = 0x0A,
+	
+	/// <summary></summary>
+	/// <remarks>"BehaviorParam_PC.param" (id 0x0B), using <see cref="TableRows.Behavior"/></remarks>
+	PcBehaviors = 0x0B,
+	
+	/// <summary></summary>
+	/// <remarks>"Bullet.param" (id 0x12), using <see cref="TableRows.Bullet"/></remarks>
+	Bullets = 0x12,
+	
+	/// <summary></summary>
+	/// <remarks>"CalCorrectGraph.param" (id 0x21), using <see cref="TableRows.CalculationCorrectionGraph"/></remarks>
+	CalculationCorrections = 0x21,
+	
+	/// <summary></summary>
+	/// <remarks>"CharaInitParam.param" (id 0x19), using <see cref="TableRows.CharacterInitialiser"/></remarks>
+	CharacterInitialisers = 0x19,
+	
+	/// <summary></summary>
+	/// <remarks>"default_AIStandardInfoBank.param" (id 0x08), using <see cref="TableRows.AiStandardInfo"/></remarks>
+	DefaultAiStandardInfos = 0x08,
+	
+	/// <summary></summary>
+	/// <remarks>"default_EnemyBehaviorBank.param" (id 0x07), using <see cref="TableRows.EnemyBehavior"/></remarks>
+	DefaultEnemyBehaviors = 0x07,
+	
+	/// <summary></summary>
+	/// <remarks>"EquipMtrlSetParam.param" (id 0x06), using <see cref="TableRows.MaterialSet"/></remarks>
+	MaterialSets = 0x06,
+	
+	/// <summary></summary>
+	/// <remarks>"EquipParamAccessory.param" (id 0x02), using <see cref="TableRows.Ring"/></remarks>
+	Accessories = 0x02,
+	
+	/// <summary></summary>
+	/// <remarks>"EquipParamGoods.param" (id 0x03), using <see cref="TableRows.Item"/></remarks>
+	Goods = 0x03,
+	
+	/// <summary></summary>
+	/// <remarks>"EquipParamProtector.param" (id 0x01), using <see cref="TableRows.Armor"/></remarks>
+	Protectors = 0x01,
+	
+	/// <summary></summary>
+	/// <remarks>"EquipParamWeapon.param" (id 0x00), using <see cref="TableRows.Weapon"/></remarks>
+	Weapons = 0x00,
+	
+	/// <summary></summary>
+	/// <remarks>"FaceGenParam.param" (id 0x1A), using <see cref="TableRows.Face"/></remarks>
+	FaceGeneration = 0x1A,
+	
+	/// <summary></summary>
+	/// <remarks>"GameAreaParam.param" (id 0x1F), using <see cref="TableRows.Area"/></remarks>
+	GameAreas = 0x1F,
+	
+	/// <summary></summary>
+	/// <remarks>"HitMtrlParam.param" (id 0x26), using <see cref="TableRows.HitMaterial"/></remarks>
+	HitMaterials = 0x26,
+	
+	/// <summary></summary>
+	/// <remarks>"ItemLotParam.param" (id 0x), using <see cref="TableRows.Reward"/></remarks>
+	ItemLots = 0x17,
+	
+	/// <summary></summary>
+	/// <remarks>"KnockBackParam.param" (id 0x27), using <see cref="TableRows.KnockBack"/></remarks>
+	KnockBacks = 0x27,
+	
+	/// <summary></summary>
+	/// <remarks>"LockCamParam.param" (id 0x24), using <see cref="TableRows.LockCamera"/></remarks>
+	CameraLocks = 0x24,
+	
+	/// <summary></summary>
+	/// <remarks>"Magic.param" (id 0x0F), using <see cref="TableRows.Magic"/></remarks>
+	Magics = 0x0F,
+	
+	/// <summary></summary>
+	/// <remarks>"MenuColorTable.param" (id 0x16), using <see cref="TableRows.MenuColor"/></remarks>
+	MenuColors = 0x16,
+	
+	/// <summary></summary>
+	/// <remarks>"MoveParam.param" (id 0x18), using <see cref="TableRows.Move"/></remarks>
+	Move = 0x18,
+	
+	/// <summary></summary>
+	/// <remarks>"NpcParam.param" (id 0x0C), using <see cref="TableRows.Npc"/></remarks>
+	Npcs = 0x0C,
+	
+	/// <summary></summary>
+	/// <remarks>"NpcThinkParam.param" (id 0x10), using <see cref="TableRows.NpcThought"/></remarks>
+	NpcThoughts = 0x10,
+	
+	/// <summary></summary>
+	/// <remarks>"ObjActParam.param" (id 0x25), using <see cref="TableRows.ObjectAction"/></remarks>
+	ObjectActions = 0x25,
+	
+	/// <summary></summary>
+	/// <remarks>"ObjectParam.param" (id 0x11), using <see cref="TableRows.ObjectInfo"/></remarks>
+	Objects = 0x11,
+	
+	/// <summary></summary>
+	/// <remarks>"QwcChange.param" (id 0x1D), using <see cref="TableRows.QwcChange"/></remarks>
+	QwcChanges = 0x1D,
+	
+	/// <summary></summary>
+	/// <remarks>"QwcJudge.param" (id 0x1E), using <see cref="TableRows.QwcJudge"/></remarks>
+	QwcJudges = 0x1E,
+	
+	/// <summary></summary>
+	/// <remarks>"RagdollParam.param" (id 0x1B), using <see cref="TableRows.Ragdoll"/></remarks>
+	Ragdolls = 0x1B,
+	
+	/// <summary></summary>
+	/// <remarks>"ReinforceParamProtector.param" (id 0x05), using <see cref="TableRows.ProtectorReinforcement"/></remarks>
+	ProtectorReinforcements = 0x05,
+	
+	/// <summary></summary>
+	/// <remarks>"ReinforceParamWeapon.param" (id 0x04), using <see cref="TableRows.WeaponReinforcement"/></remarks>
+	WeaponReinforcements = 0x04,
+	
+	/// <summary></summary>
+	/// <remarks>"ShopLineupParam.param" (id 0x1C), using <see cref="TableRows.ShopLineup"/></remarks>
+	ShopLineup = 0x1C,
+	
+	/// <summary></summary>
+	/// <remarks>"SkeletonParam.param" (id 0x20), using <see cref="TableRows.Skeleton"/></remarks>
+	Skeleton = 0x20,
+	
+	/// <summary></summary>
+	/// <remarks>"SpEffectParam.param" (id 0x13), using <see cref="TableRows.SpecialEffect"/></remarks>
+	SpecialEffects = 0x13,
+	
+	/// <summary></summary>
+	/// <remarks>"SpEffectVfxParam.param" (id 0x14), using <see cref="TableRows.SpecialEffectVfx"/></remarks>
+	SpecialEffectVfxs = 0x14,
+	
+	/// <summary></summary>
+	/// <remarks>"TalkParam.param" (id 0x15), using <see cref="TableRows.Talk"/></remarks>
+	Talks = 0x15,
+	
+	/// <summary></summary>
+	/// <remarks>"ThrowParam.param" (id 0x09), using <see cref="TableRows.Throw"/></remarks>
+	Throws = 0x09,
+
+.ffx
+	u4 "FXR\0"
+	u4 10000h - constant
+	u4 20h - constant
+	u4 630h - offset a
+	u4 4Bh - count a - pointer list?
+	u4 28h - count b
+	u4 1h - constant
+	u4 0 - constant
+20h:
+	u4 85h - constant?
+	u4 C23h - same as effect number
+offset a: 630h
+	u4[count a]
+	u4[count b] 
+	
+	'-' - count a offsets
+	'+' - count b offsets
+	'?' - offset of first u4 at a count a offset
+		
+	m10:f0003107.ffx:
+		 -008h: [20h], 630h, 4Bh, 28h, 1, 0
+		?+020h: <020h> 85h, C23h, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 10000h, 0, 0, [3A0h], 1, 1, 10000h, 0, 0, [170h], 2, <080h> [3A4h], Fh, Fh, 10000h, 0, 0, <098h> 0, 0, 0, 10000h, 0, 0, <0B0h> [3E0h], 6, 6, 10000h, 0, [404h], <0C8h> 0, 0, 0, 10000h, 0, 0, <0E0h> [3FCh], 9, 9, 10001h, 0, [1D0h], <0F8h> 0, 0, <100h> 0, 10000h, 0, 0, 0, 0, 0, 10000h, [4A0h], 0, <128h> [420h], 6, 6, 10000h, 0, [470h], <140h> 0, 0, 0, 10000h, 0, 0, <150h> 0, 0, 0, 10000h, 0, 0, <170h> [190h], [198h], 1, 1, <180h> 0, [1B4h], 0, 1, <190h> [180h], [39Ch], <198h> 4Fh, [3F8h], 1, 1, 10000h, 0, 0, <1B4h> 5, 0, 0, 0, 1, 0, 0, <1D0h> 6, 8.3, 0
+			address a: [3A0h]
+			address b: [170h]
+			address c: [3A4h]
+		?+1DCh: <1DCh> 25h, 849h, [080h], 0
+		?+1ECh: <1ECh> 25h, 0, 0, 0
+		?+1FCh: <1FCh> 25h, 0, 0, 0
+		?+20Ch: <20Ch> 25h, 0, 0, 0
+		?+21Ch: <21Ch> 25h, 0, 0, 0
+		?+22Ch: <22Ch> 25h, 0, 0, 0
+		?+23Ch: <23Ch> 25h, 0, 0, 0
+		?+24Ch: <24Ch> 25h, 0, 0, 0
+		?+25Ch: <25Ch> 25h, 0, 0, 0
+		?+26Ch: <26Ch> 26h, 0, [98h], 0
+		?+27Ch: <27Ch> 26h, 23h, [B0h], 0
+		?+28Ch: <28Ch> 7, 0
+		?+294h: <294h> 7, 0.07
+		?+29Ch: <29Ch> 7, 0
+		?+2A4h: <2A4h> 7, 0
+		?+2ACh: <2ACh> 7, 0
+		?+2B4h: <2B4h> 7, 0
+		?+2BCh: <2BCh> 26h, 0, [C8h], 0
+		?+2CCh: <2CCh> 1, 1
+		?+2D4h: <2D4h> 1, 1
+		?+2DCh: <2DCh> 46h, 0
+		?+2E4h: <2E4h> 46h, -0.017
+		?+2ECh: <2ECh> 25h, 835h, [E0h], 0, 
+		?+2FCh: <2FCh> 46h, 8.33
+		?+304h: <304h> 1, 0
+		?+30Ch: <30Ch> 26h, 0, [F8h], 0
+		?+31Ch: <31Ch> 46h, 0.0833
+		?+324h: <324h> 26h, 3Dh, [110h], 0
+		?+334h: <334h> 26h, 23h, [128h], 0
+		?+344h: <344h> 7, 0
+		?+34Ch: <34Ch> 7, 0.05
+		?+354h: <354h> 7, 0.1
+		?+35Ch: <35Ch> 7, 0
+		?+364h: <364h> 7, 0
+		?+36Ch: <36Ch> 7, 0
+		?+374h: <374h> 26h, 0, [140h], 0
+		?+384h: <384h> 1, 0
+		?+38Ch: <38Ch> 26h, 11h, [158h], 0
+		?+39Ch: <39Ch> 88h, <3A0h> [1DCh], <3A4h> [1ECh], [1FCh], [20Ch], [21Ch], [22Ch], [23Ch], [24Ch], [25Ch], [26Ch], [27Ch], [2BCh], [2CCh], [2D4h], [2DCh], [2E4h], <3E0h> [28Ch], [294h], [29Ch], [2A4h], [2ACh], [2B4h], <3F8h> [2ECh], <3FCh> [2FCh], [304h], <404h> [30Ch], [31Ch], [324h], [334h], [374h], [384h], [38Ch], <420h> [344h], [34Ch], [354h], [35Ch], [364h], [36Ch], 0, 0, 1, 1, 0, 0, 0.0, 0.07,   0, 0, 0, 0, 0, 1.0, <470h> 1, 1, 0, 0, 0.0, 0.05, 0.1, 0, 0, 0, 0, 1.0, <4A0h> 3Dh, 184h, 0, [570h], [570h], [110h], 0, 0, 1D, 02, 02, 01, 0, 19h, [570h], 19h, [57Ch], 19h, [588h], 0, 0, 1, 1.0, 0, 1Ch, 0, 1, 1, 1Ch, 0, 1Ch, 0, 1Ch, 0, 1Ch, 0, 1Ch, 0, 1Ch, 0, 4, [594h], 4, [5B8h], 4, [5DCh], 4, [600h], -1, -1, 0, 0, <570h> (0.2, 1.0, 0.05), <57Ch> (0.2, 1.0, 0.05), <588h> (0.2, 1.0, 0.05), <594h> 4, 0, 0.117, 7.5, 8.3, 0.5, 0.5, 0.5, 0.5, <5B8h> 4, 0, 0.117, 7.5, 8.3, 0.5, 0.5, 0.5, 0.5, <5DCh> 4, 0, 0.117, 7.5, 8.3, 0.5, 0.5, 0.5, 0.5, <600h> 4, 0, 0.117, 7.5, 8.3, 0, 1.0, 1.0, 0, 0, 0, 0
+		a 630h: 8, 60h, 78h, 80h, B0h, C4h, E0h, F4h, 120h, 128h, 13Ch, 170h, 174h, 184h, 190h, 194h, 19Ch, 1E4h, 274h, 284h, 2C4h, 2F4h, 314h, 32Ch, 33Ch, 37Ch, 394h, 3A0h, 3A4h, 3A8h, 3ACh, 3B0h, 3B4h, 3B8h, 3BCh, 3C0h, 3C4h, 3C8h, 3CCh, 3D0h, 3D4h, 3D8h, 3DCh, 3E0h, 3E4h, 3E8h, 3ECh, 3F0h, 3F4h, 3F8h, 3FCh, 400h, 404h, 408h, 40Ch, 410h, 414h, 418h, 41Ch, 420h, 424h, 428h, 42Ch, 430h, 434h, 4ACh, 4B0h, 4B4h, 4D8h, 4E0h, 4E8h, 544h, 54Ch, 554h, 55Ch
+		b 75Ch: 20h, 1DCh, 1ECh, 1FCh, 20Ch, 21Ch, 22Ch, 23Ch, 24Ch, 25Ch, 26Ch, 27Ch, 28Ch, 294h, 29Ch, 2A4h, 2ACh, 2B4h, 2BCh, 2CCh, 2D4h, 2DCh, 2E4h, 2ECh, 2FCh, 304h, 30Ch, 31Ch, 324h, 334h, 344h, 34Ch, 354h, 35Ch, 364h, 36Ch, 374h, 384h, 38Ch, 39Ch
+
+	m10:f0003207.ffx:
+		 -008h: [020h], F0h, 07h, 02h, 1, 0
+		 +020h: <020h> 85h, C87h, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 10000h, 0, 0, 0, 0, 10000h, 0, 0, [80h], 2, <080h> [0A0h], [0A8h], 1, 1, <090h> 0, [0C4h], 0, 1, <0A0h> [090h], [0E0h], <0A8h> 11h, 0, 0, 0, 10000h, 0, 0, <0C4h> 5, 0, 0, 0, 10000h, 0, 0
+			address a: 0
+			address b: [080h]
+			address c: [0A0h]
+		 +0E0h: <0E0h> 88h, 0, 0, 0
+		a 0F0h: 8, 78h, 80h, 84h, 94h, A0h, A4h
+		b 10Ch: 20h, E0h
+		
+	85h <effect number>, zero[7], 8, zero[3], 10000h, zero[2], <address a>, <0 or 1>, <0 or 1>, 10000h, 0, 0, <address b>, 2
+	<080h> <address c>
+
+		<080h> [3A4h], Fh, Fh, 10000h, 0, 0, <098h> 0, 0, 0, 10000h, 0, 0, <0B0h> [3E0h], 6, 6, 10000h, 0, [404h], <0C8h> 0, 0, 0, 10000h, 0, 0, <0E0h> [3FCh], 9, 9, 10001h, 0, [1D0h], <0F8h> 0, 0, <100h> 0, 10000h, 0, 0, 0, 0, 0, 10000h, [4A0h], 0, <128h> [420h], 6, 6, 10000h, 0, [470h], <140h> 0, 0, 0, 10000h, 0, 0, <150h> 0, 0, 0, 10000h, 0, 0, <170h> [190h], [198h], 1, 1, <180h> 0, [1B4h], 0, 1, <190h> [180h], [39Ch], <198h> 4Fh, [3F8h], 1, 1, 10000h, 0, 0, <1B4h> 5, 0, 0, 0, 1, 0, 0, <1D0h> 6, 8.3, 0
+
+		<080h> [0A0h], [A8h], 1, 1, <090h> 0, [C4h], 0, 1, <0A0h> [90h], [E0h], <0A8h> 11h, 0, 0, 0, 10000h, 0, 0, <0C4h> 5, 0, 0, 0, 10000h, 0, 0
+		
+	0[7], <count>
+		[count]: <offsets pointer>, <offsets count>, <same value>, 65536|65537, <data pointer to 0-terminated list>, <header pointer> [sometimes! <header pointer> <int>]
+			zero-terminated list:
+				71, 528, 0, [6C8h - pointer to single], [6C8h], [0E0h - pointer back to the header]
+				55, 68, 0, [858h], [858h], [110h]
+				
+			37:
+				240h: 37 2121, [080h], 0
+				080h: [4B8h], 15, 15, 65536, 0, 0
+				4B8h: [250h], [260h], [388h], [398h], [3A8h], [3B8h], [3C8h], [3D8h], [3E8h], [3F8h], [408h], [418h], [420h], [428h], [430h]
+				250h: 37/25h 0, 0, 0
+				260h: 37/25h 2023/7E7h, [098h], 0
+				...
+				388h: 37/25h 0, 0, 0
+				398h: 37/25h 0, 0, 0
+				3A8h: 37/25h 0, 0, 0
+				3B8h: 37/25h 0, 0, 0
+				3C8h: 37/25h 0, 0, 0
+				3D8h: 37/25h 0, 0, 0
+				3E8h: 38/26h 0, [170h], 0
+				3F8h: 38/26h 0, [188h], 0
+				408h: 38/26h 0, [1A0h], 0
+				418h: 1 0
+				420h: 1 1
+				428h: 70/46h 0
+				430h: 70/46h -0.01666667
+				
+				260h: 37 2023, [098h], 0
+				098h: [4F4h], 18, 18, 65537, 0
+				4F4h: [270h], [278h], [280h], [288h], [298h], [2A8h], [2B0h], [2C0h], [2C8h], [2D0h], [2D8h], [2E0h], [2F0h], [300h], [310h], [350h], [360h], [368h]
+				270h: <270h> 70/46h 0.08333334
+				278h: <278h> 70/46h -0.01666667
+				280h: <280h> 1 0
+				288h: <288h> 38/26h 0, [0B0h], 0
+				298h: <298h> 38/26h 0, [0C8h], 0
+				2A8h: <2A8h> 70/46h 0
+				2B0h: <2B0h> 5 [218h], [21Ch], 1
+				2C0h: <2C0h> 1 -1
+				2C8h: <2C8h> 70/46h 0.01666667
+				2D0h: <2D0h> 1 1
+				2D8h: <2D8h> 1 100/64h
+				2E0h: <2E0h> 38/26h 71/47h, [0E0h], 0
+				2F0h: <2F0h> 38/26h 30/1Eh, [0F8h], 0
+				300h: <300h> 38/26h 55/37h, [110h], 0
+				310h: <310h> 38/26h 35/23h, [128h], 0
+				...
+				350h: <350h> 38/26h 0, [140h], 0
+				360h: <360h> 1 1
+				368h: <368h> 38/26h 79/4Fh, [158h], 0
+				
+			38:
+				2E0h: 38 71 [0E0h], 0
+				0E0h: 0, 0, 0, 65536, [5B0h], 0
+				5B0h: 71, 528, 0, [6C8h], [6C8h], [0E0h], 2.5, 1.0, 0, 0, 0, 302, 0, 1, 2, 1, 25......
+				6C8h: 1.0, 0.8, 0.4
+				
+				2F0h: 38 30, [0F8h], 0
+				0F8h: 0, 0, 0, 65536, [7C0h], 0
+				7C0h: 30, 92, 0, [804h], [804h], [0F8h], 24, [804h], 24, [808h], 24, [80Ch], 25, [810h], 0, 0, 1
+				804h: 0.5
+				808h: 90.0
+				80Ch: -1.0
+				810h: 1.5, 0.8, 0.4, 0
+				
+				300h: 38 55, [110h], 0
+				110h: 0, 0, 0, 65536, [820h], 0
+				820h: 55, 68, 0, [858], [858h], [110h], 24, [858h], 24, [85Ch], 24, [860h], 0, 0.1
+				858h: -0.1
+				85Ch: -0.2
+				860h: 1.0, 0, 0, 0
+				
+				310h: 38, 35, [128h], 0
+				128h: [53Ch], 6, 6, 65536, 0
+				53Ch: [320], [328], [330], [338], [340], [348]
+				320h: 7 0
+				328h: 7 0.35
+				330h: 7 0
+				338h: 7 90.0
+				340h: 7 0
+				348h: 7 0
+				
+	, 0[3], 65536, 0, 0, [offsets pointer], [offsets count], [same value?], 65536, 0, 0, [header pointer], [header count?|2]
+	<opcode 25h target> [offsets pointer], [offsets count], [same value?], 65536, 0, 0
+	<opcode 25h target> [offsets pointer], [offsets count], [same value], 65537, 0, [header pointer to a 2]
+
+.hkx
+	u4 57E0E057h
+	
+.emeld
+	c[4] Magic = "ELD\0"
+	z4
+	u2[] 65h/101, CCh/204
+	u4 TotalFileSize
+	u4 TableCount (2Fh)
+	u4 TableOffset = 38h
+	u4 0
+	u4 26Ch
+	u4 0
+	u4 26Ch
+	u4 StringsLength (490h) - StringsOffset + StringsLength == TotalFileSize
+	u4 StringsOffset (26Ch)
+	30h: z8
+	TableOffset [38h]: Row[TableCount] - Each is 12 bytes long
+		u2
+		u2
+		u4 StringOffset (Relative byte, so first string is 0)
+		z4 0
+	
+	StringsOffset:
+	Seems to be NUL-terminated UTF-16
+.emevd
+	c4 Magic = "EVD\0"
+	z4
+	u4 CCh
+	u4 TotalFileSize = 94D8h
+	u4[2] Count1 = 3Ah/58, Offset1 = 54h
+	u4[2] Count2 = 3E4h/996, Offset2 = 6ACh
+	u4[2] 0, 640Ch
+	u4[2] 0, 640Ch
+	u4[2] Count5 = 4Fh/79, Offset5 = 8EACh
+	u4[2] 0, 94D8h
+	u4[2] Length7 = 2AA0h/10912, Offset7 = 640Ch - 1 byte each
+	u4[2] 0, 94D8h
+	u4 0
+	Offset1 [54h]: Table1[Count1] - Each is 1Ch/28 bytes long
+		u4[6]
+		0		ECh		0		0		-1		0		0
+		32h		77h		1620h	0		-1		0		0
+		122h	0Dh		2148h	0		-1		0		0
+		2BDh	06h		2280h	0		-1		0		0
+		2BEh	0Ah		2310h	0		-1		0		0
+		...
+		2FEh	3		5D18h	0		-1		0		0
+	Offset2 [6ACh]: Table2[Count2] - Each is 18h/24 bytes
+		u4
+		u4
+		u4 Table7Length
+		u4 Table7Offset - Increases by Count each time
+		
+		3EBh	06h		4		0		-1		0
+		7D3h	2		8		4		-1		0
+		7D3h	2		8		12		-1		0
+		7D3h	2		8		20
+		...
+		7D3h	2		8		2A94h	-1		0
+	Offset7 [640Ch]: u1[Length7] - Must be interpreted by Table2
+		00h: 100h
+		04h: 2F8h, 0
+		0Ch: 2FAh, 0
+		14h: 2FDh, 0, 0
+	Offset5 [8EACh]: Table5[Count5] - Each is 14h/20 bytes
+		u4[5]
+		
+		1		4		0		4		0
+		2		0		4		4		0
+		1		4		0		4		0
+		4		4		0		4		0
+		6		4		0		4		0
+		8		4		0		4		0

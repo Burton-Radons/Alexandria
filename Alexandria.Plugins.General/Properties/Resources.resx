@@ -117,16 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GlareResourceLoaderDescription" xml:space="preserve">
-    <value>Loads files using the Glare library loader.</value>
-  </data>
-  <data name="GlareResourceLoaderName" xml:space="preserve">
-    <value>Glare resource loader</value>
-  </data>
-  <data name="LuaLoaderDescription" xml:space="preserve">
+  <data name="LuaFormatDescription" xml:space="preserve">
     <value>Loads Lua language binary files.</value>
   </data>
-  <data name="LuaLoaderName" xml:space="preserve">
+  <data name="LuaFormatName" xml:space="preserve">
     <value>Lua binary loader</value>
   </data>
   <data name="PluginDescription" xml:space="preserve">

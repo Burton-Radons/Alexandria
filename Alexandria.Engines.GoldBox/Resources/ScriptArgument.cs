@@ -22,10 +22,10 @@ namespace Alexandria.Engines.GoldBox.Resources {
 		/// <summary>A literal byte value. This is stored as a single <see cref="Byte"/>, not as a <see cref="ScriptOperandType.Value"/>.</summary>
 		Literal = (Byte)'l',
 
-		/// <summary>An opcode value in a <see cref="Byte"/>. For opcodes <see cref="0x00"/> and <see cref="0x01"/> (<see cref="ScriptOpcode.Return"/> and <see cref="ScriptOpcode.Goto"/> respectively) there can be confusion about whether it's an opcode or a <see cref="Value"/> or <see cref="Address"/>/<see cref="Variable"/> value.</summary>
+		/// <summary>An opcode value in a <see cref="Byte"/>. For opcodes <c>0x00</c> and <c>0x01</c> (<see cref="ScriptOpcode.Return"/> and <see cref="ScriptOpcode.Goto"/> respectively) there can be confusion about whether it's an opcode or a <see cref="Value"/> or <see cref="Address"/>/<see cref="Variable"/> value.</summary>
 		Opcode = (Byte)'o',
 
-		/// <summary>An optional compound argument. In an argument list this is written as "?[type]". If the type is found, it is added as an argument; otherwise it's skipped. This is hopefully just a temporary hack as we learn more about the script, as it seems impossible for it to be intentional, as <see cref="ScriptOpcode.Stop"/> and <see cref="ScriptOpcode.Goto"/> create confusion with <see cref="ScriptOperandType.Value"/> and <see cref="ScriptOperandType.Short"/>.</summary>
+		/// <summary>An optional compound argument. In an argument list this is written as "?[type]". If the type is found, it is added as an argument; otherwise it's skipped. This is hopefully just a temporary hack as we learn more about the script, as it seems impossible for it to be intentional, as <see cref="ScriptOpcode.Stop"/> and <see cref="ScriptOpcode.Goto"/> create confusion with <see cref="ScriptOperandType.Value"/> and <see cref="ScriptOperandType.Int16"/>.</summary>
 		Optional = (Byte)'?',
 
 		/// <summary>A string value, either a literal or a variable index. This is stored as <see cref="ScriptOperandType.String"/> or <see cref="ScriptOperandType.StringVariable"/>.</summary>

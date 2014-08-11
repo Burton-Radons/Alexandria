@@ -19,6 +19,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "SKELETON_PARAM_ST" in Dark Souls in the file "SkeletonParam.paramdef" (id 2Ah).
 		/// </remarks>
 		public class Skeleton : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "SKELETON_PARAM_ST";
 
 			Single neckTurnGain;
@@ -29,6 +30,7 @@ namespace Alexandria.Engines.DarkSouls {
 			Byte neckTurnMaxAngle;
 			Byte[] pad1;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				NeckTurnGainProperty = GetProperty<Skeleton>("NeckTurnGain"),
 				OriginalGroundHeightMSProperty = GetProperty<Skeleton>("OriginalGroundHeightMS"),
@@ -62,7 +64,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "首振りゲイン", Google translated: "Swing gain".
 			/// Japanese description: "首振りゲイン。高いほど早く回る", Google translated: "Swing gain . I quickly turn higher".
 			/// </remarks>
-			[ParameterTableRowAttribute("neckTurnGain", index: 0, minimum: 0, maximum: 1, step: 0.01, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("neckTurnGain", index: 0, minimum: 0, maximum: 1, step: 0.01, sortOrder: 400, unknown2: 1)]
 			[DisplayName("Swing gain")]
 			[Description("Swing gain . I quickly turn higher")]
 			[DefaultValue((Single)0)]
@@ -80,7 +82,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "原点から地面への高さ[cm]", Google translated: "From the origin to the ground height [cm]".
 			/// Japanese description: "原点から地面への高さ[cm]", Google translated: "From the origin to the ground height [cm]".
 			/// </remarks>
-			[ParameterTableRowAttribute("originalGroundHeightMS", index: 1, minimum: -10000, maximum: 10000, step: 1, order: 1000, unknown2: 1)]
+			[ParameterTableRowAttribute("originalGroundHeightMS", index: 1, minimum: -10000, maximum: 10000, step: 1, sortOrder: 1000, unknown2: 1)]
 			[DisplayName("From the origin to the ground height [cm]")]
 			[Description("From the origin to the ground height [cm]")]
 			[DefaultValue((Int16)0)]
@@ -98,7 +100,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "足首を上げられる最低の高さ[cm]", Google translated: "The minimum is raised ankle height [cm]".
 			/// Japanese description: "足首を上げられる最低の高さ[cm]", Google translated: "The minimum is raised ankle height [cm]".
 			/// </remarks>
-			[ParameterTableRowAttribute("minAnkleHeightMS", index: 2, minimum: -10000, maximum: 10000, step: 1, order: 1100, unknown2: 1)]
+			[ParameterTableRowAttribute("minAnkleHeightMS", index: 2, minimum: -10000, maximum: 10000, step: 1, sortOrder: 1100, unknown2: 1)]
 			[DisplayName("The minimum is raised ankle height [cm]")]
 			[Description("The minimum is raised ankle height [cm]")]
 			[DefaultValue((Int16)(-30))]
@@ -116,7 +118,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "足首を上げられる最大の高さ[cm]", Google translated: "Maximum height is increased the ankle [cm]".
 			/// Japanese description: "足首を上げられる最大の高さ[cm]", Google translated: "Maximum height is increased the ankle [cm]".
 			/// </remarks>
-			[ParameterTableRowAttribute("maxAnkleHeightMS", index: 3, minimum: -10000, maximum: 10000, step: 1, order: 1200, unknown2: 1)]
+			[ParameterTableRowAttribute("maxAnkleHeightMS", index: 3, minimum: -10000, maximum: 10000, step: 1, sortOrder: 1200, unknown2: 1)]
 			[DisplayName("Maximum height is increased the ankle [cm]")]
 			[Description("Maximum height is increased the ankle [cm]")]
 			[DefaultValue((Int16)70)]
@@ -134,7 +136,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ひざを曲げられる最大の角度(コサインの値)", Google translated: "(The value of the cosine ) the maximum angle of bend your knees".
 			/// Japanese description: "ひざを曲げられる最大の角度(コサインの値)", Google translated: "(The value of the cosine ) the maximum angle of bend your knees".
 			/// </remarks>
-			[ParameterTableRowAttribute("cosineMaxKneeAngle", index: 4, minimum: -100, maximum: 100, step: 1, order: 1300, unknown2: 1)]
+			[ParameterTableRowAttribute("cosineMaxKneeAngle", index: 4, minimum: -100, maximum: 100, step: 1, sortOrder: 1300, unknown2: 1)]
 			[DisplayName("(The value of the cosine ) the maximum angle of bend your knees")]
 			[Description("(The value of the cosine ) the maximum angle of bend your knees")]
 			[DefaultValue((Int16)(-95))]
@@ -152,7 +154,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ひざを曲げられる最小の角度", Google translated: "Angle of minimum bend your knees".
 			/// Japanese description: "ひざを曲げられる最小の角度", Google translated: "Angle of minimum bend your knees".
 			/// </remarks>
-			[ParameterTableRowAttribute("cosineMinKneeAngle", index: 5, minimum: -100, maximum: 100, step: 1, order: 1400, unknown2: 1)]
+			[ParameterTableRowAttribute("cosineMinKneeAngle", index: 5, minimum: -100, maximum: 100, step: 1, sortOrder: 1400, unknown2: 1)]
 			[DisplayName("Angle of minimum bend your knees")]
 			[Description("Angle of minimum bend your knees")]
 			[DefaultValue((Int16)55)]
@@ -170,7 +172,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "足首がくっついていると仮定する最低位置[cm]", Google translated: "Ankle is clinging assume that the lowest position [cm]".
 			/// Japanese description: "足首がこの位置よりも低い場合には足がくっついていると仮定する[cm]", Google translated: "Legs and clinging if ankle is lower than this position assume that [cm]".
 			/// </remarks>
-			[ParameterTableRowAttribute("footPlantedAnkleHeightMS", index: 6, minimum: -100, maximum: 100, step: 1, order: 1500, unknown2: 1)]
+			[ParameterTableRowAttribute("footPlantedAnkleHeightMS", index: 6, minimum: -100, maximum: 100, step: 1, sortOrder: 1500, unknown2: 1)]
 			[DisplayName("Ankle is clinging assume that the lowest position [cm]")]
 			[Description("Legs and clinging if ankle is lower than this position assume that [cm]")]
 			[DefaultValue((Int16)1)]
@@ -188,7 +190,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "足首が離れていると仮定する最高位置[cm]", Google translated: "Ankle and are separated assume the highest position [cm]".
 			/// Japanese description: "足首がこの位置よりも高い場合には足が離れていると仮定する[cm]", Google translated: "Feet and are separated when the ankle is higher than this position assume that [cm]".
 			/// </remarks>
-			[ParameterTableRowAttribute("footRaisedAnkleHeightMS", index: 7, minimum: -100, maximum: 100, step: 1, order: 1600, unknown2: 1)]
+			[ParameterTableRowAttribute("footRaisedAnkleHeightMS", index: 7, minimum: -100, maximum: 100, step: 1, sortOrder: 1600, unknown2: 1)]
 			[DisplayName("Ankle and are separated assume the highest position [cm]")]
 			[Description("Feet and are separated when the ankle is higher than this position assume that [cm]")]
 			[DefaultValue((Int16)30)]
@@ -206,7 +208,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "足首よりどれぐらい上からレイキャストするか[cm]", Google translated: "Or ray cast from the top how much from ankle [cm]".
 			/// Japanese description: "足首よりどれぐらい上からレイキャストするか[cm]", Google translated: "Or ray cast from the top how much from ankle [cm]".
 			/// </remarks>
-			[ParameterTableRowAttribute("raycastDistanceUp", index: 8, minimum: -10000, maximum: 10000, step: 1, order: 1700, unknown2: 1)]
+			[ParameterTableRowAttribute("raycastDistanceUp", index: 8, minimum: -10000, maximum: 10000, step: 1, sortOrder: 1700, unknown2: 1)]
 			[DisplayName("Or ray cast from the top how much from ankle [cm]")]
 			[Description("Or ray cast from the top how much from ankle [cm]")]
 			[DefaultValue((Int16)70)]
@@ -224,7 +226,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "足首からどれぐらい下までレイキャストするか[cm]", Google translated: "How long lay cast from ankle to the bottom [cm]".
 			/// Japanese description: "足首からどれぐらい下までレイキャストするか[cm]", Google translated: "How long lay cast from ankle to the bottom [cm]".
 			/// </remarks>
-			[ParameterTableRowAttribute("raycastDistanceDown", index: 9, minimum: -10000, maximum: 10000, step: 1, order: 1800, unknown2: 1)]
+			[ParameterTableRowAttribute("raycastDistanceDown", index: 9, minimum: -10000, maximum: 10000, step: 1, sortOrder: 1800, unknown2: 1)]
 			[DisplayName("How long lay cast from ankle to the bottom [cm]")]
 			[Description("How long lay cast from ankle to the bottom [cm]")]
 			[DefaultValue((Int16)55)]
@@ -242,7 +244,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "つま先位置X[cm]", Google translated: "Toe position X [cm]".
 			/// Japanese description: "つま先位置X[cm]", Google translated: "Toe position X [cm]".
 			/// </remarks>
-			[ParameterTableRowAttribute("footEndLS_X", index: 10, minimum: -10000, maximum: 10000, step: 1, order: 1900, unknown2: 1)]
+			[ParameterTableRowAttribute("footEndLS_X", index: 10, minimum: -10000, maximum: 10000, step: 1, sortOrder: 1900, unknown2: 1)]
 			[DisplayName("Toe position X [cm]")]
 			[Description("Toe position X [cm]")]
 			[DefaultValue((Int16)0)]
@@ -260,7 +262,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "つま先位置Y[cm]", Google translated: "Toe position Y [cm]".
 			/// Japanese description: "つま先位置Y[cm]", Google translated: "Toe position Y [cm]".
 			/// </remarks>
-			[ParameterTableRowAttribute("footEndLS_Y", index: 11, minimum: -10000, maximum: 10000, step: 1, order: 2000, unknown2: 1)]
+			[ParameterTableRowAttribute("footEndLS_Y", index: 11, minimum: -10000, maximum: 10000, step: 1, sortOrder: 2000, unknown2: 1)]
 			[DisplayName("Toe position Y [cm]")]
 			[Description("Toe position Y [cm]")]
 			[DefaultValue((Int16)0)]
@@ -278,7 +280,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "つま先位置Z[cm]", Google translated: "Toe position Z [cm]".
 			/// Japanese description: "つま先位置Z[cm]", Google translated: "Toe position Z [cm]".
 			/// </remarks>
-			[ParameterTableRowAttribute("footEndLS_Z", index: 12, minimum: -10000, maximum: 10000, step: 1, order: 2100, unknown2: 1)]
+			[ParameterTableRowAttribute("footEndLS_Z", index: 12, minimum: -10000, maximum: 10000, step: 1, sortOrder: 2100, unknown2: 1)]
 			[DisplayName("Toe position Z [cm]")]
 			[Description("Toe position Z [cm]")]
 			[DefaultValue((Int16)0)]
@@ -296,7 +298,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "足の接地をオンオフするときのゲイン[1/100]", Google translated: "Gain when turning on and off the ground in the foot [1 / 100]".
 			/// Japanese description: "足の接地をオンオフするときのゲイン[1/100]", Google translated: "Gain when turning on and off the ground in the foot [1 / 100]".
 			/// </remarks>
-			[ParameterTableRowAttribute("onOffGain", index: 13, minimum: 0, maximum: 100, step: 1, order: 2200, unknown2: 1)]
+			[ParameterTableRowAttribute("onOffGain", index: 13, minimum: 0, maximum: 100, step: 1, sortOrder: 2200, unknown2: 1)]
 			[DisplayName("Gain when turning on and off the ground in the foot [1 / 100]")]
 			[Description("Gain when turning on and off the ground in the foot [1 / 100]")]
 			[DefaultValue((Int16)18)]
@@ -314,7 +316,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "地面の高さが高くなったときのゲイン[1/100]", Google translated: "Gain when the ground level is higher [ 1 / 100 ]".
 			/// Japanese description: "地面の高さが高くなったときのゲイン[1/100]", Google translated: "Gain when the ground level is higher [ 1 / 100 ]".
 			/// </remarks>
-			[ParameterTableRowAttribute("groundAscendingGain", index: 14, minimum: 0, maximum: 1000, step: 1, order: 2300, unknown2: 1)]
+			[ParameterTableRowAttribute("groundAscendingGain", index: 14, minimum: 0, maximum: 1000, step: 1, sortOrder: 2300, unknown2: 1)]
 			[DisplayName("Gain when the ground level is higher [ 1 / 100 ]")]
 			[Description("Gain when the ground level is higher [ 1 / 100 ]")]
 			[DefaultValue((Int16)100)]
@@ -332,7 +334,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "地面の高さが低くなったときのゲイン[1/100]", Google translated: "Gain when the ground level is lower [ 1 / 100 ]".
 			/// Japanese description: "地面の高さが低くなったときのゲイン[1/100]", Google translated: "Gain when the ground level is lower [ 1 / 100 ]".
 			/// </remarks>
-			[ParameterTableRowAttribute("groundDescendingGain", index: 15, minimum: 0, maximum: 1000, step: 1, order: 2400, unknown2: 1)]
+			[ParameterTableRowAttribute("groundDescendingGain", index: 15, minimum: 0, maximum: 1000, step: 1, sortOrder: 2400, unknown2: 1)]
 			[DisplayName("Gain when the ground level is lower [ 1 / 100 ]")]
 			[Description("Gain when the ground level is lower [ 1 / 100 ]")]
 			[DefaultValue((Int16)100)]
@@ -350,7 +352,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "足が上がったときのゲイン[1/100]", Google translated: "Gain when the foot is raised [1 / 100]".
 			/// Japanese description: "足が上がったときのゲイン[1/100]", Google translated: "Gain when the foot is raised [1 / 100]".
 			/// </remarks>
-			[ParameterTableRowAttribute("footRaisedGain", index: 16, minimum: 0, maximum: 100, step: 1, order: 2500, unknown2: 1)]
+			[ParameterTableRowAttribute("footRaisedGain", index: 16, minimum: 0, maximum: 100, step: 1, sortOrder: 2500, unknown2: 1)]
 			[DisplayName("Gain when the foot is raised [1 / 100]")]
 			[Description("Gain when the foot is raised [1 / 100]")]
 			[DefaultValue((Int16)20)]
@@ -368,7 +370,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "足が接地したときのゲイン[1/100]", Google translated: "Gain when the foot contacts the ground [1 / 100]".
 			/// Japanese description: "足が接地したときのゲイン[1/100]", Google translated: "Gain when the foot contacts the ground [1 / 100]".
 			/// </remarks>
-			[ParameterTableRowAttribute("footPlantedGain", index: 17, minimum: 0, maximum: 100, step: 1, order: 2600, unknown2: 1)]
+			[ParameterTableRowAttribute("footPlantedGain", index: 17, minimum: 0, maximum: 100, step: 1, sortOrder: 2600, unknown2: 1)]
 			[DisplayName("Gain when the foot contacts the ground [1 / 100]")]
 			[Description("Gain when the foot contacts the ground [1 / 100]")]
 			[DefaultValue((Int16)100)]
@@ -386,7 +388,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "足がロック/アンロックしたときのゲイン[1/100]", Google translated: "Gain when the foot is locked / unlock [1 / 100]".
 			/// Japanese description: "足がロック/アンロックしたときのゲイン[1/100]", Google translated: "Gain when the foot is locked / unlock [1 / 100]".
 			/// </remarks>
-			[ParameterTableRowAttribute("footUnlockGain", index: 18, minimum: 0, maximum: 100, step: 1, order: 2700, unknown2: 1)]
+			[ParameterTableRowAttribute("footUnlockGain", index: 18, minimum: 0, maximum: 100, step: 1, sortOrder: 2700, unknown2: 1)]
 			[DisplayName("Gain when the foot is locked / unlock [1 / 100]")]
 			[Description("Gain when the foot is locked / unlock [1 / 100]")]
 			[DefaultValue((Int16)80)]
@@ -404,7 +406,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ひざの軸方向", Google translated: "The axial direction of the knee".
 			/// Japanese description: "ひざの軸方向", Google translated: "The axial direction of the knee".
 			/// </remarks>
-			[ParameterTableRowAttribute("kneeAxisType", index: 19, minimum: 0, maximum: 6, step: 1, order: 900, unknown2: 1)]
+			[ParameterTableRowAttribute("kneeAxisType", index: 19, minimum: 0, maximum: 6, step: 1, sortOrder: 900, unknown2: 1)]
 			[DisplayName("The axial direction of the knee")]
 			[Description("The axial direction of the knee")]
 			[DefaultValue((SkeletonKneeAxisDirection)4)]
@@ -418,7 +420,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "足/足首をロック（固定？）するか", Google translated: "Lock or (fixed ?) Foot / ankle".
 			/// Japanese description: "足/足首をロック（固定？）するか", Google translated: "Lock or (fixed ?) Foot / ankle".
 			/// </remarks>
-			[ParameterTableRowAttribute("useFootLocking", index: 20, minimum: 0, maximum: 1, step: 1, order: 1850, unknown2: 1)]
+			[ParameterTableRowAttribute("useFootLocking", index: 20, minimum: 0, maximum: 1, step: 1, sortOrder: 1850, unknown2: 1)]
 			[DisplayName("Lock or (fixed ?) Foot / ankle")]
 			[Description("Lock or (fixed ?) Foot / ankle")]
 			[DefaultValue(false)]
@@ -432,7 +434,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "足の接地が有効か", Google translated: "Ground of the foot is valid".
 			/// Japanese description: "足の接地が有効か", Google translated: "Ground of the foot is valid".
 			/// </remarks>
-			[ParameterTableRowAttribute("footPlacementOn", index: 21, minimum: 0, maximum: 1, step: 1, order: 2650, unknown2: 1)]
+			[ParameterTableRowAttribute("footPlacementOn", index: 21, minimum: 0, maximum: 1, step: 1, sortOrder: 2650, unknown2: 1)]
 			[DisplayName("Ground of the foot is valid")]
 			[Description("Ground of the foot is valid")]
 			[DefaultValue(true)]
@@ -446,7 +448,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ひねり用ひざ関節の軸方向", Google translated: "Axial direction of twisting the knee joint".
 			/// Japanese description: "ひねり用ひざ関節の回転を無視する軸方向", Google translated: "Axial direction to ignore the rotation of the twist for the knee joint".
 			/// </remarks>
-			[ParameterTableRowAttribute("twistKneeAxisType", index: 22, minimum: 0, maximum: 3, step: 1, order: 3100, unknown2: 1)]
+			[ParameterTableRowAttribute("twistKneeAxisType", index: 22, minimum: 0, maximum: 3, step: 1, sortOrder: 3100, unknown2: 1)]
 			[DisplayName("Axial direction of twisting the knee joint")]
 			[Description("Axial direction to ignore the rotation of the twist for the knee joint")]
 			[DefaultValue((SkeletonKneeAxisDirection)1)]
@@ -460,7 +462,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "首振り優先度", Google translated: "Swing priority".
 			/// Japanese description: "低いほど先に回る。-1で首振りしない", Google translated: "I turn first as low as possible. Do not swing at -1".
 			/// </remarks>
-			[ParameterTableRowAttribute("neckTurnPriority", index: 23, minimum: -1, maximum: 127, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("neckTurnPriority", index: 23, minimum: -1, maximum: 127, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Swing priority")]
 			[Description("I turn first as low as possible. Do not swing at -1")]
 			[DefaultValue((SByte)0)]
@@ -478,7 +480,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "首振り最大角度", Google translated: "Maximum swing angle".
 			/// Japanese description: "この関節の最大旋回角度。この角度以上はまがらない", Google translated: "Maximum turning angle of the joint . It does not bend angle is greater than or equal to this".
 			/// </remarks>
-			[ParameterTableRowAttribute("neckTurnMaxAngle", index: 24, minimum: 0, maximum: 180, step: 1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("neckTurnMaxAngle", index: 24, minimum: 0, maximum: 180, step: 1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("Maximum swing angle")]
 			[Description("Maximum turning angle of the joint . It does not bend angle is greater than or equal to this")]
 			[DefaultValue((Byte)0)]
@@ -496,7 +498,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング1", Google translated: "Padding 1".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad1[2]", index: 25, minimum: 0, maximum: 0, step: 0, order: 99999999, unknown2: 0)]
+			[ParameterTableRowAttribute("pad1[2]", index: 25, minimum: 0, maximum: 0, step: 0, sortOrder: 99999999, unknown2: 0)]
 			[DisplayName("Padding 1")]
 			[Description("")]
 			[Browsable(false)]
@@ -567,6 +569,10 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad1 = new Byte[2];
 			}
 
+			/// <summary>
+			/// Write the <see cref="Skeleton"/> row.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(NeckTurnGain);
 				writer.Write(OriginalGroundHeightMS);

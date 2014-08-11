@@ -18,18 +18,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <#=SeeThis#>.</summary>
 		public <#=Vector#> Max;
 
+		/// <summary>Get the centre point of the <#=SeeThis#>.</summary>
 		public <#=Vector#> Center { get { return <#QNew((axis)=>{#> (Max.<#=axis#> + Min.<#=axis#>) / 2 <#});#>; } }
 		
+		/// <summary>Get the centre point of the <#=SeeThis#>.</summary>
 		public <#=Vector#> Centre { get { return <#QNew((axis)=>{#> (Max.<#=axis#> + Min.<#=axis#>) / 2 <#});#>; } }
 
+		/// <summary>Get the radius of the <#=SeeThis#>, which is the distance to a corner point.</summary>
+		public <#=FloatType#> Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <#=SeeThis#>.</summary>
 		public <#=Vector#> Size { get { return <#QNew((axis)=>{#> Max.<#=axis#> - Min.<#=axis#> <#});#>; } }
 
+		/// <summary>Get an empty <#=SeeThis#> centred on the origin.</summary>
 		public static readonly <#=This#> Zero = new <#=This#>(<#Join(", ", (axis) => { Write(Type.Zero + ", " + Type.Zero); });#>);
 
 		<#RefForm((r) => {#>
+			/// <summary>Create a <#=SeeThis#> by providing minimum and maximum extents.</summary>
 			public <#=This#>(<#=r.Ref#> <#=Vector#> min, <#=r.Ref#> <#=Vector#> max) { this.Min = min; this.Max = max; }
 		<#});#>
 
+		/// <summary>Create a <#=SeeThis#> by providing minimum and maximum extents.</summary>
 		public <#=This#>(
 			<#Join(", ", (axis) => {#> <#=T#> min<#=axis.Id#> <#});#>,
 			<#Join(", ", (axis) => {#> <#=T#> max<#=axis.Id#> <#});#>) {
@@ -41,6 +50,7 @@ namespace Glare
 
 		<#GenerateReferenceReturn(This, (r) => {#>
 			<#ValueRefDecomposed((d) => {#>
+				/// <summary>Create a <#=SeeThis#> by providing the minimum extent and the size of each side.</summary>
 				public static <#=r.ReturnType#> Relative(<#d.Argument("min");#>, <#d.Argument("size");#> <#=r.Argument#>) {
 					<#=r.Begin#>
 					<#d.Each((property, axis) => {#>
@@ -71,6 +81,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect(<#=r.Ref#> <#=Vector#> point) {
 				// Most points should be outside, so check that first.
 				if (<#Join("||", (axis) => {#> point.<#=axis.Id#> < Min.<#=axis.Id#> || point.<#=axis.Id#> > Max.<#=axis.Id#> <#});#>)
@@ -88,12 +99,14 @@ namespace Glare
 		<#});#>
 
 		<#if (Order == 3) {#>
+			/// <summary>Get the intersection between a <#=SeeThis#> and a <see cref="Frustum"/>.</summary>
 			public Containment Intersect(Frustum frustum) {
 				throw new NotImplementedException();
 			}
 		<#}#>
 
 		<#GenerateReferenceReturn(Vector, (r) => {#>
+			/// <summary>Get the nearest point between this <#=SeeThis#> and a <see cref="<#=Vector#>"/>. If the <see cref="<#=Vector#>"/> is inside this <#=SeeThis#>, it is returned untouched.</summary>
 			public <#=r.ReturnType#> NearestPointTo(<#=r.Ref#> <#=Vector#> point <#=r.Argument#>) {
 				<#=r.Begin#>
 				Containment containment = Intersect(ref point);
@@ -105,8 +118,10 @@ namespace Glare
 			}
 		<#});#>
 
+		/// <summary>Convert to a string representation of the <#=SeeThis#>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <#=SeeThis#>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}

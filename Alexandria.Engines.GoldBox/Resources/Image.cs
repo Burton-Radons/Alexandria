@@ -11,8 +11,9 @@ using Glare.Internal;
 using Glare.Assets;
 
 namespace Alexandria.Engines.GoldBox.Resources {
+	/// <summary>An image.</summary>
 	public class Image : FolderAsset {
-		public Image(AssetManager manager, BinaryReader reader, string name, Asset context)
+		internal Image(AssetManager manager, BinaryReader reader, string name, Asset context)
 			: base(manager, name) {
 			using (reader) {
 				int height = reader.ReadByte();
@@ -49,13 +50,13 @@ namespace Alexandria.Engines.GoldBox.Resources {
 				if (remaining != width * height * frameCount || (height != 0 && remaining % height != 0))
 					throw new InvalidDataException("Expected file length is not correct.");
 
-				byte[] indices = new byte[width * height];
+				int[] indices = new int[width * height];
 
 				if (width == 0 || height == 0)
 					AddChild(palette);
 				else
 					for (int index = 0; index < frameCount; index++) {
-						reader.Read(indices, 0, indices.Length);
+						reader.ReadBytesAsInt32(indices, 0, indices.Length);
 						var resource = new IndexedTextureAsset(Manager, "Frame " + index, palette, width, height, indices);
 						AddChild(resource);
 					}
@@ -73,7 +74,9 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			}
 		}
 
-		public override System.Windows.Forms.Control Browse() {
+		/// <summary>Present the image.</summary>
+		/// <returns></returns>
+		public override System.Windows.Forms.Control Browse(Action<double> progressUpdateCallback = null) {
 			if (Children.Count == 1)
 				return Children[0].Browse();
 			return base.Browse();

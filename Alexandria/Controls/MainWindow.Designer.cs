@@ -32,13 +32,19 @@
 			this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.detectGamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.debuggModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.WindowMenu = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.stackhorizontallyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.stackverticallyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.statusStrip = new System.Windows.Forms.StatusStrip();
+			this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
+			this.backgroundActionLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.MenuStrip.SuspendLayout();
+			this.statusStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// MenuStrip
@@ -99,18 +105,42 @@
 			// toolsToolStripMenuItem
 			// 
 			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pluginsToolStripMenuItem});
+            this.pluginsToolStripMenuItem,
+            this.detectGamesToolStripMenuItem,
+            this.debuggModeToolStripMenuItem});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
 			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
 			this.toolsToolStripMenuItem.Text = "&Tools";
+			this.toolsToolStripMenuItem.ToolTipText = "When this is enabled, any exceptions thrown will be sent to a debugger instead of" +
+    " caught and reported on. The default is to enable this option if a debugger is a" +
+    "ttached.";
 			// 
 			// pluginsToolStripMenuItem
 			// 
+			this.pluginsToolStripMenuItem.AutoToolTip = true;
 			this.pluginsToolStripMenuItem.Name = "pluginsToolStripMenuItem";
-			this.pluginsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-			this.pluginsToolStripMenuItem.Text = "Plugins...";
+			this.pluginsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+			this.pluginsToolStripMenuItem.Text = "&Plugins...";
 			this.pluginsToolStripMenuItem.ToolTipText = "Display and manage the plugins.";
 			this.pluginsToolStripMenuItem.Click += new System.EventHandler(this.pluginsToolStripMenuItem_Click);
+			// 
+			// detectGamesToolStripMenuItem
+			// 
+			this.detectGamesToolStripMenuItem.Name = "detectGamesToolStripMenuItem";
+			this.detectGamesToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+			this.detectGamesToolStripMenuItem.Text = "&Detect games";
+			this.detectGamesToolStripMenuItem.Click += new System.EventHandler(this.detectGamesToolStripMenuItem_Click);
+			// 
+			// debuggModeToolStripMenuItem
+			// 
+			this.debuggModeToolStripMenuItem.AutoToolTip = true;
+			this.debuggModeToolStripMenuItem.CheckOnClick = true;
+			this.debuggModeToolStripMenuItem.Name = "debuggModeToolStripMenuItem";
+			this.debuggModeToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+			this.debuggModeToolStripMenuItem.Text = "Debug mode";
+			this.debuggModeToolStripMenuItem.ToolTipText = "If this is checked, then exceptions will not be caught and will be sent to a debu" +
+    "gger.\r\nIf this is not checked, then we try to catch all exceptions.";
+			this.debuggModeToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.OnDebugCheckStateChanged);
 			// 
 			// WindowMenu
 			// 
@@ -159,11 +189,36 @@
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(127, 6);
 			// 
+			// statusStrip
+			// 
+			this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.progressBar,
+            this.backgroundActionLabel});
+			this.statusStrip.Location = new System.Drawing.Point(0, 240);
+			this.statusStrip.Name = "statusStrip";
+			this.statusStrip.Size = new System.Drawing.Size(284, 22);
+			this.statusStrip.TabIndex = 2;
+			this.statusStrip.Text = "statusStrip1";
+			this.statusStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
+			// 
+			// progressBar
+			// 
+			this.progressBar.Name = "progressBar";
+			this.progressBar.Size = new System.Drawing.Size(100, 16);
+			this.progressBar.ToolTipText = "This progress bar shows the completion level of any operations.";
+			// 
+			// backgroundActionLabel
+			// 
+			this.backgroundActionLabel.AutoToolTip = true;
+			this.backgroundActionLabel.Name = "backgroundActionLabel";
+			this.backgroundActionLabel.Size = new System.Drawing.Size(0, 17);
+			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(284, 262);
+			this.Controls.Add(this.statusStrip);
 			this.Controls.Add(this.MenuStrip);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.IsMdiContainer = true;
@@ -175,6 +230,8 @@
 			this.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.OnControlAdded);
 			this.MenuStrip.ResumeLayout(false);
 			this.MenuStrip.PerformLayout();
+			this.statusStrip.ResumeLayout(false);
+			this.statusStrip.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -196,5 +253,10 @@
 		private System.Windows.Forms.ToolStripMenuItem cascadeToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem pluginsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem detectGamesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem debuggModeToolStripMenuItem;
+		private System.Windows.Forms.StatusStrip statusStrip;
+		private System.Windows.Forms.ToolStripProgressBar progressBar;
+		private System.Windows.Forms.ToolStripStatusLabel backgroundActionLabel;
 	}
 }

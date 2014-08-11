@@ -1,5 +1,6 @@
 ﻿using Alexandria.Engines.Sciagi.Controls;
 using Glare;
+using Glare.Assets;
 using Glare.Framework;
 using Glare.Internal;
 using System;
@@ -12,6 +13,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Engines.Sciagi.Resources {
+	/// <summary>
+	/// A view resource, which is a collection of animations.
+	/// </summary>
 	public class View : ResourceData {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		readonly Codex<ViewAnimation> AnimationsMutable = new Codex<ViewAnimation>();
@@ -22,15 +26,18 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		readonly Codex<ViewGroup> GroupsMutable = new Codex<ViewGroup>();
 
+		/// <summary>Get the animations of the view.</summary>
 		public Codex<ViewAnimation> Animations { get { return AnimationsMutable; } }
 
+		/// <summary>Get the cells in the view.</summary>
 		public Codex<ViewCell> Cells { get { return CellsMutable; } }
 
+		/// <summary>Get the groups in the view.</summary>
 		public Codex<ViewGroup> Groups { get { return GroupsMutable; } }
 
-		public View(BinaryReader reader, Resource resource)
-			: base(resource) {
-			using (reader) {
+		internal View(AssetLoader loader)
+			: base(loader) {
+			using (BinaryReader reader = loader.Reader) {
 				// 8-byte header
 				var count = reader.ReadByte();
 				var flags = reader.ReadByte(); // Bit 0x80 means palette is set
@@ -45,43 +52,59 @@ namespace Alexandria.Engines.Sciagi.Resources {
 
 				for (int index = 0; index < count; index++) {
 					reader.BaseStream.Position = 8 + index * 2;
-					var animation = FindAnimation(reader, reader.ReadUInt16());
+					var animation = FindAnimation(loader, reader.ReadUInt16());
 					GroupsMutable.Add(new ViewGroup(animation, (mirroredFlags & (1 << index)) != 0));
 				}
 			}
 		}
 
-		public override System.Windows.Forms.Control Browse() {
+		/// <summary>Create a control to browse the view.</summary>
+		/// <returns></returns>
+		public override System.Windows.Forms.Control Browse(Action<double> progressUpdateCallback = null) {
 			return new ViewBrowser(this);
 		}
 
-		internal ViewAnimation FindAnimation(BinaryReader reader, ushort offset) {
+		internal ViewAnimation FindAnimation(AssetLoader loader, ushort offset) {
+			BinaryReader reader = loader.Reader;
+
 			foreach (var item in Animations)
 				if (item.DataOffset == offset)
 					return item;
 
 			reader.BaseStream.Position = offset;
-			var animation = new ViewAnimation(this, reader);
+			var animation = new ViewAnimation(this, loader);
 			AnimationsMutable.Add(animation);
 			return animation;
 		}
 
-		internal ViewCell FindCell(BinaryReader reader, ushort offset) {
+		internal ViewCell FindCell(AssetLoader loader, ushort offset) {
+			BinaryReader reader = loader.Reader;
+
 			foreach (var item in Cells)
 				if (item.DataOffset == offset)
 					return item;
 
 			reader.BaseStream.Position = offset;
-			var cell = new ViewCell(this, reader);
+			var cell = new ViewCell(this, loader);
 			CellsMutable.Add(cell);
 			return cell;
 		}
 	}
 
+	/// <summary>
+	/// A group in a <see cref="View"/>.
+	/// </summary>
 	public class ViewGroup {
+		/// <summary>Get the animation for the group.</summary>
 		public ViewAnimation Animation { get; private set; }
+
+		/// <summary>Get the zero-based index of this group.</summary>
 		public int Index { get { return View.Groups.IndexOf(this); } }
+
+		/// <summary>Get whether to mirror this group.</summary>
 		public bool IsMirrored { get; private set; }
+
+		/// <summary>Get the view this is contained in.</summary>
 		public View View { get { return Animation.View; } }
 
 		internal ViewGroup(ViewAnimation animation, bool isMirrored) {
@@ -90,18 +113,23 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		}
 	}
 
-	public class ViewAnimation {
+	/// <summary>An animation in a <see cref="View"/>.</summary>
+	public class ViewAnimation : Asset {
 		internal ushort DataOffset;
 
-		public ushort U1 { get; private set; }
-
+		/// <summary>Get the <see cref="ViewCell"/> collection.</summary>
 		public Codex<ViewCell> Cells { get; private set; }
 
+		/// <summary>Get the zero-based index of this animation in the <see cref="View"/>.</summary>
 		public int Index { get { return View.Animations.IndexOf(this); } }
 
+		/// <summary>Get the containing <see cref="View"/>.</summary>
 		public View View { get; private set; }
 
-		internal ViewAnimation(View view, BinaryReader reader) {
+		internal ViewAnimation(View view, AssetLoader loader)
+			: base(loader) {
+			BinaryReader reader = loader.Reader;
+
 			View = view;
 
 			var cells = new Codex<ViewCell>();
@@ -109,17 +137,19 @@ namespace Alexandria.Engines.Sciagi.Resources {
 
 			DataOffset = (ushort)reader.BaseStream.Position;
 			var count = reader.ReadUInt16();
-			U1 = reader.ReadUInt16();
+			Unknowns.ReadInt16s(reader, 1);
 			for (int index = 0; index < count; index++) {
 				reader.BaseStream.Position = DataOffset + 4 + index * 2;
-				cells.Add(view.FindCell(reader, reader.ReadUInt16()));
+				cells.Add(view.FindCell(loader, reader.ReadUInt16()));
 			}
 		}
 	}
 
-	public class ViewCell {
+	/// <summary>A <see cref="View"/> cell.</summary>
+	public class ViewCell : Asset {
 		internal ushort DataOffset;
 
+		/// <summary>Get the zero-based index of this cell.</summary>
 		public int Index { get { return View.Cells.IndexOf(this); } }
 
 		/// <summary>
@@ -127,11 +157,16 @@ namespace Alexandria.Engines.Sciagi.Resources {
 		/// </summary>
 		public Vector2i Offset { get; private set; }
 
+		/// <summary>Get the raster containing this view's image data.</summary>
 		public Raster Raster { get; private set; }
 
+		/// <summary>Get the containing view.</summary>
 		public View View { get; private set; }
 
-		internal ViewCell(View view, BinaryReader reader) {
+		internal ViewCell(View view, AssetLoader loader)
+			: base(loader) {
+			BinaryReader reader = loader.Reader;
+
 			View = view;
 
 			DataOffset = (ushort)reader.BaseStream.Position;
@@ -152,7 +187,7 @@ namespace Alexandria.Engines.Sciagi.Resources {
 
 				if (color == transparentColor)
 					color = 16;
-				for(int count = 0; count < repeat && offset < pixels.Length; count++)
+				for (int count = 0; count < repeat && offset < pixels.Length; count++)
 					pixels[offset++] = (byte)color;
 			}
 

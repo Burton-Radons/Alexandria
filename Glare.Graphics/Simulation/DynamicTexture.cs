@@ -49,7 +49,7 @@ namespace Glare.Graphics.Simulation
 				builder.FragmentShader("Common", "Fragment"));
 			mainProgram.MustLink();
 			mainProgramAction = mainProgram.FragmentStage.Uniforms["Act"];
-			mainProgram.Attributes["Position"].Bind(new Vector2f[] {
+			mainProgram.Attributes["Position"].BindArray(new Vector2f[] {
 				new Vector2f(-1, 1), new Vector2f(-1, -1),
 				new Vector2f(1, 1), new Vector2f(1, -1) });
 		}

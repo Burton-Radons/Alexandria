@@ -64,7 +64,7 @@ namespace Glare.Graphics {
 		/// <summary>Get <see cref="GeometryShaderStageCapabilities"/> for the <see cref="GeometryShader"/> <see cref="ShaderStage"/> (<see cref="ShaderStage.Geometry"/>).</summary>
 		public GeometryShaderStageCapabilities GeometryStage { get { return geometryStage; } }
 
-		/// <summary>Get the maximum aliased <see cref="LineWidth"/>. This is separated from <see cref="AliasedLineWidthRange"/>.</summary>
+		/// <summary>Get the maximum aliased line width. This is separated from <see cref="AliasedLineWidthRange"/>.</summary>
 		public double MaxAliasedLineWidth { get { return AliasedLineWidthRange.Y; } }
 
 		/// <summary>Get the maximum number of uniform blocks per <see cref="Program"/>. The value must be at least 70.</summary>
@@ -82,7 +82,7 @@ namespace Glare.Graphics {
 		/// <summary>Get the maximum number of uniform buffer binding points on the context, which must be at least 36.</summary>
 		public int MaxUniformBufferBindings { get { return Get1i(GetPName.MaxUniformBufferBindings); } }
 
-		/// <summary>Get the minimum aliased <see cref="LineWidth"/>. This is separated from <see cref="AliasedLineWidthRange"/>.</summary>
+		/// <summary>Get the minimum aliased line width. This is separated from <see cref="AliasedLineWidthRange"/>.</summary>
 		public double MinAliasedLineWidth { get { return AliasedLineWidthRange.X; } }
 
 		public ReadOnlyCollection<int> ProgramBinaryFormats {

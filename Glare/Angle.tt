@@ -1,5 +1,4 @@
-﻿<#@ IntelliSenseLanguage processor="tangibleT4Editor" language="C#" #>
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Glare {
 	<#GenerateAxes(AngleScalarFamily, () => {#>
+		/// <summary>An angle between two lines or a rotation, depending upon usage.</summary>
 		public struct <#=This#> : IComparable<<#=This#>>, IEquatable<<#=This#>>, IFormattable {
 			<#GenerateUnits(AngleUnits);#>
 				
@@ -20,17 +20,19 @@ namespace Glare {
 			public static readonly <#=This#> Degrees270 = Degrees(270);
 		}
 	<#});#>
-
+	
 	<#GenerateAxes(AngleFamily, () => {#>
 		/// <summary>An angle between two lines or a rotation, depending upon usage.</summary>
 		public struct <#=This#> : IEquatable<<#=This#>>, IFormattable {
 			<#foreach(Unit unit in AngleUnits) {#>
+				/// <summary>Create a <#=SeeThis#> from <#=unit.Singular#> values.</summary>
 				public static <#=This#> <#=unit.FromMethod#>(<#Comma((AxisInfo axis)=>{#> double <#=axis.IdLow#> <#});#>) { 
 					return new <#=This#>(<#Comma((AxisInfo axis)=>{#> Angle.<#=unit.FromMethod#>(<#=axis.IdLow#>) <#});#>);
 				}
 			
 				<#GenerateReferenceReturn(This, (ReferenceReturnInfo r) => {#>
 					<#RefForm((RefFormInfo ri) => {#>
+						/// <summary>Create a <#=SeeThis#> from <#=unit.Singular#> values.</summary>
 						public static <#=r.ReturnType#> <#=unit.FromMethod#>(<#=ri.Ref#> <#=VectorDouble#> value <#=r.Argument#>) { 
 							<#=r.Begin#>
 							<#Each((AxisInfo axis) => {#>
@@ -41,21 +43,38 @@ namespace Glare {
 					<#});#>
 				<#});#>
 
+				/// <summary>Get the vector values of this <#=SeeThis#> in the <#=unit.Singular#> unit.</summary>
 				public <#=VectorDouble#> <#=unit.InMethod#> { get { return new <#=VectorDouble#>(<#QComma((axis)=>{#> <#=axis#>.<#=unit.InMethod#> <#});#>); } }
 			<#}#>
-
-			/// <summary>Get the absolute sum of all of the axes.</summary>
-			public <#=T#> AbsoluteSum { get { return <#=ToT#>(<#Join("+", (axis) => {#> <#=axis.Id#>.Absolute <#});#>); } }
 			
+			/// <summary>Get the absolute sum of all of the axes.</summary>
+			public <#=T#> AbsoluteSum { get { return <#=ToT#>(<#Join("+", (axis) => {#> <#=axis.Id#>.AsUnsigned <#});#>); } }
+			
+			/// <summary>Get the positive of a <#=SeeThis#>, which is the same value.</summary>
 			public static <#=This#> operator +(<#=This#> a) { return new <#=This#>(<#QComma((axis)=>{#> +a.<#=axis#> <#});#>); }
+
+			/// <summary>Get the negative of a <#=SeeThis#>.</summary>
 			public static <#=This#> operator -(<#=This#> a) { return new <#=This#>(<#QComma((axis)=>{#> -a.<#=axis#> <#});#>); }
 
+			/// <summary>Add the <#=SeeThis#> values.</summary>
 			public static <#=This#> operator +(<#=This#> a, <#=This#> b) { return new <#=This#>(<#QComma((axis)=>{#> a.<#=axis#> + b.<#=axis#> <#});#>); }
+
+			/// <summary>Subtract the <#=SeeThis#> values.</summary>
 			public static <#=This#> operator -(<#=This#> a, <#=This#> b) { return new <#=This#>(<#QComma((axis)=>{#> a.<#=axis#> - b.<#=axis#> <#});#>); }
+
+			/// <summary>Multiply the <#=SeeThis#> value with the scalar.</summary>
 			public static <#=This#> operator *(<#=This#> a, double b) { return new <#=This#>(<#QComma((axis)=>{#> a.<#=axis#> * b <#});#>); }
+
+			/// <summary>Multiply the <#=SeeThis#> value with the scalar.</summary>
 			public static <#=This#> operator *(double a, <#=This#> b) { return new <#=This#>(<#QComma((axis)=>{#> a * b.<#=axis#> <#});#>); }
+
+			/// <summary>Divide the <#=SeeThis#> value by a scalar.</summary>
 			public static <#=This#> operator /(<#=This#> a, double b) { return new <#=This#>(<#QComma((axis)=>{#> a.<#=axis#> / b <#});#>); }
+
+			/// <summary>Divide the <#=SeeThis#> values, producing the vector magnitude difference between them.</summary>
 			public static <#=VectorDouble#> operator /(<#=This#> a, <#=This#> b) { return new <#=VectorDouble#>(<#QComma((axis)=>{#> a.<#=axis#> / b.<#=axis#> <#});#>); }
+
+			/// <summary>Modulo the <#=SeeThis#> values, producing the vector result.</summary>
 			public static <#=VectorDouble#> operator %(<#=This#> a, <#=This#> b) { return new <#=VectorDouble#>(<#QComma((axis)=>{#> a.<#=axis#> % b.<#=axis#> <#});#>); }
 
 			<#GenerateCommonVector();#>

@@ -1,0 +1,162 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+
+using System;
+
+namespace Glare.Graphics {
+	partial class VectorFormats { <#foreach(Format format in Formats) {
+			if(format.Family.IsVectorFormat) {
+				Write(format.Reference ?? "What");
+			}
+		}#>
+	}
+
+	partial class TextureFormats { <#foreach(Format format in Formats) {
+			if(format.Family.IsTextureFormat) {
+				Write(format.Reference ?? "What");
+			}
+		}#>
+	}
+
+	partial class Formats {
+		<#foreach(Format format in Formats) {#>
+			static readonly Format p<#=format.Name#> = new Format(typeof(<#=format.Family.Element#>), <#if(format.TypeName != null) {#>typeof(<#=format.TypeName#>), <#}#>rows: <#=format.Rows#>);
+		<#}#>
+
+		<#foreach(Format format in Formats) {#>
+			<#=format.DocComment#>
+			public static Format <#=format.Name#> { get { return p<#=format.Name#>; }  }
+		<#}#>
+	}
+}
+
+<#+
+
+class ElementType {
+	public readonly string Id;
+	public readonly string Name;
+	public readonly string Suffix;
+
+	public ElementType(string id, string name, string suffix) {
+		Id = id;
+		Name = name;
+		Suffix = suffix;
+	}
+
+	public override string ToString() { return Id; }
+}
+
+static readonly ElementType
+	ByteType = new ElementType("Byte", "unsigned byte", "b"),
+	DoubleType = new ElementType("Double", "double-precision float", "d"),
+	Float16Type = new ElementType("Float16", "half-precision float", "h"),
+	Int16Type = new ElementType("Int16", "16-bit signed integer", "s"),
+	Int32Type = new ElementType("Int32", "32-bit signed integer", "i"),
+	NormalizedByteType = new ElementType("NormalizedByte", "normalized unsigned byte", "nb"),
+	NormalizedSByteType = new ElementType("NormalizedSByte", "normalized signed byte", "nsb"),
+	NormalizedInt16Type = new ElementType("NormalizedInt16", "normalized signed 16-bit integer", "ns"),
+	NormalizedInt32Type = new ElementType("NormalizedInt32", "normalized signed 32-bit integer", "ni"),
+	NormalizedUInt16Type = new ElementType("NormalizedUInt16", "normalized unsigned 16-bit integer", "nus"),
+	NormalizedUInt32Type = new ElementType("NormalizedUInt32", "normalized unsigned 32-bit integer", "nui"),
+	SByteType = new ElementType("SByte", "signed byte", "sb"),
+	SingleType = new ElementType("Single", "single-precision float", "f"),
+	UInt16Type = new ElementType("UInt16", "16-bit unsigned integer", "us"),
+	UInt32Type = new ElementType("UInt32", "32-bit unsigned integer", "ui");
+
+class Format {
+	public readonly int Columns;
+
+	public string DocComment { 
+		get { 
+			string rowsPart = Rows == 1 ? "scalar" : Rows + "-dimensional vector";
+			return "/// <summary>Get the " + Family.Element.Name + " (<see cref=\"" + Family.Element + "\"/>) " + rowsPart + " <see cref=\"Format\"/>. " + (Family.IsVectorFormat ? Family.IsTextureFormat ? "Texture and vector format." : "Vector format only." : Family.IsTextureFormat ? "Texture format only." : "I am error.") + "</summary>";
+		}
+	}
+
+	public readonly FormatFamily Family;
+
+	public string Name { get { return "Vector" + Rows + Family.Element.Suffix; } }
+
+	public string Reference { get { return "\r\n\t\t" + DocComment + "\r\n\t\tpublic static Format " + Name + " { get { return Formats." + Name + "; } }\r\n"; } }
+
+	public string TypeName { get { return Rows <= 1 ? null : Name; } }
+
+	public readonly int Rows;
+
+	public Format(FormatFamily family, int columns, int rows) {
+		if(family == null)
+			throw new ArgumentNullException("family");
+		if(columns != 1)
+			throw new ArgumentOutOfRangeException("columns");
+		if(rows < family.MinRows || rows > family.MaxRows)
+			throw new ArgumentOutOfRangeException("rows");
+		Family = family;
+		Columns = columns;
+		Rows = rows;
+	}
+}
+
+class FormatFamily {
+	public IEnumerable<Format> Formats {
+		get {
+			for(int rows = MinRows; rows <= MaxRows; rows++)
+				yield return new Format(this, 1, rows);
+		}
+	}
+
+	public ElementType Element;
+
+	public readonly int MinRows, MaxRows;
+
+	public bool IsTextureFormat { get { return TextureFormatFamilies.Contains(this) || CommonFormatFamilies.Contains(this); } }
+	public bool IsVectorFormat { get { return VectorFormatFamilies.Contains(this) || CommonFormatFamilies.Contains(this); } }
+
+	public FormatFamily(ElementType element, int columns = 1, int minRows = -1, int maxRows = -1) {
+		MinRows = minRows;
+		MaxRows = maxRows;
+		Element = element;
+	}
+}
+
+static readonly FormatFamily[] TextureFormatFamilies = new FormatFamily[] {
+	new FormatFamily(Float16Type, minRows: 1, maxRows: 4),
+	new FormatFamily(NormalizedByteType, minRows: 1, maxRows: 4),
+	new FormatFamily(NormalizedSByteType, minRows: 1, maxRows: 4),
+};
+
+static readonly FormatFamily[] VectorFormatFamilies = new FormatFamily[] {
+	new FormatFamily(DoubleType, minRows: 1, maxRows: 4),
+	new FormatFamily(NormalizedInt16Type, minRows: 1, maxRows: 4),
+	new FormatFamily(NormalizedInt32Type, minRows: 1, maxRows: 4),
+	new FormatFamily(NormalizedUInt16Type, minRows: 1, maxRows: 4),
+	new FormatFamily(NormalizedUInt32Type, minRows: 1, maxRows: 4),
+};
+
+static readonly FormatFamily[] CommonFormatFamilies = new FormatFamily[] {
+	new FormatFamily(ByteType, minRows: 1, maxRows: 4),
+	new FormatFamily(Int16Type, minRows: 1, maxRows: 4),
+	new FormatFamily(Int32Type, minRows: 1, maxRows: 4),
+	new FormatFamily(SByteType, minRows: 1, maxRows: 4),
+	new FormatFamily(SingleType, minRows: 1, maxRows: 4),
+	new FormatFamily(UInt16Type, minRows: 1, maxRows: 4),
+	new FormatFamily(UInt32Type, minRows: 1, maxRows: 4),
+};
+
+static IEnumerable<FormatFamily> FormatFamilies { 
+	get {
+		foreach(FormatFamily family in TextureFormatFamilies)
+			yield return family;
+		foreach(FormatFamily family in VectorFormatFamilies)
+			yield return family;
+		foreach(FormatFamily family in CommonFormatFamilies)
+			yield return family;
+	}
+}
+
+static IEnumerable<Format> Formats { get { foreach(FormatFamily family in FormatFamilies) foreach(Format format in family.Formats) yield return format; } }
+
+#>

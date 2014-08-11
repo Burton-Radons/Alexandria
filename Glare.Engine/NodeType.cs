@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Glare.Engine {
+	/// <summary>Gives information about the <see cref="System.Type"/> of a <see cref="Node"/> class.</summary>
 	public class NodeType : NodeMemberInfo {
 		static readonly Dictionary<Type, NodeType> NodeTypes = new Dictionary<Type, NodeType>();
 
@@ -15,6 +16,9 @@ namespace Glare.Engine {
 		/// <summary>Get the system type that this corresponds to.</summary>
 		public Type Type { get { return type; } }
 
+		/// <summary>Get the <see cref="NodeType"/> for a <see cref="System.Type"/>.</summary>
+		/// <param name="type"></param>
+		/// <returns></returns>
 		public static NodeType GetNodeType(Type type) {
 			NodeType nodeType;
 
@@ -34,6 +38,10 @@ namespace Glare.Engine {
 			this.type = type;
 		}
 
+		/// <summary>Get a property of the type, or throw an exception.</summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentException">This <see cref="NodeType"/> does not have an instance public or private property named <paramref name="name"/>.</exception>
 		public NodeTypeProperty GetProperty(string name) {
 			NodeTypeProperty property;
 

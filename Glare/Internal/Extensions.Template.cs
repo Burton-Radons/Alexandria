@@ -10,8 +10,6 @@ namespace Glare.Internal {
 	public static partial class ExtensionMethods {
 		#region BinaryReader
 
-		#endregion BinaryReader
-
 					/// <summary>Read a <c>Byte</c> value, and return whether it's equal to the expected value.</summary>
 			public static bool ReadMatch(this BinaryReader reader, Byte expected) {
 				Byte value = reader.ReadByte();
@@ -96,11 +94,12 @@ namespace Glare.Internal {
 				return reader.ReadInt16();
 			}
 
-							/// <summary>Read a <c>Int16</c> value in big-endian byte order.</summary>
+							/// <summary>Read a <see cref="Int16"/> value in big-endian byte order.</summary>
 				public static Int16 ReadInt16BE(this BinaryReader reader) {
 					return reader.ReadInt16().ReverseBytes();
 				}
 
+				/// <summary>Read a <see cref="Int16"/> value in the specified byte order.</summary>
 				public static Int16 ReadInt16(this BinaryReader reader, ByteOrder byteOrder) {
 					switch (byteOrder) {
 						case ByteOrder.LittleEndian: return reader.ReadInt16();
@@ -158,11 +157,12 @@ namespace Glare.Internal {
 				return reader.ReadInt32();
 			}
 
-							/// <summary>Read a <c>Int32</c> value in big-endian byte order.</summary>
+							/// <summary>Read a <see cref="Int32"/> value in big-endian byte order.</summary>
 				public static Int32 ReadInt32BE(this BinaryReader reader) {
 					return reader.ReadInt32().ReverseBytes();
 				}
 
+				/// <summary>Read a <see cref="Int32"/> value in the specified byte order.</summary>
 				public static Int32 ReadInt32(this BinaryReader reader, ByteOrder byteOrder) {
 					switch (byteOrder) {
 						case ByteOrder.LittleEndian: return reader.ReadInt32();
@@ -220,11 +220,12 @@ namespace Glare.Internal {
 				return reader.ReadInt64();
 			}
 
-							/// <summary>Read a <c>Int64</c> value in big-endian byte order.</summary>
+							/// <summary>Read a <see cref="Int64"/> value in big-endian byte order.</summary>
 				public static Int64 ReadInt64BE(this BinaryReader reader) {
 					return reader.ReadInt64().ReverseBytes();
 				}
 
+				/// <summary>Read a <see cref="Int64"/> value in the specified byte order.</summary>
 				public static Int64 ReadInt64(this BinaryReader reader, ByteOrder byteOrder) {
 					switch (byteOrder) {
 						case ByteOrder.LittleEndian: return reader.ReadInt64();
@@ -282,11 +283,12 @@ namespace Glare.Internal {
 				return reader.ReadUInt16();
 			}
 
-							/// <summary>Read a <c>UInt16</c> value in big-endian byte order.</summary>
+							/// <summary>Read a <see cref="UInt16"/> value in big-endian byte order.</summary>
 				public static UInt16 ReadUInt16BE(this BinaryReader reader) {
 					return reader.ReadUInt16().ReverseBytes();
 				}
 
+				/// <summary>Read a <see cref="UInt16"/> value in the specified byte order.</summary>
 				public static UInt16 ReadUInt16(this BinaryReader reader, ByteOrder byteOrder) {
 					switch (byteOrder) {
 						case ByteOrder.LittleEndian: return reader.ReadUInt16();
@@ -344,11 +346,12 @@ namespace Glare.Internal {
 				return reader.ReadUInt32();
 			}
 
-							/// <summary>Read a <c>UInt32</c> value in big-endian byte order.</summary>
+							/// <summary>Read a <see cref="UInt32"/> value in big-endian byte order.</summary>
 				public static UInt32 ReadUInt32BE(this BinaryReader reader) {
 					return reader.ReadUInt32().ReverseBytes();
 				}
 
+				/// <summary>Read a <see cref="UInt32"/> value in the specified byte order.</summary>
 				public static UInt32 ReadUInt32(this BinaryReader reader, ByteOrder byteOrder) {
 					switch (byteOrder) {
 						case ByteOrder.LittleEndian: return reader.ReadUInt32();
@@ -406,11 +409,12 @@ namespace Glare.Internal {
 				return reader.ReadUInt64();
 			}
 
-							/// <summary>Read a <c>UInt64</c> value in big-endian byte order.</summary>
+							/// <summary>Read a <see cref="UInt64"/> value in big-endian byte order.</summary>
 				public static UInt64 ReadUInt64BE(this BinaryReader reader) {
 					return reader.ReadUInt64().ReverseBytes();
 				}
 
+				/// <summary>Read a <see cref="UInt64"/> value in the specified byte order.</summary>
 				public static UInt64 ReadUInt64(this BinaryReader reader, ByteOrder byteOrder) {
 					switch (byteOrder) {
 						case ByteOrder.LittleEndian: return reader.ReadUInt64();
@@ -468,11 +472,12 @@ namespace Glare.Internal {
 				return reader.ReadSingle();
 			}
 
-							/// <summary>Read a <c>Single</c> value in big-endian byte order.</summary>
+							/// <summary>Read a <see cref="Single"/> value in big-endian byte order.</summary>
 				public static Single ReadSingleBE(this BinaryReader reader) {
 					return reader.ReadSingle().ReverseBytes();
 				}
 
+				/// <summary>Read a <see cref="Single"/> value in the specified byte order.</summary>
 				public static Single ReadSingle(this BinaryReader reader, ByteOrder byteOrder) {
 					switch (byteOrder) {
 						case ByteOrder.LittleEndian: return reader.ReadSingle();
@@ -530,11 +535,12 @@ namespace Glare.Internal {
 				return reader.ReadDouble();
 			}
 
-							/// <summary>Read a <c>Double</c> value in big-endian byte order.</summary>
+							/// <summary>Read a <see cref="Double"/> value in big-endian byte order.</summary>
 				public static Double ReadDoubleBE(this BinaryReader reader) {
 					return reader.ReadDouble().ReverseBytes();
 				}
 
+				/// <summary>Read a <see cref="Double"/> value in the specified byte order.</summary>
 				public static Double ReadDouble(this BinaryReader reader, ByteOrder byteOrder) {
 					switch (byteOrder) {
 						case ByteOrder.LittleEndian: return reader.ReadDouble();
@@ -565,29 +571,50 @@ namespace Glare.Internal {
 						throw CreateExpectationException(expected, value);
 				}
 					
-					public static Byte Squared(this Byte value) { return (Byte)(value * value); }
-					public static SByte Squared(this SByte value) { return (SByte)(value * value); }
-					public static Int16 Squared(this Int16 value) { return (Int16)(value * value); }
-					public static UInt16 Squared(this UInt16 value) { return (UInt16)(value * value); }
-					public static Int32 Squared(this Int32 value) { return (Int32)(value * value); }
-					public static UInt32 Squared(this UInt32 value) { return (UInt32)(value * value); }
-					public static Int64 Squared(this Int64 value) { return (Int64)(value * value); }
-					public static UInt64 Squared(this UInt64 value) { return (UInt64)(value * value); }
-					public static Float16 Squared(this Float16 value) { return (Float16)(value * value); }
-					public static Single Squared(this Single value) { return (Single)(value * value); }
-					public static Double Squared(this Double value) { return (Double)(value * value); }
-					public static NormalizedByte Squared(this NormalizedByte value) { return (NormalizedByte)(value * value); }
-					public static NormalizedSByte Squared(this NormalizedSByte value) { return (NormalizedSByte)(value * value); }
-		
 		static InvalidDataException CreateExpectationException<T>(T expected, T value)  {
 			return new InvalidDataException("Expected a " + expected + " " + typeof(T).Name + " value, but received " + value + ".");
 		}
 
+		#endregion BinaryReader
+
+					/// <summary>Get the squared value of the input.</summary>
+			public static Byte Squared(this Byte value) { return (Byte)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static SByte Squared(this SByte value) { return (SByte)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static Int16 Squared(this Int16 value) { return (Int16)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static UInt16 Squared(this UInt16 value) { return (UInt16)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static Int32 Squared(this Int32 value) { return (Int32)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static UInt32 Squared(this UInt32 value) { return (UInt32)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static Int64 Squared(this Int64 value) { return (Int64)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static UInt64 Squared(this UInt64 value) { return (UInt64)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static Float16 Squared(this Float16 value) { return (Float16)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static Single Squared(this Single value) { return (Single)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static Double Squared(this Double value) { return (Double)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static NormalizedByte Squared(this NormalizedByte value) { return (NormalizedByte)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static NormalizedSByte Squared(this NormalizedSByte value) { return (NormalizedSByte)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static NormalizedInt16 Squared(this NormalizedInt16 value) { return (NormalizedInt16)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static NormalizedUInt16 Squared(this NormalizedUInt16 value) { return (NormalizedUInt16)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static NormalizedInt32 Squared(this NormalizedInt32 value) { return (NormalizedInt32)(value * value); }
+					/// <summary>Get the squared value of the input.</summary>
+			public static NormalizedUInt32 Squared(this NormalizedUInt32 value) { return (NormalizedUInt32)(value * value); }
+		
 
 	}
 }
-
-
 
 
 

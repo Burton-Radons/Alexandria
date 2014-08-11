@@ -1,4 +1,4 @@
-﻿using OpenGL = OpenTK.Graphics.OpenGL4;
+﻿using Glare.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,52 +7,89 @@ using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL4;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using GL = OpenTK.Graphics.OpenGL4;
+using System.Runtime.InteropServices;
 
 namespace Glare.Graphics {
 	/// <summary>
 	/// Describes a <see cref="Texture"/>'s pixel format.
 	/// </summary>
 	public class Format {
-		internal const PixelInternalFormat PixelInternalFormat_R64f = (PixelInternalFormat)(-1);
-		internal const PixelInternalFormat PixelInternalFormat_Rg64f = (PixelInternalFormat)(-2);
-		internal const PixelInternalFormat PixelInternalFormat_Rgb64f = (PixelInternalFormat)(-3);
-		internal const PixelInternalFormat PixelInternalFormat_Rgba64f = (PixelInternalFormat)(-4);
-
 		internal const PixelType PixelType_Double = (PixelType)(-1);
 		internal const PixelType PixelType_Fixed = (PixelType)(-2);
 
-		static readonly Dictionary<Type, Format> systemTypes = new Dictionary<Type, Format>();
+		protected static readonly Dictionary<Type, Format> systemTypes = new Dictionary<Type, Format>();
 
 		static List<Format> list;
 		internal static List<Format> BaseList { get { return list ?? (list = new List<Format>()); } }
-		static readonly Dictionary<ActiveAttribType, Format> ByActiveAttributeType = new Dictionary<ActiveAttribType, Format>();
+		internal static readonly Dictionary<ActiveAttribType, Format> ByActiveAttributeType = new Dictionary<ActiveAttribType, Format>();
+		
+		internal GL.ActiveAttribType ActiveAttribType { get; private set; }
 
-		internal readonly PixelFormat pixelFormat;
-		internal readonly PixelInternalFormat pixelInternalFormat;
-		internal readonly PixelType pixelType;
-		internal readonly FormatChannelCollection channels;
+		public FormatChannelCollection Channels { get; private set; }
 
-		internal ActiveAttribType? ActiveAttribType;
+		/// <summary>Get the number of columns in the matrix.</summary>
+		public int Columns { get; private set; }
+
+		/// <summary>Get the type of an element of the matrix.</summary>
+		public Type ElementType { get; private set; }
+
+		/// <summary>Get whether the elements of the matrix are an integer (like <c>byte</c>, <c>int</c>, <c>long</c>).</summary>
+		public bool IsInteger { get; private set; }
+
+		/// <summary>Get whether the elements of the matrix are normalized to represent a limited range, either from -1 to 1 (if <see cref="IsUnsigned"/> is <c>false</c>) or 0 to 1 (if <see cref="IsUnsigned"/> is true).</summary>
+		public bool IsNormalized { get; private set; }
+
+		/// <summary>Get whether the components are in reverse order.</summary>
+		public bool IsReversed { get; private set; }
+
+		/// <summary>Get whether this is a valid texture format.</summary>
+		public bool IsTextureFormat { get { return PixelFormat.HasValue; } }
+
+		/// <summary>Get whether this is an internal texture storage format.</summary>
+		public bool IsTextureInternalFormat { get { return PixelInternalFormat.HasValue; } }
+
+		/// <summary>Get whether this is a valid vector format.</summary>
+		public bool IsVectorFormat { get { return VertexAttribPointerType.HasValue; } } 
+
+		/// <summary>Get whether the elements of the matrix are unsigned - if they are, they may be integer (detected with <see cref="IsInteger"/>) or normalized (detected with <see cref="IsNormalized"/>).</summary>
+		public bool IsUnsigned { get; private set; }
+
+		/// <summary>Get the number of rows in the matrix.</summary>
+		public int Rows { get; private set; }
+
+		/// <summary>Get the system type this corresponds to.</summary>
+		public Type SystemType { get; private set; }
+
+		/// <summary>Attempt to get a matching pixel format, or return <c>null</c> if there is none.</summary>
+		internal GL.PixelFormat? PixelFormat { get; private set; }
+
+		/// <summary>Attempt to get a matching pixel internal format for operations like <see cref="GL.GL.TexImage2D"/>, or return <c>null</c> if there is none.</summary>
+		internal GL.PixelInternalFormat? PixelInternalFormat { get; private set; }
+
+		internal GL.PixelType? PixelType { get; private set; }
+
+		internal GL.VertexAttribPointerType? VertexAttribPointerType { get; private set; }
 
 		public int BitsPerSample {
 			get {
-				switch (pixelType) {
-					case PixelType.UnsignedByte332: return 8;
-					case PixelType.UnsignedShort4444: return 16;
-					case PixelType.UnsignedShort5551: return 16;
-					case PixelType.UnsignedInt8888: return 32;
-					case PixelType.UnsignedInt1010102: return 32;
-					case PixelType.UnsignedByte233Reversed: return 1;
-					case PixelType.UnsignedShort565: return 16;
-					case PixelType.UnsignedShort565Reversed: return 16;
-					case PixelType.UnsignedShort4444Reversed: return 16;
-					case PixelType.UnsignedShort1555Reversed: return 16;
-					case PixelType.UnsignedInt8888Reversed: return 32;
-					case PixelType.UnsignedInt2101010Reversed: return 32;
-					case PixelType.UnsignedInt248: return 32;
-					case PixelType.UnsignedInt10F11F11FRev: return 32;
-					case PixelType.UnsignedInt5999Rev: return 32;
-					case PixelType.Float32UnsignedInt248Rev: return 632;
+				switch (PixelType) {
+					case GL.PixelType.UnsignedByte332: return 8;
+					case GL.PixelType.UnsignedShort4444: return 16;
+					case GL.PixelType.UnsignedShort5551: return 16;
+					case GL.PixelType.UnsignedInt8888: return 32;
+					case GL.PixelType.UnsignedInt1010102: return 32;
+					case GL.PixelType.UnsignedByte233Reversed: return 1;
+					case GL.PixelType.UnsignedShort565: return 16;
+					case GL.PixelType.UnsignedShort565Reversed: return 16;
+					case GL.PixelType.UnsignedShort4444Reversed: return 16;
+					case GL.PixelType.UnsignedShort1555Reversed: return 16;
+					case GL.PixelType.UnsignedInt8888Reversed: return 32;
+					case GL.PixelType.UnsignedInt2101010Reversed: return 32;
+					case GL.PixelType.UnsignedInt248: return 32;
+					case GL.PixelType.UnsignedInt10F11F11FRev: return 32;
+					case GL.PixelType.UnsignedInt5999Rev: return 32;
+					case GL.PixelType.Float32UnsignedInt248Rev: return 632;
 					default:
 						return BitsPerComponent * ComponentCount;
 				}
@@ -61,64 +98,42 @@ namespace Glare.Graphics {
 
 		public int BytesPerSample { get { return (BitsPerSample + 7) / 8; } }
 
-		public int BitsPerComponent {
-			get {
-				switch (pixelType) {
-					//case PixelType.Bitmap:
-					//return 1;
-					case PixelType.Byte:
-					case PixelType.UnsignedByte:
-						return 8;
-					case PixelType.Short:
-					case PixelType.UnsignedShort:
-					case PixelType.HalfFloat:
-						return 2;
-					case PixelType.Int:
-					case PixelType.UnsignedInt:
-					case PixelType.Float:
-						return 32;
-					case PixelType.Float32UnsignedInt248Rev:
-						return 64;
-					default:
-						throw new NotImplementedException();
-				}
-			}
-		}
+		public int BitsPerComponent { get; protected set; }
 
 		public int ComponentCount {
 			get {
-				switch (pixelFormat) {
-					case PixelFormat.ColorIndex:
-					case PixelFormat.DepthComponent:
-					case PixelFormat.Red:
-					case PixelFormat.Green:
-					case PixelFormat.Blue:
-					case PixelFormat.Alpha:
-					case PixelFormat.Luminance:
-					case PixelFormat.RedInteger:
-					case PixelFormat.BlueInteger:
-					case PixelFormat.AlphaInteger:
+				switch (PixelFormat.Value) {
+					case GL.PixelFormat.ColorIndex:
+					case GL.PixelFormat.DepthComponent:
+					case GL.PixelFormat.Red:
+					case GL.PixelFormat.Green:
+					case GL.PixelFormat.Blue:
+					case GL.PixelFormat.Alpha:
+					case GL.PixelFormat.Luminance:
+					case GL.PixelFormat.RedInteger:
+					case GL.PixelFormat.BlueInteger:
+					case GL.PixelFormat.AlphaInteger:
 						return 1;
-					case PixelFormat.LuminanceAlpha:
-					case PixelFormat.Rg:
-					case PixelFormat.RgInteger:
-					case PixelFormat.DepthStencil:
+					case GL.PixelFormat.LuminanceAlpha:
+					case GL.PixelFormat.Rg:
+					case GL.PixelFormat.RgInteger:
+					case GL.PixelFormat.DepthStencil:
 						return 2;
-					case PixelFormat.Rgb:
-					case PixelFormat.Bgr:
-					case PixelFormat.Ycrcb422Sgix:
-					case PixelFormat.Ycrcb444Sgix:
-					case PixelFormat.RgbInteger:
-					case PixelFormat.BgrInteger:
+					case GL.PixelFormat.Rgb:
+					case GL.PixelFormat.Bgr:
+					case GL.PixelFormat.Ycrcb422Sgix:
+					case GL.PixelFormat.Ycrcb444Sgix:
+					case GL.PixelFormat.RgbInteger:
+					case GL.PixelFormat.BgrInteger:
 						return 3;
-					case PixelFormat.Rgba:
-					case PixelFormat.AbgrExt:
-					case PixelFormat.CmykExt:
-					case PixelFormat.Bgra:
-					case PixelFormat.RgbaInteger:
-					case PixelFormat.BgraInteger:
+					case GL.PixelFormat.Rgba:
+					case GL.PixelFormat.AbgrExt:
+					case GL.PixelFormat.CmykExt:
+					case GL.PixelFormat.Bgra:
+					case GL.PixelFormat.RgbaInteger:
+					case GL.PixelFormat.BgraInteger:
 						return 4;
-					case PixelFormat.CmykaExt:
+					case GL.PixelFormat.CmykaExt:
 						return 5;
 					default:
 						throw new NotImplementedException();
@@ -131,64 +146,78 @@ namespace Glare.Graphics {
 
 		/// <summary>Get whether <see cref="Compression"/> is a compressed format.</summary>
 		public bool IsCompressed { get { return Compression != FormatCompression.None; } }
-
-		public bool IsNormalized {
-			get {
-				switch (channels[0].Type) {
-					case FormatChannelType.CompressedNormalized:
-					case FormatChannelType.SignedNormalized:
-					case FormatChannelType.UnsignedNormalized: return true;
-					case FormatChannelType.Float:
-					case FormatChannelType.SignedInteger:
-					case FormatChannelType.UnsignedInteger: return false;
-					default: throw new InvalidOperationException();
-				}
-			}
-		}
-
+		
 		/// <summary>Get whether the RGB components are encoded in the sRGB color space.</summary>
 		public bool IsSrgb { get; internal set; }
 
-		/// <summary>Get the system type this corresponds to, or <c>null</c> if there is none.</summary>
-		public Type Type { get; internal set; }
+		/// <summary>Construct a <see cref="Format"/>.</summary>
+		/// <param name="elementType">The type of an element.</param>
+		/// <param name="systemType">The type of the combined value, or <c>null</c> if there is none. If <paramref name="columns"/> is 1 and <paramref name="rows"/> is one (a scalar), and <paramref name="systemType"/> is <c>null</c>, then it will be assigned the value of <paramref name="elementType"/>. The default is <c>null</c>.</param>
+		/// <param name="columns">The number of columns. This is 1 for scalars (with a <paramref name="rows"/> of 1) and vectors (with a <paramref name="rows"/> greater than 1), more than 1 for matrices. The default is <c>1</c>.</param>
+		/// <param name="rows">The number of rows. This is 1 (with a <paramref name="column"/> of 1) for scalars, and greater for matrices. The default is <c>1</c>.</param>
+		/// <param name="isSrgb">Get whether this is an sRgb color; <paramref name="columns"/> must be 1, and <paramref name="rows"/> must be 3 or 4. The default is <c>false</c>.</param>
+		/// <param name="isReversed">Whether the components are reversed.</param>
+		/// <param name="compression">What type of compression is in use. In this case <paramref name="elementType"/> and <paramref name="systemType"/> should be <c>null</c>.</param>
+		internal Format(Type elementType, Type systemType = null, int columns = 1, int rows = 1, bool isSrgb = false, bool isReversed = false, FormatCompression compression = FormatCompression.None) {
+			if (elementType == null && compression == FormatCompression.None)
+				throw new ArgumentNullException("elementType");
+			if (systemType == null && columns == 1 && rows == 1)
+				systemType = elementType;
 
-		internal VertexAttribPointerType? VertexAttribPonterType {
-			get {
-				switch (pixelType) {
-					case PixelType.Byte: return VertexAttribPointerType.Byte;
-					case PixelType.Float: return VertexAttribPointerType.Float;
-					case PixelType.HalfFloat: return VertexAttribPointerType.HalfFloat;
-					case PixelType.Int: return VertexAttribPointerType.Int;
-					case PixelType.Short: return VertexAttribPointerType.Short;
-					case PixelType.UnsignedByte: return VertexAttribPointerType.UnsignedByte;
-					case PixelType.UnsignedInt: return VertexAttribPointerType.UnsignedInt;
-					case PixelType.UnsignedShort: return VertexAttribPointerType.UnsignedShort;
-					case PixelType_Double: return VertexAttribPointerType.Double;
-					case PixelType_Fixed: return VertexAttribPointerType.Fixed;
-					default: return null;
-				}/*		
-		UnsignedInt2101010Rev = 33640,
-		Int2101010Rev = 36255,
-*/
+			ElementType = elementType;
+			SystemType = systemType;
+			Columns = columns;
+			Rows = rows;
+
+			Compression = compression;
+			IsInteger = !IsCompressed && IsIntegerSet.Contains(ElementType);
+			IsUnsigned = IsCompressed || IsUnsignedSet.Contains(ElementType);
+			IsNormalized = IsCompressed || IsNormalizedSet.Contains(ElementType);
+			IsReversed = isReversed;
+			BitsPerComponent = IsCompressed ? 0 : Marshal.SizeOf(elementType) * 8;
+
+			// Assign GL properties.
+			if (!IsCompressed) {
+				ActiveAttribType = (GL.ActiveAttribType)GetActiveAttribType(elementType, columns, rows);
+				PixelFormat = (GL.PixelFormat?)GetPixelFormat(columns, rows, IsInteger, isReversed);
+				PixelInternalFormat = (GL.PixelInternalFormat?)GetPixelInternalFormat(columns, rows, elementType);
+				PixelType = (GL.PixelType?)GetPixelType(elementType);
+				VertexAttribPointerType = (GL.VertexAttribPointerType?)GetVertexAttribPointerType(elementType);
+			} else {
+				switch (Compression) {
+					case FormatCompression.DXT1:
+						PixelInternalFormat = GL.PixelInternalFormat.CompressedRgbS3tcDxt1Ext;
+						break;
+
+					case FormatCompression.DXT3:
+						PixelInternalFormat = GL.PixelInternalFormat.CompressedRgbaS3tcDxt3Ext;
+						break;
+						
+					case FormatCompression.DXT5:
+						PixelInternalFormat = GL.PixelInternalFormat.CompressedRgbaS3tcDxt5Ext;
+						break;
+
+					default:
+						throw new NotImplementedException();
+				}
+			}
+
+			if (ActiveAttribType != GL.ActiveAttribType.None)
+				ByActiveAttributeType[ActiveAttribType] = this;
+
+			Channels = GetFormatChannels();
+
+			if (systemType != null) {
+				Format conflict;
+				if(systemTypes.TryGetValue(systemType, out conflict))
+					throw new ArgumentException(string.Format("The format elementType={0} systemType={1} size={2}x{3} conflicts with the format elementType={4} size={5}x{6} which has the same systemType.", elementType, systemType, Columns, Rows, conflict.ElementType, conflict.Columns, conflict.Rows), "systemType");
+				systemTypes.Add(systemType, this);
 			}
 		}
 
-		internal Format(PixelInternalFormat internalFormat, PixelFormat format, PixelType type) {
-			this.pixelInternalFormat = internalFormat;
-			this.pixelFormat = format;
-			this.pixelType = type;
-		}
+#if false
 
-		internal Format(PixelInternalFormat internalFormat, PixelFormat format, PixelType type, FormatChannel[,] channels)
-			: this(internalFormat, format, type) {
-			this.channels = new FormatChannelCollection(channels);
-			SetupChannels();
-		}
-
-		internal Format(PixelInternalFormat internalFormat, PixelFormat format, PixelType type, int rows, FormatChannelType channelType, int channelBits)
-			: this(internalFormat, format, type, rows, 1, channelType, channelBits) { }
-
-		internal Format(PixelInternalFormat internalFormat, PixelFormat format, PixelType type, int rows, int columns, FormatChannelType channelType, int channelBits)
+		internal Format(PixelInternalFormat? internalFormat, PixelFormat format, PixelType? type, int rows, int columns, FormatChannelType channelType, int channelBits)
 			: this(internalFormat, format, type) {
 			int realCount = (rows == -1 || rows == -2) ? 1 : (rows == -3) ? 2 : rows;
 			FormatChannel[,] channels = new FormatChannel[rows, columns];
@@ -230,45 +259,14 @@ namespace Glare.Graphics {
 			SetupChannels();
 		}
 
-		static Format() {
-			// Force construction
-			new List<Format>(new Format[] { CommonFormats.Vector2ui, TextureFormats.Vector1nsb, VectorFormats.Vector1d });
-			TextureFormats.Setup();
-
-			foreach (Format format in BaseList)
-				SetupFormat(format);
+		protected Format() {
+			list.Add(this);
 		}
-
-		static void SetupFormat(Format format) {
-			if (format.ActiveAttribType.HasValue) {
-				try {
-					ByActiveAttributeType.Add(format.ActiveAttribType.Value, format);
-				} catch (Exception) {
-					throw new Exception(format.ActiveAttribType.Value + " and " + format.pixelInternalFormat);
-				}
-			}
-
-			if (format.Type != null) {
-				if (systemTypes.ContainsKey(format.Type))
-					throw new InvalidOperationException("Type " + format.Type.Name + " has already been added as " + systemTypes[format.Type] + ", but is being reregistered as " + format);
-				systemTypes.Add(format.Type, format);
-			}
-		}
-
-		internal static void FinishInit(Type type) {
-			FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
-			foreach (FieldInfo field in fields) {
-				Format format = (Format)field.GetValue(null);
-				if (format == null)
-					throw new InvalidOperationException("Field " + type.Name + "." + field.Name + " is not initialized!");
-				SetupFormat(format);
-				//BaseList.Add(format);
-			}
-		}
+#endif
 
 		public int AlignedByteSize(int width, int height = 1, int depth = 1, int count = 1) {
 			if (IsCompressed) {
-				int blockSize = this == TextureFormats.DXT1 ? 8 : 16;
+				int blockSize = this == Formats.DXT1 ? 8 : 16;
 				return Math.Max(1, ((width + 3) / 4)) * Math.Max(1, ((height + 3) / 4)) * blockSize * depth * count;
 			} else
 				return AlignedBytePitch(width) * height * depth * count;
@@ -286,7 +284,7 @@ namespace Glare.Graphics {
 
 		public int ByteSize(int width, int height = 1, int depth = 1, int count = 1) {
 			if (IsCompressed) {
-				int blockSize = this == TextureFormats.DXT1 ? 8 : 16;
+				int blockSize = this == Formats.DXT1 ? 8 : 16;
 				return Math.Max(1, ((width + 3) / 4)) * Math.Max(1, ((height + 3) / 4)) * blockSize * depth * count;
 			} else {
 				int pitchLast = (width * BitsPerSample + 7) / 8;
@@ -314,26 +312,283 @@ namespace Glare.Graphics {
 			return ByActiveAttributeType[type];
 		}
 
-		void SetupChannels() {
-			for (int row = 0, rowCount = channels.RowCount, columnCount = channels.ColumnCount; row < rowCount; row++)
-				for (int column = 0; column < columnCount; column++) {
-					FormatChannel channel = channels[row, column];
-					channel.row = row;
-					channel.column = column;
-					channel.format = this;
-				}
-		}
-
 		public override string ToString() {
 			string text = GetType().Name + "(";
-			if (Type != null)
-				text += Type.Name;
+			if (SystemType != null)
+				text += SystemType.Name;
 			else
-				text += pixelInternalFormat;
+				text += PixelInternalFormat;
 			return text + ")";
 		}
+
+		static readonly FormatChannelIndex[] FormatChannelVectorIndices = new FormatChannelIndex[] { FormatChannelIndex.Red, FormatChannelIndex.Green, FormatChannelIndex.Blue, FormatChannelIndex.Alpha };
+
+		#region Property Calculators
+
+		/// <summary>
+		/// Requires <see cref="Rows"/>, <see cref="Columns"/>, <see cref="IsInteger"/>, <see cref="IsNormalized"/>, <see cref="IsUnsigned"/>, <see cref="BitsPerComponent"/>, <see cref="IsReversed"/>.
+		/// </summary>
+		/// <returns></returns>
+		FormatChannelCollection GetFormatChannels() {
+			FormatChannel[,] channels = new FormatChannel[Rows, Columns];
+
+			FormatChannelType type;
+
+			if (IsInteger) {
+				type = IsUnsigned ? FormatChannelType.UnsignedInteger : FormatChannelType.SignedInteger;
+			} else if (IsNormalized) {
+				type = IsUnsigned ? FormatChannelType.UnsignedNormalized : FormatChannelType.SignedNormalized;
+			} else {
+				type = FormatChannelType.Float;
+			}
+
+			for (int column = 0; column < Columns; column++) {
+				for (int row = 0; row < Rows; row++) {
+					FormatChannelIndex channelIndex = Columns == 1 ? FormatChannelVectorIndices[IsReversed ? 3 - row : row] : FormatChannelIndex.Cell;
+					FormatChannel channel = new FormatChannel(channelIndex, type, BitsPerComponent) {
+						format = this,
+						column = column,
+						row = row,
+					};
+					channels[row, column] = channel;
+				}
+			}
+
+			return new FormatChannelCollection(channels);
+		}
+
+
+		#endregion
+
+		#region GL Property calculators
+
+		#region Dictionaries, tables, and sets
+
+		static readonly HashSet<Type> IsIntegerSet = new HashSet<Type>() { typeof(byte), typeof(sbyte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong) };
+		static readonly HashSet<Type> IsNormalizedSet = new HashSet<Type>() { typeof(NormalizedByte), typeof(NormalizedSByte), typeof(NormalizedInt16), typeof(NormalizedInt32) };
+		static readonly HashSet<Type> IsUnsignedSet = new HashSet<Type>() { typeof(byte), typeof(ushort), typeof(uint), typeof(ulong), typeof(NormalizedByte) };
+
+		static readonly CodeDictionary<int, int, ActiveAttribType> ActiveAttributeValues = new CodeDictionary<int, int, ActiveAttribType>() {
+			// Scalars and vectors
+			{ 1, 1, ActiveAttribType.Float, ActiveAttribType.Double, ActiveAttribType.Int, ActiveAttribType.UnsignedInt },
+			{ 1, 2, ActiveAttribType.FloatVec2, ActiveAttribType.DoubleVec2, ActiveAttribType.IntVec2, ActiveAttribType.UnsignedIntVec2 },
+			{ 1, 3, ActiveAttribType.FloatVec3, ActiveAttribType.DoubleVec3, ActiveAttribType.IntVec3, ActiveAttribType.UnsignedIntVec3 },
+			{ 1, 4, ActiveAttribType.FloatVec4, ActiveAttribType.DoubleVec4, ActiveAttribType.IntVec4, ActiveAttribType.UnsignedIntVec4 },
+
+			{ 2, 2, ActiveAttribType.FloatMat2, ActiveAttribType.DoubleMat2 },
+			{ 2, 3, ActiveAttribType.FloatMat2x3, ActiveAttribType.DoubleMat2x3 },
+			{ 2, 4, ActiveAttribType.FloatMat2x3, ActiveAttribType.DoubleMat2x4 },
+
+			{ 3, 2, ActiveAttribType.FloatMat3x2, ActiveAttribType.DoubleMat3x2 },
+			{ 3, 3, ActiveAttribType.FloatMat3, ActiveAttribType.DoubleMat3 },
+			{ 3, 4, ActiveAttribType.FloatMat3x4, ActiveAttribType.DoubleMat3x4 },
+
+			{ 4, 2, ActiveAttribType.FloatMat4x2, ActiveAttribType.DoubleMat4x2 },
+			{ 4, 3, ActiveAttribType.FloatMat4x3, ActiveAttribType.DoubleMat4x3 },
+			{ 4, 4, ActiveAttribType.FloatMat4, ActiveAttribType.DoubleMat4 },
+		};
+
+		/* Generic:
+		One = 1, Two = 2, Three = 3, Four = 4,
+		DepthComponent = 6402,
+		Alpha = 6406,
+		Rgb = 6407, Rgba = 6408,
+		Luminance = 6409, LuminanceAlpha = 6410,
+		CompressedAlpha = 34025,
+		CompressedLuminance = 34026,
+		CompressedLuminanceAlpha = 34027,
+		CompressedIntensity = 34028,
+		CompressedRgb = 34029,
+		CompressedRgba = 34030,
+		DepthStencil = 34041,
+		 */
+
+		/* Specific:
+		R3G3B2 = 10768, Rgb2Ext = 32846, Rgb4 = 32847, Rgb5 = 32848, Rgb10 = 32850, Rgb12 = 32851, R11fG11fB10f = 35898, Rgb9E5 = 35901,
+		Rgba2 = 32853, Rgba4 = 32854, Rgb5A1 = 32855, Rgb10A2 = 32857, Rgba12 = 32858, Rgb10A2ui = 36975,
+		 * 
+		Purposeful:
+		DepthComponent16 = 33189, DepthComponent24 = 33190, DepthComponent24Sgix = 33190, DepthComponent32Sgix = 33191, DepthComponent32 = 33191, DepthComponent32f = 36012,
+		CompressedRed = 33317, CompressedRg = 33318,
+		Depth24Stencil8 = 35056, Depth32fStencil8 = 36013,
+
+		Srgb = 35904, Srgb8 = 35905, SrgbAlpha = 35906, Srgb8Alpha8 = 35907,
+		SluminanceAlpha = 35908, Sluminance8Alpha8 = 35909, Sluminance = 35910, Sluminance8 = 35911,
+		CompressedSrgb = 35912, CompressedSrgbAlpha = 35913, CompressedSluminance = 35914, CompressedSluminanceAlpha = 35915,
+		CompressedSrgbS3tcDxt1Ext = 35916, CompressedSrgbAlphaS3tcDxt1Ext = 35917, CompressedSrgbAlphaS3tcDxt3Ext = 35918, CompressedSrgbAlphaS3tcDxt5Ext = 35919,
+		 * 
+		 * Extensions:
+		DualAlpha4Sgis = 33040, DualAlpha8Sgis = 33041, DualAlpha12Sgis = 33042, DualAlpha16Sgis = 33043,
+		DualLuminance4Sgis = 33044, DualLuminance8Sgis = 33045, DualLuminance12Sgis = 33046, DualLuminance16Sgis = 33047,
+		DualIntensity4Sgis = 33048, DualIntensity8Sgis = 33049, DualIntensity12Sgis = 33050, DualIntensity16Sgis = 33051,
+		DualLuminanceAlpha4Sgis = 33052, DualLuminanceAlpha8Sgis = 33053,
+		QuadAlpha4Sgis = 33054, QuadAlpha8Sgis = 33055,
+		QuadLuminance4Sgis = 33056, QuadLuminance8Sgis = 33057,
+		QuadIntensity4Sgis = 33058, QuadIntensity8Sgis = 33059,
+		DepthComponent16Sgix = 33189,
+		CompressedRgbS3tcDxt1Ext = 33776, CompressedRgbaS3tcDxt1Ext = 33777, CompressedRgbaS3tcDxt3Ext = 33778, CompressedRgbaS3tcDxt5Ext = 33779,
+		RgbIccSgix = 33888, RgbaIccSgix = 33889,
+		AlphaIccSgix = 33890,
+		LuminanceIccSgix = 33891,
+		IntensityIccSgix = 33892,
+		LuminanceAlphaIccSgix = 33893,
+		R5G6B5IccSgix = 33894,
+		R5G6B5A8IccSgix = 33895,
+		Alpha16IccSgix = 33896,
+		Luminance16IccSgix = 33897,
+		Intensity16IccSgix = 33898,
+		Luminance16Alpha8IccSgix = 33899,
+		Float32UnsignedInt248Rev = 36269,
+		CompressedRedRgtc1 = 36283, CompressedSignedRedRgtc1 = 36284, CompressedRgRgtc2 = 36285, CompressedSignedRgRgtc2 = 36286, CompressedRgbaBptcUnorm = 36492, CompressedRgbBptcSignedFloat = 36494, CompressedRgbBptcUnsignedFloat = 36495,
+		 * */
+
+		static readonly CodeDictionary<Type, PixelInternalFormat> PixelInternalFormatValues = new CodeDictionary<Type, PixelInternalFormat>() {
+			{ typeof(Byte), GL.PixelInternalFormat.R8ui, GL.PixelInternalFormat.Rg8ui, GL.PixelInternalFormat.Rgb8ui, GL.PixelInternalFormat.Rgba8ui },
+			// Double does not have any entries
+			{ typeof(Float16), GL.PixelInternalFormat.R16f, GL.PixelInternalFormat.Rg16f, GL.PixelInternalFormat.Rgb16f, GL.PixelInternalFormat.Rgba16f },
+			{ typeof(Int16), GL.PixelInternalFormat.R16i, GL.PixelInternalFormat.Rg16i, GL.PixelInternalFormat.Rgb16i, GL.PixelInternalFormat.Rgba16i },
+			{ typeof(Int32), GL.PixelInternalFormat.R32i, GL.PixelInternalFormat.Rg32i, GL.PixelInternalFormat.Rgb32i, GL.PixelInternalFormat.Rgba32i },
+			// Int64 does not have any entries
+			{ typeof(NormalizedByte), GL.PixelInternalFormat.R8, GL.PixelInternalFormat.Rg8, GL.PixelInternalFormat.Rgb8, GL.PixelInternalFormat.Rgba8 },
+			// NormalizedInt16 does not have any entries
+			// NormalizedInt32 does not have any entries
+			{ typeof(NormalizedSByte), GL.PixelInternalFormat.R8Snorm, GL.PixelInternalFormat.Rg8Snorm, GL.PixelInternalFormat.Rgb8Snorm, GL.PixelInternalFormat.Rgba8Snorm },
+			{ typeof(SByte), GL.PixelInternalFormat.R8i, GL.PixelInternalFormat.Rg8ui, GL.PixelInternalFormat.Rgb8ui, GL.PixelInternalFormat.Rgba8ui },
+			{ typeof(Single), GL.PixelInternalFormat.R32f, GL.PixelInternalFormat.Rg32f, GL.PixelInternalFormat.Rgb32f, GL.PixelInternalFormat.Rgba32f },
+			{ typeof(UInt16), GL.PixelInternalFormat.R16ui, GL.PixelInternalFormat.Rg16ui, GL.PixelInternalFormat.Rgb16ui, GL.PixelInternalFormat.Rgba16ui },
+			{ typeof(UInt32), GL.PixelInternalFormat.R32ui, GL.PixelInternalFormat.Rg32ui, GL.PixelInternalFormat.Rgb32ui, GL.PixelInternalFormat.Rgba32ui },
+			// UInt64 does not have any entries.
+		};
+
+		static readonly Dictionary<Type, PixelType> PixelTypeDictionary = new Dictionary<Type, PixelType>() {
+			{ typeof(SByte), GL.PixelType.Byte },
+			{ typeof(Byte), GL.PixelType.UnsignedByte },
+			{ typeof(Int16), GL.PixelType.Short },
+			{ typeof(UInt16), GL.PixelType.UnsignedShort },
+			{ typeof(Int32), GL.PixelType.Int },
+			{ typeof(UInt32), GL.PixelType.UnsignedInt },
+			{ typeof(Single), GL.PixelType.Float },
+			{ typeof(Float16), GL.PixelType.HalfFloat },
+			{ typeof(NormalizedByte), GL.PixelType.UnsignedByte },
+			{ typeof(NormalizedSByte), GL.PixelType.Byte },
+			{ typeof(NormalizedInt16), GL.PixelType.Short },
+			{ typeof(NormalizedInt32), GL.PixelType.Int },
+
+			/* UnsignedByte332Ext = 32818, UnsignedByte332 = 32818,
+			UnsignedShort4444Ext = 32819, UnsignedShort4444 = 32819, UnsignedShort5551Ext = 32820, UnsignedShort5551 = 32820,
+			UnsignedInt8888 = 32821, UnsignedInt8888Ext = 32821, UnsignedInt1010102 = 32822, UnsignedInt1010102Ext = 32822,
+			UnsignedByte233Reversed = 33634,
+			UnsignedShort565 = 33635,
+			UnsignedShort565Reversed = 33636 UnsignedShort4444Reversed = 33637, UnsignedShort1555Reversed = 33638, UnsignedInt8888Reversed = 33639,
+			UnsignedInt2101010Reversed = 33640,
+			UnsignedInt248 = 34042,
+			UnsignedInt10F11F11FRev = 35899,
+			UnsignedInt5999Rev = 35902,
+			Float32UnsignedInt248Rev = 36269,*/
+			// No entries for Int64, UInt64, or Double
+		};
+
+		static readonly Dictionary<Type, VertexAttribPointerType> VertexAttribPointerTypeDictionary = new Dictionary<Type, VertexAttribPointerType>() {
+			{ typeof(Byte), GL.VertexAttribPointerType.UnsignedByte },
+			{ typeof(SByte), GL.VertexAttribPointerType.Byte },
+			{ typeof(Int16), GL.VertexAttribPointerType.Short },
+			{ typeof(UInt16), GL.VertexAttribPointerType.UnsignedShort },
+			{ typeof(Int32), GL.VertexAttribPointerType.Int },
+			{ typeof(UInt32), GL.VertexAttribPointerType.UnsignedInt },
+			{ typeof(Single), GL.VertexAttribPointerType.Float },
+			{ typeof(Double), GL.VertexAttribPointerType.Double },
+			{ typeof(Float16), GL.VertexAttribPointerType.HalfFloat },
+			{ typeof(NormalizedByte), GL.VertexAttribPointerType.UnsignedByte },
+			{ typeof(NormalizedInt16), GL.VertexAttribPointerType.Short },
+			{ typeof(NormalizedInt32), GL.VertexAttribPointerType.Int },
+			{ typeof(NormalizedSByte), GL.VertexAttribPointerType.Byte },
+
+			/*Fixed = 5132,
+			UnsignedInt2101010Rev = 33640,
+			Int2101010Rev = 36255,*/
+		};
+
+		#endregion Tables, dictionaries, and sets
+
+		static ActiveAttribType GetActiveAttribType(Type elementType, int columns, int rows) {
+			int typeIndex;
+
+			if (elementType == typeof(Single)) typeIndex = 0;
+			else if (elementType == typeof(Double)) typeIndex = 1;
+			else if (elementType == typeof(Int32)) typeIndex = 2;
+			else if (elementType == typeof(UInt32)) typeIndex = 3;
+			else return ActiveAttribType.None;
+
+			return ActiveAttributeValues.Get(columns, rows, typeIndex).GetValueOrDefault(ActiveAttribType.None);
+		}
+
+		static PixelFormat? GetPixelFormat(int columns, int rows, bool isInteger, bool isReversed) {
+			if (columns == 1) {
+				switch (rows) {
+					case 1: return isInteger ? GL.PixelFormat.RedInteger : GL.PixelFormat.Red;
+					case 2: return isInteger ? GL.PixelFormat.RgInteger : GL.PixelFormat.Rg;
+					case 3: return isInteger ? (isReversed ? GL.PixelFormat.BgrInteger : GL.PixelFormat.RgbInteger) : (isReversed ? GL.PixelFormat.Bgr : GL.PixelFormat.Rgb);
+					case 4: return isInteger ? (isReversed ? GL.PixelFormat.BgraInteger : GL.PixelFormat.RgbaInteger) : (isReversed ? GL.PixelFormat.Bgra : GL.PixelFormat.Rgba);
+					default: return null;
+				}
+			}
+			return null;
+		}
+
+		static PixelInternalFormat? GetPixelInternalFormat(int columns, int rows, Type elementType) {
+			if (columns != 1)
+				return null;
+			return PixelInternalFormatValues.Get(elementType, rows - 1);
+		}
+
+		static PixelType? GetPixelType(Type elementType) {
+			if (elementType == null)
+				return null;
+			PixelType type;
+			return PixelTypeDictionary.TryGetValue(elementType, out type) ? type : (PixelType?)null; 
+		}
+
+		static VertexAttribPointerType? GetVertexAttribPointerType(Type elementType) { return VertexAttribPointerTypeDictionary.TryGetValueOrNull(elementType); }
+
+		class CodeDictionary<TCode1, TList> : Dictionary<TCode1, TList[]> where TList : struct {
+			public new void Add(TCode1 code, params TList[] list) { base.Add(code, list); }
+
+			public TList? Get(TCode1 code, int listIndex) {
+				TList[] list;
+				if (!this.TryGetValue(code, out list))
+					return null;
+				if (listIndex < 0 || listIndex >= list.Length)
+					return null;
+				return list[listIndex];
+			}
+		}
+
+		class CodeDictionary<TCode1, TCode2, TList> : Dictionary<TCode1, Dictionary<TCode2, TList[]>> where TList : struct {
+			public void Add(TCode1 code1, TCode2 code2, params TList[] list) {
+				Dictionary<TCode2, TList[]> dictionary2 = this.TryGetValue(code1);
+
+				if (dictionary2 == null)
+					this[code1] = dictionary2 = new Dictionary<TCode2, TList[]>(1);
+				dictionary2[code2] = list;
+			}
+
+			public TList? Get(TCode1 code1, TCode2 code2, int listIndex) {
+				Dictionary<TCode2, TList[]> dictionary2 = this.TryGetValue(code1);
+				if (dictionary2 == null)
+					return null;
+				TList[] list;
+				if (!dictionary2.TryGetValue(code2, out list))
+					return null;
+				if (listIndex < 0 || listIndex >= list.Length)
+					return null;
+				return list[listIndex];
+			}
+		}
+
+		#endregion Property calculators
 	}
 
+	/// <summary>A two-dimensional collection of <see cref="FormatChannel"/>s, indexed by <c>[row][column]</c>.</summary>
 	public class FormatChannelCollection : IEnumerable<FormatChannel> {
 		internal readonly FormatChannel[,] channels;
 
@@ -474,253 +729,5 @@ namespace Glare.Graphics {
 			this.type = type;
 			this.bits = bits;
 		}
-	}
-
-	/// <summary>Formats that can be fed into shader program attributes.</summary>
-	public static class VectorFormats {
-		public static readonly Format Vector1d;
-		public static readonly Format Vector2d;
-		public static readonly Format Vector3d;
-		public static readonly Format Vector4d;
-
-		static VectorFormats() {
-			Format.BaseList.AddRange(new Format[]
-			{
-				Vector1d = new Format(Format.PixelInternalFormat_R64f, PixelFormat.Red, Format.PixelType_Double, 1, FormatChannelType.Float, 64) { ActiveAttribType = OpenGL.ActiveAttribType.Double, Type = typeof(double) },
-				Vector2d = new Format(Format.PixelInternalFormat_Rg64f, PixelFormat.Rg, Format.PixelType_Double, 2, FormatChannelType.Float, 64) { ActiveAttribType = OpenGL.ActiveAttribType.DoubleVec2, Type = typeof(Vector2d) },
-				Vector3d = new Format(Format.PixelInternalFormat_Rgb64f, PixelFormat.Rgb, Format.PixelType_Double, 3, FormatChannelType.Float, 64) { ActiveAttribType = OpenGL.ActiveAttribType.DoubleVec3, Type = typeof(Vector3d) },
-				Vector4d = new Format(Format.PixelInternalFormat_Rgba64f, PixelFormat.Rgba, Format.PixelType_Double, 4, FormatChannelType.Float, 64) { ActiveAttribType = OpenGL.ActiveAttribType.DoubleVec4, Type = typeof(Vector4d) },
-			});
-		}
-		/*
-		FloatMat2 = 35674,
-		FloatMat3 = 35675,
-		FloatMat4 = 35676,
-		DoubleMat2 = 36678,
-		DoubleMat3 = 36679,
-		DoubleMat4 = 36680,
-		DoubleMat2x3 = 36681,
-		DoubleMat2x4 = 36682,
-		DoubleMat3x2 = 36683,
-		DoubleMat3x4 = 36684,
-		DoubleMat4x2 = 36685,
-		DoubleMat4x3 = 36686,
-		 */
-
-	}
-
-	/// <summary>
-	/// This contains all formats that can be used for textures.
-	/// </summary>
-	public static class TextureFormats {
-		/// <summary>Single-precision floating point scalar corresponding to <see cref="System.Single"/>. Common to textures and vectors.</summary>
-		public static Format Vector1f { get { return CommonFormats.Vector1f; } }
-
-		/// <summary>Half-precision floating point scalar corresponding to <see cref="Glare.Float16"/>. Texture format only.</summary>
-		public static readonly Format Vector1h;
-
-		/// <summary>Normalized unsigned byte scalar corresponding to <see cref="Glare.NormalizedByte"/>. Texture format only.</summary>
-		public static readonly Format Vector1nb;
-
-		/// <summary>Normalized signed byte scalar corresponding to <see cref="Glare.NormalizedSByte"/>. Texture format only.</summary>
-		public static readonly Format Vector1nsb;
-
-		/// <summary>Two-dimensional single-precision floating point vector corresponding to <see cref="Glare.Vector2f"/>. Common to textures and vectors.</summary>
-		public static Format Vector2f { get { return CommonFormats.Vector2f; } }
-
-		/// <summary>Two-dimensional half-precision floating point vector corresponding to <see cref="Glare.Vector2h"/>. Texture format only.</summary>
-		public static readonly Format Vector2h;
-
-		/// <summary>Two-dimensional normalized unsigned byte vector corresponding to <see cref="Glare.Vector2nb"/>. Texture format only.</summary>
-		public static readonly Format Vector2nb;
-
-		/// <summary>Two-dimensional normalized signed byte vector corresponding to <see cref="Glare.Vector2nsb"/>. Texture format only.</summary>
-		public static readonly Format Vector2nsb;
-
-		/// <summary>Three-dimensional single-precision floating point vector corresponding to <see cref="Glare.Vector3f"/>. Common to textures and vectors.</summary>
-		public static Format Vector3f { get { return CommonFormats.Vector3f; } }
-
-		/// <summary>Three-dimensional half-precision floating point vector corresponding to <see cref="Glare.Vector3h"/>. Texture format only.</summary>
-		public static readonly Format Vector3h;
-
-		/// <summary>Three-dimensional normalized unsigned byte vector corresponding to <see cref="Glare.Vector3nb"/>. Texture format only.</summary>
-		public static readonly Format Vector3nb;
-
-		/// <summary>Three-dimensional normalized signed byte vector corresponding to <see cref="Glare.Vector3nsb"/>. Texture format only.</summary>
-		public static readonly Format Vector3nsb;
-
-		/// <summary>Three-dimensional normalized unsigned byte vector in SRGB color space corresponding to <see cref="Glare.Vector3srgba"/>. Texture format only.</summary>
-		public static readonly Format Vector3srgb;
-
-		/// <summary>Four-dimensional 8-bit unsigned byte vector corresponding to <see cref="Glare.Vector4b"/>. Texture format only.</summary>
-		public static readonly Format Vector4b;
-
-		/// <summary>Four-dimensional single-precision floating point vector corresponding to <see cref="Glare.Vector4f"/>. Common to textures and vectors.</summary>
-		public static Format Vector4f { get { return CommonFormats.Vector4f; } }
-
-		/// <summary>Four-dimensional half-precision floating point vector corresponding to <see cref="Glare.Vector4h"/>. Texture format only.</summary>
-		public static readonly Format Vector4h;
-
-		/// <summary>Four-dimensional normalized unsigned byte vector corresponding to <see cref="Glare.Vector4nb"/>. Texture format only.</summary>
-		public static readonly Format Vector4nb;
-
-		/// <summary>Four-dimensional normalized unsigned byte vector corresponding to <see cref="Glare.Vector4nb"/>, in BGRA order. Texture format only.</summary>
-		public static readonly Format Vector4nbBGRA;
-
-		/// <summary>Four-dimensional normalized signed byte vector corresponding to <see cref="Glare.Vector4nsb"/>. Texture format only.</summary>
-		public static readonly Format Vector4nsb;
-
-		/// <summary>Four-dimensional normalized unsigned byte vector in SRGB color space corresponding to <see cref="Glare.Vector4srgba"/>. Texture format only.</summary>
-		public static readonly Format Vector4srgba;
-
-		/// <summary>DXT1 compressed format.</summary>
-		public static readonly Format DXT1;
-
-		/// <summary>DXT3 compressed format.</summary>
-		public static readonly Format DXT3;
-
-		/// <summary>DXT5 compressed format.</summary>
-		public static readonly Format DXT5;
-
-		const int GL_R8_SNORM = 36756;
-
-		internal static void Setup() {
-		}
-
-		static TextureFormats() {
-			Vector1h = new Format(PixelInternalFormat.R16f, PixelFormat.Red, PixelType.HalfFloat, 1, FormatChannelType.Float, 16) { Type = typeof(Float16) };
-			Vector1nb = new Format(PixelInternalFormat.R8, PixelFormat.Red, PixelType.UnsignedByte, 1, FormatChannelType.UnsignedNormalized, 8) { Type = typeof(NormalizedByte) };
-			Vector1nsb = new Format((PixelInternalFormat)GL_R8_SNORM, PixelFormat.Red, PixelType.Byte, 1, FormatChannelType.SignedNormalized, 8) { Type = typeof(NormalizedSByte) };
-
-			Vector2h = new Format(PixelInternalFormat.Rg16f, PixelFormat.Red, PixelType.HalfFloat, 2, FormatChannelType.Float, 16);
-			Vector2nb = new Format(PixelInternalFormat.Rg8, PixelFormat.Rg, PixelType.UnsignedByte, 2, FormatChannelType.UnsignedNormalized, 8);
-			Vector2nsb = new Format(PixelInternalFormat.Rg8Snorm, PixelFormat.Rg, PixelType.Byte, 2, FormatChannelType.SignedNormalized, 8);
-
-			Vector3h = new Format(PixelInternalFormat.Rgb16f, PixelFormat.Red, PixelType.HalfFloat, 3, FormatChannelType.Float, 16);
-			Vector3nb = new Format(PixelInternalFormat.Rgb8, PixelFormat.Rgb, PixelType.UnsignedByte, 3, FormatChannelType.UnsignedNormalized, 8);
-			Vector3nsb = new Format(PixelInternalFormat.Rgb8Snorm, PixelFormat.Rg, PixelType.Byte, 3, FormatChannelType.SignedNormalized, 8);
-			Vector3srgb = new Format(PixelInternalFormat.Srgb8, PixelFormat.Rgb, PixelType.UnsignedByte, 3, FormatChannelType.UnsignedNormalized, 8) { IsSrgb = true };
-
-			Vector4b = new Format(PixelInternalFormat.Rgba8i, PixelFormat.Rgba, PixelType.UnsignedByte, 4, FormatChannelType.UnsignedInteger, 8) { Type = typeof(Vector4b) };
-			Vector4h = new Format(PixelInternalFormat.Rgba16f, PixelFormat.Red, PixelType.HalfFloat, 4, FormatChannelType.Float, 16);
-			Vector4nb = new Format(PixelInternalFormat.Rgba8, PixelFormat.Rgba, PixelType.UnsignedByte, 4, FormatChannelType.UnsignedNormalized, 8) { Type = typeof(Vector4nb) };
-			Vector4nbBGRA = new Format(PixelInternalFormat.Rgba8, PixelFormat.Bgra, PixelType.UnsignedByte, 4, FormatChannelType.UnsignedNormalized, 8) { };
-			Vector4nsb = new Format(PixelInternalFormat.Rgba8Snorm, PixelFormat.Rgba, PixelType.Byte, 4, FormatChannelType.SignedNormalized, 8) { Type = typeof(Vector4nsb) };
-			Vector4srgba = new Format(PixelInternalFormat.Srgb8Alpha8, PixelFormat.Rgba, PixelType.UnsignedByte, 4, FormatChannelType.UnsignedNormalized, 8) { IsSrgb = true, Type = typeof(Vector4rgba) };
-
-			DXT1 = new Format(PixelInternalFormat.CompressedRgbaS3tcDxt1Ext, PixelFormat.Rgb, PixelType.UnsignedByte, 3, FormatChannelType.CompressedNormalized, 0) { Compression = FormatCompression.DXT1 };
-			DXT3 = new Format(PixelInternalFormat.CompressedRgbaS3tcDxt3Ext, PixelFormat.Rgb, PixelType.UnsignedByte, 4, FormatChannelType.CompressedNormalized, 0) { Compression = FormatCompression.DXT3 };
-			DXT5 = new Format(PixelInternalFormat.CompressedRgbaS3tcDxt5Ext, PixelFormat.Rgb, PixelType.UnsignedByte, 4, FormatChannelType.CompressedNormalized, 0) { Compression = FormatCompression.DXT5 };
-
-			Format.FinishInit(typeof(TextureFormats));
-		}
-	}
-
-	/// <summary>This contains all of the valid <see cref="VectorFormats"/>, <see cref="TextureFormats"/>, and <see cref="CommonFormats"/> values.</summary>
-	public static class Formats {
-		/// <summary>One-dimensional double-precision floating-point vector corresponding to <see cref="Glare.Vector1d"/>. Vector format only.</summary>
-		public static Format Vector1d { get { return VectorFormats.Vector1d; } }
-
-		/// <summary>One-dimensional floating-point vector corresponding to <see cref="Glare.Vector1f"/>. Common to all uses.</summary>
-		public static Format Vector1f { get { return CommonFormats.Vector1f; } }
-
-		/// <summary>One-dimensional integer vector corresponding to <see cref="Glare.Vector1i"/>. Common to all uses.</summary>
-		public static Format Vector1i { get { return CommonFormats.Vector1i; } }
-
-		/// <summary>One-dimensional normalized unsigned byte vector corresponding to <see cref="Glare.Vector1nb"/>. Texture format only.</summary>
-		public static Format Vector1nb { get { return TextureFormats.Vector1nb; } }
-
-		/// <summary>One-dimensional normalized signed byte vector corresponding to <see cref="Glare.Vector1nsb"/>. Texture format only.</summary>
-		public static Format Vector1nsb { get { return TextureFormats.Vector1nsb; } }
-
-		/// <summary>Two-dimensional double-precision floating-point vector corresponding to <see cref="Glare.Vector2d"/>. Vector format only.</summary>
-		public static Format Vector2d { get { return VectorFormats.Vector2d; } }
-
-		/// <summary>Two-dimensional floating-point vector corresponding to <see cref="Glare.Vector2f"/>. Common to all uses.</summary>
-		public static Format Vector2f { get { return CommonFormats.Vector2f; } }
-
-		/// <summary>Two-dimensional integer vector corresponding to <see cref="Glare.Vector2i"/>. Common to all uses.</summary>
-		public static Format Vector2i { get { return CommonFormats.Vector2i; } }
-
-		/// <summary>Two-dimensional normalized unsigned byte vector corresponding to <see cref="Glare.Vector2nb"/>. Texture format only.</summary>
-		public static Format Vector2nb { get { return TextureFormats.Vector2nb; } }
-
-		/// <summary>Two-dimensional normalized signed byte vector corresponding to <see cref="Glare.Vector2nsb"/>. Texture format only.</summary>
-		public static Format Vector2nsb { get { return TextureFormats.Vector2nsb; } }
-
-		/// <summary>Three-dimensional double-precision floating-point vector corresponding to <see cref="Glare.Vector3d"/>. Vector format only.</summary>
-		public static Format Vector3d { get { return VectorFormats.Vector3d; } }
-
-		/// <summary>Three-dimensional floating-point vector corresponding to <see cref="Glare.Vector3f"/>. Common to all uses.</summary>
-		public static Format Vector3f { get { return CommonFormats.Vector3f; } }
-
-		/// <summary>Three-dimensional integer vector corresponding to <see cref="Glare.Vector3i"/>. Common to all uses.</summary>
-		public static Format Vector3i { get { return CommonFormats.Vector3i; } }
-
-		/// <summary>Three-dimensional normalized unsigned byte vector corresponding to <see cref="Glare.Vector3nb"/>. Texture format only.</summary>
-		public static Format Vector3nb { get { return TextureFormats.Vector3nb; } }
-
-		/// <summary>Three-dimensional normalized signed byte vector corresponding to <see cref="Glare.Vector3nsb"/>. Texture format only.</summary>
-		public static Format Vector3nsb { get { return TextureFormats.Vector3nsb; } }
-
-		/// <summary>Four-dimensional double-precision floating-point vector corresponding to <see cref="Glare.Vector4d"/>. Vector format only.</summary>
-		public static Format Vector4d { get { return VectorFormats.Vector4d; } }
-
-		/// <summary>Four-dimensional floating-point vector corresponding to <see cref="Glare.Vector4f"/>. Common to all uses.</summary>
-		public static Format Vector4f { get { return CommonFormats.Vector4f; } }
-
-		/// <summary>Four-dimensional integer vector corresponding to <see cref="Glare.Vector4i"/>. Common to all uses.</summary>
-		public static Format Vector4i { get { return CommonFormats.Vector4i; } }
-
-		/// <summary>Four-dimensional normalized unsigned byte vector corresponding to <see cref="Glare.Vector4nb"/>. Texture format only.</summary>
-		public static Format Vector4nb { get { return TextureFormats.Vector4nb; } }
-
-		/// <summary>Four-dimensional normalized signed byte vector corresponding to <see cref="Glare.Vector4nsb"/>. Texture format only.</summary>
-		public static Format Vector4nsb { get { return TextureFormats.Vector4nsb; } }
-	}
-
-	/// <summary>This contains the list of all valid <see cref="Format"/> values that are common to both <see cref="VectorFormats"/> and <see cref="TextureFormats"/>.</summary>
-	public static class CommonFormats {
-		public static readonly Format Vector1b, Vector1f, Vector1i, Vector1sb, Vector1s, Vector1us;
-		public static readonly Format Vector1ui;
-		public static readonly Format Vector2f, Vector2i;
-		public static readonly Format Vector2ui;
-		public static readonly Format Vector3f, Vector3i;
-		public static readonly Format Vector3ui;
-		public static readonly Format Vector4f, Vector4i;
-		public static readonly Format Vector4ui;
-
-		static CommonFormats() {
-			Format.BaseList.AddRange(new Format[]
-			{
-				Vector1b = new Format(PixelInternalFormat.R8ui, PixelFormat.Red, PixelType.UnsignedByte, 1, FormatChannelType.UnsignedInteger, 8) { Type = typeof(byte) },
-				Vector1f = new Format(PixelInternalFormat.R32f, PixelFormat.Red, PixelType.Float, 1, FormatChannelType.Float, 32) { ActiveAttribType = ActiveAttribType.Float, Type = typeof(float) },
-				Vector1i = new Format(PixelInternalFormat.R32i, PixelFormat.Red, PixelType.Int, 1, FormatChannelType.SignedInteger, 32) { ActiveAttribType = ActiveAttribType.Int, Type = typeof(int) },
-				Vector1s = new Format(PixelInternalFormat.R16i, PixelFormat.Red, PixelType.Short, 1, FormatChannelType.SignedInteger, 16) { Type = typeof(short) },
-				Vector1sb = new Format(PixelInternalFormat.R8i, PixelFormat.Red, PixelType.Byte, 1, FormatChannelType.SignedInteger, 8) { Type = typeof(sbyte) },
-				Vector1ui = new Format(PixelInternalFormat.R32ui, PixelFormat.Red, PixelType.UnsignedInt, 1, FormatChannelType.UnsignedInteger, 32) { ActiveAttribType = ActiveAttribType.UnsignedInt, Type = typeof(uint) },
-				Vector1us = new Format(PixelInternalFormat.R16ui, PixelFormat.Red, PixelType.UnsignedShort, 1, FormatChannelType.UnsignedInteger, 16) { Type = typeof(ushort) },
-
-				Vector2f = new Format(PixelInternalFormat.Rg32f, PixelFormat.Rg, PixelType.Float, 2, FormatChannelType.Float, 32) { ActiveAttribType = ActiveAttribType.FloatVec2, Type = typeof(Vector2f) },
-				Vector2i = new Format(PixelInternalFormat.Rg32i, PixelFormat.Rg, PixelType.Int, 2, FormatChannelType.SignedInteger, 32) { ActiveAttribType = ActiveAttribType.IntVec2, Type = typeof(Vector2i) },
-				Vector2ui = new Format(PixelInternalFormat.Rg32ui, PixelFormat.Rg, PixelType.UnsignedInt, 2, FormatChannelType.UnsignedInteger, 32) { ActiveAttribType = ActiveAttribType.UnsignedIntVec2, Type = typeof(Vector2ui) },
-
-				Vector3f = new Format(PixelInternalFormat.Rgb32f, PixelFormat.Rgb, PixelType.Float, 3, FormatChannelType.Float, 32) { ActiveAttribType = ActiveAttribType.FloatVec3, Type = typeof(Vector3f) },
-				Vector3i = new Format(PixelInternalFormat.Rgb32i, PixelFormat.Rgb, PixelType.Int, 3, FormatChannelType.SignedInteger, 32) { ActiveAttribType = ActiveAttribType.IntVec3, Type = typeof(Vector3i) },
-				Vector3ui = new Format(PixelInternalFormat.Rgb32ui, PixelFormat.Rgba, PixelType.UnsignedInt, 3, FormatChannelType.UnsignedInteger, 32) { ActiveAttribType = ActiveAttribType.UnsignedIntVec3, Type = typeof(Vector3ui) },
-
-				Vector4f = new Format(PixelInternalFormat.Rgba32f, PixelFormat.Rgba, PixelType.Float, 4, FormatChannelType.Float, 32) { ActiveAttribType = ActiveAttribType.FloatVec4, Type = typeof(Vector4f) },
-				Vector4i = new Format(PixelInternalFormat.Rgba32i, PixelFormat.Rgba, PixelType.Int, 4, FormatChannelType.SignedInteger, 32) { ActiveAttribType = ActiveAttribType.IntVec4, Type = typeof(Vector4i) },
-				Vector4ui = new Format(PixelInternalFormat.Rgba32ui, PixelFormat.Rgba, PixelType.UnsignedInt, 4, FormatChannelType.UnsignedInteger, 32) { ActiveAttribType = ActiveAttribType.UnsignedIntVec4, Type = typeof(Vector4ui) },
-			});
-		}
-
-		/*public static readonly TextureFormat Vector1nsb
-		{
-			get
-			{
-				return rnsb ?? (rnsb = new TextureFormat(PixelInternalFormat.r
-			}
-		}*/
 	}
 }

@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Alexandria {
+	/// <summary>
+	/// A builder for RTF text.
+	/// </summary>
 	public class RichTextBuilder {
 		static readonly Dictionary<RichTextUnderlineStyle, string> UnderlineStyleCodes = new Dictionary<RichTextUnderlineStyle, string>() {
 				{ RichTextUnderlineStyle.None, @"\ul0 " },
@@ -51,6 +54,7 @@ namespace Alexandria {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		Font font;
 
+		/// <summary>Get or set the font to use. If set to <c>null</c>, it will be assigned to the control's default font. This also assigns <see cref="FontSize"/>.</summary>
 		public Font Font {
 			get { return font; }
 
@@ -60,14 +64,19 @@ namespace Alexandria {
 			}
 		}
 
+		/// <summary>Get or set the font size to use.</summary>
 		public float FontSize { get; set; }
 
+		/// <summary>Get or set the foreground colour to use.</summary>
 		public Color ForegroundColor { get; set; }
 
+		/// <summary>Get or set whether to underline.</summary>
 		public bool IsUnderlined { get; set; }
 
+		/// <summary>Get or set the type of underline to use.</summary>
 		public RichTextUnderlineStyle UnderlineStyle { get; set; }
 
+		/// <summary>Initialise the builder.</summary>
 		public RichTextBuilder() {
 			Prefix.Append(@"{\rtf1\ansi");
 			FontTable.Append(@"{\fonttbl");
@@ -76,6 +85,8 @@ namespace Alexandria {
 			ForegroundColor = CurrentForegroundColor = Color.Black;
 		}
 
+		/// <summary>Add a character to the end, escaping invalid characters as necessary.</summary>
+		/// <param name="value"></param>
 		public void Append(char value) {
 			switch (value) {
 				case '\\': Content.Append(@"\\"); break;
@@ -95,6 +106,8 @@ namespace Alexandria {
 			}
 		}
 
+		/// <summary>Add some plain text, escaping characters as necessary.</summary>
+		/// <param name="text"></param>
 		public void Append(string text) {
 			if (string.IsNullOrEmpty(text))
 				return;
@@ -112,12 +125,37 @@ namespace Alexandria {
 			}
 		}
 
+		/// <summary>Append the string representation of the object. If <paramref name="value"/> is <c>null</c>, then nothing is appended.</summary>
+		/// <param name="value"></param>
 		public void Append(object value) { if (value != null) Append(value.ToString()); }
 
+		/// <summary>Append formatted text.</summary>
+		/// <param name="format"></param>
+		/// <param name="args"></param>
 		public void AppendFormat(string format, params object[] args) { Append(string.Format(format, args)); }
+
+		/// <summary>Append formatted text.</summary>
+		/// <param name="format"></param>
+		/// <param name="arg0"></param>
 		public void AppendFormat(string format, object arg0) { Append(string.Format(format, arg0)); }
+
+		/// <summary>Append formatted text.</summary>
+		/// <param name="format"></param>
+		/// <param name="arg0"></param>
+		/// <param name="arg1"></param>
 		public void AppendFormat(string format, object arg0, object arg1) { Append(string.Format(format, arg0, arg1)); }
+
+		/// <summary>Append formatted text.</summary>
+		/// <param name="format"></param>
+		/// <param name="arg0"></param>
+		/// <param name="arg1"></param>
+		/// <param name="arg2"></param>
 		public void AppendFormat(string format, object arg0, object arg1, object arg2) { Append(string.Format(format, arg0, arg1, arg2)); }
+
+		/// <summary>Append formatted text.</summary>
+		/// <param name="provider"></param>
+		/// <param name="format"></param>
+		/// <param name="args"></param>
 		public void AppendFormat(IFormatProvider provider, string format, params object[] args) { Append(string.Format(provider, format, args)); }
 
 		void EmitCodeIndex(string code, int index) {
@@ -239,6 +277,8 @@ namespace Alexandria {
 			return true;
 		}
 
+		/// <summary>Convert to a the RTF text.</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			StringBuilder sum = new StringBuilder(Prefix.Length + FontTable.Length + ColorTable.Length + Content.Length + Suffix.Length + 8);
 			sum.Append(Prefix);
@@ -262,6 +302,7 @@ namespace Alexandria {
 		}
 	}
 
+	/// <summary>Specifies the underlining style to use for rich text.</summary>
 	public enum RichTextUnderlineStyle {
 		/// <summary>No underline (\ul0 or \ulnone in RTF).</summary>
 		None,

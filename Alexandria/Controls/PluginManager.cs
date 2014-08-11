@@ -11,7 +11,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Alexandria.Controls {
+	/// <summary>
+	/// Provides management of the plugins of an asset manager.
+	/// </summary>
 	public partial class PluginManager : Form {
+		/// <summary>
+		/// Initialise the plugin manager.
+		/// </summary>
+		/// <param name="manager">The asset manager to manage the plugins of.</param>
 		public PluginManager(AssetManager manager) {
 			InitializeComponent();
 

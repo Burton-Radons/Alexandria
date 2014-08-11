@@ -15,9 +15,28 @@ namespace Glare
 		/// <summary>Get this value multiplied by itself.</summary>
 		public Area Squared { get { return Area.SquareMetres(InMetres * InMetres); } }
 		
+		/// <summary>Multiply the <see cref="Length"/>s together, producing an <see cref="Area"/>.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static Area operator *(Length a, Length b) { return Area.SquareMetres(a.InMetres * b.InMetres); }
+		
+		/// <summary>Scale the <see cref="Length"/> by a scalar vector.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static Vector3 operator *(Length a, Vector3d b) { return new Vector3(a * b.X, a * b.Y, a * b.Z); }
+
+		/// <summary>Scale a <see cref="Length"/> by a scalar vector.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static Vector3 operator *(Vector3d a, Length b) { return new Vector3(a.X * b, a.Y * b, a.Z * b); }
+
+		/// <summary>Divide a <see cref="Length"/> by a <see cref="TimeSpan"/>, producing a <see cref="Velocity"/>.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static Velocity operator /(Length a, TimeSpan b) { return Velocity.MetresPerSecond(a.InMetres / b.TotalSeconds); }
 	}
 	<#});#>

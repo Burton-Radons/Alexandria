@@ -16,12 +16,14 @@ namespace Alexandria.Engines.DarkSouls {
 		/// From "HitMtrlParam.paramdef" (id 30h).
 		/// </remarks>
 		public class HitMaterial : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "HIT_MTRL_PARAM_ST";
 
 			Single aiVolumeRate;
 			Int32 spEffectIdOnHit0, spEffectIdOnHit1;
 			Byte[] pad0;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				AiVolumeRateProperty = GetProperty<HitMaterial>("AiVolumeRate"),
 				SpEffectIdOnHit0Property = GetProperty<HitMaterial>("SpEffectIdOnHit0"),
@@ -36,7 +38,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "音半径倍率", Google translated: "Sound radius magnification".
 			/// Japanese description: "1倍のときは普通。0にすると音半径が0になる（SEとSFXは無関係のゲーム的なパラメータ）", Google translated: "And usually when one fold. Sound radius becomes 0 when the 0 (SFX SE and the parameters of the game unrelated)".
 			/// </remarks>
-			[ParameterTableRowAttribute("aiVolumeRate", index: 0, minimum: 0, maximum: 99, step: 0.01, order: 1000, unknown2: 1)]
+			[ParameterTableRowAttribute("aiVolumeRate", index: 0, minimum: 0, maximum: 99, step: 0.01, sortOrder: 1000, unknown2: 1)]
 			[DisplayName("Sound radius magnification")]
 			[Description("And usually when one fold. Sound radius becomes 0 when the 0 (SFX SE and the parameters of the game unrelated)")]
 			[DefaultValue((Single)1)]
@@ -54,7 +56,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ヒットマテリアルを踏んだ時にかかる特殊効果0", Google translated: "Special effects applied to 0 when you step on the hit material".
 			/// Japanese description: "キャラがヒットマテリアルを踏んだ時に、設定した特殊効果0が発揮される", Google translated: "When the characters trod the hit material, special effects 0 set is exhibited".
 			/// </remarks>
-			[ParameterTableRowAttribute("spEffectIdOnHit0", index: 1, minimum: -1, maximum: 1E+08, step: 1, order: 2000, unknown2: 1)]
+			[ParameterTableRowAttribute("spEffectIdOnHit0", index: 1, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 2000, unknown2: 1)]
 			[DisplayName("Special effects applied to 0 when you step on the hit material")]
 			[Description("When the characters trod the hit material, special effects 0 set is exhibited")]
 			[DefaultValue((Int32)(-1))]
@@ -72,7 +74,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ヒットマテリアルを踏んだ時にかかる特殊効果1", Google translated: "Special effects 1 according to when you step on the hit material".
 			/// Japanese description: "キャラがヒットマテリアルを踏んだ時に、設定した特殊効果1が発揮される", Google translated: "Special effects 1 when the characters trod the hit material, you set are exhibited".
 			/// </remarks>
-			[ParameterTableRowAttribute("spEffectIdOnHit1", index: 2, minimum: -1, maximum: 1E+08, step: 1, order: 2000, unknown2: 1)]
+			[ParameterTableRowAttribute("spEffectIdOnHit1", index: 2, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 2000, unknown2: 1)]
 			[DisplayName("Special effects 1 according to when you step on the hit material")]
 			[Description("Special effects 1 when the characters trod the hit material, you set are exhibited")]
 			[DefaultValue((Int32)(-1))]
@@ -90,7 +92,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "フットエフェクトの高さタイプ", Google translated: "Type the height of the foot effect".
 			/// Japanese description: "フットエフェクトを発生させる高さ", Google translated: "Height to generate the foot effect".
 			/// </remarks>
-			[ParameterTableRowAttribute("footEffectHeightType:2", index: 3, minimum: 0, maximum: 2, step: 1, order: 3000, unknown2: 1)]
+			[ParameterTableRowAttribute("footEffectHeightType:2", index: 3, minimum: 0, maximum: 2, step: 1, sortOrder: 3000, unknown2: 1)]
 			[DisplayName("Type the height of the foot effect")]
 			[Description("Height to generate the foot effect")]
 			[DefaultValue((HitMaterialFootEffectHeight)0)]
@@ -104,7 +106,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "フットエフェクトの向きタイプ", Google translated: "Orientation type of foot effect".
 			/// Japanese description: "フットエフェクトの発生向き", Google translated: "Occurrence of foot orientation effect".
 			/// </remarks>
-			[ParameterTableRowAttribute("footEffectDirType:2", index: 4, minimum: 0, maximum: 2, step: 1, order: 3000, unknown2: 1)]
+			[ParameterTableRowAttribute("footEffectDirType:2", index: 4, minimum: 0, maximum: 2, step: 1, sortOrder: 3000, unknown2: 1)]
 			[DisplayName("Orientation type of foot effect")]
 			[Description("Occurrence of foot orientation effect")]
 			[DefaultValue((HitMaterialFootEffectDirection)0)]
@@ -118,7 +120,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "地面の高さタイプ", Google translated: "Type the height of the ground".
 			/// Japanese description: "水面などアイテムを浮かせるとき用", Google translated: "When for you float items such as water".
 			/// </remarks>
-			[ParameterTableRowAttribute("floorHeightType:2", index: 5, minimum: 0, maximum: 1, step: 1, order: 4000, unknown2: 1)]
+			[ParameterTableRowAttribute("floorHeightType:2", index: 5, minimum: 0, maximum: 1, step: 1, sortOrder: 4000, unknown2: 1)]
 			[DisplayName("Type the height of the ground")]
 			[Description("When for you float items such as water")]
 			[DefaultValue((HitMaterialFloorHeight)0)]
@@ -132,7 +134,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "pad", Google translated: "pad".
 			/// Japanese description: "pad", Google translated: "pad".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad0[3]", index: 6, minimum: 0, maximum: 0, step: 0, order: 99999999, unknown2: 0)]
+			[ParameterTableRowAttribute("pad0[3]", index: 6, minimum: 0, maximum: 0, step: 0, sortOrder: 99999999, unknown2: 0)]
 			[DisplayName("pad")]
 			[Description("pad")]
 			[Browsable(false)]
@@ -164,6 +166,8 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad0 = new Byte[3];
 			}
 
+			/// <summary>Write the <see cref="HitMaterial"/>.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(AiVolumeRate);
 				writer.Write(SpEffectIdOnHit0);

@@ -11,10 +11,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Engines.Sciagi {
+	/// <summary>
+	/// The SCI/AGI plugin.
+	/// </summary>
 	public class Plugin : AlexandriaPlugin {
 		internal static ResourceManager OurResourceManager { get { return Properties.Resources.ResourceManager; } }
 
-		public Plugin(AssetManager manager)
+		internal Plugin(AssetManager manager)
 			: base(manager, OurResourceManager) {
 			AddFormat(new ResourceMapFormat(this));
 		}

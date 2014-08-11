@@ -6,13 +6,11 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glare.Graphics.Rendering
-{
+namespace Glare.Graphics.Rendering {
 	/// <summary>
 	/// A builtin <see cref="Program"/> that offers basic rendering capabilities like lighting and texture support.
 	/// </summary>
-	public class BasicProgram : Program, IModelMaterialBinder
-	{
+	public class BasicProgram : Program, IModelMaterialBinder {
 		const string ResourceName = "Glare.Graphics.Rendering.BasicProgram.glsl";
 
 		readonly VertexShader vertexShader;
@@ -59,8 +57,7 @@ namespace Glare.Graphics.Rendering
 
 		static readonly Dictionary<string, string> sections = new Dictionary<string, string>();
 
-		public BasicProgram()
-		{
+		public BasicProgram() {
 			vertexShader = shaderBuilder.VertexShader("Common", "Uniforms", "Vertex");
 			fragmentShader = shaderBuilder.FragmentShader("Common", "Uniforms", "Fragment");
 
@@ -68,24 +65,20 @@ namespace Glare.Graphics.Rendering
 			MustLink();
 		}
 
-		static BasicProgram()
-		{
+		static BasicProgram() {
 			shaderBuilder = ShaderBuilder.CreateFromAssemblyResource(ResourceName);
 		}
 
-		void DoLink()
-		{
+		void DoLink() {
 			if (view == null)
 				MustLink();
 		}
 
-		public override bool Link()
-		{
+		public override bool Link() {
 			bool result = base.Link();
 			Unlink();
 
-			if (result)
-			{
+			if (result) {
 				boneIndices = Attributes["BoneIndices"];
 				boneWeights = Attributes["BoneWeights"];
 				normal = Attributes["Normal"];
@@ -104,8 +97,7 @@ namespace Glare.Graphics.Rendering
 			return result;
 		}
 
-		void Unlink()
-		{
+		void Unlink() {
 			ambientLight = diffuseColor = diffuseMap = projection = view = world = null;
 			boneIndices = boneWeights = normal = position = texel = null;
 		}

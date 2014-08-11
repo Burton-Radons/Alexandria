@@ -6,6 +6,10 @@ using System.Collections.ObjectModel;
 using Glare.Internal;
 using Glare.Graphics.Rendering;
 using Glare.Framework;
+using System.Runtime.InteropServices;
+
+using InstanceType = Glare.Vector4f;
+using Glare.Graphics.Terrains.Planar.Components;
 
 namespace Glare.Graphics.Terrains.Planar {
 	/// <summary>
@@ -14,8 +18,8 @@ namespace Glare.Graphics.Terrains.Planar {
 	/// 
 	/// The <see cref="PlanarTerrain"/> is rendered as a set of blocks that are scaled to
 	/// different levels based upon input from <see cref="TerrainComponent"/>s that provide
-	/// that information, like the <see cref="DistanceLodTerrainModule"/> and
-	/// <see cref="OcclusionQueryTerrainModule"/>.
+	/// that information, like the <see cref="DistanceLodTerrainComponent"/> and
+	/// <see cref="OcclusionQueryTerrainComponent"/>.
 	/// </summary>
 	public class PlanarTerrain : Terrain {
 		#region Static Fields
@@ -31,6 +35,8 @@ namespace Glare.Graphics.Terrains.Planar {
 
 		/// <summary>The total number of vertices in a block.</summary>
 		const int BlockVertexCount = BlockVertexRow * BlockVertexRow;
+
+		static readonly int InstanceTypeSize = Marshal.SizeOf(typeof(InstanceType));
 
 		const int InstanceVertexElementCount = 2;
 
@@ -76,14 +82,14 @@ namespace Glare.Graphics.Terrains.Planar {
 
 		internal TerrainMetrics MetricsField;
 
-		/// <summary>The <see cref="HeightTexture"/> with a 16th the width, and two float channels. This is the render target for the first pass of the min/max boundary box function.</summary>
+		/// <summary>The height texture with a 16th the width, and two float channels. This is the render target for the first pass of the min/max boundary box function.</summary>
 		internal readonly Texture2D NarrowHeightTexture;
 
 		/// <summary>Data retrieved from the <see cref="SmallHeightTexture"/>.</summary>
 		internal readonly float[] SmallHeightData;
 
 		/// <summary>
-		/// The <see cref="HeightTexture"/> with a 16th the width and height, and two float channels.
+		/// The height texture with a 16th the width and height, and two float channels.
 		/// This is the render target for the second pass of the min/max boundary box function.
 		/// </summary>
 		internal readonly Texture2D SmallHeightTexture;
@@ -137,7 +143,7 @@ namespace Glare.Graphics.Terrains.Planar {
 		}
 
 		/// <summary>
-		/// Recreate the bounding box hierarchy in the <see cref="DirtyTreeArea"/> region.
+		/// Recreate the bounding box hierarchy in the dirty tree area region.
 		/// If that is null, nothing is done. This also calls <see cref="TerrainComponent.OnHeightModified"/> on each of the <see cref="Components"/>.
 		/// </summary>
 		void CleanTree() {
@@ -156,7 +162,7 @@ namespace Glare.Graphics.Terrains.Planar {
 			return buffer;
 		}
 
-		/// <summary>Create the <see cref="BlockIndexBuffer"/>.</summary>
+		/// <summary>Create the block index buffer.</summary>
 		void CreateBlockIndexBuffer(GraphicsBuffer buffer, int offset) {
 			ushort[] indices = new ushort[BlockIndexCount];
 			for (int z = 0, i = 0, l = 0; z < BlockVertexRow - 1; z++) {
@@ -171,7 +177,7 @@ namespace Glare.Graphics.Terrains.Planar {
 		}
 
 		/// <summary>
-		/// Create the block <see cref="BlockVertexBuffer"/>.
+		/// Create the block vertex buffer.
 		/// </summary>
 		void CreateBlockVertexBuffer(GraphicsBuffer buffer, int offset) {
 			Vector4b[] vertices = new Vector4b[BlockVertexCount];
@@ -214,22 +220,20 @@ namespace Glare.Graphics.Terrains.Planar {
 			}*/
 		}
 
+
 		internal int FlushInstanceArray() {
-			throw new NotImplementedException();
-			/*int count = InstanceArray.Count;
-			if (count > 0)
-			{
-				if (InstanceVertexBuffer == null || InstanceVertexBuffer.VertexCount < InstanceArray.Count)
-				{
+			int count = InstanceArray.Count;
+			if (count > 0) {
+				if (InstanceVertexBuffer == null || InstanceVertexBuffer.Size < InstanceArray.Count * InstanceTypeSize) {
 					if (InstanceVertexBuffer != null)
 						InstanceVertexBuffer.Dispose();
-					InstanceVertexBuffer = new GraphicsBuffer(Context, InstanceVertexDeclaration, count * 3 / 2, BufferUsage.WriteOnly);
+					InstanceVertexBuffer = new GraphicsBuffer(count * InstanceTypeSize * 3 / 2, BufferUsage.DynamicDraw);
 				}
 
-				InstanceVertexBuffer.SetData(InstanceArray.Array, 0, count, SetDataOptions.Discard);
+				InstanceVertexBuffer.Write(0, InstanceArray.Array, 0, InstanceArray.Count);
 				ClearInstanceArray();
 			}
-			return count / InstanceVertexElementCount;*/
+			return count / InstanceVertexElementCount;
 		}
 
 		/// <summary>Get the <see cref="PlanarTerrainBlock"/> at the given block indices, creating it if necessary.</summary>
@@ -300,7 +304,8 @@ namespace Glare.Graphics.Terrains.Planar {
 		/// cause the render target to change, which will clear the main buffer when reset.
 		/// So don't call this in the middle of rendering.
 		/// </summary>
-		public void Update() {
+		public override void Update() {
+			base.Update();
 			CleanTree();
 		}
 	}

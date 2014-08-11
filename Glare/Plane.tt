@@ -4,37 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glare
-{
+namespace Glare {
 	<#GenerateAxes(PlaneFamily, () => {#>
 	/// <summary>A <#=Normal#> normal with a <#=T#> distance from origin.</summary>
-	public struct <#=This#>
-	{
+	public struct <#=This#> {
 		/// <summary>Get or set the distance from origin.</summary>
 		public <#=T#> Distance;
 
 		/// <summary>Get or set the direction of the <#=SeeThis#>.</summary>
 		public <#=Normal#> Normal;
 		
-		public <#=This#>(<#=Normal#> normal, <#=T#> distance)
-		{
+		/// <summary>Initialise the <#=SeeThis#>.</summary>
+		public <#=This#>(<#=Normal#> normal, <#=T#> distance) {
 			Distance = distance;
 			Normal = normal;
 		}
 
-		public <#=This#>(<#Comma((axis) => {#> <#=ScalarType#> normal<#=axis.Id#> <#});#>, <#=T#> distance)
-		{
+		/// <summary>Initialise the <#=SeeThis#>.</summary>
+		public <#=This#>(<#Comma((axis) => {#> <#=ScalarType#> normal<#=axis.Id#> <#});#>, <#=T#> distance) {
 			Normal = new <#=Normal#>(<#Comma((axis) => {#> normal<#=axis.Id#> <#});#>);
 			Distance = distance;
 		}
 
+		/// <summary>Normalize the <#=SeeThis#> in place.</summary>
 		public void NormalizeInPlace() { Normal.NormalizeInPlace(); }
 
 		<#if(Order == 3) {#>
 
 			<#GenerateReferenceReturn(Vector, (r) => {#>
-				public <#=r.ReturnType#> Intersect(<#=r.Ref#> <#=This#> b, <#=r.Ref#> <#=This#> c <#=r.Argument#>)
-				{
+				/// <summary>Get the intersection point between the three planes.</summary>
+				public <#=r.ReturnType#> Intersect(<#=r.Ref#> <#=This#> b, <#=r.Ref#> <#=This#> c <#=r.Argument#>) {
 					<#=r.Begin#>
 					<#=VectorFloat#> v1, v2, v3;
 					<#=VectorFloat#> cross;

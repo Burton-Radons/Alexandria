@@ -21,16 +21,29 @@ namespace Glare {
 			public uint UInt;
 		}
 
+		/// <summary>Get or set the underlying packed value.</summary>
 		public ushort PackedValue;
 
+		/// <summary>Get the packed value as a <see cref="Double"/>.</summary>
 		public double Value { get { return ToFloat(PackedValue); } }
 
+		/// <summary>Create a <see cref="Float16"/> by packing a <see cref="Double"/> value.</summary>
+		/// <param name="value"></param>
 		public Float16(double value) { PackedValue = ToUInt16(checked((float)value)); }
 
+		/// <summary>Create a <see cref="Float16"/> by supplying the packed value.</summary>
+		/// <param name="packedValue"></param>
+		/// <returns></returns>
 		public static Float16 CreateCoded(ushort packedValue) { Float16 result; result.PackedValue = packedValue; return result; }
 
+		/// <summary>Get whether this value is equal to the other one.</summary>
+		/// <param name="other"></param>
+		/// <returns></returns>
 		public bool Equals(Float16 other) { return PackedValue == other.PackedValue; }
 
+		/// <summary>Get whether this value is equal to another <see cref="Float16"/>, a <see cref="Single"/>, or a <see cref="Double"/>.</summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public override bool Equals(object obj) {
 			if (obj is Double) return Value == (float)obj;
 			if (obj is Float16) return PackedValue == ((Float16)obj).PackedValue;
@@ -38,18 +51,32 @@ namespace Glare {
 			return base.Equals(obj);
 		}
 
+		/// <summary>Get the hash code of the packed value.</summary>
+		/// <returns></returns>
 		public override int GetHashCode() {
 			return PackedValue.GetHashCode();
 		}
 
+		/// <summary>Read a <see cref="Float16"/> value from a <see cref="BinaryReader"/>.</summary>
+		/// <param name="reader"></param>
+		/// <returns></returns>
 		public static Float16 Read(BinaryReader reader) { Float16 result; result.PackedValue = reader.ReadUInt16(); return result; }
 
+		/// <summary>Read a <see cref="Float16"/> value from a <see cref="BinaryReader"/>.</summary>
+		/// <param name="reader"></param>
+		/// <param name="result"></param>
 		public static void Read(BinaryReader reader, out Float16 result) { result.PackedValue = reader.ReadUInt16(); }
 
+		/// <summary>Convert the value to a string.</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			return Value.ToString();
 		}
 
+		/// <summary>Convert the value to a string.</summary>
+		/// <param name="format"></param>
+		/// <param name="formatProvider"></param>
+		/// <returns></returns>
 		public string ToString(string format, IFormatProvider formatProvider) {
 			return Value.ToString(format, formatProvider);
 		}
@@ -118,25 +145,71 @@ namespace Glare {
 			return new FloatUnion() { UInt = result }.Float;
 		}
 
+		/// <summary>Get the positive of the value, which is the value.</summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public static Float16 operator +(Float16 value) { return new Float16(+(double)value); }
+
+		/// <summary>Get the negative of the value.</summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public static Float16 operator -(Float16 value) { return new Float16(-(double)value); }
+
+		/// <summary>Add the values.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static Float16 operator +(Float16 a, Float16 b) { return new Float16(a.Value + b.Value); }
+
+		/// <summary>Subtract the values.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static Float16 operator -(Float16 a, Float16 b) { return new Float16(a.Value - b.Value); }
+
+		/// <summary>Multiply the values.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static Float16 operator *(Float16 a, Float16 b) { return new Float16(a.Value * b.Value); }
+
+		/// <summary>Divide the values.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static Float16 operator /(Float16 a, Float16 b) { return new Float16(a.Value / b.Value); }
+
+		/// <summary>Modulo the values.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static Float16 operator %(Float16 a, Float16 b) { return new Float16(a.Value % b.Value); }
 
+		/// <summary>Get whether the values are equal.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static bool operator ==(Float16 a, Float16 b) { return a.PackedValue == b.PackedValue; }
+
+		/// <summary>Get whether the values are unequal.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static bool operator !=(Float16 a, Float16 b) { return a.PackedValue != b.PackedValue; }
 
+		/// <summary>Explicitly cast a <see cref="Double"/> to a <see cref="Float16"/>.</summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public static explicit operator Float16(Double value) { return new Float16(value); }
-		public static explicit operator Float16(NormalizedByte value) { return new Float16(value); }
-		public static explicit operator Float16(NormalizedInt32 value) { return new Float16(value); }
-		public static explicit operator Float16(NormalizedSByte value) { return new Float16(value); }
 
-		public static explicit operator NormalizedByte(Float16 value) { return (NormalizedByte)value.Value; }
-		public static explicit operator NormalizedInt32(Float16 value) { return (NormalizedInt32)value.Value; }
-		public static explicit operator NormalizedSByte(Float16 value) { return (NormalizedSByte)value.Value; }
+		/// <summary>Implicitly cast a <see cref="Float16"/> to a <see cref="Single"/>.</summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public static implicit operator Single(Float16 value) { return (Single)value.Value; }
+
+		/// <summary>Implicitly cast a <see cref="Float16"/> to a <see cref="Double"/>.</summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		public static implicit operator Double(Float16 value) { return (Double)value.Value; }
 	}
 }

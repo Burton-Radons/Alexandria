@@ -1,0 +1,389 @@
+TotSF - Treasures of the Savage Frontier
+
+Types
+	String - u1 length, c<Ascii>[length] data
+	CodedString - u1 byteLength, u1[byteLength] codedData
+	
+Purely images
+	8x8d1.dax - Archive/DungeonImage - Contains parts for building dungeon walls, each is 256 images. Ids are 1-2, 7-16. Ids correspond to walldef1.dax.
+	back1.dax - Archive/Image - Indoor background pictures, 88x88. Ids 2 (mud cave), 3 (house), 5 (stone cave).
+	bigpic1.dax - Archive/Image - Big pictures, one frame per image.
+	borders.dax - Archive/Image - Borders, indices 0-3, each 11 images that are for one border style.
+	cbody.dax - Archive/Image - Character bodies; 0-31 base, mask 128 for attack, mask 64 for non-dwarf
+	chead.dax - Archive/Image - Character heads; 0-13 male, 64-77 (mask 64) female
+	comspr.dax - Archive/Image - Combat sprites, arrows and selection markers and whatnot
+	cpic1.dax - Archive/Image - Monster combat pictures. One-based Id contains the normal frame; (Id & 128) contains the attack frame.
+	cursor.dax - Archive/Image - Contains 1 image with 1 frame that is a small circle with a hole in it.
+	dungcom.dax - Archive/Image - Dungeon combat pieces.
+	over.dax - Archive/Image - World map image
+	pic1.dax - Archive/Sprite
+	pic1a.dax - Archive
+		78, 81: Image/Palette
+		Others: Sprites
+	skygrnd.dax - Archive/Image - Outside backgrounds in evening-night-day triplets.
+	sprit1.dax - Archive/Sprite - Sprites for some purpose.
+	title.dax - Archive/Image - Title images, 1-based indices. For TotSF, 4 and 5 are VGA and EGA images respectively.
+	walldef1.dax - Archive - Each is 2340 bytes, seems to be wall images. Ids correspond to 8x8d1.dax
+	wildcom.dax - Archive/Image - Id 0 only with multiple images; battle tiles for outdoors.
+
+8x8d0.dax - Archive
+	201 - 1416 bytes, contains a bunch of junk with an ILBM file at offset 400h.
+	202 - Image - Contains automap pieces.
+bord.dax - Archive - UI elements
+	0 - Image[64] - Border pieces
+	1 - Image[1] - Background
+	3 - Image[2] - Top and bottom of the exploration window border
+	4 - Image[2] - Top and bottom of a scroll window border
+	5 - Image[2] - Left and right of the exploration window border
+	6 - Image[2] - Left and right of a scroll window border
+	7 - Unknown; 581 bytes long
+	8 - Image[64] - Font - "_ABCDEFGHIJKLMNOPQRSTUVWXYZ····█" and "·!"#██&'()*+,-./0123456789:;<=>?"; '·' are actually blank.
+	9 - 160 effect strings in 6080 bytes. Each is 38 bytes long and contain only a zero-padded String. For example, "Blessed", "Detecting Magic", etc.
+	10 - 255 item name part strings in 5355 bytes. Each is 21 bytes long and contain only a zero-padded String. For example, "Battle Axe", "Bardiche". Not the same as the list in game.exe!
+control.exe - Runs the intro and game programs.
+ecl1.dax - Archive - Map events. Each starts with (88 13 01 01), varies massively in size. Corresponds to entries in geo1.dax except for Id 4, which is the demo.
+	%X - Where X is hex, change colour to EGA value.
+	
+	CodeAddress is a u2; subtract 0x7FFE to get the byte position in the file.
+	u2 Constant = 1388h
+	u2 Constant = 0101h
+	u2 CodeAddress - ???
+	u2 Constant = 0101h
+	u2 CodeAddress - Action in a zone?
+	u2 Constant = 0101h
+	u2 CodeAddress - Sets a couple variables. Reloading?
+	u2 Constant = 0101h
+	u2 CodeAddress - Called when resting?
+	u2 Constant = 0101h
+	u2 CodeAddress - Always 16h, so probably entry point.
+	
+	Unknown variables
+		54Ch - Money of first player?
+			16:CodeAddressE adds 4 to this after saying "your deposit is returned"
+			14Bh is the offset in a character sheet of the platinum
+	Variables
+		16h -
+			(16) at 4:CodeAddressE
+			Used at 16:CodeAddressE, if 16 then stop. Action?
+			16:CodeAddressE - If > 51 then goto [80ACh]
+			16:[807Dh] setssss to 16
+		1Ah - (0) at start of 16:CodeAddressE
+		1Bh - (95/5Fh) start of demo
+		1Dh - (1) in demo before starting battle setup.
+		34h - (10) At start of demo
+		35h - (7) At start of demo
+		3Ah - (2) at start of CodeAddressE in 16
+		40h - Show area map?
+			(0) Demo at start, at start of CodeAddressE in 16
+			(1) Demo when switching to area map.
+		41h 
+			16:CodeAddressE tests != 1, branching to [807Dh]
+			16:[807Dh] sets to 0
+		42h - Maybe overworld map palette - 1?
+			(2) Demo when switching to overworld area map.
+			(3) Demo when switching to overworld later season.
+		44h - Delay in rounds before entering battle.
+			(1) in demo when starting combat
+			(0) in demo after adding creatures DWARF FIGHTER and LORDSMAN
+		45h - (11) in demo when starting combat
+		46h - (11) in demo when starting combat
+		48h - (7) in demo when starting combat
+		4Ah - (3) in demo when starting combat
+		4Eh - (10) at start of CodeAddressE in 16
+		52h -
+			(7) at start of demo
+			(7) at start of CodeAddressE in 16
+		53h - (2) at start of CodeAddressE in 16
+		55h - (3) at start of CodeAddressE in 16
+		BFh - Used as counter in demo.
+	Instructions
+		U0C b:X b:Y b:Z b:W - (255 1 255 1) Right before setting up battle in demo.
+		U38 b:X - (5) Right after battle in demo
+		U3A - Used by demo as delay. Perhaps intended to delay half a second?
+		U42 b:X b:Y b:Z b:W
+			(16, 9, 10, 11) Demo and 16 near the start, multiple locations.
+		
+	Event
+		
+		Trying to leave (around 839h)
+			20h - 0 to 1
+			CDh - 0 to 1
+	
+	11?: 10
+	17: 0
+	22: 16
+	26: 0
+	52: 10 - Possible X
+	53: 7 - Possible Y
+	58: 2
+	64: 0
+	65: 0
+	78: Possible X
+	82: Possible Y
+	83: Possible direction (2 = North)
+	85: Possible Direction (3 = North)
+	Possible X: 78
+	Possible Y: 82
+	Possible direction:
+		85 (3 = North)
+		83
+game.exe
+	Item name parts (offset E4CBh to EF9Dh) - total length is 21
+		String name
+		u2 - Usually name length + 1, except for the first item one which is 106/6Ah.
+		u2 - 178
+		u2 - (total length - name length - 1)
+		u1 - 176
+	Spell name parts (offset FC25h to FD6Eh) - total length is 46.
+game.ovr - FORM file, "FBOV", u4 dataLength, u1[dataLength]
+	1A 02
+	5D CB []Strings 55 - Push? strings
+	5D CA []Strings 55 - Used with the journal question
+	77 0A
+	81 EC
+	89 E5
+	89 EC 5D CB [?]String - Print strings
+	9A DF 04
+	A1 0C
+	B8 1A 02
+geo1.dax - Archive - Each is 1026 bytes long, probably dungeon maps.
+	000h: z2
+	002h: [16][16]u1 - Top/right walls
+		X0h - top
+		0Xh - right
+		Values:
+			0h - Nothing
+			1h - brown dithered wall
+			2h - brown dithered door
+			3h - brown dithered archway
+			4h - pink stucco window
+			5h - pink stucco door
+			6h - cream stucco wall
+			7h
+			8h - cream stucco window
+			Ah - cream stucco door
+			Bh - water between columns
+			Eh - water between posts
+	102h: [16][16]u1 - Left/bottom walls
+		X0h - bottom
+		0Xh - left
+	202h: [16][16]u1 - Events/Zones?
+	302h: [16][16]u1 - Doors? Doors! What?
+		01h - door on top
+		04h - door on right
+		10h - door on bottom
+		40h - door on left
+item0.dax - Archive - Contains only Id 1, which is 4318 bytes long. Each is 17 bytes long, 254 entries.
+items - 2048/800h bytes long; each is probably 8 bytes long, 256 entries.
+luck.dax - Archive/Text - Something that sounds like quest messages, notes, and romance junk.
+mon1cha.dax - Archive - Character sheets for monsters., each 510 bytes
+mon1itm.dax - Archive - Loot tables? Not present for all monsters.
+mon1spc.dax - Archive - Likely spell or special attack information for spellcasting monsters (not all ids are represented).
+music.dax - Archive - Music files of some sort.
+startup.exe - Sets up the initial game.
+zounds.dax - Archive - More than likely PCM sounds.
+
+Character data (*.PC) // ELF
+	Types
+		Attribute
+			u1 Current, Maximum
+	00h: [16] String Name
+	10h: Attribute Strength, Intelligence, Wisdom, Dexterity, Constitution, Charisma, Strength18Plus
+	0Eh: Zero[8Eh]
+	...
+	9Fh: MemorizedSpells[12] - Same as order in grimoire, one-based index, zero is empty.
+	...
+	ACh: UInt8 44
+	ADh: UInt8 Race - 0 = Elf, 1 = Half-Elf, 2 = Dwarf, 3 = Gnome, 4 = Halfling, 5 = Human
+	AEh: UInt16 Class - 02h = Fighter, 03h = Paladin, 04h = Ranger, 05h = Magic-User, 06h = Thief, 08h = Cleric/Fighter, 09h = Cleric/Fighter/Magic-User, 0Ah = Cleric/Ranger, 0Bh = Cleric/Magic-User, 0Dh = Fighter/Magic-User, 0Eh = Fighter/Thief, 0Fh = Fighter/Magic-User/Thief, 10h = Magic-User/Thief
+	B0h: UInt16 AgeYears
+	B2h: UInt16 HitPoints (current or maximum?)
+	B4h: Zero[124/7Ch]
+	[]
+	Grimoire
+		1st Level Cleric Spells
+			B3h: Bless
+			B4h: Curse
+			B5h: Cure Light Wounds
+			B6h: Cause Light Wounds
+			B7h: Detect Magic
+			B8h: Protection from Evil
+			B9h: Protection from Good
+			BAh: Resist Cold
+		1st Level Magic-User Spells:
+			BBh: Burning Hands
+			BCh: Charm Person
+			BDh: Detect Magic
+			BEh: Enlarge
+			BFh: Reduce
+			C0h: Friends
+			C1h: Magic Missile
+			C2h: Protection from Evil
+			C3h: Protection from Good
+			C4h: Read Magic
+			C5h: Shield
+			C6h: Shocking Grasp
+			C7h: Sleep
+		2nd Level Cleric Spells:
+			C8h: Find Traps
+			C9h: Hold Person
+			CAh: Resist Fire
+			CBh: Silence, 15' Radius
+			CCh: Slow Poison
+			CDh: Snake Charm
+			CEh: Spiritual Hammer
+		2nd Level Magic-User Spells:
+			CFh: Detect Invisibility
+			D0h: Invisibility
+			D1h: Knock
+			D2h: Mirror Image
+			D3h: Ray of Enfeeblement
+			D4h: Stinking Cloud
+			D5h: Strength
+		3rd Level Cleric Spells:
+			D7h: Cure Blindness
+			D8h: Cause Blindness
+			D9h: Cure Disease
+			DAh: Cause Disease
+			DBh: Dispel Magic
+			DCh: Prayer
+			DDh: Remove Curse
+			DEh: Bestow Curse
+		3rd Level Magic-User Spells: 
+			DFh: Blink
+			E0h: Dispel Magic
+			E1h: Fireball
+			E2h: Haste
+			E3h: Hold Person
+			E4h: Invisibility, 10' Radius
+			E5h: Lightning Bolt
+			E6h: Protection from Evil, 10' Radius
+			E7h: Protection from Good, 10' Radius
+			E8h: Protection from Normal Missiles
+			E9h: Slow
+	[]
+	130h: Zero
+	131h: 1
+	132h: 11 (Racial strength etc?)
+	133h: 12
+	134h: 13
+	135h: 13
+	136h: 14
+	137h: 12
+	138h: UInt32 Level?
+	13Ch: Zero[7]
+	143h: UInt16 8
+	145h: 209 (Next level XP?)
+	146h: 118
+	147h: Zero[4]
+	14Bh: UInt32 Platinum
+	14Fh: Zero[2]
+	151h: UInt8 ClericLevel
+	152h: UInt8
+	153h: UInt8 FighterLevel
+	154h: UInt8 PaladinLevel
+	155h: UInt8 RangerLevel
+	156h: UInt8 MagicUserLevel
+	157h: UInt8 ThiefLevel
+	158h: Zero[14]
+	166h: UInt8 Gender - 0 = Male, 1 = Female
+	167h: UInt8 Alignment - 0 = Lawful Good, 1 = Lawful Neutral, 2 = Lawful Evil, 3 = Neutral Good, 4 = True Neutral, 5 = Chaotic Good, 6 = Chaotic Neutral, 7 = Chaotic Evil
+	168h: UInt16 2
+	16Ah: UInt16 1
+	16Ch: UInt32 2
+	170h: UInt16 50
+	172h: UInt32 Experience
+	176h: Zero[5]
+	17Bh: 8
+	17Ch: UInt32 33/35
+	17Dh: UInt8[3] ClericSpells - Number of spell casts available per level, starting with 1st.
+	180h: Zero[26]
+	...
+	18Fh: UInt8[3] MagicUserSpells - Number of spell casts available per level, starting with 1st.
+	...
+	19Ah: 05 18 0A 02 91 A2 B3 C4 E6 F7 02 02 03 1C D1 47 10
+	1ABh: Zero[54]
+	1E1h: C0 03
+	1E3h: Zero[11]
+	1EEh: 01 00 00 2C 32 30 00 00 01 00 02 00 00 00 
+	1FEh: UInt8 HitPoints (Current or maximum?)
+	1FDh: 09
+	
+Spell effects (*.EFX)
+	5F 00 00 FF 00 00 00 00 00
+Character items (*.THG)
+	Item[] - Each is 63 bytes long
+		00h: Junk[42]
+		2Ah: Junk[4]
+		2Eh: Name UnidentifiedName
+		2Fh: Zero
+		30h: Name[2] IdentifiedName - Backwards, so first word is index 1.
+		32h: Enchantment - Shield +1 is 1, Bracers AC 6 is 4
+		33h: Zero
+		34h: Readied
+		35h: Zero[2]
+		37h: u2 Weight (Each)
+		39h: u1 Count (Sometimes for non-counted like Composite Long Bow has 19h)
+		3Ah: u2 Cost - Cost to buy from a store, twice sale price.
+		3Bh: Zero[3]
+			
+			W1 = Word 1, W2 = Word 2
+		          W2 W1 +     RDY      WEGHT ## Cost
+			1E 00 00 1E 00 00 00 00 00 02 00 32 00 00 00 00 00 - 50 Arrows
+			05 00 00 05 00 00 00 00 00 05 00 0A 00 00 00 00 00 - 10 Darts
+			16 00 00 16 00 00 00 00 00 32 00 19 00 00 00 00 00 - Composite long bow
+			25 00 6F 25 01 00 00 00 00 64 00 00 F4 01 00 00 00 - Shield +1
+			1C 00 6F 1C 01 00 00 00 00 0A 00 00 BC 02 00 00 00 - Sling +1
+			24 00 2F 24 00 00 00 00 00 C2 01 00 50 00 00 00 00 - Plate Mail
+			32 00 6B 32 04 00 00 00 00 64 00 00 60 09 00 00 00 - Bracers AC 6
+			12 00 6F 12 01 00 00 00 00 3C 00 00 F4 01 00 00 00 - Long Sword +1
+			25 00 00 25 00 00 00 00 00 64 00 00 03 00 00 00 00 - Shield
+			21 00 2F 21 00 00 00 00 00 90 01 00 09 00 00 00 00 - Scale Mail
+			20 00 2F 20 00 00 00 00 00 FA 00 00 06 00 00 00 00 - Ring Mail
+			24 00 2F 24 00 00 00 00 00 C2 01 00 50 00 00 00 00 - Plate Mail
+			29 00 00 29 00 00 00 00 00 64 00 00 03 00 00 00 00 - Helm
+			1E 00 00 1E 00 00 00 00 00 02 00 14 00 00 00 00 00 - Arrow
+			
+			0 - Arrow
+			1 - Battle Axe
+			2 - Hand Axe
+			3 - Composite Short Bow
+			4 - Composite Long Bow
+			5 - Long Bow
+			6 - Short Bow
+			
+Item Names (-1)
+	1. Battle Axe, 2. Hand Axe, 3. Club, 4. Dagger, 5. Dart, 06. Hammer, 07. Javelin, 08. Mace, 09. Morning Star, 0a. Military Pick, 0b. Awl Pike, 0c. Bolt, 0d. Scimitar, 0e. Spear, 0f. Quarter Staff, 10. Bastard Sword, 11. Broad Sword, 12. Long Sword, 13. Short Sword, 14. Two-Handed Sword, 15. Trident, 16. Composite Long Bow, 17. Composite Short Bow, 18. Long Bow, 19. Short Bow, 1a. Fine, 1b. Light Crossbow, 1c. Sling, 1d. Staff, 1e. Arrow, 1f. Leather, 20. Ring,
+	21??:
+	20. Scale, 21. Chain, 22. Banded, 23. Plate, 24. Shield, 25. Cleric, 26. Scroll, 27. Mage, 28. Helm, 29. Belt, 2a. Robe, 2b. Cloak, 2c. Boots, 2d. Ring, 2e. Mail, 2f. Armor,
+	30. Of Prot, 31. Bracers, 32. Wand, 33. Elixir, 34. Potion, 35. Youth, 36. Ruby, 37. Boulder, 38. Dragon Breath, 39. Displacement, 3a. Eyes, 3b. Drow, 3c. Elfin Chain, 3d. Ice Storm, 3e. Saphire (sp), 3f. Wizardry
+	40. Hornet's Nest, 41. Fire Resistance, 42. Stone, 43. Good Luck, 44. Flail, 45. Halberd, 46. Gauntlets, 47. Periapt, 48. Health, 49. Cursed, 4a. Blessed, 4b. Bundle of, 4c. Ogre Power, 4d. Girdle, 4e. Giant Strength, 4f. Mirror,
+	50. Necklace, 41. Dragon, 42. vs Giants, 43. vorpal, 44. cold resistance, 45. Diamond, 46. Lightning, 47. Fireballs, 48. of, 49. Vulnerability, 4a. Speed, 4b. Silver, 4c. Extra, 4d. Healing, 4e. Charming, 4f. Fear, 50. Magic Missiles, 51. Missiles, 52. 1 Spell, 53. 2 Spells, 54. 3 Spells, 55. Paralyzation, 56. Invisibility, 57. Cute Yellow Canary, 58. AC 1, 
+	
+	6B:
+	6B. AC 6, 6C. AC 4, 6D. AC 3, 6e. AC 2, 6f. +1, 70. +2, 71. +3,
+	
+	72??:
+	60. +4, 61. Broken, 62. -1, 63. -2, 64. -3, 65. Electrical Immunity, 66. Gaze Resistance, 67. Spiritual, 68. Gem, 69. Jewelry, 6a. Blinking, 6b. from evil, 6c. lucky paper, 6d. of Icewind Dael, 6e. of the Glacier, 6f. of Stonecutting,
+	70. of Defoliation, 71. Sword, 72. Splint, 73. Leilon, 74. Waterdeep, 75. Mintarn, 76. Orlumbor, 77. Daggerford, 78. Neverwinter, 79. Yartar, 7a. Longsaddle, 7b. Ruathym, 7c. Luskan, 7d. Mirabar, 7e. real, 7f. authentic,
+	80. battle-used, 81. large, 82. Farrberjik, 83. furry, 84. Black Crystal, 85. Certificate, 86. Golden, 87. Bloodaxe, 88. Redshield, 89. Shearhammer, 8a. Northhelm, 8b. tyrant's trident, 8c. of stalking, 8d. squid shield, 8e. Redflame armor, 8f. Seahelm
+			
+Save games 
+	Party (SAVE/SAVGAM?.PTY)
+		05h: u1 Minutes % 10
+		06h: u1 Minutes / 10
+		07h: u1 Hours
+		08h: u1 DayOfMonth
+		09h: u1 Months
+		0Ah: u1 Years?
+		12h: u1 Map?
+		15h: u1 Map?
+		1Ah: u1 Set to 55h in 82h trigger?
+		99h: u1 Set to 2 in 82h trigger?
+		C5h: u1 Map?
+		CCh: u1 Set to 1 in 82h trigger?
+		400h: u1 LocationX
+		401h: u1 LocationY
+		402h: u1 Direction? 00h = North, 02h = East, 04h = South, 06h = West
+		403h: Changes randomly?
+		404h: Zone number of current tile

@@ -7,8 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Engines.GoldBox {
+	/// <summary>The engine for the SSI GoldBox series of games.</summary>
 	public class Engine : Alexandria.Engine {
-		public Engine(Plugin plugin)
+		internal Engine(Plugin plugin)
 			: base(plugin) {
 			AddFormat(new ArchiveFormat(this));
 			AddFormat(new ImageFormat(this));
@@ -20,6 +21,10 @@ namespace Alexandria.Engines.GoldBox {
 
 		const string DecodeString = "\0ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_\x20!\"#$%&'()*+,-./0123456789:;<=>?";
 
+		/// <summary>Read a coded string from the stream.</summary>
+		/// <param name="reader"></param>
+		/// <param name="maximumBytes"></param>
+		/// <returns></returns>
 		public static string ReadCodedString(BinaryReader reader, int maximumBytes = int.MaxValue) {
 			Stream stream = reader.BaseStream;
 			int length = 0;

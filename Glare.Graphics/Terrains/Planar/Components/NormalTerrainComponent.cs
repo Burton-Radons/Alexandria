@@ -11,7 +11,7 @@ namespace Glare.Graphics.Terrains.Planar.Components
 		/// <summary>Initialize the normal layer.</summary>
 		/// <param name="terrain"></param>
 		public NormalTerrainComponent(PlanarTerrain terrain)
-			: base(terrain, TextureFormats.Vector4nb)
+			: base(terrain, Formats.Vector4nb)
 		{
 			foreach (PlanarTerrainBlock block in terrain.Blocks)
 			{

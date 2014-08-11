@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Glare.Graphics.Terrains.Planar.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Glare.Graphics.Terrains.Planar
-{
+namespace Glare.Graphics.Terrains.Planar {
 	/// <summary>
 	/// A section of a <see cref="PlanarTerrain"/>.
 	/// </summary>
-	public class PlanarTerrainBlock
-	{
+	public class PlanarTerrainBlock {
 		readonly Vector2i blockIndex;
 
 		/// <summary>Backing field for the <see cref="ColorTexture"/> property.</summary>
@@ -30,15 +29,12 @@ namespace Glare.Graphics.Terrains.Planar
 
 		/// <summary>
 		/// Get or set the color texture. The color texture is not provided by the <see cref="Terrain"/> itself,
-		/// but could be provided by the user or maintained by the <see cref="ColorLayerTerrainModule"/>. If
+		/// but could be provided by the user or maintained by the <see cref="ColorTerrainComponent"/>. If
 		/// assigned, it will be used by the default terrain effect for per-pixel colouring.</summary>
-		/// </summary>
-		public Texture2D ColorTexture
-		{
+		public Texture2D ColorTexture {
 			get { return colorTexture; }
 
-			set
-			{
+			set {
 				colorTexture = value;
 				terrain.Program.Uniforms["ColorTexture"].Set(value);
 				terrain.Program.Uniforms["ColorTextureStrength"].Set(value != null ? 1 : 0);
@@ -53,14 +49,12 @@ namespace Glare.Graphics.Terrains.Planar
 
 		/// <summary>
 		/// Get or set the normal texture. The normal texture is not provided by the <see cref="PlanarTerrain"/> itself,
-		/// but could be provided by the user or maintained by the <see cref="NormalLayerTerrainModule"/>. If
+		/// but could be provided by the user or maintained by the <see cref="NormalTerrainComponent"/>. If
 		/// assigned, it will be used by the default terrain effect for per-pixel normals.</summary>
-		public Texture2D NormalTexture
-		{
+		public Texture2D NormalTexture {
 			get { return normalTexture; }
 
-			set
-			{
+			set {
 				normalTexture = value;
 				terrain.Program.Uniforms["normalTexture"].Set(value);
 			}
@@ -73,8 +67,7 @@ namespace Glare.Graphics.Terrains.Planar
 
 		public Vector3d WorldOffset { get { return new Vector3d(blockIndex.X * Terrain.BlockSize, 0, blockIndex.Y * Terrain.BlockSize); } }
 
-		internal PlanarTerrainBlock(PlanarTerrain terrain, Vector2i blockIndex)
-		{
+		internal PlanarTerrainBlock(PlanarTerrain terrain, Vector2i blockIndex) {
 			this.terrain = terrain;
 			this.blockIndex = blockIndex;
 
@@ -89,8 +82,7 @@ namespace Glare.Graphics.Terrains.Planar
 
 		public Texture2D AllocateHeightBackBuffer() { return Terrain.GetCachedRenderTarget(Formats.Vector1f); }
 
-		internal void CleanTree()
-		{
+		internal void CleanTree() {
 			if (DirtyTreeArea == null)
 				return;
 			var area = DirtyTreeArea.Value;
@@ -123,8 +115,7 @@ namespace Glare.Graphics.Terrains.Planar
 				module.OnHeightModified(this, ref area);
 		}
 
-		public void DirtyBackBufferHeightTexture(Texture2D newHeightTexture, Box2i modified)
-		{
+		public void DirtyBackBufferHeightTexture(Texture2D newHeightTexture, Box2i modified) {
 			if (newHeightTexture == null)
 				throw new ArgumentNullException("newHeightTexture");
 
@@ -153,18 +144,15 @@ namespace Glare.Graphics.Terrains.Planar
 				DirtyTreeArea = Rectangle.Union(DirtyTreeArea.Value, modified);*/
 		}
 
-		public void DirtyBackBufferHeightTexture(Texture2D newHeightTexture, int x, int y, int width, int height)
-		{
+		public void DirtyBackBufferHeightTexture(Texture2D newHeightTexture, int x, int y, int width, int height) {
 			DirtyBackBufferHeightTexture(newHeightTexture, new Box2i(x, y, width, height));
 		}
 
-		public void DirtyAllHeightBackBuffer(Texture2D newHeightTexture)
-		{
+		public void DirtyAllHeightBackBuffer(Texture2D newHeightTexture) {
 			DirtyBackBufferHeightTexture(newHeightTexture, new Box2i(0, 0, terrain.BlockSize, terrain.BlockSize));
 		}
 
-		internal void Draw(ref Vector3 viewPoint, ref Matrix4d world, ref Matrix4d view, ref Matrix4d projection)
-		{
+		internal void Draw(ref Vector3 viewPoint, ref Matrix4d world, ref Matrix4d view, ref Matrix4d projection) {
 			Vector3d worldOffset = WorldOffset;
 			Matrix4d blockWorld;
 
@@ -178,8 +166,7 @@ namespace Glare.Graphics.Terrains.Planar
 			Draw(terrain.Program, viewPoint, ref blockWorld);
 		}
 
-		void Draw(Program program, Vector3 viewPoint, ref Matrix4d world)
-		{
+		void Draw(Program program, Vector3 viewPoint, ref Matrix4d world) {
 			if (program == null)
 				throw new ArgumentNullException();
 			CleanTree();
@@ -192,8 +179,7 @@ namespace Glare.Graphics.Terrains.Planar
 			DrawInstances(program);*/
 		}
 
-		internal void DrawInstances(Program program)
-		{
+		internal void DrawInstances(Program program) {
 			int instanceCount = terrain.FlushInstanceArray();
 
 			if (instanceCount == 0)
@@ -222,8 +208,7 @@ namespace Glare.Graphics.Terrains.Planar
 			context.Indices = null;*/
 		}
 
-		void DrawSetParameters(string shaderName, ref Matrix4d world, ref Matrix4d view, ref Matrix4d projection)
-		{
+		void DrawSetParameters(string shaderName, ref Matrix4d world, ref Matrix4d view, ref Matrix4d projection) {
 			var effect = terrain.Program;
 			terrain.SetShader(shaderName);
 			effect.Uniforms["world"].Set(world);
@@ -232,8 +217,7 @@ namespace Glare.Graphics.Terrains.Planar
 			effect.Uniforms["heightTexture"].Set(HeightTexture);
 		}
 
-		internal void DrawWater(Texture2D waterOffsetHeightTexture, ref Vector3d waterColor, ref Vector3d viewPoint, ref Matrix4d world, ref Matrix4d view, ref Matrix4d projection)
-		{
+		internal void DrawWater(Texture2D waterOffsetHeightTexture, ref Vector3d waterColor, ref Vector3d viewPoint, ref Matrix4d world, ref Matrix4d view, ref Matrix4d projection) {
 			throw new NotImplementedException();
 			/*var effect = terrain.Effect;
 			DrawSetParameters("DrawWater", ref world, ref view, ref projection);

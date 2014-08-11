@@ -1,5 +1,4 @@
-﻿<#@ IntelliSenseLanguage processor="tangibleT4Editor" language="C#" #>
-<#@ include file="Common.ttinclude" #>
+﻿<#@ include file="Common.ttinclude" #>
 
 <#+
 
@@ -216,6 +215,7 @@ void GenerateCommonVector() {#>
 
 	#region Properties
 
+	/// <summary>Get the zero value of the <#=SeeThis#>.</summary>
 	public static readonly <#=This#> Zero = <#+NewThis((axis)=>{#><#=Type.Zero#><#+});#>;
 
 	#endregion Properties
@@ -245,7 +245,7 @@ void GenerateCommonVector() {#>
 		return <#+Join("&&", (axis) => {#> <#=axis.Id#> == other.<#=axis.Id#> <#+});#>;
 	}
 
-	/// <summary>If the other object is a <#=SeeThis#> of the same type, get whether this <#=SeeThis#> has equal factors as it; otherwise return false./summary>
+	/// <summary>If the other object is a <#=SeeThis#> of the same type, get whether this <#=SeeThis#> has equal factors as it; otherwise return false.</summary>
 	public override bool Equals(object other)
 	{
 		if(other is <#=This#>)
@@ -281,8 +281,10 @@ void GenerateCommonVector() {#>
 
 	#endregion Methods
 	
+	/// <summary>Get whether the <#=SeeThis#> values are equal.</summary>
 	public static bool operator ==(<#=This#> a, <#=This#> b) { return <#+Join("&&", (axis)=>{#>a.<#=axis.Id#> == b.<#=axis.Id#><#+});#>; }
 
+	/// <summary>Get whether the <#=SeeThis#> values are unequal.</summary>
 	public static bool operator !=(<#=This#> a, <#=This#> b) { return <#+Join("||", (axis)=>{#>a.<#=axis.Id#> != b.<#=axis.Id#><#+});#>; }
 <#+}
 

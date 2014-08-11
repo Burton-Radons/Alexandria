@@ -12,8 +12,13 @@ namespace Glare
 		{
 			<#GenerateUnits(new Unit("SquareMetre", "SquareMetres", "m²", "Length.ToMetres * Length.ToMetres") { IsPrimary = true });#>
 
+			/// <summary>Multiply the <#=SeeThis#> value with the <see cref="Length"/>, producing a <see cref="Volume"/> value.</summary>
 			public static Volume operator *(Area a, Length b) { return Volume.CubicMetres(a.InSquareMetres * b.InMetres); }
+
+			/// <summary>Multiply the <#=SeeThis#> value with the <see cref="Length"/>, producing a <see cref="Volume"/> value.</summary>
 			public static Volume operator *(Length a, Area b) { return Volume.CubicMetres(a.InMetres * b.InSquareMetres); }
+
+			/// <summary>Divide the <see cref="Area"/> value with the <see cref="Length"/>, producing a <#=SeeThis#> result.</summary>
 			public static Length operator /(Area a, Length b) { return Length.Metres(a.InSquareMetres / b.InMetres); }
 		}
 	<#});#>

@@ -1,4 +1,5 @@
-﻿using Glare.Assets.Controls;
+﻿using Glare.Assets;
+using Glare.Assets.Controls;
 using Glare.Framework;
 using Glare.Internal;
 using System;
@@ -10,14 +11,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Alexandria.Engines.Sciagi.Resources {
+	/// <summary>A collection of strings.</summary>
 	public class Text : ResourceData {
 		readonly Codex<string> StringsMutable = new Codex<string>();
 
+		/// <summary>Get the list of strings.</summary>
 		public ReadOnlyCodex<string> Strings { get { return StringsMutable; } }
 
 		List<KeyValuePair<int, string>> StringsWithId = new List<KeyValuePair<int, string>>();
 
-		public Text(BinaryReader reader, Resource resource) : base(resource) {
+		/// <summary>Read the text resource.</summary>
+		/// <param name="loader"></param>
+		internal Text(AssetLoader loader)
+			: base(loader) {
+			BinaryReader reader = loader.Reader;
 			long end = reader.BaseStream.Length;
 
 			while (reader.BaseStream.Position < end) {
@@ -28,7 +35,9 @@ namespace Alexandria.Engines.Sciagi.Resources {
 			}
 		}
 
-		public override Control Browse() {
+		/// <summary>Create a control to browse the object.</summary>
+		/// <returns></returns>
+		public override Control Browse(Action<double> progressUpdateCallback = null) {
 			DataGridView view = new DoubleBufferedDataGridView() {
 				AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells,
 				ReadOnly = true,

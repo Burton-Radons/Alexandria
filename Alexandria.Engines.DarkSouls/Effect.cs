@@ -11,15 +11,25 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace Alexandria.Engines.DarkSouls {
+	/// <summary>
+	/// An effect file for Dark Souls (extension ".ffx").
+	/// </summary>
 	public class Effect : Asset {
+		/// <summary>
+		/// A magic string that all effect files start with.
+		/// </summary>
 		public const string Magic = "FXR\0";
-		public const int ContentStart = 0x20;
 
+		internal const int ContentStart = 0x20;
+
+		/// <summary>Get the list of tokens comprising the file.</summary>
 		public Codex<EffectToken> Tokens { get; private set; }
+
+		/// <summary>Get the list of instructions for the file.</summary>
 		public Codex<EffectInstruction> Instructions { get; private set; }
 
-		public Effect(AssetManager manager, AssetLoader loader)
-			: base(manager, loader) {
+		internal Effect(AssetLoader loader)
+			: base(loader) {
 			var reader = loader.Reader;
 
 			loader.ExpectMagic(Magic);
@@ -57,7 +67,9 @@ namespace Alexandria.Engines.DarkSouls {
 			return char.IsLetterOrDigit(text[index]);
 		}
 
-		public override System.Windows.Forms.Control Browse() {
+		/// <summary>Produce a rich text document that examines the file.</summary>
+		/// <returns></returns>
+		public override System.Windows.Forms.Control Browse(Action<double> progressUpdateCallback = null) {
 			var box = new BetterRichTextBox() {
 				Multiline = true,
 				ReadOnly = true,
@@ -134,16 +146,21 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>Consists of an opcode and a set of operands.</summary>
 	public class EffectInstruction {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		Codex<EffectToken> OperandsMutable = new Codex<EffectToken>();
 
+		/// <summary>Get the address of the <see cref="Opcode"/>.</summary>
 		public int Address { get { return Opcode.Address; } }
 
+		/// <summary>Get an appropriate string representation of the <see cref="Address"/>.</summary>
 		public string AddressString { get { return Opcode.AddressString; } }
 
+		/// <summary>Get the opcode token.</summary>
 		public EffectToken Opcode { get; private set; }
 
+		/// <summary>Get the operand tokens.</summary>
 		public ReadOnlyCodex<EffectToken> Operands { get { return OperandsMutable; } }
 
 		static readonly Dictionary<int, string> InstructionFormats = new Dictionary<int, string>() {
@@ -167,12 +184,12 @@ namespace Alexandria.Engines.DarkSouls {
 			{ 0x88, "" }, // Data opcode.
 		};
 
-		public EffectInstruction(IList<EffectToken> tokens, ref int index) {
+		internal EffectInstruction(IList<EffectToken> tokens, ref int index) {
 			Opcode = tokens[index++];
 
 			string format;
 
-			if (Opcode.MaybeInteger && InstructionFormats.TryGetValue(Opcode.AsInt32, out format)) {
+			if (Opcode.MaybeInt32 && InstructionFormats.TryGetValue(Opcode.AsInt32, out format)) {
 				if (Opcode.AsInt32 == 0x85) {
 					while (index < tokens.Count && !tokens[index].IsFunction)
 						OperandsMutable.Add(tokens[index++]);
@@ -195,7 +212,7 @@ namespace Alexandria.Engines.DarkSouls {
 
 						switch (operandType) {
 							case 'i':
-								if (!operand.MaybeInteger)
+								if (!operand.MaybeInt32)
 									operand.AddError("Expected an integer.");
 								break;
 
@@ -217,11 +234,15 @@ namespace Alexandria.Engines.DarkSouls {
 					}
 			} else {
 				Opcode.AddError("Opcode is unknown or invalid; operands are crap.");
-				while (index < tokens.Count && !(tokens[index].MaybeInteger && InstructionFormats.ContainsKey(tokens[index].AsInt32)) && !tokens[index].IsFunction)
+				while (index < tokens.Count && !(tokens[index].MaybeInt32 && InstructionFormats.ContainsKey(tokens[index].AsInt32)) && !tokens[index].IsFunction)
 					OperandsMutable.Add(tokens[index++]);
 			}
 		}
 
+		/// <summary>
+		/// Convert to rich text.
+		/// </summary>
+		/// <param name="builder"></param>
 		public void ToRichText(RichTextBuilder builder) {
 			builder.AppendFormat("{0}: ", AddressString);
 			Opcode.ToRichText(builder);
@@ -232,6 +253,8 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>Convert to a descriptive string.</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			string text = "";
 
@@ -246,6 +269,7 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>A four-byte value in an <see cref="Effect"/>.</summary>
 	public class EffectToken {
 		int intValue;
 		float floatValue;
@@ -253,12 +277,16 @@ namespace Alexandria.Engines.DarkSouls {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		readonly Codex<EffectToken> TargetedByMutable = new Codex<EffectToken>();
 
+		/// <summary>Get the address associated with this token.</summary>
 		public int Address { get; private set; }
 
+		/// <summary>Convert the <see cref="Address"/> to the appropriate string format.</summary>
 		public string AddressString { get { return Effect.FormatAddress(Address); } }
 
+		/// <summary>Get the category this token is.</summary>
 		public EffectTokenCategory Category { get; private set; }
 
+		/// <summary>Convert this token into an integer, casting if necessary.</summary>
 		public int AsInt32 {
 			get {
 				if (Category == EffectTokenCategory.Single)
@@ -267,6 +295,7 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>Convert this token into a <see cref="Single"/>, casting if necessary.</summary>
 		public float AsSingle {
 			get {
 				if (Category == EffectTokenCategory.Single)
@@ -275,27 +304,43 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>Get a newline-separated list of errors associated with this effect token, or <c>null</c> if there hasn't been any.</summary>
 		public string Errors { get; private set; }
 
+		/// <summary>Get whether this has been identified as a function.</summary>
 		public bool IsFunction { get; private set; }
 
+		/// <summary>Get whether there are any <see cref="Errors"/>.</summary>
 		public bool IsInvalid { get { return !string.IsNullOrEmpty(Errors); } }
 
+		/// <summary>Get whether this is a target of a pointer token.</summary>
 		public bool IsTarget { get { return TargetedByMutable.Count != 0; } }
 
-		public bool MaybeInteger { get { return Category == EffectTokenCategory.Integer || Category == EffectTokenCategory.Zero; } }
+		/// <summary>Get whether this <see cref="Category"/> is <see cref="EffectTokenCategory.Int32"/> or <see cref="EffectTokenCategory.Zero"/>.</summary>
+		public bool MaybeInt32 { get { return Category == EffectTokenCategory.Int32 || Category == EffectTokenCategory.Zero; } }
+
+		/// <summary>Get whether this <see cref="Category"/> is <see cref="EffectTokenCategory.Pointer"/> or <see cref="EffectTokenCategory.Zero"/>.</summary>
 		public bool MaybePointer { get { return Category == EffectTokenCategory.Pointer || Category == EffectTokenCategory.Zero; } }
+
+		/// <summary>Get whether this <see cref="Category"/> is <see cref="EffectTokenCategory.Single"/> or <see cref="EffectTokenCategory.Zero"/>.</summary>
 		public bool MaybeSingle { get { return Category == EffectTokenCategory.Single || Category == EffectTokenCategory.Zero; } }
 
-		public bool IsInteger { get { return Category == EffectTokenCategory.Integer; } }
+		/// <summary>Get whether this <see cref="Category"/> is <see cref="EffectTokenCategory.Int32"/>.</summary>
+		public bool IsInt32 { get { return Category == EffectTokenCategory.Int32; } }
+
+		/// <summary>Get whether this <see cref="Category"/> is <see cref="EffectTokenCategory.Pointer"/>.</summary>
 		public bool IsPointer { get { return Category == EffectTokenCategory.Pointer; } }
+
+		/// <summary>Get whether this <see cref="Category"/> is <see cref="EffectTokenCategory.Single"/>.</summary>
 		public bool IsSingle { get { return Category == EffectTokenCategory.Single; } }
+
+		/// <summary>Get whether this <see cref="Category"/> is <see cref="EffectTokenCategory.Zero"/>.</summary>
 		public bool IsZero { get { return Category == EffectTokenCategory.Zero; } }
 
 		/// <summary>Get the <see cref="EffectToken"/>s that target this <see cref="EffectToken"/>; empty if not <see cref="IsTarget"/>.</summary>
 		public ReadOnlyCodex<EffectToken> TargetedBy { get { return TargetedByMutable; } }
 
-		public EffectToken(BinaryReader reader, HashSet<int> pointers, HashSet<int> functions) {
+		internal EffectToken(BinaryReader reader, HashSet<int> pointers, HashSet<int> functions) {
 			Address = checked((int)reader.BaseStream.Position);
 
 			intValue = reader.ReadInt32();
@@ -310,7 +355,7 @@ namespace Alexandria.Engines.DarkSouls {
 			else if (intValue == 0)
 				Category = EffectTokenCategory.Zero;
 			else
-				Category = EffectTokenCategory.Integer;
+				Category = EffectTokenCategory.Int32;
 		}
 
 		internal void AddError(string format, params object[] args) {
@@ -331,6 +376,8 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>Convert to a rich text form with the builder.</summary>
+		/// <param name="builder"></param>
 		public void ToRichText(RichTextBuilder builder) {
 			if (IsTarget) {
 				builder.ForegroundColor = Color.Blue;
@@ -351,6 +398,8 @@ namespace Alexandria.Engines.DarkSouls {
 			builder.ForegroundColor = Color.Black;
 		}
 
+		/// <summary>Convert just the value to a string.</summary>
+		/// <returns></returns>
 		public string ToStringValue() {
 			string text;
 
@@ -369,6 +418,8 @@ namespace Alexandria.Engines.DarkSouls {
 			return text;
 		}
 
+		/// <summary>Convert to a descriptive string.</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			string text = "";
 
@@ -382,6 +433,7 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>Specifies what types an <see cref="EffectToken"/> might be.</summary>
 	public enum EffectTokenCategory {
 		/// <summary>The value is zero, so it could be a zero <see cref="Single"/>, a <c>null</c> pointer, or a zero integer.</summary>
 		Zero,
@@ -393,22 +445,35 @@ namespace Alexandria.Engines.DarkSouls {
 		Pointer,
 
 		/// <summary>The value appears to be a regular integer.</summary>
-		Integer,
+		Int32,
 	}
 
+	/// <summary>
+	/// Asset format for the <see cref="Effect"/>.
+	/// </summary>
 	public class EffectFormat : AssetFormat {
+		/// <summary>
+		/// Initialise the format.
+		/// </summary>
+		/// <param name="engine"></param>
 		public EffectFormat(Engine engine)
 			: base(engine, typeof(Effect), canLoad: true, extension: ".ffx") {
 		}
 
+		/// <summary>Determine match strength with a loader.</summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
 		public override LoadMatchStrength LoadMatch(AssetLoader loader) {
 			if (loader.Length < 0x40 || !loader.Reader.MatchMagic(Effect.Magic))
 				return LoadMatchStrength.None;
 			return LoadMatchStrength.Medium;
 		}
 
+		/// <summary>Load the effect.</summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
 		public override Asset Load(AssetLoader loader) {
-			return new Effect(Manager, loader);
+			return new Effect(loader);
 		}
 	}
 }

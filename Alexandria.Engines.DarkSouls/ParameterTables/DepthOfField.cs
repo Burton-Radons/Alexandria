@@ -18,12 +18,14 @@ namespace Alexandria.Engines.DarkSouls {
 		/// </summary>
 		/// <remarks>From DofBank.paramdef (id 05h).</remarks>
 		public class DepthOfField : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "DOF_BANK";
 
 			Single farDofBegin, farDofEnd, nearDofBegin, nearDofEnd, dispersionSq;
 			Byte farDofMul, nearDofMul;
 			Byte[] pad_0, pad_1;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				FarDofBeginProperty = GetProperty<DepthOfField>("FarDofBegin"),
 				FarDofEndProperty = GetProperty<DepthOfField>("FarDofEnd"),
@@ -40,7 +42,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "遠方開始距離[m]", Google translated: "Far start distance [m]".
 			/// Japanese description: "被写界深度で遠くがぼけ始める距離", Google translated: "Distance far starts blurring in depth of field".
 			/// </remarks>
-			[ParameterTableRowAttribute("farDofBegin", index: 0, minimum: 0, maximum: 999999, step: 0.1, order: 1, unknown2: 0)]
+			[ParameterTableRowAttribute("farDofBegin", index: 0, minimum: 0, maximum: 999999, step: 0.1, sortOrder: 1, unknown2: 0)]
 			[DisplayName("Far start distance [m]")]
 			[Description("Distance far starts blurring in depth of field")]
 			[DefaultValue((Single)60)]
@@ -58,7 +60,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "遠方終了距離[m]", Google translated: "Far end distance [m]".
 			/// Japanese description: "被写界深度で遠くがぼけ終わる距離", Google translated: "Distance far has finished in the depth of field blurring".
 			/// </remarks>
-			[ParameterTableRowAttribute("farDofEnd", index: 1, minimum: 0, maximum: 999999, step: 0.1, order: 2, unknown2: 0)]
+			[ParameterTableRowAttribute("farDofEnd", index: 1, minimum: 0, maximum: 999999, step: 0.1, sortOrder: 2, unknown2: 0)]
 			[DisplayName("Far end distance [m]")]
 			[Description("Distance far has finished in the depth of field blurring")]
 			[DefaultValue((Single)360)]
@@ -76,7 +78,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "遠方強度[％]", Google translated: "Far strength [%]".
 			/// Japanese description: "被写界深度のぼけ具合(0でぼけなくなります)", Google translated: "(You will not be blurred by 0) blurriness of depth of field".
 			/// </remarks>
-			[ParameterTableRowAttribute("farDofMul", index: 2, minimum: 0, maximum: 100, step: 1, order: 3, unknown2: 0)]
+			[ParameterTableRowAttribute("farDofMul", index: 2, minimum: 0, maximum: 100, step: 1, sortOrder: 3, unknown2: 0)]
 			[DisplayName("Far strength [%]")]
 			[Description("(You will not be blurred by 0) blurriness of depth of field")]
 			[DefaultValue((Byte)100)]
@@ -94,7 +96,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "ダミー", Google translated: "Dummy".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_0[3]", index: 3, minimum: 0, maximum: 0, step: 0, order: 10, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_0[3]", index: 3, minimum: 0, maximum: 0, step: 0, sortOrder: 10, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Dummy")]
 			public Byte[] Pad_0 {
@@ -107,7 +109,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "近傍開始距離[m]", Google translated: "Near start distance [m]".
 			/// Japanese description: "被写界深度で近くがぼけ始める距離(終了距離より遠くします)", Google translated: "(I will be far away from the end distance) close starts blurring in the depth of field".
 			/// </remarks>
-			[ParameterTableRowAttribute("nearDofBegin", index: 4, minimum: 0, maximum: 999999, step: 0.1, order: 4, unknown2: 0)]
+			[ParameterTableRowAttribute("nearDofBegin", index: 4, minimum: 0, maximum: 999999, step: 0.1, sortOrder: 4, unknown2: 0)]
 			[DisplayName("Near start distance [m]")]
 			[Description("(I will be far away from the end distance) close starts blurring in the depth of field")]
 			[DefaultValue((Single)3)]
@@ -125,7 +127,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "近傍終了距離[m]", Google translated: "Near the end distance [m]".
 			/// Japanese description: "被写界深度で近くがぼけ終わる距離(開始距離より近くします)", Google translated: "(I'll start closer than distance) close finishes in the depth of field blurring".
 			/// </remarks>
-			[ParameterTableRowAttribute("nearDofEnd", index: 5, minimum: 0, maximum: 999999, step: 0.1, order: 5, unknown2: 0)]
+			[ParameterTableRowAttribute("nearDofEnd", index: 5, minimum: 0, maximum: 999999, step: 0.1, sortOrder: 5, unknown2: 0)]
 			[DisplayName("Near the end distance [m]")]
 			[Description("(I'll start closer than distance) close finishes in the depth of field blurring")]
 			[DefaultValue((Single)0)]
@@ -143,7 +145,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "近傍強度[％]", Google translated: "Neighborhood strength [%]".
 			/// Japanese description: "被写界深度のぼけ具合(0でぼけなくなります)", Google translated: "(You will not be blurred by 0) blurriness of depth of field".
 			/// </remarks>
-			[ParameterTableRowAttribute("nearDofMul", index: 6, minimum: 0, maximum: 100, step: 1, order: 6, unknown2: 0)]
+			[ParameterTableRowAttribute("nearDofMul", index: 6, minimum: 0, maximum: 100, step: 1, sortOrder: 6, unknown2: 0)]
 			[DisplayName("Neighborhood strength [%]")]
 			[Description("(You will not be blurred by 0) blurriness of depth of field")]
 			[DefaultValue((Byte)100)]
@@ -161,7 +163,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "ダミー", Google translated: "Dummy".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_1[3]", index: 7, minimum: 0, maximum: 0, step: 0, order: 11, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_1[3]", index: 7, minimum: 0, maximum: 0, step: 0, sortOrder: 11, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Dummy")]
 			public Byte[] Pad_1 {
@@ -174,7 +176,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ボケの大きさ", Google translated: "Size of the blur".
 			/// Japanese description: "値を大きくすると被写界深度のボケが強くなります", Google translated: "Blurring of the depth of field will be stronger and to increase the value".
 			/// </remarks>
-			[ParameterTableRowAttribute("dispersionSq", index: 8, minimum: 0, maximum: 30, step: 0.01, order: 7, unknown2: 0)]
+			[ParameterTableRowAttribute("dispersionSq", index: 8, minimum: 0, maximum: 30, step: 0.01, sortOrder: 7, unknown2: 0)]
 			[DisplayName("Size of the blur")]
 			[Description("Blurring of the depth of field will be stronger and to increase the value")]
 			[DefaultValue((Single)5)]
@@ -215,6 +217,8 @@ namespace Alexandria.Engines.DarkSouls {
 				DispersionSq = (Single)5;
 			}
 
+			/// <summary>Write the row to the writer.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(FarDofBegin);
 				writer.Write(FarDofEnd);

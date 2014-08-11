@@ -1,23 +1,80 @@
 ﻿using Alexandria.Properties;
 using Glare.Assets;
+using Glare.Framework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Alexandria.Controls {
+	/// <summary>
+	/// This provides the main window for Alexandria.
+	/// </summary>
 	public partial class MainWindow : Form {
-		public readonly AssetManager Manager;
+		/// <summary>
+		/// Get the asset manager to use.
+		/// </summary>
+		public readonly AlexandriaManager Manager;
 
-		public MainWindow(AssetManager manager) {
+		BackgroundWorker BackgroundOperationWorker;
+
+		readonly Codex<Action> BackgroundOperationStack = new Codex<Action>();
+
+		void BackgroundOperationProgressChanged(object sender, ProgressChangedEventArgs args) {
+			progressBar.Value = args.ProgressPercentage;
+		}
+
+		void BackgroundOperationWork(object sender, DoWorkEventArgs args) {
+			while (true) {
+				BackgroundOperation current = Manager.CurrentBackgroundOperation;
+				double progress = Manager.BackgroundOperationProgress;
+
+				if (double.IsNaN(progress))
+					progress = 0;
+
+				int percent = (int)Math.Round(Math.Max(0, Math.Min(100, Manager.BackgroundOperationProgress)));
+				int stackCount;
+
+				if (current != null) {
+					if (backgroundActionLabel.Text != current.Name)
+						backgroundActionLabel.Text = current.Name;
+					if (backgroundActionLabel.ToolTipText != (current.Description ?? ""))
+						backgroundActionLabel.ToolTipText = (current.Description ?? "");
+				}
+
+				lock (BackgroundOperationStack)
+					stackCount = BackgroundOperationStack.Count;
+
+				if (progress != progressBar.Value || stackCount > 0)
+					BackgroundOperationWorker.ReportProgress(percent);
+				Thread.Sleep(100);
+			}
+		}
+
+		/// <summary>
+		/// Initialise the window with the asset manager.
+		/// </summary>
+		/// <param name="manager">The asset manager to use.</param>
+		public MainWindow(AlexandriaManager manager) {
 			Manager = manager;
 			InitializeComponent();
+			debuggModeToolStripMenuItem.Checked = manager.DebuggingEnabled;
+
+			BackgroundOperationWorker = new BackgroundWorker() {
+				WorkerReportsProgress = true,
+			};
+
+			BackgroundOperationWorker.ProgressChanged += BackgroundOperationProgressChanged;
+			BackgroundOperationWorker.DoWork += BackgroundOperationWork;
+			BackgroundOperationWorker.RunWorkerAsync();
 		}
 
 		private void MainWindow_Load(object sender, EventArgs e) {
@@ -68,42 +125,65 @@ namespace Alexandria.Controls {
 			}
 		}
 
+		void OpenProgressBar() {
+		}
+
+		static int MakePercentValue(double percent) {
+			return (int)Math.Round(Math.Min(Math.Max(percent, 0.0), 100.0));
+		}
+
 		void Open(string path) {
-			
-			Asset resource;
-			Control control;
+			FileManager fileManager = FileManager.System;
+			Stream stream = fileManager.OpenRead(path);
+			BinaryReader reader = new BinaryReader(stream);
+			AssetLoader loader = new AssetLoader(Manager, reader, path, fileManager);
 
-			try {
-				resource = Manager.LoadFile(path);
-				control = resource.Browse();
-			} catch (Exception exception) {
-				MessageBox.Show("Load failed: " + exception, "Load failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return;
-			}
-
-			if (control != null) {
-				var window = new Form() {
-					MdiParent = this,
-					Text = Path.GetFileName(path),
+			Manager.AddBackgroundOperation("Loading '" + path + "'", null, (updateProgress) => {
+				loader.PropertyChanged += (sender, args) => {
+					if (args.Property != AssetLoader.ProgressProperty)
+						return;
+					if(updateProgress != null)
+						updateProgress(loader.Progress);
 				};
 
-				control.Dock = DockStyle.Fill;
-				window.Controls.Add(control);
-				window.BringToFront();
-				window.Show();
+				Asset asset = null;
 
-				if (MdiChildren.Length == 1)
-					window.WindowState = FormWindowState.Maximized;
+				try {
+					asset = AssetFormat.LoadAsset(loader, Manager.AllEnabledFormats);
+				} catch (Exception exception) {
+					MessageBox.Show("Load failed: " + exception, "Load failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
 
-				if (Settings.Default.RecentFiles == null)
-					Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
-				Settings.Default.RecentFiles.Remove(path);
-				Settings.Default.RecentFiles.Add(path);
-				if (Settings.Default.RecentFiles.Count > 20)
-					Settings.Default.RecentFiles.RemoveAt(0);
-				Settings.Default.Save();
-				BuildRecentFilesList();
-			}
+				if (asset == null)
+					return;
+
+				Manager.AddBackgroundOperation("Browsing '" + path + "'.", null, (subUpdateProgress) => {
+					Control control = asset.Browse(subUpdateProgress);
+
+
+					var window = new Form() {
+						MdiParent = this,
+						Text = Path.GetFileName(path),
+					};
+
+					control.Dock = DockStyle.Fill;
+					window.Controls.Add(control);
+					window.BringToFront();
+					window.Show();
+
+					if (MdiChildren.Length == 1)
+						window.WindowState = FormWindowState.Maximized;
+
+					if (Settings.Default.RecentFiles == null)
+						Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
+					Settings.Default.RecentFiles.Remove(path);
+					Settings.Default.RecentFiles.Add(path);
+					if (Settings.Default.RecentFiles.Count > 20)
+						Settings.Default.RecentFiles.RemoveAt(0);
+					Settings.Default.Save();
+					BuildRecentFilesList();
+				});
+			});
 		}
 
 		private void stackhorizontallyToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -124,6 +204,22 @@ namespace Alexandria.Controls {
 			};
 
 			window.Show(this);
+		}
+
+		private void detectGamesToolStripMenuItem_Click(object sender, EventArgs e) {
+			var window = new GameInstanceManager((AlexandriaManager)Manager) {
+			};
+
+			window.BringToFront();
+			window.Show();
+		}
+
+		private void OnDebugCheckStateChanged(object sender, EventArgs e) {
+			Manager.DebuggingEnabled = debuggModeToolStripMenuItem.Checked;
+		}
+
+		private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e) {
+
 		}
 	}
 }

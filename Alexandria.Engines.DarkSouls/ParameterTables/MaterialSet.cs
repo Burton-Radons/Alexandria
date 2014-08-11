@@ -12,12 +12,14 @@ namespace Alexandria.Engines.DarkSouls {
 		/// <summary></summary>
 		/// <remarks>From EquipMtrlSetParam.paramdef (id 12h).</remarks>
 		public class MaterialSet : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "EQUIP_MTRL_SET_PARAM_ST";
 
 			Int32 materialId01, materialId02, materialId03, materialId04, materialId05;
 			SByte itemNum01, itemNum02, itemNum03, itemNum04, itemNum05;
 			Byte[] pad;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				MaterialId01Property = GetProperty<MaterialSet>("MaterialId01"),
 				MaterialId02Property = GetProperty<MaterialSet>("MaterialId02"),
@@ -41,7 +43,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "必要素材アイテムID01", Google translated: "Need material items ID01".
 			/// Japanese description: "武具強化に必要な素材アイテムIDです。", Google translated: "It is the material item ID required to strengthen armor .".
 			/// </remarks>
-			[ParameterTableRowAttribute("materialId01", index: 0, minimum: -1, maximum: 1E+07, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("materialId01", index: 0, minimum: -1, maximum: 1E+07, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Need material items ID01")]
 			[Description("It is the material item ID required to strengthen armor .")]
 			[DefaultValue((Int32)(-1))]
@@ -59,7 +61,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "必要素材アイテムID02", Google translated: "Need material items ID02".
 			/// Japanese description: "武具強化に必要な素材アイテムIDです。", Google translated: "It is the material item ID required to strengthen armor .".
 			/// </remarks>
-			[ParameterTableRowAttribute("materialId02", index: 1, minimum: -1, maximum: 1E+07, step: 1, order: 300, unknown2: 1)]
+			[ParameterTableRowAttribute("materialId02", index: 1, minimum: -1, maximum: 1E+07, step: 1, sortOrder: 300, unknown2: 1)]
 			[DisplayName("Need material items ID02")]
 			[Description("It is the material item ID required to strengthen armor .")]
 			[DefaultValue((Int32)(-1))]
@@ -77,7 +79,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "必要素材アイテムID03", Google translated: "Need material items ID03".
 			/// Japanese description: "武具強化に必要な素材アイテムIDです。", Google translated: "It is the material item ID required to strengthen armor .".
 			/// </remarks>
-			[ParameterTableRowAttribute("materialId03", index: 2, minimum: -1, maximum: 1E+07, step: 1, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("materialId03", index: 2, minimum: -1, maximum: 1E+07, step: 1, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Need material items ID03")]
 			[Description("It is the material item ID required to strengthen armor .")]
 			[DefaultValue((Int32)(-1))]
@@ -95,7 +97,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "必要素材アイテムID04", Google translated: "Need material items ID04".
 			/// Japanese description: "武具強化に必要な素材アイテムIDです。", Google translated: "It is the material item ID required to strengthen armor .".
 			/// </remarks>
-			[ParameterTableRowAttribute("materialId04", index: 3, minimum: -1, maximum: 1E+07, step: 1, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("materialId04", index: 3, minimum: -1, maximum: 1E+07, step: 1, sortOrder: 700, unknown2: 1)]
 			[DisplayName("Need material items ID04")]
 			[Description("It is the material item ID required to strengthen armor .")]
 			[DefaultValue((Int32)(-1))]
@@ -113,7 +115,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "必要素材アイテムID05", Google translated: "Need material items ID05".
 			/// Japanese description: "武具強化に必要な素材アイテムIDです。", Google translated: "It is the material item ID required to strengthen armor .".
 			/// </remarks>
-			[ParameterTableRowAttribute("materialId05", index: 4, minimum: -1, maximum: 1E+07, step: 1, order: 900, unknown2: 1)]
+			[ParameterTableRowAttribute("materialId05", index: 4, minimum: -1, maximum: 1E+07, step: 1, sortOrder: 900, unknown2: 1)]
 			[DisplayName("Need material items ID05")]
 			[Description("It is the material item ID required to strengthen armor .")]
 			[DefaultValue((Int32)(-1))]
@@ -131,7 +133,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "必要個数01", Google translated: "Required number of 01".
 			/// Japanese description: "武具強化に必要な素材アイテムの個数です。", Google translated: "It is the number of material items necessary to strengthen armor .".
 			/// </remarks>
-			[ParameterTableRowAttribute("itemNum01", index: 5, minimum: -1, maximum: 99, step: 1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("itemNum01", index: 5, minimum: -1, maximum: 99, step: 1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("Required number of 01")]
 			[Description("It is the number of material items necessary to strengthen armor .")]
 			[DefaultValue((SByte)(-1))]
@@ -149,7 +151,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "必要個数02", Google translated: "Required number of 02".
 			/// Japanese description: "武具強化に必要な素材アイテムの個数です。", Google translated: "It is the number of material items necessary to strengthen armor .".
 			/// </remarks>
-			[ParameterTableRowAttribute("itemNum02", index: 6, minimum: -1, maximum: 99, step: 1, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("itemNum02", index: 6, minimum: -1, maximum: 99, step: 1, sortOrder: 400, unknown2: 1)]
 			[DisplayName("Required number of 02")]
 			[Description("It is the number of material items necessary to strengthen armor .")]
 			[DefaultValue((SByte)(-1))]
@@ -167,7 +169,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "必要個数03", Google translated: "Required number of 03".
 			/// Japanese description: "武具強化に必要な素材アイテムの個数です。", Google translated: "It is the number of material items necessary to strengthen armor .".
 			/// </remarks>
-			[ParameterTableRowAttribute("itemNum03", index: 7, minimum: -1, maximum: 99, step: 1, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("itemNum03", index: 7, minimum: -1, maximum: 99, step: 1, sortOrder: 600, unknown2: 1)]
 			[DisplayName("Required number of 03")]
 			[Description("It is the number of material items necessary to strengthen armor .")]
 			[DefaultValue((SByte)(-1))]
@@ -185,7 +187,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "必要個数04", Google translated: "Required number of 04".
 			/// Japanese description: "武具強化に必要な素材アイテムの個数です。", Google translated: "It is the number of material items necessary to strengthen armor .".
 			/// </remarks>
-			[ParameterTableRowAttribute("itemNum04", index: 8, minimum: -1, maximum: 99, step: 1, order: 800, unknown2: 1)]
+			[ParameterTableRowAttribute("itemNum04", index: 8, minimum: -1, maximum: 99, step: 1, sortOrder: 800, unknown2: 1)]
 			[DisplayName("Required number of 04")]
 			[Description("It is the number of material items necessary to strengthen armor .")]
 			[DefaultValue((SByte)(-1))]
@@ -203,7 +205,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "必要個数05", Google translated: "Required number of 05".
 			/// Japanese description: "武具強化に必要な素材アイテムの個数です。", Google translated: "It is the number of material items necessary to strengthen armor .".
 			/// </remarks>
-			[ParameterTableRowAttribute("itemNum05", index: 9, minimum: -1, maximum: 99, step: 1, order: 1000, unknown2: 1)]
+			[ParameterTableRowAttribute("itemNum05", index: 9, minimum: -1, maximum: 99, step: 1, sortOrder: 1000, unknown2: 1)]
 			[DisplayName("Required number of 05")]
 			[Description("It is the number of material items necessary to strengthen armor .")]
 			[DefaultValue((SByte)(-1))]
@@ -221,7 +223,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数表示を無効化01", Google translated: "Disable 01 the number display".
 			/// Japanese description: "個数表示を無効化するか(強化ショップ用)", Google translated: "Or disable the number display ( enhanced for shops )".
 			/// </remarks>
-			[ParameterTableRowAttribute("isDisableDispNum01:1", index: 10, minimum: 0, maximum: 1, step: 1, order: 250, unknown2: 1)]
+			[ParameterTableRowAttribute("isDisableDispNum01:1", index: 10, minimum: 0, maximum: 1, step: 1, sortOrder: 250, unknown2: 1)]
 			[DisplayName("Disable 01 the number display")]
 			[Description("Or disable the number display ( enhanced for shops )")]
 			[DefaultValue(false)]
@@ -235,7 +237,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数表示を無効化02", Google translated: "Disable 02 the number display".
 			/// Japanese description: "個数表示を無効化するか", Google translated: "You can disable the display number".
 			/// </remarks>
-			[ParameterTableRowAttribute("isDisableDispNum02:1", index: 11, minimum: 0, maximum: 1, step: 1, order: 450, unknown2: 1)]
+			[ParameterTableRowAttribute("isDisableDispNum02:1", index: 11, minimum: 0, maximum: 1, step: 1, sortOrder: 450, unknown2: 1)]
 			[DisplayName("Disable 02 the number display")]
 			[Description("You can disable the display number")]
 			[DefaultValue(false)]
@@ -249,7 +251,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数表示を無効化03", Google translated: "Disable 03 the number display".
 			/// Japanese description: "個数表示を無効化するか", Google translated: "You can disable the display number".
 			/// </remarks>
-			[ParameterTableRowAttribute("isDisableDispNum03:1", index: 12, minimum: 0, maximum: 1, step: 1, order: 650, unknown2: 1)]
+			[ParameterTableRowAttribute("isDisableDispNum03:1", index: 12, minimum: 0, maximum: 1, step: 1, sortOrder: 650, unknown2: 1)]
 			[DisplayName("Disable 03 the number display")]
 			[Description("You can disable the display number")]
 			[DefaultValue(false)]
@@ -263,7 +265,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数表示を無効化04", Google translated: "Disable 04 the number display".
 			/// Japanese description: "個数表示を無効化するか", Google translated: "You can disable the display number".
 			/// </remarks>
-			[ParameterTableRowAttribute("isDisableDispNum04:1", index: 13, minimum: 0, maximum: 1, step: 1, order: 850, unknown2: 1)]
+			[ParameterTableRowAttribute("isDisableDispNum04:1", index: 13, minimum: 0, maximum: 1, step: 1, sortOrder: 850, unknown2: 1)]
 			[DisplayName("Disable 04 the number display")]
 			[Description("You can disable the display number")]
 			[DefaultValue(false)]
@@ -277,7 +279,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "個数表示を無効化05", Google translated: "Disable 05 the number display".
 			/// Japanese description: "個数表示を無効化するか", Google translated: "You can disable the display number".
 			/// </remarks>
-			[ParameterTableRowAttribute("isDisableDispNum05:1", index: 14, minimum: 0, maximum: 1, step: 1, order: 1050, unknown2: 1)]
+			[ParameterTableRowAttribute("isDisableDispNum05:1", index: 14, minimum: 0, maximum: 1, step: 1, sortOrder: 1050, unknown2: 1)]
 			[DisplayName("Disable 05 the number display")]
 			[Description("You can disable the display number")]
 			[DefaultValue(false)]
@@ -291,7 +293,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "パディングです。", Google translated: "The padding .".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad[6]", index: 15, minimum: 0, maximum: 0, step: 0, order: 99999999, unknown2: 0)]
+			[ParameterTableRowAttribute("pad[6]", index: 15, minimum: 0, maximum: 0, step: 0, sortOrder: 99999999, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("The padding .")]
 			[Browsable(false)]
@@ -339,6 +341,8 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad = new Byte[6];
 			}
 
+			/// <summary>Write the <see cref="MaterialSet"/> row.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(MaterialId01);
 				writer.Write(MaterialId02);

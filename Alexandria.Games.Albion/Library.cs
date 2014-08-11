@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Alexandria.Games.Albion {
+	/// <summary>A library asset.</summary>
 	public class Library : ArchiveAsset {
-		public const string Magic = "XLD0I\0";
+		internal const string Magic = "XLD0I\0";
 
 		internal BinaryReader Reader { get; private set; }
 
@@ -28,19 +29,27 @@ namespace Alexandria.Games.Albion {
 		}
 	}
 
+	/// <summary>
+	/// A record in a <see cref="Library"/>.
+	/// </summary>
 	public class LibraryRecord : DataAsset {
+		/// <summary>Get the display name, of the form "<see cref="Index"/> (<see cref="Size"/> byte(s))".</summary>
 		public override string DisplayName {
 			get {
 				return string.Format("{0} ({1} byte{2})", Name, Size, Size == 1 ? "" : "s");
 			}
 		}
 
+		/// <summary>Get the zero-based index of this record in the library.</summary>
 		public int Index { get; private set; }
 
+		/// <summary>Get the containing library.</summary>
 		public Library Library { get; private set; }
 
+		/// <summary>Get the offset of this record in the library file.</summary>
 		public int Offset { get; private set; }
 
+		/// <summary>Get the size in bytes of the record.</summary>
 		public int Size { get; private set; }
 
 		internal LibraryRecord(Library library, int index, int offset, int size)
@@ -50,6 +59,8 @@ namespace Alexandria.Games.Albion {
 			Size = size;
 		}
 
+		/// <summary>Open the record data in a stream.</summary>
+		/// <returns></returns>
 		public override Stream Open() {
 			var reader = Library.Reader;
 			reader.BaseStream.Position = Offset;

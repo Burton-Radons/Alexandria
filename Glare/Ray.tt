@@ -4,20 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glare
-{
+namespace Glare {
 	<#GenerateAxes(RayFamily, () => {#>
 	/// <summary>A <#=Vector#> position with a <#=VectorFloat#> normal.</summary>
-	public struct <#=This#>
-	{
+	public struct <#=This#> {
 		/// <summary>Get or set the origin of the <#=SeeThis#>.</summary>
 		public <#=Vector#> Origin;
 
 		/// <summary>Get or set the direction of the <#=SeeThis#>.</summary>
 		public <#=VectorFloat#> Normal;
 		
-		public <#=This#>(<#=Vector#> origin, <#=VectorFloat#> normal)
-		{
+		/// <summary>Initialise the <#=SeeThis#>.</summary>
+		public <#=This#>(<#=Vector#> origin, <#=VectorFloat#> normal) {
 			Origin = origin;
 			Normal = normal;
 		}

@@ -10,41 +10,66 @@ using System.Windows.Forms;
 using Glare.Assets;
 
 namespace Glare.Assets.Controls {
+	/// <summary>
+	/// A browser for a <see cref="FolderAsset"/>, or any other asset that wants to act like one.
+	/// </summary>
 	public partial class FolderAssetBrowser : UserControl {
-		public readonly FolderAsset Resource;
+		/// <summary>
+		/// Get the asset this views.
+		/// </summary>
+		public readonly Asset Resource;
 
-		public FolderAssetBrowser(FolderAsset resource) {
+		/// <summary>
+		/// Initialise the browser.
+		/// </summary>
+		/// <param name="progressUpdateCallback"></param>
+		/// <param name="resource"></param>
+		public FolderAssetBrowser(Asset resource, Action<double> progressUpdateCallback = null) {
 			Resource = resource;
 			InitializeComponent();
 
 			assetBar.Asset = resource;
 
-			tree.BeginUpdate();
-			tree.AfterExpand += (sender, args) => { AdjustSplitter(); };
-			tree.AfterCollapse += (sender, args) => { AdjustSplitter(); };
-			var nodes = tree.Nodes;
-
-			foreach (Asset child in resource.Children)
-				Add(child, nodes);
-
-			tree.EndUpdate();
+			FillTree();
 			AdjustSplitter();
 		}
 
-		void Add(Asset resource, TreeNodeCollection nodes) {
-			TreeNode node = new ResourceTreeNode(resource);
+		void Add(Asset resource, TreeNodeCollection nodes, Action<double> progressUpdateCallback, double percentOffset, double percentPart) {
+			if (progressUpdateCallback != null)
+				progressUpdateCallback(percentOffset);
+
+			TreeNode node = new AssetTreeNode(resource);
 
 			nodes.Add(node);
 
 			if (resource is FolderAsset) {
 				if (resource.Children.Count == 1)
 					node.Expand();
-				foreach (Asset child in resource.Children)
-					Add(child, node.Nodes);
+
+				double childPercentOffset = 0, childPercentPart = percentPart / resource.Children.Count;
+				foreach (Asset child in resource.Children) {
+					Add(child, node.Nodes, progressUpdateCallback, percentOffset + childPercentOffset, percentPart);
+					childPercentOffset += childPercentPart;
+				}
 			}
 		}
 
-		class ResourceTreeNode : TreeNode {
+		void FillTree(Action<double> progressUpdateCallback = null) {
+			tree.BeginUpdate();
+			tree.AfterExpand += (sender, args) => { AdjustSplitter(); };
+			tree.AfterCollapse += (sender, args) => { AdjustSplitter(); };
+			var nodes = tree.Nodes;
+
+			double percentOffset = 0, percentPart = 100.0 / Resource.Children.Count;
+			foreach (Asset child in Resource.Children) {
+				Add(child, nodes, progressUpdateCallback, percentOffset, percentPart);
+				percentOffset += percentPart;
+			}
+
+			tree.EndUpdate();
+		}
+
+		class AssetTreeNode : TreeNode {
 			readonly Asset Resource;
 
 			public override ContextMenuStrip ContextMenuStrip {
@@ -60,7 +85,7 @@ namespace Glare.Assets.Controls {
 				}
 			}
 
-			public ResourceTreeNode(Asset resource)
+			public AssetTreeNode(Asset resource)
 				: base(resource.DisplayName) {
 				Tag = Resource = resource;
 			}

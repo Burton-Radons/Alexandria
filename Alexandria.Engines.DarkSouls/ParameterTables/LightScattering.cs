@@ -16,12 +16,14 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "LIGHT_SCATTERING_BANK" in the file "LightScatteringBank.paramdef" (id 02h).
 		/// </remarks>
 		public class LightScattering : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "LIGHT_SCATTERING_BANK";
 
 			Int16 sunRotX, sunRotY, distanceMul, sunR, sunG, sunB, sunA, blendCoef, reflectanceR, reflectanceG, reflectanceB, reflectanceA;
 			Byte[] pad_0, pad_1;
 			Single lsHGg, lsBetaRay, lsBetaMie;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				SunRotXProperty = GetProperty<LightScattering>("SunRotX"),
 				SunRotYProperty = GetProperty<LightScattering>("SunRotY"),
@@ -46,7 +48,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "X角度", Google translated: "X angle".
 			/// Japanese description: "光源", Google translated: "Light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("sunRotX", index: 0, minimum: -90, maximum: 90, step: 1, order: 1, unknown2: 0)]
+			[ParameterTableRowAttribute("sunRotX", index: 0, minimum: -90, maximum: 90, step: 1, sortOrder: 1, unknown2: 0)]
 			[DisplayName("X angle")]
 			[Description("Light source")]
 			[DefaultValue((Int16)0)]
@@ -64,7 +66,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｙ角度", Google translated: "Y angle".
 			/// Japanese description: "光源", Google translated: "Light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("sunRotY", index: 1, minimum: -180, maximum: 180, step: 1, order: 2, unknown2: 1)]
+			[ParameterTableRowAttribute("sunRotY", index: 1, minimum: -180, maximum: 180, step: 1, sortOrder: 2, unknown2: 1)]
 			[DisplayName("Y angle")]
 			[Description("Light source")]
 			[DefaultValue((Int16)0)]
@@ -82,7 +84,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "距離倍率[％]", Google translated: "Distance magnification [%]".
 			/// Japanese description: "距離倍率[%](0～1000)", Google translated: "Distance magnification [%] (0-1000)".
 			/// </remarks>
-			[ParameterTableRowAttribute("distanceMul", index: 2, minimum: 0, maximum: 1000, step: 1, order: 3, unknown2: 0)]
+			[ParameterTableRowAttribute("distanceMul", index: 2, minimum: 0, maximum: 1000, step: 1, sortOrder: 3, unknown2: 0)]
 			[DisplayName("Distance magnification [%]")]
 			[Description("Distance magnification [%] (0-1000)")]
 			[DefaultValue((Int16)100)]
@@ -100,7 +102,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "光源", Google translated: "Light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("sunR", index: 3, minimum: 0, maximum: 255, step: 1, order: 4, unknown2: 0)]
+			[ParameterTableRowAttribute("sunR", index: 3, minimum: 0, maximum: 255, step: 1, sortOrder: 4, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Light source")]
 			[DefaultValue((Int16)255)]
@@ -118,7 +120,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "光源", Google translated: "Light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("sunG", index: 4, minimum: 0, maximum: 255, step: 1, order: 5, unknown2: 0)]
+			[ParameterTableRowAttribute("sunG", index: 4, minimum: 0, maximum: 255, step: 1, sortOrder: 5, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Light source")]
 			[DefaultValue((Int16)255)]
@@ -136,7 +138,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "光源", Google translated: "Light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("sunB", index: 5, minimum: 0, maximum: 255, step: 1, order: 6, unknown2: 0)]
+			[ParameterTableRowAttribute("sunB", index: 5, minimum: 0, maximum: 255, step: 1, sortOrder: 6, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Light source")]
 			[DefaultValue((Int16)255)]
@@ -154,7 +156,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [%]".
 			/// Japanese description: "光源", Google translated: "Light source".
 			/// </remarks>
-			[ParameterTableRowAttribute("sunA", index: 6, minimum: 0, maximum: 1000, step: 1, order: 7, unknown2: 0)]
+			[ParameterTableRowAttribute("sunA", index: 6, minimum: 0, maximum: 1000, step: 1, sortOrder: 7, unknown2: 0)]
 			[DisplayName("RGB magnification [%]")]
 			[Description("Light source")]
 			[DefaultValue((Int16)600)]
@@ -172,7 +174,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_0[2]", index: 7, minimum: 0, maximum: 999, step: 1, order: 18, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_0[2]", index: 7, minimum: 0, maximum: 999, step: 1, sortOrder: 18, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("")]
 			[Browsable(false)]
@@ -186,7 +188,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "散乱方向係数", Google translated: "Scattering coefficient direction".
 			/// Japanese description: "散乱方向係数（-1:後方 1:前方）", Google translated: "(Forward: 1 -1 backward) direction scattering coefficient".
 			/// </remarks>
-			[ParameterTableRowAttribute("lsHGg", index: 8, minimum: -0.99, maximum: 0.99, step: 0.01, order: 8, unknown2: 0)]
+			[ParameterTableRowAttribute("lsHGg", index: 8, minimum: -0.99, maximum: 0.99, step: 0.01, sortOrder: 8, unknown2: 0)]
 			[DisplayName("Scattering coefficient direction")]
 			[Description("(Forward: 1 -1 backward) direction scattering coefficient")]
 			[DefaultValue((Single)0.8)]
@@ -204,7 +206,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "レイリー散乱係数", Google translated: "Rayleigh scattering coefficient".
 			/// Japanese description: "レイリー散乱係数（空気の分子）", Google translated: "(Air molecules) Rayleigh scattering coefficient".
 			/// </remarks>
-			[ParameterTableRowAttribute("lsBetaRay", index: 9, minimum: 0, maximum: 10, step: 0.1, order: 9, unknown2: 0)]
+			[ParameterTableRowAttribute("lsBetaRay", index: 9, minimum: 0, maximum: 10, step: 0.1, sortOrder: 9, unknown2: 0)]
 			[DisplayName("Rayleigh scattering coefficient")]
 			[Description("(Air molecules) Rayleigh scattering coefficient")]
 			[DefaultValue((Single)0.2)]
@@ -222,7 +224,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ミー散乱係数", Google translated: "Mie scattering coefficient".
 			/// Japanese description: "ミー散乱係数（微粒子）", Google translated: "Mie scattering coefficient (fine particles)".
 			/// </remarks>
-			[ParameterTableRowAttribute("lsBetaMie", index: 10, minimum: 0, maximum: 1, step: 0.01, order: 10, unknown2: 0)]
+			[ParameterTableRowAttribute("lsBetaMie", index: 10, minimum: 0, maximum: 1, step: 0.01, sortOrder: 10, unknown2: 0)]
 			[DisplayName("Mie scattering coefficient")]
 			[Description("Mie scattering coefficient (fine particles)")]
 			[DefaultValue((Single)0.01)]
@@ -240,7 +242,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ブレンド係数[％]", Google translated: "Blending coefficient [%]".
 			/// Japanese description: "スキャッタリングの係具合(100で最大)", Google translated: "(Up to 100) engagement condition of the scattering".
 			/// </remarks>
-			[ParameterTableRowAttribute("blendCoef", index: 11, minimum: 0, maximum: 100, step: 1, order: 11, unknown2: 0)]
+			[ParameterTableRowAttribute("blendCoef", index: 11, minimum: 0, maximum: 100, step: 1, sortOrder: 11, unknown2: 0)]
 			[DisplayName("Blending coefficient [%]")]
 			[Description("(Up to 100) engagement condition of the scattering")]
 			[DefaultValue((Int16)100)]
@@ -258,7 +260,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｒ", Google translated: "R".
 			/// Japanese description: "地上の乱反射光色", Google translated: "Diffuse reflection light color on the ground".
 			/// </remarks>
-			[ParameterTableRowAttribute("reflectanceR", index: 12, minimum: 0, maximum: 255, step: 1, order: 12, unknown2: 0)]
+			[ParameterTableRowAttribute("reflectanceR", index: 12, minimum: 0, maximum: 255, step: 1, sortOrder: 12, unknown2: 0)]
 			[DisplayName("R")]
 			[Description("Diffuse reflection light color on the ground")]
 			[DefaultValue((Int16)255)]
@@ -276,7 +278,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｇ", Google translated: "G".
 			/// Japanese description: "地上の乱反射光色", Google translated: "Diffuse reflection light color on the ground".
 			/// </remarks>
-			[ParameterTableRowAttribute("reflectanceG", index: 13, minimum: 0, maximum: 255, step: 1, order: 13, unknown2: 0)]
+			[ParameterTableRowAttribute("reflectanceG", index: 13, minimum: 0, maximum: 255, step: 1, sortOrder: 13, unknown2: 0)]
 			[DisplayName("G")]
 			[Description("Diffuse reflection light color on the ground")]
 			[DefaultValue((Int16)255)]
@@ -294,7 +296,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "Ｂ", Google translated: "B".
 			/// Japanese description: "地上の乱反射光色", Google translated: "Diffuse reflection light color on the ground".
 			/// </remarks>
-			[ParameterTableRowAttribute("reflectanceB", index: 14, minimum: 0, maximum: 255, step: 1, order: 14, unknown2: 0)]
+			[ParameterTableRowAttribute("reflectanceB", index: 14, minimum: 0, maximum: 255, step: 1, sortOrder: 14, unknown2: 0)]
 			[DisplayName("B")]
 			[Description("Diffuse reflection light color on the ground")]
 			[DefaultValue((Int16)255)]
@@ -312,7 +314,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "RGB倍率[％]", Google translated: "RGB magnification [%]".
 			/// Japanese description: "地上の乱反射光色", Google translated: "Diffuse reflection light color on the ground".
 			/// </remarks>
-			[ParameterTableRowAttribute("reflectanceA", index: 15, minimum: 0, maximum: 1000, step: 1, order: 15, unknown2: 0)]
+			[ParameterTableRowAttribute("reflectanceA", index: 15, minimum: 0, maximum: 1000, step: 1, sortOrder: 15, unknown2: 0)]
 			[DisplayName("RGB magnification [%]")]
 			[Description("Diffuse reflection light color on the ground")]
 			[DefaultValue((Int16)100)]
@@ -330,7 +332,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_1[2]", index: 16, minimum: 0, maximum: 999, step: 1, order: 19, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_1[2]", index: 16, minimum: 0, maximum: 999, step: 1, sortOrder: 19, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("")]
 			[Browsable(false)]
@@ -383,6 +385,8 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad_1 = new Byte[2];
 			}
 
+			/// <summary>Write the <see cref="LightScattering"/> row.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(SunRotX);
 				writer.Write(SunRotY);

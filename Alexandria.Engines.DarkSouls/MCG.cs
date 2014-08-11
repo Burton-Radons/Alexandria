@@ -11,18 +11,22 @@ using System.Windows.Forms;
 
 
 namespace Alexandria.Engines.DarkSouls {
+	/// <summary>An MCG object.</summary>
 	public class MCG : Asset {
 		internal const int HeaderDataSize = 32;
 
-		public Codex<MCGTable1> Table1 { get; private set; }
-
 		int Table1Offset, Table2Offset, Table3Offset, EndOffset;
 
+		/// <summary>Get the first table.</summary>
+		public Codex<MCGTable1> Table1 { get; private set; }
+
+		/// <summary>Get the second table.</summary>
 		public Codex<MCGTable2> Table2 { get; private set; }
 
+		/// <summary>Get the third table.</summary>
 		public Codex<MCGTable3> Table3 { get; private set; }
 
-		public MCG(AssetManager manager, AssetLoader loader)
+		internal MCG(AssetManager manager, AssetLoader loader)
 			: base(manager, loader.Name) {
 			var reader = loader.Reader;
 
@@ -58,7 +62,9 @@ namespace Alexandria.Engines.DarkSouls {
 				table3.Add(new MCGTable3(this, index, loader));
 		}
 
-		public override System.Windows.Forms.Control Browse() {
+		/// <summary>Create a control to browse the <see cref="MCG"/>.</summary>
+		/// <returns></returns>
+		public override System.Windows.Forms.Control Browse(Action<double> progressUpdateCallback = null) {
 			var tree = new TreeView();
 
 			var table1 = CreateTreeNode(tree, Table1, Table1Offset, Table2Offset);
@@ -100,54 +106,71 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>A table within an <see cref="MCG"/>.</summary>
 	public abstract class MCGTable {
+		/// <summary>Get the zero-based index of the <see cref="MCGTable"/>.</summary>
 		public int Index { get; private set; }
 
+		/// <summary>Get the containing <see cref="MCG"/>.</summary>
 		public MCG MCG { get; private set; }
 
+		/// <summary>Get the list of unknown values.</summary>
 		public UnknownList Unknowns { get; private set; }
 
-		public MCGTable(MCG mcg, int index) {
+		internal MCGTable(MCG mcg, int index) {
 			MCG = mcg;
 			Index = index;
 			Unknowns = new UnknownList();
 		}
 
+		/// <summary>Convert to a short string.</summary>
+		/// <returns></returns>
 		public string ToShortString() {
 			return Unknowns.ToCommaSeparatedList();
 		}
 
+		/// <summary>Convert to a full string.</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			var content = ToStringContent();
 			return string.Format("{0}({1}{2})", GetType().Name, content, string.IsNullOrEmpty(content) ? Unknowns.ToCommaSeparatedList() : Unknowns.ToCommaPrefixedList());
 		}
 
+		/// <summary>Convert to a small string.</summary>
+		/// <returns></returns>
 		protected virtual string ToStringContent() { return ""; }
 
+		/// <summary>Create a tree node.</summary>
+		/// <returns></returns>
 		public virtual TreeNode CreateTreeNode() {
 			return new TreeNode(ToString());
 		}
 	}
 
+	/// <summary>A table row in an <see cref="MCG"/>.</summary>
 	public class MCGTable1 : MCGTable {
 		internal const int DataSize = 4;
 
+		/// <summary>Get the value of the row.</summary>
 		public int Value { get; private set; }
 
-		public MCGTable1(MCG mcg, int index, AssetLoader loader)
+		internal MCGTable1(MCG mcg, int index, AssetLoader loader)
 			: base(mcg, index) {
 			Unknowns.ReadInt32s(loader.Reader, 1);
 		}
 	}
 
+	/// <summary>A table row in an <see cref="MCG"/>.</summary>
 	public class MCGTable2 : MCGTable {
 		internal const int DataSize = 36;
 
+		/// <summary>Get the list of references to <see cref="MCGTable1"/> elements.</summary>
 		public Codex<MCGTable1> Table1U1 { get; private set; }
 
+		/// <summary>Get the second list of references to <see cref="MCGTable1"/> elements.</summary>
 		public Codex<MCGTable1> Table1U2 { get; private set; }
 
-		public MCGTable2(MCG mcg, int index, AssetLoader loader)
+		internal MCGTable2(MCG mcg, int index, AssetLoader loader)
 			: base(mcg, index) {
 			var reader = loader.Reader;
 
@@ -168,20 +191,27 @@ namespace Alexandria.Engines.DarkSouls {
 			Unknowns.ReadSingles(reader, 1);
 		}
 
+		/// <summary>Get a string representation of the row's contents.</summary>
+		/// <returns></returns>
 		protected override string ToStringContent() {
 			return string.Format("{0}, {1}", MCG.Table1ToString(Table1U1), MCG.Table1ToString(Table1U2));
 		}
 	}
 
+	/// <summary>A table in an <see cref="MCG"/>.</summary>
 	public class MCGTable3 : MCGTable {
 		internal const int DataSize = 32;
 
+		/// <summary>Get a table referencing <see cref="MCGTable1"/> values.</summary>
 		public Codex<MCGTable1> Table1U1 { get; private set; }
+
+		/// <summary>Get a table referencing <see cref="MCGTable1"/> values.</summary>
 		public Codex<MCGTable1> Table1U2 { get; private set; }
 
+		/// <summary>Get a position vector.</summary>
 		public Vector3f Position { get; private set; }
 
-		public MCGTable3(MCG mcg, int index, AssetLoader loader)
+		internal MCGTable3(MCG mcg, int index, AssetLoader loader)
 			: base(mcg, index) {
 			var reader = loader.Reader;
 
@@ -192,16 +222,22 @@ namespace Alexandria.Engines.DarkSouls {
 			Unknowns.ReadInt32s(reader, 2);
 		}
 
+		/// <summary>Get a string representation of the row's values.</summary>
+		/// <returns></returns>
 		protected override string ToStringContent() {
 			return string.Format("{0}, {1}, {2}", MCG.Table1ToString(Table1U1), MCG.Table1ToString(Table1U2), Position.ToShortString());
 		}
 	}
 
+	/// <summary>The asset format for the <see cref="MCG"/>.</summary>
 	public class MCGFormat : AssetFormat {
-		public MCGFormat(Engine engine)
+		internal MCGFormat(Engine engine)
 			: base(engine, typeof(MCG), canLoad: true, extension: ".mcg") {
 		}
 
+		/// <summary>Attempt to match the stream as an <see cref="MCG"/> file.</summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
 		public override LoadMatchStrength LoadMatch(AssetLoader loader) {
 			var reader = loader.Reader;
 
@@ -229,6 +265,9 @@ namespace Alexandria.Engines.DarkSouls {
 			return LoadMatchStrength.Medium;
 		}
 
+		/// <summary>Load the MCG.</summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
 		public override Asset Load(AssetLoader loader) {
 			return new MCG(Manager, loader);
 		}

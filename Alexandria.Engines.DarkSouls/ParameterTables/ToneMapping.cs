@@ -14,12 +14,14 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "TONE_MAP_BANK" in Dark Souls in the file "ToneMapBank.paramdef" (id 06h).
 		/// </remarks>
 		public class ToneMapping : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "TONE_MAP_BANK";
 
 			SByte bloomBegin, bloomMul, bloomBeginFar, bloomMulFar, lightShaftBegin;
 			Single bloomNearDist, bloomFarDist, grayKeyValue, minAdaptedLum, maxAdapredLum, adaptSpeed, lightShaftPower, lightShaftAttenRate;
 			Byte[] pad_0;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				BloomBeginProperty = GetProperty<ToneMapping>("BloomBegin"),
 				BloomMulProperty = GetProperty<ToneMapping>("BloomMul"),
@@ -41,7 +43,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "近傍ブルーム閾値[％]", Google translated: "Bloom near threshold [ %]".
 			/// Japanese description: "輝度が閾値を越えるとにじみ始めます（近傍）", Google translated: "Begins bleeding brightness exceeds the threshold (in the vicinity )".
 			/// </remarks>
-			[ParameterTableRowAttribute("bloomBegin", index: 0, minimum: 0, maximum: 100, step: 1, order: 1, unknown2: 0)]
+			[ParameterTableRowAttribute("bloomBegin", index: 0, minimum: 0, maximum: 100, step: 1, sortOrder: 1, unknown2: 0)]
 			[DisplayName("Bloom near threshold [ %]")]
 			[Description("Begins bleeding brightness exceeds the threshold (in the vicinity )")]
 			[DefaultValue((SByte)50)]
@@ -59,7 +61,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "近傍ブルーム倍率[％]", Google translated: "Near Broome magnification [ %]".
 			/// Japanese description: "閾値以上の値に掛ける値です(0でにじまなくなります)（近傍）", Google translated: "Is the value to be applied to the value equal to or more than the threshold value ( you will not bleed at 0) (in the vicinity )".
 			/// </remarks>
-			[ParameterTableRowAttribute("bloomMul", index: 1, minimum: 0, maximum: 100, step: 1, order: 2, unknown2: 0)]
+			[ParameterTableRowAttribute("bloomMul", index: 1, minimum: 0, maximum: 100, step: 1, sortOrder: 2, unknown2: 0)]
 			[DisplayName("Near Broome magnification [ %]")]
 			[Description("Is the value to be applied to the value equal to or more than the threshold value ( you will not bleed at 0) (in the vicinity )")]
 			[DefaultValue((SByte)50)]
@@ -77,7 +79,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "遠方ブルーム閾値[％]", Google translated: "Far Bloom threshold [ %]".
 			/// Japanese description: "輝度が閾値を越えるとにじみ始めます（遠方）", Google translated: "Begins bleeding brightness exceeds the threshold ( far )".
 			/// </remarks>
-			[ParameterTableRowAttribute("bloomBeginFar", index: 2, minimum: 0, maximum: 100, step: 1, order: 3, unknown2: 0)]
+			[ParameterTableRowAttribute("bloomBeginFar", index: 2, minimum: 0, maximum: 100, step: 1, sortOrder: 3, unknown2: 0)]
 			[DisplayName("Far Bloom threshold [ %]")]
 			[Description("Begins bleeding brightness exceeds the threshold ( far )")]
 			[DefaultValue((SByte)50)]
@@ -95,7 +97,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "遠方ブルーム倍率[％]", Google translated: "Far Bloom magnification [ %]".
 			/// Japanese description: "閾値以上の値に掛ける値です(0でにじまなくなります)（遠方）", Google translated: "Is the value to be applied to the value equal to or more than the threshold value ( you will not bleed at 0) ( far )".
 			/// </remarks>
-			[ParameterTableRowAttribute("bloomMulFar", index: 3, minimum: 0, maximum: 100, step: 1, order: 4, unknown2: 0)]
+			[ParameterTableRowAttribute("bloomMulFar", index: 3, minimum: 0, maximum: 100, step: 1, sortOrder: 4, unknown2: 0)]
 			[DisplayName("Far Bloom magnification [ %]")]
 			[Description("Is the value to be applied to the value equal to or more than the threshold value ( you will not bleed at 0) ( far )")]
 			[DefaultValue((SByte)50)]
@@ -113,7 +115,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ブルーム近傍距離", Google translated: "Bloom neighborhood distance".
 			/// Japanese description: "この距離まで近傍のパラメータが適用されます。(m)", Google translated: "Parameters of the neighborhood will be applied to this distance . (m)".
 			/// </remarks>
-			[ParameterTableRowAttribute("bloomNearDist", index: 4, minimum: -10000, maximum: 999999, step: 0.1, order: 5, unknown2: 0)]
+			[ParameterTableRowAttribute("bloomNearDist", index: 4, minimum: -10000, maximum: 999999, step: 0.1, sortOrder: 5, unknown2: 0)]
 			[DisplayName("Bloom neighborhood distance")]
 			[Description("Parameters of the neighborhood will be applied to this distance . (m)")]
 			[DefaultValue((Single)20)]
@@ -131,7 +133,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ブルーム遠方距離", Google translated: "Bloom far distance".
 			/// Japanese description: "この距離から遠方のパラメータが適用されます。(m)", Google translated: "Parameters far will be applied from this distance . (m)".
 			/// </remarks>
-			[ParameterTableRowAttribute("bloomFarDist", index: 5, minimum: -10000, maximum: 999999, step: 0.1, order: 6, unknown2: 0)]
+			[ParameterTableRowAttribute("bloomFarDist", index: 5, minimum: -10000, maximum: 999999, step: 0.1, sortOrder: 6, unknown2: 0)]
 			[DisplayName("Bloom far distance")]
 			[Description("Parameters far will be applied from this distance . (m)")]
 			[DefaultValue((Single)60)]
@@ -149,7 +151,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "トーンマップの基準値", Google translated: "Reference value of the tone map".
 			/// Japanese description: "この値が大きいと画面が明るくなり小さいと画面が暗くなります", Google translated: "Screen will darken and small screen is bright and this value is greater".
 			/// </remarks>
-			[ParameterTableRowAttribute("grayKeyValue", index: 6, minimum: 0, maximum: 10, step: 0.01, order: 7, unknown2: 0)]
+			[ParameterTableRowAttribute("grayKeyValue", index: 6, minimum: 0, maximum: 10, step: 0.01, sortOrder: 7, unknown2: 0)]
 			[DisplayName("Reference value of the tone map")]
 			[Description("Screen will darken and small screen is bright and this value is greater")]
 			[DefaultValue((Single)0.18)]
@@ -167,7 +169,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "最小適応輝度", Google translated: "Minimum brightness adaptation".
 			/// Japanese description: "値を小さくすると暗い場所に適応して見えるようになります", Google translated: "It will be visible to adapt to a dark place to a smaller value".
 			/// </remarks>
-			[ParameterTableRowAttribute("minAdaptedLum", index: 7, minimum: 0, maximum: 10, step: 0.01, order: 8, unknown2: 0)]
+			[ParameterTableRowAttribute("minAdaptedLum", index: 7, minimum: 0, maximum: 10, step: 0.01, sortOrder: 8, unknown2: 0)]
 			[DisplayName("Minimum brightness adaptation")]
 			[Description("It will be visible to adapt to a dark place to a smaller value")]
 			[DefaultValue((Single)0.1)]
@@ -185,7 +187,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "最大適応輝度", Google translated: "Maximum fitness brightness".
 			/// Japanese description: "値を大きくすると明るい場所に適応して見えるようになります", Google translated: "It will be visible to adapt to bright place a higher value".
 			/// </remarks>
-			[ParameterTableRowAttribute("maxAdapredLum", index: 8, minimum: 0, maximum: 10, step: 0.01, order: 9, unknown2: 0)]
+			[ParameterTableRowAttribute("maxAdapredLum", index: 8, minimum: 0, maximum: 10, step: 0.01, sortOrder: 9, unknown2: 0)]
 			[DisplayName("Maximum fitness brightness")]
 			[Description("It will be visible to adapt to bright place a higher value")]
 			[DefaultValue((Single)0.2)]
@@ -203,7 +205,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "適応速度", Google translated: "Adaptation speed".
 			/// Japanese description: "値を大きくする明順応、暗順応の速度が速くなります", Google translated: "Light adaptation to increase the value , speed of dark adaptation is faster".
 			/// </remarks>
-			[ParameterTableRowAttribute("adaptSpeed", index: 9, minimum: 0, maximum: 10, step: 0.01, order: 10, unknown2: 0)]
+			[ParameterTableRowAttribute("adaptSpeed", index: 9, minimum: 0, maximum: 10, step: 0.01, sortOrder: 10, unknown2: 0)]
 			[DisplayName("Adaptation speed")]
 			[Description("Light adaptation to increase the value , speed of dark adaptation is faster")]
 			[DefaultValue((Single)1)]
@@ -221,7 +223,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ライトシャフト閾値[％]", Google translated: "Light shaft threshold [ %]".
 			/// Japanese description: "輝度が閾値を越えると光の筋がでます", Google translated: "Streaks of light will appear brightness exceeds a threshold".
 			/// </remarks>
-			[ParameterTableRowAttribute("lightShaftBegin", index: 10, minimum: 0, maximum: 100, step: 1, order: 11, unknown2: 0)]
+			[ParameterTableRowAttribute("lightShaftBegin", index: 10, minimum: 0, maximum: 100, step: 1, sortOrder: 11, unknown2: 0)]
 			[DisplayName("Light shaft threshold [ %]")]
 			[Description("Streaks of light will appear brightness exceeds a threshold")]
 			[DefaultValue((SByte)50)]
@@ -239,7 +241,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "ダミー", Google translated: "Dummy".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_0[3]", index: 11, minimum: 0, maximum: 0, step: 0, order: 15, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_0[3]", index: 11, minimum: 0, maximum: 0, step: 0, sortOrder: 15, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Dummy")]
 			[Browsable(false)]
@@ -253,7 +255,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ライトシャフトの強さ", Google translated: "The strength of the light shaft".
 			/// Japanese description: "ライトシャフトの強さです。(0で消えます)", Google translated: "Is the strength of the light shaft . ( Will close by 0)".
 			/// </remarks>
-			[ParameterTableRowAttribute("lightShaftPower", index: 12, minimum: 0, maximum: 10, step: 0.01, order: 12, unknown2: 0)]
+			[ParameterTableRowAttribute("lightShaftPower", index: 12, minimum: 0, maximum: 10, step: 0.01, sortOrder: 12, unknown2: 0)]
 			[DisplayName("The strength of the light shaft")]
 			[Description("Is the strength of the light shaft . ( Will close by 0)")]
 			[DefaultValue((Single)0)]
@@ -271,7 +273,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ライトシャフトの減衰率", Google translated: "Attenuation factor of the light shaft".
 			/// Japanese description: "ライトシャフトの減衰率です。小さくすると短くなります", Google translated: "It is the attenuation factor of the light shaft . It is short and small".
 			/// </remarks>
-			[ParameterTableRowAttribute("lightShaftAttenRate", index: 13, minimum: 0, maximum: 1, step: 0.01, order: 13, unknown2: 0)]
+			[ParameterTableRowAttribute("lightShaftAttenRate", index: 13, minimum: 0, maximum: 1, step: 0.01, sortOrder: 13, unknown2: 0)]
 			[DisplayName("Attenuation factor of the light shaft")]
 			[Description("It is the attenuation factor of the light shaft . It is short and small")]
 			[DefaultValue((Single)0.95)]
@@ -322,6 +324,10 @@ namespace Alexandria.Engines.DarkSouls {
 				LightShaftAttenRate = (Single)0.95;
 			}
 
+			/// <summary>
+			/// Write the <see cref="ToneMapping"/> row to the stream.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(BloomBegin);
 				writer.Write(BloomMul);

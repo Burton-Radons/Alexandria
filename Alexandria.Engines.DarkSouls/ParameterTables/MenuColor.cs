@@ -14,10 +14,12 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "MENU_PARAM_COLOR_TABLE_ST" in Dark Souls in the file "MenuParamColorTable.paramdef" (id 22h).
 		/// </remarks>
 		public class MenuColor : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "MENU_PARAM_COLOR_TABLE_ST";
 
 			Byte r, g, b, a;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				RProperty = GetProperty<MenuColor>("R"),
 				GProperty = GetProperty<MenuColor>("G"),
@@ -29,7 +31,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "赤色", Google translated: "Red".
 			/// Japanese description: "カラーテーブルの赤色", Google translated: "Red in the color table".
 			/// </remarks>
-			[ParameterTableRowAttribute("r", index: 0, minimum: 0, maximum: 255, step: 1, order: 1, unknown2: 1)]
+			[ParameterTableRowAttribute("r", index: 0, minimum: 0, maximum: 255, step: 1, sortOrder: 1, unknown2: 1)]
 			[DisplayName("Red")]
 			[Description("Red in the color table")]
 			[DefaultValue((Byte)255)]
@@ -47,7 +49,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "緑色", Google translated: "Green".
 			/// Japanese description: "カラーテーブルの緑", Google translated: "Green the color table".
 			/// </remarks>
-			[ParameterTableRowAttribute("g", index: 1, minimum: 0, maximum: 255, step: 1, order: 2, unknown2: 1)]
+			[ParameterTableRowAttribute("g", index: 1, minimum: 0, maximum: 255, step: 1, sortOrder: 2, unknown2: 1)]
 			[DisplayName("Green")]
 			[Description("Green the color table")]
 			[DefaultValue((Byte)255)]
@@ -65,7 +67,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "青色", Google translated: "Blue".
 			/// Japanese description: "カラーテーブルの青", Google translated: "Blue color table".
 			/// </remarks>
-			[ParameterTableRowAttribute("b", index: 2, minimum: 0, maximum: 255, step: 1, order: 3, unknown2: 1)]
+			[ParameterTableRowAttribute("b", index: 2, minimum: 0, maximum: 255, step: 1, sortOrder: 3, unknown2: 1)]
 			[DisplayName("Blue")]
 			[Description("Blue color table")]
 			[DefaultValue((Byte)255)]
@@ -83,7 +85,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "アルファ", Google translated: "Alpha".
 			/// Japanese description: "カラーテーブルのアルファ", Google translated: "Alpha in the color table".
 			/// </remarks>
-			[ParameterTableRowAttribute("a", index: 3, minimum: 0, maximum: 255, step: 1, order: 4, unknown2: 1)]
+			[ParameterTableRowAttribute("a", index: 3, minimum: 0, maximum: 255, step: 1, sortOrder: 4, unknown2: 1)]
 			[DisplayName("Alpha")]
 			[Description("Alpha in the color table")]
 			[DefaultValue((Byte)255)]
@@ -114,6 +116,10 @@ namespace Alexandria.Engines.DarkSouls {
 				A = (Byte)255;
 			}
 
+			/// <summary>
+			/// Write the <see cref="MenuColor"/> row.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(R);
 				writer.Write(G);

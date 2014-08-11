@@ -13,7 +13,7 @@ namespace Glare.Graphics {
 	/// <summary>
 	/// A program object is an object to which <see cref="Shader"/> objects can be attached. This provides a mechanism to specify the <see cref="Shader"/> objects that will be linked to create a <see cref="Program"/>. It also provides a means for checking the compatibility of the shaders that will be used to create a program (for instance, checking the compatibility between a <see cref="VertexShader"/> and a <see cref="FragmentShader"/>). When no longer needed as part of a program object, shader objects can be detached.
 	/// 
-	/// One or more executables are created in a <see cref="Program"/> object by successfully attaching <see cref="Shader"/> objects to it with <see cref="Attach"/>​, successfully compiling the <see cref="Shader"/>objects with <see cref="Shader.Compile"/>​, and successfully linking the program object with <see cref="Link"/>​. These executables are made part of current state when <see cref="Context.Program"/>​ is assigned. Program objects can be deleted by calling <see cref="Dispose"/>​. The memory associated with the <see cref="Program"/> object will be deleted when it is no longer part of current rendering state for any context.
+	/// One or more executables are created in a <see cref="Program"/> object by successfully drawing with it​, successfully compiling the <see cref="Shader"/>objects with <see cref="Shader.Compile()"/>​, and successfully linking the program object with <see cref="Link"/>​. These executables are made part of current state when <see cref="Program"/>​ is assigned. Program objects can be deleted by calling <see cref="DisposableObject.Dispose"/>​. The memory associated with the <see cref="Program"/> object will be deleted when it is no longer part of current rendering state for any context.
 	/// </summary>
 	public class Program : GraphicsResource {
 		readonly ProgramShaderCollection shaders;
@@ -298,7 +298,7 @@ namespace Glare.Graphics {
 		///  
 		/// The status of the link operation will be stored as part of the program object's state. This value will be set to <c>true</c>​ if the program object was linked without errors and is ready for use, and <c>false</c>​ otherwise. It can be queried through <see cref="IsLinked"/>.
 		/// 
-		/// As a result of a successful link operation, all active user-defined uniform variables belonging to program​ will be initialized to 0, and each of the program object's active uniform variables can be accessed through <see cref="ActiveUniforms"/>. Also, any active user-defined attribute variables that have not been bound to a generic vertex attribute index will be bound to one at this time and accessed through <see cref="ActiveAttributes"/>.
+		/// As a result of a successful link operation, all active user-defined uniform variables belonging to program​ will be initialized to 0, and each of the program object's active uniform variables can be accessed through <see cref="Uniforms"/>. Also, any active user-defined attribute variables that have not been bound to a generic vertex attribute index will be bound to one at this time and accessed through <see cref="Attributes"/>.
 		/// 
 		/// Linking of a program object can fail for a number of reasons as specified in the OpenGL Shading Language Specification. The following lists some of the conditions that will cause a link error.
 		/// <list type="bullet">
@@ -310,7 +310,7 @@ namespace Glare.Graphics {
 		/// <item><description>A reference to a function or variable name is unresolved.</description></item>
 		/// <item><description>A shared global is declared with two different types or two different initial values.</description></item>
 		/// <item><description>One or more of the attached shader objects has not been successfully compiled.</description></item>
-		/// <item><description>Binding a generic attribute matrix caused some rows of the matrix to fall outside the allowed maximum of <see cref="GraphicsProgram.MaxVertexAttributes"/>​.</description></item>
+		/// <item><description>Binding a generic attribute matrix caused some rows of the matrix to fall outside the allowed maximum of <see cref="VertexShaderStageCapabilities.MaxAttributes"/>​.</description></item>
 		/// <item><description>Not enough contiguous vertex attribute slots could be found to bind attribute matrices.</description></item>
 		/// <item><description>The program object contains objects to form a fragment shader but does not contain objects to form a vertex shader.</description></item>
 		/// <item><description>The program object contains objects to form a geometry shader but does not contain objects to form a vertex shader.</description></item>
@@ -326,9 +326,9 @@ namespace Glare.Graphics {
 		/// <item><description>The total number of components to capture in any transform feedback varying variable is greater than the constant <see cref="Context.MaxTransformFeedbackSeparateComponents"/>​ and the buffer mode is <see cref="TransformFeedbackMode.SeparateAttributes"/>​.</description></item>
 		/// </list>
 		///
-		/// When a program object has been successfully linked, the program object can be made part of current state by setting <see cref="Context.Program"/>​. Whether or not the link operation was successful, the program object's information log will be overwritten. The information log can be retrieved through <see cref="InfoLog"/>.
+		/// When a program object has been successfully linked, the program object can be made part of current state by drawing with it​. Whether or not the link operation was successful, the program object's information log will be overwritten. The information log can be retrieved through <see cref="InfoLog"/>.
 		/// 
-		/// <see cref="Link"/> will also install the generated executables as part of the current rendering state if the link operation was successful and the specified program object is already currently in use as a result of a previous assignment to <see cref="Context.Program"/>. If the program object currently in use is relinked unsuccessfully, its link status will be set to <c>false</c>​ , but the executables and associated state will remain part of the current state until a subsequent assignment to <see cref="Context.Program"/> removes it from use. After it is removed from use, it cannot be made part of current state until it has been successfully relinked.
+		/// <see cref="Link"/> will also install the generated executables as part of the current rendering state if the link operation was successful and the specified program object is already currently in use as a result of a previous drawing call. If the program object currently in use is relinked unsuccessfully, its link status will be set to <c>false</c>​ , but the executables and associated state will remain part of the current state until a subsequent drawing operation removes it from use. After it is removed from use, it cannot be made part of current state until it has been successfully relinked.
 		/// 
 		/// If program​ contains shader objects of type <see cref="VertexShader"/>​, and optionally of type <see cref="GeometryShader"/>​, but does not contain shader objects of type <see cref="FragmentShader"/>​, the vertex shader executable will be installed on the programmable vertex processor, the geometry shader executable, if present, will be installed on the programmable geometry processor, but no executable will be installed on the fragment processor. The results of rasterizing primitives with such a program will be undefined.
 		/// 

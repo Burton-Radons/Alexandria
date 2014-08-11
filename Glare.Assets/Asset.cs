@@ -13,7 +13,10 @@ using System.ComponentModel;
 using System.Reflection;
 
 namespace Glare.Assets {
-	public abstract class Asset : INotifyPropertyChanged, INotifyPropertyChanging {
+	/// <summary>
+	/// Abstract base of the asset objects, which contain information loaded from and saved to files.
+	/// </summary>
+	public abstract class Asset : NotifyingObject {
 		AssetFormat assetFormat;
 		readonly Codex<Asset> children = new Codex<Asset>();
 		bool isModified;
@@ -38,21 +41,31 @@ namespace Glare.Assets {
 		[Browsable(false)]
 		public AssetFormat AssetFormat {
 			get { return assetFormat; }
-			protected set { SetProperty(ref assetFormat, ref value, AssetFormatProperty); }
+			protected set { SetProperty(AssetFormatProperty, ref assetFormat, ref value); }
 		}
 
+		/// <summary>Get the children of the asset.</summary>
 		[Browsable(false)]
-		public ReadOnlyCodex<Asset> Children { get { return children; } }
+		public virtual ReadOnlyCodex<Asset> Children { get { return children; } }
 
+		/// <summary>
+		/// Get the description of the asset.
+		/// </summary>
 		[Browsable(false)]
 		public virtual string Description {
 			get { return GetResourceString(description, "Description"); }
-			protected set { SetProperty(ref description, ref value, DescriptionProperty); }
+			protected set { SetProperty(DescriptionProperty, ref description, ref value); }
 		}
 
+		/// <summary>
+		/// Get the display name of the asset.
+		/// </summary>
 		[Browsable(false)]
 		public virtual string DisplayName { get { return Name ?? GetType().Name + " resource"; } }
 
+		/// <summary>
+		/// Get the "Shift-Jis" encoding.
+		/// </summary>
 		[Browsable(false)]
 		public static Encoding EncodingShiftJis { get { return Encoding.GetEncoding("shift-jis"); } }
 
@@ -60,6 +73,13 @@ namespace Glare.Assets {
 		[Browsable(false)]
 		public virtual object GlareObject { get { return null; } }
 
+		/// <summary>Get whether this <see cref="Asset"/> has any <see cref="Children"/>. This is a separate property because some <see cref="Asset"/>s might not load their <see cref="Children"/> until that property is accessed, but this property doesn't force loading. So if all that is needed is whether the <see cref="Asset"/> has <see cref="Children"/>, then this could be executed faster.</summary>
+		[Browsable(false)]
+		public virtual bool HasChildren { get { return Children.Count > 0; } }
+
+		/// <summary>
+		/// Get whether <see cref="Unknowns"/> has any value.
+		/// </summary>
 		[Browsable(false)]
 		public bool HasUnknowns { get { return unknowns != null && unknowns.Count > 0; } }
 
@@ -80,37 +100,56 @@ namespace Glare.Assets {
 		[Browsable(false)]
 		public bool IsModified {
 			get { return isModified; }
-			protected set { SetProperty(ref isModified, ref value, IsModifiedProperty); }
+			protected set { SetProperty(IsModifiedProperty, ref isModified, ref value); }
 		}
 
 		/// <summary>Get whether the <see cref="Asset"/> cannot be modified in any way. The default is <c>true</c>.</summary>
 		[Browsable(false)]
 		public bool IsReadOnly {
 			get { return isReadOnly; }
-			protected set { SetProperty(ref isReadOnly, ref value, IsReadOnlyProperty); }
+			protected set { SetProperty(IsReadOnlyProperty, ref isReadOnly, ref value); }
 		}
 
 		/// <summary>Get a collection of errors that were recorded while trying to load this <see cref="Asset"/>, or <c>null</c> if this <see cref="Asset"/> hasn't been loaded.</summary>
 		[Browsable(false)]
 		public Codex<AssetLoadError> LoadErrors {
 			get { return loadErrors; }
-			internal set { SetProperty(ref loadErrors, ref value, LoadErrorsProperty); }
+			internal set { SetProperty(LoadErrorsProperty, ref loadErrors, ref value); }
 		}
 
+		/// <summary>
+		/// Get the context the <see cref="AssetLoader"/> had when this asset was loaded, or <c>null</c> for none.
+		/// </summary>
 		[Browsable(false)]
 		public Asset LoadContext { get; private set; }
 
+		/// <summary>
+		/// Get the name of the <see cref="AssetLoader"/> had when this asset was loaded, or <c>null</c> for none.
+		/// </summary>
 		[Browsable(false)]
 		public string LoadName { get; private set; }
 
+		/// <summary>Get the <see cref="FileManager"/> that was used when this asset was loaded, or <c>null</c> for none.</summary>
+		[Browsable(false)]
+		public FileManager LoadFileManager { get; private set; }
+
+		/// <summary>
+		/// Get the asset manager.
+		/// </summary>
 		[Browsable(false)]
 		public AssetManager Manager { get { return manager; } }
 
+		/// <summary>
+		/// Get the name of this asset.
+		/// </summary>
 		public virtual string Name {
 			get { return GetResourceString(name, "Name"); }
-			set { SetProperty(ref name, ref value, NameProperty); }
+			set { SetProperty(NameProperty, ref name, ref value); }
 		}
 
+		/// <summary>
+		/// Get the parent asset or <c>null</c> if it has none.
+		/// </summary>
 		[Browsable(false)]
 		public Asset Parent {
 			get { return parent; }
@@ -120,24 +159,42 @@ namespace Glare.Assets {
 					parent.children.Remove(this);
 				if (value != null)
 					value.children.Add(this);
-				SetProperty(ref parent, ref value, ParentProperty);
+				SetProperty(ParentProperty, ref parent, ref value);
 			}
 		}
 
+		/// <summary>
+		/// Get the path to this asset.
+		/// </summary>
 		[Browsable(false)]
 		public virtual string PathName { get { return Name; } }
 
+		/// <summary>
+		/// Get the resource manager for localization, or <c>null</c> for none.
+		/// </summary>
 		[Browsable(false)]
 		public ResourceManager ResourceManager { get; private set; }
 
+		/// <summary>
+		/// Get the resource name prefix for localization; the default returns this type's name.
+		/// </summary>
 		[Browsable(false)]
 		protected virtual string ResourcePrefix { get { return GetType().Name; } }
 
+		/// <summary>
+		/// Get unknown information found when loading the asset.
+		/// </summary>
 		[Browsable(false)]
 		public UnknownList Unknowns { get { return unknowns ?? (unknowns = new UnknownList()); } }
 
+		/// <summary>
+		/// An event that's invoked when a property's changed in the asset.
+		/// </summary>
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		/// <summary>
+		/// An event that's invoked when a property's changed in the asset.
+		/// </summary>
 		public event PropertyChangingEventHandler PropertyChanging;
 
 		Asset(AssetManager manager) {
@@ -147,6 +204,11 @@ namespace Glare.Assets {
 			IsReadOnly = true;
 		}
 
+		/// <summary>
+		/// Initialise the asset.
+		/// </summary>
+		/// <param name="manager"></param>
+		/// <param name="resourceManager"></param>
 		public Asset(AssetManager manager, ResourceManager resourceManager)
 			: this(manager) {
 			if (resourceManager == null)
@@ -154,6 +216,12 @@ namespace Glare.Assets {
 			this.ResourceManager = resourceManager;
 		}
 
+		/// <summary>
+		/// Initialise the asset.
+		/// </summary>
+		/// <param name="manager"></param>
+		/// <param name="name"></param>
+		/// <param name="description"></param>
 		public Asset(AssetManager manager, string name, string description = null)
 			: this(manager) {
 			if (name == null)
@@ -162,6 +230,13 @@ namespace Glare.Assets {
 			Description = description;
 		}
 
+		/// <summary>
+		/// Initialise the asset.
+		/// </summary>
+		/// <param name="manager"></param>
+		/// <param name="resourceManager"></param>
+		/// <param name="name"></param>
+		/// <param name="description"></param>
 		public Asset(AssetManager manager, ResourceManager resourceManager, string name, string description = null) {
 			if (resourceManager == null) {
 				if (name == null)
@@ -173,37 +248,75 @@ namespace Glare.Assets {
 			Description = description;
 		}
 
+		/// <summary>
+		/// Initialise the asset.
+		/// </summary>
+		/// <param name="parent"></param>
+		/// <param name="name"></param>
+		/// <param name="description"></param>
 		public Asset(FolderAsset parent, string name, string description = null)
 			: this(parent.Manager, name, description) {
 			Parent = parent;
 		}
 
+		/// <summary>
+		/// Initialise the asset.
+		/// </summary>
+		/// <param name="parent"></param>
+		/// <param name="loader"></param>
 		public Asset(FolderAsset parent, AssetLoader loader)
-			: this(parent.Manager, loader) {
+			: this(loader) {
 			Parent = parent;
 		}
 
-		public Asset(AssetManager manager, AssetLoader loader)
-			: this(manager, loader.Name) {
+		/// <summary>
+		/// Initialise the asset.
+		/// </summary>
+		/// <param name="loader"></param>
+		public Asset(AssetLoader loader)
+			: this(loader.AssetManager, loader.Name) {
 			LoadContext = loader.Context;
 			LoadName = loader.Name;
 			LoadErrors = loader.Errors;
+			LoadFileManager = loader.FileManager;
 		}
 
+		/// <summary>
+		/// Add an asset as a child of this asset.
+		/// </summary>
+		/// <param name="child"></param>
 		protected void AddChild(Asset child) {
 			if (child == null)
 				throw new ArgumentNullException("child");
 			child.Parent = this;
 		}
 
-		public virtual Control Browse() {
+		/// <summary>Return a control for browsing the asset, or return <c>null</c> if there is none.</summary>
+		/// <param name="progressUpdateCallback"></param>
+		/// <returns></returns>
+		public virtual Control Browse(Action<double> progressUpdateCallback = null) {
 			return null;
 		}
 
-		public virtual Control BrowseContents() {
+		/// <summary>Place the result of <see cref="Browse"/> in a bar panel.</summary>
+		/// <param name="progressUpdateCallback"></param>
+		/// <returns></returns>
+		public virtual Control BrowseContents(Action<double> progressUpdateCallback = null) {
 			return CreateBarPanel(Browse());
 		}
 
+		/// <summary>Place the result of <see cref="Browse"/> in a bar panel.</summary>
+		/// <param name="progressUpdateCallback"></param>
+		/// <returns></returns>
+		protected Control BrowseUnderBarPanel(Action<double> progressUpdateCallback = null) {
+			return CreateBarPanel(Browse(progressUpdateCallback));
+		}
+
+		/// <summary>
+		/// Create a bar panel, which has a panel for interacting with the asset at the top and some contents.
+		/// </summary>
+		/// <param name="contents"></param>
+		/// <returns></returns>
 		protected TableLayoutPanel CreateBarPanel(Control contents) {
 			var table = new TableLayoutPanel() {
 				ColumnCount = 1,
@@ -230,9 +343,28 @@ namespace Glare.Assets {
 			return table;
 		}
 
+		/// <summary>
+		/// Fill the elements of a context menu.
+		/// </summary>
+		/// <param name="strip"></param>
 		public virtual void FillContextMenu(ContextMenuStrip strip) {
 		}
 
+		/// <summary>Search for an ancestor of this asset (or this asset itself) that has the given type.</summary>
+		/// <typeparam name="TAsset"></typeparam>
+		/// <returns></returns>
+		public TAsset FindAncestor<TAsset>() where TAsset : Asset {
+			for(Asset parent = this; ; parent = parent.Parent) {
+				TAsset parentAsset = parent as TAsset;
+				if (!ReferenceEquals(parentAsset, null) || ReferenceEquals(parent, null))
+					return parentAsset;
+			}
+		}
+
+		/// <summary>
+		/// Get a context menu for this asset.
+		/// </summary>
+		/// <returns></returns>
 		public ContextMenuStrip GetContextMenu() {
 			ContextMenuStrip strip = new ContextMenuStrip() {
 				AutoSize = true,
@@ -261,6 +393,12 @@ namespace Glare.Assets {
 			return strip;
 		}
 
+		/// <summary>
+		/// Find a property for this type.
+		/// </summary>
+		/// <typeparam name="T">The type to search.</typeparam>
+		/// <param name="name"></param>
+		/// <returns></returns>
 		protected static PropertyInfo GetProperty<T>(string name) {
 			var info = typeof(T).GetProperty(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 			if (info == null)
@@ -282,10 +420,18 @@ namespace Glare.Assets {
 			return "?" + ResourcePrefix + suffix + "?";
 		}
 
+		/// <summary>
+		/// Create <see cref="FolderAsset"/>s as necessary to store this asset within a path.
+		/// </summary>
+		/// <param name="path"></param>
 		protected void MoveIntoPath(string path) {
 			MoveIntoPath(path.Split('/', '\\'));
 		}
 
+		/// <summary>
+		/// Create <see cref="FolderAsset"/>s as necessary to store this asset within a path and set the name of this asset to the last name in the path.
+		/// </summary>
+		/// <param name="path"></param>
 		protected void MoveIntoPath(params string[] path) {
 			int index = 0;
 			if (path[0].Length == 0)
@@ -310,42 +456,9 @@ namespace Glare.Assets {
 			Name = path[index];
 		}
 
-		static readonly Dictionary<PropertyInfo, PropertyChangedEventArgs> ChangedEventArgs = new Dictionary<PropertyInfo, PropertyChangedEventArgs>();
-
-		static readonly Dictionary<PropertyInfo, PropertyChangingEventArgs> ChangingEventArgs = new Dictionary<PropertyInfo, PropertyChangingEventArgs>();
-
-		protected void SetProperty<T>(ref T slot, ref T value, PropertyInfo property) {
-			OnPropertyChanging(ref slot, ref value, property);
-			slot = value;
-			OnPropertyChanged(ref slot, ref value, property);
-		}
-
-		protected virtual void OnPropertyChanged<T>(ref T slot, ref T value, PropertyInfo property) {
-			if (PropertyChanged != null) {
-				PropertyChangedEventArgs args;
-
-				lock (ChangedEventArgs) {
-					if (!ChangedEventArgs.TryGetValue(property, out args))
-						args = ChangedEventArgs[property] = new PropertyChangedEventArgs(property.Name);
-				}
-
-				PropertyChanged(this, args);
-			}
-		}
-
-		protected virtual void OnPropertyChanging<T>(ref T slot, ref T value, PropertyInfo property) {
-			if (PropertyChanging != null) {
-				PropertyChangingEventArgs args;
-
-				lock (ChangingEventArgs) {
-					if (!ChangingEventArgs.TryGetValue(property, out args))
-						args = ChangingEventArgs[property] = new PropertyChangingEventArgs(property.Name);
-				}
-
-				PropertyChanging(this, args);
-			}
-		}
-
+		/// <summary>
+		/// Sort the children of this asset recursively.
+		/// </summary>
 		protected void SortChildrenRecursively() {
 			children.Sort((a, b) => a.Name.CompareNumeric(b.Name));
 			foreach (Asset child in children)

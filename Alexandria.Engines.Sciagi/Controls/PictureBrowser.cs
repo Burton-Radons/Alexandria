@@ -10,25 +10,41 @@ using System.Windows.Forms;
 using Alexandria.Engines.Sciagi.Resources;
 
 namespace Alexandria.Engines.Sciagi.Controls {
+	/// <summary>
+	/// Browses a <see cref="Picture"/>.
+	/// </summary>
 	public partial class PictureBrowser : UserControl {
 		PictureLayer layer;
 
 		static bool BlendColorsDefault = true;
 
+		/// <summary>
+		/// Get the canvas to render onto.
+		/// </summary>
 		public PictureCanvas Canvas { get; private set; }
+
+		/// <summary>
+		/// Get the <see cref="Picture"/> this views.
+		/// </summary>
 		public Picture Picture { get; private set; }
 
+		/// <summary>
+		/// Get or set whether to dither-blend the colours. This has no effect on a VGA picture.
+		/// </summary>
 		public bool BlendColors {
-			get { return Canvas.VisualRaster.DitherBlend; }
+			get { return Canvas.Visual.DitherBlend; }
 
 			set {
 				BlendColorsDefault = value;
-				Canvas.VisualRaster.DitherBlend = value;
+				Canvas.Visual.DitherBlend = value;
 				SetStipplingSpitButtonImage();
 				Redraw();
 			}
 		}
 
+		/// <summary>
+		/// Get or set the visual to display.
+		/// </summary>
 		public PictureLayer Layer {
 			get { return layer; }
 
@@ -42,15 +58,19 @@ namespace Alexandria.Engines.Sciagi.Controls {
 			}
 		}
 
+		/// <summary>
+		/// Initialise the browser.
+		/// </summary>
+		/// <param name="picture"></param>
 		public PictureBrowser(Picture picture) {
 			Picture = picture;
-			Canvas = new PictureCanvas();
-			Canvas.VisualRaster.DitherBlend = BlendColorsDefault;
+			Canvas = new PictureCanvas(picture);
+			Canvas.Visual.DitherBlend = BlendColorsDefault;
 
 			InitializeComponent();
 			SetStipplingSpitButtonImage();
 
-			instructionTrackBar.Width = picture.Instructions.Count;
+			instructionTrackBar.Width = Math.Max(picture.Instructions.Count, 200);
 			instructionTrackBar.Maximum = picture.Instructions.Count;
 			instructionTrackBar.Value = picture.Instructions.Count;
 

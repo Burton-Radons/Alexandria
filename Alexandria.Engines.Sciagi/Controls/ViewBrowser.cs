@@ -11,9 +11,19 @@ using Alexandria.Engines.Sciagi.Resources;
 using Glare;
 
 namespace Alexandria.Engines.Sciagi.Controls {
+	/// <summary>
+	/// A control to interact with a <see cref="Resources.View"/>.
+	/// </summary>
 	public partial class ViewBrowser : UserControl {
+		/// <summary>
+		/// The <see cref="Resources.View"/> to browse.
+		/// </summary>
 		public Resources.View View { get; private set; }
 
+		/// <summary>
+		/// Initialise the browser.
+		/// </summary>
+		/// <param name="view"></param>
 		public ViewBrowser(Resources.View view) {
 			View = view;
 
@@ -25,7 +35,7 @@ namespace Alexandria.Engines.Sciagi.Controls {
 			}
 
 			foreach (var animation in view.Animations) {
-				string label = animation.Index + ". " + animation.U1 + " " + animation.Cells.Count + " frame" + (animation.Cells.Count == 1 ? "" : "s");
+				string label = animation.Index + ". " + animation.Unknowns.ToCommaSeparatedList() + " " + animation.Cells.Count + " frame" + (animation.Cells.Count == 1 ? "" : "s");
 				animationsView.Items.Add(new ListViewItem(label));
 			}
 

@@ -9,8 +9,11 @@ namespace Glare.Assets {
 	class DefaultPlugin : AssetPlugin {
 		public DefaultPlugin(AssetManager manager)
 			: base(manager, Properties.Resources.ResourceManager) {
-			AddFormat(new DdsFormat(this));
 			AddFormat(new BinaryFormat(this));
+
+			AddFormat(new DdsFormat(this));
+			AddFormat(new PcxFormat(this));
+			AddFormat(new ZipFormat(this));
 			//AddFormat(new Autodesk3dsFormat(this));
 		}
 
@@ -22,7 +25,7 @@ namespace Glare.Assets {
 			}
 
 			public override Asset Load(AssetLoader context) {
-				return new BinaryAsset(Manager, context.Name, context.Reader.ReadBytes(checked((int)context.Length)), 0);
+				return new BinaryAsset(Manager, context.Name, context.Reader.ReadBytes(checked((int)Math.Min(context.Length, 10 * 1024 * 1024))), 0);
 			}
 		}
 	}

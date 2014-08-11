@@ -17,6 +17,7 @@ namespace Glare {
 			public static <#=This#>[] ReadArray<#=This#>(this BinaryReader reader, int count) { <#=This#>[] array = new <#=This#>[count]; reader.ReadArray(array, 0, count); return array; }
 
 			<#GenerateReferenceReturn(This, (r)=>{#>
+				/// <summary>Read a <see cref="<#=This#>"/>.</summary>
 				public static <#=r.ReturnType#> Read<#=This#>(this BinaryReader reader <#=r.Argument#>) {
 					<#=r.Begin#>
 					<#QEach((axis)=>{#>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,33 +22,53 @@ namespace Glare.Graphics.Rendering {
 
 		public string VersionCode { get; set; }
 
-		public ShaderBuilder(string path, ShaderBuilderManager manager = null)
-			: this(path,
-				path != null ? File.OpenRead(path) : null,
-				manager ?? new FileManager(),
-				true) { }
-
-		public ShaderBuilder(string path, Stream source, ShaderBuilderManager manager = null, bool closeSource = false)
-			: this(path, source != null ? new StreamReader(source).ReadToEnd() : null, manager) {
-			if (closeSource)
-				source.Close();
-		}
-
-		public ShaderBuilder(string path, string source, ShaderBuilderManager manager = null) {
+		ShaderBuilder(string path) {
 			if (path == null)
 				throw new ArgumentNullException("path");
+			this.path = path;
+		}
+
+		public ShaderBuilder(string path, ShaderBuilderManager manager = null)
+			: this(path) {
+			source = File.ReadAllText(path);
+			Construct(manager ?? new FileManager());
+		}
+
+		public ShaderBuilder(string path, Stream source, ShaderBuilderManager manager = null, bool closeSource = false)
+			: this(path) {
 			if (source == null)
 				throw new ArgumentNullException("source");
-			this.path = path;
+			this.source = new StreamReader(source).ReadToEnd();
+			if (closeSource)
+				source.Close();
+			Construct(manager);
+		}
+
+		public ShaderBuilder(string path, string source, ShaderBuilderManager manager = null)
+			: this(path) {
+			if (source == null)
+				throw new ArgumentNullException("source");
 			this.source = source;
-			Split(path, source, manager, "Common", 1);
+			Construct(manager);
 		}
 
 		public ShaderBuilder(string path, Assembly assembly, ShaderBuilderManager manager = null)
-			: this(path,
-				path == null || assembly == null ? null : assembly.GetManifestResourceStream(path),
-				manager ?? new AssemblyManager(assembly),
-				true) { }
+			: this(path) {
+			if (assembly == null)
+				throw new ArgumentNullException("assembly");
+			using (var stream = assembly.GetManifestResourceStream(path)) {
+				if (stream == null) {
+					var names = assembly.GetManifestResourceNames();
+					throw new ArgumentException(string.Format("Path '{0}' does not appear as a manifest resource for assembly {1}, or is not accessible; the valid names are: {2}.", path, assembly.FullName, string.Join(", ", names)));
+				}
+				this.source = new StreamReader(stream).ReadToEnd();
+			}
+			Construct(manager);
+		}
+
+		void Construct(ShaderBuilderManager manager) {
+			Split(path, source, manager, "Common", 1);
+		}
 
 		public void AddVersionCode(StringBuilder builder) {
 			if (VersionCode != null)
@@ -94,7 +115,10 @@ namespace Glare.Graphics.Rendering {
 			return total;
 		}
 
-		public static ShaderBuilder CreateFromAssemblyResource(string path, ShaderBuilderManager manager = null) { return new ShaderBuilder(path, Assembly.GetCallingAssembly(), manager); }
+		[MethodImpl(MethodImplOptions.NoInlining)]
+		public static ShaderBuilder CreateFromAssemblyResource(string path, ShaderBuilderManager manager = null) {
+			return new ShaderBuilder(path, Assembly.GetCallingAssembly(), manager);
+		}
 
 		public FragmentShader FragmentShader(params string[] sectionNames) { return new FragmentShader(JoinSections(sectionNames)); }
 		public FragmentShader FragmentShader(params IEnumerable<string>[] sectionNames) { return new FragmentShader(JoinSections(sectionNames)); }

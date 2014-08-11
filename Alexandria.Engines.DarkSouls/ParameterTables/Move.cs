@@ -14,11 +14,13 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "MOVE_PARAM_ST" in Dark Souls in the file "MoveParam.paramdef" (id 1Ch).
 		/// </remarks>
 		public class Move : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "MOVE_PARAM_ST";
 
 			Int32 stayId, walkF, walkB, walkL, walkR, dashF, dashB, dashL, dashR, superDash, escapeF, escapeB, escapeL, escapeR, turnL, trunR, largeTurnL, largeTurnR, stepMove, flyStay, flyWalkF, flyWalkFL, flyWalkFR, flyWalkFL2, flyWalkFR2, flyDashF, flyDashFL, flyDashFR, flyDashFL2, flyDashFR2, dashEscapeF, dashEscapeB, dashEscapeL, dashEscapeR, analogMoveParamId;
 			Byte[] pad;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				StayIdProperty = GetProperty<Move>("StayId"),
 				WalkFProperty = GetProperty<Move>("WalkF"),
@@ -62,7 +64,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "待機", Google translated: "Wait".
 			/// Japanese description: "待機", Google translated: "Wait".
 			/// </remarks>
-			[ParameterTableRowAttribute("stayId", index: 0, minimum: -1, maximum: 999999, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("stayId", index: 0, minimum: -1, maximum: 999999, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Wait")]
 			[Description("Wait")]
 			[DefaultValue((Int32)(-1))]
@@ -80,7 +82,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "歩行 前", Google translated: "Walking before".
 			/// Japanese description: "歩行 前", Google translated: "Walking before".
 			/// </remarks>
-			[ParameterTableRowAttribute("walkF", index: 1, minimum: -1, maximum: 999999, step: 1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("walkF", index: 1, minimum: -1, maximum: 999999, step: 1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("Walking before")]
 			[Description("Walking before")]
 			[DefaultValue((Int32)(-1))]
@@ -98,7 +100,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "歩行 後", Google translated: "After walking".
 			/// Japanese description: "歩行 後", Google translated: "After walking".
 			/// </remarks>
-			[ParameterTableRowAttribute("walkB", index: 2, minimum: -1, maximum: 999999, step: 1, order: 300, unknown2: 1)]
+			[ParameterTableRowAttribute("walkB", index: 2, minimum: -1, maximum: 999999, step: 1, sortOrder: 300, unknown2: 1)]
 			[DisplayName("After walking")]
 			[Description("After walking")]
 			[DefaultValue((Int32)(-1))]
@@ -116,7 +118,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "歩行 左", Google translated: "Walking left".
 			/// Japanese description: "歩行 左", Google translated: "Walking left".
 			/// </remarks>
-			[ParameterTableRowAttribute("walkL", index: 3, minimum: -1, maximum: 999999, step: 1, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("walkL", index: 3, minimum: -1, maximum: 999999, step: 1, sortOrder: 400, unknown2: 1)]
 			[DisplayName("Walking left")]
 			[Description("Walking left")]
 			[DefaultValue((Int32)(-1))]
@@ -134,7 +136,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "歩行 右", Google translated: "Walking right".
 			/// Japanese description: "歩行 右", Google translated: "Walking right".
 			/// </remarks>
-			[ParameterTableRowAttribute("walkR", index: 4, minimum: -1, maximum: 999999, step: 1, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("walkR", index: 4, minimum: -1, maximum: 999999, step: 1, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Walking right")]
 			[Description("Walking right")]
 			[DefaultValue((Int32)(-1))]
@@ -152,7 +154,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "走行 前", Google translated: "Before traveling".
 			/// Japanese description: "走行 前", Google translated: "Before traveling".
 			/// </remarks>
-			[ParameterTableRowAttribute("dashF", index: 5, minimum: -1, maximum: 999999, step: 1, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("dashF", index: 5, minimum: -1, maximum: 999999, step: 1, sortOrder: 600, unknown2: 1)]
 			[DisplayName("Before traveling")]
 			[Description("Before traveling")]
 			[DefaultValue((Int32)(-1))]
@@ -170,7 +172,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "走行 後", Google translated: "After traveling".
 			/// Japanese description: "走行 後", Google translated: "After traveling".
 			/// </remarks>
-			[ParameterTableRowAttribute("dashB", index: 6, minimum: -1, maximum: 999999, step: 1, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("dashB", index: 6, minimum: -1, maximum: 999999, step: 1, sortOrder: 700, unknown2: 1)]
 			[DisplayName("After traveling")]
 			[Description("After traveling")]
 			[DefaultValue((Int32)(-1))]
@@ -188,7 +190,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "走行 左", Google translated: "Traveling left".
 			/// Japanese description: "走行 左", Google translated: "Traveling left".
 			/// </remarks>
-			[ParameterTableRowAttribute("dashL", index: 7, minimum: -1, maximum: 999999, step: 1, order: 800, unknown2: 1)]
+			[ParameterTableRowAttribute("dashL", index: 7, minimum: -1, maximum: 999999, step: 1, sortOrder: 800, unknown2: 1)]
 			[DisplayName("Traveling left")]
 			[Description("Traveling left")]
 			[DefaultValue((Int32)(-1))]
@@ -206,7 +208,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "走行 右", Google translated: "Running right".
 			/// Japanese description: "走行 右", Google translated: "Running right".
 			/// </remarks>
-			[ParameterTableRowAttribute("dashR", index: 8, minimum: -1, maximum: 999999, step: 1, order: 900, unknown2: 1)]
+			[ParameterTableRowAttribute("dashR", index: 8, minimum: -1, maximum: 999999, step: 1, sortOrder: 900, unknown2: 1)]
 			[DisplayName("Running right")]
 			[Description("Running right")]
 			[DefaultValue((Int32)(-1))]
@@ -224,7 +226,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ダッシュ移動", Google translated: "Dash move".
 			/// Japanese description: "ダッシュ移動", Google translated: "Dash move".
 			/// </remarks>
-			[ParameterTableRowAttribute("superDash", index: 9, minimum: -1, maximum: 999999, step: 1, order: 1000, unknown2: 1)]
+			[ParameterTableRowAttribute("superDash", index: 9, minimum: -1, maximum: 999999, step: 1, sortOrder: 1000, unknown2: 1)]
 			[DisplayName("Dash move")]
 			[Description("Dash move")]
 			[DefaultValue((Int32)(-1))]
@@ -242,7 +244,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "緊急回避 前", Google translated: "Emergency avoidance before".
 			/// Japanese description: "緊急回避 前", Google translated: "Emergency avoidance before".
 			/// </remarks>
-			[ParameterTableRowAttribute("escapeF", index: 10, minimum: -1, maximum: 999999, step: 1, order: 1100, unknown2: 1)]
+			[ParameterTableRowAttribute("escapeF", index: 10, minimum: -1, maximum: 999999, step: 1, sortOrder: 1100, unknown2: 1)]
 			[DisplayName("Emergency avoidance before")]
 			[Description("Emergency avoidance before")]
 			[DefaultValue((Int32)(-1))]
@@ -260,7 +262,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "緊急回避 後", Google translated: "After emergency avoidance".
 			/// Japanese description: "緊急回避 後", Google translated: "After emergency avoidance".
 			/// </remarks>
-			[ParameterTableRowAttribute("escapeB", index: 11, minimum: -1, maximum: 999999, step: 1, order: 1200, unknown2: 1)]
+			[ParameterTableRowAttribute("escapeB", index: 11, minimum: -1, maximum: 999999, step: 1, sortOrder: 1200, unknown2: 1)]
 			[DisplayName("After emergency avoidance")]
 			[Description("After emergency avoidance")]
 			[DefaultValue((Int32)(-1))]
@@ -278,7 +280,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "緊急回避 左", Google translated: "Emergency avoidance left".
 			/// Japanese description: "緊急回避 左", Google translated: "Emergency avoidance left".
 			/// </remarks>
-			[ParameterTableRowAttribute("escapeL", index: 12, minimum: -1, maximum: 999999, step: 1, order: 1300, unknown2: 1)]
+			[ParameterTableRowAttribute("escapeL", index: 12, minimum: -1, maximum: 999999, step: 1, sortOrder: 1300, unknown2: 1)]
 			[DisplayName("Emergency avoidance left")]
 			[Description("Emergency avoidance left")]
 			[DefaultValue((Int32)(-1))]
@@ -296,7 +298,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "緊急回避 右", Google translated: "Emergency avoidance right".
 			/// Japanese description: "緊急回避 右", Google translated: "Emergency avoidance right".
 			/// </remarks>
-			[ParameterTableRowAttribute("escapeR", index: 13, minimum: -1, maximum: 999999, step: 1, order: 1400, unknown2: 1)]
+			[ParameterTableRowAttribute("escapeR", index: 13, minimum: -1, maximum: 999999, step: 1, sortOrder: 1400, unknown2: 1)]
 			[DisplayName("Emergency avoidance right")]
 			[Description("Emergency avoidance right")]
 			[DefaultValue((Int32)(-1))]
@@ -314,7 +316,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "90度旋回 左", Google translated: "Turn left 90 degrees".
 			/// Japanese description: "90度旋回 左", Google translated: "Turn left 90 degrees".
 			/// </remarks>
-			[ParameterTableRowAttribute("turnL", index: 14, minimum: -1, maximum: 999999, step: 1, order: 1500, unknown2: 1)]
+			[ParameterTableRowAttribute("turnL", index: 14, minimum: -1, maximum: 999999, step: 1, sortOrder: 1500, unknown2: 1)]
 			[DisplayName("Turn left 90 degrees")]
 			[Description("Turn left 90 degrees")]
 			[DefaultValue((Int32)(-1))]
@@ -332,7 +334,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "90度旋回 右", Google translated: "Turn right 90 degrees".
 			/// Japanese description: "90度旋回 右", Google translated: "Turn right 90 degrees".
 			/// </remarks>
-			[ParameterTableRowAttribute("trunR", index: 15, minimum: -1, maximum: 999999, step: 1, order: 1600, unknown2: 1)]
+			[ParameterTableRowAttribute("trunR", index: 15, minimum: -1, maximum: 999999, step: 1, sortOrder: 1600, unknown2: 1)]
 			[DisplayName("Turn right 90 degrees")]
 			[Description("Turn right 90 degrees")]
 			[DefaultValue((Int32)(-1))]
@@ -350,7 +352,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "180度旋回 左", Google translated: "Turn left 180 degrees".
 			/// Japanese description: "180度旋回 左", Google translated: "Turn left 180 degrees".
 			/// </remarks>
-			[ParameterTableRowAttribute("largeTurnL", index: 16, minimum: -1, maximum: 999999, step: 1, order: 1700, unknown2: 1)]
+			[ParameterTableRowAttribute("largeTurnL", index: 16, minimum: -1, maximum: 999999, step: 1, sortOrder: 1700, unknown2: 1)]
 			[DisplayName("Turn left 180 degrees")]
 			[Description("Turn left 180 degrees")]
 			[DefaultValue((Int32)(-1))]
@@ -368,7 +370,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "180度旋回 右", Google translated: "Turn right 180 degrees".
 			/// Japanese description: "180度旋回 右", Google translated: "Turn right 180 degrees".
 			/// </remarks>
-			[ParameterTableRowAttribute("largeTurnR", index: 17, minimum: -1, maximum: 999999, step: 1, order: 1800, unknown2: 1)]
+			[ParameterTableRowAttribute("largeTurnR", index: 17, minimum: -1, maximum: 999999, step: 1, sortOrder: 1800, unknown2: 1)]
 			[DisplayName("Turn right 180 degrees")]
 			[Description("Turn right 180 degrees")]
 			[DefaultValue((Int32)(-1))]
@@ -386,7 +388,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ステップ移動", Google translated: "Step movement".
 			/// Japanese description: "180度旋回 右", Google translated: "Turn right 180 degrees".
 			/// </remarks>
-			[ParameterTableRowAttribute("stepMove", index: 18, minimum: -1, maximum: 999999, step: 1, order: 1900, unknown2: 1)]
+			[ParameterTableRowAttribute("stepMove", index: 18, minimum: -1, maximum: 999999, step: 1, sortOrder: 1900, unknown2: 1)]
 			[DisplayName("Step movement")]
 			[Description("Turn right 180 degrees")]
 			[DefaultValue((Int32)(-1))]
@@ -404,7 +406,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "飛行待機", Google translated: "Flight waiting".
 			/// Japanese description: "飛行待機", Google translated: "Flight waiting".
 			/// </remarks>
-			[ParameterTableRowAttribute("flyStay", index: 19, minimum: -1, maximum: 999999, step: 1, order: 2100, unknown2: 1)]
+			[ParameterTableRowAttribute("flyStay", index: 19, minimum: -1, maximum: 999999, step: 1, sortOrder: 2100, unknown2: 1)]
 			[DisplayName("Flight waiting")]
 			[Description("Flight waiting")]
 			[DefaultValue((Int32)(-1))]
@@ -422,7 +424,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "飛行前進", Google translated: "Forward flight".
 			/// Japanese description: "飛行前進", Google translated: "Forward flight".
 			/// </remarks>
-			[ParameterTableRowAttribute("flyWalkF", index: 20, minimum: -1, maximum: 999999, step: 1, order: 2200, unknown2: 1)]
+			[ParameterTableRowAttribute("flyWalkF", index: 20, minimum: -1, maximum: 999999, step: 1, sortOrder: 2200, unknown2: 1)]
 			[DisplayName("Forward flight")]
 			[Description("Forward flight")]
 			[DefaultValue((Int32)(-1))]
@@ -440,7 +442,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "飛行左前進", Google translated: "Flight left forward".
 			/// Japanese description: "飛行左前進。低回転", Google translated: "Flight left forward . Low revolution".
 			/// </remarks>
-			[ParameterTableRowAttribute("flyWalkFL", index: 21, minimum: -1, maximum: 999999, step: 1, order: 2300, unknown2: 1)]
+			[ParameterTableRowAttribute("flyWalkFL", index: 21, minimum: -1, maximum: 999999, step: 1, sortOrder: 2300, unknown2: 1)]
 			[DisplayName("Flight left forward")]
 			[Description("Flight left forward . Low revolution")]
 			[DefaultValue((Int32)(-1))]
@@ -458,7 +460,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "飛行右前進", Google translated: "Flight right forward".
 			/// Japanese description: "飛行右前進。低回転", Google translated: "Flight right forward . Low revolution".
 			/// </remarks>
-			[ParameterTableRowAttribute("flyWalkFR", index: 22, minimum: -1, maximum: 999999, step: 1, order: 2400, unknown2: 1)]
+			[ParameterTableRowAttribute("flyWalkFR", index: 22, minimum: -1, maximum: 999999, step: 1, sortOrder: 2400, unknown2: 1)]
 			[DisplayName("Flight right forward")]
 			[Description("Flight right forward . Low revolution")]
 			[DefaultValue((Int32)(-1))]
@@ -476,7 +478,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "飛行左前進2", Google translated: "Flight left the second forward".
 			/// Japanese description: "飛行左前進2。高回転", Google translated: "Flight left the second forward . High revolution".
 			/// </remarks>
-			[ParameterTableRowAttribute("flyWalkFL2", index: 23, minimum: -1, maximum: 999999, step: 1, order: 2500, unknown2: 1)]
+			[ParameterTableRowAttribute("flyWalkFL2", index: 23, minimum: -1, maximum: 999999, step: 1, sortOrder: 2500, unknown2: 1)]
 			[DisplayName("Flight left the second forward")]
 			[Description("Flight left the second forward . High revolution")]
 			[DefaultValue((Int32)(-1))]
@@ -494,7 +496,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "飛行右前進2", Google translated: "Flight right the second forward".
 			/// Japanese description: "飛行右前進2。高回転", Google translated: "Flying right forward . High revolution".
 			/// </remarks>
-			[ParameterTableRowAttribute("flyWalkFR2", index: 24, minimum: -1, maximum: 999999, step: 1, order: 2600, unknown2: 1)]
+			[ParameterTableRowAttribute("flyWalkFR2", index: 24, minimum: -1, maximum: 999999, step: 1, sortOrder: 2600, unknown2: 1)]
 			[DisplayName("Flight right the second forward")]
 			[Description("Flying right forward . High revolution")]
 			[DefaultValue((Int32)(-1))]
@@ -512,7 +514,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "高速飛行前進", Google translated: "Fast forward flight".
 			/// Japanese description: "高速飛行前進", Google translated: "Fast forward flight".
 			/// </remarks>
-			[ParameterTableRowAttribute("flyDashF", index: 25, minimum: -1, maximum: 999999, step: 1, order: 2700, unknown2: 1)]
+			[ParameterTableRowAttribute("flyDashF", index: 25, minimum: -1, maximum: 999999, step: 1, sortOrder: 2700, unknown2: 1)]
 			[DisplayName("Fast forward flight")]
 			[Description("Fast forward flight")]
 			[DefaultValue((Int32)(-1))]
@@ -530,7 +532,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "高速飛行左前進", Google translated: "High-speed flight left forward".
 			/// Japanese description: "高速飛行左前進。低回転", Google translated: "High-speed flight left forward . Low revolution".
 			/// </remarks>
-			[ParameterTableRowAttribute("flyDashFL", index: 26, minimum: -1, maximum: 999999, step: 1, order: 2800, unknown2: 1)]
+			[ParameterTableRowAttribute("flyDashFL", index: 26, minimum: -1, maximum: 999999, step: 1, sortOrder: 2800, unknown2: 1)]
 			[DisplayName("High-speed flight left forward")]
 			[Description("High-speed flight left forward . Low revolution")]
 			[DefaultValue((Int32)(-1))]
@@ -548,7 +550,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "高速飛行右前進", Google translated: "High-speed flight right forward".
 			/// Japanese description: "高速飛行右前進。低回転", Google translated: "High-speed flight right forward . Low revolution".
 			/// </remarks>
-			[ParameterTableRowAttribute("flyDashFR", index: 27, minimum: -1, maximum: 999999, step: 1, order: 2900, unknown2: 1)]
+			[ParameterTableRowAttribute("flyDashFR", index: 27, minimum: -1, maximum: 999999, step: 1, sortOrder: 2900, unknown2: 1)]
 			[DisplayName("High-speed flight right forward")]
 			[Description("High-speed flight right forward . Low revolution")]
 			[DefaultValue((Int32)(-1))]
@@ -566,7 +568,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "高速飛行左前進2", Google translated: "High-speed flight left the second forward".
 			/// Japanese description: "高速飛行左前進2。高回転", Google translated: "High-speed flight left the second forward . High revolution".
 			/// </remarks>
-			[ParameterTableRowAttribute("flyDashFL2", index: 28, minimum: -1, maximum: 999999, step: 1, order: 3000, unknown2: 1)]
+			[ParameterTableRowAttribute("flyDashFL2", index: 28, minimum: -1, maximum: 999999, step: 1, sortOrder: 3000, unknown2: 1)]
 			[DisplayName("High-speed flight left the second forward")]
 			[Description("High-speed flight left the second forward . High revolution")]
 			[DefaultValue((Int32)(-1))]
@@ -584,7 +586,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "高速飛行右前進2", Google translated: "High-speed flight right the second forward".
 			/// Japanese description: "高速飛行右前進2。高回転", Google translated: "2 high-speed flight right forward . High revolution".
 			/// </remarks>
-			[ParameterTableRowAttribute("flyDashFR2", index: 29, minimum: -1, maximum: 999999, step: 1, order: 3100, unknown2: 1)]
+			[ParameterTableRowAttribute("flyDashFR2", index: 29, minimum: -1, maximum: 999999, step: 1, sortOrder: 3100, unknown2: 1)]
 			[DisplayName("High-speed flight right the second forward")]
 			[Description("2 high-speed flight right forward . High revolution")]
 			[DefaultValue((Int32)(-1))]
@@ -602,7 +604,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ダッシュ緊急回避前", Google translated: "Dash emergency avoidance before".
 			/// Japanese description: "ダッシュ緊急回避前", Google translated: "Dash emergency avoidance before".
 			/// </remarks>
-			[ParameterTableRowAttribute("dashEscapeF", index: 30, minimum: -1, maximum: 999999, step: 1, order: 3200, unknown2: 1)]
+			[ParameterTableRowAttribute("dashEscapeF", index: 30, minimum: -1, maximum: 999999, step: 1, sortOrder: 3200, unknown2: 1)]
 			[DisplayName("Dash emergency avoidance before")]
 			[Description("Dash emergency avoidance before")]
 			[DefaultValue((Int32)(-1))]
@@ -620,7 +622,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ダッシュ緊急回避後", Google translated: "Dash emergency avoidance after".
 			/// Japanese description: "ダッシュ緊急回避後", Google translated: "Dash emergency avoidance after".
 			/// </remarks>
-			[ParameterTableRowAttribute("dashEscapeB", index: 31, minimum: -1, maximum: 999999, step: 1, order: 3300, unknown2: 1)]
+			[ParameterTableRowAttribute("dashEscapeB", index: 31, minimum: -1, maximum: 999999, step: 1, sortOrder: 3300, unknown2: 1)]
 			[DisplayName("Dash emergency avoidance after")]
 			[Description("Dash emergency avoidance after")]
 			[DefaultValue((Int32)(-1))]
@@ -638,7 +640,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ダッシュ緊急回避左", Google translated: "Dash emergency avoidance left".
 			/// Japanese description: "ダッシュ緊急回避左", Google translated: "Dash emergency avoidance left".
 			/// </remarks>
-			[ParameterTableRowAttribute("dashEscapeL", index: 32, minimum: -1, maximum: 999999, step: 1, order: 3400, unknown2: 1)]
+			[ParameterTableRowAttribute("dashEscapeL", index: 32, minimum: -1, maximum: 999999, step: 1, sortOrder: 3400, unknown2: 1)]
 			[DisplayName("Dash emergency avoidance left")]
 			[Description("Dash emergency avoidance left")]
 			[DefaultValue((Int32)(-1))]
@@ -656,7 +658,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ダッシュ緊急回避右", Google translated: "Dash emergency avoidance right".
 			/// Japanese description: "ダッシュ緊急回避右", Google translated: "Dash emergency avoidance right".
 			/// </remarks>
-			[ParameterTableRowAttribute("dashEscapeR", index: 33, minimum: -1, maximum: 999999, step: 1, order: 3500, unknown2: 1)]
+			[ParameterTableRowAttribute("dashEscapeR", index: 33, minimum: -1, maximum: 999999, step: 1, sortOrder: 3500, unknown2: 1)]
 			[DisplayName("Dash emergency avoidance right")]
 			[Description("Dash emergency avoidance right")]
 			[DefaultValue((Int32)(-1))]
@@ -674,7 +676,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "アナログ移動パラＩＤ", Google translated: "Analog movement para ID".
 			/// Japanese description: "移動アニメブレンドで使用される移動アニメパラメータＩＤ", Google translated: "Move animation parameter ID for use in a mobile animation blend".
 			/// </remarks>
-			[ParameterTableRowAttribute("analogMoveParamId", index: 34, minimum: -1, maximum: 999999, step: 1, order: 3600, unknown2: 1)]
+			[ParameterTableRowAttribute("analogMoveParamId", index: 34, minimum: -1, maximum: 999999, step: 1, sortOrder: 3600, unknown2: 1)]
 			[DisplayName("Analog movement para ID")]
 			[Description("Move animation parameter ID for use in a mobile animation blend")]
 			[DefaultValue((Int32)(-1))]
@@ -692,7 +694,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "パディング", Google translated: "Padding".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad[4]", index: 35, minimum: 0, maximum: 0, step: 0, order: 3601, unknown2: 0)]
+			[ParameterTableRowAttribute("pad[4]", index: 35, minimum: 0, maximum: 0, step: 0, sortOrder: 3601, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Padding")]
 			[Browsable(false)]
@@ -783,6 +785,10 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad = new Byte[4];
 			}
 
+			/// <summary>
+			/// Write the row.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(StayId);
 				writer.Write(WalkF);

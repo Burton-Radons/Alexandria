@@ -14,6 +14,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "SHOP_LINEUP_PARAM" in Dark Souls in the file "ShopLineupParam.paramdef" (id 13h).
 		/// </remarks>
 		public class ShopLineup : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "SHOP_LINEUP_PARAM";
 
 			Int32 equipId, _value, mtrlId, eventFlag, qwcId;
@@ -22,6 +23,7 @@ namespace Alexandria.Engines.DarkSouls {
 			StoreInventoryEquipmentType equipType;
 			Byte[] pad_0;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				EquipIdProperty = GetProperty<ShopLineup>("EquipId"),
 				ValueProperty = GetProperty<ShopLineup>("Value"),
@@ -38,7 +40,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "販売品の装備ID", Google translated: "Equipment ID of the commodity sold".
 			/// Japanese description: "販売している装備品のID", Google translated: "ID of the equipment it sells".
 			/// </remarks>
-			[ParameterTableRowAttribute("equipId", index: 0, minimum: 0, maximum: 1E+08, step: 1, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("equipId", index: 0, minimum: 0, maximum: 1E+08, step: 1, sortOrder: 400, unknown2: 1)]
 			[DisplayName("Equipment ID of the commodity sold")]
 			[Description("ID of the equipment it sells")]
 			[DefaultValue((Int32)0)]
@@ -56,7 +58,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "販売価格", Google translated: "Selling price".
 			/// Japanese description: "販売価格", Google translated: "Selling price".
 			/// </remarks>
-			[ParameterTableRowAttribute("value", index: 1, minimum: -1, maximum: 1E+08, step: 1, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("value", index: 1, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Selling price")]
 			[Description("Selling price")]
 			[DefaultValue((Int32)(-1))]
@@ -74,7 +76,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "購入に必要な素材ID", Google translated: "Material ID required to purchase".
 			/// Japanese description: "購入に必要な素材ID", Google translated: "Material ID required to purchase".
 			/// </remarks>
-			[ParameterTableRowAttribute("mtrlId", index: 2, minimum: -1, maximum: 1E+08, step: 1, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("mtrlId", index: 2, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 600, unknown2: 1)]
 			[DisplayName("Material ID required to purchase")]
 			[Description("Material ID required to purchase")]
 			[DefaultValue((Int32)(-1))]
@@ -92,7 +94,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "イベントフラグ", Google translated: "Event flag".
 			/// Japanese description: "個数を保持してあるイベントフラグ値", Google translated: "Event flag value are holding the piece".
 			/// </remarks>
-			[ParameterTableRowAttribute("eventFlag", index: 3, minimum: -1, maximum: 1E+08, step: 1, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("eventFlag", index: 3, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 700, unknown2: 1)]
 			[DisplayName("Event flag")]
 			[Description("Event flag value are holding the piece")]
 			[DefaultValue((Int32)(-1))]
@@ -110,7 +112,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "QWCパラメタID", Google translated: "QWC parameter ID".
 			/// Japanese description: "ＱＷＣパラメータのID", Google translated: "ID parameter of QWC".
 			/// </remarks>
-			[ParameterTableRowAttribute("qwcId", index: 4, minimum: -1, maximum: 1E+08, step: 1, order: 900, unknown2: 1)]
+			[ParameterTableRowAttribute("qwcId", index: 4, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 900, unknown2: 1)]
 			[DisplayName("QWC parameter ID")]
 			[Description("ID parameter of QWC")]
 			[DefaultValue((Int32)(-1))]
@@ -128,7 +130,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "販売個数", Google translated: "Unit sales".
 			/// Japanese description: "販売個数", Google translated: "Unit sales".
 			/// </remarks>
-			[ParameterTableRowAttribute("sellQuantity", index: 5, minimum: -1, maximum: 9999, step: 1, order: 800, unknown2: 1)]
+			[ParameterTableRowAttribute("sellQuantity", index: 5, minimum: -1, maximum: 9999, step: 1, sortOrder: 800, unknown2: 1)]
 			[DisplayName("Unit sales")]
 			[Description("Unit sales")]
 			[DefaultValue((Int16)(-1))]
@@ -146,7 +148,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ショップタイプ", Google translated: "Shop type".
 			/// Japanese description: "ショップの種類", Google translated: "Type of shop".
 			/// </remarks>
-			[ParameterTableRowAttribute("shopType", index: 6, minimum: 0, maximum: 4, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("shopType", index: 6, minimum: 0, maximum: 4, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Shop type")]
 			[Description("Type of shop")]
 			[DefaultValue((StoreInventoryType)0)]
@@ -160,7 +162,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "販売品の装備タイプ", Google translated: "Equipment type of commodity sold".
 			/// Japanese description: "販売している装備品の種類", Google translated: "The type of equipment it sells".
 			/// </remarks>
-			[ParameterTableRowAttribute("equipType", index: 7, minimum: 0, maximum: 6, step: 1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("equipType", index: 7, minimum: 0, maximum: 6, step: 1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("Equipment type of commodity sold")]
 			[Description("The type of equipment it sells")]
 			[DefaultValue((StoreInventoryEquipmentType)0)]
@@ -174,7 +176,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "pad", Google translated: "pad".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_0[8]", index: 8, minimum: 0, maximum: 0, step: 0, order: 99999999, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_0[8]", index: 8, minimum: 0, maximum: 0, step: 0, sortOrder: 99999999, unknown2: 0)]
 			[DisplayName("pad")]
 			[Description("")]
 			[Browsable(false)]
@@ -211,6 +213,10 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad_0 = new Byte[8];
 			}
 
+			/// <summary>
+			/// Write the <see cref="ShopLineup"/> row.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(EquipId);
 				writer.Write(Value);

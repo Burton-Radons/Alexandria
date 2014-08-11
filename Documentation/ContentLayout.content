@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="29f070d9-6ee1-4198-a07f-27e5f641f8ce" visible="True" isDefault="true" isSelected="true" title="Welcome to the [TODO: Add project name]">
+  <Topic id="29f070d9-6ee1-4198-a07f-27e5f641f8ce" visible="True" isDefault="true" isSelected="true" title="Alexandria">
+    <HelpAttributes>
+      <HelpAttribute name="NoName" value="" />
+    </HelpAttributes>
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>

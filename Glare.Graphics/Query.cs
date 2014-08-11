@@ -29,7 +29,7 @@ namespace Glare.Graphics {
 				return GL.GenQuery();
 		}
 
-		public void Begin() {
+		public virtual void Begin() {
 			using (Context.Lock())
 				if (Indexed)
 					GL.BeginQueryIndexed(Target, Index, Id);
@@ -41,7 +41,7 @@ namespace Glare.Graphics {
 			GL.DeleteQuery(Id);
 		}
 
-		public void End() {
+		public virtual void End() {
 			using (Context.Lock())
 				if (Indexed)
 					GL.EndQueryIndexed(Target, Index);
@@ -133,25 +133,25 @@ namespace Glare.Graphics {
 	}
 
 	public static class Queries {
-		/// <summary>On <see cref="Begin"/>, <see cref="Value"/> is set to <c>false</c> and is set to <c>true</c> if any sample passes the depth test. This is done before stencil tests, alpha tests, and shader discard come into play.</summary>
+		/// <summary>On <see cref="Query.Begin"/>, <see cref="BooleanQuery.Value"/> is set to <c>false</c> and is set to <c>true</c> if any sample passes the depth test. This is done before stencil tests, alpha tests, and shader discard come into play.</summary>
 		public class AnySamplesPassed : BooleanQuery {
 			public AnySamplesPassed() : base() { }
 			protected override QueryTarget Target { get { return QueryTarget.AnySamplesPassed; } }
 		}
 
-		/// <summary>On <see cref="Begin"/>, <see cref="Value"/> is set to <c>false</c> and is set to <c>true</c> if any sample passes the depth test. This is done before stencil tests, alpha tests, and shader discard come into play. This can use an algorithm that produces more false positives than <see cref="AnySamplesPassed"/>.</summary>
+		/// <summary>On <see cref="Query.Begin"/>, <see cref="BooleanQuery.Value"/> is set to <c>false</c> and is set to <c>true</c> if any sample passes the depth test. This is done before stencil tests, alpha tests, and shader discard come into play. This can use an algorithm that produces more false positives than <see cref="AnySamplesPassed"/>.</summary>
 		public class AnySamplesPassedConservative : BooleanQuery {
 			public AnySamplesPassedConservative() : base() { }
 			protected override QueryTarget Target { get { return QueryTarget.AnySamplesPassedConservative; } }
 		}
 
-		/// <summary>On <see cref="Begin"/>, <see cref="Value"/> is set to zero and then incremented for every primitive that is sent to a geometry shader output stream.</summary>
+		/// <summary>On <see cref="Query.Begin"/>, <see cref="Int64Query.Value"/> is set to zero and then incremented for every primitive that is sent to a geometry shader output stream.</summary>
 		public class PrimitivesGenerated : Int64Query {
 			public PrimitivesGenerated(int outputStream = 0) : base(outputStream) { }
 			protected override QueryTarget Target { get { return QueryTarget.PrimitivesGenerated; } }
 		}
 
-		/// <summary>On <see cref="Begin"/>, <see cref="Value"/> is set to zero and then incremented for every sample that passes the depth test. This is done before stencil tests, alpha tests, and shader discard come into play.</summary>
+		/// <summary>On <see cref="Query.Begin"/>, <see cref="Int64Query.Value"/> is set to zero and then incremented for every sample that passes the depth test. This is done before stencil tests, alpha tests, and shader discard come into play.</summary>
 		public class SamplesPassed : Int64Query {
 			public SamplesPassed() : base() { }
 			protected override QueryTarget Target { get { return QueryTarget.SamplesPassed; } }
@@ -162,20 +162,22 @@ namespace Glare.Graphics {
 			protected override QueryTarget Target { get { return QueryTarget.TimeElapsed; } }
 		}
 
-		/// <summary>This query gets the current time stamp of the GPU after executing all previously specified commands. It is not used with <see cref="Begin"/>/<see cref="End"/> as normal; rather, <see cref="Value"/> is used directly.</summary>
+		/// <summary>This query gets the current time stamp of the GPU after executing all previously specified commands. It is not used with <see cref="Begin"/>/<see cref="End"/> as normal; rather, <see cref="TimeSpanQuery.Value"/> is used directly.</summary>
 		public class TimeStamp : TimeSpanQuery {
 			public TimeStamp() : base() { }
 
 			protected override QueryTarget Target { get { return QueryTarget.Timestamp; } }
 
+			/// <summary>This is invalid to call on a timestamp query..</summary>
 			[Obsolete("Begin cannot be used on a TimeStamp query.")]
-			public new void Begin() { throw new InvalidOperationException(); }
+			public override void Begin() { throw new InvalidOperationException(); }
 
+			/// <summary>This is invalid to call on a timestamp query.</summary>
 			[Obsolete("End cannot be used on a TimeStamp query.")]
-			public new void End() { throw new InvalidOperationException(); }
+			public override void End() { throw new InvalidOperationException(); }
 		}
 
-		/// <summary>On <see cref="Begin"/>, <see cref="Value"/> is set to zero and then incremented for every primitive written by a geometry shader into a transform feedback object by the scoped rendering commands.</summary>
+		/// <summary>On <see cref="Query.Begin"/>, <see cref="Int64Query.Value"/> is set to zero and then incremented for every primitive written by a geometry shader into a transform feedback object by the scoped rendering commands.</summary>
 		public class TransformFeedbackPrimitivesWritten : Int64Query {
 			public TransformFeedbackPrimitivesWritten(int outputStream = 0) : base(outputStream) { }
 			protected override QueryTarget Target { get { return QueryTarget.TransformFeedbackPrimitivesWritten; } }

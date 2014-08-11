@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 
 namespace Alexandria.Engines.Unreal.Core {
-    public class ZoneInfo : StateFrame {
-    }
+	/// <summary>
+	/// 
+	/// </summary>
+	public class ZoneInfo : StateFrame {
+	}
 }

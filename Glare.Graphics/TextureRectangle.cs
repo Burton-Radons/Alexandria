@@ -61,7 +61,7 @@ namespace Glare.Graphics {
 
 		protected override void ReadBase(IntPtr data, Format format) {
 			using (Texture.Lock())
-				GL.GetTexImage(Target, Level, format.pixelFormat, format.pixelType, data);
+				GL.GetTexImage(Target, Level, format.PixelFormat.Value, format.PixelType.Value, data);
 		}
 	}
 

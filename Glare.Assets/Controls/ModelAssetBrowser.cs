@@ -14,18 +14,27 @@ using GlareModel = Glare.Graphics.Rendering.Model;
 using ModelResource = Glare.Assets.ModelAsset;
 
 namespace Glare.Assets.Controls {
+	/// <summary>
+	/// A generic browser for a 3D view.
+	/// </summary>
 	public partial class ModelAssetBrowser : UserControl {
-		public GlareModel Model { get { return ModelResource.Content; } }
-		public readonly ModelResource ModelResource;
-		public readonly BasicProgram Program;
+		/// <summary>Get a <see cref="BasicProgram"/> that can be used for rendering.</summary>
+		public BasicProgram Program { get; private set; }
 
 		OpenTK.GLControl Renderer;
-		Matrix4d Rotation = Matrix4d.Identity;
 		System.Drawing.Point LastMouseLocation;
 		double ModelScale = 100;
 
-		public ModelAssetBrowser(ModelResource modelResource) {
-			ModelResource = modelResource;
+		/// <summary>
+		/// Initialise the browser.
+		/// </summary>
+		public ModelAssetBrowser() {
+			ProjectionFieldOfView = Angle.Degrees(45);
+			ProjectionNearPlaneDistance = 1;
+			ProjectionFarPlaneDistance = 1000;
+
+			ViewLookAtDistance = 100;
+
 			Program = new BasicProgram();
 			InitializeComponent();
 
@@ -44,6 +53,18 @@ namespace Glare.Assets.Controls {
 			foreach (var value in typeof(BasicProgramDisplayMode).GetEnumValues())
 				DisplayModeComboBox.Items.Add(value);
 			DisplayModeComboBox.SelectedItem = Program.DisplayMode;
+
+			WorldRotation = Matrix4d.Identity;
+			WorldTranslation = Vector3d.Zero;
+			WorldScale = 1;
+
+			ClearColor = new Vector4d(0.5, 0.5, 0.5, 1);
+		}
+
+		/// <summary>
+		/// Destroy the browser.
+		/// </summary>
+		~ModelAssetBrowser() {
 		}
 
 		private void DisplayModeComboBox_Click(object sender, EventArgs e) {
@@ -79,8 +100,8 @@ namespace Glare.Assets.Controls {
 			LastMouseLocation = args.Location;
 
 			if ((args.Button & MouseButtons.Left) != 0) {
-				Rotation *= new Rotation4d(Angle.Degrees(-x), Angle.Zero, Angle.Zero).ToMatrix4d();
-				Rotation *= new Rotation4d(Angle.Zero, Angle.Degrees(y), Angle.Zero).ToMatrix4d();
+				WorldRotation *= new Rotation4d(Angle.Degrees(-x), Angle.Zero, Angle.Zero).ToMatrix4d();
+				WorldRotation *= new Rotation4d(Angle.Zero, Angle.Degrees(y), Angle.Zero).ToMatrix4d();
 				RefreshRenderer();
 			} else if ((args.Button & MouseButtons.Right) != 0) {
 				ModelScale = Math.Max(1, ModelScale + x / 5.0);
@@ -88,27 +109,97 @@ namespace Glare.Assets.Controls {
 			}
 		}
 
-		void RendererPaint(object sender, PaintEventArgs args) {
+		/// <summary>Get the projection matrix, which by default is composed of the <see cref="ProjectionFieldOfView"/>, the <see cref="ProjectionNearPlaneDistance"/>, and the <see cref="ProjectionFarPlaneDistance"/>.</summary>
+		public virtual Matrix4d Projection { get { return Matrix4d.PerspectiveFieldOfView(ProjectionFieldOfView, Renderer.Width / (double)Renderer.Height, ProjectionNearPlaneDistance, ProjectionFarPlaneDistance); } }
+
+		/// <summary>Get or set the field of view for the default <see cref="Projection"/> matrix, which is by default 45 degrees.</summary>
+		public virtual Angle ProjectionFieldOfView { get; set; }
+
+		/// <summary>Get or set the near plane distance for the default <see cref="Projection"/> matrix, which is by default 1.</summary>
+		public virtual double ProjectionNearPlaneDistance { get; set; }
+
+		/// <summary>Get or set the far plane distance for the default <see cref="Projection"/> matrix, which is by default 1.</summary>
+		public virtual double ProjectionFarPlaneDistance { get; set; }
+
+		/// <summary>Get the view matrix. The default looks at the origin from <see cref="ViewLookAtDistance"/>.</summary>
+		public virtual Matrix4d View { get { return Matrix4d.LookAt(new Vector3d(0, 0, -ViewLookAtDistance), Vector3d.Zero, Vector3d.UnitY); } }
+
+		/// <summary>Get how far to be from the target when the camera is in look-at mode.</summary>
+		public double ViewLookAtDistance { get; set; }
+
+		/// <summary>Get the world matrix. The default combines <see cref="WorldTranslation"/>, <see cref="WorldScale"/>, and <see cref="WorldRotation"/>.</summary>
+		public virtual Matrix4d World { get { return Matrix4d.Translate(WorldTranslation) * Matrix4d.Scale(WorldScale) * WorldRotation; } }
+
+		/// <summary>The rotation to apply to the <see cref="World"/> matrix.</summary>
+		public Matrix4d WorldRotation { get; set; }
+
+		/// <summary>The scale to apply to the <see cref="World"/> matrix.</summary>
+		public double WorldScale { get; set; }
+
+		/// <summary>The translation to apply to the <see cref="World"/> matrix.</summary>
+		public Vector3d WorldTranslation { get; set; }
+
+		/// <summary>The color to clear the rendering viewport to. The default is (0.5, 0.5, 0.5, 1).</summary>
+		public Vector4d ClearColor { get; set; }
+
+		/// <summary>Start rendering. The default sets up the viewport, clears (using <see cref="ClearColor"/>), sets the depth test to less and turns on depth writing, then sets the <see cref="Program"/>'s <see cref="Projection"/>, <see cref="View"/>, and <see cref="World"/> matrices.</summary>
+		protected void RenderStart() {
 			OpenTK.Graphics.OpenGL4.GL.Viewport(0, 0, Renderer.Width, Renderer.Height);
-			Device.Clear(new Vector4d(0.5, 0.5, 0.5, 1), 1);
+			Device.Clear(ClearColor, 1);
 
 			Device.DepthTest = ComparisonFunction.Less;
 			Device.DepthWrite = true;
 
-			OpenTK.Matrix4 x = OpenTK.Matrix4.CreateRotationX(1);
-			OpenTK.Matrix4 y = OpenTK.Matrix4.CreateTranslation(4, 5, 6);
-			OpenTK.Matrix4 z = x * y;
+			Program.Projection = Projection;
+			Program.View = View;
+			Program.World = World;
+		}
 
-			Matrix4d mx = Matrix4d.Rotate(Angle.Zero, Angle.Radians(1), Angle.Zero);
-			Matrix4d my = Matrix4d.Translate(4, 5, 6);
-			Matrix4d mz = mx * my;
-
-			Program.Projection = Matrix4d.PerspectiveFieldOfView(Angle.Degrees(45), Renderer.Width / (double)Renderer.Height, 1, 2 + Model.Bounds.Radius * 16);
-			Program.View = Matrix4d.LookAt(new Vector3d(0, 0, -Model.Bounds.Radius * 3), Vector3d.Zero, Vector3d.UnitY);
-			Program.World = Matrix4d.Translate(-Model.Bounds.Position) * Matrix4d.Scale(ModelScale / 100.0) * Rotation;
-			Model.Draw(Program);
-
+		/// <summary>Finish up rendering. The default swaps buffers.</summary>
+		protected void RenderEnd() {
 			Renderer.SwapBuffers();
+		}
+
+		/// <summary>Perform any rendering.</summary>
+		protected virtual void Render() {
+		}
+		
+		/// <summary>Handle the renderer paint message. The default calls <see cref="RenderStart"/>, <see cref="Render"/>, then <see cref="RenderEnd"/>.</summary>
+		/// <param name="sender"></param>
+		/// <param name="args"></param>
+		protected virtual void RendererPaint(object sender, PaintEventArgs args) {
+			RenderStart();
+			Render();
+			RenderEnd();
+		}
+	}
+
+	/// <summary>A browser for a model asset.</summary>
+	public class GlareModelAssetBrowser : ModelAssetBrowser {
+		// FarPlaneDistance: 2 + Model.Bounds.Radius * 16
+
+		/// <summary>The model to render.</summary>
+		public GlareModel Model { get { return ModelAsset.Content; } }
+
+		/// <summary>Get the model to render.</summary>
+		public readonly ModelAsset ModelAsset;
+
+		/// <summary>
+		/// Initialise the browser.
+		/// </summary>
+		/// <param name="asset"></param>
+		public GlareModelAssetBrowser(ModelAsset asset) {
+			if (asset == null)
+				throw new ArgumentNullException("asset");
+			ModelAsset = asset;
+
+			ViewLookAtDistance = Model.Bounds.Radius * 3;
+			WorldTranslation = -Model.Bounds.Position;
+		}
+
+		/// <summary>Render the model.</summary>
+		protected override void Render() {
+			Model.Draw(Program);
 		}
 	}
 }

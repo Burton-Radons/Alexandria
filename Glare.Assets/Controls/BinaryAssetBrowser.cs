@@ -12,15 +12,46 @@ using System.Collections;
 using Glare.Internal;
 
 namespace Glare.Assets.Controls {
+	/// <summary>
+	/// A hex browser for a <see cref="BinaryAsset"/>.
+	/// </summary>
 	public partial class BinaryAssetBrowser : UserControl {
-		readonly BinaryAsset Resource;
+		readonly IList<byte> SourceData;
+		readonly int SourceStart;
+		readonly int SourceCount;
+		readonly int SourceDisplayOffset;
+
+		byte this[int index] {
+			get {
+				if (index < 0 || index > SourceCount)
+					throw new ArgumentOutOfRangeException("index");
+				return SourceData[SourceStart + index];
+			}
+		}
 
 		DataGridView grid;
 
-		public BinaryAssetBrowser(BinaryAsset resource) {
-			InitializeComponent();
+		public BinaryAssetBrowser(BinaryAsset asset) : this(asset.Data, asset.DataStart, asset.DataCount, asset.DataDisplayOffset) { }
 
-			Resource = resource;
+		/// <summary>Initialise the control.</summary>
+		/// <param name="data"></param>
+		/// <param name="start"></param>
+		/// <param name="count"></param>
+		/// <param name="displayOffset"></param>
+		public BinaryAssetBrowser(IList<byte> data, int start, int count, int displayOffset = 0) {
+			if (data == null)
+				throw new ArgumentNullException("data");
+			if (start < 0 || start > data.Count)
+				throw new ArgumentOutOfRangeException("start");
+			if (count < 0 || start + count > data.Count)
+				throw new ArgumentOutOfRangeException("count");
+
+			SourceData = data;
+			SourceStart = start;
+			SourceCount = count;
+			SourceDisplayOffset = displayOffset;
+
+			InitializeComponent();
 
 			grid = new RowView() {
 				Dock = DockStyle.Fill,
@@ -52,7 +83,7 @@ namespace Glare.Assets.Controls {
 				var column = new DataGridViewTextBoxColumn() {
 					DataPropertyName = "Column" + index,
 					DefaultCellStyle = index % 2 == 0 ? cellStyle : altCellStyle,
-					HeaderText = string.Format("{0:X2}", (resource.DataDisplayOffset + index) % 16),
+					HeaderText = string.Format("{0:X2}", (SourceStart + index) % 16),
 					ReadOnly = true,
 					Resizable = DataGridViewTriState.False,
 				};
@@ -71,18 +102,18 @@ namespace Glare.Assets.Controls {
 			};
 			grid.Columns.Add(textColumn);
 
-			grid.DataSource = new RowSource(resource);
+			grid.DataSource = new RowSource(this);
 		}
 
 		void OnGridCellEnter(object sender, DataGridViewCellEventArgs e) {
-			if(e.ColumnIndex < 0 || e.ColumnIndex > 15)
+			if (e.ColumnIndex < 0 || e.ColumnIndex > 15)
 				return;
 			int offset = e.ColumnIndex + e.RowIndex * 16;
-			DataOffset.Text = Format(offset + Resource.DataDisplayOffset) + " of " + Format(Resource.DataDisplayOffset + Resource.DataCount);
-			offset += Resource.DataStart;
+			DataOffset.Text = Format(offset + SourceDisplayOffset) + " of " + Format(SourceDisplayOffset + SourceCount);
+			offset += SourceStart;
 
-			int end = Resource.DataStart + Resource.DataCount;
-			IList<byte> data = Resource.Data;
+			int end = SourceStart + SourceCount;
+			IList<byte> data = SourceData;
 
 			DataByte.Text = Format(data.ReadByte(offset, end));
 			DataSByte.Text = Format(data.ReadSByte(offset, end));
@@ -145,7 +176,7 @@ namespace Glare.Assets.Controls {
 			readonly string[] Columns = new string[16];
 			readonly int Offset;
 			const int Pitch = 16;
-			readonly BinaryAsset Resource;
+			readonly BinaryAssetBrowser Resource;
 
 			public string Column0 { get { return Columns[0]; } }
 			public string Column1 { get { return Columns[1]; } }
@@ -163,12 +194,12 @@ namespace Glare.Assets.Controls {
 			public string Column13 { get { return Columns[13]; } }
 			public string Column14 { get { return Columns[14]; } }
 			public string Column15 { get { return Columns[15]; } }
-			public string OffsetHex { get { return string.Format("{0:X4}:{1:X4}", ((Offset + Resource.DataDisplayOffset) >> 16) & 0xFFFF, (Offset + Resource.DataDisplayOffset) & 0xFFFF); } }
+			public string OffsetHex { get { return string.Format("{0:X4}:{1:X4}", ((Offset + Resource.SourceDisplayOffset) >> 16) & 0xFFFF, (Offset + Resource.SourceDisplayOffset) & 0xFFFF); } }
 
 			public string Text {
 				get {
 					string result = "";
-					for (int index = 0; index < Pitch && Offset + index < Resource.DataCount; index++) {
+					for (int index = 0; index < Pitch && Offset + index < Resource.SourceCount; index++) {
 						byte value = Resource[Offset + index];
 
 						if (value < 32 || (value > 0x7E && value < 0xA0))
@@ -180,12 +211,12 @@ namespace Glare.Assets.Controls {
 				}
 			}
 
-			public Row(BinaryAsset resource, int offset) {
+			public Row(BinaryAssetBrowser resource, int offset) {
 				Resource = resource;
 				Offset = offset;
 
 				for (int index = 0; index < Pitch; index++) {
-					if (Offset + index >= Resource.DataCount)
+					if (Offset + index >= Resource.SourceCount)
 						Columns[index] = "  ";
 					else
 						Columns[index] = string.Format("{0:X2}", Resource[Offset + index]);
@@ -195,12 +226,12 @@ namespace Glare.Assets.Controls {
 
 		class RowSource : IList {
 			const int Pitch = 16;
-			readonly BinaryAsset Resource;
+			readonly BinaryAssetBrowser Browser;
 			readonly Row[] Rows;
 
-			public RowSource(BinaryAsset resource) {
-				Resource = resource;
-				Rows = new Row[(resource.DataCount + 15) / Pitch];
+			public RowSource(BinaryAssetBrowser browser) {
+				Browser = browser;
+				Rows = new Row[(browser.SourceCount + 15) / Pitch];
 			}
 
 			public int Add(object value) {
@@ -236,7 +267,7 @@ namespace Glare.Assets.Controls {
 			}
 
 			public object this[int index] {
-				get { return Rows[index] ?? (Rows[index] = new Row(Resource, index * Pitch)); }
+				get { return Rows[index] ?? (Rows[index] = new Row(Browser, index * Pitch)); }
 				set { throw new NotImplementedException(); }
 			}
 
@@ -244,7 +275,7 @@ namespace Glare.Assets.Controls {
 				throw new NotImplementedException();
 			}
 
-			public int Count { get { return (Resource.DataCount + 15) / 16; } }
+			public int Count { get { return (Browser.SourceCount + 15) / 16; } }
 
 			public bool IsSynchronized {
 				get { throw new NotImplementedException(); }

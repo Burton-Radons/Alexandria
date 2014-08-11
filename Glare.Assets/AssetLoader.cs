@@ -4,90 +4,32 @@ using Glare.Framework;
 using Glare.Internal;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Glare.Assets {
-	/// <summary>An error that has been recorded while loading an <see cref="Asset"/>. This is collected in <see cref="AssetLoader"/>'s <see cref="AssetLoader.Errors"/> property.</summary>
-	public class AssetLoadError {
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		readonly string message;
+	/// <summary>A loader for an <see cref="Asset"/>.</summary>
+	public class AssetLoader : NotifyingObject {
+		double ProgressField = Double.NaN;
 
-		/// <summary>Get the load info. The <see cref="AssetLoader.Reader"/>/<see cref="AssetLoader.Stream"/> may be closed.</summary>
-		public AssetLoader Loader { get; private set; }
+		/// <summary><see cref="PropertyInfo"/> for the <see cref="Progress"/> property.</summary>
+		public static readonly PropertyInfo ProgressProperty = GetProperty<AssetLoader>("Progress");
 
-		/// <summary>Get a description of the problem. This may be localized.</summary>
-		public virtual string Message { get { return message; } }
+		/// <summary>Get the asset manager.</summary>
+		public AssetManager AssetManager { get; private set; }
 
-		/// <summary>Get the position the <see cref="AssetLoader.Stream"/> was at when this error was generated.</summary>
-		public long Offset { get; private set; }
-
-		public string OffsetHex {
-			get {
-				return Math.Abs(Offset) < 10 ? Offset.ToString() : string.Format("{1}{0}/{0:X}h", Math.Abs(Offset), Offset < 0 ? "-" : "");
-			}
-		}
-
-		public AssetLoadError(AssetLoader loader, long? offset, string message) {
-			Loader = loader;
-			Offset = offset.HasValue ? offset.Value : loader.Position;
-			this.message = message;
-		}
-
-		public override string ToString() {
-			string message = "";
-
-			try {
-				message = Message;
-			} catch (Exception exception) {
-				message = "Message exception: " + exception;
-			}
-
-			return string.Format("{0} (offset {1}/{1:X}h): {2}", Loader.Name, Offset, message);
-		}
-
-		#region Inner types
-
-		public class InvalidData : AssetLoadError {
-			public string Expected { get; private set; }
-			public string Received { get; private set; }
-			public override string Message { get { return string.Format(Properties.Resources.AssetLoadError_InvalidData, Expected, Received); } }
-
-			public InvalidData(AssetLoader info, long offset, string expected, string received)
-				: base(info, offset, null) {
-				Expected = expected;
-				Received = received;
-			}
-		}
-
-		/// <summary>The file was not as big as it needed to be.</summary>
-		public class UnexpectedEndOfFile : AssetLoadError {
-			public override string Message { get { return Properties.Resources.AssetLoadError_UnexpectedEndOfFile; } }
-			public UnexpectedEndOfFile(AssetLoader info) : base(info, null, null) { }
-		}
-
-		public class UnexpectedPosition : AssetLoadError {
-			public long Expected { get; private set; }
-			public long Received { get; private set; }
-			public override string Message { get { return string.Format(Properties.Resources.AssetLoadError_UnexpectedPosition, Expected, Received); } }
-
-			public UnexpectedPosition(AssetLoader loader, long expected)
-				: base(loader, null, null) {
-				Expected = expected;
-				Received = loader.Position;
-			}
-		}
-
-		#endregion Inner types
-	}
-
-	public class AssetLoader {
-		/// <summary>Get whether the <see cref="Stream"/>'s <see cref="Stream.Position"/> is at least <see cref="End"/>, indicating that the entire stream has been read.</summary>
+		/// <summary>Get whether the <see cref="Stream"/>'s <see cref="System.IO.Stream.Position"/> is at least <see cref="End"/>, indicating that the entire stream has been read.</summary>
 		public bool AtEnd { get { return Stream.Position >= End; } }
 
+		/// <summary>Get the <see cref="Length"/> as an <see cref="Int32"/>, throwing an exception if it's too long.</summary>
+		public int CheckedShortLength { get { return checked((int)Length); } }
+
+		/// <summary>Get the context <see cref="Asset"/>.</summary>
 		public Asset Context { get; private set; }
 
 		/// <summary>Get the end offset of the <see cref="Reader"/>, which is <see cref="Start"/> + <see cref="Length"/>.</summary>
@@ -102,12 +44,11 @@ namespace Glare.Assets {
 		/// <summary>Get the length in bytes of the <see cref="Reader"/>.</summary>
 		public long Length { get; private set; }
 
-		public string Name { get; private set; }
-
+		/// <summary>Get the file manager.</summary>
 		public FileManager FileManager { get; private set; }
 
-		/// <summary>Get the <see cref="BinaryReader"/> to load from.</summary>
-		public BinaryReader Reader { get; set; }
+		/// <summary>Get an optional name describing the context.</summary>
+		public string Name { get; private set; }
 
 		/// <summary>Get or set the current position of the <see cref="Stream"/>.</summary>
 		public long Position {
@@ -115,7 +56,17 @@ namespace Glare.Assets {
 			set { Stream.Position = value; }
 		}
 
-		public int ShortLength { get { return checked((int)Length); } }
+		/// <summary>Get (or set, if you're a <see cref="AssetLoader"/> in a <see cref="AssetFormat.Load"/> context) the percentage of how much of the <see cref="Asset"/> has been loaded, from 0 (starting) to 100 (complete). The default is <see cref="Double.NaN"/>, meaning that there is no valid value.</summary>
+		public double Progress {
+			get { return ProgressField; }
+			set { SetProperty(ProgressProperty, ref ProgressField, ref value); }
+		}
+		
+		/// <summary>Get the <see cref="BinaryReader"/> to load from.</summary>
+		public BinaryReader Reader { get; set; }
+
+		/// <summary>Get the number of bytes remaining from the <see cref="Reader"/>'s current position.</summary>
+		public long Remaining { get { return End - Position; } }
 
 		/// <summary>Get the starting offset in the <see cref="Stream"/> that this <see cref="AssetLoader"/> object was created with.</summary>
 		public long Start { get; private set; }
@@ -123,21 +74,32 @@ namespace Glare.Assets {
 		/// <summary>Get the <see cref="System.IO.Stream"/> from the <see cref="Reader"/>.</summary>
 		public Stream Stream { get { return Reader.BaseStream; } }
 
-		public AssetLoader(BinaryReader reader, string name, FileManager manager, Asset contextResource = null, long? length = null) {
+		/// <summary>Initialise the <see cref="Asset"/> loader.</summary>
+		/// <param name="assetManager"></param>
+		/// <param name="reader"></param>
+		/// <param name="name"></param>
+		/// <param name="fileManager">The <see cref="FileManager"/> to use to load any attached files. If this is <c>null</c> (the default), then the system file manager (<see cref="Glare.Assets.FileManager.System"/>) is used.</param>
+		/// <param name="contextResource"></param>
+		/// <param name="length"></param>
+		public AssetLoader(AssetManager assetManager, BinaryReader reader, string name, FileManager fileManager, Asset contextResource = null, long? length = null) {
+			if (assetManager == null)
+				throw new ArgumentNullException("assetManager");
 			if (reader == null)
 				throw new ArgumentNullException("reader");
-			if (manager == null)
-				throw new ArgumentNullException("manager");
 
+			AssetManager = assetManager;
 			Start = reader.BaseStream.Position;
 			Reader = reader;
 			Name = name;
-			FileManager = manager;
+			FileManager = fileManager ?? FileManager.System;
 			Context = contextResource;
 			Length = length.HasValue ? length.Value : reader.BaseStream.Length;
 			Errors = new Codex<AssetLoadError>();
 		}
 
+		/// <summary>Add a generic load error.</summary>
+		/// <param name="offset"></param>
+		/// <param name="message"></param>
 		public void AddError(long? offset, string message) {
 			Errors.Add(new AssetLoadError(this, offset, message));
 
@@ -146,6 +108,11 @@ namespace Glare.Assets {
 				Debugger.Break();
 #endif // DebugBreak
 		}
+
+		/// <summary>Add a generic load error.</summary>
+		/// <param name="offset"></param>
+		/// <param name="messageFormat"></param>
+		/// <param name="args"></param>
 		public void AddError(long? offset, string messageFormat, params object[] args) { AddError(offset, string.Format(messageFormat, args)); }
 
 		bool ExpectCore(long expected, long received) {
@@ -155,16 +122,49 @@ namespace Glare.Assets {
 			return false;
 		}
 
+		/// <summary>Expect a <see cref="UInt16"/> value; if found, return <c>true</c>; otherwise report an error and return <c>false</c></summary>
+		/// <param name="expected"></param>
+		/// <returns></returns>
 		public bool Expect(byte expected) { return ExpectCore(expected, Reader.ReadByte()); }
+
+		/// <summary>Expect a <see cref="Byte"/> value; if found, return <c>true</c>; otherwise report an error and return <c>false</c></summary>
+		/// <param name="expected"></param>
+		/// <returns></returns>
 		public bool Expect(ushort expected) { return ExpectCore(expected, Reader.ReadUInt16()); }
+
+		/// <summary>Expect a <see cref="UInt32"/> value; if found, return <c>true</c>; otherwise report an error and return <c>false</c></summary>
+		/// <param name="expected"></param>
+		/// <returns></returns>
 		public bool Expect(uint expected) { return ExpectCore(expected, Reader.ReadUInt32()); }
+
+		/// <summary>Expect a <see cref="UInt64"/> value; if found, return <c>true</c>; otherwise report an error and return <c>false</c></summary>
+		/// <param name="expected"></param>
+		/// <returns></returns>
 		public bool Expect(ulong expected) { return ExpectCore((long)expected, (long)Reader.ReadUInt64()); }
 
+		/// <summary>Expect a <see cref="SByte"/> value; if found, return <c>true</c>; otherwise report an error and return <c>false</c></summary>
+		/// <param name="expected"></param>
+		/// <returns></returns>
 		public bool Expect(sbyte expected) { return ExpectCore(expected, Reader.ReadSByte()); }
+
+		/// <summary>Expect a <see cref="Int16"/> value; if found, return <c>true</c>; otherwise report an error and return <c>false</c></summary>
+		/// <param name="expected"></param>
+		/// <returns></returns>
 		public bool Expect(short expected) { return ExpectCore(expected, Reader.ReadInt16()); }
+
+		/// <summary>Expect a <see cref="Int32"/> value; if found, return <c>true</c>; otherwise report an error and return <c>false</c></summary>
+		/// <param name="expected"></param>
+		/// <returns></returns>
 		public bool Expect(int expected) { return ExpectCore(expected, Reader.ReadInt32()); }
+
+		/// <summary>Expect a <see cref="Int64"/> value; if found, return <c>true</c>; otherwise report an error and return <c>false</c></summary>
+		/// <param name="expected"></param>
+		/// <returns></returns>
 		public bool Expect(long expected) { return ExpectCore(expected, Reader.ReadInt64()); }
 
+		/// <summary>Expect a magic sequence of bytes. If found, return <c>true</c>; otherwise report an error and return <c>false</c>.</summary>
+		/// <param name="expected"></param>
+		/// <returns></returns>
 		public bool ExpectMagic(string expected) {
 			var received = Reader.ReadString(expected.Length, Encoding.ASCII);
 
@@ -174,6 +174,9 @@ namespace Glare.Assets {
 			return false;
 		}
 
+		/// <summary>Expect the input to be at a given position; if not so, report an error.</summary>
+		/// <param name="expected"></param>
+		/// <returns></returns>
 		public bool ExpectPosition(long expected) {
 			if (Position == expected)
 				return true;
@@ -182,6 +185,10 @@ namespace Glare.Assets {
 			return false;
 		}
 
+		/// <summary>Expect a sequence of zeroes, reporting errors if they are not found.</summary>
+		/// <param name="size"></param>
+		/// <param name="count"></param>
+		/// <returns></returns>
 		public bool ExpectZeroes(int size, int count) {
 			bool result = true;
 
@@ -217,10 +224,37 @@ namespace Glare.Assets {
 			return new Box3f(min, max);
 		}
 
-		public static Stream SystemFileOpener(string name, FileMode mode, FileAccess access, FileShare share) {
-			return File.Open(name, mode, access, share);
+		/// <summary>Set <see cref="Progress"/> to the current reader <see cref="Position"/>, based on the <see cref="Start"/> offset and the <see cref="Length"/>.</summary>
+		public void SetProgressToPosition() {
+			Progress = (Position - Start) / (double)(Length - Start);
 		}
 
+		/// <summary>Switch to the use of a <see cref="MarkingStream"/>.</summary>
+		/// <returns></returns>
+		public MarkingStream StartMarking() {
+			if (Reader.BaseStream is MarkingStream) {
+				return (MarkingStream)Reader.BaseStream;
+			}
+
+			var markingStream = new MarkingStream(Reader.BaseStream);
+			if (Reader is BigEndianBinaryReader)
+				Reader = new BigEndianBinaryReader(markingStream);
+			else
+				Reader = new BinaryReader(markingStream);
+
+			return markingStream;
+		}
+
+		/// <summary>Switch to the use of a <see cref="MarkingStream"/>.</summary>
+		/// <param name="reader"></param>
+		/// <returns></returns>
+		public MarkingStream StartMarking(out BinaryReader reader) {
+			MarkingStream stream = StartMarking();
+			reader = Reader;
+			return stream;
+		}
+
+		/// <summary>Reset the stream position to the original position when the asset loader was created.</summary>
 		public void Reset() { Stream.Position = Start; }
 
 		static string ValueToString(long value) {

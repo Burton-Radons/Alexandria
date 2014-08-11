@@ -14,6 +14,7 @@ using Glare.Framework;
 using Glare.Assets;
 
 namespace Alexandria.Engines.GoldBox.Resources {
+	/// <summary>A script resource.</summary>
 	public class Script : Asset {
 		public const int AddressOffset = 0x7FFE;
 
@@ -74,7 +75,7 @@ namespace Alexandria.Engines.GoldBox.Resources {
 			Link();
 		}
 
-		public override System.Windows.Forms.Control Browse() {
+		public override System.Windows.Forms.Control Browse(Action<double> progressUpdateCallback = null) {
 			RichTextBuilder builder = new RichTextBuilder();
 			bool indentNext = false;
 

@@ -10,6 +10,9 @@ using Glare.Framework;
 using Glare.Assets;
 
 namespace Alexandria.Engines.DarkSouls {
+	/// <summary>
+	/// A collection of objects.
+	/// </summary>
 	public class Fssl : Asset {
 		#region Translations
 		static readonly string[] Translations_ai101000 = new string[] {
@@ -829,20 +832,28 @@ namespace Alexandria.Engines.DarkSouls {
 		};
 		#endregion Translations
 
+		/// <summary>Magic numbers that must start a file.</summary>
 		public const string MagicBigEndian = "FSSL", MagicLittleEndian = "fSSL";
 
+		/// <summary>Get the strings.</summary>
 		public ReadOnlyCodex<string> Strings { get; private set; }
 
+		/// <summary>Get the <see cref="FsslThing2"/>s.</summary>
 		public ReadOnlyCodex<FsslThing2> Thing2s { get; private set; }
 
+		/// <summary>Get the unused <see cref="FsslThing2"/>s.</summary>
 		public ReadOnlyCodex<FsslThing2> UnusedThing2s { get; private set; }
 
+		/// <summary>Get the <see cref="FsslThing3"/>s.</summary>
 		public ReadOnlyCodex<FsslThing3> Thing3s { get; private set; }
 
+		/// <summary>Get the <see cref="FsslWeird"/>s.</summary>
 		public ReadOnlyCodex<FsslWeird> Weirds { get; private set; }
 
+		/// <summary>Get the <see cref="FsslThing4"/>s.</summary>
 		public ReadOnlyCodex<FsslThing4> Thing4s { get; private set; }
 
+		/// <summary>Get the <see cref="FsslThing5"/>s.</summary>
 		public ReadOnlyCodex<FsslThing5> Thing5s { get; private set; }
 
 		internal Fssl(AssetManager manager, ResourceManager resourceManager, AssetLoader loader)
@@ -867,7 +878,7 @@ namespace Alexandria.Engines.DarkSouls {
 			if (version != 0x54 && version != 0x7c)
 				loader.AddError(loader.Position - 4, "Unexpected version number(?) {0:X}h/{0}", version);
 
-			loader.Expect(loader.ShortLength - adjustment);
+			loader.Expect(loader.CheckedShortLength - adjustment);
 			loader.Expect(0x06);
 			int stringHeaderOffset = reader.ReadInt32() + adjustment;
 			loader.Expect(1);
@@ -1013,17 +1024,37 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>
+	/// A range of data.
+	/// </summary>
 	public struct Range {
+		/// <summary>Get the minimum and maximum extents.</summary>
 		public readonly int Min, Max;
+
+		/// <summary>Get the number of elements in the range.</summary>
 		public int Span { get { return Max - Min + 1; } }
 
+		/// <summary>Initialise the range.</summary>
+		/// <param name="min"></param>
+		/// <param name="max"></param>
 		public Range(int min, int max) { Min = min; Max = max; }
+
+		/// <summary>Convert to a descriptive string.</summary>
+		/// <returns></returns>
 		public override string ToString() { return string.Format("{0}/{0:X}h to {1}/{1:X}h (span {2}/{2:X}h)", Min, Max, Span); }
 
+		/// <summary>Calculate the range from a collection.</summary>
+		/// <param name="collection"></param>
+		/// <returns></returns>
 		public static Range Calculate(IEnumerable<int> collection) {
 			return Calculate(collection, (v) => v);
 		}
 
+		/// <summary>Calculate the range from a collection.</summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="collection"></param>
+		/// <param name="getInt"></param>
+		/// <returns></returns>
 		public static Range Calculate<T>(IEnumerable<T> collection, Func<T, int> getInt) {
 			int min = int.MaxValue;
 			int max = int.MinValue;
@@ -1038,11 +1069,19 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>
+	/// An object within a <see cref="FsslResource"/>.
+	/// </summary>
 	public class FsslResource : Asset {
+		/// <summary>The <see cref="Fssl"/> this is in.</summary>
 		public Fssl Fssl { get; private set; }
 
+		/// <summary>The zero-based index of this object.</summary>
 		public int Index { get; private set; }
 
+		/// <summary>Initialise the object.</summary>
+		/// <param name="fssl"></param>
+		/// <param name="index"></param>
 		public FsslResource(Fssl fssl, int index)
 			: base(fssl.Manager, "") {
 			Name = GetType().Name + " " + index;
@@ -1051,24 +1090,30 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>A thing in an <see cref="Fssl"/>.</summary>
 	public class FsslThing2 : FsslResource {
+		/// <summary>The size in bytes of this object in storage.</summary>
 		public const int DataSize = 8;
 
-		public FsslThing2(Fssl fssl, int index, BinaryReader reader)
+		internal FsslThing2(Fssl fssl, int index, BinaryReader reader)
 			: base(fssl, index) {
 			Unknowns.ReadInt32s(reader, 1, "U1");
 			Unknowns.ReadInt16s(reader, 2, "U2");
 		}
 
+		/// <summary>Convert to a descriptive string.</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			return Unknowns.ToCommaSeparatedList();
 		}
 	}
 
+	/// <summary>A thing in an <see cref="Fssl"/>.</summary>
 	public class FsslThing3 : FsslResource {
+		/// <summary>The size in bytes of this object in storage.</summary>
 		public const int DataSize = 16;
 
-		public FsslThing3(Fssl fssl, int index, BinaryReader reader)
+		internal FsslThing3(Fssl fssl, int index, BinaryReader reader)
 			: base(fssl, index) {
 			Unknowns.ReadInt32s(reader, 1, "U1");
 			reader.Require(-1);
@@ -1076,28 +1121,37 @@ namespace Alexandria.Engines.DarkSouls {
 			Unknowns.ReadInt16s(reader, 2, "U2");
 		}
 
+		/// <summary>Convert to a descriptive string.</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			return Unknowns.ToCommaSeparatedList();
 		}
 	}
 
+	/// <summary>A thing in an <see cref="Fssl"/>.</summary>
 	public class FsslWeird : FsslResource {
+		/// <summary>The size in bytes of this object in storage.</summary>
 		public const int DataSize = 4;
 
+		/// <summary>An unknown value.</summary>
 		public int U1 { get; private set; }
 
-		public FsslWeird(Fssl fssl, int index, BinaryReader reader)
+		internal FsslWeird(Fssl fssl, int index, BinaryReader reader)
 			: base(fssl, index) {
 			U1 = reader.ReadUInt16();
 			reader.Require((short)0x01FF);
 		}
 
+		/// <summary>Convert to a descriptive string.</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			return string.Format("{0:X}h", U1);
 		}
 	}
 
+	/// <summary>An object in a <see cref="Fssl"/>.</summary>
 	public class FsslThing4 : FsslResource {
+		/// <summary>The size in bytes of this object in storage.</summary>
 		public const int DataSize = 0x3C;
 
 		/// <summary>Zero-based index of this <see cref="FsslThing4"/> in its <see cref="FsslThing5"/>.</summary>
@@ -1105,11 +1159,16 @@ namespace Alexandria.Engines.DarkSouls {
 
 		internal int ThingerOffset { get; private set; }
 
+		/// <summary>The list of thinger indices.</summary>
 		public ReadOnlyCodex<short> Thingers { get; internal set; }
 
+		/// <summary>The list of lists of <see cref="FsslWeird"/> objects.</summary>
 		public ReadOnlyCodex<ReadOnlyCodex<FsslWeird>> Weirds { get; internal set; }
 
+		/// <summary>The first index into the unused <see cref="FsslThing2"/> objects.</summary>
 		public int UnusedThing2Start { get; private set; }
+
+		/// <summary>The number of elements of the unused <see cref="FsslThing2"/> objects to use.</summary>
 		public int UnusedThing2Count { get; private set; }
 
 		internal FsslThing4(Fssl fssl, int index, BinaryReader reader, int unusedThing2Offset, int unusedThing2Count, int weirdOffset, int weirdCount, int adjustment)
@@ -1138,6 +1197,8 @@ namespace Alexandria.Engines.DarkSouls {
 			reader.Require(0); // u15
 		}
 
+		/// <summary>Convert to a descriptive string.</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			string weirds = "(" + string.Join(", ", from list in Weirds select list.Count == 0 ? "null" : "[" + string.Join(", ", from weird in list select weird.U1) + "]") + ")";
 
@@ -1145,12 +1206,16 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>A thing in an <see cref="Fssl"/>.</summary>
 	public class FsslThing5 : FsslResource {
+		/// <summary>Size in bytes of a <see cref="FsslThing5"/>.</summary>
 		public const int DataSize = 0x30;
 
-		public int Thing4Start { get; private set; }
+		internal int Thing4Start { get; private set; }
+
+		/// <summary>Get the <see cref="Thing4"/> that this refers to.</summary>
 		public IEnumerable<FsslThing4> Thing4 { get { for (int index = 0; index < Thing4Count; index++) yield return Fssl.Thing4s[Thing4Start + index]; } }
-		public int Thing4Count { get; private set; }
+		internal int Thing4Count { get; private set; }
 
 		internal FsslThing5(Fssl fssl, int index, BinaryReader reader, int thing4sOffset, int thing4sCount, int adjustment)
 			: base(fssl, index) {
@@ -1169,23 +1234,39 @@ namespace Alexandria.Engines.DarkSouls {
 			Thing4Count = reader.ReadInt32();
 		}
 
+		/// <summary>Convert to a descriptive string.</summary>
+		/// <returns></returns>
 		public override string ToString() {
 			return string.Format("Thing4:{0}+{1}{2}", Thing4Start, Thing4Count, Unknowns.ToCommaPrefixedList());
 		}
 	}
 
+	/// <summary>
+	/// Format handler for the <see cref="Fssl"/> objects.
+	/// </summary>
 	public class FsslFormat : AssetFormat {
+		/// <summary>Initialise the format.</summary>
+		/// <param name="engine"></param>
 		public FsslFormat(Engine engine) : base(engine, typeof(Fssl), canLoad: true) { }
 
-		public override LoadMatchStrength LoadMatch(AssetLoader context) {
-			string magic = Encoding.ASCII.GetString(context.Reader.ReadBytes(4));
+		/// <summary>Attempt to identify as a <see cref="Fssl"/>.</summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
+		public override LoadMatchStrength LoadMatch(AssetLoader loader) {
+			if (loader.Length > int.MaxValue)
+				return LoadMatchStrength.None;
+			/*string magic = Encoding.ASCII.GetString(context.Reader.ReadBytes(4));
 
 			if (magic != Fssl.MagicBigEndian && magic != Fssl.MagicLittleEndian)
 				return LoadMatchStrength.None;
 
-			return LoadMatchStrength.Medium;
+			return LoadMatchStrength.Medium;*/
+			return LoadMatchStrength.None;
 		}
 
+		/// <summary>Load the <see cref="Fssl"/>.</summary>
+		/// <param name="context"></param>
+		/// <returns></returns>
 		public override Asset Load(AssetLoader context) {
 			return new Fssl(Manager, ResourceManager, context);
 		}

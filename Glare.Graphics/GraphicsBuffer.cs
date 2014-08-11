@@ -19,7 +19,7 @@ namespace Glare.Graphics {
 		/// <summary>Create a new, empty <see cref="GraphicsBuffer"/>.</summary>
 		public GraphicsBuffer() : base() { }
 
-		/// <summary>Create a new <see cref="GraphicsBuffer"/> initialised to a specific size using <see cref="Storage"/>.</summary>
+		/// <summary>Create a new <see cref="GraphicsBuffer"/> initialised to a specific size using <see cref="BaseBuffer.Storage(long, BufferUsage)"/>.</summary>
 		/// <param name="context">The <see cref="Context"/> this uses. This must not be <c>null</c>.</param>
 		/// <param name="size">The size in bytes of the <see cref="GraphicsBuffer"/>'s data.</param>
 		/// <param name="usage">How the <see cref="GraphicsBuffer"/> is to be used.</param>

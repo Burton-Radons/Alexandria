@@ -21,16 +21,19 @@ namespace Glare.Engine {
 		readonly NodeType nodeType;
 		readonly PropertyInfo info;
 
+		/// <summary>Get the <see cref="System.Type"/> that this is declared in.</summary>
 		public Type DeclaringType { get { return info.DeclaringType; } }
 
+		/// <summary>Get the default value of the property, or <c>null</c> if none is known.</summary>
 		public object DefaultValue { get { return defaultValue; } }
 
 		/// <summary>Get the <see cref="PropertyInfo"/> for the property.</summary>
 		public PropertyInfo Info { get { return info; } }
 
-		/// <summary>Get the declaring <see cref="Charana.NodeType"/>.</summary>
+		/// <summary>Get the declaring <see cref="Glare.Engine.NodeType"/>.</summary>
 		public NodeType NodeType { get { return nodeType; } }
 
+		/// <summary>Get the <see cref="System.Type"/> of the property.</summary>
 		public Type PropertyType { get { return info.PropertyType; } }
 
 		internal NodeTypeProperty(NodeType nodeType, PropertyInfo info) : base(info) {

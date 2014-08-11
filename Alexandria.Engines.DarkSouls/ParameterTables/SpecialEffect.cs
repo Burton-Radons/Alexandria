@@ -19,6 +19,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "SP_EFFECT_PARAM_ST" in Dark Souls in the file "SpEffect.paramdef" (id 1Fh).
 		/// </remarks>
 		public class SpecialEffect : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "SP_EFFECT_PARAM_ST";
 
 			Int32 iconId, physicsAttackPower, magicAttackPower, fireAttackPower, thunderAttackPower, physicsDiffence, magicDiffence, fireDiffence, thunderDiffence, behaviorId, changeHpPoint, changeMpPoint, mpRecoverChangeSpeed, changeStaminaPoint, staminaRecoverChangeSpeed, insideDurability, maxDurability, poizonAttackPower, registIllness, registBlood, registCurse, soul, animIdOffset, sightSearchEnemyCut, hearingSearchEnemyCut, replaceSpEffectId, cycleOccurrenceSpEffectId, atkOccurrenceSpEffectId;
@@ -37,6 +38,7 @@ namespace Alexandria.Engines.DarkSouls {
 			SpecialEffectThrowCondition throwCondition;
 			Byte[] pad1;
 
+			/// <summary>A property in the class.</summary>
 			public static readonly PropertyInfo
 				IconIdProperty = GetProperty<SpecialEffect>("IconId"),
 				ConditionHpProperty = GetProperty<SpecialEffect>("ConditionHp"),
@@ -217,7 +219,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "アイコンID", Google translated: "Icon ID".
 			/// Japanese description: "アイコンID(-1の時は、アイコン必要なし)", Google translated: "( If -1 , no icon necessary ) icon ID".
 			/// </remarks>
-			[ParameterTableRowAttribute("iconId", index: 0, minimum: -1, maximum: 999999, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("iconId", index: 0, minimum: -1, maximum: 999999, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Icon ID")]
 			[Description("( If -1 , no icon necessary ) icon ID")]
 			[DefaultValue((Int32)(-1))]
@@ -235,7 +237,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "発動条件　残りHP比率[%]", Google translated: "Triggering conditions remaining HP ratio [ %]".
 			/// Japanese description: "残りHPが、maxHPの何%になったら発動するかを設定", Google translated: "HP is remaining , set whether to activate the percentage of maxHP Once".
 			/// </remarks>
-			[ParameterTableRowAttribute("conditionHp", index: 1, minimum: -1, maximum: 100, step: 0.1, order: 1800, unknown2: 1)]
+			[ParameterTableRowAttribute("conditionHp", index: 1, minimum: -1, maximum: 100, step: 0.1, sortOrder: 1800, unknown2: 1)]
 			[DisplayName("Triggering conditions remaining HP ratio [ %]")]
 			[Description("HP is remaining , set whether to activate the percentage of maxHP Once")]
 			[DefaultValue((Single)(-1))]
@@ -253,7 +255,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "効果持続時間　時間[s]", Google translated: "Time duration of effect [s]".
 			/// Japanese description: "変化持続時間　/-1で永続 /0で瞬間1回限り", Google translated: "One-time moment in Persistent / 0 by the change duration / -1".
 			/// </remarks>
-			[ParameterTableRowAttribute("effectEndurance", index: 2, minimum: -1, maximum: 999, step: 0.1, order: 1900, unknown2: 1)]
+			[ParameterTableRowAttribute("effectEndurance", index: 2, minimum: -1, maximum: 999, step: 0.1, sortOrder: 1900, unknown2: 1)]
 			[DisplayName("Time duration of effect [s]")]
 			[Description("One-time moment in Persistent / 0 by the change duration / -1")]
 			[DefaultValue((Single)0)]
@@ -271,7 +273,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "発動間隔[s]", Google translated: "Trigger interval [s]".
 			/// Japanese description: "何秒間隔で発生するのかを設定", Google translated: "Set in what second intervals whether the occurrence of".
 			/// </remarks>
-			[ParameterTableRowAttribute("motionInterval", index: 3, minimum: -1, maximum: 999, step: 0.1, order: 2000, unknown2: 1)]
+			[ParameterTableRowAttribute("motionInterval", index: 3, minimum: -1, maximum: 999, step: 0.1, sortOrder: 2000, unknown2: 1)]
 			[DisplayName("Trigger interval [s]")]
 			[Description("Set in what second intervals whether the occurrence of")]
 			[DefaultValue((Single)0)]
@@ -289,7 +291,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "最大HP倍率[%]", Google translated: "Maximum HP magnification [ %]".
 			/// Japanese description: "最大HPに補正をかける", Google translated: "I make a correction to the maximum HP".
 			/// </remarks>
-			[ParameterTableRowAttribute("maxHpRate", index: 4, minimum: 0, maximum: 99, step: 0.001, order: 2100, unknown2: 1)]
+			[ParameterTableRowAttribute("maxHpRate", index: 4, minimum: 0, maximum: 99, step: 0.001, sortOrder: 2100, unknown2: 1)]
 			[DisplayName("Maximum HP magnification [ %]")]
 			[Description("I make a correction to the maximum HP")]
 			[DefaultValue((Single)1)]
@@ -307,7 +309,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "最大MP倍率[%]", Google translated: "Maximum MP magnification [ %]".
 			/// Japanese description: "最大MPに補正をかける", Google translated: "I make a correction to the maximum MP".
 			/// </remarks>
-			[ParameterTableRowAttribute("maxMpRate", index: 5, minimum: 0, maximum: 99, step: 0.001, order: 2200, unknown2: 1)]
+			[ParameterTableRowAttribute("maxMpRate", index: 5, minimum: 0, maximum: 99, step: 0.001, sortOrder: 2200, unknown2: 1)]
 			[DisplayName("Maximum MP magnification [ %]")]
 			[Description("I make a correction to the maximum MP")]
 			[DefaultValue((Single)1)]
@@ -325,7 +327,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "最大スタミナ倍率[%]", Google translated: "Maximum magnification stamina [ %]".
 			/// Japanese description: "最大SPに補正をかける", Google translated: "I make a correction to the maximum SP".
 			/// </remarks>
-			[ParameterTableRowAttribute("maxStaminaRate", index: 6, minimum: 0, maximum: 99, step: 0.001, order: 2300, unknown2: 1)]
+			[ParameterTableRowAttribute("maxStaminaRate", index: 6, minimum: 0, maximum: 99, step: 0.001, sortOrder: 2300, unknown2: 1)]
 			[DisplayName("Maximum magnification stamina [ %]")]
 			[Description("I make a correction to the maximum SP")]
 			[DefaultValue((Single)1)]
@@ -343,7 +345,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "防御側：斬撃ダメージ倍率", Google translated: "Defender : slashing Damage magnification".
 			/// Japanese description: "斬撃ダメージ倍率：算出したダメージに×○倍で補正をかける。１が通常。", Google translated: "To apply a correction in ○ × magnification to the damage was calculated : slashing damage magnification . 1 usually .".
 			/// </remarks>
-			[ParameterTableRowAttribute("slashDamageCutRate", index: 7, minimum: -99, maximum: 99, step: 0.001, order: 2910, unknown2: 1)]
+			[ParameterTableRowAttribute("slashDamageCutRate", index: 7, minimum: -99, maximum: 99, step: 0.001, sortOrder: 2910, unknown2: 1)]
 			[DisplayName("Defender : slashing Damage magnification")]
 			[Description("To apply a correction in ○ × magnification to the damage was calculated : slashing damage magnification . 1 usually .")]
 			[DefaultValue((Single)1)]
@@ -361,7 +363,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "防御側：打撃ダメージ倍率", Google translated: "Defender : blow damage magnification".
 			/// Japanese description: "打撃ダメージ倍率：算出したダメージに×○倍で補正をかける。１が通常。", Google translated: "To apply a correction in ○ × magnification to the damage was calculated : blow damage magnification . 1 usually .".
 			/// </remarks>
-			[ParameterTableRowAttribute("blowDamageCutRate", index: 8, minimum: -99, maximum: 99, step: 0.001, order: 2920, unknown2: 1)]
+			[ParameterTableRowAttribute("blowDamageCutRate", index: 8, minimum: -99, maximum: 99, step: 0.001, sortOrder: 2920, unknown2: 1)]
 			[DisplayName("Defender : blow damage magnification")]
 			[Description("To apply a correction in ○ × magnification to the damage was calculated : blow damage magnification . 1 usually .")]
 			[DefaultValue((Single)1)]
@@ -379,7 +381,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "防御側：刺突ダメージ倍率", Google translated: "Defender : piercing damage magnification".
 			/// Japanese description: "刺突ダメージ倍率：算出したダメージに×○倍で補正をかける。１が通常。", Google translated: "To apply a correction in ○ × magnification to the damage was calculated : Piercing Damage magnification . 1 usually .".
 			/// </remarks>
-			[ParameterTableRowAttribute("thrustDamageCutRate", index: 9, minimum: -99, maximum: 99, step: 0.001, order: 2930, unknown2: 1)]
+			[ParameterTableRowAttribute("thrustDamageCutRate", index: 9, minimum: -99, maximum: 99, step: 0.001, sortOrder: 2930, unknown2: 1)]
 			[DisplayName("Defender : piercing damage magnification")]
 			[Description("To apply a correction in ○ × magnification to the damage was calculated : Piercing Damage magnification . 1 usually .")]
 			[DefaultValue((Single)1)]
@@ -397,7 +399,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "防御側：無属性ダメージ倍率", Google translated: "Defender : non-attribute damage magnification".
 			/// Japanese description: "無属性ダメージ倍率：算出したダメージに×○倍で補正をかける。１が通常。", Google translated: "To apply a correction in ○ × magnification to the damage was calculated : non-attribute damage magnification . 1 usually .".
 			/// </remarks>
-			[ParameterTableRowAttribute("neutralDamageCutRate", index: 10, minimum: -99, maximum: 99, step: 0.001, order: 2940, unknown2: 1)]
+			[ParameterTableRowAttribute("neutralDamageCutRate", index: 10, minimum: -99, maximum: 99, step: 0.001, sortOrder: 2940, unknown2: 1)]
 			[DisplayName("Defender : non-attribute damage magnification")]
 			[Description("To apply a correction in ○ × magnification to the damage was calculated : non-attribute damage magnification . 1 usually .")]
 			[DefaultValue((Single)1)]
@@ -415,7 +417,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "防御側：魔法ダメージ倍率", Google translated: "Defender : Magic Damage magnification".
 			/// Japanese description: "魔法ダメージ倍率：算出したダメージに×○倍で補正をかける。１が通常。", Google translated: "To apply a correction in ○ × magnification to the damage was calculated : Magic Damage magnification . 1 usually .".
 			/// </remarks>
-			[ParameterTableRowAttribute("magicDamageCutRate", index: 11, minimum: -99, maximum: 99, step: 0.001, order: 3000, unknown2: 1)]
+			[ParameterTableRowAttribute("magicDamageCutRate", index: 11, minimum: -99, maximum: 99, step: 0.001, sortOrder: 3000, unknown2: 1)]
 			[DisplayName("Defender : Magic Damage magnification")]
 			[Description("To apply a correction in ○ × magnification to the damage was calculated : Magic Damage magnification . 1 usually .")]
 			[DefaultValue((Single)1)]
@@ -433,7 +435,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "防御側：炎ダメージ倍率", Google translated: "Defender : Fire Damage magnification".
 			/// Japanese description: "炎ダメージ倍率：算出したダメージに×○倍で補正をかける。１が通常。", Google translated: "To apply a correction in ○ × magnification to the damage was calculated : fire damage magnification . 1 usually .".
 			/// </remarks>
-			[ParameterTableRowAttribute("fireDamageCutRate", index: 12, minimum: -99, maximum: 99, step: 0.001, order: 3100, unknown2: 1)]
+			[ParameterTableRowAttribute("fireDamageCutRate", index: 12, minimum: -99, maximum: 99, step: 0.001, sortOrder: 3100, unknown2: 1)]
 			[DisplayName("Defender : Fire Damage magnification")]
 			[Description("To apply a correction in ○ × magnification to the damage was calculated : fire damage magnification . 1 usually .")]
 			[DefaultValue((Single)1)]
@@ -451,7 +453,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "防御側：電撃ダメージ倍率", Google translated: "Defender : lightning damage magnification".
 			/// Japanese description: "炎ダメージ倍率：算出したダメージに×○倍で補正をかける。１が通常。", Google translated: "To apply a correction in ○ × magnification to the damage was calculated : fire damage magnification . 1 usually .".
 			/// </remarks>
-			[ParameterTableRowAttribute("thunderDamageCutRate", index: 13, minimum: -99, maximum: 99, step: 0.001, order: 3110, unknown2: 1)]
+			[ParameterTableRowAttribute("thunderDamageCutRate", index: 13, minimum: -99, maximum: 99, step: 0.001, sortOrder: 3110, unknown2: 1)]
 			[DisplayName("Defender : lightning damage magnification")]
 			[Description("To apply a correction in ○ × magnification to the damage was calculated : fire damage magnification . 1 usually .")]
 			[DefaultValue((Single)1)]
@@ -469,7 +471,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃側：物理ダメージ倍率", Google translated: "Attacker : Physical Damage magnification".
 			/// Japanese description: "物理ダメージ倍率：算出したダメージに×○倍で補正をかける。１が通常。", Google translated: "To apply a correction in ○ × magnification to the damage was calculated : Physical Damage magnification . 1 usually .".
 			/// </remarks>
-			[ParameterTableRowAttribute("physicsAttackRate", index: 14, minimum: -99, maximum: 99, step: 0.001, order: 3200, unknown2: 1)]
+			[ParameterTableRowAttribute("physicsAttackRate", index: 14, minimum: -99, maximum: 99, step: 0.001, sortOrder: 3200, unknown2: 1)]
 			[DisplayName("Attacker : Physical Damage magnification")]
 			[Description("To apply a correction in ○ × magnification to the damage was calculated : Physical Damage magnification . 1 usually .")]
 			[DefaultValue((Single)1)]
@@ -487,7 +489,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃側：魔法ダメージ倍率", Google translated: "Attacker : Magic Damage magnification".
 			/// Japanese description: "魔法ダメージ倍率：算出したダメージに×○倍で補正をかける。１が通常。", Google translated: "To apply a correction in ○ × magnification to the damage was calculated : Magic Damage magnification . 1 usually .".
 			/// </remarks>
-			[ParameterTableRowAttribute("magicAttackRate", index: 15, minimum: -99, maximum: 99, step: 0.001, order: 3300, unknown2: 1)]
+			[ParameterTableRowAttribute("magicAttackRate", index: 15, minimum: -99, maximum: 99, step: 0.001, sortOrder: 3300, unknown2: 1)]
 			[DisplayName("Attacker : Magic Damage magnification")]
 			[Description("To apply a correction in ○ × magnification to the damage was calculated : Magic Damage magnification . 1 usually .")]
 			[DefaultValue((Single)1)]
@@ -505,7 +507,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃側：炎ダメージ倍率", Google translated: "Attacker : fire damage magnification".
 			/// Japanese description: "炎ダメージ倍率：算出したダメージに×○倍で補正をかける。１が通常。", Google translated: "To apply a correction in ○ × magnification to the damage was calculated : fire damage magnification . 1 usually .".
 			/// </remarks>
-			[ParameterTableRowAttribute("fireAttackRate", index: 16, minimum: -99, maximum: 99, step: 0.001, order: 3400, unknown2: 1)]
+			[ParameterTableRowAttribute("fireAttackRate", index: 16, minimum: -99, maximum: 99, step: 0.001, sortOrder: 3400, unknown2: 1)]
 			[DisplayName("Attacker : fire damage magnification")]
 			[Description("To apply a correction in ○ × magnification to the damage was calculated : fire damage magnification . 1 usually .")]
 			[DefaultValue((Single)1)]
@@ -523,7 +525,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃側：電撃ダメージ倍率", Google translated: "Attacker : shock damage magnification".
 			/// Japanese description: "電撃ダメージ倍率：算出したダメージに×○倍で補正をかける。１が通常。", Google translated: "To apply a correction in ○ × magnification to the damage was calculated : lightning damage magnification . 1 usually .".
 			/// </remarks>
-			[ParameterTableRowAttribute("thunderAttackRate", index: 17, minimum: -99, maximum: 99, step: 0.001, order: 3410, unknown2: 1)]
+			[ParameterTableRowAttribute("thunderAttackRate", index: 17, minimum: -99, maximum: 99, step: 0.001, sortOrder: 3410, unknown2: 1)]
 			[DisplayName("Attacker : shock damage magnification")]
 			[Description("To apply a correction in ○ × magnification to the damage was calculated : lightning damage magnification . 1 usually .")]
 			[DefaultValue((Single)1)]
@@ -541,7 +543,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "物理攻撃力倍率", Google translated: "Physical Attack magnification".
 			/// Japanese description: "物理攻撃力に設定した数値をかけます", Google translated: "Multiply the number you set to Physical Attack".
 			/// </remarks>
-			[ParameterTableRowAttribute("physicsAttackPowerRate", index: 18, minimum: -99, maximum: 99, step: 0.001, order: 3500, unknown2: 1)]
+			[ParameterTableRowAttribute("physicsAttackPowerRate", index: 18, minimum: -99, maximum: 99, step: 0.001, sortOrder: 3500, unknown2: 1)]
 			[DisplayName("Physical Attack magnification")]
 			[Description("Multiply the number you set to Physical Attack")]
 			[DefaultValue((Single)1)]
@@ -559,7 +561,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "魔法攻撃力倍率", Google translated: "Magic attack power magnification".
 			/// Japanese description: "魔法攻撃力に設定した数値をかけます", Google translated: "Multiply the number you set in the Magic Attack".
 			/// </remarks>
-			[ParameterTableRowAttribute("magicAttackPowerRate", index: 19, minimum: -99, maximum: 99, step: 0.001, order: 3600, unknown2: 1)]
+			[ParameterTableRowAttribute("magicAttackPowerRate", index: 19, minimum: -99, maximum: 99, step: 0.001, sortOrder: 3600, unknown2: 1)]
 			[DisplayName("Magic attack power magnification")]
 			[Description("Multiply the number you set in the Magic Attack")]
 			[DefaultValue((Single)1)]
@@ -577,7 +579,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "炎攻撃力倍率", Google translated: "Flame attack power magnification".
 			/// Japanese description: "炎攻撃力に設定した数値をかけます", Google translated: "Multiply the number you set fire to attack power".
 			/// </remarks>
-			[ParameterTableRowAttribute("fireAttackPowerRate", index: 20, minimum: -99, maximum: 99, step: 0.001, order: 3700, unknown2: 1)]
+			[ParameterTableRowAttribute("fireAttackPowerRate", index: 20, minimum: -99, maximum: 99, step: 0.001, sortOrder: 3700, unknown2: 1)]
 			[DisplayName("Flame attack power magnification")]
 			[Description("Multiply the number you set fire to attack power")]
 			[DefaultValue((Single)1)]
@@ -595,7 +597,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "電撃攻撃力倍率", Google translated: "Blitz attack power magnification".
 			/// Japanese description: "電撃攻撃力に設定した数値をかけます", Google translated: "Multiply the number you set to blitz attack power".
 			/// </remarks>
-			[ParameterTableRowAttribute("thunderAttackPowerRate", index: 21, minimum: -99, maximum: 99, step: 0.001, order: 3710, unknown2: 1)]
+			[ParameterTableRowAttribute("thunderAttackPowerRate", index: 21, minimum: -99, maximum: 99, step: 0.001, sortOrder: 3710, unknown2: 1)]
 			[DisplayName("Blitz attack power magnification")]
 			[Description("Multiply the number you set to blitz attack power")]
 			[DefaultValue((Single)1)]
@@ -613,7 +615,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "物理攻撃力[point]", Google translated: "Physical Attack [point]".
 			/// Japanese description: "物理攻撃力に設定した数値を加減算する", Google translated: "And adding or subtracting the value it is set to Physical Attack".
 			/// </remarks>
-			[ParameterTableRowAttribute("physicsAttackPower", index: 22, minimum: -9999, maximum: 9999, step: 1, order: 3800, unknown2: 1)]
+			[ParameterTableRowAttribute("physicsAttackPower", index: 22, minimum: -9999, maximum: 9999, step: 1, sortOrder: 3800, unknown2: 1)]
 			[DisplayName("Physical Attack [point]")]
 			[Description("And adding or subtracting the value it is set to Physical Attack")]
 			[DefaultValue((Int32)0)]
@@ -631,7 +633,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "魔法攻撃力[point]", Google translated: "Magic Attack [point]".
 			/// Japanese description: "魔法攻撃力に設定した数値を加減算する", Google translated: "And adding or subtracting the number you set in the Magic Attack".
 			/// </remarks>
-			[ParameterTableRowAttribute("magicAttackPower", index: 23, minimum: -9999, maximum: 9999, step: 1, order: 3900, unknown2: 1)]
+			[ParameterTableRowAttribute("magicAttackPower", index: 23, minimum: -9999, maximum: 9999, step: 1, sortOrder: 3900, unknown2: 1)]
 			[DisplayName("Magic Attack [point]")]
 			[Description("And adding or subtracting the number you set in the Magic Attack")]
 			[DefaultValue((Int32)0)]
@@ -649,7 +651,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "炎攻撃力[point]", Google translated: "Flame attack power [point]".
 			/// Japanese description: "炎攻撃力に設定した数値を加減算する", Google translated: "And adding or subtracting the number you set fire to attack power".
 			/// </remarks>
-			[ParameterTableRowAttribute("fireAttackPower", index: 24, minimum: -9999, maximum: 9999, step: 1, order: 4000, unknown2: 1)]
+			[ParameterTableRowAttribute("fireAttackPower", index: 24, minimum: -9999, maximum: 9999, step: 1, sortOrder: 4000, unknown2: 1)]
 			[DisplayName("Flame attack power [point]")]
 			[Description("And adding or subtracting the number you set fire to attack power")]
 			[DefaultValue((Int32)0)]
@@ -667,7 +669,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "電撃攻撃力[point]", Google translated: "Blitz Attack Power [point]".
 			/// Japanese description: "電撃攻撃力に設定した数値を加減算する", Google translated: "And adding or subtracting the value it is set to blitz attack power".
 			/// </remarks>
-			[ParameterTableRowAttribute("thunderAttackPower", index: 25, minimum: -9999, maximum: 9999, step: 1, order: 4010, unknown2: 1)]
+			[ParameterTableRowAttribute("thunderAttackPower", index: 25, minimum: -9999, maximum: 9999, step: 1, sortOrder: 4010, unknown2: 1)]
 			[DisplayName("Blitz Attack Power [point]")]
 			[Description("And adding or subtracting the value it is set to blitz attack power")]
 			[DefaultValue((Int32)0)]
@@ -685,7 +687,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "物理防御力倍率", Google translated: "Physical Def magnification".
 			/// Japanese description: "物理防御力に設定した数値をかけます", Google translated: "Multiply the number you set in Physical Defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("physicsDiffenceRate", index: 26, minimum: -99, maximum: 99, step: 0.001, order: 4100, unknown2: 1)]
+			[ParameterTableRowAttribute("physicsDiffenceRate", index: 26, minimum: -99, maximum: 99, step: 0.001, sortOrder: 4100, unknown2: 1)]
 			[DisplayName("Physical Def magnification")]
 			[Description("Multiply the number you set in Physical Defense")]
 			[DefaultValue((Single)1)]
@@ -703,7 +705,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "魔法防御力倍率", Google translated: "Magic defense magnification".
 			/// Japanese description: "魔法防御力に設定した数値をかけます", Google translated: "Multiply the number you set in the magic defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("magicDiffenceRate", index: 27, minimum: -99, maximum: 99, step: 0.001, order: 4200, unknown2: 1)]
+			[ParameterTableRowAttribute("magicDiffenceRate", index: 27, minimum: -99, maximum: 99, step: 0.001, sortOrder: 4200, unknown2: 1)]
 			[DisplayName("Magic defense magnification")]
 			[Description("Multiply the number you set in the magic defense")]
 			[DefaultValue((Single)1)]
@@ -721,7 +723,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "炎防御力倍率", Google translated: "Flame Defense magnification".
 			/// Japanese description: "炎防御力に設定した数値をかけます", Google translated: "Multiply the number you set on fire defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("fireDiffenceRate", index: 28, minimum: -99, maximum: 99, step: 0.001, order: 4300, unknown2: 1)]
+			[ParameterTableRowAttribute("fireDiffenceRate", index: 28, minimum: -99, maximum: 99, step: 0.001, sortOrder: 4300, unknown2: 1)]
 			[DisplayName("Flame Defense magnification")]
 			[Description("Multiply the number you set on fire defense")]
 			[DefaultValue((Single)1)]
@@ -739,7 +741,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "電撃防御力倍率", Google translated: "Blitz Defense magnification".
 			/// Japanese description: "電撃防御力に設定した数値をかけます", Google translated: "Multiply the number you set in the blitz defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("thunderDiffenceRate", index: 29, minimum: -99, maximum: 99, step: 0.001, order: 4310, unknown2: 1)]
+			[ParameterTableRowAttribute("thunderDiffenceRate", index: 29, minimum: -99, maximum: 99, step: 0.001, sortOrder: 4310, unknown2: 1)]
 			[DisplayName("Blitz Defense magnification")]
 			[Description("Multiply the number you set in the blitz defense")]
 			[DefaultValue((Single)1)]
@@ -757,7 +759,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "物理防御力[point]", Google translated: "Physical Defense [point]".
 			/// Japanese description: "物理防御力に設定した数値を加減算する", Google translated: "And adding or subtracting the number you set in Physical Defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("physicsDiffence", index: 30, minimum: -9999, maximum: 9999, step: 1, order: 4400, unknown2: 1)]
+			[ParameterTableRowAttribute("physicsDiffence", index: 30, minimum: -9999, maximum: 9999, step: 1, sortOrder: 4400, unknown2: 1)]
 			[DisplayName("Physical Defense [point]")]
 			[Description("And adding or subtracting the number you set in Physical Defense")]
 			[DefaultValue((Int32)0)]
@@ -775,7 +777,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "魔法防御力[point]", Google translated: "Magic defense [point]".
 			/// Japanese description: "魔法防御力に設定した数値を加減算する", Google translated: "And adding or subtracting the number you set in the magic defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("magicDiffence", index: 31, minimum: -9999, maximum: 9999, step: 1, order: 4500, unknown2: 1)]
+			[ParameterTableRowAttribute("magicDiffence", index: 31, minimum: -9999, maximum: 9999, step: 1, sortOrder: 4500, unknown2: 1)]
 			[DisplayName("Magic defense [point]")]
 			[Description("And adding or subtracting the number you set in the magic defense")]
 			[DefaultValue((Int32)0)]
@@ -793,7 +795,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "炎防御力[point]", Google translated: "Flame Defense [point]".
 			/// Japanese description: "炎防御力に設定した数値を加減算する", Google translated: "And adding or subtracting a number that has been set to fire Defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("fireDiffence", index: 32, minimum: -9999, maximum: 9999, step: 1, order: 4600, unknown2: 1)]
+			[ParameterTableRowAttribute("fireDiffence", index: 32, minimum: -9999, maximum: 9999, step: 1, sortOrder: 4600, unknown2: 1)]
 			[DisplayName("Flame Defense [point]")]
 			[Description("And adding or subtracting a number that has been set to fire Defense")]
 			[DefaultValue((Int32)0)]
@@ -811,7 +813,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "電撃防御力[point]", Google translated: "Blitz Defense [point]".
 			/// Japanese description: "電撃防御力に設定した数値を加減算する", Google translated: "And adding or subtracting the value it is set to blitz defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("thunderDiffence", index: 33, minimum: -9999, maximum: 9999, step: 1, order: 4610, unknown2: 1)]
+			[ParameterTableRowAttribute("thunderDiffence", index: 33, minimum: -9999, maximum: 9999, step: 1, sortOrder: 4610, unknown2: 1)]
 			[DisplayName("Blitz Defense [point]")]
 			[Description("And adding or subtracting the value it is set to blitz defense")]
 			[DefaultValue((Int32)0)]
@@ -829,7 +831,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "隙ダメージ倍率", Google translated: "Chance damage magnification".
 			/// Japanese description: "隙のときのダメージ倍率を、設定した数値に置き換える（ダメージ側に設定）", Google translated: "( Set to damage the side ) to replace the values ​​set , the magnification of the damage when the gap".
 			/// </remarks>
-			[ParameterTableRowAttribute("NoGuardDamageRate", index: 34, minimum: -100, maximum: 100, step: 0.01, order: 4700, unknown2: 1)]
+			[ParameterTableRowAttribute("NoGuardDamageRate", index: 34, minimum: -100, maximum: 100, step: 0.01, sortOrder: 4700, unknown2: 1)]
 			[DisplayName("Chance damage magnification")]
 			[Description("( Set to damage the side ) to replace the values ​​set , the magnification of the damage when the gap")]
 			[DefaultValue((Single)1)]
@@ -847,7 +849,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スィートスポット倍率", Google translated: "Sweet spot magnification".
 			/// Japanese description: "スィートスポットのダメージ計算を指定した数値に差し替える(急所ダメージ補正) -1.0で無効", Google translated: "Disable to replace the numerical value that you specify a damage calculation of the sweet spot in the ( Key points damage correction ) -1.0".
 			/// </remarks>
-			[ParameterTableRowAttribute("vitalSpotChangeRate", index: 35, minimum: -1, maximum: 99, step: 0.001, order: 4800, unknown2: 1)]
+			[ParameterTableRowAttribute("vitalSpotChangeRate", index: 35, minimum: -1, maximum: 99, step: 0.001, sortOrder: 4800, unknown2: 1)]
 			[DisplayName("Sweet spot magnification")]
 			[Description("Disable to replace the numerical value that you specify a damage calculation of the sweet spot in the ( Key points damage correction ) -1.0")]
 			[DefaultValue((Single)(-1))]
@@ -865,7 +867,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ノーマルヒット倍率", Google translated: "Normal hit magnification".
 			/// Japanese description: "ノーマルヒットのダメージ計算を指定した数値に差し替える  -1.0で無効", Google translated: "Disabled by -1.0 to plug in the number you specify the damage calculation of normal hit".
 			/// </remarks>
-			[ParameterTableRowAttribute("normalSpotChangeRate", index: 36, minimum: -1, maximum: 99, step: 0.001, order: 4900, unknown2: 1)]
+			[ParameterTableRowAttribute("normalSpotChangeRate", index: 36, minimum: -1, maximum: 99, step: 0.001, sortOrder: 4900, unknown2: 1)]
 			[DisplayName("Normal hit magnification")]
 			[Description("Disabled by -1.0 to plug in the number you specify the damage calculation of normal hit")]
 			[DefaultValue((Single)(-1))]
@@ -883,7 +885,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "最大HP変化倍率", Google translated: "Maximum HP fold change".
 			/// Japanese description: "最大HPに対して、設定された倍率をかけて増減させる", Google translated: "To increase or decrease over the magnification of the maximum HP, the set".
 			/// </remarks>
-			[ParameterTableRowAttribute("maxHpChangeRate", index: 37, minimum: 0, maximum: 99, step: 0.001, order: 5000, unknown2: 1)]
+			[ParameterTableRowAttribute("maxHpChangeRate", index: 37, minimum: 0, maximum: 99, step: 0.001, sortOrder: 5000, unknown2: 1)]
 			[DisplayName("Maximum HP fold change")]
 			[Description("To increase or decrease over the magnification of the maximum HP, the set")]
 			[DefaultValue((Single)0)]
@@ -901,7 +903,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "行動ID指定枠", Google translated: "Action ID specified frame".
 			/// Japanese description: "特殊効果から行動IDを使ってダメージを与える場合に指定-1で無効", Google translated: "Invalid specify -1 in the case of damage by using the action ID from the special effects".
 			/// </remarks>
-			[ParameterTableRowAttribute("behaviorId", index: 38, minimum: -1, maximum: 1E+08, step: 1, order: 5010, unknown2: 1)]
+			[ParameterTableRowAttribute("behaviorId", index: 38, minimum: -1, maximum: 1E+08, step: 1, sortOrder: 5010, unknown2: 1)]
 			[DisplayName("Action ID specified frame")]
 			[Description("Invalid specify -1 in the case of damage by using the action ID from the special effects")]
 			[DefaultValue((Int32)(-1))]
@@ -919,7 +921,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "HPダメージ量[%]", Google translated: "HP amount of damage [% ]".
 			/// Japanese description: "最大HPの何%分を毎秒加算（または減算）するかを設定", Google translated: "Set what % of the maximum HP whether to ( or subtracted ) per second addition".
 			/// </remarks>
-			[ParameterTableRowAttribute("changeHpRate", index: 39, minimum: -100, maximum: 100, step: 0.1, order: 5100, unknown2: 1)]
+			[ParameterTableRowAttribute("changeHpRate", index: 39, minimum: -100, maximum: 100, step: 0.1, sortOrder: 5100, unknown2: 1)]
 			[DisplayName("HP amount of damage [% ]")]
 			[Description("Set what % of the maximum HP whether to ( or subtracted ) per second addition")]
 			[DefaultValue((Single)0)]
@@ -937,7 +939,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "HPダメージ[point]", Google translated: "HP damage [point]".
 			/// Japanese description: "1秒間に何ポイント加算（または減算）するかを設定", Google translated: "Set what point addition whether to ( or subtracted from ) per second".
 			/// </remarks>
-			[ParameterTableRowAttribute("changeHpPoint", index: 40, minimum: -9999, maximum: 9999, step: 1, order: 5200, unknown2: 1)]
+			[ParameterTableRowAttribute("changeHpPoint", index: 40, minimum: -9999, maximum: 9999, step: 1, sortOrder: 5200, unknown2: 1)]
 			[DisplayName("HP damage [point]")]
 			[Description("Set what point addition whether to ( or subtracted from ) per second")]
 			[DefaultValue((Int32)0)]
@@ -955,7 +957,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "MPダメージ量[%]", Google translated: "MP amount of damage [% ]".
 			/// Japanese description: "最大MPの何%分を毎秒加算（または減算）するかを設定", Google translated: "Set what % of the maximum MP whether to ( or subtracted ) per second addition".
 			/// </remarks>
-			[ParameterTableRowAttribute("changeMpRate", index: 41, minimum: -100, maximum: 100, step: 0.1, order: 5300, unknown2: 1)]
+			[ParameterTableRowAttribute("changeMpRate", index: 41, minimum: -100, maximum: 100, step: 0.1, sortOrder: 5300, unknown2: 1)]
 			[DisplayName("MP amount of damage [% ]")]
 			[Description("Set what % of the maximum MP whether to ( or subtracted ) per second addition")]
 			[DefaultValue((Single)0)]
@@ -973,7 +975,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "MPダメージ[point]", Google translated: "MP damage [point]".
 			/// Japanese description: "1秒間に何ポイント加算（または減算）するかを設定", Google translated: "Set what point addition whether to ( or subtracted from ) per second".
 			/// </remarks>
-			[ParameterTableRowAttribute("changeMpPoint", index: 42, minimum: -9999, maximum: 9999, step: 1, order: 5400, unknown2: 1)]
+			[ParameterTableRowAttribute("changeMpPoint", index: 42, minimum: -9999, maximum: 9999, step: 1, sortOrder: 5400, unknown2: 1)]
 			[DisplayName("MP damage [point]")]
 			[Description("Set what point addition whether to ( or subtracted from ) per second")]
 			[DefaultValue((Int32)0)]
@@ -991,7 +993,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "MP回復速度変化[point]", Google translated: "MP recovery speed change [point]".
 			/// Japanese description: "回復速度を変化させる。回復計算式の基準回復速度、初期回復速度に加減算する。", Google translated: "I vary the rate of recovery . I added to or subtracted from a reference rate of recovery of the recovery formula , the initial recovery rate .".
 			/// </remarks>
-			[ParameterTableRowAttribute("mpRecoverChangeSpeed", index: 43, minimum: -100, maximum: 100, step: 1, order: 5500, unknown2: 1)]
+			[ParameterTableRowAttribute("mpRecoverChangeSpeed", index: 43, minimum: -100, maximum: 100, step: 1, sortOrder: 5500, unknown2: 1)]
 			[DisplayName("MP recovery speed change [point]")]
 			[Description("I vary the rate of recovery . I added to or subtracted from a reference rate of recovery of the recovery formula , the initial recovery rate .")]
 			[DefaultValue((Int32)0)]
@@ -1009,7 +1011,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スタミナダメージ量[%]", Google translated: "Stamina amount of damage [% ]".
 			/// Japanese description: "最大スタミナの何%分を毎秒加算（または減算）するかを設定", Google translated: "Set what % of the maximum stamina whether to ( or subtracted ) per second addition".
 			/// </remarks>
-			[ParameterTableRowAttribute("changeStaminaRate", index: 44, minimum: -100, maximum: 100, step: 1, order: 5600, unknown2: 1)]
+			[ParameterTableRowAttribute("changeStaminaRate", index: 44, minimum: -100, maximum: 100, step: 1, sortOrder: 5600, unknown2: 1)]
 			[DisplayName("Stamina amount of damage [% ]")]
 			[Description("Set what % of the maximum stamina whether to ( or subtracted ) per second addition")]
 			[DefaultValue((Single)0)]
@@ -1027,7 +1029,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スタミナダメージ[point]", Google translated: "Stamina damage [point]".
 			/// Japanese description: "1秒間に何ポイント加算（または減算）するかを設定", Google translated: "Set what point addition whether to ( or subtracted from ) per second".
 			/// </remarks>
-			[ParameterTableRowAttribute("changeStaminaPoint", index: 45, minimum: -9999, maximum: 9999, step: 1, order: 5700, unknown2: 1)]
+			[ParameterTableRowAttribute("changeStaminaPoint", index: 45, minimum: -9999, maximum: 9999, step: 1, sortOrder: 5700, unknown2: 1)]
 			[DisplayName("Stamina damage [point]")]
 			[Description("Set what point addition whether to ( or subtracted from ) per second")]
 			[DefaultValue((Int32)0)]
@@ -1045,7 +1047,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スタミナ回復速度変化[point]", Google translated: "Stamina recovery speed change [point]".
 			/// Japanese description: "回復速度を変化させる。回復計算式の基準回復速度、初期回復速度に加減算する。", Google translated: "I vary the rate of recovery . I added to or subtracted from a reference rate of recovery of the recovery formula , the initial recovery rate .".
 			/// </remarks>
-			[ParameterTableRowAttribute("staminaRecoverChangeSpeed", index: 46, minimum: -100, maximum: 100, step: 1, order: 5800, unknown2: 1)]
+			[ParameterTableRowAttribute("staminaRecoverChangeSpeed", index: 46, minimum: -100, maximum: 100, step: 1, sortOrder: 5800, unknown2: 1)]
 			[DisplayName("Stamina recovery speed change [point]")]
 			[Description("I vary the rate of recovery . I added to or subtracted from a reference rate of recovery of the recovery formula , the initial recovery rate .")]
 			[DefaultValue((Int32)0)]
@@ -1063,7 +1065,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "魔法効果時間変化", Google translated: "Magic effect time change".
 			/// Japanese description: "効果持続時間に0.1秒以上設定されている魔法のみ、効果持続時間に設定されている時間を加減算する", Google translated: "Magic is set at least 0.1 second in duration of effect only , adding or subtracting the time set in the duration of effect".
 			/// </remarks>
-			[ParameterTableRowAttribute("magicEffectTimeChange", index: 47, minimum: -999, maximum: 999, step: 0.1, order: 5900, unknown2: 1)]
+			[ParameterTableRowAttribute("magicEffectTimeChange", index: 47, minimum: -999, maximum: 999, step: 0.1, sortOrder: 5900, unknown2: 1)]
 			[DisplayName("Magic effect time change")]
 			[Description("Magic is set at least 0.1 second in duration of effect only , adding or subtracting the time set in the duration of effect")]
 			[DefaultValue((Single)0)]
@@ -1081,7 +1083,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "耐久度変化：内部損耗度[point]", Google translated: "Durability change : internal wear degree [point]".
 			/// Japanese description: "内部損耗度に数値分を加減算する", Google translated: "I added to or subtracted from the value worth of internal wear degree".
 			/// </remarks>
-			[ParameterTableRowAttribute("insideDurability", index: 48, minimum: -999, maximum: 999, step: 1, order: 6000, unknown2: 1)]
+			[ParameterTableRowAttribute("insideDurability", index: 48, minimum: -999, maximum: 999, step: 1, sortOrder: 6000, unknown2: 1)]
 			[DisplayName("Durability change : internal wear degree [point]")]
 			[Description("I added to or subtracted from the value worth of internal wear degree")]
 			[DefaultValue((Int32)0)]
@@ -1099,7 +1101,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "耐久度変化：最大損耗度変化[point]", Google translated: "Durability change : maximum wear of change [point]".
 			/// Japanese description: "耐久度の内部損耗度の最大値に、設定された数値を加算する", Google translated: "The maximum value of the internal wear of the durability , I will add the number set".
 			/// </remarks>
-			[ParameterTableRowAttribute("maxDurability", index: 49, minimum: 0, maximum: 999, step: 1, order: 6100, unknown2: 1)]
+			[ParameterTableRowAttribute("maxDurability", index: 49, minimum: 0, maximum: 999, step: 1, sortOrder: 6100, unknown2: 1)]
 			[DisplayName("Durability change : maximum wear of change [point]")]
 			[Description("The maximum value of the internal wear of the durability , I will add the number set")]
 			[DefaultValue((Int32)0)]
@@ -1117,7 +1119,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "スタミナ攻撃力倍率", Google translated: "Stamina attack power magnification".
 			/// Japanese description: "スタミナ攻撃力に、倍率をかける(1.0 1倍 0.5 半分）", Google translated: "Stamina to attack power , and multiplying by magnification (1.0 × 0.5 1 half )".
 			/// </remarks>
-			[ParameterTableRowAttribute("staminaAttackRate", index: 50, minimum: 0, maximum: 99, step: 0.1, order: 6200, unknown2: 1)]
+			[ParameterTableRowAttribute("staminaAttackRate", index: 50, minimum: 0, maximum: 99, step: 0.1, sortOrder: 6200, unknown2: 1)]
 			[DisplayName("Stamina attack power magnification")]
 			[Description("Stamina to attack power , and multiplying by magnification (1.0 × 0.5 1 half )")]
 			[DefaultValue((Single)1)]
@@ -1135,7 +1137,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "毒耐性攻撃力[point]", Google translated: "Poison Resistance attack power [point]".
 			/// Japanese description: "ヒットした時に、対象の【毒耐性値】に加算する数値", Google translated: "When you hit, the numerical value to be added to the target of poison resistance value ]".
 			/// </remarks>
-			[ParameterTableRowAttribute("poizonAttackPower", index: 51, minimum: -99999, maximum: 99999, step: 1, order: 6400, unknown2: 1)]
+			[ParameterTableRowAttribute("poizonAttackPower", index: 51, minimum: -99999, maximum: 99999, step: 1, sortOrder: 6400, unknown2: 1)]
 			[DisplayName("Poison Resistance attack power [point]")]
 			[Description("When you hit, the numerical value to be added to the target of poison resistance value ]")]
 			[DefaultValue((Int32)0)]
@@ -1153,7 +1155,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "疫病耐性攻撃力[point]", Google translated: "Resistant plague attack power [point]".
 			/// Japanese description: "ヒットした時に、対象の【疫病耐性値】に加算する数値", Google translated: "When you hit, the numerical value to be added to the target resistance value [ plague ]".
 			/// </remarks>
-			[ParameterTableRowAttribute("registIllness", index: 52, minimum: -99999, maximum: 99999, step: 1, order: 6500, unknown2: 1)]
+			[ParameterTableRowAttribute("registIllness", index: 52, minimum: -99999, maximum: 99999, step: 1, sortOrder: 6500, unknown2: 1)]
 			[DisplayName("Resistant plague attack power [point]")]
 			[Description("When you hit, the numerical value to be added to the target resistance value [ plague ]")]
 			[DefaultValue((Int32)0)]
@@ -1171,7 +1173,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "出血耐性攻撃力[point]", Google translated: "Bleeding resistance attack power [point]".
 			/// Japanese description: "ヒットした時に、対象の【出血耐性値】に加算する数値", Google translated: "When you hit, the numerical value to be added to the target resistance value [ bleeding ]".
 			/// </remarks>
-			[ParameterTableRowAttribute("registBlood", index: 53, minimum: -99999, maximum: 99999, step: 1, order: 6600, unknown2: 1)]
+			[ParameterTableRowAttribute("registBlood", index: 53, minimum: -99999, maximum: 99999, step: 1, sortOrder: 6600, unknown2: 1)]
 			[DisplayName("Bleeding resistance attack power [point]")]
 			[Description("When you hit, the numerical value to be added to the target resistance value [ bleeding ]")]
 			[DefaultValue((Int32)0)]
@@ -1189,7 +1191,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "呪耐性攻撃力[point]", Google translated: "Curse resistance attack power [point]".
 			/// Japanese description: "ヒットした時に、対象の【呪耐性値】に加算する数値", Google translated: "When you hit, the numerical value to be added to the target resistance value [ curse ]".
 			/// </remarks>
-			[ParameterTableRowAttribute("registCurse", index: 54, minimum: -99999, maximum: 99999, step: 1, order: 6610, unknown2: 1)]
+			[ParameterTableRowAttribute("registCurse", index: 54, minimum: -99999, maximum: 99999, step: 1, sortOrder: 6610, unknown2: 1)]
 			[DisplayName("Curse resistance attack power [point]")]
 			[Description("When you hit, the numerical value to be added to the target resistance value [ curse ]")]
 			[DefaultValue((Int32)0)]
@@ -1207,7 +1209,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "落下ダメージ倍率", Google translated: "Falling damage magnification".
 			/// Japanese description: "落下時のダメージ計算に倍率をかける", Google translated: "I put a magnification to damage calculation at the time of falling".
 			/// </remarks>
-			[ParameterTableRowAttribute("fallDamageRate", index: 55, minimum: 0, maximum: 99, step: 0.001, order: 6700, unknown2: 1)]
+			[ParameterTableRowAttribute("fallDamageRate", index: 55, minimum: 0, maximum: 99, step: 0.001, sortOrder: 6700, unknown2: 1)]
 			[DisplayName("Falling damage magnification")]
 			[Description("I put a magnification to damage calculation at the time of falling")]
 			[DefaultValue((Single)0)]
@@ -1225,7 +1227,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "取得ソウル倍率", Google translated: "Get Seoul magnification".
 			/// Japanese description: "敵を倒した時の取得ソウル量が、指定倍数分上乗せされる", Google translated: "Seoul acquisition amount at the time of defeat the enemy is designated multiple minute plus".
 			/// </remarks>
-			[ParameterTableRowAttribute("soulRate", index: 56, minimum: 0, maximum: 99, step: 0.001, order: 6800, unknown2: 1)]
+			[ParameterTableRowAttribute("soulRate", index: 56, minimum: 0, maximum: 99, step: 0.001, sortOrder: 6800, unknown2: 1)]
 			[DisplayName("Get Seoul magnification")]
 			[Description("Seoul acquisition amount at the time of defeat the enemy is designated multiple minute plus")]
 			[DefaultValue((Single)0)]
@@ -1243,7 +1245,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "装備重量変化倍率", Google translated: "Equipment weight change magnification".
 			/// Japanese description: "最大装備重量に、設定された倍率をかける", Google translated: "The maximum weight equipment , I put the magnification set".
 			/// </remarks>
-			[ParameterTableRowAttribute("equipWeightChangeRate", index: 57, minimum: 0, maximum: 99, step: 0.001, order: 6900, unknown2: 1)]
+			[ParameterTableRowAttribute("equipWeightChangeRate", index: 57, minimum: 0, maximum: 99, step: 0.001, sortOrder: 6900, unknown2: 1)]
 			[DisplayName("Equipment weight change magnification")]
 			[Description("The maximum weight equipment , I put the magnification set")]
 			[DefaultValue((Single)0)]
@@ -1261,7 +1263,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "所持重量変化倍率", Google translated: "Possession weight change magnification".
 			/// Japanese description: "最大所持重量に、設定された倍率をかける", Google translated: "Maximum weight in possession , I bet the magnification set".
 			/// </remarks>
-			[ParameterTableRowAttribute("allItemWeightChangeRate", index: 58, minimum: 0, maximum: 99, step: 0.001, order: 7000, unknown2: 1)]
+			[ParameterTableRowAttribute("allItemWeightChangeRate", index: 58, minimum: 0, maximum: 99, step: 0.001, sortOrder: 7000, unknown2: 1)]
 			[DisplayName("Possession weight change magnification")]
 			[Description("Maximum weight in possession , I bet the magnification set")]
 			[DefaultValue((Single)0)]
@@ -1279,7 +1281,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ソウル加算", Google translated: "Seoul addition".
 			/// Japanese description: "所持ソウルに、設定値を加算する", Google translated: "Possession in Seoul , I added a set value".
 			/// </remarks>
-			[ParameterTableRowAttribute("soul", index: 59, minimum: -1E+08, maximum: 1E+08, step: 1, order: 7100, unknown2: 1)]
+			[ParameterTableRowAttribute("soul", index: 59, minimum: -1E+08, maximum: 1E+08, step: 1, sortOrder: 7100, unknown2: 1)]
 			[DisplayName("Seoul addition")]
 			[Description("Possession in Seoul , I added a set value")]
 			[DefaultValue((Int32)0)]
@@ -1297,7 +1299,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "アニメIDオフセット", Google translated: "Anime ID offset".
 			/// Japanese description: "アニメIDオフセット", Google translated: "Anime ID offset".
 			/// </remarks>
-			[ParameterTableRowAttribute("animIdOffset", index: 60, minimum: -1E+08, maximum: 1E+08, step: 1, order: 11150, unknown2: 1)]
+			[ParameterTableRowAttribute("animIdOffset", index: 60, minimum: -1E+08, maximum: 1E+08, step: 1, sortOrder: 11150, unknown2: 1)]
 			[DisplayName("Anime ID offset")]
 			[Description("Anime ID offset")]
 			[DefaultValue((Int32)0)]
@@ -1315,7 +1317,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "所持ソウル率", Google translated: "Seoul possession rate".
 			/// Japanese description: "敵周回効果用。設定されているキャラから外にソウルが出て行く時に適用されます。", Google translated: "Enemy around for effect . It applies when the soul is going out of the character that has been set .".
 			/// </remarks>
-			[ParameterTableRowAttribute("haveSoulRate", index: 61, minimum: 0, maximum: 99, step: 0.01, order: 7200, unknown2: 1)]
+			[ParameterTableRowAttribute("haveSoulRate", index: 61, minimum: 0, maximum: 99, step: 0.01, sortOrder: 7200, unknown2: 1)]
 			[DisplayName("Seoul possession rate")]
 			[Description("Enemy around for effect . It applies when the soul is going out of the character that has been set .")]
 			[DefaultValue((Single)1)]
@@ -1333,7 +1335,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ターゲット優先度加算分", Google translated: "Target priority adding minute".
 			/// Japanese description: "マルチプレイ時、敵から優先的にターゲットとして狙われるようになる。プライオリティの加算。０がデフォルト。プラス値でよく狙われるようになる。マイナスは、－１まで。", Google translated: "Multiplayer at the time , come to be targeted as a target on a priority basis from the enemy . Addition of priority . 0 is the default . I would be targeted as well with positive value . Negative , to -1 .".
 			/// </remarks>
-			[ParameterTableRowAttribute("targetPriority", index: 62, minimum: -1, maximum: 10, step: 0.01, order: 7300, unknown2: 1)]
+			[ParameterTableRowAttribute("targetPriority", index: 62, minimum: -1, maximum: 10, step: 0.01, sortOrder: 7300, unknown2: 1)]
 			[DisplayName("Target priority adding minute")]
 			[Description("Multiplayer at the time , come to be targeted as a target on a priority basis from the enemy . Addition of priority . 0 is the default . I would be targeted as well with positive value . Negative , to -1 .")]
 			[DefaultValue((Single)0)]
@@ -1351,7 +1353,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "視覚索敵カット", Google translated: "Visual search operation cut".
 			/// Japanese description: "AIの視覚索敵対象から外れやすくなる。０がデフォルト。", Google translated: "Can be easily detached from the visual search operation target of AI. 0 is the default .".
 			/// </remarks>
-			[ParameterTableRowAttribute("sightSearchEnemyCut", index: 63, minimum: 0, maximum: 100, step: 1, order: 7400, unknown2: 1)]
+			[ParameterTableRowAttribute("sightSearchEnemyCut", index: 63, minimum: 0, maximum: 100, step: 1, sortOrder: 7400, unknown2: 1)]
 			[DisplayName("Visual search operation cut")]
 			[Description("Can be easily detached from the visual search operation target of AI. 0 is the default .")]
 			[DefaultValue((Int32)0)]
@@ -1369,7 +1371,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "聴覚索敵カット", Google translated: "Hearing searching for the enemy cut".
 			/// Japanese description: "AIの聴覚索敵対象から外れやすくなる。０がデフォルト。", Google translated: "Can be easily detached from the subject of the hearing searching for the enemy AI. 0 is the default .".
 			/// </remarks>
-			[ParameterTableRowAttribute("hearingSearchEnemyCut", index: 64, minimum: 0, maximum: 100, step: 1, order: 7500, unknown2: 1)]
+			[ParameterTableRowAttribute("hearingSearchEnemyCut", index: 64, minimum: 0, maximum: 100, step: 1, sortOrder: 7500, unknown2: 1)]
 			[DisplayName("Hearing searching for the enemy cut")]
 			[Description("Can be easily detached from the subject of the hearing searching for the enemy AI. 0 is the default .")]
 			[DefaultValue((Int32)0)]
@@ -1387,7 +1389,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "グラビティ率", Google translated: "Gravity rate".
 			/// Japanese description: "グラビティ率", Google translated: "Gravity rate".
 			/// </remarks>
-			[ParameterTableRowAttribute("grabityRate", index: 65, minimum: 0, maximum: 1, step: 0.001, order: 8700, unknown2: 1)]
+			[ParameterTableRowAttribute("grabityRate", index: 65, minimum: 0, maximum: 1, step: 0.001, sortOrder: 8700, unknown2: 1)]
 			[DisplayName("Gravity rate")]
 			[Description("Gravity rate")]
 			[DefaultValue((Single)1)]
@@ -1405,7 +1407,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "毒耐性変化倍率", Google translated: "Poison -resistant fold change".
 			/// Japanese description: "毒耐性値に設定された倍率をかける", Google translated: "I bet rate set for poison resistance value".
 			/// </remarks>
-			[ParameterTableRowAttribute("registPoizonChangeRate", index: 66, minimum: -1, maximum: 99, step: 0.001, order: 8800, unknown2: 1)]
+			[ParameterTableRowAttribute("registPoizonChangeRate", index: 66, minimum: -1, maximum: 99, step: 0.001, sortOrder: 8800, unknown2: 1)]
 			[DisplayName("Poison -resistant fold change")]
 			[Description("I bet rate set for poison resistance value")]
 			[DefaultValue((Single)0)]
@@ -1423,7 +1425,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "疫病耐性変化倍率", Google translated: "Plague -resistant fold change".
 			/// Japanese description: "疫病耐性値に設定された倍率をかける", Google translated: "I bet rate set for plague resistance value".
 			/// </remarks>
-			[ParameterTableRowAttribute("registIllnessChangeRate", index: 67, minimum: -1, maximum: 99, step: 0.001, order: 8900, unknown2: 1)]
+			[ParameterTableRowAttribute("registIllnessChangeRate", index: 67, minimum: -1, maximum: 99, step: 0.001, sortOrder: 8900, unknown2: 1)]
 			[DisplayName("Plague -resistant fold change")]
 			[Description("I bet rate set for plague resistance value")]
 			[DefaultValue((Single)0)]
@@ -1441,7 +1443,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "出血耐性変化倍率", Google translated: "Bleeding resistance fold change".
 			/// Japanese description: "出血耐性値に設定された倍率をかける", Google translated: "I bet rate set for bleeding resistance value".
 			/// </remarks>
-			[ParameterTableRowAttribute("registBloodChangeRate", index: 68, minimum: -1, maximum: 99, step: 0.001, order: 9000, unknown2: 1)]
+			[ParameterTableRowAttribute("registBloodChangeRate", index: 68, minimum: -1, maximum: 99, step: 0.001, sortOrder: 9000, unknown2: 1)]
 			[DisplayName("Bleeding resistance fold change")]
 			[Description("I bet rate set for bleeding resistance value")]
 			[DefaultValue((Single)0)]
@@ -1459,7 +1461,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "呪耐性変化倍率", Google translated: "Curse -resistant fold change".
 			/// Japanese description: "呪耐性値に設定された倍率をかける", Google translated: "I bet rate set for spell resistance value".
 			/// </remarks>
-			[ParameterTableRowAttribute("registCurseChangeRate", index: 69, minimum: -1, maximum: 99, step: 0.001, order: 9010, unknown2: 1)]
+			[ParameterTableRowAttribute("registCurseChangeRate", index: 69, minimum: -1, maximum: 99, step: 0.001, sortOrder: 9010, unknown2: 1)]
 			[DisplayName("Curse -resistant fold change")]
 			[Description("I bet rate set for spell resistance value")]
 			[DefaultValue((Single)0)]
@@ -1477,7 +1479,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ソウルスティール係数", Google translated: "Seoul Steel factor".
 			/// Japanese description: "NPCがソウルスティールで奪われるHPに対する防御力", Google translated: "Defense against HP deprived in Seoul Steele NPC".
 			/// </remarks>
-			[ParameterTableRowAttribute("soulStealRate", index: 70, minimum: 0, maximum: 99, step: 0.001, order: 9100, unknown2: 1)]
+			[ParameterTableRowAttribute("soulStealRate", index: 70, minimum: 0, maximum: 99, step: 0.001, sortOrder: 9100, unknown2: 1)]
 			[DisplayName("Seoul Steel factor")]
 			[Description("Defense against HP deprived in Seoul Steele NPC")]
 			[DefaultValue((Single)0)]
@@ -1495,7 +1497,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "防御：寿命係数", Google translated: "Defense: life factor".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("lifeReductionRate", index: 71, minimum: 0, maximum: 99, step: 0.001, order: 10000, unknown2: 1)]
+			[ParameterTableRowAttribute("lifeReductionRate", index: 71, minimum: 0, maximum: 99, step: 0.001, sortOrder: 10000, unknown2: 1)]
 			[DisplayName("Defense: life factor")]
 			[Description("")]
 			[DefaultValue((Single)0)]
@@ -1513,7 +1515,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "HP回復量係数", Google translated: "HP recovery amount coefficient".
 			/// Japanese description: "HPが減るときは、効かない。", Google translated: "When HP is reduced, it does not work .".
 			/// </remarks>
-			[ParameterTableRowAttribute("hpRecoverRate", index: 72, minimum: 0, maximum: 99, step: 0.001, order: 10100, unknown2: 1)]
+			[ParameterTableRowAttribute("hpRecoverRate", index: 72, minimum: 0, maximum: 99, step: 0.001, sortOrder: 10100, unknown2: 1)]
 			[DisplayName("HP recovery amount coefficient")]
 			[Description("When HP is reduced, it does not work .")]
 			[DefaultValue((Single)0)]
@@ -1531,7 +1533,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "差し替える特殊効果", Google translated: "Special effects to replace".
 			/// Japanese description: "寿命が尽きた時に追加される特殊効果ID(-1は無視)", Google translated: "(-1 Is ignored) special effects ID to be added when the end-of-life".
 			/// </remarks>
-			[ParameterTableRowAttribute("replaceSpEffectId", index: 73, minimum: -1, maximum: 1E+09, step: 1, order: 11100, unknown2: 1)]
+			[ParameterTableRowAttribute("replaceSpEffectId", index: 73, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 11100, unknown2: 1)]
 			[DisplayName("Special effects to replace")]
 			[Description("(-1 Is ignored) special effects ID to be added when the end-of-life")]
 			[DefaultValue((Int32)(-1))]
@@ -1549,7 +1551,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "周期発生特殊効果", Google translated: "Cycle generating special effects".
 			/// Japanese description: "発動周期毎に発生する特殊効果ID(-1は無視)", Google translated: "(-1 Is ignored) ID special effects that occur to trigger cycle".
 			/// </remarks>
-			[ParameterTableRowAttribute("cycleOccurrenceSpEffectId", index: 74, minimum: -1, maximum: 1E+09, step: 1, order: 11101, unknown2: 1)]
+			[ParameterTableRowAttribute("cycleOccurrenceSpEffectId", index: 74, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 11101, unknown2: 1)]
 			[DisplayName("Cycle generating special effects")]
 			[Description("(-1 Is ignored) ID special effects that occur to trigger cycle")]
 			[DefaultValue((Int32)(-1))]
@@ -1567,7 +1569,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃発生特殊効果", Google translated: "Attack generation special effects".
 			/// Japanese description: "攻撃Hit時に発生する特殊効果ID(-1は無視)", Google translated: "(-1 Is ignored) ID special effects that occur during attack Hit".
 			/// </remarks>
-			[ParameterTableRowAttribute("atkOccurrenceSpEffectId", index: 75, minimum: -1, maximum: 1E+09, step: 1, order: 11102, unknown2: 1)]
+			[ParameterTableRowAttribute("atkOccurrenceSpEffectId", index: 75, minimum: -1, maximum: 1E+09, step: 1, sortOrder: 11102, unknown2: 1)]
 			[DisplayName("Attack generation special effects")]
 			[Description("(-1 Is ignored) ID special effects that occur during attack Hit")]
 			[DefaultValue((Int32)(-1))]
@@ -1585,7 +1587,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ガード時はじき防御力アップ倍率", Google translated: "Defense magnification up soon guard when".
 			/// Japanese description: "ガード時のはじき防御力補正値", Google translated: "Value correction defense repelling force of the guard at the time".
 			/// </remarks>
-			[ParameterTableRowAttribute("guardDefFlickPowerRate", index: 76, minimum: -99, maximum: 99, step: 0.01, order: 2753, unknown2: 1)]
+			[ParameterTableRowAttribute("guardDefFlickPowerRate", index: 76, minimum: -99, maximum: 99, step: 0.01, sortOrder: 2753, unknown2: 1)]
 			[DisplayName("Defense magnification up soon guard when")]
 			[Description("Value correction defense repelling force of the guard at the time")]
 			[DefaultValue((Single)1)]
@@ -1603,7 +1605,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ガード時スタミナカット倍率", Google translated: "Guard when stamina cut magnification".
 			/// Japanese description: "ガード時のスタミナカット率補正値", Google translated: "Stamina cut rate correction value of the guard at the time".
 			/// </remarks>
-			[ParameterTableRowAttribute("guardStaminaCutRate", index: 77, minimum: -99, maximum: 99, step: 0.01, order: 6210, unknown2: 1)]
+			[ParameterTableRowAttribute("guardStaminaCutRate", index: 77, minimum: -99, maximum: 99, step: 0.01, sortOrder: 6210, unknown2: 1)]
 			[DisplayName("Guard when stamina cut magnification")]
 			[Description("Stamina cut rate correction value of the guard at the time")]
 			[DefaultValue((Single)1)]
@@ -1621,7 +1623,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "視線通過：発動時間[ms]", Google translated: "Line of sight passing : casting time [ms]".
 			/// Japanese description: "視線通過：発動時間[ms]（邪眼用）", Google translated: "Line of sight passing : Casting Time [ms] ( evil eye for )".
 			/// </remarks>
-			[ParameterTableRowAttribute("rayCastPassedTime", index: 78, minimum: -1, maximum: 30000, step: 1, order: 10800, unknown2: 1)]
+			[ParameterTableRowAttribute("rayCastPassedTime", index: 78, minimum: -1, maximum: 30000, step: 1, sortOrder: 10800, unknown2: 1)]
 			[DisplayName("Line of sight passing : casting time [ms]")]
 			[Description("Line of sight passing : Casting Time [ms] ( evil eye for )")]
 			[DefaultValue((Int16)(-1))]
@@ -1639,7 +1641,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "SA値[point]", Google translated: "SA value [point]".
 			/// Japanese description: "スーパーアーマー値に加算する値", Google translated: "Value to be added to the super armor".
 			/// </remarks>
-			[ParameterTableRowAttribute("changeSuperArmorPoint", index: 79, minimum: -9999, maximum: 9999, step: 1, order: 5810, unknown2: 1)]
+			[ParameterTableRowAttribute("changeSuperArmorPoint", index: 79, minimum: -9999, maximum: 9999, step: 1, sortOrder: 5810, unknown2: 1)]
 			[DisplayName("SA value [point]")]
 			[Description("Value to be added to the super armor")]
 			[DefaultValue((Int16)0)]
@@ -1657,7 +1659,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "弓飛距離補正[％]", Google translated: "Bow flying distance correction [ %]".
 			/// Japanese description: "武器の飛距離補正に加算される補正値", Google translated: "Correction value to be added to the distance correction of weapons".
 			/// </remarks>
-			[ParameterTableRowAttribute("bowDistRate", index: 80, minimum: -100, maximum: 999, step: 1, order: 6220, unknown2: 1)]
+			[ParameterTableRowAttribute("bowDistRate", index: 80, minimum: -100, maximum: 999, step: 1, sortOrder: 6220, unknown2: 1)]
 			[DisplayName("Bow flying distance correction [ %]")]
 			[Description("Correction value to be added to the distance correction of weapons")]
 			[DefaultValue((Int16)0)]
@@ -1675,7 +1677,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "特殊効果カテゴリ", Google translated: "Special effects category".
 			/// Japanese description: "特殊効果の上書きなどの挙動を決めるカテゴリ", Google translated: "A category that determine the behavior , such as overwriting of special effects".
 			/// </remarks>
-			[ParameterTableRowAttribute("spCategory", index: 81, minimum: 0, maximum: 60000, step: 1, order: 210, unknown2: 1)]
+			[ParameterTableRowAttribute("spCategory", index: 81, minimum: 0, maximum: 60000, step: 1, sortOrder: 210, unknown2: 1)]
 			[DisplayName("Special effects category")]
 			[Description("A category that determine the behavior , such as overwriting of special effects")]
 			[DefaultValue((SpecialEffectSpCategory)0)]
@@ -1689,7 +1691,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "カテゴリ内優先度", Google translated: "Category priority".
 			/// Japanese description: "同一カテゴリ内での優先度（低い方が優先）", Google translated: "( Lower priority ) priority in the same category".
 			/// </remarks>
-			[ParameterTableRowAttribute("categoryPriority", index: 82, minimum: 0, maximum: 255, step: 1, order: 220, unknown2: 1)]
+			[ParameterTableRowAttribute("categoryPriority", index: 82, minimum: 0, maximum: 255, step: 1, sortOrder: 220, unknown2: 1)]
 			[DisplayName("Category priority")]
 			[Description("( Lower priority ) priority in the same category")]
 			[DefaultValue((Byte)0)]
@@ -1707,7 +1709,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "保存カテゴリ", Google translated: "Save category".
 			/// Japanese description: "特殊効果を保存するカテゴリ", Google translated: "Category in which to save the special effects".
 			/// </remarks>
-			[ParameterTableRowAttribute("saveCategory", index: 83, minimum: -1, maximum: 127, step: 1, order: 230, unknown2: 1)]
+			[ParameterTableRowAttribute("saveCategory", index: 83, minimum: -1, maximum: 127, step: 1, sortOrder: 230, unknown2: 1)]
 			[DisplayName("Save category")]
 			[Description("Category in which to save the special effects")]
 			[DefaultValue((SpecialEffectSaveCategory)(-1))]
@@ -1721,7 +1723,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "魔法登録枠変化　魔法スロット", Google translated: "Magic registration frame change magic slot".
 			/// Japanese description: "魔法登録枠を指定数増やすことが出来る", Google translated: "It is possible to increase the specified number of magic registration frame".
 			/// </remarks>
-			[ParameterTableRowAttribute("changeMagicSlot", index: 84, minimum: 0, maximum: 3, step: 1, order: 8300, unknown2: 1)]
+			[ParameterTableRowAttribute("changeMagicSlot", index: 84, minimum: 0, maximum: 3, step: 1, sortOrder: 8300, unknown2: 1)]
 			[DisplayName("Magic registration frame change magic slot")]
 			[Description("It is possible to increase the specified number of magic registration frame")]
 			[DefaultValue((Byte)0)]
@@ -1739,7 +1741,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "奇跡登録枠変化　奇跡スロット", Google translated: "Miracle miracle change registration frame slot".
 			/// Japanese description: "軌跡登録枠を指定数増やすことが出来る", Google translated: "It is possible to increase the number of specified trajectory registration frame".
 			/// </remarks>
-			[ParameterTableRowAttribute("changeMiracleSlot", index: 85, minimum: 0, maximum: 3, step: 1, order: 8400, unknown2: 1)]
+			[ParameterTableRowAttribute("changeMiracleSlot", index: 85, minimum: 0, maximum: 3, step: 1, sortOrder: 8400, unknown2: 1)]
 			[DisplayName("Miracle miracle change registration frame slot")]
 			[Description("It is possible to increase the number of specified trajectory registration frame")]
 			[DefaultValue((Byte)0)]
@@ -1757,7 +1759,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "人間性ダメージ値", Google translated: "Human nature damage value".
 			/// Japanese description: "人間性値に与えるダメージ値", Google translated: "Damage value given to human nature value".
 			/// </remarks>
-			[ParameterTableRowAttribute("heroPointDamage", index: 86, minimum: -99, maximum: 99, step: 1, order: 11200, unknown2: 1)]
+			[ParameterTableRowAttribute("heroPointDamage", index: 86, minimum: -99, maximum: 99, step: 1, sortOrder: 11200, unknown2: 1)]
 			[DisplayName("Human nature damage value")]
 			[Description("Damage value given to human nature value")]
 			[DefaultValue((SByte)0)]
@@ -1775,7 +1777,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "はじき防御力_上書き", Google translated: "Repelling Defense _ overwrite".
 			/// Japanese description: "はじき防御力を上書きする値を設定", Google translated: "Set the value to override the flick Defense".
 			/// </remarks>
-			[ParameterTableRowAttribute("defFlickPower", index: 87, minimum: 0, maximum: 255, step: 1, order: 2751, unknown2: 1)]
+			[ParameterTableRowAttribute("defFlickPower", index: 87, minimum: 0, maximum: 255, step: 1, sortOrder: 2751, unknown2: 1)]
 			[DisplayName("Repelling Defense _ overwrite")]
 			[Description("Set the value to override the flick Defense")]
 			[DefaultValue((Byte)0)]
@@ -1793,7 +1795,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "はじき時ダメージ減衰率[%]_上書き", Google translated: "Repelling when damage attenuation rate [ %] _ overwrite".
 			/// Japanese description: "はじき時のダメージ減衰率を上書きする値を設定", Google translated: "Set the value to override the damage attenuation rate at the time of repelling".
 			/// </remarks>
-			[ParameterTableRowAttribute("flickDamageCutRate", index: 88, minimum: 0, maximum: 100, step: 1, order: 2752, unknown2: 1)]
+			[ParameterTableRowAttribute("flickDamageCutRate", index: 88, minimum: 0, maximum: 100, step: 1, sortOrder: 2752, unknown2: 1)]
 			[DisplayName("Repelling when damage attenuation rate [ %] _ overwrite")]
 			[Description("Set the value to override the damage attenuation rate at the time of repelling")]
 			[DefaultValue((Byte)0)]
@@ -1811,7 +1813,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "出血ダメージ補正倍率", Google translated: "Bleeding damage magnification correction".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("bloodDamageRate", index: 89, minimum: 0, maximum: 255, step: 1, order: 9020, unknown2: 1)]
+			[ParameterTableRowAttribute("bloodDamageRate", index: 89, minimum: 0, maximum: 255, step: 1, sortOrder: 9020, unknown2: 1)]
 			[DisplayName("Bleeding damage magnification correction")]
 			[Description("")]
 			[DefaultValue((Byte)100)]
@@ -1829,7 +1831,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "DL_ダメージなし（0）", Google translated: "No damage DL_ ( 0)".
 			/// Japanese description: "ダメージLv0を差し替えるタイプを指定", Google translated: "Specifies the type supersede damage Lv0".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmgLv_None", index: 90, minimum: 0, maximum: 127, step: 1, order: 2711, unknown2: 1)]
+			[ParameterTableRowAttribute("dmgLv_None", index: 90, minimum: 0, maximum: 127, step: 1, sortOrder: 2711, unknown2: 1)]
 			[DisplayName("No damage DL_ ( 0)")]
 			[Description("Specifies the type supersede damage Lv0")]
 			[DefaultValue((ATKPARAM_REP_DMGTYPE)0)]
@@ -1843,7 +1845,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "DL_小（1）", Google translated: "DL_ Small ( 1)".
 			/// Japanese description: "ダメージLv1を差し替えるタイプを指定", Google translated: "Specifies the type supersede damage Lv1".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmgLv_S", index: 91, minimum: 0, maximum: 127, step: 1, order: 2713, unknown2: 1)]
+			[ParameterTableRowAttribute("dmgLv_S", index: 91, minimum: 0, maximum: 127, step: 1, sortOrder: 2713, unknown2: 1)]
 			[DisplayName("DL_ Small ( 1)")]
 			[Description("Specifies the type supersede damage Lv1")]
 			[DefaultValue((ATKPARAM_REP_DMGTYPE)0)]
@@ -1857,7 +1859,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "DL_中（2）", Google translated: "DL_ in ( 2 )".
 			/// Japanese description: "ダメージLv2を差し替えるタイプを指定", Google translated: "Specifies the type supersede damage Lv2".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmgLv_M", index: 92, minimum: 0, maximum: 127, step: 1, order: 2714, unknown2: 1)]
+			[ParameterTableRowAttribute("dmgLv_M", index: 92, minimum: 0, maximum: 127, step: 1, sortOrder: 2714, unknown2: 1)]
 			[DisplayName("DL_ in ( 2 )")]
 			[Description("Specifies the type supersede damage Lv2")]
 			[DefaultValue((ATKPARAM_REP_DMGTYPE)0)]
@@ -1871,7 +1873,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "DL_大（3）", Google translated: "DL_ Large ( 3)".
 			/// Japanese description: "ダメージLv3を差し替えるタイプを指定", Google translated: "Specifies the type supersede damage Lv3".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmgLv_L", index: 93, minimum: 0, maximum: 127, step: 1, order: 2715, unknown2: 1)]
+			[ParameterTableRowAttribute("dmgLv_L", index: 93, minimum: 0, maximum: 127, step: 1, sortOrder: 2715, unknown2: 1)]
 			[DisplayName("DL_ Large ( 3)")]
 			[Description("Specifies the type supersede damage Lv3")]
 			[DefaultValue((ATKPARAM_REP_DMGTYPE)0)]
@@ -1885,7 +1887,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "DL_吹っ飛び（4）", Google translated: "The Futtobi DL_ (4)".
 			/// Japanese description: "ダメージLv4を差し替えるタイプを指定", Google translated: "Specifies the type supersede damage Lv4".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmgLv_BlowM", index: 94, minimum: 0, maximum: 127, step: 1, order: 2717, unknown2: 1)]
+			[ParameterTableRowAttribute("dmgLv_BlowM", index: 94, minimum: 0, maximum: 127, step: 1, sortOrder: 2717, unknown2: 1)]
 			[DisplayName("The Futtobi DL_ (4)")]
 			[Description("Specifies the type supersede damage Lv4")]
 			[DefaultValue((ATKPARAM_REP_DMGTYPE)0)]
@@ -1899,7 +1901,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "DL_プッシュ（5）", Google translated: "DL_ push ( 5)".
 			/// Japanese description: "ダメージLv5を差し替えるタイプを指定", Google translated: "Specifies the type supersede damage Lv5".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmgLv_Push", index: 95, minimum: 0, maximum: 127, step: 1, order: 2720, unknown2: 1)]
+			[ParameterTableRowAttribute("dmgLv_Push", index: 95, minimum: 0, maximum: 127, step: 1, sortOrder: 2720, unknown2: 1)]
 			[DisplayName("DL_ push ( 5)")]
 			[Description("Specifies the type supersede damage Lv5")]
 			[DefaultValue((ATKPARAM_REP_DMGTYPE)0)]
@@ -1913,7 +1915,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "DL_叩きつけ（6）", Google translated: "Slams DL_ (6)".
 			/// Japanese description: "ダメージLv6を差し替えるタイプを指定", Google translated: "Specifies the type supersede damage Lv6".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmgLv_Strike", index: 96, minimum: 0, maximum: 127, step: 1, order: 2718, unknown2: 1)]
+			[ParameterTableRowAttribute("dmgLv_Strike", index: 96, minimum: 0, maximum: 127, step: 1, sortOrder: 2718, unknown2: 1)]
 			[DisplayName("Slams DL_ (6)")]
 			[Description("Specifies the type supersede damage Lv6")]
 			[DefaultValue((ATKPARAM_REP_DMGTYPE)0)]
@@ -1927,7 +1929,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "DL_小吹っ飛び（7）", Google translated: "The Futtobi DL_ small ( 7 )".
 			/// Japanese description: "ダメージLv7を差し替えるタイプを指定", Google translated: "Specifies the type supersede damage Lv7".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmgLv_BlowS", index: 97, minimum: 0, maximum: 127, step: 1, order: 2716, unknown2: 1)]
+			[ParameterTableRowAttribute("dmgLv_BlowS", index: 97, minimum: 0, maximum: 127, step: 1, sortOrder: 2716, unknown2: 1)]
 			[DisplayName("The Futtobi DL_ small ( 7 )")]
 			[Description("Specifies the type supersede damage Lv7")]
 			[DefaultValue((ATKPARAM_REP_DMGTYPE)0)]
@@ -1941,7 +1943,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "DL_極小（8）", Google translated: "DL_ minimum ( 8)".
 			/// Japanese description: "ダメージLv8を差し替えるタイプを指定", Google translated: "Specifies the type supersede damage Lv8".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmgLv_Min", index: 98, minimum: 0, maximum: 127, step: 1, order: 2712, unknown2: 1)]
+			[ParameterTableRowAttribute("dmgLv_Min", index: 98, minimum: 0, maximum: 127, step: 1, sortOrder: 2712, unknown2: 1)]
 			[DisplayName("DL_ minimum ( 8)")]
 			[Description("Specifies the type supersede damage Lv8")]
 			[DefaultValue((ATKPARAM_REP_DMGTYPE)0)]
@@ -1955,7 +1957,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "DL_打ち上げ（9）", Google translated: "The launch DL_ (9)".
 			/// Japanese description: "ダメージLv9を差し替えるタイプを指定", Google translated: "Specifies the type supersede damage Lv9".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmgLv_Uppercut", index: 99, minimum: 0, maximum: 127, step: 1, order: 2719, unknown2: 1)]
+			[ParameterTableRowAttribute("dmgLv_Uppercut", index: 99, minimum: 0, maximum: 127, step: 1, sortOrder: 2719, unknown2: 1)]
 			[DisplayName("The launch DL_ (9)")]
 			[Description("Specifies the type supersede damage Lv9")]
 			[DefaultValue((ATKPARAM_REP_DMGTYPE)0)]
@@ -1969,7 +1971,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "DL_特大吹っ飛び(10)", Google translated: "The Futtobi DL_ extra large ( 10)".
 			/// Japanese description: "ダメージLv10を差し替えるタイプを指定", Google translated: "Specifies the type supersede damage Lv10".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmgLv_BlowLL", index: 100, minimum: 0, maximum: 127, step: 1, order: 2720, unknown2: 1)]
+			[ParameterTableRowAttribute("dmgLv_BlowLL", index: 100, minimum: 0, maximum: 127, step: 1, sortOrder: 2720, unknown2: 1)]
 			[DisplayName("The Futtobi DL_ extra large ( 10)")]
 			[Description("Specifies the type supersede damage Lv10")]
 			[DefaultValue((ATKPARAM_REP_DMGTYPE)0)]
@@ -1983,7 +1985,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "DL_ブレス(11)", Google translated: "DL_ breath ( 11 )".
 			/// Japanese description: "ダメージLv11を差し替えるタイプを指定", Google translated: "Specifies the type supersede damage Lv11".
 			/// </remarks>
-			[ParameterTableRowAttribute("dmgLv_Breath", index: 101, minimum: 0, maximum: 127, step: 1, order: 2721, unknown2: 1)]
+			[ParameterTableRowAttribute("dmgLv_Breath", index: 101, minimum: 0, maximum: 127, step: 1, sortOrder: 2721, unknown2: 1)]
 			[DisplayName("DL_ breath ( 11 )")]
 			[Description("Specifies the type supersede damage Lv11")]
 			[DefaultValue((ATKPARAM_REP_DMGTYPE)0)]
@@ -1997,7 +1999,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "物理属性", Google translated: "Physical attributes".
 			/// Japanese description: "特殊効果に設定する物理属性", Google translated: "Physical attributes to be set for the special effects".
 			/// </remarks>
-			[ParameterTableRowAttribute("atkAttribute", index: 102, minimum: 0, maximum: 255, step: 1, order: 2740, unknown2: 1)]
+			[ParameterTableRowAttribute("atkAttribute", index: 102, minimum: 0, maximum: 255, step: 1, sortOrder: 2740, unknown2: 1)]
 			[DisplayName("Physical attributes")]
 			[Description("Physical attributes to be set for the special effects")]
 			[DefaultValue((AttackAttackAttributes)0)]
@@ -2011,7 +2013,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "特殊属性", Google translated: "Special attributes".
 			/// Japanese description: "特殊効果に設定する特殊属性", Google translated: "Special attributes to be set for the special effects".
 			/// </remarks>
-			[ParameterTableRowAttribute("spAttribute", index: 103, minimum: 0, maximum: 255, step: 1, order: 2750, unknown2: 1)]
+			[ParameterTableRowAttribute("spAttribute", index: 103, minimum: 0, maximum: 255, step: 1, sortOrder: 2750, unknown2: 1)]
 			[DisplayName("Special attributes")]
 			[Description("Special attributes to be set for the special effects")]
 			[DefaultValue((AttackParameterSpecialAttributes)0)]
@@ -2025,7 +2027,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "状態変化タイプ", Google translated: "State change type".
 			/// Japanese description: "状態変化の判定フラグ", Google translated: "Determination flag of the state change".
 			/// </remarks>
-			[ParameterTableRowAttribute("stateInfo", index: 104, minimum: 0, maximum: 255, step: 1, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("stateInfo", index: 104, minimum: 0, maximum: 255, step: 1, sortOrder: 200, unknown2: 1)]
 			[DisplayName("State change type")]
 			[Description("Determination flag of the state change")]
 			[DefaultValue((SpecialEffectType)0)]
@@ -2039,7 +2041,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "対武器パラメータ変化", Google translated: "Versus weapon parameter change".
 			/// Japanese description: "どの武器に対して効果を発揮するかを指定する。制限無しの場合は敵も含めた全ての攻撃・防御が対象", Google translated: "Specify whether to show an effect on any weapon . Attack - defense of all enemies , including the target in the case of unlimited".
 			/// </remarks>
-			[ParameterTableRowAttribute("wepParamChange", index: 105, minimum: 0, maximum: 255, step: 1, order: 2400, unknown2: 1)]
+			[ParameterTableRowAttribute("wepParamChange", index: 105, minimum: 0, maximum: 255, step: 1, sortOrder: 2400, unknown2: 1)]
 			[DisplayName("Versus weapon parameter change")]
 			[Description("Specify whether to show an effect on any weapon . Attack - defense of all enemies , including the target in the case of unlimited")]
 			[DefaultValue((SpecialEffectWeaponChange)0)]
@@ -2053,7 +2055,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "移動タイプ", Google translated: "Movement type".
 			/// Japanese description: "移動タイプ。移動速度を変更する。", Google translated: "Movement type . I want to change the moving speed .".
 			/// </remarks>
-			[ParameterTableRowAttribute("moveType", index: 106, minimum: 0, maximum: 255, step: 1, order: 8500, unknown2: 1)]
+			[ParameterTableRowAttribute("moveType", index: 106, minimum: 0, maximum: 255, step: 1, sortOrder: 8500, unknown2: 1)]
 			[DisplayName("Movement type")]
 			[Description("Movement type . I want to change the moving speed .")]
 			[DefaultValue((SpecialEffectMoveType)0)]
@@ -2067,7 +2069,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "防御：寿命減少タイプ", Google translated: "Defense: life reduction type".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("lifeReductionType", index: 107, minimum: 0, maximum: 255, step: 1, order: 9900, unknown2: 1)]
+			[ParameterTableRowAttribute("lifeReductionType", index: 107, minimum: 0, maximum: 255, step: 1, sortOrder: 9900, unknown2: 1)]
 			[DisplayName("Defense: life reduction type")]
 			[Description("")]
 			[DefaultValue((SpecialEffectType)0)]
@@ -2081,7 +2083,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "投げ条件", Google translated: "Conditions throw".
 			/// Japanese description: "投げ条件。投げマスクに影響する。", Google translated: "Conditions throw . Affecting the mask throwing .".
 			/// </remarks>
-			[ParameterTableRowAttribute("throwCondition", index: 108, minimum: 0, maximum: 255, step: 1, order: 11000, unknown2: 1)]
+			[ParameterTableRowAttribute("throwCondition", index: 108, minimum: 0, maximum: 255, step: 1, sortOrder: 11000, unknown2: 1)]
 			[DisplayName("Conditions throw")]
 			[Description("Conditions throw . Affecting the mask throwing .")]
 			[DefaultValue((SpecialEffectThrowCondition)0)]
@@ -2095,7 +2097,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "行動判定IDに加算する条件値", Google translated: "Condition value to be added to the behavior determining ID".
 			/// Japanese description: "行動判定ＩＤに値を加算する条件値(Def:-1)", Google translated: "Condition value that adds value to the behavior determining ID (Def: -1)".
 			/// </remarks>
-			[ParameterTableRowAttribute("addBehaviorJudgeId_condition", index: 109, minimum: -1, maximum: 9, step: 1, order: 11300, unknown2: 1)]
+			[ParameterTableRowAttribute("addBehaviorJudgeId_condition", index: 109, minimum: -1, maximum: 9, step: 1, sortOrder: 11300, unknown2: 1)]
 			[DisplayName("Condition value to be added to the behavior determining ID")]
 			[Description("Condition value that adds value to the behavior determining ID (Def: -1)")]
 			[DefaultValue((SByte)(-1))]
@@ -2113,7 +2115,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "行動判定IDに加算する加算値", Google translated: "Additional value to be added to the behavior determining ID".
 			/// Japanese description: "行動判定IDの加算値 ０の場合は行動を切り替えるのではなく、行動しなくなります。", Google translated: "Rather than switch the action , you will not act in the case of the added value of 0 behavior determining ID.".
 			/// </remarks>
-			[ParameterTableRowAttribute("addBehaviorJudgeId_add", index: 110, minimum: 0, maximum: 255, step: 1, order: 11400, unknown2: 1)]
+			[ParameterTableRowAttribute("addBehaviorJudgeId_add", index: 110, minimum: 0, maximum: 255, step: 1, sortOrder: 11400, unknown2: 1)]
 			[DisplayName("Additional value to be added to the behavior determining ID")]
 			[Description("Rather than switch the action , you will not act in the case of the added value of 0 behavior determining ID.")]
 			[DefaultValue((Byte)0)]
@@ -2131,7 +2133,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "効果対象：所属　自分", Google translated: "Target effect : their affiliation".
 			/// Japanese description: "この判定にチェックが入っている対象のみ効果を発揮する、デフォルトは×", Google translated: "Object is checked in this judgment only be effective , the default ×".
 			/// </remarks>
-			[ParameterTableRowAttribute("effectTargetSelf:1", index: 111, minimum: 0, maximum: 1, step: 1, order: 300, unknown2: 1)]
+			[ParameterTableRowAttribute("effectTargetSelf:1", index: 111, minimum: 0, maximum: 1, step: 1, sortOrder: 300, unknown2: 1)]
 			[DisplayName("Target effect : their affiliation")]
 			[Description("Object is checked in this judgment only be effective , the default ×")]
 			[DefaultValue(false)]
@@ -2145,7 +2147,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "効果対象：所属　味方", Google translated: "Effect for: affiliation friend".
 			/// Japanese description: "この判定にチェックが入っている対象のみ効果を発揮する、デフォルトは×", Google translated: "Object is checked in this judgment only be effective , the default ×".
 			/// </remarks>
-			[ParameterTableRowAttribute("effectTargetFriend:1", index: 112, minimum: 0, maximum: 1, step: 1, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("effectTargetFriend:1", index: 112, minimum: 0, maximum: 1, step: 1, sortOrder: 400, unknown2: 1)]
 			[DisplayName("Effect for: affiliation friend")]
 			[Description("Object is checked in this judgment only be effective , the default ×")]
 			[DefaultValue(false)]
@@ -2159,7 +2161,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "効果対象：所属　敵", Google translated: "Effect for: affiliation enemy".
 			/// Japanese description: "この判定にチェックが入っている対象のみ効果を発揮する、デフォルトは×", Google translated: "Object is checked in this judgment only be effective , the default ×".
 			/// </remarks>
-			[ParameterTableRowAttribute("effectTargetEnemy:1", index: 113, minimum: 0, maximum: 1, step: 1, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("effectTargetEnemy:1", index: 113, minimum: 0, maximum: 1, step: 1, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Effect for: affiliation enemy")]
 			[Description("Object is checked in this judgment only be effective , the default ×")]
 			[DefaultValue(false)]
@@ -2173,7 +2175,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "効果対象：操作　PC", Google translated: "Effect for: PC operation".
 			/// Japanese description: "この判定にチェックが入っている対象のみ効果を発揮する、デフォルトは×", Google translated: "Object is checked in this judgment only be effective , the default ×".
 			/// </remarks>
-			[ParameterTableRowAttribute("effectTargetPlayer:1", index: 114, minimum: 0, maximum: 1, step: 1, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("effectTargetPlayer:1", index: 114, minimum: 0, maximum: 1, step: 1, sortOrder: 600, unknown2: 1)]
 			[DisplayName("Effect for: PC operation")]
 			[Description("Object is checked in this judgment only be effective , the default ×")]
 			[DefaultValue(false)]
@@ -2187,7 +2189,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "効果対象：操作　AI", Google translated: "Effect for: Operation AI".
 			/// Japanese description: "この判定にチェックが入っている対象のみ効果を発揮する、デフォルトは×", Google translated: "Object is checked in this judgment only be effective , the default ×".
 			/// </remarks>
-			[ParameterTableRowAttribute("effectTargetAI:1", index: 115, minimum: 0, maximum: 1, step: 1, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("effectTargetAI:1", index: 115, minimum: 0, maximum: 1, step: 1, sortOrder: 700, unknown2: 1)]
 			[DisplayName("Effect for: Operation AI")]
 			[Description("Object is checked in this judgment only be effective , the default ×")]
 			[DefaultValue(false)]
@@ -2201,7 +2203,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "効果対象：状態　生存", Google translated: "Effect for: state survival".
 			/// Japanese description: "この判定にチェックが入っている対象のみ効果を発揮する、デフォルトは×", Google translated: "Object is checked in this judgment only be effective , the default ×".
 			/// </remarks>
-			[ParameterTableRowAttribute("effectTargetLive:1", index: 116, minimum: 0, maximum: 1, step: 1, order: 800, unknown2: 1)]
+			[ParameterTableRowAttribute("effectTargetLive:1", index: 116, minimum: 0, maximum: 1, step: 1, sortOrder: 800, unknown2: 1)]
 			[DisplayName("Effect for: state survival")]
 			[Description("Object is checked in this judgment only be effective , the default ×")]
 			[DefaultValue(false)]
@@ -2215,7 +2217,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "効果対象：状態　全ゴースト", Google translated: "Effect for: state all ghost".
 			/// Japanese description: "この判定にチェックが入っている対象のみ効果を発揮する、デフォルトは×", Google translated: "Object is checked in this judgment only be effective , the default ×".
 			/// </remarks>
-			[ParameterTableRowAttribute("effectTargetGhost:1", index: 117, minimum: 0, maximum: 1, step: 1, order: 900, unknown2: 1)]
+			[ParameterTableRowAttribute("effectTargetGhost:1", index: 117, minimum: 0, maximum: 1, step: 1, sortOrder: 900, unknown2: 1)]
 			[DisplayName("Effect for: state all ghost")]
 			[Description("Object is checked in this judgment only be effective , the default ×")]
 			[DefaultValue(false)]
@@ -2229,7 +2231,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "効果対象：状態　白ゴースト", Google translated: "Effect for: state white ghost".
 			/// Japanese description: "この判定にチェックが入っている対象のみ効果を発揮する、デフォルトは×", Google translated: "Object is checked in this judgment only be effective , the default ×".
 			/// </remarks>
-			[ParameterTableRowAttribute("effectTargetWhiteGhost:1", index: 118, minimum: 0, maximum: 1, step: 1, order: 1000, unknown2: 1)]
+			[ParameterTableRowAttribute("effectTargetWhiteGhost:1", index: 118, minimum: 0, maximum: 1, step: 1, sortOrder: 1000, unknown2: 1)]
 			[DisplayName("Effect for: state white ghost")]
 			[Description("Object is checked in this judgment only be effective , the default ×")]
 			[DefaultValue(false)]
@@ -2243,7 +2245,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "効果対象：状態　黒ゴースト", Google translated: "Effect for: black ghost state".
 			/// Japanese description: "この判定にチェックが入っている対象のみ効果を発揮する、デフォルトは×", Google translated: "Object is checked in this judgment only be effective , the default ×".
 			/// </remarks>
-			[ParameterTableRowAttribute("effectTargetBlackGhost:1", index: 119, minimum: 0, maximum: 1, step: 1, order: 1100, unknown2: 1)]
+			[ParameterTableRowAttribute("effectTargetBlackGhost:1", index: 119, minimum: 0, maximum: 1, step: 1, sortOrder: 1100, unknown2: 1)]
 			[DisplayName("Effect for: black ghost state")]
 			[Description("Object is checked in this judgment only be effective , the default ×")]
 			[DefaultValue(false)]
@@ -2257,7 +2259,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "効果対象：攻撃者に発動", Google translated: "The trigger to the attacker : target effect".
 			/// Japanese description: "ダメージ後に攻撃者に特殊効果を適用（防御側には入れない）", Google translated: "( Do not put the defense side) and apply special effects to the attacker to damage after".
 			/// </remarks>
-			[ParameterTableRowAttribute("effectTargetAttacker:1", index: 120, minimum: 0, maximum: 1, step: 1, order: 1200, unknown2: 1)]
+			[ParameterTableRowAttribute("effectTargetAttacker:1", index: 120, minimum: 0, maximum: 1, step: 1, sortOrder: 1200, unknown2: 1)]
 			[DisplayName("The trigger to the attacker : target effect")]
 			[Description("( Do not put the defense side) and apply special effects to the attacker to damage after")]
 			[DefaultValue(false)]
@@ -2271,7 +2273,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "発動してなくてもアイコン表示", Google translated: "The icon display without by fires".
 			/// Japanese description: "発動待ちの状態でもアイコンを表示する。", Google translated: "I want to display an icon in the state of waiting for activation .".
 			/// </remarks>
-			[ParameterTableRowAttribute("dispIconNonactive:1", index: 121, minimum: 0, maximum: 1, step: 1, order: 1300, unknown2: 1)]
+			[ParameterTableRowAttribute("dispIconNonactive:1", index: 121, minimum: 0, maximum: 1, step: 1, sortOrder: 1300, unknown2: 1)]
 			[DisplayName("The icon display without by fires")]
 			[Description("I want to display an icon in the state of waiting for activation .")]
 			[DefaultValue(false)]
@@ -2285,7 +2287,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "特殊効果エフェクトを使用するか", Google translated: "You can use the special effects effect".
 			/// Japanese description: "特殊効果エフェクトを使用するか", Google translated: "You can use the special effects effect".
 			/// </remarks>
-			[ParameterTableRowAttribute("useSpEffectEffect:1", index: 122, minimum: 0, maximum: 1, step: 1, order: 1400, unknown2: 1)]
+			[ParameterTableRowAttribute("useSpEffectEffect:1", index: 122, minimum: 0, maximum: 1, step: 1, sortOrder: 1400, unknown2: 1)]
 			[DisplayName("You can use the special effects effect")]
 			[Description("You can use the special effects effect")]
 			[DefaultValue(false)]
@@ -2299,7 +2301,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "魔力補正するか？", Google translated: "Correction or magic ?".
 			/// Japanese description: "魔力補正するか？", Google translated: "Correction or magic ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("bAdjustMagicAblity:1", index: 123, minimum: 0, maximum: 1, step: 1, order: 1500, unknown2: 1)]
+			[ParameterTableRowAttribute("bAdjustMagicAblity:1", index: 123, minimum: 0, maximum: 1, step: 1, sortOrder: 1500, unknown2: 1)]
 			[DisplayName("Correction or magic ?")]
 			[Description("Correction or magic ?")]
 			[DefaultValue(false)]
@@ -2313,7 +2315,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "信仰補正するか？", Google translated: "Faith or correction ?".
 			/// Japanese description: "信仰補正するか？", Google translated: "Faith or correction ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("bAdjustFaithAblity:1", index: 124, minimum: 0, maximum: 1, step: 1, order: 1600, unknown2: 1)]
+			[ParameterTableRowAttribute("bAdjustFaithAblity:1", index: 124, minimum: 0, maximum: 1, step: 1, sortOrder: 1600, unknown2: 1)]
 			[DisplayName("Faith or correction ?")]
 			[Description("Faith or correction ?")]
 			[DefaultValue(false)]
@@ -2327,7 +2329,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "周回ボーナス用か？", Google translated: "Or bonus round for ?".
 			/// Japanese description: "ゲームクリア周回ボーナス用かどうか。", Google translated: "Whether game clear bonus round for .".
 			/// </remarks>
-			[ParameterTableRowAttribute("bGameClearBonus:1", index: 125, minimum: 0, maximum: 1, step: 1, order: 1700, unknown2: 1)]
+			[ParameterTableRowAttribute("bGameClearBonus:1", index: 125, minimum: 0, maximum: 1, step: 1, sortOrder: 1700, unknown2: 1)]
 			[DisplayName("Or bonus round for ?")]
 			[Description("Whether game clear bonus round for .")]
 			[DefaultValue(false)]
@@ -2341,7 +2343,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "対魔法パラメータ変化", Google translated: "Versus magic parameter change".
 			/// Japanese description: "魔法に対して効果を発揮するかしないかを設定する", Google translated: "Set whether to exert an effect on magic".
 			/// </remarks>
-			[ParameterTableRowAttribute("magParamChange:1", index: 126, minimum: 0, maximum: 1, step: 1, order: 2500, unknown2: 1)]
+			[ParameterTableRowAttribute("magParamChange:1", index: 126, minimum: 0, maximum: 1, step: 1, sortOrder: 2500, unknown2: 1)]
 			[DisplayName("Versus magic parameter change")]
 			[Description("Set whether to exert an effect on magic")]
 			[DefaultValue(false)]
@@ -2355,7 +2357,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "対奇跡パラメータ変化", Google translated: "Versus miracle parameter change".
 			/// Japanese description: "奇跡に対して効果を発揮するかしないかを設定する", Google translated: "To set whether beneficial for miracle".
 			/// </remarks>
-			[ParameterTableRowAttribute("miracleParamChange:1", index: 127, minimum: 0, maximum: 1, step: 1, order: 2600, unknown2: 1)]
+			[ParameterTableRowAttribute("miracleParamChange:1", index: 127, minimum: 0, maximum: 1, step: 1, sortOrder: 2600, unknown2: 1)]
 			[DisplayName("Versus miracle parameter change")]
 			[Description("To set whether beneficial for miracle")]
 			[DefaultValue(false)]
@@ -2369,7 +2371,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "所持ソウルクリアするか", Google translated: "Or possession Seoul clear".
 			/// Japanese description: "所持ソウルが0になります。", Google translated: "Possession Seoul is 0 .".
 			/// </remarks>
-			[ParameterTableRowAttribute("clearSoul:1", index: 128, minimum: 0, maximum: 1, step: 1, order: 2700, unknown2: 1)]
+			[ParameterTableRowAttribute("clearSoul:1", index: 128, minimum: 0, maximum: 1, step: 1, sortOrder: 2700, unknown2: 1)]
 			[DisplayName("Or possession Seoul clear")]
 			[Description("Possession Seoul is 0 .")]
 			[DefaultValue(false)]
@@ -2383,7 +2385,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "SOSサイン　判定フラグ", Google translated: "SOS sign determination flag".
 			/// Japanese description: "チェックが付いている場合、発動時にSOSサイン要求を発行", Google translated: "If checked , it issues a request to the SOS sign upon activation".
 			/// </remarks>
-			[ParameterTableRowAttribute("requestSOS:1", index: 129, minimum: 0, maximum: 1, step: 1, order: 7600, unknown2: 1)]
+			[ParameterTableRowAttribute("requestSOS:1", index: 129, minimum: 0, maximum: 1, step: 1, sortOrder: 7600, unknown2: 1)]
 			[DisplayName("SOS sign determination flag")]
 			[Description("If checked , it issues a request to the SOS sign upon activation")]
 			[DefaultValue(false)]
@@ -2397,7 +2399,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ブラックSOSサイン　判定フラグ", Google translated: "Black SOS sign determination flag".
 			/// Japanese description: "チェックが付いている場合、発動時にブラックSOSサイン要求を発行", Google translated: "If checked , issue the black SOS request to sign upon activation".
 			/// </remarks>
-			[ParameterTableRowAttribute("requestBlackSOS:1", index: 130, minimum: 0, maximum: 1, step: 1, order: 7700, unknown2: 1)]
+			[ParameterTableRowAttribute("requestBlackSOS:1", index: 130, minimum: 0, maximum: 1, step: 1, sortOrder: 7700, unknown2: 1)]
 			[DisplayName("Black SOS sign determination flag")]
 			[Description("If checked , issue the black SOS request to sign upon activation")]
 			[DefaultValue(false)]
@@ -2411,7 +2413,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ブラック強制参加SOSサイン　判定フラグ", Google translated: "Black Force participation SOS sign determination flag".
 			/// Japanese description: "チェックが付いている場合、発動時にブラック強制参加SOSサイン要求を発行", Google translated: "If checked , issue the black force participation SOS request to sign upon activation".
 			/// </remarks>
-			[ParameterTableRowAttribute("requestForceJoinBlackSOS:1", index: 131, minimum: 0, maximum: 1, step: 1, order: 7800, unknown2: 1)]
+			[ParameterTableRowAttribute("requestForceJoinBlackSOS:1", index: 131, minimum: 0, maximum: 1, step: 1, sortOrder: 7800, unknown2: 1)]
 			[DisplayName("Black Force participation SOS sign determination flag")]
 			[Description("If checked , issue the black force participation SOS request to sign upon activation")]
 			[DefaultValue(false)]
@@ -2425,7 +2427,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "キック　判定フラグ", Google translated: "Kick determination flag".
 			/// Japanese description: "チェックが付いている場合、発動時にキック要求を発行", Google translated: "If checked , it issues a request to kick upon activation".
 			/// </remarks>
-			[ParameterTableRowAttribute("requestKickSession:1", index: 132, minimum: 0, maximum: 1, step: 1, order: 7900, unknown2: 1)]
+			[ParameterTableRowAttribute("requestKickSession:1", index: 132, minimum: 0, maximum: 1, step: 1, sortOrder: 7900, unknown2: 1)]
 			[DisplayName("Kick determination flag")]
 			[Description("If checked , it issues a request to kick upon activation")]
 			[DefaultValue(false)]
@@ -2439,7 +2441,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "退出　判定フラグ", Google translated: "Exit determination flag".
 			/// Japanese description: "チェックが付いている場合、発動時に退出要求を発行", Google translated: "If checked , it issues a request to exit upon activation".
 			/// </remarks>
-			[ParameterTableRowAttribute("requestLeaveSession:1", index: 133, minimum: 0, maximum: 1, step: 1, order: 8000, unknown2: 1)]
+			[ParameterTableRowAttribute("requestLeaveSession:1", index: 133, minimum: 0, maximum: 1, step: 1, sortOrder: 8000, unknown2: 1)]
 			[DisplayName("Exit determination flag")]
 			[Description("If checked , it issues a request to exit upon activation")]
 			[DefaultValue(false)]
@@ -2453,7 +2455,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "NPCへの侵入　判定フラグ", Google translated: "Intrusion determination flag to the NPC".
 			/// Japanese description: "チェックが付いている場合、発動時にNPCへの侵入要求を発行", Google translated: "If checked , it issues a request to the invasion in NPC upon activation".
 			/// </remarks>
-			[ParameterTableRowAttribute("requestNpcInveda:1", index: 134, minimum: 0, maximum: 1, step: 1, order: 8010, unknown2: 1)]
+			[ParameterTableRowAttribute("requestNpcInveda:1", index: 134, minimum: 0, maximum: 1, step: 1, sortOrder: 8010, unknown2: 1)]
 			[DisplayName("Intrusion determination flag to the NPC")]
 			[Description("If checked , it issues a request to the invasion in NPC upon activation")]
 			[DefaultValue(false)]
@@ -2467,7 +2469,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "成仏不可　判定フラグ", Google translated: "Buddhahood not flag decision".
 			/// Japanese description: "死体状態になれるかどうか。このチェックが付いていると、死亡状態にならない", Google translated: "Whether you become a corpse state . This check is attached , it does not become the state death".
 			/// </remarks>
-			[ParameterTableRowAttribute("noDead:1", index: 135, minimum: 0, maximum: 1, step: 1, order: 8100, unknown2: 1)]
+			[ParameterTableRowAttribute("noDead:1", index: 135, minimum: 0, maximum: 1, step: 1, sortOrder: 8100, unknown2: 1)]
 			[DisplayName("Buddhahood not flag decision")]
 			[Description("Whether you become a corpse state . This check is attached , it does not become the state death")]
 			[DefaultValue(false)]
@@ -2481,7 +2483,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "最大HPが増減しても、現在HPは影響しないか？", Google translated: "Maximum HP will be increased or decreased , the current HP or no effect ?".
 			/// Japanese description: "最大HPが増減しても、現在HPは影響しないか？", Google translated: "Maximum HP will be increased or decreased , the current HP or no effect ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("bCurrHPIndependeMaxHP:1", index: 136, minimum: 0, maximum: 1, step: 1, order: 8200, unknown2: 1)]
+			[ParameterTableRowAttribute("bCurrHPIndependeMaxHP:1", index: 136, minimum: 0, maximum: 1, step: 1, sortOrder: 8200, unknown2: 1)]
 			[DisplayName("Maximum HP will be increased or decreased , the current HP or no effect ?")]
 			[Description("Maximum HP will be increased or decreased , the current HP or no effect ?")]
 			[DefaultValue(false)]
@@ -2495,7 +2497,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "腐食無視", Google translated: "Corrosion ignored".
 			/// Japanese description: "【状態変化タイプ】が【腐食】による【耐久度】減少を無視する", Google translated: "I ignore state change [ type ] is due to the corrosion ] and [ durability ] decrease".
 			/// </remarks>
-			[ParameterTableRowAttribute("corrosionIgnore:1", index: 137, minimum: 0, maximum: 1, step: 1, order: 9200, unknown2: 1)]
+			[ParameterTableRowAttribute("corrosionIgnore:1", index: 137, minimum: 0, maximum: 1, step: 1, sortOrder: 9200, unknown2: 1)]
 			[DisplayName("Corrosion ignored")]
 			[Description("I ignore state change [ type ] is due to the corrosion ] and [ durability ] decrease")]
 			[DefaultValue(false)]
@@ -2509,7 +2511,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "視覚索敵カット無視", Google translated: "Visual search operation cut ignored".
 			/// Japanese description: "視覚索敵無効を無視する", Google translated: "I ignore the visual search operation invalid".
 			/// </remarks>
-			[ParameterTableRowAttribute("sightSearchCutIgnore:1", index: 138, minimum: 0, maximum: 1, step: 1, order: 9300, unknown2: 1)]
+			[ParameterTableRowAttribute("sightSearchCutIgnore:1", index: 138, minimum: 0, maximum: 1, step: 1, sortOrder: 9300, unknown2: 1)]
 			[DisplayName("Visual search operation cut ignored")]
 			[Description("I ignore the visual search operation invalid")]
 			[DefaultValue(false)]
@@ -2523,7 +2525,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "聴覚索敵カット無視", Google translated: "Hearing searching for the enemy cut ignored".
 			/// Japanese description: "聴覚索敵無効を無視する", Google translated: "I ignore the hearing invalid search operation".
 			/// </remarks>
-			[ParameterTableRowAttribute("hearingSearchCutIgnore:1", index: 139, minimum: 0, maximum: 1, step: 1, order: 9400, unknown2: 1)]
+			[ParameterTableRowAttribute("hearingSearchCutIgnore:1", index: 139, minimum: 0, maximum: 1, step: 1, sortOrder: 9400, unknown2: 1)]
 			[DisplayName("Hearing searching for the enemy cut ignored")]
 			[Description("I ignore the hearing invalid search operation")]
 			[DefaultValue(false)]
@@ -2537,7 +2539,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "アンチマジック無効", Google translated: "Anti- Magic invalid".
 			/// Japanese description: "アンチマジック範囲でも魔法を使用できる", Google translated: "I can use the magic in the Anti- Magic range".
 			/// </remarks>
-			[ParameterTableRowAttribute("antiMagicIgnore:1", index: 140, minimum: 0, maximum: 1, step: 1, order: 9500, unknown2: 1)]
+			[ParameterTableRowAttribute("antiMagicIgnore:1", index: 140, minimum: 0, maximum: 1, step: 1, sortOrder: 9500, unknown2: 1)]
 			[DisplayName("Anti- Magic invalid")]
 			[Description("I can use the magic in the Anti- Magic range")]
 			[DefaultValue(false)]
@@ -2551,7 +2553,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "偽ターゲット無効", Google translated: "False target invalid".
 			/// Japanese description: "発生した偽ターゲットに引っかからなくなる", Google translated: "It will not catch on the false target that occurred".
 			/// </remarks>
-			[ParameterTableRowAttribute("fakeTargetIgnore:1", index: 141, minimum: 0, maximum: 1, step: 1, order: 9600, unknown2: 1)]
+			[ParameterTableRowAttribute("fakeTargetIgnore:1", index: 141, minimum: 0, maximum: 1, step: 1, sortOrder: 9600, unknown2: 1)]
 			[DisplayName("False target invalid")]
 			[Description("It will not catch on the false target that occurred")]
 			[DefaultValue(false)]
@@ -2565,7 +2567,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "偽ターゲット無効_不死系", Google translated: "False target invalid _ immortality system".
 			/// Japanese description: "発生した不死系の偽ターゲットに引っかからなくなる", Google translated: "I will not catch on the false target immortal system that occurred".
 			/// </remarks>
-			[ParameterTableRowAttribute("fakeTargetIgnoreUndead:1", index: 142, minimum: 0, maximum: 1, step: 1, order: 9650, unknown2: 1)]
+			[ParameterTableRowAttribute("fakeTargetIgnoreUndead:1", index: 142, minimum: 0, maximum: 1, step: 1, sortOrder: 9650, unknown2: 1)]
 			[DisplayName("False target invalid _ immortality system")]
 			[Description("I will not catch on the false target immortal system that occurred")]
 			[DefaultValue(false)]
@@ -2579,7 +2581,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "偽ターゲット無効_獣系", Google translated: "False target invalid _ beast system".
 			/// Japanese description: "発生した獣系の偽ターゲットに引っかからなくなる", Google translated: "I will not catch on the fake target of the beast system that occurred".
 			/// </remarks>
-			[ParameterTableRowAttribute("fakeTargetIgnoreAnimal:1", index: 143, minimum: 0, maximum: 1, step: 1, order: 9660, unknown2: 1)]
+			[ParameterTableRowAttribute("fakeTargetIgnoreAnimal:1", index: 143, minimum: 0, maximum: 1, step: 1, sortOrder: 9660, unknown2: 1)]
 			[DisplayName("False target invalid _ beast system")]
 			[Description("I will not catch on the fake target of the beast system that occurred")]
 			[DefaultValue(false)]
@@ -2593,7 +2595,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "グラビティ無効", Google translated: "Gravity invalid".
 			/// Japanese description: "グラビティ効果無効", Google translated: "Gravity effect invalid".
 			/// </remarks>
-			[ParameterTableRowAttribute("grabityIgnore:1", index: 144, minimum: 0, maximum: 1, step: 1, order: 9700, unknown2: 1)]
+			[ParameterTableRowAttribute("grabityIgnore:1", index: 144, minimum: 0, maximum: 1, step: 1, sortOrder: 9700, unknown2: 1)]
 			[DisplayName("Gravity invalid")]
 			[Description("Gravity effect invalid")]
 			[DefaultValue(false)]
@@ -2607,7 +2609,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "毒無効", Google translated: "Poison invalid".
 			/// Japanese description: "この効果がかかっていると毒にかからなくなる", Google translated: "It is not applied to poison this effect is at stake".
 			/// </remarks>
-			[ParameterTableRowAttribute("disablePoison:1", index: 145, minimum: 0, maximum: 1, step: 1, order: 10200, unknown2: 1)]
+			[ParameterTableRowAttribute("disablePoison:1", index: 145, minimum: 0, maximum: 1, step: 1, sortOrder: 10200, unknown2: 1)]
 			[DisplayName("Poison invalid")]
 			[Description("It is not applied to poison this effect is at stake")]
 			[DefaultValue(false)]
@@ -2621,7 +2623,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "疫病無効", Google translated: "Plague invalid".
 			/// Japanese description: "この効果がかかっていると疫病にかからなくなる", Google translated: "I no longer applied to the plague this effect is at stake".
 			/// </remarks>
-			[ParameterTableRowAttribute("disableDisease:1", index: 146, minimum: 0, maximum: 1, step: 1, order: 10300, unknown2: 1)]
+			[ParameterTableRowAttribute("disableDisease:1", index: 146, minimum: 0, maximum: 1, step: 1, sortOrder: 10300, unknown2: 1)]
 			[DisplayName("Plague invalid")]
 			[Description("I no longer applied to the plague this effect is at stake")]
 			[DefaultValue(false)]
@@ -2635,7 +2637,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "出血無効", Google translated: "Bleeding invalid".
 			/// Japanese description: "この効果がかかっていると出血にかからなくなる", Google translated: "I no longer applied to the bleeding this effect is at stake".
 			/// </remarks>
-			[ParameterTableRowAttribute("disableBlood:1", index: 147, minimum: 0, maximum: 1, step: 1, order: 10400, unknown2: 1)]
+			[ParameterTableRowAttribute("disableBlood:1", index: 147, minimum: 0, maximum: 1, step: 1, sortOrder: 10400, unknown2: 1)]
 			[DisplayName("Bleeding invalid")]
 			[Description("I no longer applied to the bleeding this effect is at stake")]
 			[DefaultValue(false)]
@@ -2649,7 +2651,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "呪無効", Google translated: "Curse invalid".
 			/// Japanese description: "この効果がかかっていると呪いにかからなくなる", Google translated: "It is not applied to curse this effect is at stake".
 			/// </remarks>
-			[ParameterTableRowAttribute("disableCurse:1", index: 148, minimum: 0, maximum: 1, step: 1, order: 10400, unknown2: 1)]
+			[ParameterTableRowAttribute("disableCurse:1", index: 148, minimum: 0, maximum: 1, step: 1, sortOrder: 10400, unknown2: 1)]
 			[DisplayName("Curse invalid")]
 			[Description("It is not applied to curse this effect is at stake")]
 			[DefaultValue(false)]
@@ -2663,7 +2665,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "魅了有効", Google translated: "Fascinated effective".
 			/// Japanese description: "この効果がかかっていると魅了にかかるようになる", Google translated: "I would like to take this effect is fascinated rests".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableCharm:1", index: 149, minimum: 0, maximum: 1, step: 1, order: 10410, unknown2: 1)]
+			[ParameterTableRowAttribute("enableCharm:1", index: 149, minimum: 0, maximum: 1, step: 1, sortOrder: 10410, unknown2: 1)]
 			[DisplayName("Fascinated effective")]
 			[Description("I would like to take this effect is fascinated rests")]
 			[DefaultValue(false)]
@@ -2677,7 +2679,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "寿命延長するか？", Google translated: "Or life extension ?".
 			/// Japanese description: "TAEによるフラグ設定時に寿命延長するか？", Google translated: "You can extend life to flag setting by TAE?".
 			/// </remarks>
-			[ParameterTableRowAttribute("enableLifeTime:1", index: 150, minimum: 0, maximum: 1, step: 1, order: 10500, unknown2: 1)]
+			[ParameterTableRowAttribute("enableLifeTime:1", index: 150, minimum: 0, maximum: 1, step: 1, sortOrder: 10500, unknown2: 1)]
 			[DisplayName("Or life extension ?")]
 			[Description("You can extend life to flag setting by TAE?")]
 			[DefaultValue(false)]
@@ -2691,7 +2693,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "敵を把握しているか？", Google translated: "".
 			/// Japanese description: "敵を把握しているか？：[発動条件](邪眼使用者用)", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("hasTarget : 1", index: 151, minimum: 0, maximum: 1, step: 1, order: 10900, unknown2: 1)]
+			[ParameterTableRowAttribute("hasTarget : 1", index: 151, minimum: 0, maximum: 1, step: 1, sortOrder: 10900, unknown2: 1)]
 			[DisplayName("")]
 			[Description("")]
 			[DefaultValue(false)]
@@ -2705,7 +2707,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "解除条件:炎ダメージ", Google translated: "Release conditions : fire damage".
 			/// Japanese description: "炎ダメージによる特殊効果の解除を行うか？", Google translated: "You can do the release of the special effects of fire damage ?".
 			/// </remarks>
-			[ParameterTableRowAttribute("isFireDamageCancel:1", index: 152, minimum: 0, maximum: 1, step: 1, order: 10910, unknown2: 1)]
+			[ParameterTableRowAttribute("isFireDamageCancel:1", index: 152, minimum: 0, maximum: 1, step: 1, sortOrder: 10910, unknown2: 1)]
 			[DisplayName("Release conditions : fire damage")]
 			[Description("You can do the release of the special effects of fire damage ?")]
 			[DefaultValue(false)]
@@ -2719,7 +2721,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "寿命延長効果で延長するか？", Google translated: "You can extend life span extension effect ?".
 			/// Japanese description: "寿命延長効果が掛かっている時に延長対象になるかどうか", Google translated: "Whether be an extension object when the life extension effect is applied".
 			/// </remarks>
-			[ParameterTableRowAttribute("isExtendSpEffectLife:1", index: 153, minimum: 0, maximum: 1, step: 1, order: 10510, unknown2: 1)]
+			[ParameterTableRowAttribute("isExtendSpEffectLife:1", index: 153, minimum: 0, maximum: 1, step: 1, sortOrder: 10510, unknown2: 1)]
 			[DisplayName("You can extend life span extension effect ?")]
 			[Description("Whether be an extension object when the life extension effect is applied")]
 			[DefaultValue(false)]
@@ -2733,7 +2735,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "闘技場退出　判定フラグ", Google translated: "Arena exit determination flag".
 			/// Japanese description: "チェックが付いている場合、発動時に闘技場退出要求を発行", Google translated: "If checked , issue the arena request to exit upon activation".
 			/// </remarks>
-			[ParameterTableRowAttribute("requestLeaveColiseumSession:1", index: 154, minimum: 0, maximum: 1, step: 1, order: 8000, unknown2: 1)]
+			[ParameterTableRowAttribute("requestLeaveColiseumSession:1", index: 154, minimum: 0, maximum: 1, step: 1, sortOrder: 8000, unknown2: 1)]
 			[DisplayName("Arena exit determination flag")]
 			[Description("If checked , issue the arena request to exit upon activation")]
 			[DefaultValue(false)]
@@ -2747,7 +2749,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "pad", Google translated: "pad".
 			/// Japanese description: "pad", Google translated: "pad".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad_2:4", index: 155, minimum: 0, maximum: 0, step: 0, order: 13001, unknown2: 0)]
+			[ParameterTableRowAttribute("pad_2:4", index: 155, minimum: 0, maximum: 0, step: 0, sortOrder: 13001, unknown2: 0)]
 			[DisplayName("pad")]
 			[Description("pad")]
 			[DefaultValue((Byte)0)]
@@ -2766,7 +2768,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約0", Google translated: "Pledge 0".
 			/// Japanese description: "誓約0", Google translated: "Pledge 0".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType0:1", index: 156, minimum: 0, maximum: 1, step: 1, order: 11500, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType0:1", index: 156, minimum: 0, maximum: 1, step: 1, sortOrder: 11500, unknown2: 1)]
 			[DisplayName("Pledge 0")]
 			[Description("Pledge 0")]
 			[DefaultValue(false)]
@@ -2780,7 +2782,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約1", Google translated: "Pledge 1".
 			/// Japanese description: "誓約1", Google translated: "Pledge 1".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType1:1", index: 157, minimum: 0, maximum: 1, step: 1, order: 11600, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType1:1", index: 157, minimum: 0, maximum: 1, step: 1, sortOrder: 11600, unknown2: 1)]
 			[DisplayName("Pledge 1")]
 			[Description("Pledge 1")]
 			[DefaultValue(false)]
@@ -2794,7 +2796,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約2", Google translated: "Pledge 2".
 			/// Japanese description: "誓約2", Google translated: "Pledge 2".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType2:1", index: 158, minimum: 0, maximum: 1, step: 1, order: 11700, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType2:1", index: 158, minimum: 0, maximum: 1, step: 1, sortOrder: 11700, unknown2: 1)]
 			[DisplayName("Pledge 2")]
 			[Description("Pledge 2")]
 			[DefaultValue(false)]
@@ -2808,7 +2810,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約3", Google translated: "Pledge 3".
 			/// Japanese description: "誓約3", Google translated: "Pledge 3".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType3:1", index: 159, minimum: 0, maximum: 1, step: 1, order: 11800, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType3:1", index: 159, minimum: 0, maximum: 1, step: 1, sortOrder: 11800, unknown2: 1)]
 			[DisplayName("Pledge 3")]
 			[Description("Pledge 3")]
 			[DefaultValue(false)]
@@ -2822,7 +2824,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約4", Google translated: "Pledge 4".
 			/// Japanese description: "誓約4", Google translated: "Pledge 4".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType4:1", index: 160, minimum: 0, maximum: 1, step: 1, order: 11900, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType4:1", index: 160, minimum: 0, maximum: 1, step: 1, sortOrder: 11900, unknown2: 1)]
 			[DisplayName("Pledge 4")]
 			[Description("Pledge 4")]
 			[DefaultValue(false)]
@@ -2836,7 +2838,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約5", Google translated: "Pledge 5".
 			/// Japanese description: "誓約5", Google translated: "Pledge 5".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType5:1", index: 161, minimum: 0, maximum: 1, step: 1, order: 12000, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType5:1", index: 161, minimum: 0, maximum: 1, step: 1, sortOrder: 12000, unknown2: 1)]
 			[DisplayName("Pledge 5")]
 			[Description("Pledge 5")]
 			[DefaultValue(false)]
@@ -2850,7 +2852,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約6", Google translated: "Pledge 6".
 			/// Japanese description: "誓約6", Google translated: "Pledge 6".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType6:1", index: 162, minimum: 0, maximum: 1, step: 1, order: 12100, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType6:1", index: 162, minimum: 0, maximum: 1, step: 1, sortOrder: 12100, unknown2: 1)]
 			[DisplayName("Pledge 6")]
 			[Description("Pledge 6")]
 			[DefaultValue(false)]
@@ -2864,7 +2866,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約7", Google translated: "Pledge 7".
 			/// Japanese description: "誓約7", Google translated: "Pledge 7".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType7:1", index: 163, minimum: 0, maximum: 1, step: 1, order: 12200, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType7:1", index: 163, minimum: 0, maximum: 1, step: 1, sortOrder: 12200, unknown2: 1)]
 			[DisplayName("Pledge 7")]
 			[Description("Pledge 7")]
 			[DefaultValue(false)]
@@ -2878,7 +2880,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約8", Google translated: "Pledge 8".
 			/// Japanese description: "誓約8", Google translated: "Pledge 8".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType8:1", index: 164, minimum: 0, maximum: 1, step: 1, order: 12300, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType8:1", index: 164, minimum: 0, maximum: 1, step: 1, sortOrder: 12300, unknown2: 1)]
 			[DisplayName("Pledge 8")]
 			[Description("Pledge 8")]
 			[DefaultValue(false)]
@@ -2892,7 +2894,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約9", Google translated: "Pledge 9".
 			/// Japanese description: "誓約9", Google translated: "Pledge 9".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType9:1", index: 165, minimum: 0, maximum: 1, step: 1, order: 12400, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType9:1", index: 165, minimum: 0, maximum: 1, step: 1, sortOrder: 12400, unknown2: 1)]
 			[DisplayName("Pledge 9")]
 			[Description("Pledge 9")]
 			[DefaultValue(false)]
@@ -2906,7 +2908,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約10", Google translated: "Pledge 10".
 			/// Japanese description: "誓約10", Google translated: "Pledge 10".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType10:1", index: 166, minimum: 0, maximum: 1, step: 1, order: 12500, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType10:1", index: 166, minimum: 0, maximum: 1, step: 1, sortOrder: 12500, unknown2: 1)]
 			[DisplayName("Pledge 10")]
 			[Description("Pledge 10")]
 			[DefaultValue(false)]
@@ -2920,7 +2922,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約11", Google translated: "Pledge 11".
 			/// Japanese description: "誓約11", Google translated: "Pledge 11".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType11:1", index: 167, minimum: 0, maximum: 1, step: 1, order: 12600, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType11:1", index: 167, minimum: 0, maximum: 1, step: 1, sortOrder: 12600, unknown2: 1)]
 			[DisplayName("Pledge 11")]
 			[Description("Pledge 11")]
 			[DefaultValue(false)]
@@ -2934,7 +2936,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約12", Google translated: "Pledge 12".
 			/// Japanese description: "誓約12", Google translated: "Pledge 12".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType12:1", index: 168, minimum: 0, maximum: 1, step: 1, order: 12700, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType12:1", index: 168, minimum: 0, maximum: 1, step: 1, sortOrder: 12700, unknown2: 1)]
 			[DisplayName("Pledge 12")]
 			[Description("Pledge 12")]
 			[DefaultValue(false)]
@@ -2948,7 +2950,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約13", Google translated: "Pledge 13".
 			/// Japanese description: "誓約13", Google translated: "Pledge 13".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType13:1", index: 169, minimum: 0, maximum: 1, step: 1, order: 12800, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType13:1", index: 169, minimum: 0, maximum: 1, step: 1, sortOrder: 12800, unknown2: 1)]
 			[DisplayName("Pledge 13")]
 			[Description("Pledge 13")]
 			[DefaultValue(false)]
@@ -2962,7 +2964,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約14", Google translated: "Pledge 14".
 			/// Japanese description: "誓約14", Google translated: "Pledge 14".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType14:1", index: 170, minimum: 0, maximum: 1, step: 1, order: 12900, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType14:1", index: 170, minimum: 0, maximum: 1, step: 1, sortOrder: 12900, unknown2: 1)]
 			[DisplayName("Pledge 14")]
 			[Description("Pledge 14")]
 			[DefaultValue(false)]
@@ -2976,7 +2978,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "誓約15", Google translated: "Pledge 15".
 			/// Japanese description: "誓約15", Google translated: "Pledge 15".
 			/// </remarks>
-			[ParameterTableRowAttribute("vowType15:1", index: 171, minimum: 0, maximum: 1, step: 1, order: 13000, unknown2: 1)]
+			[ParameterTableRowAttribute("vowType15:1", index: 171, minimum: 0, maximum: 1, step: 1, sortOrder: 13000, unknown2: 1)]
 			[DisplayName("Pledge 15")]
 			[Description("Pledge 15")]
 			[DefaultValue(false)]
@@ -2990,7 +2992,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "pad", Google translated: "pad".
 			/// Japanese description: "pad", Google translated: "pad".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad1[11]", index: 172, minimum: 0, maximum: 0, step: 0, order: 13002, unknown2: 0)]
+			[ParameterTableRowAttribute("pad1[11]", index: 172, minimum: 0, maximum: 0, step: 0, sortOrder: 13002, unknown2: 0)]
 			[DisplayName("pad")]
 			[Description("pad")]
 			[Browsable(false)]
@@ -3296,6 +3298,10 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad1 = new Byte[11];
 			}
 
+			/// <summary>
+			/// Write the <see cref="SpecialEffect"/> row.
+			/// </summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(IconId);
 				writer.Write(ConditionHp);

@@ -9,9 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Alexandria.Engines.GoldBox</RootNamespace>
     <AssemblyName>Alexandria.Engines.GoldBox</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>bin\Debug\Alexandria.Engines.GoldBox.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +45,9 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -50,6 +57,8 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -84,19 +93,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Glare.Assets\Glare.Assets.csproj">
-      <Project>{e3809e79-fe0a-4425-a1a1-575f6719ec45}</Project>
+      <Project>{E3809E79-FE0A-4425-A1A1-575F6719EC45}</Project>
       <Name>Glare.Assets</Name>
     </ProjectReference>
     <ProjectReference Include="..\Glare.Graphics\Glare.Graphics.csproj">
-      <Project>{6ec9bd9e-da82-48db-a01b-7bb90e1a1f71}</Project>
+      <Project>{6EC9BD9E-DA82-48DB-A01B-7BB90E1A1F71}</Project>
       <Name>Glare.Graphics</Name>
     </ProjectReference>
     <ProjectReference Include="..\Glare\Glare.csproj">
-      <Project>{125d9251-7cd0-4801-ab84-cb3f1f6978b1}</Project>
+      <Project>{125D9251-7CD0-4801-AB84-CB3F1F6978B1}</Project>
       <Name>Glare %28Glare\Glare%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\Alexandria\Alexandria.csproj">
-      <Project>{fcd1c6c9-b4bf-49cf-9c92-d16e4b40a869}</Project>
+      <Project>{FCD1C6C9-B4BF-49CF-9C92-D16E4B40A869}</Project>
       <Name>Alexandria</Name>
     </ProjectReference>
   </ItemGroup>

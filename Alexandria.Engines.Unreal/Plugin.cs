@@ -5,8 +5,11 @@ using System.Linq;
 using System.Text;
 
 namespace Alexandria.Engines.Unreal {
+	/// <summary>
+	/// Plugin for the Unreal engine.
+	/// </summary>
 	public class Plugin : AlexandriaPlugin {
-		public Plugin(AssetManager manager)
+		internal Plugin(AssetManager manager)
 			: base(manager, Properties.Resources.ResourceManager) {
 			AddEngine(new Engine(this));
 		}

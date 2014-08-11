@@ -10,8 +10,14 @@ using Glare.Graphics.Scenes;
 using Glare.Graphics.Scenes.Components;
 
 namespace Glare.Assets.Formats {
+	/// <summary>
+	/// Handles Autodesk .3ds files.
+	/// </summary>
 	public class Autodesk3ds : ModelAsset {
+		/// <summary>The maximum and minimum supported model versions.</summary>
 		public const int MaxModelVersion = 3, MinModelVersion = 0;
+
+		/// <summary>The maximum and minimum supported editor versions.</summary>
 		public const int MaxEditorVersion = 3, MinEditorVersion = 0;
 
 		internal Autodesk3ds(AssetLoader loader, Autodesk3dsFormat format)
@@ -187,17 +193,37 @@ namespace Glare.Assets.Formats {
 
 		#region Nested types
 
+		/// <summary>A chunk in the data.</summary>
 		public struct Chunk {
+			/// <summary>Get whether the end has been reached.</summary>
 			public bool AtEnd { get { return Loader.Position >= End; } }
+
+			/// <summary>Get the length in bytes of the data.</summary>
 			public int DataLength { get { return Length >= 6 ? Length - 6 : 0; } }
+
+			/// <summary>Get the end offset of the chunk.</summary>
 			public long End { get { return Offset + Length; } }
+
+			/// <summary>Get the identifier of the chunk.</summary>
 			public readonly ChunkId Id;
+
+			/// <summary>Get the identifier string of the chunk.</summary>
 			public string IdString { get { return IdToString(Id); } }
+
+			/// <summary>Get the <see cref="AssetLoader"/>.</summary>
 			public readonly AssetLoader Loader;
+
+			/// <summary>Get the offset of the start of the chunk.</summary>
 			public readonly long Offset;
+
+			/// <summary>Get the length in bytes of the chunk.</summary>
 			public readonly int Length;
+
+			/// <summary>Get the reader of the chunk.</summary>
 			public BinaryReader Reader { get { return Loader.Reader; } }
 
+			/// <summary>Read the chunk header.</summary>
+			/// <param name="loader"></param>
 			public Chunk(AssetLoader loader) {
 				var reader = loader.Reader;
 				Loader = loader;
@@ -206,12 +232,18 @@ namespace Glare.Assets.Formats {
 				Length = reader.ReadInt32();
 			}
 
+			/// <summary>Convert a chunk identifier to a string.</summary>
+			/// <param name="id"></param>
+			/// <returns></returns>
 			public static string IdToString(ChunkId id) {
 				if (!typeof(ChunkId).IsEnumDefined(id))
 					return string.Format("{0:X4}h", (int)id);
 				return string.Format("{0}/{1:X4}h", id, (int)id);
 			}
 
+			/// <summary>Read a content integer based on the length.</summary>
+			/// <param name="defaultValue"></param>
+			/// <returns></returns>
 			public int ReadContentInt(int defaultValue) {
 				switch (DataLength) {
 					case 1: return Reader.ReadByte();
@@ -223,6 +255,9 @@ namespace Glare.Assets.Formats {
 				}
 			}
 
+			/// <summary>Read a content color.</summary>
+			/// <param name="defaultValue"></param>
+			/// <returns></returns>
 			public Vector3d ReadContentColor(Vector3d defaultValue) {
 				Vector3d? value3b = null, value3f = null, valueLinear3b = null, valueLinear3f = null;
 				Chunk subchunk;
@@ -244,6 +279,9 @@ namespace Glare.Assets.Formats {
 				
 			}
 
+			/// <summary>Read a content percentage.</summary>
+			/// <param name="defaultValue"></param>
+			/// <returns></returns>
 			public double ReadContentPercentage(double defaultValue) {
 				double? value1s = null, value1f = null;
 				Chunk subchunk;
@@ -262,17 +300,28 @@ namespace Glare.Assets.Formats {
 				return value1f.HasValue ? value1f.Value : value1s.HasValue ? value1s.Value : defaultValue;
 			}
 
+			/// <summary>Read a content string.</summary>
+			/// <returns></returns>
 			public string ReadContentString() {
 				if (DataLength == 0)
 					return null;
 				return Reader.ReadStringz(Encoding.UTF8);
 			}
 
+			/// <summary>Read a required chunk, creating a load error if it wasn't present.</summary>
+			/// <param name="loader"></param>
+			/// <param name="requiredId"></param>
+			/// <param name="chunk"></param>
+			/// <returns></returns>
 			public static bool ReadRequired(AssetLoader loader, ChunkId requiredId, out Chunk chunk) {
 				chunk = new Chunk(loader);
 				return chunk.RequireId(requiredId);
 			}
 
+			/// <summary>Read a required subchunk, creating a load error if it wasn't present.</summary>
+			/// <param name="subchunk"></param>
+			/// <param name="requiredId"></param>
+			/// <returns></returns>
 			public bool ReadRequiredSubchunk(out Chunk subchunk, ChunkId requiredId) {
 				if (!ReadSubchunk(out subchunk)) {
 					Loader.Errors.Add(new AssetLoadError(Loader, null, "Expected subchunk of type " + IdToString(requiredId) + " but chunk " + IdToString(Id) + " ended."));
@@ -282,6 +331,9 @@ namespace Glare.Assets.Formats {
 				return subchunk.RequireId(requiredId);
 			}
 
+			/// <summary>Read a sub-chunk if the end has not been reached.</summary>
+			/// <param name="subchunk"></param>
+			/// <returns></returns>
 			public bool ReadSubchunk(out Chunk subchunk) {
 				if (AtEnd) {
 					subchunk = default(Chunk);
@@ -292,6 +344,8 @@ namespace Glare.Assets.Formats {
 				return true;
 			}
 
+			/// <summary>Report an unknown sub-chunk as a load error.</summary>
+			/// <param name="subchunk"></param>
 			public void ReportUnknownSubchunkError(Chunk subchunk) {
 				Loader.AddError(subchunk.Offset, "Unknown chunk type {0} (data length {2}) while reading chunk {1}; skipped", subchunk.IdString, IdString, subchunk.DataLength);
 				subchunk.Skip();
@@ -314,6 +368,9 @@ namespace Glare.Assets.Formats {
 				return false;
 			}
 
+			/// <summary>Ensure that this chunk has the required id, or report a load error.</summary>
+			/// <param name="requiredId"></param>
+			/// <returns></returns>
 			public bool RequireId(ChunkId requiredId) {
 				if (requiredId == Id)
 					return true;
@@ -321,11 +378,13 @@ namespace Glare.Assets.Formats {
 				return false;
 			}
 
+			/// <summary>Skip to after this chunk.</summary>
 			public void Skip() {
 				Loader.Position = End;
 			}
 		}
 
+		/// <summary>The type of a chunk.</summary>
 		public enum ChunkId : ushort {
 			/// <summary>NULL_CHUNK.</summary>
 			Null = 0x0000,
@@ -360,6 +419,7 @@ namespace Glare.Assets.Formats {
 			/// <summary>EDIT3DS; child of <see cref="Main"/>. Contains <see cref="EditorVersion"/>, <see cref="Material"/>, <see cref="Node"/>.</summary>
 			Editor = 0x3d3d,
 
+			/// <summary>Editor version</summary>
 			EditorVersion = 0x3d3e,
 
 			/// <summary>(stringz name); child of <see cref="Editor"/>. Contains <see cref="ComponentTriangles"/>.</summary>
@@ -467,6 +527,9 @@ float scaling, plan_icon_w, plan_icon_h, cyl_icon_h;
 			: base(plugin, typeof(ModelAsset), canLoad: true, extension: ".3ds") {
 		}
 
+		/// <summary>Match based on the header.</summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
 		public override LoadMatchStrength LoadMatch(AssetLoader loader) {
 			if (loader.Length < 32)
 				return LoadMatchStrength.None;
@@ -476,6 +539,9 @@ float scaling, plan_icon_w, plan_icon_h, cyl_icon_h;
 			return LoadMatchStrength.Medium; // Stronger than a magic match, not as strong as a real header.
 		}
 
+		/// <summary>Load the 3DS model.</summary>
+		/// <param name="loader"></param>
+		/// <returns></returns>
 		public override Asset Load(AssetLoader loader) {
 			return new Autodesk3ds(loader, this);
 		}

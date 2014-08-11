@@ -10,6 +10,7 @@ namespace Alexandria.Engines.Unreal {
 	/// An import into a <see cref="Package"/>.
 	/// </summary>
 	public class Import : Reference {
+		/// <summary></summary>
 		public Import(Package package, int index)
 			: base(package, index) {
 		}
@@ -36,14 +37,17 @@ namespace Alexandria.Engines.Unreal {
 		/// </summary>
 		public Reference PackageReference { get; protected set; }
 
+		/// <summary></summary>
 		public override RootObject Object {
 			get { return AsExport.Object; }
 		}
 
+		/// <summary></summary>
 		public override RootObject ResolveNewObject() {
 			return State.CallFactory(ClassPackageName, ClassName, Name);
 		}
 
+		/// <summary></summary>
 		public override string ToString() {
 			return "Import(" + PackageReference.Name + ":" + Name + ", Class: " + ClassPackageName + ":" + ClassName + ")";
 		}
@@ -75,7 +79,10 @@ namespace Alexandria.Engines.Unreal {
 	/// A <see cref="List"/> of <see cref="Import"/>.
 	/// </summary>
 	public class ImportList : List<Import> {
+		/// <summary></summary>
 		public ImportList() : base() { }
+
+		/// <summary></summary>
 		public ImportList(int capacity) : base(capacity) { }
 	}
 }

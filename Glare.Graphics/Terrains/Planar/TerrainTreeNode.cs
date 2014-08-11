@@ -97,7 +97,7 @@ namespace Glare.Graphics.Terrains.Planar
 		/// <summary>Get the detail level of this node. This is 0 for a leaf node, positive for anything else.</summary>
 		public int Lod { get { return pLod; } }
 
-		/// <summary>Get the bounding box that encapsulates the terrain's points within this node's box of interest. If the terrain changes, this will be updated by the <see cref="Terrain.Update"/> method.</summary>
+		/// <summary>Get the bounding box that encapsulates the terrain's points within this node's box of interest. If the terrain changes, this will be updated by the <see cref="PlanarTerrain.Update"/> method.</summary>
 		public Box3d Box { get { return pBox; } }
 
 		/// <summary>

@@ -9,6 +9,7 @@ namespace Alexandria.Engines.Unreal {
 	/// </summary>
 	[Flags]
 	public enum ExportFlag {
+		/// <summary></summary>
 		Transactional = 0x00000001,
 
 		/// <summary>

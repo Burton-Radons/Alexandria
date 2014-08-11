@@ -16,6 +16,7 @@ namespace Alexandria.Engines.DarkSouls {
 		/// From "FaceGenParam.paramdef" (id 25h)
 		/// </remarks>
 		public class FaceGeneration : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "FACE_PARAM_ST";
 
 			Byte faceGeoData00, faceGeoData01, faceGeoData02, faceGeoData03, faceGeoData04, faceGeoData05, faceGeoData06, faceGeoData07, faceGeoData08, faceGeoData09, faceGeoData10, faceGeoData11, faceGeoData12, faceGeoData13, faceGeoData14, faceGeoData15, faceGeoData16, faceGeoData17, faceGeoData18, faceGeoData19, faceGeoData20, faceGeoData21, faceGeoData22, faceGeoData23, faceGeoData24, faceGeoData25, faceGeoData26, faceGeoData27, faceGeoData28, faceGeoData29, faceGeoData30, faceGeoData31, faceGeoData32, faceGeoData33, faceGeoData34, faceGeoData35, faceGeoData36, faceGeoData37, faceGeoData38, faceGeoData39, faceGeoData40, faceGeoData41, faceGeoData42, faceGeoData43, faceGeoData44, faceGeoData45, faceGeoData46, faceGeoData47, faceGeoData48, faceGeoData49, faceTexData00, faceTexData01, faceTexData02, faceTexData03, faceTexData04, faceTexData05, faceTexData06, faceTexData07, faceTexData08, faceTexData09, faceTexData10, faceTexData11, faceTexData12, faceTexData13, faceTexData14, faceTexData15, faceTexData16, faceTexData17, faceTexData18, faceTexData19, faceTexData20, faceTexData21, faceTexData22, faceTexData23, faceTexData24, faceTexData25, faceTexData26, faceTexData27, faceTexData28, faceTexData29, faceTexData30, faceTexData31, faceTexData32, faceTexData33, faceTexData34, faceTexData35, faceTexData36, faceTexData37, faceTexData38, faceTexData39, faceTexData40, faceTexData41, faceTexData42, faceTexData43, faceTexData44, faceTexData45, faceTexData46, faceTexData47, faceTexData48, faceTexData49, hairColor_R, hairColor_G, hairColor_B, eyeColor_R, eyeColor_G, eyeColor_B;
@@ -23,6 +24,7 @@ namespace Alexandria.Engines.DarkSouls {
 			FaceHairColor hairColor_Base;
 			Byte[] pad;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				FaceGeoData00Property = GetProperty<FaceGeneration>("FaceGeoData00"),
 				FaceGeoData01Property = GetProperty<FaceGeneration>("FaceGeoData01"),
@@ -139,7 +141,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ00", Google translated: "Face create geometry data 00".
 			/// Japanese description: "顔作成ジオメトリデータ00", Google translated: "Face create geometry data 00".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData00", index: 0, minimum: 0, maximum: 255, step: 1, order: 1, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData00", index: 0, minimum: 0, maximum: 255, step: 1, sortOrder: 1, unknown2: 1)]
 			[DisplayName("Face create geometry data 00")]
 			[Description("Face create geometry data 00")]
 			[DefaultValue((Byte)0)]
@@ -157,7 +159,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ01", Google translated: "Face create geometry data 01".
 			/// Japanese description: "顔作成ジオメトリデータ01", Google translated: "Face create geometry data 01".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData01", index: 1, minimum: 0, maximum: 255, step: 1, order: 2, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData01", index: 1, minimum: 0, maximum: 255, step: 1, sortOrder: 2, unknown2: 1)]
 			[DisplayName("Face create geometry data 01")]
 			[Description("Face create geometry data 01")]
 			[DefaultValue((Byte)0)]
@@ -175,7 +177,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ02", Google translated: "Face create geometry data 02".
 			/// Japanese description: "顔作成ジオメトリデータ02", Google translated: "Face create geometry data 02".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData02", index: 2, minimum: 0, maximum: 255, step: 1, order: 3, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData02", index: 2, minimum: 0, maximum: 255, step: 1, sortOrder: 3, unknown2: 1)]
 			[DisplayName("Face create geometry data 02")]
 			[Description("Face create geometry data 02")]
 			[DefaultValue((Byte)0)]
@@ -193,7 +195,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ03", Google translated: "Face create geometry data 03".
 			/// Japanese description: "顔作成ジオメトリデータ03", Google translated: "Face create geometry data 03".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData03", index: 3, minimum: 0, maximum: 255, step: 1, order: 4, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData03", index: 3, minimum: 0, maximum: 255, step: 1, sortOrder: 4, unknown2: 1)]
 			[DisplayName("Face create geometry data 03")]
 			[Description("Face create geometry data 03")]
 			[DefaultValue((Byte)0)]
@@ -211,7 +213,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ04", Google translated: "Face create geometry data 04".
 			/// Japanese description: "顔作成ジオメトリデータ04", Google translated: "Face create geometry data 04".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData04", index: 4, minimum: 0, maximum: 255, step: 1, order: 5, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData04", index: 4, minimum: 0, maximum: 255, step: 1, sortOrder: 5, unknown2: 1)]
 			[DisplayName("Face create geometry data 04")]
 			[Description("Face create geometry data 04")]
 			[DefaultValue((Byte)0)]
@@ -229,7 +231,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ05", Google translated: "Face create geometry data 05".
 			/// Japanese description: "顔作成ジオメトリデータ05", Google translated: "Face create geometry data 05".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData05", index: 5, minimum: 0, maximum: 255, step: 1, order: 6, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData05", index: 5, minimum: 0, maximum: 255, step: 1, sortOrder: 6, unknown2: 1)]
 			[DisplayName("Face create geometry data 05")]
 			[Description("Face create geometry data 05")]
 			[DefaultValue((Byte)0)]
@@ -247,7 +249,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ06", Google translated: "Face create geometry data 06".
 			/// Japanese description: "顔作成ジオメトリデータ06", Google translated: "Face create geometry data 06".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData06", index: 6, minimum: 0, maximum: 255, step: 1, order: 7, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData06", index: 6, minimum: 0, maximum: 255, step: 1, sortOrder: 7, unknown2: 1)]
 			[DisplayName("Face create geometry data 06")]
 			[Description("Face create geometry data 06")]
 			[DefaultValue((Byte)0)]
@@ -265,7 +267,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ07", Google translated: "Face create geometry data 07".
 			/// Japanese description: "顔作成ジオメトリデータ07", Google translated: "Face create geometry data 07".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData07", index: 7, minimum: 0, maximum: 255, step: 1, order: 8, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData07", index: 7, minimum: 0, maximum: 255, step: 1, sortOrder: 8, unknown2: 1)]
 			[DisplayName("Face create geometry data 07")]
 			[Description("Face create geometry data 07")]
 			[DefaultValue((Byte)0)]
@@ -283,7 +285,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ08", Google translated: "Face create geometry data 08".
 			/// Japanese description: "顔作成ジオメトリデータ08", Google translated: "Face create geometry data 08".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData08", index: 8, minimum: 0, maximum: 255, step: 1, order: 9, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData08", index: 8, minimum: 0, maximum: 255, step: 1, sortOrder: 9, unknown2: 1)]
 			[DisplayName("Face create geometry data 08")]
 			[Description("Face create geometry data 08")]
 			[DefaultValue((Byte)0)]
@@ -301,7 +303,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ09", Google translated: "Face create geometry data 09".
 			/// Japanese description: "顔作成ジオメトリデータ09", Google translated: "Face create geometry data 09".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData09", index: 9, minimum: 0, maximum: 255, step: 1, order: 10, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData09", index: 9, minimum: 0, maximum: 255, step: 1, sortOrder: 10, unknown2: 1)]
 			[DisplayName("Face create geometry data 09")]
 			[Description("Face create geometry data 09")]
 			[DefaultValue((Byte)0)]
@@ -319,7 +321,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ10", Google translated: "Face create geometry data 10".
 			/// Japanese description: "顔作成ジオメトリデータ10", Google translated: "Face create geometry data 10".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData10", index: 10, minimum: 0, maximum: 255, step: 1, order: 11, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData10", index: 10, minimum: 0, maximum: 255, step: 1, sortOrder: 11, unknown2: 1)]
 			[DisplayName("Face create geometry data 10")]
 			[Description("Face create geometry data 10")]
 			[DefaultValue((Byte)0)]
@@ -337,7 +339,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ11", Google translated: "Face create geometry data 11".
 			/// Japanese description: "顔作成ジオメトリデータ11", Google translated: "Face create geometry data 11".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData11", index: 11, minimum: 0, maximum: 255, step: 1, order: 12, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData11", index: 11, minimum: 0, maximum: 255, step: 1, sortOrder: 12, unknown2: 1)]
 			[DisplayName("Face create geometry data 11")]
 			[Description("Face create geometry data 11")]
 			[DefaultValue((Byte)0)]
@@ -355,7 +357,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ12", Google translated: "Face create geometry data 12".
 			/// Japanese description: "顔作成ジオメトリデータ12", Google translated: "Face create geometry data 12".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData12", index: 12, minimum: 0, maximum: 255, step: 1, order: 13, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData12", index: 12, minimum: 0, maximum: 255, step: 1, sortOrder: 13, unknown2: 1)]
 			[DisplayName("Face create geometry data 12")]
 			[Description("Face create geometry data 12")]
 			[DefaultValue((Byte)0)]
@@ -373,7 +375,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ13", Google translated: "Face create geometry data 13".
 			/// Japanese description: "顔作成ジオメトリデータ13", Google translated: "Face create geometry data 13".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData13", index: 13, minimum: 0, maximum: 255, step: 1, order: 14, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData13", index: 13, minimum: 0, maximum: 255, step: 1, sortOrder: 14, unknown2: 1)]
 			[DisplayName("Face create geometry data 13")]
 			[Description("Face create geometry data 13")]
 			[DefaultValue((Byte)0)]
@@ -391,7 +393,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ14", Google translated: "Face create geometry data 14".
 			/// Japanese description: "顔作成ジオメトリデータ14", Google translated: "Face create geometry data 14".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData14", index: 14, minimum: 0, maximum: 255, step: 1, order: 15, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData14", index: 14, minimum: 0, maximum: 255, step: 1, sortOrder: 15, unknown2: 1)]
 			[DisplayName("Face create geometry data 14")]
 			[Description("Face create geometry data 14")]
 			[DefaultValue((Byte)0)]
@@ -409,7 +411,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ15", Google translated: "Face create geometry data 15".
 			/// Japanese description: "顔作成ジオメトリデータ15", Google translated: "Face create geometry data 15".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData15", index: 15, minimum: 0, maximum: 255, step: 1, order: 16, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData15", index: 15, minimum: 0, maximum: 255, step: 1, sortOrder: 16, unknown2: 1)]
 			[DisplayName("Face create geometry data 15")]
 			[Description("Face create geometry data 15")]
 			[DefaultValue((Byte)0)]
@@ -427,7 +429,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ16", Google translated: "Face create geometry data 16".
 			/// Japanese description: "顔作成ジオメトリデータ16", Google translated: "Face create geometry data 16".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData16", index: 16, minimum: 0, maximum: 255, step: 1, order: 17, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData16", index: 16, minimum: 0, maximum: 255, step: 1, sortOrder: 17, unknown2: 1)]
 			[DisplayName("Face create geometry data 16")]
 			[Description("Face create geometry data 16")]
 			[DefaultValue((Byte)0)]
@@ -445,7 +447,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ17", Google translated: "Face create geometry data 17".
 			/// Japanese description: "顔作成ジオメトリデータ17", Google translated: "Face create geometry data 17".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData17", index: 17, minimum: 0, maximum: 255, step: 1, order: 18, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData17", index: 17, minimum: 0, maximum: 255, step: 1, sortOrder: 18, unknown2: 1)]
 			[DisplayName("Face create geometry data 17")]
 			[Description("Face create geometry data 17")]
 			[DefaultValue((Byte)0)]
@@ -463,7 +465,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ18", Google translated: "Face create geometry data 18".
 			/// Japanese description: "顔作成ジオメトリデータ18", Google translated: "Face create geometry data 18".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData18", index: 18, minimum: 0, maximum: 255, step: 1, order: 19, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData18", index: 18, minimum: 0, maximum: 255, step: 1, sortOrder: 19, unknown2: 1)]
 			[DisplayName("Face create geometry data 18")]
 			[Description("Face create geometry data 18")]
 			[DefaultValue((Byte)0)]
@@ -481,7 +483,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ19", Google translated: "Face create geometry data 19".
 			/// Japanese description: "顔作成ジオメトリデータ19", Google translated: "Face create geometry data 19".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData19", index: 19, minimum: 0, maximum: 255, step: 1, order: 20, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData19", index: 19, minimum: 0, maximum: 255, step: 1, sortOrder: 20, unknown2: 1)]
 			[DisplayName("Face create geometry data 19")]
 			[Description("Face create geometry data 19")]
 			[DefaultValue((Byte)0)]
@@ -499,7 +501,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ20", Google translated: "Face create geometry data 20".
 			/// Japanese description: "顔作成ジオメトリデータ20", Google translated: "Face create geometry data 20".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData20", index: 20, minimum: 0, maximum: 255, step: 1, order: 21, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData20", index: 20, minimum: 0, maximum: 255, step: 1, sortOrder: 21, unknown2: 1)]
 			[DisplayName("Face create geometry data 20")]
 			[Description("Face create geometry data 20")]
 			[DefaultValue((Byte)0)]
@@ -517,7 +519,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ21", Google translated: "Face create geometry data 21".
 			/// Japanese description: "顔作成ジオメトリデータ21", Google translated: "Face create geometry data 21".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData21", index: 21, minimum: 0, maximum: 255, step: 1, order: 22, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData21", index: 21, minimum: 0, maximum: 255, step: 1, sortOrder: 22, unknown2: 1)]
 			[DisplayName("Face create geometry data 21")]
 			[Description("Face create geometry data 21")]
 			[DefaultValue((Byte)0)]
@@ -535,7 +537,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ22", Google translated: "Face create geometry data 22".
 			/// Japanese description: "顔作成ジオメトリデータ22", Google translated: "Face create geometry data 22".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData22", index: 22, minimum: 0, maximum: 255, step: 1, order: 23, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData22", index: 22, minimum: 0, maximum: 255, step: 1, sortOrder: 23, unknown2: 1)]
 			[DisplayName("Face create geometry data 22")]
 			[Description("Face create geometry data 22")]
 			[DefaultValue((Byte)0)]
@@ -553,7 +555,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ23", Google translated: "Face create geometry data 23".
 			/// Japanese description: "顔作成ジオメトリデータ23", Google translated: "Face create geometry data 23".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData23", index: 23, minimum: 0, maximum: 255, step: 1, order: 24, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData23", index: 23, minimum: 0, maximum: 255, step: 1, sortOrder: 24, unknown2: 1)]
 			[DisplayName("Face create geometry data 23")]
 			[Description("Face create geometry data 23")]
 			[DefaultValue((Byte)0)]
@@ -571,7 +573,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ24", Google translated: "Face create geometry data 24".
 			/// Japanese description: "顔作成ジオメトリデータ24", Google translated: "Face create geometry data 24".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData24", index: 24, minimum: 0, maximum: 255, step: 1, order: 25, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData24", index: 24, minimum: 0, maximum: 255, step: 1, sortOrder: 25, unknown2: 1)]
 			[DisplayName("Face create geometry data 24")]
 			[Description("Face create geometry data 24")]
 			[DefaultValue((Byte)0)]
@@ -589,7 +591,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ25", Google translated: "Face create geometry data 25".
 			/// Japanese description: "顔作成ジオメトリデータ25", Google translated: "Face create geometry data 25".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData25", index: 25, minimum: 0, maximum: 255, step: 1, order: 26, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData25", index: 25, minimum: 0, maximum: 255, step: 1, sortOrder: 26, unknown2: 1)]
 			[DisplayName("Face create geometry data 25")]
 			[Description("Face create geometry data 25")]
 			[DefaultValue((Byte)0)]
@@ -607,7 +609,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ26", Google translated: "Face create geometry data 26".
 			/// Japanese description: "顔作成ジオメトリデータ26", Google translated: "Face create geometry data 26".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData26", index: 26, minimum: 0, maximum: 255, step: 1, order: 27, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData26", index: 26, minimum: 0, maximum: 255, step: 1, sortOrder: 27, unknown2: 1)]
 			[DisplayName("Face create geometry data 26")]
 			[Description("Face create geometry data 26")]
 			[DefaultValue((Byte)0)]
@@ -625,7 +627,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ27", Google translated: "Face create geometry data 27".
 			/// Japanese description: "顔作成ジオメトリデータ27", Google translated: "Face create geometry data 27".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData27", index: 27, minimum: 0, maximum: 255, step: 1, order: 28, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData27", index: 27, minimum: 0, maximum: 255, step: 1, sortOrder: 28, unknown2: 1)]
 			[DisplayName("Face create geometry data 27")]
 			[Description("Face create geometry data 27")]
 			[DefaultValue((Byte)0)]
@@ -643,7 +645,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ28", Google translated: "Face create geometry data 28".
 			/// Japanese description: "顔作成ジオメトリデータ28", Google translated: "Face create geometry data 28".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData28", index: 28, minimum: 0, maximum: 255, step: 1, order: 29, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData28", index: 28, minimum: 0, maximum: 255, step: 1, sortOrder: 29, unknown2: 1)]
 			[DisplayName("Face create geometry data 28")]
 			[Description("Face create geometry data 28")]
 			[DefaultValue((Byte)0)]
@@ -661,7 +663,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ29", Google translated: "Face create geometry data 29".
 			/// Japanese description: "顔作成ジオメトリデータ29", Google translated: "Face create geometry data 29".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData29", index: 29, minimum: 0, maximum: 255, step: 1, order: 30, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData29", index: 29, minimum: 0, maximum: 255, step: 1, sortOrder: 30, unknown2: 1)]
 			[DisplayName("Face create geometry data 29")]
 			[Description("Face create geometry data 29")]
 			[DefaultValue((Byte)0)]
@@ -679,7 +681,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ30", Google translated: "Face create geometry data 30".
 			/// Japanese description: "顔作成ジオメトリデータ30", Google translated: "Face create geometry data 30".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData30", index: 30, minimum: 0, maximum: 255, step: 1, order: 31, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData30", index: 30, minimum: 0, maximum: 255, step: 1, sortOrder: 31, unknown2: 1)]
 			[DisplayName("Face create geometry data 30")]
 			[Description("Face create geometry data 30")]
 			[DefaultValue((Byte)0)]
@@ -697,7 +699,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ31", Google translated: "Face create geometry data 31".
 			/// Japanese description: "顔作成ジオメトリデータ31", Google translated: "Face create geometry data 31".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData31", index: 31, minimum: 0, maximum: 255, step: 1, order: 32, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData31", index: 31, minimum: 0, maximum: 255, step: 1, sortOrder: 32, unknown2: 1)]
 			[DisplayName("Face create geometry data 31")]
 			[Description("Face create geometry data 31")]
 			[DefaultValue((Byte)0)]
@@ -715,7 +717,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ32", Google translated: "Face create geometry data 32".
 			/// Japanese description: "顔作成ジオメトリデータ32", Google translated: "Face create geometry data 32".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData32", index: 32, minimum: 0, maximum: 255, step: 1, order: 33, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData32", index: 32, minimum: 0, maximum: 255, step: 1, sortOrder: 33, unknown2: 1)]
 			[DisplayName("Face create geometry data 32")]
 			[Description("Face create geometry data 32")]
 			[DefaultValue((Byte)0)]
@@ -733,7 +735,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ33", Google translated: "Face create geometry data 33".
 			/// Japanese description: "顔作成ジオメトリデータ33", Google translated: "Face create geometry data 33".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData33", index: 33, minimum: 0, maximum: 255, step: 1, order: 34, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData33", index: 33, minimum: 0, maximum: 255, step: 1, sortOrder: 34, unknown2: 1)]
 			[DisplayName("Face create geometry data 33")]
 			[Description("Face create geometry data 33")]
 			[DefaultValue((Byte)0)]
@@ -751,7 +753,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ34", Google translated: "Face create geometry data 34".
 			/// Japanese description: "顔作成ジオメトリデータ34", Google translated: "Face create geometry data 34".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData34", index: 34, minimum: 0, maximum: 255, step: 1, order: 35, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData34", index: 34, minimum: 0, maximum: 255, step: 1, sortOrder: 35, unknown2: 1)]
 			[DisplayName("Face create geometry data 34")]
 			[Description("Face create geometry data 34")]
 			[DefaultValue((Byte)0)]
@@ -769,7 +771,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ35", Google translated: "Face create geometry data 35".
 			/// Japanese description: "顔作成ジオメトリデータ35", Google translated: "Face create geometry data 35".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData35", index: 35, minimum: 0, maximum: 255, step: 1, order: 36, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData35", index: 35, minimum: 0, maximum: 255, step: 1, sortOrder: 36, unknown2: 1)]
 			[DisplayName("Face create geometry data 35")]
 			[Description("Face create geometry data 35")]
 			[DefaultValue((Byte)0)]
@@ -787,7 +789,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ36", Google translated: "Face create geometry data 36".
 			/// Japanese description: "顔作成ジオメトリデータ36", Google translated: "Face create geometry data 36".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData36", index: 36, minimum: 0, maximum: 255, step: 1, order: 37, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData36", index: 36, minimum: 0, maximum: 255, step: 1, sortOrder: 37, unknown2: 1)]
 			[DisplayName("Face create geometry data 36")]
 			[Description("Face create geometry data 36")]
 			[DefaultValue((Byte)0)]
@@ -805,7 +807,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ37", Google translated: "Face create geometry data 37".
 			/// Japanese description: "顔作成ジオメトリデータ37", Google translated: "Face create geometry data 37".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData37", index: 37, minimum: 0, maximum: 255, step: 1, order: 38, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData37", index: 37, minimum: 0, maximum: 255, step: 1, sortOrder: 38, unknown2: 1)]
 			[DisplayName("Face create geometry data 37")]
 			[Description("Face create geometry data 37")]
 			[DefaultValue((Byte)0)]
@@ -823,7 +825,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ38", Google translated: "Face create geometry data 38".
 			/// Japanese description: "顔作成ジオメトリデータ38", Google translated: "Face create geometry data 38".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData38", index: 38, minimum: 0, maximum: 255, step: 1, order: 39, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData38", index: 38, minimum: 0, maximum: 255, step: 1, sortOrder: 39, unknown2: 1)]
 			[DisplayName("Face create geometry data 38")]
 			[Description("Face create geometry data 38")]
 			[DefaultValue((Byte)0)]
@@ -841,7 +843,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ39", Google translated: "Face create geometry data 39".
 			/// Japanese description: "顔作成ジオメトリデータ39", Google translated: "Face create geometry data 39".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData39", index: 39, minimum: 0, maximum: 255, step: 1, order: 40, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData39", index: 39, minimum: 0, maximum: 255, step: 1, sortOrder: 40, unknown2: 1)]
 			[DisplayName("Face create geometry data 39")]
 			[Description("Face create geometry data 39")]
 			[DefaultValue((Byte)0)]
@@ -859,7 +861,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ40", Google translated: "Face create geometry data 40".
 			/// Japanese description: "顔作成ジオメトリデータ40", Google translated: "Face create geometry data 40".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData40", index: 40, minimum: 0, maximum: 255, step: 1, order: 41, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData40", index: 40, minimum: 0, maximum: 255, step: 1, sortOrder: 41, unknown2: 1)]
 			[DisplayName("Face create geometry data 40")]
 			[Description("Face create geometry data 40")]
 			[DefaultValue((Byte)0)]
@@ -877,7 +879,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ41", Google translated: "Face create geometry data 41".
 			/// Japanese description: "顔作成ジオメトリデータ41", Google translated: "Face create geometry data 41".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData41", index: 41, minimum: 0, maximum: 255, step: 1, order: 42, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData41", index: 41, minimum: 0, maximum: 255, step: 1, sortOrder: 42, unknown2: 1)]
 			[DisplayName("Face create geometry data 41")]
 			[Description("Face create geometry data 41")]
 			[DefaultValue((Byte)0)]
@@ -895,7 +897,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ42", Google translated: "Face create geometry data 42".
 			/// Japanese description: "顔作成ジオメトリデータ42", Google translated: "Face create geometry data 42".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData42", index: 42, minimum: 0, maximum: 255, step: 1, order: 43, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData42", index: 42, minimum: 0, maximum: 255, step: 1, sortOrder: 43, unknown2: 1)]
 			[DisplayName("Face create geometry data 42")]
 			[Description("Face create geometry data 42")]
 			[DefaultValue((Byte)0)]
@@ -913,7 +915,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ43", Google translated: "Face create geometry data 43".
 			/// Japanese description: "顔作成ジオメトリデータ43", Google translated: "Face create geometry data 43".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData43", index: 43, minimum: 0, maximum: 255, step: 1, order: 44, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData43", index: 43, minimum: 0, maximum: 255, step: 1, sortOrder: 44, unknown2: 1)]
 			[DisplayName("Face create geometry data 43")]
 			[Description("Face create geometry data 43")]
 			[DefaultValue((Byte)0)]
@@ -931,7 +933,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ44", Google translated: "Face create geometry data 44".
 			/// Japanese description: "顔作成ジオメトリデータ44", Google translated: "Face create geometry data 44".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData44", index: 44, minimum: 0, maximum: 255, step: 1, order: 45, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData44", index: 44, minimum: 0, maximum: 255, step: 1, sortOrder: 45, unknown2: 1)]
 			[DisplayName("Face create geometry data 44")]
 			[Description("Face create geometry data 44")]
 			[DefaultValue((Byte)0)]
@@ -949,7 +951,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ45", Google translated: "Face create geometry data 45".
 			/// Japanese description: "顔作成ジオメトリデータ45", Google translated: "Face create geometry data 45".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData45", index: 45, minimum: 0, maximum: 255, step: 1, order: 46, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData45", index: 45, minimum: 0, maximum: 255, step: 1, sortOrder: 46, unknown2: 1)]
 			[DisplayName("Face create geometry data 45")]
 			[Description("Face create geometry data 45")]
 			[DefaultValue((Byte)0)]
@@ -967,7 +969,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ46", Google translated: "Face create geometry data 46".
 			/// Japanese description: "顔作成ジオメトリデータ46", Google translated: "Face create geometry data 46".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData46", index: 46, minimum: 0, maximum: 255, step: 1, order: 47, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData46", index: 46, minimum: 0, maximum: 255, step: 1, sortOrder: 47, unknown2: 1)]
 			[DisplayName("Face create geometry data 46")]
 			[Description("Face create geometry data 46")]
 			[DefaultValue((Byte)0)]
@@ -985,7 +987,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ47", Google translated: "Face create geometry data 47".
 			/// Japanese description: "顔作成ジオメトリデータ47", Google translated: "Face create geometry data 47".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData47", index: 47, minimum: 0, maximum: 255, step: 1, order: 48, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData47", index: 47, minimum: 0, maximum: 255, step: 1, sortOrder: 48, unknown2: 1)]
 			[DisplayName("Face create geometry data 47")]
 			[Description("Face create geometry data 47")]
 			[DefaultValue((Byte)0)]
@@ -1003,7 +1005,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ48", Google translated: "Face create geometry data 48".
 			/// Japanese description: "顔作成ジオメトリデータ48", Google translated: "Face create geometry data 48".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData48", index: 48, minimum: 0, maximum: 255, step: 1, order: 49, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData48", index: 48, minimum: 0, maximum: 255, step: 1, sortOrder: 49, unknown2: 1)]
 			[DisplayName("Face create geometry data 48")]
 			[Description("Face create geometry data 48")]
 			[DefaultValue((Byte)0)]
@@ -1021,7 +1023,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成ジオメトリデータ49", Google translated: "Face create geometry data 49".
 			/// Japanese description: "顔作成ジオメトリデータ49", Google translated: "Face create geometry data 49".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceGeoData49", index: 49, minimum: 0, maximum: 255, step: 1, order: 50, unknown2: 1)]
+			[ParameterTableRowAttribute("faceGeoData49", index: 49, minimum: 0, maximum: 255, step: 1, sortOrder: 50, unknown2: 1)]
 			[DisplayName("Face create geometry data 49")]
 			[Description("Face create geometry data 49")]
 			[DefaultValue((Byte)0)]
@@ -1039,7 +1041,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ00", Google translated: "Face create texture data 00".
 			/// Japanese description: "顔作成テクスチャデータ00", Google translated: "Face create texture data 00".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData00", index: 50, minimum: 0, maximum: 255, step: 1, order: 51, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData00", index: 50, minimum: 0, maximum: 255, step: 1, sortOrder: 51, unknown2: 1)]
 			[DisplayName("Face create texture data 00")]
 			[Description("Face create texture data 00")]
 			[DefaultValue((Byte)0)]
@@ -1057,7 +1059,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ01", Google translated: "Face create texture data 01".
 			/// Japanese description: "顔作成テクスチャデータ01", Google translated: "Face create texture data 01".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData01", index: 51, minimum: 0, maximum: 255, step: 1, order: 52, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData01", index: 51, minimum: 0, maximum: 255, step: 1, sortOrder: 52, unknown2: 1)]
 			[DisplayName("Face create texture data 01")]
 			[Description("Face create texture data 01")]
 			[DefaultValue((Byte)0)]
@@ -1075,7 +1077,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ02", Google translated: "Face create texture data 02".
 			/// Japanese description: "顔作成テクスチャデータ02", Google translated: "Face create texture data 02".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData02", index: 52, minimum: 0, maximum: 255, step: 1, order: 53, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData02", index: 52, minimum: 0, maximum: 255, step: 1, sortOrder: 53, unknown2: 1)]
 			[DisplayName("Face create texture data 02")]
 			[Description("Face create texture data 02")]
 			[DefaultValue((Byte)0)]
@@ -1093,7 +1095,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ03", Google translated: "Face create texture data 03".
 			/// Japanese description: "顔作成テクスチャデータ03", Google translated: "Face create texture data 03".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData03", index: 53, minimum: 0, maximum: 255, step: 1, order: 54, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData03", index: 53, minimum: 0, maximum: 255, step: 1, sortOrder: 54, unknown2: 1)]
 			[DisplayName("Face create texture data 03")]
 			[Description("Face create texture data 03")]
 			[DefaultValue((Byte)0)]
@@ -1111,7 +1113,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ04", Google translated: "Face create texture data 04".
 			/// Japanese description: "顔作成テクスチャデータ04", Google translated: "Face create texture data 04".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData04", index: 54, minimum: 0, maximum: 255, step: 1, order: 55, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData04", index: 54, minimum: 0, maximum: 255, step: 1, sortOrder: 55, unknown2: 1)]
 			[DisplayName("Face create texture data 04")]
 			[Description("Face create texture data 04")]
 			[DefaultValue((Byte)0)]
@@ -1129,7 +1131,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ05", Google translated: "Face create texture data 05".
 			/// Japanese description: "顔作成テクスチャデータ05", Google translated: "Face create texture data 05".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData05", index: 55, minimum: 0, maximum: 255, step: 1, order: 56, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData05", index: 55, minimum: 0, maximum: 255, step: 1, sortOrder: 56, unknown2: 1)]
 			[DisplayName("Face create texture data 05")]
 			[Description("Face create texture data 05")]
 			[DefaultValue((Byte)0)]
@@ -1147,7 +1149,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ06", Google translated: "Face create texture data 06".
 			/// Japanese description: "顔作成テクスチャデータ06", Google translated: "Face create texture data 06".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData06", index: 56, minimum: 0, maximum: 255, step: 1, order: 57, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData06", index: 56, minimum: 0, maximum: 255, step: 1, sortOrder: 57, unknown2: 1)]
 			[DisplayName("Face create texture data 06")]
 			[Description("Face create texture data 06")]
 			[DefaultValue((Byte)0)]
@@ -1165,7 +1167,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ07", Google translated: "Face create texture data 07".
 			/// Japanese description: "顔作成テクスチャデータ07", Google translated: "Face create texture data 07".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData07", index: 57, minimum: 0, maximum: 255, step: 1, order: 58, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData07", index: 57, minimum: 0, maximum: 255, step: 1, sortOrder: 58, unknown2: 1)]
 			[DisplayName("Face create texture data 07")]
 			[Description("Face create texture data 07")]
 			[DefaultValue((Byte)0)]
@@ -1183,7 +1185,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ08", Google translated: "Face create texture data 08".
 			/// Japanese description: "顔作成テクスチャデータ08", Google translated: "Face create texture data 08".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData08", index: 58, minimum: 0, maximum: 255, step: 1, order: 59, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData08", index: 58, minimum: 0, maximum: 255, step: 1, sortOrder: 59, unknown2: 1)]
 			[DisplayName("Face create texture data 08")]
 			[Description("Face create texture data 08")]
 			[DefaultValue((Byte)0)]
@@ -1201,7 +1203,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ09", Google translated: "Face create texture data 09".
 			/// Japanese description: "顔作成テクスチャデータ09", Google translated: "Face create texture data 09".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData09", index: 59, minimum: 0, maximum: 255, step: 1, order: 60, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData09", index: 59, minimum: 0, maximum: 255, step: 1, sortOrder: 60, unknown2: 1)]
 			[DisplayName("Face create texture data 09")]
 			[Description("Face create texture data 09")]
 			[DefaultValue((Byte)0)]
@@ -1219,7 +1221,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ10", Google translated: "Face create texture data 10".
 			/// Japanese description: "顔作成テクスチャデータ10", Google translated: "Face create texture data 10".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData10", index: 60, minimum: 0, maximum: 255, step: 1, order: 61, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData10", index: 60, minimum: 0, maximum: 255, step: 1, sortOrder: 61, unknown2: 1)]
 			[DisplayName("Face create texture data 10")]
 			[Description("Face create texture data 10")]
 			[DefaultValue((Byte)0)]
@@ -1237,7 +1239,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ11", Google translated: "Face create texture data 11".
 			/// Japanese description: "顔作成テクスチャデータ11", Google translated: "Face create texture data 11".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData11", index: 61, minimum: 0, maximum: 255, step: 1, order: 62, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData11", index: 61, minimum: 0, maximum: 255, step: 1, sortOrder: 62, unknown2: 1)]
 			[DisplayName("Face create texture data 11")]
 			[Description("Face create texture data 11")]
 			[DefaultValue((Byte)0)]
@@ -1255,7 +1257,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ12", Google translated: "Face create texture data 12".
 			/// Japanese description: "顔作成テクスチャデータ12", Google translated: "Face create texture data 12".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData12", index: 62, minimum: 0, maximum: 255, step: 1, order: 63, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData12", index: 62, minimum: 0, maximum: 255, step: 1, sortOrder: 63, unknown2: 1)]
 			[DisplayName("Face create texture data 12")]
 			[Description("Face create texture data 12")]
 			[DefaultValue((Byte)0)]
@@ -1273,7 +1275,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ13", Google translated: "Face create texture data 13".
 			/// Japanese description: "顔作成テクスチャデータ13", Google translated: "Face create texture data 13".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData13", index: 63, minimum: 0, maximum: 255, step: 1, order: 64, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData13", index: 63, minimum: 0, maximum: 255, step: 1, sortOrder: 64, unknown2: 1)]
 			[DisplayName("Face create texture data 13")]
 			[Description("Face create texture data 13")]
 			[DefaultValue((Byte)0)]
@@ -1291,7 +1293,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ14", Google translated: "Face create texture data 14".
 			/// Japanese description: "顔作成テクスチャデータ14", Google translated: "Face create texture data 14".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData14", index: 64, minimum: 0, maximum: 255, step: 1, order: 65, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData14", index: 64, minimum: 0, maximum: 255, step: 1, sortOrder: 65, unknown2: 1)]
 			[DisplayName("Face create texture data 14")]
 			[Description("Face create texture data 14")]
 			[DefaultValue((Byte)0)]
@@ -1309,7 +1311,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ15", Google translated: "Face create texture data 15".
 			/// Japanese description: "顔作成テクスチャデータ15", Google translated: "Face create texture data 15".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData15", index: 65, minimum: 0, maximum: 255, step: 1, order: 66, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData15", index: 65, minimum: 0, maximum: 255, step: 1, sortOrder: 66, unknown2: 1)]
 			[DisplayName("Face create texture data 15")]
 			[Description("Face create texture data 15")]
 			[DefaultValue((Byte)0)]
@@ -1327,7 +1329,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ16", Google translated: "Face create texture data 16".
 			/// Japanese description: "顔作成テクスチャデータ16", Google translated: "Face create texture data 16".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData16", index: 66, minimum: 0, maximum: 255, step: 1, order: 67, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData16", index: 66, minimum: 0, maximum: 255, step: 1, sortOrder: 67, unknown2: 1)]
 			[DisplayName("Face create texture data 16")]
 			[Description("Face create texture data 16")]
 			[DefaultValue((Byte)0)]
@@ -1345,7 +1347,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ17", Google translated: "Face create texture data 17".
 			/// Japanese description: "顔作成テクスチャデータ17", Google translated: "Face create texture data 17".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData17", index: 67, minimum: 0, maximum: 255, step: 1, order: 68, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData17", index: 67, minimum: 0, maximum: 255, step: 1, sortOrder: 68, unknown2: 1)]
 			[DisplayName("Face create texture data 17")]
 			[Description("Face create texture data 17")]
 			[DefaultValue((Byte)0)]
@@ -1363,7 +1365,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ18", Google translated: "Face create texture data 18".
 			/// Japanese description: "顔作成テクスチャデータ18", Google translated: "Face create texture data 18".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData18", index: 68, minimum: 0, maximum: 255, step: 1, order: 69, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData18", index: 68, minimum: 0, maximum: 255, step: 1, sortOrder: 69, unknown2: 1)]
 			[DisplayName("Face create texture data 18")]
 			[Description("Face create texture data 18")]
 			[DefaultValue((Byte)0)]
@@ -1381,7 +1383,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ19", Google translated: "Face create texture data 19".
 			/// Japanese description: "顔作成テクスチャデータ19", Google translated: "Face create texture data 19".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData19", index: 69, minimum: 0, maximum: 255, step: 1, order: 70, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData19", index: 69, minimum: 0, maximum: 255, step: 1, sortOrder: 70, unknown2: 1)]
 			[DisplayName("Face create texture data 19")]
 			[Description("Face create texture data 19")]
 			[DefaultValue((Byte)0)]
@@ -1399,7 +1401,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ20", Google translated: "Face create texture data 20".
 			/// Japanese description: "顔作成テクスチャデータ20", Google translated: "Face create texture data 20".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData20", index: 70, minimum: 0, maximum: 255, step: 1, order: 71, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData20", index: 70, minimum: 0, maximum: 255, step: 1, sortOrder: 71, unknown2: 1)]
 			[DisplayName("Face create texture data 20")]
 			[Description("Face create texture data 20")]
 			[DefaultValue((Byte)0)]
@@ -1417,7 +1419,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ21", Google translated: "Face create texture data 21".
 			/// Japanese description: "顔作成テクスチャデータ21", Google translated: "Face create texture data 21".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData21", index: 71, minimum: 0, maximum: 255, step: 1, order: 72, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData21", index: 71, minimum: 0, maximum: 255, step: 1, sortOrder: 72, unknown2: 1)]
 			[DisplayName("Face create texture data 21")]
 			[Description("Face create texture data 21")]
 			[DefaultValue((Byte)0)]
@@ -1435,7 +1437,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ22", Google translated: "Face create texture data 22".
 			/// Japanese description: "顔作成テクスチャデータ22", Google translated: "Face create texture data 22".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData22", index: 72, minimum: 0, maximum: 255, step: 1, order: 73, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData22", index: 72, minimum: 0, maximum: 255, step: 1, sortOrder: 73, unknown2: 1)]
 			[DisplayName("Face create texture data 22")]
 			[Description("Face create texture data 22")]
 			[DefaultValue((Byte)0)]
@@ -1453,7 +1455,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ23", Google translated: "Face create texture data 23".
 			/// Japanese description: "顔作成テクスチャデータ23", Google translated: "Face create texture data 23".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData23", index: 73, minimum: 0, maximum: 255, step: 1, order: 74, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData23", index: 73, minimum: 0, maximum: 255, step: 1, sortOrder: 74, unknown2: 1)]
 			[DisplayName("Face create texture data 23")]
 			[Description("Face create texture data 23")]
 			[DefaultValue((Byte)0)]
@@ -1471,7 +1473,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ24", Google translated: "Face create texture data 24".
 			/// Japanese description: "顔作成テクスチャデータ24", Google translated: "Face create texture data 24".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData24", index: 74, minimum: 0, maximum: 255, step: 1, order: 75, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData24", index: 74, minimum: 0, maximum: 255, step: 1, sortOrder: 75, unknown2: 1)]
 			[DisplayName("Face create texture data 24")]
 			[Description("Face create texture data 24")]
 			[DefaultValue((Byte)0)]
@@ -1489,7 +1491,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ25", Google translated: "Face create texture data 25".
 			/// Japanese description: "顔作成テクスチャデータ25", Google translated: "Face create texture data 25".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData25", index: 75, minimum: 0, maximum: 255, step: 1, order: 76, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData25", index: 75, minimum: 0, maximum: 255, step: 1, sortOrder: 76, unknown2: 1)]
 			[DisplayName("Face create texture data 25")]
 			[Description("Face create texture data 25")]
 			[DefaultValue((Byte)0)]
@@ -1507,7 +1509,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ26", Google translated: "Face create texture data 26".
 			/// Japanese description: "顔作成テクスチャデータ26", Google translated: "Face create texture data 26".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData26", index: 76, minimum: 0, maximum: 255, step: 1, order: 77, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData26", index: 76, minimum: 0, maximum: 255, step: 1, sortOrder: 77, unknown2: 1)]
 			[DisplayName("Face create texture data 26")]
 			[Description("Face create texture data 26")]
 			[DefaultValue((Byte)0)]
@@ -1525,7 +1527,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ27", Google translated: "Face create texture data 27".
 			/// Japanese description: "顔作成テクスチャデータ27", Google translated: "Face create texture data 27".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData27", index: 77, minimum: 0, maximum: 255, step: 1, order: 78, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData27", index: 77, minimum: 0, maximum: 255, step: 1, sortOrder: 78, unknown2: 1)]
 			[DisplayName("Face create texture data 27")]
 			[Description("Face create texture data 27")]
 			[DefaultValue((Byte)0)]
@@ -1543,7 +1545,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ28", Google translated: "Face create texture data 28".
 			/// Japanese description: "顔作成テクスチャデータ28", Google translated: "Face create texture data 28".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData28", index: 78, minimum: 0, maximum: 255, step: 1, order: 79, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData28", index: 78, minimum: 0, maximum: 255, step: 1, sortOrder: 79, unknown2: 1)]
 			[DisplayName("Face create texture data 28")]
 			[Description("Face create texture data 28")]
 			[DefaultValue((Byte)0)]
@@ -1561,7 +1563,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ29", Google translated: "Face create texture data 29".
 			/// Japanese description: "顔作成テクスチャデータ29", Google translated: "Face create texture data 29".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData29", index: 79, minimum: 0, maximum: 255, step: 1, order: 80, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData29", index: 79, minimum: 0, maximum: 255, step: 1, sortOrder: 80, unknown2: 1)]
 			[DisplayName("Face create texture data 29")]
 			[Description("Face create texture data 29")]
 			[DefaultValue((Byte)0)]
@@ -1579,7 +1581,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ30", Google translated: "Face create texture data 30".
 			/// Japanese description: "顔作成テクスチャデータ30", Google translated: "Face create texture data 30".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData30", index: 80, minimum: 0, maximum: 255, step: 1, order: 81, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData30", index: 80, minimum: 0, maximum: 255, step: 1, sortOrder: 81, unknown2: 1)]
 			[DisplayName("Face create texture data 30")]
 			[Description("Face create texture data 30")]
 			[DefaultValue((Byte)0)]
@@ -1597,7 +1599,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ31", Google translated: "Face create texture data 31".
 			/// Japanese description: "顔作成テクスチャデータ31", Google translated: "Face create texture data 31".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData31", index: 81, minimum: 0, maximum: 255, step: 1, order: 82, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData31", index: 81, minimum: 0, maximum: 255, step: 1, sortOrder: 82, unknown2: 1)]
 			[DisplayName("Face create texture data 31")]
 			[Description("Face create texture data 31")]
 			[DefaultValue((Byte)0)]
@@ -1615,7 +1617,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ32", Google translated: "Face create texture data 32".
 			/// Japanese description: "顔作成テクスチャデータ32", Google translated: "Face create texture data 32".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData32", index: 82, minimum: 0, maximum: 255, step: 1, order: 83, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData32", index: 82, minimum: 0, maximum: 255, step: 1, sortOrder: 83, unknown2: 1)]
 			[DisplayName("Face create texture data 32")]
 			[Description("Face create texture data 32")]
 			[DefaultValue((Byte)0)]
@@ -1633,7 +1635,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ33", Google translated: "Face create texture data 33".
 			/// Japanese description: "顔作成テクスチャデータ33", Google translated: "Face create texture data 33".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData33", index: 83, minimum: 0, maximum: 255, step: 1, order: 84, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData33", index: 83, minimum: 0, maximum: 255, step: 1, sortOrder: 84, unknown2: 1)]
 			[DisplayName("Face create texture data 33")]
 			[Description("Face create texture data 33")]
 			[DefaultValue((Byte)0)]
@@ -1651,7 +1653,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ34", Google translated: "Face create texture data 34".
 			/// Japanese description: "顔作成テクスチャデータ34", Google translated: "Face create texture data 34".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData34", index: 84, minimum: 0, maximum: 255, step: 1, order: 85, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData34", index: 84, minimum: 0, maximum: 255, step: 1, sortOrder: 85, unknown2: 1)]
 			[DisplayName("Face create texture data 34")]
 			[Description("Face create texture data 34")]
 			[DefaultValue((Byte)0)]
@@ -1669,7 +1671,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ35", Google translated: "Face create texture data 35".
 			/// Japanese description: "顔作成テクスチャデータ35", Google translated: "Face create texture data 35".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData35", index: 85, minimum: 0, maximum: 255, step: 1, order: 86, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData35", index: 85, minimum: 0, maximum: 255, step: 1, sortOrder: 86, unknown2: 1)]
 			[DisplayName("Face create texture data 35")]
 			[Description("Face create texture data 35")]
 			[DefaultValue((Byte)0)]
@@ -1687,7 +1689,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ36", Google translated: "Face create texture data 36".
 			/// Japanese description: "顔作成テクスチャデータ36", Google translated: "Face create texture data 36".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData36", index: 86, minimum: 0, maximum: 255, step: 1, order: 87, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData36", index: 86, minimum: 0, maximum: 255, step: 1, sortOrder: 87, unknown2: 1)]
 			[DisplayName("Face create texture data 36")]
 			[Description("Face create texture data 36")]
 			[DefaultValue((Byte)0)]
@@ -1705,7 +1707,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ37", Google translated: "Face create texture data 37".
 			/// Japanese description: "顔作成テクスチャデータ37", Google translated: "Face create texture data 37".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData37", index: 87, minimum: 0, maximum: 255, step: 1, order: 88, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData37", index: 87, minimum: 0, maximum: 255, step: 1, sortOrder: 88, unknown2: 1)]
 			[DisplayName("Face create texture data 37")]
 			[Description("Face create texture data 37")]
 			[DefaultValue((Byte)0)]
@@ -1723,7 +1725,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ38", Google translated: "Face create texture data 38".
 			/// Japanese description: "顔作成テクスチャデータ38", Google translated: "Face create texture data 38".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData38", index: 88, minimum: 0, maximum: 255, step: 1, order: 89, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData38", index: 88, minimum: 0, maximum: 255, step: 1, sortOrder: 89, unknown2: 1)]
 			[DisplayName("Face create texture data 38")]
 			[Description("Face create texture data 38")]
 			[DefaultValue((Byte)0)]
@@ -1741,7 +1743,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ39", Google translated: "Face create texture data 39".
 			/// Japanese description: "顔作成テクスチャデータ39", Google translated: "Face create texture data 39".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData39", index: 89, minimum: 0, maximum: 255, step: 1, order: 90, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData39", index: 89, minimum: 0, maximum: 255, step: 1, sortOrder: 90, unknown2: 1)]
 			[DisplayName("Face create texture data 39")]
 			[Description("Face create texture data 39")]
 			[DefaultValue((Byte)0)]
@@ -1759,7 +1761,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ40", Google translated: "Face create texture data 40".
 			/// Japanese description: "顔作成テクスチャデータ40", Google translated: "Face create texture data 40".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData40", index: 90, minimum: 0, maximum: 255, step: 1, order: 91, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData40", index: 90, minimum: 0, maximum: 255, step: 1, sortOrder: 91, unknown2: 1)]
 			[DisplayName("Face create texture data 40")]
 			[Description("Face create texture data 40")]
 			[DefaultValue((Byte)0)]
@@ -1777,7 +1779,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ41", Google translated: "Face create texture data 41".
 			/// Japanese description: "顔作成テクスチャデータ41", Google translated: "Face create texture data 41".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData41", index: 91, minimum: 0, maximum: 255, step: 1, order: 92, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData41", index: 91, minimum: 0, maximum: 255, step: 1, sortOrder: 92, unknown2: 1)]
 			[DisplayName("Face create texture data 41")]
 			[Description("Face create texture data 41")]
 			[DefaultValue((Byte)0)]
@@ -1795,7 +1797,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ42", Google translated: "Face create texture data 42".
 			/// Japanese description: "顔作成テクスチャデータ42", Google translated: "Face create texture data 42".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData42", index: 92, minimum: 0, maximum: 255, step: 1, order: 93, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData42", index: 92, minimum: 0, maximum: 255, step: 1, sortOrder: 93, unknown2: 1)]
 			[DisplayName("Face create texture data 42")]
 			[Description("Face create texture data 42")]
 			[DefaultValue((Byte)0)]
@@ -1813,7 +1815,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ43", Google translated: "Face create texture data 43".
 			/// Japanese description: "顔作成テクスチャデータ43", Google translated: "Face create texture data 43".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData43", index: 93, minimum: 0, maximum: 255, step: 1, order: 94, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData43", index: 93, minimum: 0, maximum: 255, step: 1, sortOrder: 94, unknown2: 1)]
 			[DisplayName("Face create texture data 43")]
 			[Description("Face create texture data 43")]
 			[DefaultValue((Byte)0)]
@@ -1831,7 +1833,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ44", Google translated: "Face create texture data 44".
 			/// Japanese description: "顔作成テクスチャデータ44", Google translated: "Face create texture data 44".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData44", index: 94, minimum: 0, maximum: 255, step: 1, order: 95, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData44", index: 94, minimum: 0, maximum: 255, step: 1, sortOrder: 95, unknown2: 1)]
 			[DisplayName("Face create texture data 44")]
 			[Description("Face create texture data 44")]
 			[DefaultValue((Byte)0)]
@@ -1849,7 +1851,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ45", Google translated: "Face create texture data 45".
 			/// Japanese description: "顔作成テクスチャデータ45", Google translated: "Face create texture data 45".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData45", index: 95, minimum: 0, maximum: 255, step: 1, order: 96, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData45", index: 95, minimum: 0, maximum: 255, step: 1, sortOrder: 96, unknown2: 1)]
 			[DisplayName("Face create texture data 45")]
 			[Description("Face create texture data 45")]
 			[DefaultValue((Byte)0)]
@@ -1867,7 +1869,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ46", Google translated: "Face create texture data 46".
 			/// Japanese description: "顔作成テクスチャデータ46", Google translated: "Face create texture data 46".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData46", index: 96, minimum: 0, maximum: 255, step: 1, order: 97, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData46", index: 96, minimum: 0, maximum: 255, step: 1, sortOrder: 97, unknown2: 1)]
 			[DisplayName("Face create texture data 46")]
 			[Description("Face create texture data 46")]
 			[DefaultValue((Byte)0)]
@@ -1885,7 +1887,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ47", Google translated: "Face create texture data 47".
 			/// Japanese description: "顔作成テクスチャデータ47", Google translated: "Face create texture data 47".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData47", index: 97, minimum: 0, maximum: 255, step: 1, order: 98, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData47", index: 97, minimum: 0, maximum: 255, step: 1, sortOrder: 98, unknown2: 1)]
 			[DisplayName("Face create texture data 47")]
 			[Description("Face create texture data 47")]
 			[DefaultValue((Byte)0)]
@@ -1903,7 +1905,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ48", Google translated: "Face create texture data 48".
 			/// Japanese description: "顔作成テクスチャデータ48", Google translated: "Face create texture data 48".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData48", index: 98, minimum: 0, maximum: 255, step: 1, order: 99, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData48", index: 98, minimum: 0, maximum: 255, step: 1, sortOrder: 99, unknown2: 1)]
 			[DisplayName("Face create texture data 48")]
 			[Description("Face create texture data 48")]
 			[DefaultValue((Byte)0)]
@@ -1921,7 +1923,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "顔作成テクスチャデータ49", Google translated: "Face create texture data 49".
 			/// Japanese description: "顔作成テクスチャデータ49", Google translated: "Face create texture data 49".
 			/// </remarks>
-			[ParameterTableRowAttribute("faceTexData49", index: 99, minimum: 0, maximum: 255, step: 1, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("faceTexData49", index: 99, minimum: 0, maximum: 255, step: 1, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Face create texture data 49")]
 			[Description("Face create texture data 49")]
 			[DefaultValue((Byte)0)]
@@ -1939,7 +1941,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "髪型", Google translated: "Hairdo".
 			/// Japanese description: "髪モデルを選択させる", Google translated: "I to select a hair model".
 			/// </remarks>
-			[ParameterTableRowAttribute("hairStyle", index: 100, minimum: 0, maximum: 255, step: 1, order: 101, unknown2: 1)]
+			[ParameterTableRowAttribute("hairStyle", index: 100, minimum: 0, maximum: 255, step: 1, sortOrder: 101, unknown2: 1)]
 			[DisplayName("Hairdo")]
 			[Description("I to select a hair model")]
 			[DefaultValue((FaceHairStyle)0)]
@@ -1953,7 +1955,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "髪の色", Google translated: "Hair color".
 			/// Japanese description: "デフォルトカラーを色名で選択", Google translated: "Can be selected by color name the default color".
 			/// </remarks>
-			[ParameterTableRowAttribute("hairColor_Base", index: 101, minimum: 0, maximum: 255, step: 1, order: 102, unknown2: 1)]
+			[ParameterTableRowAttribute("hairColor_Base", index: 101, minimum: 0, maximum: 255, step: 1, sortOrder: 102, unknown2: 1)]
 			[DisplayName("Hair color")]
 			[Description("Can be selected by color name the default color")]
 			[DefaultValue((FaceHairColor)0)]
@@ -1967,7 +1969,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "髪の色(Ｒ)", Google translated: "Hair Color (R)".
 			/// Japanese description: "デフォルトカラー状態からR値を変更可能", Google translated: "You can change the R-value from the default color state".
 			/// </remarks>
-			[ParameterTableRowAttribute("hairColor_R", index: 102, minimum: 0, maximum: 255, step: 1, order: 103, unknown2: 1)]
+			[ParameterTableRowAttribute("hairColor_R", index: 102, minimum: 0, maximum: 255, step: 1, sortOrder: 103, unknown2: 1)]
 			[DisplayName("Hair Color (R)")]
 			[Description("You can change the R-value from the default color state")]
 			[DefaultValue((Byte)0)]
@@ -1985,7 +1987,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "髪の色(Ｇ)", Google translated: "Hair color (G)".
 			/// Japanese description: "デフォルトカラー状態からG値を変更可能", Google translated: "You can change the G value from the default color state".
 			/// </remarks>
-			[ParameterTableRowAttribute("hairColor_G", index: 103, minimum: 0, maximum: 255, step: 1, order: 104, unknown2: 1)]
+			[ParameterTableRowAttribute("hairColor_G", index: 103, minimum: 0, maximum: 255, step: 1, sortOrder: 104, unknown2: 1)]
 			[DisplayName("Hair color (G)")]
 			[Description("You can change the G value from the default color state")]
 			[DefaultValue((Byte)0)]
@@ -2003,7 +2005,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "髪の色(Ｂ)", Google translated: "Hair color (B)".
 			/// Japanese description: "デフォルトカラー状態からB値を変更可能", Google translated: "Can be changed B values ​​from the default color state".
 			/// </remarks>
-			[ParameterTableRowAttribute("hairColor_B", index: 104, minimum: 0, maximum: 255, step: 1, order: 105, unknown2: 1)]
+			[ParameterTableRowAttribute("hairColor_B", index: 104, minimum: 0, maximum: 255, step: 1, sortOrder: 105, unknown2: 1)]
 			[DisplayName("Hair color (B)")]
 			[Description("Can be changed B values ​​from the default color state")]
 			[DefaultValue((Byte)0)]
@@ -2021,7 +2023,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "瞳の色(Ｒ)", Google translated: "Eye Color (R)".
 			/// Japanese description: "デフォルトカラー状態からR値を変更可能", Google translated: "You can change the R-value from the default color state".
 			/// </remarks>
-			[ParameterTableRowAttribute("eyeColor_R", index: 105, minimum: 0, maximum: 255, step: 1, order: 106, unknown2: 1)]
+			[ParameterTableRowAttribute("eyeColor_R", index: 105, minimum: 0, maximum: 255, step: 1, sortOrder: 106, unknown2: 1)]
 			[DisplayName("Eye Color (R)")]
 			[Description("You can change the R-value from the default color state")]
 			[DefaultValue((Byte)127)]
@@ -2039,7 +2041,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "瞳の色(Ｇ)", Google translated: "Eye Color (G)".
 			/// Japanese description: "デフォルトカラー状態からG値を変更可能", Google translated: "You can change the G value from the default color state".
 			/// </remarks>
-			[ParameterTableRowAttribute("eyeColor_G", index: 106, minimum: 0, maximum: 255, step: 1, order: 107, unknown2: 1)]
+			[ParameterTableRowAttribute("eyeColor_G", index: 106, minimum: 0, maximum: 255, step: 1, sortOrder: 107, unknown2: 1)]
 			[DisplayName("Eye Color (G)")]
 			[Description("You can change the G value from the default color state")]
 			[DefaultValue((Byte)165)]
@@ -2057,7 +2059,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "瞳の色(Ｂ)", Google translated: "Eye Color (B)".
 			/// Japanese description: "デフォルトカラー状態からB値を変更可能", Google translated: "Can be changed B values ​​from the default color state".
 			/// </remarks>
-			[ParameterTableRowAttribute("eyeColor_B", index: 107, minimum: 0, maximum: 255, step: 1, order: 108, unknown2: 1)]
+			[ParameterTableRowAttribute("eyeColor_B", index: 107, minimum: 0, maximum: 255, step: 1, sortOrder: 108, unknown2: 1)]
 			[DisplayName("Eye Color (B)")]
 			[Description("Can be changed B values ​​from the default color state")]
 			[DefaultValue((Byte)178)]
@@ -2075,7 +2077,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "パディング", Google translated: "Padding".
 			/// Japanese description: "パディング", Google translated: "Padding".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad[20]", index: 108, minimum: 0, maximum: 0, step: 0, order: 110, unknown2: 0)]
+			[ParameterTableRowAttribute("pad[20]", index: 108, minimum: 0, maximum: 0, step: 0, sortOrder: 110, unknown2: 0)]
 			[DisplayName("Padding")]
 			[Description("Padding")]
 			public Byte[] Pad {
@@ -2311,6 +2313,8 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad = new Byte[20];
 			}
 
+			/// <summary>Write the row to the writer.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(FaceGeoData00);
 				writer.Write(FaceGeoData01);

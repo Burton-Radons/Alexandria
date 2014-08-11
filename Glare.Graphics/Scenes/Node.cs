@@ -21,8 +21,10 @@ namespace Glare.Graphics.Scenes {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		Vector3d translation;
 
-		public Codex<Node> Children { get { return children; } }
+		/// <summary>Get the children of the <see cref="Node"/>.</summary>
+		public ReadOnlyCodex<Node> Children { get { return children; } }
 
+		/// <summary>Get the components of the <see cref="Node"/>.</summary>
 		public NodeComponentCollection Components { get; private set; }
 
 		/// <summary>Get or set the name of the <see cref="Node"/>.</summary>
@@ -32,6 +34,7 @@ namespace Glare.Graphics.Scenes {
 			get { return parent; }
 
 			set {
+				parent = value;
 				throw new NotImplementedException();
 			}
 		}
@@ -53,11 +56,17 @@ namespace Glare.Graphics.Scenes {
 		static readonly PropertyChangedEventArgs
 			TranslationChangedArgs = new PropertyChangedEventArgs(TranslationName);
 
+		/// <summary>
+		/// Initialize the node.
+		/// </summary>
 		public Node() {
 			Components = new NodeComponentCollection(this);
 		}
 	}
 
+	/// <summary>
+	/// A collection of <see cref="Component"/>s in a <see cref="Node"/>.
+	/// </summary>
 	public class NodeComponentCollection : Codex<Component> {
 		readonly Node Node;
 
@@ -65,19 +74,26 @@ namespace Glare.Graphics.Scenes {
 			Node = node;
 		}
 
+		/// <summary>Add a <see cref="Component"/> to the collection.</summary>
+		/// <param name="item"></param>
 		public override void Add(Component item) {
 			Insert(Count, item);
 		}
 
+		/// <summary>Remove all components from the <see cref="Node"/>.</summary>
 		public override void Clear() {
 			while (Count > 0)
 				RemoveAt(Count - 1);
 		}
 
+		/// <summary>Remove all components from the <see cref="Node"/>.</summary>
 		public override void ClearFast() {
 			Clear();
 		}
 
+		/// <summary>Insert a <see cref="Component"/> into the <see cref="Node"/></summary>
+		/// <param name="index">The index to insert at.</param>
+		/// <param name="item">The <see cref="Component"/> to add.</param>
 		public override void Insert(int index, Component item) {
 			if (item == null)
 				throw new ArgumentNullException("item");
@@ -88,6 +104,8 @@ namespace Glare.Graphics.Scenes {
 			item.Node = Node;
 		}
 
+		/// <summary>Remove a <see cref="Component"/> from the <see cref="Node"/>.</summary>
+		/// <param name="index"></param>
 		public override void RemoveAt(int index) {
 			base.RemoveAt(index);
 		}

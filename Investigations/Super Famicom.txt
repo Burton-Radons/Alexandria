@@ -1,0 +1,85 @@
+ROM File Formats
+	Often contain 512-byte headers, can be ignored.
+	On SNES the first bank is at 0x8000	
+	In banks of 8000h/32768 bytes
+	
+	Present only if 7FDAh == 33h:
+		7FB0h: c[2] MakerCode
+			"01" - Nintendo
+			"AL" - ASCII
+		7FB2h: c[4] GameCode
+			"BWZJ" - Wizardry I-II-III ~The Story of Llylgamyn~
+		7FB6h: z7
+		7FBDh: u1 ExpansionRamSize
+			00h = None
+			01h = 16Kbit
+			02h = 64Kbit
+			03h = 256Kbit
+			05h = 512Kbit
+			07h = 1024Kbit
+		7FBEh: u1 SpecialVersion - Only non-zero for special circumstances such as a promotional event.
+		7FBFh: u1 CartridgeType - Used to distringuish cartridge from cartridges with the same type.
+	7FC0h: c[21] - Space-padded names like "ULTIMA VII THE BLACK " and "WAYNE GRETZKY AND THE" and "AEROBIZ".
+	7FD5h: u1 MapMode - Selects map mode and the speed of operation for the CPU.
+		20h: Mode 20 (2.68 MHz)
+		21h: Mode 21 (2.68 MHz)
+		22h: Reserved for future use
+		23h: Mode 23 (SA-1) (2.68 MHz)
+		25h: Mode 25 (2.68 MHz)
+		30h: Mode 20 (3.58 MHz)
+		31h: Mode 21 (3.58 MHz)
+		35h: Mode 25 (3.58 MHz)
+	7FD6h: u1 CartridgeType
+		00h - ROM only
+		01h - ROM + RAM
+		02h - ROM + RAM + SRAM
+		0xh - DSP enhandment chip
+		1xh - SuperFX enhancement chip
+		2xh - OBC1 enhancement chip
+		Exh - Other enhancement chip
+		Fxh - Custom enhancement chip
+		x3h - ROM + enhancement chip
+		x4h - ROM + RAM + enhancement chip
+		x5h - ROM + RAM + SRAM + Enhancement chip
+		x6h - ROM + SRAM + Enhancement chip
+	7FD7h: u1 RomSize
+		09h - 3 to 4 Mbit
+		0Ah - 5 to 8 Mbit
+		0Bh - 9 to 16 Mbit
+		0Ch - 17 to 32 Mbit
+		0Dh - 33 to 64 MBit
+	7FD8h: u1 SramSize = Amount of bytes = 1024 * 2 ** value
+		00h - No SRAM
+		01h - 16 KBit
+		03h - 64 KBit
+		05h - 256 KBit
+		06h - 512 KBit
+		07h - 1024 KBit
+	7FD9h: u1 DestinationCode -- Where the product will be sold (brackets is fourth digit of GameCode).
+		00h: Japan (J)
+		01h: USA and Canada (E)
+		02h: All of Europe (P)
+		03h: Scandinavia (W)
+		06h: Europe (French only) (F)
+		07h: Dutch (H)
+		08h: Spanish (S)
+		09h: German (D)
+		0Ah: Italian (I)
+		0Bh: Chinese (C)
+		0Dh: Korean (K)
+		0Eh: Common (A)
+		0Fh: Canada (N)
+		10h: Brazil (B)
+		     Nintendo Gateway System (G) - No code listed?
+		11h: Australia (U)
+		12h: Other variation (X)
+		13h: Other variation (Y)
+		14h: Other variation (Z)
+	7FDAh: u1 License - If 0x33, then an extended header is at 7FB0-7FBF.
+		01h: Nintendo
+		33h: Extended header is at 7FB0h-7FBFh
+		C8h: Koei (Aerobiz)
+		CEh: Either Origin Systems or FCI/Pony Canyon (Ultima: The Black Gate)
+	7FDBh: u1 VersionNumber - Store the version number of the mask ROM released to the market as a product. The number begins with 0 at production and increases with each revised version.
+	7FDCh: u2 ChecksumComplement
+	7FDEh: u2 Checksum - Sum of each byte in the ROM (where ChecksumComplement is 0xFFFF and Checksum is 0x0000), then mask with 0xFFFF.

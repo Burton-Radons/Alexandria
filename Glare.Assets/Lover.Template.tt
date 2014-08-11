@@ -1,0 +1,164 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+
+using System;
+using Glare.Framework;
+
+namespace Glare.Assets {
+	partial class Lover {
+		#region Explicit loading/saving
+
+		<#foreach(TypeInfo type in Types) {#>
+			<#if(type.IsMultiByte) {#>
+			/// <summary>Attempt to load a <#=type.See#><#=type.UsingTheDefaultByteOrder#>.</summary>
+			/// <exception cref="NotSupportedException">This is not a <see cref="IsLoading"/> <see cref="Lover"/>.</exception>
+			public <#=type#> Load<#=type#>() { <#=type#> result; Load(out result, Combination); return result; }
+
+			/// <summary>Attempt to save a <#=type.See#><#=type.UsingTheDefaultByteOrder#>.</summary>
+			/// <param name="value">The value to save.</param>
+			/// <exception cref="NotSupportedException">This is not a <see cref="IsSaving"/> <see cref="Lover"/>.</exception>
+			public void Save(<#=type#> value) { Save(ref value, Combination); }
+
+			/// <summary>Attempt to load a <#=type.See#> using little-endian byte order.</summary>
+			/// <exception cref="NotSupportedException">This is not a <see cref="IsLoading"/> <see cref="Lover"/>.</exception>
+			public <#=type#> Load<#=type#>LE() { <#=type#> result; Load(out result, LittleEndianLoader); return result; }
+
+			/// <summary>Attempt to load a <#=type.See#> using big-endian byte order.</summary>
+			/// <exception cref="NotSupportedException">This is not a <see cref="IsLoading"/> <see cref="Lover"/>.</exception>
+			public <#=type#> Load<#=type#>BE() { <#=type#> result; Load(out result, BigEndianLoader); return result; }
+			<#} /*type.IsMultiByte*/#>
+
+			/// <summary>Attempt to load a <#=type.See#><#=type.UsingTheDefaultByteOrder#>.</summary>
+			/// <param name="value">Receives the <#=type.See#> value.</param>
+			/// <exception cref="NotSupportedException">This is not a <see cref="IsLoading"/> <see cref="Lover"/>.</exception>
+			public void Load(out <#=type#> value) {
+				<#if(!type.IsMultiByte) {#>
+					RequireLoading();
+					value = (<#=type#>)Stream.ReadByte();
+				<#} else {#>
+					Load(out value, Combination); 
+				<#}#>
+			}
+
+			/// <summary>Attempt to load a <#=type.See#><#=type.UsingTheGivenByteOrder#>.</summary>
+			/// <#=type.DocByteOrderArgument#>
+			/// <exception cref="NotSupportedException">This is not a <see cref="IsLoading"/> <see cref="Lover"/>.</exception>
+			/// <#=type.DocByteOrderException#>
+			public <#=type#> Load<#=type#>(<#=type.ByteOrderArgument#>) {
+				<#=type#> result;
+				Load(out result<#=type.CommaByteOrderLoaderCombinator#>);
+				return result;
+			}
+
+			/// <summary>Attempt to save a <#=type.See#><#=type.UsingTheGivenByteOrder#>.</summary>
+			/// <param name="value">The value to save.</param>
+			/// <#=type.DocByteOrderArgument#>
+			/// <exception cref="NotSupportedException">This is not a <see cref="IsSaving"/> <see cref="Lover"/>.</exception>
+			/// <#=type.DocByteOrderException#>
+			public void Save(<#=type#> value<#=type.ByteOrderCommaArgument#>) {
+				<#if(!type.IsMultiByte) {#>
+					RequireSaving();
+					Stream.WriteByte((byte)value);
+				<#} else {#>
+					Save(ref value<#=type.CommaByteOrderSaverCombinator#>);
+				<#}#>
+			}
+
+			<#if(type.IsMultiByte) {#>
+				void Load(out <#=type#> value, ByteOrderDirectionCombination combo) {
+					switch(combo) {
+						case LittleEndianLoader:
+							ReadTemporary(<#=type.ByteSize#>);
+							value = (<#=type#>)(<#=type.DecodeTemporary(true)#>);
+							break;
+
+						case BigEndianLoader:
+							ReadTemporary(<#=type.ByteSize#>);
+							value = (<#=type#>)(<#=type.DecodeTemporary(false)#>);
+							break;
+
+						default:
+							throw NotLoaderException();
+					}
+				}
+
+				void Save(ref <#=type#> value, ByteOrderDirectionCombination combo) {
+					throw new NotImplementedException();
+				}
+			<#}#>
+		<#}#>
+
+		#endregion Explicit loading/saving
+	}
+}
+
+<#+
+
+static string ByteOrder(bool bigEndian) { return bigEndian ? "ByteOrder.BigEndian" : "ByteOrder.LittleEndian"; }
+
+class TypeInfo {
+	public string DecodeTemporary(bool bigEndian) {
+		string text = "";
+		for(int byteIndex = 0; byteIndex < ByteSize; byteIndex++) {
+			if(byteIndex > 0)
+				text += " | ";
+			text += "(";
+			if(ByteSize > 4)
+				text += "(ulong)";
+			text += "Temporary[" + (bigEndian ? ByteSize - byteIndex - 1 : byteIndex) + "] << " + (byteIndex * 8) + ")";
+		}
+		return text;
+	}
+
+	public readonly int BitSize;
+	public int ByteSize { get { return (BitSize + 7) / 8; } }
+	public bool IsFloat = false;
+	public bool IsMultiByte { get { return BitSize > 8; } }
+	public bool IsSigned { get { return !IsUnsigned; } set { IsUnsigned = !value; } }
+	public bool IsUnsigned = false;
+	public readonly string Name;
+	public string See { get { return See(Name); } }
+
+	public string ByteOrderArgument { get { return IsMultiByte ? "ByteOrder byteOrder" : ""; } }
+	public string ByteOrderCommaArgument { get { return IsMultiByte ? ", ByteOrder byteOrder" : ""; } }
+	public string ByteOrderLoaderCombinator { get { return IsMultiByte ? "LoaderCombinator[byteOrder]" : ""; } }
+	public string ByteOrderSaverCombinator { get { return IsMultiByte ? "SaverCombinator[byteOrder]" : ""; } }
+	public string CommaByteOrderLoaderCombinator { get { return IsMultiByte ? ", LoaderCombinator[byteOrder]" : ""; } }
+	public string CommaByteOrderSaverCombinator { get { return IsMultiByte ? ", SaverCombinator[byteOrder]" : ""; } }
+
+	public string DocByteOrderArgument { get { return IsMultiByte ? "<param name=\"byteOrder\">The byte order to use.</param>" : ""; } }
+	public string DocByteOrderException { get { return IsMultiByte ? "<exception cref=\"ArgumentException\"><paramref name=\"byteOrder\"/> is an unknown or invalid value.</exception>" : ""; } }
+
+	public string UsingTheGivenByteOrder { get { return IsMultiByte ? " using the given <see cref=\"ByteOrder\"/>" : ""; } }
+	public string UsingTheDefaultByteOrder { get { return IsMultiByte ? " using the <see cref=\"DefaultByteOrder\"/>" : ""; } }
+
+	public TypeInfo(string name, int bitSize) {
+		Name = name;
+		BitSize = bitSize;
+	}
+
+	public override string ToString() { return Name; }
+}
+
+static readonly TypeInfo
+	SByteType = new TypeInfo("SByte", 8) { },
+	ByteType = new TypeInfo("Byte", 8) { IsUnsigned = true },
+	Int16Type = new TypeInfo("Int16", 16) { },
+	UInt16Type = new TypeInfo("UInt16", 16) { IsUnsigned = true },
+	Int32Type = new TypeInfo("Int32", 32) { },
+	UInt32Type = new TypeInfo("UInt32", 32) { IsUnsigned = true },
+	Int64Type = new TypeInfo("Int64", 64) { },
+	UInt64Type = new TypeInfo("UInt64", 64) { IsUnsigned = true },
+	SingleType = new TypeInfo("Single", 32) { IsFloat = true },
+	DoubleType = new TypeInfo("Double", 64) { IsFloat = true };
+
+static readonly TypeInfo[] Types = new TypeInfo[] { SByteType, ByteType, Int16Type, UInt16Type, Int32Type, UInt32Type, Int64Type, UInt64Type, SingleType, DoubleType };
+
+static string See(string target) { return "<see cref=\"" + target + "\"/>"; }
+
+
+#>

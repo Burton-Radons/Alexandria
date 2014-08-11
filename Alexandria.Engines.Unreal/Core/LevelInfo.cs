@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 
 namespace Alexandria.Engines.Unreal.Core {
-    public class LevelInfo : StateFrame {
-    }
+	/// <summary>
+	/// Level information.
+	/// </summary>
+	public class LevelInfo : StateFrame {
+	}
 }

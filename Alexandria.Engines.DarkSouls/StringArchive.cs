@@ -12,21 +12,36 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Alexandria.Engines.DarkSouls {
+	/// <summary>
+	/// A collection of strings indexed by ids.
+	/// </summary>
 	public class StringArchive : Asset {
+		/// <summary>The first magic value.</summary>
 		public const int Magic1 = 0x10000;
+
+		/// <summary>The second magic value, and in big-endian form.</summary>
 		public const int Magic2 = 1, Magic2BE = 0x01FF0000;
 
 		readonly Codex<StringGroup> groups = new Codex<StringGroup>();
 		readonly Codex<string> strings = new Codex<string>();
 		readonly RichDictionary<int, string> stringsById = new RichDictionary<int, string>();
 
+		/// <summary>Get the groups of strings.</summary>
 		public ReadOnlyCodex<StringGroup> Groups { get { return groups; } }
+
+		/// <summary>Get the raw collection of strings.</summary>
 		public ReadOnlyCodex<string> Strings { get { return strings; } }
+
+		/// <summary>Get the strings by their actual ids.</summary>
 		public ReadOnlyObservableDictionary<int, string> StringsById { get { return stringsById; } }
 
+		/// <summary>Get the byte order of the string archive.</summary>
 		public ByteOrder ByteOrder { get; private set; }
+
+		/// <summary>Get the encoding to use with the string archive.</summary>
 		public Encoding Encoding { get; private set; }
 
+		/// <summary>Get the strings sorted by ids.</summary>
 		public KeyValuePair<int, string>[] SortedStrings {
 			get {
 				var list = stringsById.ToArray();
@@ -35,6 +50,7 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
+		/// <summary>Get the string archive as a comma-separated value table.</summary>
 		public string CommaSeparatedValues {
 			get {
 				StringBuilder builder = new StringBuilder();
@@ -106,7 +122,11 @@ namespace Alexandria.Engines.DarkSouls {
 			}
 		}
 
-		public override System.Windows.Forms.Control Browse() {
+		/// <summary>
+		/// Browse the string archive as a data grid.
+		/// </summary>
+		/// <returns>A data grid control.</returns>
+		public override System.Windows.Forms.Control Browse(Action<double> progressUpdateCallback = null) {
 			DataGridView stringView = new DataGridView() {
 				AutoGenerateColumns = false,
 				AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells,
@@ -134,6 +154,10 @@ namespace Alexandria.Engines.DarkSouls {
 			return stringView;
 		}
 
+		/// <summary>
+		/// Add an item to save the string archive to disk.
+		/// </summary>
+		/// <param name="strip"></param>
 		public override void FillContextMenu(ContextMenuStrip strip) {
 			base.FillContextMenu(strip);
 
@@ -143,36 +167,58 @@ namespace Alexandria.Engines.DarkSouls {
 		}
 	}
 
+	/// <summary>
+	/// A collection of strings with consecutive ids.
+	/// </summary>
 	public class StringGroup {
+		/// <summary>The Id of the first string.</summary>
 		public int StringsIndex { get; private set; }
+
+		/// <summary>The first string in the list of strings in the group.</summary>
 		public int IndexStart { get; private set; }
+
+		/// <summary>The index of the last string in the list of strings in this group, inclusive.</summary>
 		public int IndexEnd { get; private set; }
+
+		/// <summary>Get the number of strings in this group.</summary>
 		public int StringCount { get { return IndexEnd - IndexStart + 1; } }
 
-		public StringGroup(BinaryReader reader, ByteOrder byteOrder) {
+		internal StringGroup(BinaryReader reader, ByteOrder byteOrder) {
 			StringsIndex = reader.ReadInt32(byteOrder);
 			IndexStart = reader.ReadInt32(byteOrder);
 			IndexEnd = reader.ReadInt32(byteOrder);
 		}
 	}
 
+	/// <summary>
+	/// The <see cref="AssetFormat"/> for managing a <see cref="StringArchive"/>.
+	/// </summary>
 	public class StringArchiveFormat : AssetFormat {
+		/// <summary>
+		/// Initialise the format.
+		/// </summary>
+		/// <param name="engine">The engine to associate with.</param>
 		public StringArchiveFormat(Engine engine)
 			: base(engine, typeof(StringArchive), canLoad: true) {
 		}
 
-		public override LoadMatchStrength LoadMatch(AssetLoader context) {
-			var reader = context.Reader;
+		/// <summary>
+		/// Attempt to identifier the loader as a string archive.
+		/// </summary>
+		/// <param name="loader">The loader to match.</param>
+		/// <returns>The strength of the match.</returns>
+		public override LoadMatchStrength LoadMatch(AssetLoader loader) {
+			var reader = loader.Reader;
 			ByteOrder byteOrder = ByteOrder.LittleEndian;
 
-			if (context.Length < 4 * 7)
+			if (loader.Length < 4 * 7)
 				return LoadMatchStrength.None;
 			int magic1 = reader.ReadInt32();
 			if (magic1 != StringArchive.Magic1)
 				return LoadMatchStrength.None;
 			int totalFileLength = reader.ReadInt32();
-			if (context.Length != totalFileLength) {
-				if (totalFileLength.ReverseBytes() == context.Length)
+			if (loader.Length != totalFileLength) {
+				if (totalFileLength.ReverseBytes() == loader.Length)
 					byteOrder = ByteOrder.BigEndian;
 				else
 					return LoadMatchStrength.None;
@@ -193,8 +239,13 @@ namespace Alexandria.Engines.DarkSouls {
 			return LoadMatchStrength.Strong;
 		}
 
-		public override Asset Load(AssetLoader context) {
-			return new StringArchive(Manager, context.Reader, context.Name, context.Length);
+		/// <summary>
+		/// Load the string archive.
+		/// </summary>
+		/// <param name="loader">The loader to use.</param>
+		/// <returns>The string archive.</returns>
+		public override Asset Load(AssetLoader loader) {
+			return new StringArchive(Manager, loader.Reader, loader.Name, loader.Length);
 		}
 	}
 }

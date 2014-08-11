@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Alexandria.Browser</RootNamespace>
     <AssemblyName>Alexandria.Browser</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -28,6 +28,8 @@
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,6 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Alexandria.Browser.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,9 +51,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>BACBBBB8A769F3AF1A7A9954A1F0F2AB8048773F</ManifestCertificateThumbprint>
@@ -76,6 +77,8 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -86,6 +89,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -106,57 +110,81 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Alexandria.Engines.Creation\Alexandria.Engines.Creation.csproj">
+      <Project>{5907c0fc-4848-47c9-986d-5bb78ae3b96d}</Project>
+      <Name>Alexandria.Engines.Creation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Engines.Dark\Alexandria.Engines.Dark.csproj">
+      <Project>{51f24508-9f27-48bd-a947-3c1b30d5b3df}</Project>
+      <Name>Alexandria.Engines.Dark</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Engines.Infinity\Alexandria.Engines.Infinity.csproj">
+      <Project>{9CF4EC66-C43F-4252-9056-6753A680CF9A}</Project>
+      <Name>Alexandria.Engines.Infinity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Engines.UltimaUnderworld\Alexandria.Engines.UltimaUnderworld.csproj">
+      <Project>{F7AE6993-D433-47A6-A2A2-DDE76054A73A}</Project>
+      <Name>Alexandria.Engines.UltimaUnderworld</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Alexandria.Games.Albion\Alexandria.Games.Albion.csproj">
-      <Project>{c257544b-c940-4278-b56f-e2c9eea94104}</Project>
+      <Project>{C257544B-C940-4278-B56F-E2C9EEA94104}</Project>
       <Name>Alexandria.Games.Albion</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Games.Arcanum\Alexandria.Games.Arcanum.csproj">
+      <Project>{5fe6755b-99d2-4258-bb56-bb99b78f1350}</Project>
+      <Name>Alexandria.Games.Arcanum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Games.PlanetsEdge\Alexandria.Games.PlanetsEdge.csproj">
+      <Project>{6DE79D42-94C4-40F3-AD5E-F79912533C49}</Project>
+      <Name>Alexandria.Games.PlanetsEdge</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Platforms.SuperFamicom\Alexandria.Platforms.SuperFamicom.csproj">
+      <Project>{10C982DE-2DD9-4100-84C9-D1C2C3A37EDC}</Project>
+      <Name>Alexandria.Platforms.SuperFamicom</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alexandria.Platforms.Wii\Alexandria.Platforms.Wii.csproj">
+      <Project>{CAB170BC-CFA0-4895-8EE9-751BBD20BE66}</Project>
+      <Name>Alexandria.Platforms.Wii</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Glare.Assets\Glare.Assets.csproj">
-      <Project>{e3809e79-fe0a-4425-a1a1-575f6719ec45}</Project>
+      <Project>{E3809E79-FE0A-4425-A1A1-575F6719EC45}</Project>
       <Name>Glare.Assets</Name>
     </ProjectReference>
     <ProjectReference Include="..\Glare.Graphics\Glare.Graphics.csproj">
-      <Project>{6ec9bd9e-da82-48db-a01b-7bb90e1a1f71}</Project>
+      <Project>{6EC9BD9E-DA82-48DB-A01B-7BB90E1A1F71}</Project>
       <Name>Glare.Graphics</Name>
     </ProjectReference>
     <ProjectReference Include="..\Alexandria.Engines.GoldBox\Alexandria.Engines.GoldBox.csproj">
-      <Project>{508a5328-255d-4dd7-8e5f-32ff5e37e41e}</Project>
+      <Project>{508A5328-255D-4DD7-8E5F-32FF5E37E41E}</Project>
       <Name>Alexandria.Engines.GoldBox</Name>
     </ProjectReference>
     <ProjectReference Include="..\Alexandria.Engines.Sciagi\Alexandria.Engines.Sciagi.csproj">
-      <Project>{28068168-76be-4c69-956a-e180c1212cbb}</Project>
+      <Project>{28068168-76BE-4C69-956A-E180C1212CBB}</Project>
       <Name>Alexandria.Engines.Sciagi</Name>
     </ProjectReference>
     <ProjectReference Include="..\Alexandria.Engines.Unreal\Alexandria.Engines.Unreal.csproj">
-      <Project>{eb667992-2e04-4f57-b3c1-5eb8f7f6dfb9}</Project>
+      <Project>{EB667992-2E04-4F57-B3C1-5EB8F7F6DFB9}</Project>
       <Name>Alexandria.Engines.Unreal</Name>
     </ProjectReference>
     <ProjectReference Include="..\Alexandria.Plugins.General\Alexandria.Plugins.General.csproj">
-      <Project>{6b825d69-e9bf-4efe-b39a-8c2291921447}</Project>
+      <Project>{6B825D69-E9BF-4EFE-B39A-8C2291921447}</Project>
       <Name>Alexandria.Plugins.General</Name>
     </ProjectReference>
     <ProjectReference Include="..\Alexandria.Engines.DarkSouls\Alexandria.Engines.DarkSouls.csproj">
-      <Project>{9b228e11-16e4-49b0-ae40-f3fc67e57240}</Project>
+      <Project>{9B228E11-16E4-49B0-AE40-F3FC67E57240}</Project>
       <Name>Alexandria.Engines.DarkSouls</Name>
     </ProjectReference>
     <ProjectReference Include="..\Alexandria.Systems.NintendoDS\Alexandria.Platforms.NintendoDS.csproj">
-      <Project>{53394454-208e-4c45-a9e4-f056a3e7eddf}</Project>
+      <Project>{53394454-208E-4C45-A9E4-F056A3E7EDDF}</Project>
       <Name>Alexandria.Platforms.NintendoDS</Name>
     </ProjectReference>
     <ProjectReference Include="..\Alexandria\Alexandria.csproj">
-      <Project>{fcd1c6c9-b4bf-49cf-9c92-d16e4b40a869}</Project>
+      <Project>{FCD1C6C9-B4BF-49CF-9C92-D16E4B40A869}</Project>
       <Name>Alexandria</Name>
     </ProjectReference>
     <ProjectReference Include="..\Glare\Glare.csproj">
-      <Project>{125d9251-7cd0-4801-ab84-cb3f1f6978b1}</Project>
+      <Project>{125D9251-7CD0-4801-AB84-CB3F1F6978B1}</Project>
       <Name>Glare %28Glare\Glare%29</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Moki.CSharp\Moki.Compilers.CSharp.csproj">
-      <Project>{4f0587f7-b000-4dbb-bf2c-dc53022c561a}</Project>
-      <Name>Moki.Compilers.CSharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Moki\Moki.csproj">
-      <Project>{9742c179-0b75-48fb-95c4-f9c68c66f766}</Project>
-      <Name>Moki</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

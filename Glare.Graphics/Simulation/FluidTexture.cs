@@ -58,7 +58,7 @@ namespace Glare.Graphics.Simulation {
 			: base(context, Formats.Vector4f, dimensions) {
 			Data = new Vector4f[dimensions.Product];
 
-			Format format = TextureFormats.Vector4f;
+			Format format = Formats.Vector4f;
 			OffscreenBuffer = new Texture2D(format, dimensions);
 
 			for (int index = 0; index < Textures.Length; index++) {

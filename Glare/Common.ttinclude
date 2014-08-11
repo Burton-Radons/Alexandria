@@ -1,5 +1,4 @@
-﻿<#@ IntelliSenseLanguage processor="tangibleT4Editor" language="C#" #>
-<#@ template language="C#" #>
+﻿<#@ template language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -22,7 +21,7 @@ class AxisInfo {
 
 	/// <summary>First, Second, Third, Fourth</summary>
 	public readonly string Ordinal;
-
+	
 	public string OrdinalLow { get { return Ordinal.ToLower(); } }
 
 	public AxisInfo(int index, string id, string cardinal, string ordinal) {
@@ -44,15 +43,31 @@ class ComparisonOperatorInfo {
 	public static implicit operator ComparisonOperatorInfo(string id) { return new ComparisonOperatorInfo(id); }
 }
 
-class OperatorInfo
-{
+class OperatorInfo {
 	public readonly string Id;
 	public readonly bool IsInteger;
 	public readonly bool IsMeasurement;
 	public bool IsShift { get { return Id == "<<" || Id == ">>"; } }
 
-	public OperatorInfo(string id, bool isInteger, bool isMeasurement = false)
-	{
+	public string Name {
+		get {
+			switch(Id) {
+				case "+": return "Add";
+				case "-": return "Subtract";
+				case "*": return "Multiply";
+				case "/": return "Divide";
+				case "%": return "Modulo";
+				case "^": return "Exclusive OR";
+				case "&": return "Bitwise AND";
+				case "|": return "Bitwise OR";
+				case "<<": return "Shift left";
+				case ">>": return "Shift right";
+				default: throw new Exception(Id);
+			}
+		}
+	}
+
+	public OperatorInfo(string id, bool isInteger, bool isMeasurement = false) {
 		Id = id;
 		IsInteger = isInteger;
 		IsMeasurement = isMeasurement;
@@ -66,6 +81,7 @@ class ReferenceReturnInfo {
 	public string Begin { get { return Returning ? Type + " result;" : ""; } }
 	public string Return { get { return Returning ? "return result;" : "return;"; } }
 	public string Ref { get { return Returning ? "" : " ref "; } }
+	public string Comment { get { return Returning ? "<returns></returns>" : "<param name=\"result\">Receives the output of the operation.</param>"; } }
 
 	public readonly string Type;
 	public readonly bool Returning;
@@ -213,19 +229,19 @@ static VectorTypeFamilyInfo _angleFamily, _angleScalarFamily, _boxFamily, _lengt
 
 const string AngleFamilyName = "Angle", LengthFamilyName = "Length";
 
-static VectorTypeFamilyInfo BoxFamily { get { return _boxFamily ?? (_boxFamily = new VectorTypeFamilyInfo("Box", 2, 4, Int32Type, SingleType, DoubleType, LengthType)); } }
 static VectorTypeFamilyInfo AngleFamily { get { return _angleFamily ?? (_angleFamily = new VectorTypeFamilyInfo(AngleFamilyName, 3, 3, AngleType)); } }
 static VectorTypeFamilyInfo AngleScalarFamily { get { return _angleScalarFamily ?? (_angleScalarFamily = new VectorTypeFamilyInfo(AngleFamilyName, 1, 1, SuffixlessDoubleType) { NoOrderSuffix = true }); } }
+static VectorTypeFamilyInfo BoxFamily { get { return _boxFamily ?? (_boxFamily = new VectorTypeFamilyInfo("Box", 2, 4, Int32Type, SingleType, DoubleType, LengthType)); } }
 static VectorTypeFamilyInfo LengthFamily { get { return _lengthFamily ?? (_lengthFamily = new VectorTypeFamilyInfo(LengthFamilyName, 2, 4, SuffixlessDoubleType)); } }
+static VectorTypeFamilyInfo MatrixFamily { get { return _matrixFamily ?? (_matrixFamily = new VectorTypeFamilyInfo("Matrix", 2, 4, SingleType, DoubleType)); } }
 static VectorTypeFamilyInfo PlaneFamily { get { return _planeFamily ?? (_planeFamily = new VectorTypeFamilyInfo("Plane", 2, 4, SingleType, DoubleType, LengthType)); } }
 static VectorTypeFamilyInfo RayFamily { get { return _rayFamily ?? (_rayFamily = new VectorTypeFamilyInfo("Ray", 2, 4, SingleType, DoubleType, LengthType)); } }
 static VectorTypeFamilyInfo RotationFamily { get { return _rotationFamily ?? (_rotationFamily = new VectorTypeFamilyInfo("Rotation", 4, 4, SingleType, DoubleType)); } }
 static VectorTypeFamilyInfo SphereFamily { get { return _sphereFamily ?? (_sphereFamily = new VectorTypeFamilyInfo("Sphere", 2, 4, SingleType, DoubleType, LengthType)); } }
-static VectorTypeFamilyInfo VectorFamily { get { return _vectorFamily ?? (_vectorFamily = new VectorTypeFamilyInfo("Vector", 2, 4, LengthType, SingleType, DoubleType, Int32Type, UInt32Type, ByteType, NormalizedByteType, NormalizedSByteType, SRGBType, SRGBAType, Float16Type)); } }
-static VectorTypeFamilyInfo MatrixFamily { get { return _matrixFamily ?? (_matrixFamily = new VectorTypeFamilyInfo("Matrix", 2, 4, SingleType, DoubleType)); } }
+static VectorTypeFamilyInfo VectorFamily { get { return _vectorFamily ?? (_vectorFamily = new VectorTypeFamilyInfo("Vector", 2, 4, LengthType, SingleType, DoubleType, Int16Type, UInt16Type, Int32Type, UInt32Type, ByteType, NormalizedByteType, NormalizedSByteType, NormalizedInt16Type, NormalizedInt32Type, NormalizedUInt16Type, NormalizedUInt32Type, SRGBType, SRGBAType, Float16Type, SByteType)); } }
 
 static readonly TypeInfo SingleType = new TypeInfo("Single", "f", 4, TypeShape.Fractional);
-static readonly TypeInfo Float16Type = new TypeInfo("Float16", "h", 2, TypeShape.Fractional, minOrder: 4);
+static readonly TypeInfo Float16Type = new TypeInfo("Float16", "h", 2, TypeShape.Fractional);
 static readonly TypeInfo DoubleType = new TypeInfo("Double", "d", 8, TypeShape.Fractional);
 static readonly TypeInfo Int16Type = new TypeInfo("Int16", "s", 2, TypeShape.Integral);
 static readonly TypeInfo UInt16Type = new TypeInfo("UInt16", "us", 2, TypeShape.Integral, TypeSign.Unsigned);
@@ -233,10 +249,14 @@ static readonly TypeInfo Int32Type = new TypeInfo("Int32", "i", 4, TypeShape.Int
 static readonly TypeInfo UInt32Type = new TypeInfo("UInt32", "ui", 4, TypeShape.Integral, TypeSign.Unsigned);
 static readonly TypeInfo Int64Type = new TypeInfo("Int64", "l", 8, TypeShape.Integral);
 static readonly TypeInfo UInt64Type = new TypeInfo("UInt64", "ul", 8, TypeShape.Integral, TypeSign.Unsigned);
-static readonly TypeInfo ByteType = new TypeInfo("Byte", "b", 1, TypeShape.Integral, TypeSign.Unsigned, 4, 4);
-static readonly TypeInfo NormalizedByteType = new TypeInfo("NormalizedByte", "nb", 4, TypeShape.Normalized, TypeSign.Unsigned, 4, 4);
-static readonly TypeInfo NormalizedSByteType = new TypeInfo("NormalizedSByte", "nsb", 1, TypeShape.Normalized, TypeSign.Signed, 4, 4);
-static readonly TypeInfo SByteType = new TypeInfo("SByte", "sb", 1, TypeShape.Integral, TypeSign.Signed, 4, 4);
+static readonly TypeInfo ByteType = new TypeInfo("Byte", "b", 1, TypeShape.Integral, TypeSign.Unsigned);
+static readonly TypeInfo NormalizedByteType = new TypeInfo("NormalizedByte", "nb", 4, TypeShape.Normalized, TypeSign.Unsigned);
+static readonly TypeInfo NormalizedSByteType = new TypeInfo("NormalizedSByte", "nsb", 1, TypeShape.Normalized, TypeSign.Signed);
+static readonly TypeInfo NormalizedInt16Type = new TypeInfo("NormalizedInt16", "ns", 2, TypeShape.Normalized, TypeSign.Signed);
+static readonly TypeInfo NormalizedInt32Type = new TypeInfo("NormalizedInt32", "ni", 4, TypeShape.Normalized, TypeSign.Signed);
+static readonly TypeInfo NormalizedUInt16Type = new TypeInfo("NormalizedUInt16", "nus", 2, TypeShape.Normalized, TypeSign.Signed);
+static readonly TypeInfo NormalizedUInt32Type = new TypeInfo("NormalizedUInt32", "nui", 4, TypeShape.Normalized, TypeSign.Signed);
+static readonly TypeInfo SByteType = new TypeInfo("SByte", "sb", 1, TypeShape.Integral, TypeSign.Signed);
 static readonly TypeInfo SRGBType = new TypeInfo("NormalizedByte", "rgb", 1, TypeShape.Normalized, TypeSign.Unsigned, 3, 3);
 static readonly TypeInfo SRGBAType = new TypeInfo("NormalizedByte", "rgba", 1, TypeShape.Normalized, TypeSign.Unsigned, 4, 4);
 static readonly TypeInfo SuffixlessDoubleType = new TypeInfo("Double", "", 8, TypeShape.Fractional);
@@ -244,7 +264,7 @@ static readonly TypeInfo SuffixlessDoubleType = new TypeInfo("Double", "", 8, Ty
 static readonly TypeInfo AngleType = new TypeInfo(AngleFamilyName, "", 8, TypeShape.Measurement, TypeSign.Signed);
 static readonly TypeInfo LengthType = new TypeInfo(LengthFamilyName, "", 8, TypeShape.Measurement, TypeSign.Signed, 2, 4, squaredType: "Area") { CubedType = "Volume" };
 
-static TypeInfo[] ArithmeticTypes { get { return new TypeInfo[] { ByteType, SByteType, Int16Type, UInt16Type, Int32Type, UInt32Type, Int64Type, UInt64Type, Float16Type, SingleType, DoubleType, NormalizedByteType, NormalizedSByteType }; } }
+static TypeInfo[] ArithmeticTypes { get { return new TypeInfo[] { ByteType, SByteType, Int16Type, UInt16Type, Int32Type, UInt32Type, Int64Type, UInt64Type, Float16Type, SingleType, DoubleType, NormalizedByteType, NormalizedSByteType, NormalizedInt16Type, NormalizedUInt16Type, NormalizedInt32Type, NormalizedUInt32Type }; } }
 
 TypeInfo Type;
 string BaseTypeName;
@@ -300,6 +320,7 @@ void Generate(string baseTypeName, IList<TypeInfo> types, Action callback)
 
 // For example:
 // < #GenerateReferenceReturn("boop", (r) => {# >
+//		/// < #=r.Comment# > - Produces either a <param/> or a <returns/> comment, so it must (?) be last.
 //		< #=r.ReturnType# > Booper(int x, int y < #=r.Argument# >)
 //		{
 //			< #=r.Begin# >

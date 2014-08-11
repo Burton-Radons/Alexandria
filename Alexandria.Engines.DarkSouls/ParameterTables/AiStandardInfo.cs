@@ -9,7 +9,11 @@ using System.Text;
 
 namespace Alexandria.Engines.DarkSouls {
 	partial class TableRows {
+		/// <summary>
+		/// A possibly unused row for providing default AI information.
+		/// </summary>
 		public class AiStandardInfo : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "AI_STANDARD_INFO_BANK";
 
 			UInt16 radarRange, territorySize, attack1_Distance, attack1_Margin, attack2_Distance, attack2_Margin, attack3_Distance, attack3_Margin, attack4_Distance, attack4_Margin;
@@ -18,6 +22,7 @@ namespace Alexandria.Engines.DarkSouls {
 			Byte[] reserve0, reserve10, reserve11, reserve12, reserve13, reserve_last;
 			ActionPattern attack1_ActionID, attack2_ActionID, attack3_ActionID, attack4_ActionID;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				RadarRangeProperty = GetProperty<AiStandardInfo>("RadarRange"),
 				RadarAngleXProperty = GetProperty<AiStandardInfo>("RadarAngleX"),
@@ -65,7 +70,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "認識距離[m]", Google translated: "Recognition distance [m]".
 			/// Japanese description: "敵性キャラクタを認識する距離", Google translated: "And recognizes the distance enemy character".
 			/// </remarks>
-			[ParameterTableRowAttribute("RadarRange", index: 0, minimum: 0, maximum: 30000, step: 1, order: 1, unknown2: 1)]
+			[ParameterTableRowAttribute("RadarRange", index: 0, minimum: 0, maximum: 30000, step: 1, sortOrder: 1, unknown2: 1)]
 			[DisplayName("Recognition distance [m]")]
 			[Description("And recognizes the distance enemy character")]
 			[DefaultValue((UInt16)20)]
@@ -83,7 +88,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "認識角度Ｘ[deg]", Google translated: "Recognition angle X [deg]".
 			/// Japanese description: "敵性キャラクタを認識するX角度　現在の視線方向を０度として、上が＋。", Google translated: "0 degrees as the line-of-sight direction of the current angle X recognize , above + the enemy character .".
 			/// </remarks>
-			[ParameterTableRowAttribute("RadarAngleX", index: 1, minimum: 0, maximum: 90, step: 1, order: 2, unknown2: 1)]
+			[ParameterTableRowAttribute("RadarAngleX", index: 1, minimum: 0, maximum: 90, step: 1, sortOrder: 2, unknown2: 1)]
 			[DisplayName("Recognition angle X [deg]")]
 			[Description("0 degrees as the line-of-sight direction of the current angle X recognize , above + the enemy character .")]
 			[DefaultValue((Byte)30)]
@@ -101,7 +106,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "認識角度Y[deg]", Google translated: "Recognition angle Y [deg]".
 			/// Japanese description: "敵性キャラクタを認識するY角度　現在の視線方向を０度として、右が＋。", Google translated: "0 degrees as the line-of-sight direction of the Y angle currently recognize , right + the enemy character .".
 			/// </remarks>
-			[ParameterTableRowAttribute("RadarAngleY", index: 2, minimum: 0, maximum: 180, step: 1, order: 3, unknown2: 1)]
+			[ParameterTableRowAttribute("RadarAngleY", index: 2, minimum: 0, maximum: 180, step: 1, sortOrder: 3, unknown2: 1)]
 			[DisplayName("Recognition angle Y [deg]")]
 			[Description("0 degrees as the line-of-sight direction of the Y angle currently recognize , right + the enemy character .")]
 			[DefaultValue((Byte)60)]
@@ -119,7 +124,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "縄張り距離[m]", Google translated: "Turf distance [m]".
 			/// Japanese description: "自分の縄張りの距離。認識しているプレイヤーがこの距離から外れると初期位置に戻ります。", Google translated: "Distance of their own turf . To return to the initial position player you are aware of is out of this distance .".
 			/// </remarks>
-			[ParameterTableRowAttribute("TerritorySize", index: 3, minimum: 0, maximum: 30000, step: 1, order: 4, unknown2: 1)]
+			[ParameterTableRowAttribute("TerritorySize", index: 3, minimum: 0, maximum: 30000, step: 1, sortOrder: 4, unknown2: 1)]
 			[DisplayName("Turf distance [m]")]
 			[Description("Distance of their own turf . To return to the initial position player you are aware of is out of this distance .")]
 			[DefaultValue((UInt16)20)]
@@ -137,7 +142,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃前威嚇率[0～100]", Google translated: "Pre-attack threat rate [ 0-100 ]".
 			/// Japanese description: "攻撃前に威嚇する確率", Google translated: "Probability of threat to pre-attack".
 			/// </remarks>
-			[ParameterTableRowAttribute("ThreatBeforeAttackRate", index: 4, minimum: 0, maximum: 100, step: 1, order: 5, unknown2: 1)]
+			[ParameterTableRowAttribute("ThreatBeforeAttackRate", index: 4, minimum: 0, maximum: 100, step: 1, sortOrder: 5, unknown2: 1)]
 			[DisplayName("Pre-attack threat rate [ 0-100 ]")]
 			[Description("Probability of threat to pre-attack")]
 			[DefaultValue((Byte)50)]
@@ -155,7 +160,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "初回認識威嚇", Google translated: "First recognized threat".
 			/// Japanese description: "初回プレイヤー認識時に必ず威嚇するかどうか", Google translated: "Whether menacing always the first player recognition".
 			/// </remarks>
-			[ParameterTableRowAttribute("ForceThreatOnFirstLocked", index: 5, minimum: 0, maximum: 0, step: 1, order: 6, unknown2: 1)]
+			[ParameterTableRowAttribute("ForceThreatOnFirstLocked", index: 5, minimum: 0, maximum: 0, step: 1, sortOrder: 6, unknown2: 1)]
 			[DisplayName("First recognized threat")]
 			[Description("Whether menacing always the first player recognition")]
 			[DefaultValue(false)]
@@ -169,7 +174,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "予約", Google translated: "Reservation".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("reserve0[24]", index: 6, minimum: 0, maximum: 0, step: 0, order: 41, unknown2: 0)]
+			[ParameterTableRowAttribute("reserve0[24]", index: 6, minimum: 0, maximum: 0, step: 0, sortOrder: 41, unknown2: 0)]
 			[DisplayName("Reservation")]
 			[Description("")]
 			[Browsable(false)]
@@ -183,7 +188,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃１　間合い[m]", Google translated: "1 Reach attack [m]".
 			/// Japanese description: "攻撃するときの間合い[m]", Google translated: "Reach when you attack [m]".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack1_Distance", index: 7, minimum: 0, maximum: 30000, step: 1, order: 7, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack1_Distance", index: 7, minimum: 0, maximum: 30000, step: 1, sortOrder: 7, unknown2: 1)]
 			[DisplayName("1 Reach attack [m]")]
 			[Description("Reach when you attack [m]")]
 			[DefaultValue((UInt16)0)]
@@ -201,7 +206,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃１　間合い遊び[m]", Google translated: "1 Reach play attack [m]".
 			/// Japanese description: "攻撃間合いの遊び。間合い距離近辺で、振動しないように", Google translated: "Play of attack Reach . Reach distance in the vicinity , so as not to vibrate".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack1_Margin", index: 8, minimum: 0, maximum: 100, step: 1, order: 8, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack1_Margin", index: 8, minimum: 0, maximum: 100, step: 1, sortOrder: 8, unknown2: 1)]
 			[DisplayName("1 Reach play attack [m]")]
 			[Description("Play of attack Reach . Reach distance in the vicinity , so as not to vibrate")]
 			[DefaultValue((UInt16)0)]
@@ -219,7 +224,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃１　割合[0～100]", Google translated: "1 percentage attack [ 0-100 ]".
 			/// Japanese description: "攻撃の頻度", Google translated: "Frequency of attacks".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack1_Rate", index: 9, minimum: 0, maximum: 100, step: 1, order: 9, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack1_Rate", index: 9, minimum: 0, maximum: 100, step: 1, sortOrder: 9, unknown2: 1)]
 			[DisplayName("1 percentage attack [ 0-100 ]")]
 			[Description("Frequency of attacks")]
 			[DefaultValue((Byte)50)]
@@ -237,7 +242,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃１　種類", Google translated: "One type of attack".
 			/// Japanese description: "攻撃の種類", Google translated: "Type of attack".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack1_ActionID", index: 10, minimum: 0, maximum: 0, step: 1, order: 10, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack1_ActionID", index: 10, minimum: 0, maximum: 0, step: 1, sortOrder: 10, unknown2: 1)]
 			[DisplayName("One type of attack")]
 			[Description("Type of attack")]
 			[DefaultValue((ActionPattern)0)]
@@ -251,7 +256,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃１　最小遅延時間[frame]", Google translated: "1 minimum delay time attack [frame]".
 			/// Japanese description: "攻撃可能になった時点から、攻撃するまでの遅延時間の最小。", Google translated: "From when it becomes possible attack , the minimum of delay time to attack .".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack1_DelayMin", index: 11, minimum: 0, maximum: 255, step: 1, order: 11, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack1_DelayMin", index: 11, minimum: 0, maximum: 255, step: 1, sortOrder: 11, unknown2: 1)]
 			[DisplayName("1 minimum delay time attack [frame]")]
 			[Description("From when it becomes possible attack , the minimum of delay time to attack .")]
 			[DefaultValue((Byte)0)]
@@ -269,7 +274,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃１　最長遅延時間[frame]", Google translated: "1 longest delay time attack [frame]".
 			/// Japanese description: "攻撃可能になった時点から、攻撃するまでの遅延時間の最長。", Google translated: "From when it becomes possible attack , longest delay time to attack .".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack1_DelayMax", index: 12, minimum: 0, maximum: 255, step: 1, order: 12, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack1_DelayMax", index: 12, minimum: 0, maximum: 255, step: 1, sortOrder: 12, unknown2: 1)]
 			[DisplayName("1 longest delay time attack [frame]")]
 			[Description("From when it becomes possible attack , longest delay time to attack .")]
 			[DefaultValue((Byte)0)]
@@ -287,7 +292,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃１　攻撃許可円錐の角度[deg]", Google translated: "Angle of attack allowed one cone attack [deg]".
 			/// Japanese description: "視線方向とターゲットへの方向ベクトルのなす角が、この角度以内の場合、攻撃ＯＫ。", Google translated: "In the case of angle within this , the angle of the direction vector to the target and the direction of the line of sight , attack OK.".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack1_ConeAngle", index: 13, minimum: 0, maximum: 180, step: 1, order: 13, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack1_ConeAngle", index: 13, minimum: 0, maximum: 180, step: 1, sortOrder: 13, unknown2: 1)]
 			[DisplayName("Angle of attack allowed one cone attack [deg]")]
 			[Description("In the case of angle within this , the angle of the direction vector to the target and the direction of the line of sight , attack OK.")]
 			[DefaultValue((Byte)30)]
@@ -305,7 +310,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "予約", Google translated: "Reservation".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("reserve10[7]", index: 14, minimum: 0, maximum: 0, step: 0, order: 42, unknown2: 0)]
+			[ParameterTableRowAttribute("reserve10[7]", index: 14, minimum: 0, maximum: 0, step: 0, sortOrder: 42, unknown2: 0)]
 			[DisplayName("Reservation")]
 			[Description("")]
 			[Browsable(false)]
@@ -319,7 +324,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃２　間合い[m]", Google translated: "2 Reach attack [m]".
 			/// Japanese description: "攻撃するときの間合い[m]", Google translated: "Reach when you attack [m]".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack2_Distance", index: 15, minimum: 0, maximum: 30000, step: 1, order: 14, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack2_Distance", index: 15, minimum: 0, maximum: 30000, step: 1, sortOrder: 14, unknown2: 1)]
 			[DisplayName("2 Reach attack [m]")]
 			[Description("Reach when you attack [m]")]
 			[DefaultValue((UInt16)0)]
@@ -337,7 +342,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃２　間合い遊び[m]", Google translated: "2 Reach play attack [m]".
 			/// Japanese description: "攻撃間合いの遊び。間合い距離近辺で、振動しないように", Google translated: "Play of attack Reach . Reach distance in the vicinity , so as not to vibrate".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack2_Margin", index: 16, minimum: 0, maximum: 100, step: 1, order: 15, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack2_Margin", index: 16, minimum: 0, maximum: 100, step: 1, sortOrder: 15, unknown2: 1)]
 			[DisplayName("2 Reach play attack [m]")]
 			[Description("Play of attack Reach . Reach distance in the vicinity , so as not to vibrate")]
 			[DefaultValue((UInt16)0)]
@@ -355,7 +360,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃１　割合[0～100]", Google translated: "1 percentage attack [ 0-100 ]".
 			/// Japanese description: "攻撃の頻度", Google translated: "Frequency of attacks".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack2_Rate", index: 17, minimum: 0, maximum: 100, step: 1, order: 16, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack2_Rate", index: 17, minimum: 0, maximum: 100, step: 1, sortOrder: 16, unknown2: 1)]
 			[DisplayName("1 percentage attack [ 0-100 ]")]
 			[Description("Frequency of attacks")]
 			[DefaultValue((Byte)50)]
@@ -373,7 +378,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃２　種類", Google translated: "Two types of attack".
 			/// Japanese description: "攻撃の種類", Google translated: "Type of attack".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack2_ActionID", index: 18, minimum: 0, maximum: 0, step: 1, order: 17, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack2_ActionID", index: 18, minimum: 0, maximum: 0, step: 1, sortOrder: 17, unknown2: 1)]
 			[DisplayName("Two types of attack")]
 			[Description("Type of attack")]
 			[DefaultValue((ActionPattern)0)]
@@ -387,7 +392,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃2　最小遅延時間[frame]", Google translated: "2 minimum delay time attack [frame]".
 			/// Japanese description: "攻撃可能になった時点から、攻撃するまでの遅延時間の最小。", Google translated: "From when it becomes possible attack , the minimum of delay time to attack .".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack2_DelayMin", index: 19, minimum: 0, maximum: 255, step: 1, order: 18, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack2_DelayMin", index: 19, minimum: 0, maximum: 255, step: 1, sortOrder: 18, unknown2: 1)]
 			[DisplayName("2 minimum delay time attack [frame]")]
 			[Description("From when it becomes possible attack , the minimum of delay time to attack .")]
 			[DefaultValue((Byte)0)]
@@ -405,7 +410,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃2　最長遅延時間[frame]", Google translated: "Two longest delay time attack [frame]".
 			/// Japanese description: "攻撃可能になった時点から、攻撃するまでの遅延時間の最長。", Google translated: "From when it becomes possible attack , longest delay time to attack .".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack2_DelayMax", index: 20, minimum: 0, maximum: 255, step: 1, order: 19, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack2_DelayMax", index: 20, minimum: 0, maximum: 255, step: 1, sortOrder: 19, unknown2: 1)]
 			[DisplayName("Two longest delay time attack [frame]")]
 			[Description("From when it becomes possible attack , longest delay time to attack .")]
 			[DefaultValue((Byte)0)]
@@ -423,7 +428,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃2　攻撃許可円錐の角度[deg]", Google translated: "Angle of attack allowed two cone attack [deg]".
 			/// Japanese description: "視線方向とターゲットへの方向ベクトルのなす角が、この角度以内の場合、攻撃ＯＫ。", Google translated: "In the case of angle within this , the angle of the direction vector to the target and the direction of the line of sight , attack OK.".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack2_ConeAngle", index: 21, minimum: 0, maximum: 180, step: 1, order: 20, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack2_ConeAngle", index: 21, minimum: 0, maximum: 180, step: 1, sortOrder: 20, unknown2: 1)]
 			[DisplayName("Angle of attack allowed two cone attack [deg]")]
 			[Description("In the case of angle within this , the angle of the direction vector to the target and the direction of the line of sight , attack OK.")]
 			[DefaultValue((Byte)30)]
@@ -441,7 +446,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "予約", Google translated: "Reservation".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("reserve11[7]", index: 22, minimum: 0, maximum: 0, step: 0, order: 43, unknown2: 0)]
+			[ParameterTableRowAttribute("reserve11[7]", index: 22, minimum: 0, maximum: 0, step: 0, sortOrder: 43, unknown2: 0)]
 			[DisplayName("Reservation")]
 			[Description("")]
 			[Browsable(false)]
@@ -455,7 +460,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃３　間合い[m]", Google translated: "3 Reach attack [m]".
 			/// Japanese description: "攻撃するときの間合い[m]", Google translated: "Reach when you attack [m]".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack3_Distance", index: 23, minimum: 0, maximum: 30000, step: 1, order: 21, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack3_Distance", index: 23, minimum: 0, maximum: 30000, step: 1, sortOrder: 21, unknown2: 1)]
 			[DisplayName("3 Reach attack [m]")]
 			[Description("Reach when you attack [m]")]
 			[DefaultValue((UInt16)0)]
@@ -473,7 +478,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃３　間合い遊び[m]", Google translated: "3 Reach play attack [m]".
 			/// Japanese description: "攻撃間合いの遊び。間合い距離近辺で、振動しないように", Google translated: "Play of attack Reach . Reach distance in the vicinity , so as not to vibrate".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack3_Margin", index: 24, minimum: 0, maximum: 100, step: 1, order: 22, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack3_Margin", index: 24, minimum: 0, maximum: 100, step: 1, sortOrder: 22, unknown2: 1)]
 			[DisplayName("3 Reach play attack [m]")]
 			[Description("Play of attack Reach . Reach distance in the vicinity , so as not to vibrate")]
 			[DefaultValue((UInt16)0)]
@@ -491,7 +496,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃１　割合[0～100]", Google translated: "1 percentage attack [ 0-100 ]".
 			/// Japanese description: "攻撃の頻度", Google translated: "Frequency of attacks".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack3_Rate", index: 25, minimum: 0, maximum: 100, step: 1, order: 23, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack3_Rate", index: 25, minimum: 0, maximum: 100, step: 1, sortOrder: 23, unknown2: 1)]
 			[DisplayName("1 percentage attack [ 0-100 ]")]
 			[Description("Frequency of attacks")]
 			[DefaultValue((Byte)50)]
@@ -509,7 +514,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃３　種類", Google translated: "Three types of attack".
 			/// Japanese description: "攻撃の種類", Google translated: "Type of attack".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack3_ActionID", index: 26, minimum: 0, maximum: 0, step: 1, order: 24, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack3_ActionID", index: 26, minimum: 0, maximum: 0, step: 1, sortOrder: 24, unknown2: 1)]
 			[DisplayName("Three types of attack")]
 			[Description("Type of attack")]
 			[DefaultValue((ActionPattern)0)]
@@ -523,7 +528,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃3　最小遅延時間[frame]", Google translated: "3 minimum delay time attack [frame]".
 			/// Japanese description: "攻撃可能になった時点から、攻撃するまでの遅延時間の最小。", Google translated: "From when it becomes possible attack , the minimum of delay time to attack .".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack3_DelayMin", index: 27, minimum: 0, maximum: 255, step: 1, order: 25, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack3_DelayMin", index: 27, minimum: 0, maximum: 255, step: 1, sortOrder: 25, unknown2: 1)]
 			[DisplayName("3 minimum delay time attack [frame]")]
 			[Description("From when it becomes possible attack , the minimum of delay time to attack .")]
 			[DefaultValue((Byte)0)]
@@ -541,7 +546,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃3　最長遅延時間[frame]", Google translated: "3 longest delay time attack [frame]".
 			/// Japanese description: "攻撃可能になった時点から、攻撃するまでの遅延時間の最長。", Google translated: "From when it becomes possible attack , longest delay time to attack .".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack3_DelayMax", index: 28, minimum: 0, maximum: 255, step: 1, order: 26, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack3_DelayMax", index: 28, minimum: 0, maximum: 255, step: 1, sortOrder: 26, unknown2: 1)]
 			[DisplayName("3 longest delay time attack [frame]")]
 			[Description("From when it becomes possible attack , longest delay time to attack .")]
 			[DefaultValue((Byte)0)]
@@ -559,7 +564,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃3　攻撃許可円錐の角度[deg]", Google translated: "Angle of attack allowed three cone attack [deg]".
 			/// Japanese description: "視線方向とターゲットへの方向ベクトルのなす角が、この角度以内の場合、攻撃ＯＫ。", Google translated: "In the case of angle within this , the angle of the direction vector to the target and the direction of the line of sight , attack OK.".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack3_ConeAngle", index: 29, minimum: 0, maximum: 180, step: 1, order: 27, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack3_ConeAngle", index: 29, minimum: 0, maximum: 180, step: 1, sortOrder: 27, unknown2: 1)]
 			[DisplayName("Angle of attack allowed three cone attack [deg]")]
 			[Description("In the case of angle within this , the angle of the direction vector to the target and the direction of the line of sight , attack OK.")]
 			[DefaultValue((Byte)30)]
@@ -577,7 +582,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "予約", Google translated: "Reservation".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("reserve12[7]", index: 30, minimum: 0, maximum: 0, step: 0, order: 44, unknown2: 0)]
+			[ParameterTableRowAttribute("reserve12[7]", index: 30, minimum: 0, maximum: 0, step: 0, sortOrder: 44, unknown2: 0)]
 			[DisplayName("Reservation")]
 			[Description("")]
 			[Browsable(false)]
@@ -591,7 +596,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃４　間合い[m]", Google translated: "4 Reach attack [m]".
 			/// Japanese description: "攻撃するときの間合い[m]", Google translated: "Reach when you attack [m]".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack4_Distance", index: 31, minimum: 0, maximum: 30000, step: 1, order: 28, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack4_Distance", index: 31, minimum: 0, maximum: 30000, step: 1, sortOrder: 28, unknown2: 1)]
 			[DisplayName("4 Reach attack [m]")]
 			[Description("Reach when you attack [m]")]
 			[DefaultValue((UInt16)0)]
@@ -609,7 +614,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃４　間合い遊び[m]", Google translated: "4 Reach play attack [m]".
 			/// Japanese description: "攻撃間合いの遊び。間合い距離近辺で、振動しないように", Google translated: "Play of attack Reach . Reach distance in the vicinity , so as not to vibrate".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack4_Margin", index: 32, minimum: 0, maximum: 100, step: 1, order: 29, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack4_Margin", index: 32, minimum: 0, maximum: 100, step: 1, sortOrder: 29, unknown2: 1)]
 			[DisplayName("4 Reach play attack [m]")]
 			[Description("Play of attack Reach . Reach distance in the vicinity , so as not to vibrate")]
 			[DefaultValue((UInt16)0)]
@@ -627,7 +632,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃１　割合[0～100]", Google translated: "1 percentage attack [ 0-100 ]".
 			/// Japanese description: "攻撃の頻度", Google translated: "Frequency of attacks".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack4_Rate", index: 33, minimum: 0, maximum: 100, step: 1, order: 30, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack4_Rate", index: 33, minimum: 0, maximum: 100, step: 1, sortOrder: 30, unknown2: 1)]
 			[DisplayName("1 percentage attack [ 0-100 ]")]
 			[Description("Frequency of attacks")]
 			[DefaultValue((Byte)50)]
@@ -645,7 +650,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃４　種類", Google translated: "Four types of attack".
 			/// Japanese description: "攻撃の種類", Google translated: "Type of attack".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack4_ActionID", index: 34, minimum: 0, maximum: 0, step: 1, order: 31, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack4_ActionID", index: 34, minimum: 0, maximum: 0, step: 1, sortOrder: 31, unknown2: 1)]
 			[DisplayName("Four types of attack")]
 			[Description("Type of attack")]
 			[DefaultValue((ActionPattern)0)]
@@ -659,7 +664,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃4　最小遅延時間[frame]", Google translated: "4 minimum delay time attack [frame]".
 			/// Japanese description: "攻撃可能になった時点から、攻撃するまでの遅延時間の最小。", Google translated: "From when it becomes possible attack , the minimum of delay time to attack .".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack4_DelayMin", index: 35, minimum: 0, maximum: 255, step: 1, order: 32, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack4_DelayMin", index: 35, minimum: 0, maximum: 255, step: 1, sortOrder: 32, unknown2: 1)]
 			[DisplayName("4 minimum delay time attack [frame]")]
 			[Description("From when it becomes possible attack , the minimum of delay time to attack .")]
 			[DefaultValue((Byte)0)]
@@ -677,7 +682,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃4　最長遅延時間[frame]", Google translated: "4 longest delay time attack [frame]".
 			/// Japanese description: "攻撃可能になった時点から、攻撃するまでの遅延時間の最長。", Google translated: "From when it becomes possible attack , longest delay time to attack .".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack4_DelayMax", index: 36, minimum: 0, maximum: 255, step: 1, order: 33, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack4_DelayMax", index: 36, minimum: 0, maximum: 255, step: 1, sortOrder: 33, unknown2: 1)]
 			[DisplayName("4 longest delay time attack [frame]")]
 			[Description("From when it becomes possible attack , longest delay time to attack .")]
 			[DefaultValue((Byte)0)]
@@ -695,7 +700,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "攻撃4　攻撃許可円錐の角度[deg]", Google translated: "Angle of attack 4 permission cone attack [deg]".
 			/// Japanese description: "視線方向とターゲットへの方向ベクトルのなす角が、この角度以内の場合、攻撃ＯＫ。", Google translated: "In the case of angle within this , the angle of the direction vector to the target and the direction of the line of sight , attack OK.".
 			/// </remarks>
-			[ParameterTableRowAttribute("Attack4_ConeAngle", index: 37, minimum: 0, maximum: 180, step: 1, order: 34, unknown2: 1)]
+			[ParameterTableRowAttribute("Attack4_ConeAngle", index: 37, minimum: 0, maximum: 180, step: 1, sortOrder: 34, unknown2: 1)]
 			[DisplayName("Angle of attack 4 permission cone attack [deg]")]
 			[Description("In the case of angle within this , the angle of the direction vector to the target and the direction of the line of sight , attack OK.")]
 			[DefaultValue((Byte)30)]
@@ -713,7 +718,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "予約", Google translated: "Reservation".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("reserve13[7]", index: 38, minimum: 0, maximum: 0, step: 0, order: 45, unknown2: 0)]
+			[ParameterTableRowAttribute("reserve13[7]", index: 38, minimum: 0, maximum: 0, step: 0, sortOrder: 45, unknown2: 0)]
 			[DisplayName("Reservation")]
 			[Description("")]
 			[Browsable(false)]
@@ -727,7 +732,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "予約", Google translated: "Reservation".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("reserve_last[32]", index: 39, minimum: 0, maximum: 0, step: 0, order: 46, unknown2: 0)]
+			[ParameterTableRowAttribute("reserve_last[32]", index: 39, minimum: 0, maximum: 0, step: 0, sortOrder: 46, unknown2: 0)]
 			[DisplayName("Reservation")]
 			[Description("")]
 			[Browsable(false)]
@@ -826,6 +831,8 @@ namespace Alexandria.Engines.DarkSouls {
 				Reserve_last = new Byte[32];
 			}
 
+			/// <summary>Write the row to the writer.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(RadarRange);
 				writer.Write(RadarAngleX);

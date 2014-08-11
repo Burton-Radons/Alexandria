@@ -9,10 +9,12 @@ namespace Alexandria.Engines.Unreal {
 	/// A value stored as a compressed integer.
 	/// </summary>
 	public struct UIndex {
+		/// <summary></summary>
 		public UIndex(int value) {
 			Value = value;
 		}
 
+		/// <summary></summary>
 		public static UIndex Read(BinaryReader reader) {
 			int initial = reader.ReadByte(), value = initial & 63, code = 0, shift = 6;
 
@@ -26,6 +28,7 @@ namespace Alexandria.Engines.Unreal {
 			return (initial & 128) != 0 ? -value : value;
 		}
 
+		/// <summary></summary>
 		public int Write(byte[] array, int index) {
 			uint uvalue = checked((uint)Value);
 
@@ -44,6 +47,7 @@ namespace Alexandria.Engines.Unreal {
 
 		static byte[] Buffer { get { return pBuffer ?? (pBuffer = new byte[8]); } }
 
+		/// <summary></summary>
 		public void Write(Stream stream) {
 			var buffer = Buffer;
 			stream.Write(buffer, 0, Write(buffer, 0));
@@ -61,8 +65,10 @@ namespace Alexandria.Engines.Unreal {
 			}
 		}
 
+		/// <summary></summary>
 		public int Value;
 
+		/// <summary></summary>
 		public override string ToString() {
 			string text = string.Format("UIndex {0} (", Value);
 			int count = Write(Buffer, 0);
@@ -73,7 +79,10 @@ namespace Alexandria.Engines.Unreal {
 			return text + ")";
 		}
 
+		/// <summary></summary>
 		public static implicit operator int(UIndex self) { return self.Value; }
+
+		/// <summary></summary>
 		public static implicit operator UIndex(int self) { return new UIndex(self); }
 	}
 }

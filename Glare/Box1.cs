@@ -17,17 +17,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <see cref="Box2i"/>.</summary>
 		public Vector2i Max;
 
+		/// <summary>Get the centre point of the <see cref="Box2i"/>.</summary>
 		public Vector2i Center { get { return new Vector2i( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ); } }
 		
+		/// <summary>Get the centre point of the <see cref="Box2i"/>.</summary>
 		public Vector2i Centre { get { return new Vector2i( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ); } }
 
+		/// <summary>Get the radius of the <see cref="Box2i"/>, which is the distance to a corner point.</summary>
+		public double Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <see cref="Box2i"/>.</summary>
 		public Vector2i Size { get { return new Vector2i( Max.X - Min.X ,  Max.Y - Min.Y ); } }
 
+		/// <summary>Get an empty <see cref="Box2i"/> centred on the origin.</summary>
 		public static readonly Box2i Zero = new Box2i((Int32)0, (Int32)0, (Int32)0, (Int32)0);
 
-					public Box2i( Vector2i min,  Vector2i max) { this.Min = min; this.Max = max; }
-					public Box2i( ref  Vector2i min,  ref  Vector2i max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box2i"/> by providing minimum and maximum extents.</summary>
+			public Box2i( Vector2i min,  Vector2i max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box2i"/> by providing minimum and maximum extents.</summary>
+			public Box2i( ref  Vector2i min,  ref  Vector2i max) { this.Min = min; this.Max = max; }
 		
+		/// <summary>Create a <see cref="Box2i"/> by providing minimum and maximum extents.</summary>
 		public Box2i(
 			 Int32 minX ,  Int32 minY ,
 			 Int32 maxX ,  Int32 maxY ) {
@@ -37,7 +47,8 @@ namespace Glare
 				Max.Y = maxY;
 					}
 
-									public static Box2i Relative( Vector2i min ,  Vector2i size  ) {
+									/// <summary>Create a <see cref="Box2i"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box2i Relative( Vector2i min ,  Vector2i size  ) {
 					Box2i result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -45,7 +56,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return result;
 				}
-							public static Box2i Relative( ref Vector2i min ,  ref Vector2i size  ) {
+							/// <summary>Create a <see cref="Box2i"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box2i Relative( ref Vector2i min ,  ref Vector2i size  ) {
 					Box2i result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -53,7 +65,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return result;
 				}
-							public static Box2i Relative(  Int32 minX ,  Int32 minY ,   Int32 sizeX ,  Int32 sizeY  ) {
+							/// <summary>Create a <see cref="Box2i"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box2i Relative(  Int32 minX ,  Int32 minY ,   Int32 sizeX ,  Int32 sizeY  ) {
 					Box2i result;
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -61,7 +74,8 @@ namespace Glare
 						result.Max.Y = minY + sizeY;
 										return result;
 				}
-												public static void Relative( Vector2i min ,  Vector2i size  , out Box2i result) {
+												/// <summary>Create a <see cref="Box2i"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( Vector2i min ,  Vector2i size  , out Box2i result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -69,7 +83,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return;
 				}
-							public static void Relative( ref Vector2i min ,  ref Vector2i size  , out Box2i result) {
+							/// <summary>Create a <see cref="Box2i"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( ref Vector2i min ,  ref Vector2i size  , out Box2i result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -77,7 +92,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return;
 				}
-							public static void Relative(  Int32 minX ,  Int32 minY ,   Int32 sizeX ,  Int32 sizeY  , out Box2i result) {
+							/// <summary>Create a <see cref="Box2i"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative(  Int32 minX ,  Int32 minY ,   Int32 sizeX ,  Int32 sizeY  , out Box2i result) {
 					
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -108,6 +124,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( Vector2i point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y )
@@ -129,6 +146,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( ref  Vector2i point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y )
@@ -145,7 +163,8 @@ namespace Glare
 			}
 		
 		
-					public Vector2i NearestPointTo( Vector2i point ) {
+					/// <summary>Get the nearest point between this <see cref="Box2i"/> and a <see cref="Vector2i"/>. If the <see cref="Vector2i"/> is inside this <see cref="Box2i"/>, it is returned untouched.</summary>
+			public Vector2i NearestPointTo( Vector2i point ) {
 				Vector2i result;
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -154,7 +173,8 @@ namespace Glare
 					point.Clamp(ref Min, ref Max, out result);
 				return result;
 			}
-					public void NearestPointTo( ref  Vector2i point , out Vector2i result) {
+					/// <summary>Get the nearest point between this <see cref="Box2i"/> and a <see cref="Vector2i"/>. If the <see cref="Vector2i"/> is inside this <see cref="Box2i"/>, it is returned untouched.</summary>
+			public void NearestPointTo( ref  Vector2i point , out Vector2i result) {
 				
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -164,8 +184,10 @@ namespace Glare
 				return;
 			}
 		
+		/// <summary>Convert to a string representation of the <see cref="Box2i"/>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <see cref="Box2i"/>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}
@@ -183,17 +205,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <see cref="Box2f"/>.</summary>
 		public Vector2f Max;
 
+		/// <summary>Get the centre point of the <see cref="Box2f"/>.</summary>
 		public Vector2f Center { get { return new Vector2f( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ); } }
 		
+		/// <summary>Get the centre point of the <see cref="Box2f"/>.</summary>
 		public Vector2f Centre { get { return new Vector2f( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ); } }
 
+		/// <summary>Get the radius of the <see cref="Box2f"/>, which is the distance to a corner point.</summary>
+		public Single Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <see cref="Box2f"/>.</summary>
 		public Vector2f Size { get { return new Vector2f( Max.X - Min.X ,  Max.Y - Min.Y ); } }
 
+		/// <summary>Get an empty <see cref="Box2f"/> centred on the origin.</summary>
 		public static readonly Box2f Zero = new Box2f((Single)0, (Single)0, (Single)0, (Single)0);
 
-					public Box2f( Vector2f min,  Vector2f max) { this.Min = min; this.Max = max; }
-					public Box2f( ref  Vector2f min,  ref  Vector2f max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box2f"/> by providing minimum and maximum extents.</summary>
+			public Box2f( Vector2f min,  Vector2f max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box2f"/> by providing minimum and maximum extents.</summary>
+			public Box2f( ref  Vector2f min,  ref  Vector2f max) { this.Min = min; this.Max = max; }
 		
+		/// <summary>Create a <see cref="Box2f"/> by providing minimum and maximum extents.</summary>
 		public Box2f(
 			 Single minX ,  Single minY ,
 			 Single maxX ,  Single maxY ) {
@@ -203,7 +235,8 @@ namespace Glare
 				Max.Y = maxY;
 					}
 
-									public static Box2f Relative( Vector2f min ,  Vector2f size  ) {
+									/// <summary>Create a <see cref="Box2f"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box2f Relative( Vector2f min ,  Vector2f size  ) {
 					Box2f result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -211,7 +244,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return result;
 				}
-							public static Box2f Relative( ref Vector2f min ,  ref Vector2f size  ) {
+							/// <summary>Create a <see cref="Box2f"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box2f Relative( ref Vector2f min ,  ref Vector2f size  ) {
 					Box2f result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -219,7 +253,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return result;
 				}
-							public static Box2f Relative(  Single minX ,  Single minY ,   Single sizeX ,  Single sizeY  ) {
+							/// <summary>Create a <see cref="Box2f"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box2f Relative(  Single minX ,  Single minY ,   Single sizeX ,  Single sizeY  ) {
 					Box2f result;
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -227,7 +262,8 @@ namespace Glare
 						result.Max.Y = minY + sizeY;
 										return result;
 				}
-												public static void Relative( Vector2f min ,  Vector2f size  , out Box2f result) {
+												/// <summary>Create a <see cref="Box2f"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( Vector2f min ,  Vector2f size  , out Box2f result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -235,7 +271,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return;
 				}
-							public static void Relative( ref Vector2f min ,  ref Vector2f size  , out Box2f result) {
+							/// <summary>Create a <see cref="Box2f"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( ref Vector2f min ,  ref Vector2f size  , out Box2f result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -243,7 +280,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return;
 				}
-							public static void Relative(  Single minX ,  Single minY ,   Single sizeX ,  Single sizeY  , out Box2f result) {
+							/// <summary>Create a <see cref="Box2f"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative(  Single minX ,  Single minY ,   Single sizeX ,  Single sizeY  , out Box2f result) {
 					
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -274,6 +312,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( Vector2f point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y )
@@ -295,6 +334,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( ref  Vector2f point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y )
@@ -311,7 +351,8 @@ namespace Glare
 			}
 		
 		
-					public Vector2f NearestPointTo( Vector2f point ) {
+					/// <summary>Get the nearest point between this <see cref="Box2f"/> and a <see cref="Vector2f"/>. If the <see cref="Vector2f"/> is inside this <see cref="Box2f"/>, it is returned untouched.</summary>
+			public Vector2f NearestPointTo( Vector2f point ) {
 				Vector2f result;
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -320,7 +361,8 @@ namespace Glare
 					point.Clamp(ref Min, ref Max, out result);
 				return result;
 			}
-					public void NearestPointTo( ref  Vector2f point , out Vector2f result) {
+					/// <summary>Get the nearest point between this <see cref="Box2f"/> and a <see cref="Vector2f"/>. If the <see cref="Vector2f"/> is inside this <see cref="Box2f"/>, it is returned untouched.</summary>
+			public void NearestPointTo( ref  Vector2f point , out Vector2f result) {
 				
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -330,8 +372,10 @@ namespace Glare
 				return;
 			}
 		
+		/// <summary>Convert to a string representation of the <see cref="Box2f"/>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <see cref="Box2f"/>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}
@@ -349,17 +393,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <see cref="Box2d"/>.</summary>
 		public Vector2d Max;
 
+		/// <summary>Get the centre point of the <see cref="Box2d"/>.</summary>
 		public Vector2d Center { get { return new Vector2d( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ); } }
 		
+		/// <summary>Get the centre point of the <see cref="Box2d"/>.</summary>
 		public Vector2d Centre { get { return new Vector2d( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ); } }
 
+		/// <summary>Get the radius of the <see cref="Box2d"/>, which is the distance to a corner point.</summary>
+		public Double Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <see cref="Box2d"/>.</summary>
 		public Vector2d Size { get { return new Vector2d( Max.X - Min.X ,  Max.Y - Min.Y ); } }
 
+		/// <summary>Get an empty <see cref="Box2d"/> centred on the origin.</summary>
 		public static readonly Box2d Zero = new Box2d((Double)0, (Double)0, (Double)0, (Double)0);
 
-					public Box2d( Vector2d min,  Vector2d max) { this.Min = min; this.Max = max; }
-					public Box2d( ref  Vector2d min,  ref  Vector2d max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box2d"/> by providing minimum and maximum extents.</summary>
+			public Box2d( Vector2d min,  Vector2d max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box2d"/> by providing minimum and maximum extents.</summary>
+			public Box2d( ref  Vector2d min,  ref  Vector2d max) { this.Min = min; this.Max = max; }
 		
+		/// <summary>Create a <see cref="Box2d"/> by providing minimum and maximum extents.</summary>
 		public Box2d(
 			 Double minX ,  Double minY ,
 			 Double maxX ,  Double maxY ) {
@@ -369,7 +423,8 @@ namespace Glare
 				Max.Y = maxY;
 					}
 
-									public static Box2d Relative( Vector2d min ,  Vector2d size  ) {
+									/// <summary>Create a <see cref="Box2d"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box2d Relative( Vector2d min ,  Vector2d size  ) {
 					Box2d result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -377,7 +432,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return result;
 				}
-							public static Box2d Relative( ref Vector2d min ,  ref Vector2d size  ) {
+							/// <summary>Create a <see cref="Box2d"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box2d Relative( ref Vector2d min ,  ref Vector2d size  ) {
 					Box2d result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -385,7 +441,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return result;
 				}
-							public static Box2d Relative(  Double minX ,  Double minY ,   Double sizeX ,  Double sizeY  ) {
+							/// <summary>Create a <see cref="Box2d"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box2d Relative(  Double minX ,  Double minY ,   Double sizeX ,  Double sizeY  ) {
 					Box2d result;
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -393,7 +450,8 @@ namespace Glare
 						result.Max.Y = minY + sizeY;
 										return result;
 				}
-												public static void Relative( Vector2d min ,  Vector2d size  , out Box2d result) {
+												/// <summary>Create a <see cref="Box2d"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( Vector2d min ,  Vector2d size  , out Box2d result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -401,7 +459,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return;
 				}
-							public static void Relative( ref Vector2d min ,  ref Vector2d size  , out Box2d result) {
+							/// <summary>Create a <see cref="Box2d"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( ref Vector2d min ,  ref Vector2d size  , out Box2d result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -409,7 +468,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return;
 				}
-							public static void Relative(  Double minX ,  Double minY ,   Double sizeX ,  Double sizeY  , out Box2d result) {
+							/// <summary>Create a <see cref="Box2d"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative(  Double minX ,  Double minY ,   Double sizeX ,  Double sizeY  , out Box2d result) {
 					
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -440,6 +500,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( Vector2d point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y )
@@ -461,6 +522,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( ref  Vector2d point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y )
@@ -477,7 +539,8 @@ namespace Glare
 			}
 		
 		
-					public Vector2d NearestPointTo( Vector2d point ) {
+					/// <summary>Get the nearest point between this <see cref="Box2d"/> and a <see cref="Vector2d"/>. If the <see cref="Vector2d"/> is inside this <see cref="Box2d"/>, it is returned untouched.</summary>
+			public Vector2d NearestPointTo( Vector2d point ) {
 				Vector2d result;
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -486,7 +549,8 @@ namespace Glare
 					point.Clamp(ref Min, ref Max, out result);
 				return result;
 			}
-					public void NearestPointTo( ref  Vector2d point , out Vector2d result) {
+					/// <summary>Get the nearest point between this <see cref="Box2d"/> and a <see cref="Vector2d"/>. If the <see cref="Vector2d"/> is inside this <see cref="Box2d"/>, it is returned untouched.</summary>
+			public void NearestPointTo( ref  Vector2d point , out Vector2d result) {
 				
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -496,8 +560,10 @@ namespace Glare
 				return;
 			}
 		
+		/// <summary>Convert to a string representation of the <see cref="Box2d"/>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <see cref="Box2d"/>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}
@@ -515,17 +581,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <see cref="Box2"/>.</summary>
 		public Vector2 Max;
 
+		/// <summary>Get the centre point of the <see cref="Box2"/>.</summary>
 		public Vector2 Center { get { return new Vector2( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ); } }
 		
+		/// <summary>Get the centre point of the <see cref="Box2"/>.</summary>
 		public Vector2 Centre { get { return new Vector2( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ); } }
 
+		/// <summary>Get the radius of the <see cref="Box2"/>, which is the distance to a corner point.</summary>
+		public Length Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <see cref="Box2"/>.</summary>
 		public Vector2 Size { get { return new Vector2( Max.X - Min.X ,  Max.Y - Min.Y ); } }
 
+		/// <summary>Get an empty <see cref="Box2"/> centred on the origin.</summary>
 		public static readonly Box2 Zero = new Box2(Length.Zero, Length.Zero, Length.Zero, Length.Zero);
 
-					public Box2( Vector2 min,  Vector2 max) { this.Min = min; this.Max = max; }
-					public Box2( ref  Vector2 min,  ref  Vector2 max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box2"/> by providing minimum and maximum extents.</summary>
+			public Box2( Vector2 min,  Vector2 max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box2"/> by providing minimum and maximum extents.</summary>
+			public Box2( ref  Vector2 min,  ref  Vector2 max) { this.Min = min; this.Max = max; }
 		
+		/// <summary>Create a <see cref="Box2"/> by providing minimum and maximum extents.</summary>
 		public Box2(
 			 Length minX ,  Length minY ,
 			 Length maxX ,  Length maxY ) {
@@ -535,7 +611,8 @@ namespace Glare
 				Max.Y = maxY;
 					}
 
-									public static Box2 Relative( Vector2 min ,  Vector2 size  ) {
+									/// <summary>Create a <see cref="Box2"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box2 Relative( Vector2 min ,  Vector2 size  ) {
 					Box2 result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -543,7 +620,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return result;
 				}
-							public static Box2 Relative( ref Vector2 min ,  ref Vector2 size  ) {
+							/// <summary>Create a <see cref="Box2"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box2 Relative( ref Vector2 min ,  ref Vector2 size  ) {
 					Box2 result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -551,7 +629,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return result;
 				}
-							public static Box2 Relative(  Length minX ,  Length minY ,   Length sizeX ,  Length sizeY  ) {
+							/// <summary>Create a <see cref="Box2"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box2 Relative(  Length minX ,  Length minY ,   Length sizeX ,  Length sizeY  ) {
 					Box2 result;
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -559,7 +638,8 @@ namespace Glare
 						result.Max.Y = minY + sizeY;
 										return result;
 				}
-												public static void Relative( Vector2 min ,  Vector2 size  , out Box2 result) {
+												/// <summary>Create a <see cref="Box2"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( Vector2 min ,  Vector2 size  , out Box2 result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -567,7 +647,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return;
 				}
-							public static void Relative( ref Vector2 min ,  ref Vector2 size  , out Box2 result) {
+							/// <summary>Create a <see cref="Box2"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( ref Vector2 min ,  ref Vector2 size  , out Box2 result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -575,7 +656,8 @@ namespace Glare
 						result.Max.Y = min.Y + size.Y;
 										return;
 				}
-							public static void Relative(  Length minX ,  Length minY ,   Length sizeX ,  Length sizeY  , out Box2 result) {
+							/// <summary>Create a <see cref="Box2"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative(  Length minX ,  Length minY ,   Length sizeX ,  Length sizeY  , out Box2 result) {
 					
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -606,6 +688,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( Vector2 point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y )
@@ -627,6 +710,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( ref  Vector2 point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y )
@@ -643,7 +727,8 @@ namespace Glare
 			}
 		
 		
-					public Vector2 NearestPointTo( Vector2 point ) {
+					/// <summary>Get the nearest point between this <see cref="Box2"/> and a <see cref="Vector2"/>. If the <see cref="Vector2"/> is inside this <see cref="Box2"/>, it is returned untouched.</summary>
+			public Vector2 NearestPointTo( Vector2 point ) {
 				Vector2 result;
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -652,7 +737,8 @@ namespace Glare
 					point.Clamp(ref Min, ref Max, out result);
 				return result;
 			}
-					public void NearestPointTo( ref  Vector2 point , out Vector2 result) {
+					/// <summary>Get the nearest point between this <see cref="Box2"/> and a <see cref="Vector2"/>. If the <see cref="Vector2"/> is inside this <see cref="Box2"/>, it is returned untouched.</summary>
+			public void NearestPointTo( ref  Vector2 point , out Vector2 result) {
 				
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -662,8 +748,10 @@ namespace Glare
 				return;
 			}
 		
+		/// <summary>Convert to a string representation of the <see cref="Box2"/>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <see cref="Box2"/>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}
@@ -681,17 +769,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <see cref="Box3i"/>.</summary>
 		public Vector3i Max;
 
+		/// <summary>Get the centre point of the <see cref="Box3i"/>.</summary>
 		public Vector3i Center { get { return new Vector3i( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ); } }
 		
+		/// <summary>Get the centre point of the <see cref="Box3i"/>.</summary>
 		public Vector3i Centre { get { return new Vector3i( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ); } }
 
+		/// <summary>Get the radius of the <see cref="Box3i"/>, which is the distance to a corner point.</summary>
+		public double Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <see cref="Box3i"/>.</summary>
 		public Vector3i Size { get { return new Vector3i( Max.X - Min.X ,  Max.Y - Min.Y ,  Max.Z - Min.Z ); } }
 
+		/// <summary>Get an empty <see cref="Box3i"/> centred on the origin.</summary>
 		public static readonly Box3i Zero = new Box3i((Int32)0, (Int32)0, (Int32)0, (Int32)0, (Int32)0, (Int32)0);
 
-					public Box3i( Vector3i min,  Vector3i max) { this.Min = min; this.Max = max; }
-					public Box3i( ref  Vector3i min,  ref  Vector3i max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box3i"/> by providing minimum and maximum extents.</summary>
+			public Box3i( Vector3i min,  Vector3i max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box3i"/> by providing minimum and maximum extents.</summary>
+			public Box3i( ref  Vector3i min,  ref  Vector3i max) { this.Min = min; this.Max = max; }
 		
+		/// <summary>Create a <see cref="Box3i"/> by providing minimum and maximum extents.</summary>
 		public Box3i(
 			 Int32 minX ,  Int32 minY ,  Int32 minZ ,
 			 Int32 maxX ,  Int32 maxY ,  Int32 maxZ ) {
@@ -703,7 +801,8 @@ namespace Glare
 				Max.Z = maxZ;
 					}
 
-									public static Box3i Relative( Vector3i min ,  Vector3i size  ) {
+									/// <summary>Create a <see cref="Box3i"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box3i Relative( Vector3i min ,  Vector3i size  ) {
 					Box3i result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -713,7 +812,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return result;
 				}
-							public static Box3i Relative( ref Vector3i min ,  ref Vector3i size  ) {
+							/// <summary>Create a <see cref="Box3i"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box3i Relative( ref Vector3i min ,  ref Vector3i size  ) {
 					Box3i result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -723,7 +823,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return result;
 				}
-							public static Box3i Relative(  Int32 minX ,  Int32 minY ,  Int32 minZ ,   Int32 sizeX ,  Int32 sizeY ,  Int32 sizeZ  ) {
+							/// <summary>Create a <see cref="Box3i"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box3i Relative(  Int32 minX ,  Int32 minY ,  Int32 minZ ,   Int32 sizeX ,  Int32 sizeY ,  Int32 sizeZ  ) {
 					Box3i result;
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -733,7 +834,8 @@ namespace Glare
 						result.Max.Z = minZ + sizeZ;
 										return result;
 				}
-												public static void Relative( Vector3i min ,  Vector3i size  , out Box3i result) {
+												/// <summary>Create a <see cref="Box3i"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( Vector3i min ,  Vector3i size  , out Box3i result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -743,7 +845,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return;
 				}
-							public static void Relative( ref Vector3i min ,  ref Vector3i size  , out Box3i result) {
+							/// <summary>Create a <see cref="Box3i"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( ref Vector3i min ,  ref Vector3i size  , out Box3i result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -753,7 +856,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return;
 				}
-							public static void Relative(  Int32 minX ,  Int32 minY ,  Int32 minZ ,   Int32 sizeX ,  Int32 sizeY ,  Int32 sizeZ  , out Box3i result) {
+							/// <summary>Create a <see cref="Box3i"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative(  Int32 minX ,  Int32 minY ,  Int32 minZ ,   Int32 sizeX ,  Int32 sizeY ,  Int32 sizeZ  , out Box3i result) {
 					
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -788,6 +892,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( Vector3i point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z )
@@ -809,6 +914,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( ref  Vector3i point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z )
@@ -824,11 +930,13 @@ namespace Glare
 				return  point.X >= Min.X && point.X <= Max.X && point.Y >= Min.Y && point.Y <= Max.Y && point.Z >= Min.Z && point.Z <= Max.Z ;
 			}
 		
-					public Containment Intersect(Frustum frustum) {
+					/// <summary>Get the intersection between a <see cref="Box3i"/> and a <see cref="Frustum"/>.</summary>
+			public Containment Intersect(Frustum frustum) {
 				throw new NotImplementedException();
 			}
 		
-					public Vector3i NearestPointTo( Vector3i point ) {
+					/// <summary>Get the nearest point between this <see cref="Box3i"/> and a <see cref="Vector3i"/>. If the <see cref="Vector3i"/> is inside this <see cref="Box3i"/>, it is returned untouched.</summary>
+			public Vector3i NearestPointTo( Vector3i point ) {
 				Vector3i result;
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -837,7 +945,8 @@ namespace Glare
 					point.Clamp(ref Min, ref Max, out result);
 				return result;
 			}
-					public void NearestPointTo( ref  Vector3i point , out Vector3i result) {
+					/// <summary>Get the nearest point between this <see cref="Box3i"/> and a <see cref="Vector3i"/>. If the <see cref="Vector3i"/> is inside this <see cref="Box3i"/>, it is returned untouched.</summary>
+			public void NearestPointTo( ref  Vector3i point , out Vector3i result) {
 				
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -847,8 +956,10 @@ namespace Glare
 				return;
 			}
 		
+		/// <summary>Convert to a string representation of the <see cref="Box3i"/>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <see cref="Box3i"/>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}
@@ -866,17 +977,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <see cref="Box3f"/>.</summary>
 		public Vector3f Max;
 
+		/// <summary>Get the centre point of the <see cref="Box3f"/>.</summary>
 		public Vector3f Center { get { return new Vector3f( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ); } }
 		
+		/// <summary>Get the centre point of the <see cref="Box3f"/>.</summary>
 		public Vector3f Centre { get { return new Vector3f( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ); } }
 
+		/// <summary>Get the radius of the <see cref="Box3f"/>, which is the distance to a corner point.</summary>
+		public Single Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <see cref="Box3f"/>.</summary>
 		public Vector3f Size { get { return new Vector3f( Max.X - Min.X ,  Max.Y - Min.Y ,  Max.Z - Min.Z ); } }
 
+		/// <summary>Get an empty <see cref="Box3f"/> centred on the origin.</summary>
 		public static readonly Box3f Zero = new Box3f((Single)0, (Single)0, (Single)0, (Single)0, (Single)0, (Single)0);
 
-					public Box3f( Vector3f min,  Vector3f max) { this.Min = min; this.Max = max; }
-					public Box3f( ref  Vector3f min,  ref  Vector3f max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box3f"/> by providing minimum and maximum extents.</summary>
+			public Box3f( Vector3f min,  Vector3f max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box3f"/> by providing minimum and maximum extents.</summary>
+			public Box3f( ref  Vector3f min,  ref  Vector3f max) { this.Min = min; this.Max = max; }
 		
+		/// <summary>Create a <see cref="Box3f"/> by providing minimum and maximum extents.</summary>
 		public Box3f(
 			 Single minX ,  Single minY ,  Single minZ ,
 			 Single maxX ,  Single maxY ,  Single maxZ ) {
@@ -888,7 +1009,8 @@ namespace Glare
 				Max.Z = maxZ;
 					}
 
-									public static Box3f Relative( Vector3f min ,  Vector3f size  ) {
+									/// <summary>Create a <see cref="Box3f"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box3f Relative( Vector3f min ,  Vector3f size  ) {
 					Box3f result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -898,7 +1020,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return result;
 				}
-							public static Box3f Relative( ref Vector3f min ,  ref Vector3f size  ) {
+							/// <summary>Create a <see cref="Box3f"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box3f Relative( ref Vector3f min ,  ref Vector3f size  ) {
 					Box3f result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -908,7 +1031,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return result;
 				}
-							public static Box3f Relative(  Single minX ,  Single minY ,  Single minZ ,   Single sizeX ,  Single sizeY ,  Single sizeZ  ) {
+							/// <summary>Create a <see cref="Box3f"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box3f Relative(  Single minX ,  Single minY ,  Single minZ ,   Single sizeX ,  Single sizeY ,  Single sizeZ  ) {
 					Box3f result;
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -918,7 +1042,8 @@ namespace Glare
 						result.Max.Z = minZ + sizeZ;
 										return result;
 				}
-												public static void Relative( Vector3f min ,  Vector3f size  , out Box3f result) {
+												/// <summary>Create a <see cref="Box3f"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( Vector3f min ,  Vector3f size  , out Box3f result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -928,7 +1053,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return;
 				}
-							public static void Relative( ref Vector3f min ,  ref Vector3f size  , out Box3f result) {
+							/// <summary>Create a <see cref="Box3f"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( ref Vector3f min ,  ref Vector3f size  , out Box3f result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -938,7 +1064,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return;
 				}
-							public static void Relative(  Single minX ,  Single minY ,  Single minZ ,   Single sizeX ,  Single sizeY ,  Single sizeZ  , out Box3f result) {
+							/// <summary>Create a <see cref="Box3f"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative(  Single minX ,  Single minY ,  Single minZ ,   Single sizeX ,  Single sizeY ,  Single sizeZ  , out Box3f result) {
 					
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -973,6 +1100,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( Vector3f point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z )
@@ -994,6 +1122,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( ref  Vector3f point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z )
@@ -1009,11 +1138,13 @@ namespace Glare
 				return  point.X >= Min.X && point.X <= Max.X && point.Y >= Min.Y && point.Y <= Max.Y && point.Z >= Min.Z && point.Z <= Max.Z ;
 			}
 		
-					public Containment Intersect(Frustum frustum) {
+					/// <summary>Get the intersection between a <see cref="Box3f"/> and a <see cref="Frustum"/>.</summary>
+			public Containment Intersect(Frustum frustum) {
 				throw new NotImplementedException();
 			}
 		
-					public Vector3f NearestPointTo( Vector3f point ) {
+					/// <summary>Get the nearest point between this <see cref="Box3f"/> and a <see cref="Vector3f"/>. If the <see cref="Vector3f"/> is inside this <see cref="Box3f"/>, it is returned untouched.</summary>
+			public Vector3f NearestPointTo( Vector3f point ) {
 				Vector3f result;
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -1022,7 +1153,8 @@ namespace Glare
 					point.Clamp(ref Min, ref Max, out result);
 				return result;
 			}
-					public void NearestPointTo( ref  Vector3f point , out Vector3f result) {
+					/// <summary>Get the nearest point between this <see cref="Box3f"/> and a <see cref="Vector3f"/>. If the <see cref="Vector3f"/> is inside this <see cref="Box3f"/>, it is returned untouched.</summary>
+			public void NearestPointTo( ref  Vector3f point , out Vector3f result) {
 				
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -1032,8 +1164,10 @@ namespace Glare
 				return;
 			}
 		
+		/// <summary>Convert to a string representation of the <see cref="Box3f"/>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <see cref="Box3f"/>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}
@@ -1051,17 +1185,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <see cref="Box3d"/>.</summary>
 		public Vector3d Max;
 
+		/// <summary>Get the centre point of the <see cref="Box3d"/>.</summary>
 		public Vector3d Center { get { return new Vector3d( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ); } }
 		
+		/// <summary>Get the centre point of the <see cref="Box3d"/>.</summary>
 		public Vector3d Centre { get { return new Vector3d( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ); } }
 
+		/// <summary>Get the radius of the <see cref="Box3d"/>, which is the distance to a corner point.</summary>
+		public Double Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <see cref="Box3d"/>.</summary>
 		public Vector3d Size { get { return new Vector3d( Max.X - Min.X ,  Max.Y - Min.Y ,  Max.Z - Min.Z ); } }
 
+		/// <summary>Get an empty <see cref="Box3d"/> centred on the origin.</summary>
 		public static readonly Box3d Zero = new Box3d((Double)0, (Double)0, (Double)0, (Double)0, (Double)0, (Double)0);
 
-					public Box3d( Vector3d min,  Vector3d max) { this.Min = min; this.Max = max; }
-					public Box3d( ref  Vector3d min,  ref  Vector3d max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box3d"/> by providing minimum and maximum extents.</summary>
+			public Box3d( Vector3d min,  Vector3d max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box3d"/> by providing minimum and maximum extents.</summary>
+			public Box3d( ref  Vector3d min,  ref  Vector3d max) { this.Min = min; this.Max = max; }
 		
+		/// <summary>Create a <see cref="Box3d"/> by providing minimum and maximum extents.</summary>
 		public Box3d(
 			 Double minX ,  Double minY ,  Double minZ ,
 			 Double maxX ,  Double maxY ,  Double maxZ ) {
@@ -1073,7 +1217,8 @@ namespace Glare
 				Max.Z = maxZ;
 					}
 
-									public static Box3d Relative( Vector3d min ,  Vector3d size  ) {
+									/// <summary>Create a <see cref="Box3d"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box3d Relative( Vector3d min ,  Vector3d size  ) {
 					Box3d result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1083,7 +1228,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return result;
 				}
-							public static Box3d Relative( ref Vector3d min ,  ref Vector3d size  ) {
+							/// <summary>Create a <see cref="Box3d"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box3d Relative( ref Vector3d min ,  ref Vector3d size  ) {
 					Box3d result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1093,7 +1239,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return result;
 				}
-							public static Box3d Relative(  Double minX ,  Double minY ,  Double minZ ,   Double sizeX ,  Double sizeY ,  Double sizeZ  ) {
+							/// <summary>Create a <see cref="Box3d"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box3d Relative(  Double minX ,  Double minY ,  Double minZ ,   Double sizeX ,  Double sizeY ,  Double sizeZ  ) {
 					Box3d result;
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -1103,7 +1250,8 @@ namespace Glare
 						result.Max.Z = minZ + sizeZ;
 										return result;
 				}
-												public static void Relative( Vector3d min ,  Vector3d size  , out Box3d result) {
+												/// <summary>Create a <see cref="Box3d"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( Vector3d min ,  Vector3d size  , out Box3d result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1113,7 +1261,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return;
 				}
-							public static void Relative( ref Vector3d min ,  ref Vector3d size  , out Box3d result) {
+							/// <summary>Create a <see cref="Box3d"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( ref Vector3d min ,  ref Vector3d size  , out Box3d result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1123,7 +1272,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return;
 				}
-							public static void Relative(  Double minX ,  Double minY ,  Double minZ ,   Double sizeX ,  Double sizeY ,  Double sizeZ  , out Box3d result) {
+							/// <summary>Create a <see cref="Box3d"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative(  Double minX ,  Double minY ,  Double minZ ,   Double sizeX ,  Double sizeY ,  Double sizeZ  , out Box3d result) {
 					
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -1158,6 +1308,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( Vector3d point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z )
@@ -1179,6 +1330,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( ref  Vector3d point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z )
@@ -1194,11 +1346,13 @@ namespace Glare
 				return  point.X >= Min.X && point.X <= Max.X && point.Y >= Min.Y && point.Y <= Max.Y && point.Z >= Min.Z && point.Z <= Max.Z ;
 			}
 		
-					public Containment Intersect(Frustum frustum) {
+					/// <summary>Get the intersection between a <see cref="Box3d"/> and a <see cref="Frustum"/>.</summary>
+			public Containment Intersect(Frustum frustum) {
 				throw new NotImplementedException();
 			}
 		
-					public Vector3d NearestPointTo( Vector3d point ) {
+					/// <summary>Get the nearest point between this <see cref="Box3d"/> and a <see cref="Vector3d"/>. If the <see cref="Vector3d"/> is inside this <see cref="Box3d"/>, it is returned untouched.</summary>
+			public Vector3d NearestPointTo( Vector3d point ) {
 				Vector3d result;
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -1207,7 +1361,8 @@ namespace Glare
 					point.Clamp(ref Min, ref Max, out result);
 				return result;
 			}
-					public void NearestPointTo( ref  Vector3d point , out Vector3d result) {
+					/// <summary>Get the nearest point between this <see cref="Box3d"/> and a <see cref="Vector3d"/>. If the <see cref="Vector3d"/> is inside this <see cref="Box3d"/>, it is returned untouched.</summary>
+			public void NearestPointTo( ref  Vector3d point , out Vector3d result) {
 				
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -1217,8 +1372,10 @@ namespace Glare
 				return;
 			}
 		
+		/// <summary>Convert to a string representation of the <see cref="Box3d"/>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <see cref="Box3d"/>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}
@@ -1236,17 +1393,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <see cref="Box3"/>.</summary>
 		public Vector3 Max;
 
+		/// <summary>Get the centre point of the <see cref="Box3"/>.</summary>
 		public Vector3 Center { get { return new Vector3( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ); } }
 		
+		/// <summary>Get the centre point of the <see cref="Box3"/>.</summary>
 		public Vector3 Centre { get { return new Vector3( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ); } }
 
+		/// <summary>Get the radius of the <see cref="Box3"/>, which is the distance to a corner point.</summary>
+		public Length Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <see cref="Box3"/>.</summary>
 		public Vector3 Size { get { return new Vector3( Max.X - Min.X ,  Max.Y - Min.Y ,  Max.Z - Min.Z ); } }
 
+		/// <summary>Get an empty <see cref="Box3"/> centred on the origin.</summary>
 		public static readonly Box3 Zero = new Box3(Length.Zero, Length.Zero, Length.Zero, Length.Zero, Length.Zero, Length.Zero);
 
-					public Box3( Vector3 min,  Vector3 max) { this.Min = min; this.Max = max; }
-					public Box3( ref  Vector3 min,  ref  Vector3 max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box3"/> by providing minimum and maximum extents.</summary>
+			public Box3( Vector3 min,  Vector3 max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box3"/> by providing minimum and maximum extents.</summary>
+			public Box3( ref  Vector3 min,  ref  Vector3 max) { this.Min = min; this.Max = max; }
 		
+		/// <summary>Create a <see cref="Box3"/> by providing minimum and maximum extents.</summary>
 		public Box3(
 			 Length minX ,  Length minY ,  Length minZ ,
 			 Length maxX ,  Length maxY ,  Length maxZ ) {
@@ -1258,7 +1425,8 @@ namespace Glare
 				Max.Z = maxZ;
 					}
 
-									public static Box3 Relative( Vector3 min ,  Vector3 size  ) {
+									/// <summary>Create a <see cref="Box3"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box3 Relative( Vector3 min ,  Vector3 size  ) {
 					Box3 result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1268,7 +1436,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return result;
 				}
-							public static Box3 Relative( ref Vector3 min ,  ref Vector3 size  ) {
+							/// <summary>Create a <see cref="Box3"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box3 Relative( ref Vector3 min ,  ref Vector3 size  ) {
 					Box3 result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1278,7 +1447,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return result;
 				}
-							public static Box3 Relative(  Length minX ,  Length minY ,  Length minZ ,   Length sizeX ,  Length sizeY ,  Length sizeZ  ) {
+							/// <summary>Create a <see cref="Box3"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box3 Relative(  Length minX ,  Length minY ,  Length minZ ,   Length sizeX ,  Length sizeY ,  Length sizeZ  ) {
 					Box3 result;
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -1288,7 +1458,8 @@ namespace Glare
 						result.Max.Z = minZ + sizeZ;
 										return result;
 				}
-												public static void Relative( Vector3 min ,  Vector3 size  , out Box3 result) {
+												/// <summary>Create a <see cref="Box3"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( Vector3 min ,  Vector3 size  , out Box3 result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1298,7 +1469,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return;
 				}
-							public static void Relative( ref Vector3 min ,  ref Vector3 size  , out Box3 result) {
+							/// <summary>Create a <see cref="Box3"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( ref Vector3 min ,  ref Vector3 size  , out Box3 result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1308,7 +1480,8 @@ namespace Glare
 						result.Max.Z = min.Z + size.Z;
 										return;
 				}
-							public static void Relative(  Length minX ,  Length minY ,  Length minZ ,   Length sizeX ,  Length sizeY ,  Length sizeZ  , out Box3 result) {
+							/// <summary>Create a <see cref="Box3"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative(  Length minX ,  Length minY ,  Length minZ ,   Length sizeX ,  Length sizeY ,  Length sizeZ  , out Box3 result) {
 					
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -1343,6 +1516,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( Vector3 point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z )
@@ -1364,6 +1538,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( ref  Vector3 point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z )
@@ -1379,11 +1554,13 @@ namespace Glare
 				return  point.X >= Min.X && point.X <= Max.X && point.Y >= Min.Y && point.Y <= Max.Y && point.Z >= Min.Z && point.Z <= Max.Z ;
 			}
 		
-					public Containment Intersect(Frustum frustum) {
+					/// <summary>Get the intersection between a <see cref="Box3"/> and a <see cref="Frustum"/>.</summary>
+			public Containment Intersect(Frustum frustum) {
 				throw new NotImplementedException();
 			}
 		
-					public Vector3 NearestPointTo( Vector3 point ) {
+					/// <summary>Get the nearest point between this <see cref="Box3"/> and a <see cref="Vector3"/>. If the <see cref="Vector3"/> is inside this <see cref="Box3"/>, it is returned untouched.</summary>
+			public Vector3 NearestPointTo( Vector3 point ) {
 				Vector3 result;
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -1392,7 +1569,8 @@ namespace Glare
 					point.Clamp(ref Min, ref Max, out result);
 				return result;
 			}
-					public void NearestPointTo( ref  Vector3 point , out Vector3 result) {
+					/// <summary>Get the nearest point between this <see cref="Box3"/> and a <see cref="Vector3"/>. If the <see cref="Vector3"/> is inside this <see cref="Box3"/>, it is returned untouched.</summary>
+			public void NearestPointTo( ref  Vector3 point , out Vector3 result) {
 				
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -1402,8 +1580,10 @@ namespace Glare
 				return;
 			}
 		
+		/// <summary>Convert to a string representation of the <see cref="Box3"/>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <see cref="Box3"/>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}
@@ -1421,17 +1601,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <see cref="Box4i"/>.</summary>
 		public Vector4i Max;
 
+		/// <summary>Get the centre point of the <see cref="Box4i"/>.</summary>
 		public Vector4i Center { get { return new Vector4i( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ,  (Max.W + Min.W) / 2 ); } }
 		
+		/// <summary>Get the centre point of the <see cref="Box4i"/>.</summary>
 		public Vector4i Centre { get { return new Vector4i( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ,  (Max.W + Min.W) / 2 ); } }
 
+		/// <summary>Get the radius of the <see cref="Box4i"/>, which is the distance to a corner point.</summary>
+		public double Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <see cref="Box4i"/>.</summary>
 		public Vector4i Size { get { return new Vector4i( Max.X - Min.X ,  Max.Y - Min.Y ,  Max.Z - Min.Z ,  Max.W - Min.W ); } }
 
+		/// <summary>Get an empty <see cref="Box4i"/> centred on the origin.</summary>
 		public static readonly Box4i Zero = new Box4i((Int32)0, (Int32)0, (Int32)0, (Int32)0, (Int32)0, (Int32)0, (Int32)0, (Int32)0);
 
-					public Box4i( Vector4i min,  Vector4i max) { this.Min = min; this.Max = max; }
-					public Box4i( ref  Vector4i min,  ref  Vector4i max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box4i"/> by providing minimum and maximum extents.</summary>
+			public Box4i( Vector4i min,  Vector4i max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box4i"/> by providing minimum and maximum extents.</summary>
+			public Box4i( ref  Vector4i min,  ref  Vector4i max) { this.Min = min; this.Max = max; }
 		
+		/// <summary>Create a <see cref="Box4i"/> by providing minimum and maximum extents.</summary>
 		public Box4i(
 			 Int32 minX ,  Int32 minY ,  Int32 minZ ,  Int32 minW ,
 			 Int32 maxX ,  Int32 maxY ,  Int32 maxZ ,  Int32 maxW ) {
@@ -1445,7 +1635,8 @@ namespace Glare
 				Max.W = maxW;
 					}
 
-									public static Box4i Relative( Vector4i min ,  Vector4i size  ) {
+									/// <summary>Create a <see cref="Box4i"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box4i Relative( Vector4i min ,  Vector4i size  ) {
 					Box4i result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1457,7 +1648,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return result;
 				}
-							public static Box4i Relative( ref Vector4i min ,  ref Vector4i size  ) {
+							/// <summary>Create a <see cref="Box4i"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box4i Relative( ref Vector4i min ,  ref Vector4i size  ) {
 					Box4i result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1469,7 +1661,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return result;
 				}
-							public static Box4i Relative(  Int32 minX ,  Int32 minY ,  Int32 minZ ,  Int32 minW ,   Int32 sizeX ,  Int32 sizeY ,  Int32 sizeZ ,  Int32 sizeW  ) {
+							/// <summary>Create a <see cref="Box4i"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box4i Relative(  Int32 minX ,  Int32 minY ,  Int32 minZ ,  Int32 minW ,   Int32 sizeX ,  Int32 sizeY ,  Int32 sizeZ ,  Int32 sizeW  ) {
 					Box4i result;
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -1481,7 +1674,8 @@ namespace Glare
 						result.Max.W = minW + sizeW;
 										return result;
 				}
-												public static void Relative( Vector4i min ,  Vector4i size  , out Box4i result) {
+												/// <summary>Create a <see cref="Box4i"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( Vector4i min ,  Vector4i size  , out Box4i result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1493,7 +1687,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return;
 				}
-							public static void Relative( ref Vector4i min ,  ref Vector4i size  , out Box4i result) {
+							/// <summary>Create a <see cref="Box4i"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( ref Vector4i min ,  ref Vector4i size  , out Box4i result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1505,7 +1700,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return;
 				}
-							public static void Relative(  Int32 minX ,  Int32 minY ,  Int32 minZ ,  Int32 minW ,   Int32 sizeX ,  Int32 sizeY ,  Int32 sizeZ ,  Int32 sizeW  , out Box4i result) {
+							/// <summary>Create a <see cref="Box4i"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative(  Int32 minX ,  Int32 minY ,  Int32 minZ ,  Int32 minW ,   Int32 sizeX ,  Int32 sizeY ,  Int32 sizeZ ,  Int32 sizeW  , out Box4i result) {
 					
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -1544,6 +1740,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( Vector4i point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z || point.W < Min.W || point.W > Max.W )
@@ -1565,6 +1762,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( ref  Vector4i point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z || point.W < Min.W || point.W > Max.W )
@@ -1581,7 +1779,8 @@ namespace Glare
 			}
 		
 		
-					public Vector4i NearestPointTo( Vector4i point ) {
+					/// <summary>Get the nearest point between this <see cref="Box4i"/> and a <see cref="Vector4i"/>. If the <see cref="Vector4i"/> is inside this <see cref="Box4i"/>, it is returned untouched.</summary>
+			public Vector4i NearestPointTo( Vector4i point ) {
 				Vector4i result;
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -1590,7 +1789,8 @@ namespace Glare
 					point.Clamp(ref Min, ref Max, out result);
 				return result;
 			}
-					public void NearestPointTo( ref  Vector4i point , out Vector4i result) {
+					/// <summary>Get the nearest point between this <see cref="Box4i"/> and a <see cref="Vector4i"/>. If the <see cref="Vector4i"/> is inside this <see cref="Box4i"/>, it is returned untouched.</summary>
+			public void NearestPointTo( ref  Vector4i point , out Vector4i result) {
 				
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -1600,8 +1800,10 @@ namespace Glare
 				return;
 			}
 		
+		/// <summary>Convert to a string representation of the <see cref="Box4i"/>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <see cref="Box4i"/>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}
@@ -1619,17 +1821,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <see cref="Box4f"/>.</summary>
 		public Vector4f Max;
 
+		/// <summary>Get the centre point of the <see cref="Box4f"/>.</summary>
 		public Vector4f Center { get { return new Vector4f( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ,  (Max.W + Min.W) / 2 ); } }
 		
+		/// <summary>Get the centre point of the <see cref="Box4f"/>.</summary>
 		public Vector4f Centre { get { return new Vector4f( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ,  (Max.W + Min.W) / 2 ); } }
 
+		/// <summary>Get the radius of the <see cref="Box4f"/>, which is the distance to a corner point.</summary>
+		public Single Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <see cref="Box4f"/>.</summary>
 		public Vector4f Size { get { return new Vector4f( Max.X - Min.X ,  Max.Y - Min.Y ,  Max.Z - Min.Z ,  Max.W - Min.W ); } }
 
+		/// <summary>Get an empty <see cref="Box4f"/> centred on the origin.</summary>
 		public static readonly Box4f Zero = new Box4f((Single)0, (Single)0, (Single)0, (Single)0, (Single)0, (Single)0, (Single)0, (Single)0);
 
-					public Box4f( Vector4f min,  Vector4f max) { this.Min = min; this.Max = max; }
-					public Box4f( ref  Vector4f min,  ref  Vector4f max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box4f"/> by providing minimum and maximum extents.</summary>
+			public Box4f( Vector4f min,  Vector4f max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box4f"/> by providing minimum and maximum extents.</summary>
+			public Box4f( ref  Vector4f min,  ref  Vector4f max) { this.Min = min; this.Max = max; }
 		
+		/// <summary>Create a <see cref="Box4f"/> by providing minimum and maximum extents.</summary>
 		public Box4f(
 			 Single minX ,  Single minY ,  Single minZ ,  Single minW ,
 			 Single maxX ,  Single maxY ,  Single maxZ ,  Single maxW ) {
@@ -1643,7 +1855,8 @@ namespace Glare
 				Max.W = maxW;
 					}
 
-									public static Box4f Relative( Vector4f min ,  Vector4f size  ) {
+									/// <summary>Create a <see cref="Box4f"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box4f Relative( Vector4f min ,  Vector4f size  ) {
 					Box4f result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1655,7 +1868,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return result;
 				}
-							public static Box4f Relative( ref Vector4f min ,  ref Vector4f size  ) {
+							/// <summary>Create a <see cref="Box4f"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box4f Relative( ref Vector4f min ,  ref Vector4f size  ) {
 					Box4f result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1667,7 +1881,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return result;
 				}
-							public static Box4f Relative(  Single minX ,  Single minY ,  Single minZ ,  Single minW ,   Single sizeX ,  Single sizeY ,  Single sizeZ ,  Single sizeW  ) {
+							/// <summary>Create a <see cref="Box4f"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box4f Relative(  Single minX ,  Single minY ,  Single minZ ,  Single minW ,   Single sizeX ,  Single sizeY ,  Single sizeZ ,  Single sizeW  ) {
 					Box4f result;
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -1679,7 +1894,8 @@ namespace Glare
 						result.Max.W = minW + sizeW;
 										return result;
 				}
-												public static void Relative( Vector4f min ,  Vector4f size  , out Box4f result) {
+												/// <summary>Create a <see cref="Box4f"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( Vector4f min ,  Vector4f size  , out Box4f result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1691,7 +1907,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return;
 				}
-							public static void Relative( ref Vector4f min ,  ref Vector4f size  , out Box4f result) {
+							/// <summary>Create a <see cref="Box4f"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( ref Vector4f min ,  ref Vector4f size  , out Box4f result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1703,7 +1920,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return;
 				}
-							public static void Relative(  Single minX ,  Single minY ,  Single minZ ,  Single minW ,   Single sizeX ,  Single sizeY ,  Single sizeZ ,  Single sizeW  , out Box4f result) {
+							/// <summary>Create a <see cref="Box4f"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative(  Single minX ,  Single minY ,  Single minZ ,  Single minW ,   Single sizeX ,  Single sizeY ,  Single sizeZ ,  Single sizeW  , out Box4f result) {
 					
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -1742,6 +1960,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( Vector4f point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z || point.W < Min.W || point.W > Max.W )
@@ -1763,6 +1982,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( ref  Vector4f point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z || point.W < Min.W || point.W > Max.W )
@@ -1779,7 +1999,8 @@ namespace Glare
 			}
 		
 		
-					public Vector4f NearestPointTo( Vector4f point ) {
+					/// <summary>Get the nearest point between this <see cref="Box4f"/> and a <see cref="Vector4f"/>. If the <see cref="Vector4f"/> is inside this <see cref="Box4f"/>, it is returned untouched.</summary>
+			public Vector4f NearestPointTo( Vector4f point ) {
 				Vector4f result;
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -1788,7 +2009,8 @@ namespace Glare
 					point.Clamp(ref Min, ref Max, out result);
 				return result;
 			}
-					public void NearestPointTo( ref  Vector4f point , out Vector4f result) {
+					/// <summary>Get the nearest point between this <see cref="Box4f"/> and a <see cref="Vector4f"/>. If the <see cref="Vector4f"/> is inside this <see cref="Box4f"/>, it is returned untouched.</summary>
+			public void NearestPointTo( ref  Vector4f point , out Vector4f result) {
 				
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -1798,8 +2020,10 @@ namespace Glare
 				return;
 			}
 		
+		/// <summary>Convert to a string representation of the <see cref="Box4f"/>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <see cref="Box4f"/>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}
@@ -1817,17 +2041,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <see cref="Box4d"/>.</summary>
 		public Vector4d Max;
 
+		/// <summary>Get the centre point of the <see cref="Box4d"/>.</summary>
 		public Vector4d Center { get { return new Vector4d( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ,  (Max.W + Min.W) / 2 ); } }
 		
+		/// <summary>Get the centre point of the <see cref="Box4d"/>.</summary>
 		public Vector4d Centre { get { return new Vector4d( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ,  (Max.W + Min.W) / 2 ); } }
 
+		/// <summary>Get the radius of the <see cref="Box4d"/>, which is the distance to a corner point.</summary>
+		public Double Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <see cref="Box4d"/>.</summary>
 		public Vector4d Size { get { return new Vector4d( Max.X - Min.X ,  Max.Y - Min.Y ,  Max.Z - Min.Z ,  Max.W - Min.W ); } }
 
+		/// <summary>Get an empty <see cref="Box4d"/> centred on the origin.</summary>
 		public static readonly Box4d Zero = new Box4d((Double)0, (Double)0, (Double)0, (Double)0, (Double)0, (Double)0, (Double)0, (Double)0);
 
-					public Box4d( Vector4d min,  Vector4d max) { this.Min = min; this.Max = max; }
-					public Box4d( ref  Vector4d min,  ref  Vector4d max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box4d"/> by providing minimum and maximum extents.</summary>
+			public Box4d( Vector4d min,  Vector4d max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box4d"/> by providing minimum and maximum extents.</summary>
+			public Box4d( ref  Vector4d min,  ref  Vector4d max) { this.Min = min; this.Max = max; }
 		
+		/// <summary>Create a <see cref="Box4d"/> by providing minimum and maximum extents.</summary>
 		public Box4d(
 			 Double minX ,  Double minY ,  Double minZ ,  Double minW ,
 			 Double maxX ,  Double maxY ,  Double maxZ ,  Double maxW ) {
@@ -1841,7 +2075,8 @@ namespace Glare
 				Max.W = maxW;
 					}
 
-									public static Box4d Relative( Vector4d min ,  Vector4d size  ) {
+									/// <summary>Create a <see cref="Box4d"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box4d Relative( Vector4d min ,  Vector4d size  ) {
 					Box4d result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1853,7 +2088,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return result;
 				}
-							public static Box4d Relative( ref Vector4d min ,  ref Vector4d size  ) {
+							/// <summary>Create a <see cref="Box4d"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box4d Relative( ref Vector4d min ,  ref Vector4d size  ) {
 					Box4d result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1865,7 +2101,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return result;
 				}
-							public static Box4d Relative(  Double minX ,  Double minY ,  Double minZ ,  Double minW ,   Double sizeX ,  Double sizeY ,  Double sizeZ ,  Double sizeW  ) {
+							/// <summary>Create a <see cref="Box4d"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box4d Relative(  Double minX ,  Double minY ,  Double minZ ,  Double minW ,   Double sizeX ,  Double sizeY ,  Double sizeZ ,  Double sizeW  ) {
 					Box4d result;
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -1877,7 +2114,8 @@ namespace Glare
 						result.Max.W = minW + sizeW;
 										return result;
 				}
-												public static void Relative( Vector4d min ,  Vector4d size  , out Box4d result) {
+												/// <summary>Create a <see cref="Box4d"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( Vector4d min ,  Vector4d size  , out Box4d result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1889,7 +2127,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return;
 				}
-							public static void Relative( ref Vector4d min ,  ref Vector4d size  , out Box4d result) {
+							/// <summary>Create a <see cref="Box4d"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( ref Vector4d min ,  ref Vector4d size  , out Box4d result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -1901,7 +2140,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return;
 				}
-							public static void Relative(  Double minX ,  Double minY ,  Double minZ ,  Double minW ,   Double sizeX ,  Double sizeY ,  Double sizeZ ,  Double sizeW  , out Box4d result) {
+							/// <summary>Create a <see cref="Box4d"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative(  Double minX ,  Double minY ,  Double minZ ,  Double minW ,   Double sizeX ,  Double sizeY ,  Double sizeZ ,  Double sizeW  , out Box4d result) {
 					
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -1940,6 +2180,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( Vector4d point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z || point.W < Min.W || point.W > Max.W )
@@ -1961,6 +2202,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( ref  Vector4d point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z || point.W < Min.W || point.W > Max.W )
@@ -1977,7 +2219,8 @@ namespace Glare
 			}
 		
 		
-					public Vector4d NearestPointTo( Vector4d point ) {
+					/// <summary>Get the nearest point between this <see cref="Box4d"/> and a <see cref="Vector4d"/>. If the <see cref="Vector4d"/> is inside this <see cref="Box4d"/>, it is returned untouched.</summary>
+			public Vector4d NearestPointTo( Vector4d point ) {
 				Vector4d result;
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -1986,7 +2229,8 @@ namespace Glare
 					point.Clamp(ref Min, ref Max, out result);
 				return result;
 			}
-					public void NearestPointTo( ref  Vector4d point , out Vector4d result) {
+					/// <summary>Get the nearest point between this <see cref="Box4d"/> and a <see cref="Vector4d"/>. If the <see cref="Vector4d"/> is inside this <see cref="Box4d"/>, it is returned untouched.</summary>
+			public void NearestPointTo( ref  Vector4d point , out Vector4d result) {
 				
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -1996,8 +2240,10 @@ namespace Glare
 				return;
 			}
 		
+		/// <summary>Convert to a string representation of the <see cref="Box4d"/>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <see cref="Box4d"/>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}
@@ -2015,17 +2261,27 @@ namespace Glare
 		/// <summary>The maximum extents of the <see cref="Box4"/>.</summary>
 		public Vector4 Max;
 
+		/// <summary>Get the centre point of the <see cref="Box4"/>.</summary>
 		public Vector4 Center { get { return new Vector4( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ,  (Max.W + Min.W) / 2 ); } }
 		
+		/// <summary>Get the centre point of the <see cref="Box4"/>.</summary>
 		public Vector4 Centre { get { return new Vector4( (Max.X + Min.X) / 2 ,  (Max.Y + Min.Y) / 2 ,  (Max.Z + Min.Z) / 2 ,  (Max.W + Min.W) / 2 ); } }
 
+		/// <summary>Get the radius of the <see cref="Box4"/>, which is the distance to a corner point.</summary>
+		public Length Radius { get { return (Max - Min).Magnitude; } }
+
+		/// <summary>Get the size of each edge of the <see cref="Box4"/>.</summary>
 		public Vector4 Size { get { return new Vector4( Max.X - Min.X ,  Max.Y - Min.Y ,  Max.Z - Min.Z ,  Max.W - Min.W ); } }
 
+		/// <summary>Get an empty <see cref="Box4"/> centred on the origin.</summary>
 		public static readonly Box4 Zero = new Box4(Length.Zero, Length.Zero, Length.Zero, Length.Zero, Length.Zero, Length.Zero, Length.Zero, Length.Zero);
 
-					public Box4( Vector4 min,  Vector4 max) { this.Min = min; this.Max = max; }
-					public Box4( ref  Vector4 min,  ref  Vector4 max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box4"/> by providing minimum and maximum extents.</summary>
+			public Box4( Vector4 min,  Vector4 max) { this.Min = min; this.Max = max; }
+					/// <summary>Create a <see cref="Box4"/> by providing minimum and maximum extents.</summary>
+			public Box4( ref  Vector4 min,  ref  Vector4 max) { this.Min = min; this.Max = max; }
 		
+		/// <summary>Create a <see cref="Box4"/> by providing minimum and maximum extents.</summary>
 		public Box4(
 			 Length minX ,  Length minY ,  Length minZ ,  Length minW ,
 			 Length maxX ,  Length maxY ,  Length maxZ ,  Length maxW ) {
@@ -2039,7 +2295,8 @@ namespace Glare
 				Max.W = maxW;
 					}
 
-									public static Box4 Relative( Vector4 min ,  Vector4 size  ) {
+									/// <summary>Create a <see cref="Box4"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box4 Relative( Vector4 min ,  Vector4 size  ) {
 					Box4 result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -2051,7 +2308,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return result;
 				}
-							public static Box4 Relative( ref Vector4 min ,  ref Vector4 size  ) {
+							/// <summary>Create a <see cref="Box4"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box4 Relative( ref Vector4 min ,  ref Vector4 size  ) {
 					Box4 result;
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -2063,7 +2321,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return result;
 				}
-							public static Box4 Relative(  Length minX ,  Length minY ,  Length minZ ,  Length minW ,   Length sizeX ,  Length sizeY ,  Length sizeZ ,  Length sizeW  ) {
+							/// <summary>Create a <see cref="Box4"/> by providing the minimum extent and the size of each side.</summary>
+				public static Box4 Relative(  Length minX ,  Length minY ,  Length minZ ,  Length minW ,   Length sizeX ,  Length sizeY ,  Length sizeZ ,  Length sizeW  ) {
 					Box4 result;
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -2075,7 +2334,8 @@ namespace Glare
 						result.Max.W = minW + sizeW;
 										return result;
 				}
-												public static void Relative( Vector4 min ,  Vector4 size  , out Box4 result) {
+												/// <summary>Create a <see cref="Box4"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( Vector4 min ,  Vector4 size  , out Box4 result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -2087,7 +2347,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return;
 				}
-							public static void Relative( ref Vector4 min ,  ref Vector4 size  , out Box4 result) {
+							/// <summary>Create a <see cref="Box4"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative( ref Vector4 min ,  ref Vector4 size  , out Box4 result) {
 					
 											result.Min.X = min.X;
 						result.Max.X = min.X + size.X;
@@ -2099,7 +2360,8 @@ namespace Glare
 						result.Max.W = min.W + size.W;
 										return;
 				}
-							public static void Relative(  Length minX ,  Length minY ,  Length minZ ,  Length minW ,   Length sizeX ,  Length sizeY ,  Length sizeZ ,  Length sizeW  , out Box4 result) {
+							/// <summary>Create a <see cref="Box4"/> by providing the minimum extent and the size of each side.</summary>
+				public static void Relative(  Length minX ,  Length minY ,  Length minZ ,  Length minW ,   Length sizeX ,  Length sizeY ,  Length sizeZ ,  Length sizeW  , out Box4 result) {
 					
 											result.Min.X = minX;
 						result.Max.X = minX + sizeX;
@@ -2138,6 +2400,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( Vector4 point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z || point.W < Min.W || point.W > Max.W )
@@ -2159,6 +2422,7 @@ namespace Glare
 				return point.Distance(ref nearest);
 			}
 
+			/// <summary>Get the intersection type between this box and the point.</summary>
 			public Containment Intersect( ref  Vector4 point) {
 				// Most points should be outside, so check that first.
 				if ( point.X < Min.X || point.X > Max.X || point.Y < Min.Y || point.Y > Max.Y || point.Z < Min.Z || point.Z > Max.Z || point.W < Min.W || point.W > Max.W )
@@ -2175,7 +2439,8 @@ namespace Glare
 			}
 		
 		
-					public Vector4 NearestPointTo( Vector4 point ) {
+					/// <summary>Get the nearest point between this <see cref="Box4"/> and a <see cref="Vector4"/>. If the <see cref="Vector4"/> is inside this <see cref="Box4"/>, it is returned untouched.</summary>
+			public Vector4 NearestPointTo( Vector4 point ) {
 				Vector4 result;
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -2184,7 +2449,8 @@ namespace Glare
 					point.Clamp(ref Min, ref Max, out result);
 				return result;
 			}
-					public void NearestPointTo( ref  Vector4 point , out Vector4 result) {
+					/// <summary>Get the nearest point between this <see cref="Box4"/> and a <see cref="Vector4"/>. If the <see cref="Vector4"/> is inside this <see cref="Box4"/>, it is returned untouched.</summary>
+			public void NearestPointTo( ref  Vector4 point , out Vector4 result) {
 				
 				Containment containment = Intersect(ref point);
 				if(containment != Containment.Disjoint)
@@ -2194,8 +2460,10 @@ namespace Glare
 				return;
 			}
 		
+		/// <summary>Convert to a string representation of the <see cref="Box4"/>.</summary>
 		public override string ToString() { return ToString(null, null); }
 
+		/// <summary>Convert to a string representation of the <see cref="Box4"/>.</summary>
 		public string ToString(string format, IFormatProvider provider) {
 			return string.Format("{{min = {0}, max = {1}, size = {2}, centre = {3}}}", Min.ToShortString(format, provider), Max.ToShortString(format, provider), Size.ToShortString(format, provider), Centre.ToShortString(format, provider));
 		}
@@ -2203,8 +2471,6 @@ namespace Glare
 	}
 
 	}
-
-
 
 
 

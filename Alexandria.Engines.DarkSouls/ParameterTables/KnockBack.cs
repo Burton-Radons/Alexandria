@@ -16,11 +16,13 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Named "KNOCKBACK_PARAM_ST" in Dark Souls, from file "KnockBackParam.paramdef" (id 31h).
 		/// </remarks>
 		public class KnockBack : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "KNOCKBACK_PARAM_ST";
 
 			Single damage_Min_ContTime, damage_S_ContTime, damage_M_ContTime, damage_L_ContTime, damage_BlowS_ContTime, damage_BlowM_ContTime, damage_Strike_ContTime, damage_Uppercut_ContTime, damage_Push_ContTime, damage_Breath_ContTime, damage_HeadShot_ContTime, guard_S_ContTime, guard_L_ContTime, guard_LL_ContTime, guardBrake_ContTime, damage_Min_DecTime, damage_S_DecTime, damage_M_DecTime, damage_L_DecTime, damage_BlowS_DecTime, damage_BlowM_DecTime, damage_Strike_DecTime, damage_Uppercut_DecTime, damage_Push_DecTime, damage_Breath_DecTime, damage_HeadShot_DecTime, guard_S_DecTime, guard_L_DecTime, guard_LL_DecTime, guardBrake_DecTime;
 			Byte[] pad;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				Damage_Min_ContTimeProperty = GetProperty<KnockBack>("Damage_Min_ContTime"),
 				Damage_S_ContTimeProperty = GetProperty<KnockBack>("Damage_S_ContTime"),
@@ -59,7 +61,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "極小ダメージ_速度維持時間[s]", Google translated: "Minimal damage _ speed maintenance time [s]".
 			/// Japanese description: "極小ダメージアニメの時に使用される維持時間を設定", Google translated: "Set the maintenance time would be used for a very small damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_Min_ContTime", index: 0, minimum: 0, maximum: 9.99, step: 0.01, order: 100, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_Min_ContTime", index: 0, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 100, unknown2: 1)]
 			[DisplayName("Minimal damage _ speed maintenance time [s]")]
 			[Description("Set the maintenance time would be used for a very small damage Animation")]
 			[DefaultValue((Single)0)]
@@ -77,7 +79,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "小ダメージ_速度維持時間[s]", Google translated: "Small damage _ speed maintenance time [s]".
 			/// Japanese description: "小ダメージアニメの時に使用される維持時間を設定", Google translated: "Set the maintenance time would be used for small damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_S_ContTime", index: 1, minimum: 0, maximum: 9.99, step: 0.01, order: 300, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_S_ContTime", index: 1, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 300, unknown2: 1)]
 			[DisplayName("Small damage _ speed maintenance time [s]")]
 			[Description("Set the maintenance time would be used for small damage Animation")]
 			[DefaultValue((Single)0)]
@@ -95,7 +97,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "中ダメージ_速度維持時間[s]", Google translated: "Medium Damage _ speed maintenance time [s]".
 			/// Japanese description: "中ダメージアニメの時に使用される維持時間を設定", Google translated: "Set the maintenance time would be used for the medium Damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_M_ContTime", index: 2, minimum: 0, maximum: 9.99, step: 0.01, order: 500, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_M_ContTime", index: 2, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 500, unknown2: 1)]
 			[DisplayName("Medium Damage _ speed maintenance time [s]")]
 			[Description("Set the maintenance time would be used for the medium Damage Animation")]
 			[DefaultValue((Single)0)]
@@ -113,7 +115,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "大ダメージ_速度維持時間[s]", Google translated: "Large damage _ speed maintenance time [s]".
 			/// Japanese description: "大ダメージアニメの時に使用される維持時間を設定", Google translated: "Set the maintenance time would be used for a great damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_L_ContTime", index: 3, minimum: 0, maximum: 9.99, step: 0.01, order: 700, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_L_ContTime", index: 3, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 700, unknown2: 1)]
 			[DisplayName("Large damage _ speed maintenance time [s]")]
 			[Description("Set the maintenance time would be used for a great damage Animation")]
 			[DefaultValue((Single)0)]
@@ -131,7 +133,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "小吹っ飛び_速度維持時間[s]", Google translated: "The time maintaining speed _ Futtobi small [s]".
 			/// Japanese description: "小吹っ飛びダメージアニメの時に使用される維持時間を設定", Google translated: "Setting the maintenance time that is used when the damage animation Futtobi small".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_BlowS_ContTime", index: 4, minimum: 0, maximum: 9.99, step: 0.01, order: 900, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_BlowS_ContTime", index: 4, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 900, unknown2: 1)]
 			[DisplayName("The time maintaining speed _ Futtobi small [s]")]
 			[Description("Setting the maintenance time that is used when the damage animation Futtobi small")]
 			[DefaultValue((Single)0)]
@@ -149,7 +151,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "大吹っ飛び_速度維持時間[s]", Google translated: "The time maintaining speed _ Futtobi large [s]".
 			/// Japanese description: "大吹っ飛びダメージアニメの時に使用される維持時間を設定", Google translated: "Setting the maintenance time that is used when the damage animation Futtobi large".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_BlowM_ContTime", index: 5, minimum: 0, maximum: 9.99, step: 0.01, order: 1100, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_BlowM_ContTime", index: 5, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 1100, unknown2: 1)]
 			[DisplayName("The time maintaining speed _ Futtobi large [s]")]
 			[Description("Setting the maintenance time that is used when the damage animation Futtobi large")]
 			[DefaultValue((Single)0)]
@@ -167,7 +169,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "叩きつけ_速度維持時間[s]", Google translated: "The time maintaining speed _ slammed [s]".
 			/// Japanese description: "叩きつけダメージアニメの時に使用される維持時間を設定", Google translated: "Setting the maintenance time that is used when the damage animation slam".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_Strike_ContTime", index: 6, minimum: 0, maximum: 9.99, step: 0.01, order: 1300, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_Strike_ContTime", index: 6, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 1300, unknown2: 1)]
 			[DisplayName("The time maintaining speed _ slammed [s]")]
 			[Description("Setting the maintenance time that is used when the damage animation slam")]
 			[DefaultValue((Single)0)]
@@ -185,7 +187,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "打ち上げ_速度維持時間[s]", Google translated: "The time maintaining speed _ launch [s]".
 			/// Japanese description: "打ち上げダメージアニメの時に使用される維持時間を設定", Google translated: "Setting the maintenance time that is used when the damage animation Launch".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_Uppercut_ContTime", index: 7, minimum: 0, maximum: 9.99, step: 0.01, order: 1500, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_Uppercut_ContTime", index: 7, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 1500, unknown2: 1)]
 			[DisplayName("The time maintaining speed _ launch [s]")]
 			[Description("Setting the maintenance time that is used when the damage animation Launch")]
 			[DefaultValue((Single)0)]
@@ -203,7 +205,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "プッシュ_速度維持時間[s]", Google translated: "Push _ speed maintenance time [s]".
 			/// Japanese description: "プッシュダメージアニメの時に使用される維持時間を設定", Google translated: "Set the maintenance time would be used for push damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_Push_ContTime", index: 8, minimum: 0, maximum: 9.99, step: 0.01, order: 1700, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_Push_ContTime", index: 8, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 1700, unknown2: 1)]
 			[DisplayName("Push _ speed maintenance time [s]")]
 			[Description("Set the maintenance time would be used for push damage Animation")]
 			[DefaultValue((Single)0)]
@@ -221,7 +223,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ブレス_速度維持時間[s]", Google translated: "Breath _ speed maintenance time [s]".
 			/// Japanese description: "ブレスダメージアニメの時に使用される維持時間を設定", Google translated: "Setting the maintenance time that is used when the breath damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_Breath_ContTime", index: 9, minimum: 0, maximum: 9.99, step: 0.01, order: 1810, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_Breath_ContTime", index: 9, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 1810, unknown2: 1)]
 			[DisplayName("Breath _ speed maintenance time [s]")]
 			[Description("Setting the maintenance time that is used when the breath damage Animation")]
 			[DefaultValue((Single)0)]
@@ -239,7 +241,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ヘッドショット_速度維持時間[s]", Google translated: "Headshot _ speed maintenance time [s]".
 			/// Japanese description: "ヘッドショットダメージアニメの時に使用される維持時間を設定", Google translated: "Setting the maintenance time that is used when the head shot damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_HeadShot_ContTime", index: 10, minimum: 0, maximum: 9.99, step: 0.01, order: 1900, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_HeadShot_ContTime", index: 10, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 1900, unknown2: 1)]
 			[DisplayName("Headshot _ speed maintenance time [s]")]
 			[Description("Setting the maintenance time that is used when the head shot damage Animation")]
 			[DefaultValue((Single)0)]
@@ -257,7 +259,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ガード受け小_速度維持時間[s]", Google translated: "Time maintaining speed _ Small received guard [s]".
 			/// Japanese description: "ガード受け小アニメの時に使用される維持時間を設定", Google translated: "Set the maintenance time would be used for a small animated receiving guard".
 			/// </remarks>
-			[ParameterTableRowAttribute("guard_S_ContTime", index: 11, minimum: 0, maximum: 9.99, step: 0.01, order: 2100, unknown2: 1)]
+			[ParameterTableRowAttribute("guard_S_ContTime", index: 11, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 2100, unknown2: 1)]
 			[DisplayName("Time maintaining speed _ Small received guard [s]")]
 			[Description("Set the maintenance time would be used for a small animated receiving guard")]
 			[DefaultValue((Single)0)]
@@ -275,7 +277,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ガード受け大_速度維持時間[s]", Google translated: "Time maintaining speed _ University received guard [s]".
 			/// Japanese description: "ガード受け大アニメの時に使用される維持時間を設定", Google translated: "Set the maintenance time would be used for a large animated receiving guard".
 			/// </remarks>
-			[ParameterTableRowAttribute("guard_L_ContTime", index: 12, minimum: 0, maximum: 9.99, step: 0.01, order: 2300, unknown2: 1)]
+			[ParameterTableRowAttribute("guard_L_ContTime", index: 12, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 2300, unknown2: 1)]
 			[DisplayName("Time maintaining speed _ University received guard [s]")]
 			[Description("Set the maintenance time would be used for a large animated receiving guard")]
 			[DefaultValue((Single)0)]
@@ -293,7 +295,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ガード受け特大_速度維持時間[s]", Google translated: "Received extra large guard _ speed maintenance time [s]".
 			/// Japanese description: "ガード受け特大アニメの時に使用される維持時間を設定", Google translated: "Setting maintenance time that is used when oversized anime received guard".
 			/// </remarks>
-			[ParameterTableRowAttribute("guard_LL_ContTime", index: 13, minimum: 0, maximum: 9.99, step: 0.01, order: 2410, unknown2: 1)]
+			[ParameterTableRowAttribute("guard_LL_ContTime", index: 13, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 2410, unknown2: 1)]
 			[DisplayName("Received extra large guard _ speed maintenance time [s]")]
 			[Description("Setting maintenance time that is used when oversized anime received guard")]
 			[DefaultValue((Single)0)]
@@ -311,7 +313,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ガードくずされ_速度維持時間[s]", Google translated: "Is broken down guard _ speed maintenance time [s]".
 			/// Japanese description: "ガードくずされアニメの時に仕様される維持時間を設定", Google translated: "Setting the maintenance time , which is the specification when the animation to be deformed Guard".
 			/// </remarks>
-			[ParameterTableRowAttribute("guardBrake_ContTime", index: 14, minimum: 0, maximum: 9.99, step: 0.01, order: 2500, unknown2: 1)]
+			[ParameterTableRowAttribute("guardBrake_ContTime", index: 14, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 2500, unknown2: 1)]
 			[DisplayName("Is broken down guard _ speed maintenance time [s]")]
 			[Description("Setting the maintenance time , which is the specification when the animation to be deformed Guard")]
 			[DefaultValue((Single)0)]
@@ -329,7 +331,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "極小ダメージ_減速時間[s]", Google translated: "Minimal damage _ deceleration time [s]".
 			/// Japanese description: "極小ダメージアニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for a very small damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_Min_DecTime", index: 15, minimum: 0, maximum: 9.99, step: 0.01, order: 200, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_Min_DecTime", index: 15, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 200, unknown2: 1)]
 			[DisplayName("Minimal damage _ deceleration time [s]")]
 			[Description("Setting the deceleration time would be used for a very small damage Animation")]
 			[DefaultValue((Single)0)]
@@ -347,7 +349,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "小ダメージ_減速時間[s]", Google translated: "Small damage _ deceleration time [s]".
 			/// Japanese description: "小ダメージアニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for small damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_S_DecTime", index: 16, minimum: 0, maximum: 9.99, step: 0.01, order: 400, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_S_DecTime", index: 16, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 400, unknown2: 1)]
 			[DisplayName("Small damage _ deceleration time [s]")]
 			[Description("Setting the deceleration time would be used for small damage Animation")]
 			[DefaultValue((Single)0)]
@@ -365,7 +367,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "中ダメージ_減速時間[s]", Google translated: "Medium Damage _ deceleration time [s]".
 			/// Japanese description: "中ダメージアニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for the medium Damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_M_DecTime", index: 17, minimum: 0, maximum: 9.99, step: 0.01, order: 600, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_M_DecTime", index: 17, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 600, unknown2: 1)]
 			[DisplayName("Medium Damage _ deceleration time [s]")]
 			[Description("Setting the deceleration time would be used for the medium Damage Animation")]
 			[DefaultValue((Single)0)]
@@ -383,7 +385,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "大ダメージ_減速時間[s]", Google translated: "Large damage _ deceleration time [s]".
 			/// Japanese description: "大ダメージアニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for a great damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_L_DecTime", index: 18, minimum: 0, maximum: 9.99, step: 0.01, order: 800, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_L_DecTime", index: 18, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 800, unknown2: 1)]
 			[DisplayName("Large damage _ deceleration time [s]")]
 			[Description("Setting the deceleration time would be used for a great damage Animation")]
 			[DefaultValue((Single)0)]
@@ -401,7 +403,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "小吹っ飛び_減速時間[s]", Google translated: "The deceleration time _ Futtobi small [s]".
 			/// Japanese description: "小吹っ飛びダメージアニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for damage animation Futtobi small".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_BlowS_DecTime", index: 19, minimum: 0, maximum: 9.99, step: 0.01, order: 1000, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_BlowS_DecTime", index: 19, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 1000, unknown2: 1)]
 			[DisplayName("The deceleration time _ Futtobi small [s]")]
 			[Description("Setting the deceleration time would be used for damage animation Futtobi small")]
 			[DefaultValue((Single)0)]
@@ -419,7 +421,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "大吹っ飛び_減速時間[s]", Google translated: "The deceleration time _ Futtobi large [s]".
 			/// Japanese description: "大吹っ飛びダメージアニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for damage animation Futtobi large".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_BlowM_DecTime", index: 20, minimum: 0, maximum: 9.99, step: 0.01, order: 1200, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_BlowM_DecTime", index: 20, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 1200, unknown2: 1)]
 			[DisplayName("The deceleration time _ Futtobi large [s]")]
 			[Description("Setting the deceleration time would be used for damage animation Futtobi large")]
 			[DefaultValue((Single)0)]
@@ -437,7 +439,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "叩きつけ_減速時間[s]", Google translated: "The deceleration time _ slammed [s]".
 			/// Japanese description: "叩きつけダメージアニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for damage animation slam".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_Strike_DecTime", index: 21, minimum: 0, maximum: 9.99, step: 0.01, order: 1400, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_Strike_DecTime", index: 21, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 1400, unknown2: 1)]
 			[DisplayName("The deceleration time _ slammed [s]")]
 			[Description("Setting the deceleration time would be used for damage animation slam")]
 			[DefaultValue((Single)0)]
@@ -455,7 +457,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "打ち上げ_減速時間[s]", Google translated: "The deceleration time launch _ [s]".
 			/// Japanese description: "打ち上げダメージアニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for damage animation Launch".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_Uppercut_DecTime", index: 22, minimum: 0, maximum: 9.99, step: 0.01, order: 1600, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_Uppercut_DecTime", index: 22, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 1600, unknown2: 1)]
 			[DisplayName("The deceleration time launch _ [s]")]
 			[Description("Setting the deceleration time would be used for damage animation Launch")]
 			[DefaultValue((Single)0)]
@@ -473,7 +475,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "プッシュ_減速時間[s]", Google translated: "Push _ deceleration time [s]".
 			/// Japanese description: "プッシュダメージアニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for push damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_Push_DecTime", index: 23, minimum: 0, maximum: 9.99, step: 0.01, order: 1800, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_Push_DecTime", index: 23, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 1800, unknown2: 1)]
 			[DisplayName("Push _ deceleration time [s]")]
 			[Description("Setting the deceleration time would be used for push damage Animation")]
 			[DefaultValue((Single)0)]
@@ -491,7 +493,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ブレス_減速時間[s]", Google translated: "Breath _ deceleration time [s]".
 			/// Japanese description: "ブレスダメージアニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for a breath damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_Breath_DecTime", index: 24, minimum: 0, maximum: 9.99, step: 0.01, order: 1820, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_Breath_DecTime", index: 24, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 1820, unknown2: 1)]
 			[DisplayName("Breath _ deceleration time [s]")]
 			[Description("Setting the deceleration time would be used for a breath damage Animation")]
 			[DefaultValue((Single)0)]
@@ -509,7 +511,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ヘッドショット_減速時間[s]", Google translated: "Headshot _ deceleration time [s]".
 			/// Japanese description: "ヘッドショットダメージアニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for a head shot damage Animation".
 			/// </remarks>
-			[ParameterTableRowAttribute("damage_HeadShot_DecTime", index: 25, minimum: 0, maximum: 9.99, step: 0.01, order: 2000, unknown2: 1)]
+			[ParameterTableRowAttribute("damage_HeadShot_DecTime", index: 25, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 2000, unknown2: 1)]
 			[DisplayName("Headshot _ deceleration time [s]")]
 			[Description("Setting the deceleration time would be used for a head shot damage Animation")]
 			[DefaultValue((Single)0)]
@@ -527,7 +529,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ガード受け小_減速時間[s]", Google translated: "Deceleration time _ Small received guard [s]".
 			/// Japanese description: "ガード受け小アニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for a small animated receiving guard".
 			/// </remarks>
-			[ParameterTableRowAttribute("guard_S_DecTime", index: 26, minimum: 0, maximum: 9.99, step: 0.01, order: 2200, unknown2: 1)]
+			[ParameterTableRowAttribute("guard_S_DecTime", index: 26, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 2200, unknown2: 1)]
 			[DisplayName("Deceleration time _ Small received guard [s]")]
 			[Description("Setting the deceleration time would be used for a small animated receiving guard")]
 			[DefaultValue((Single)0)]
@@ -545,7 +547,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ガード受け大_減速時間[s]", Google translated: "Deceleration time _ University received guard [s]".
 			/// Japanese description: "ガード受け大アニメの時に使用される減速時間を設定", Google translated: "Setting the deceleration time would be used for a large animated receiving guard".
 			/// </remarks>
-			[ParameterTableRowAttribute("guard_L_DecTime", index: 27, minimum: 0, maximum: 9.99, step: 0.01, order: 2400, unknown2: 1)]
+			[ParameterTableRowAttribute("guard_L_DecTime", index: 27, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 2400, unknown2: 1)]
 			[DisplayName("Deceleration time _ University received guard [s]")]
 			[Description("Setting the deceleration time would be used for a large animated receiving guard")]
 			[DefaultValue((Single)0)]
@@ -563,7 +565,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ガード受け特大_減速時間[s]", Google translated: "Received extra large guard _ deceleration time [s]".
 			/// Japanese description: "ガード受け特大アニメの時に使用される減速時間を設定", Google translated: "Set the deceleration time that is used when oversized anime received guard".
 			/// </remarks>
-			[ParameterTableRowAttribute("guard_LL_DecTime", index: 28, minimum: 0, maximum: 9.99, step: 0.01, order: 2420, unknown2: 1)]
+			[ParameterTableRowAttribute("guard_LL_DecTime", index: 28, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 2420, unknown2: 1)]
 			[DisplayName("Received extra large guard _ deceleration time [s]")]
 			[Description("Set the deceleration time that is used when oversized anime received guard")]
 			[DefaultValue((Single)0)]
@@ -581,7 +583,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "ガードくずされ_減速時間[s]", Google translated: "Is broken down guard _ deceleration time [s]".
 			/// Japanese description: "ガードくずされアニメの時に仕様される減速時間を設定", Google translated: "Setting the deceleration time that is the specification at the time of animation to be deformed Guard".
 			/// </remarks>
-			[ParameterTableRowAttribute("guardBrake_DecTime", index: 29, minimum: 0, maximum: 9.99, step: 0.01, order: 2600, unknown2: 1)]
+			[ParameterTableRowAttribute("guardBrake_DecTime", index: 29, minimum: 0, maximum: 9.99, step: 0.01, sortOrder: 2600, unknown2: 1)]
 			[DisplayName("Is broken down guard _ deceleration time [s]")]
 			[Description("Setting the deceleration time that is the specification at the time of animation to be deformed Guard")]
 			[DefaultValue((Single)0)]
@@ -599,7 +601,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "pading", Google translated: "pading".
 			/// Japanese description: "", Google translated: "".
 			/// </remarks>
-			[ParameterTableRowAttribute("pad[8]", index: 30, minimum: 0, maximum: 0, step: 0, order: 2601, unknown2: 0)]
+			[ParameterTableRowAttribute("pad[8]", index: 30, minimum: 0, maximum: 0, step: 0, sortOrder: 2601, unknown2: 0)]
 			[DisplayName("pading")]
 			[Description("")]
 			[Browsable(false)]
@@ -680,6 +682,8 @@ namespace Alexandria.Engines.DarkSouls {
 				Pad = new Byte[8];
 			}
 
+			/// <summary>Write the <see cref="KnockBack"/> row.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(Damage_Min_ContTime);
 				writer.Write(Damage_S_ContTime);

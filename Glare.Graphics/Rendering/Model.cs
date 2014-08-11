@@ -125,7 +125,7 @@ namespace Glare.Graphics.Rendering {
 	public abstract class ModelObject : NamedObject {
 		internal Model model;
 
-		/// <summary>Get the <see cref="Glare.Graphics.Model"/> that this is a part of, or <c>null</c> if it's not attached.</summary>
+		/// <summary>Get the <see cref="Glare.Graphics.Rendering.Model"/> that this is a part of, or <c>null</c> if it's not attached.</summary>
 		public Model Model { get { return model; } }
 	}
 }

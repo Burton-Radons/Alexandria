@@ -11,6 +11,8 @@ namespace Alexandria {
 	/// A type of <see cref="Engine"/> that refers to a physical system, such as a Commodore 64 or a Nintendo Entertainment System.
 	/// </summary>
 	public class Platform : Engine {
+		/// <summary>Initialise the platform.</summary>
+		/// <param name="plugin"></param>
 		public Platform(AlexandriaPlugin plugin)
 			: base(plugin) {
 		}

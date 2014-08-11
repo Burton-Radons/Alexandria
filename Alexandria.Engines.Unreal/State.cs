@@ -4,13 +4,31 @@ using System.Linq;
 using System.Text;
 using Alexandria.Engines.Unreal.Core;
 using System.IO;
+using Glare.Assets;
 
 namespace Alexandria.Engines.Unreal {
 	/// <summary>
 	/// Shared engine state.
 	/// </summary>
-	public class State {
-		public State(string rootPath) {
+	public class State : PathState {
+		/// <summary>
+		/// List of paths that can be searched for packages.
+		/// </summary>
+		public List<string> PackagePaths { get; protected set; }
+
+		/// <summary>
+		/// Packages that have been loaded.
+		/// </summary>
+		public List<Package> Packages { get; protected set; }
+
+		Dictionary<string, Dictionary<string, Dictionary<string, Type>>> FactoryTypes = new Dictionary<string, Dictionary<string, Dictionary<string, Type>>>();
+
+		/// <summary>Initialise the state.</summary>
+		/// <param name="manager"></param>
+		/// <param name="rootPath"></param>
+		/// <param name="fileManager"></param>
+		public State(AlexandriaManager manager, string rootPath, FileManager fileManager)
+			: base(manager, rootPath, fileManager) {
 			PackagePaths = new List<string>();
 			Packages = new List<Package>();
 
@@ -53,26 +71,7 @@ namespace Alexandria.Engines.Unreal {
 			    "Plant2",
 			    "SandraRenton", "Sodacan", "SoyFood",
 			    "Trashcan2");
-
-			RootPath = rootPath;
 		}
-
-		/// <summary>
-		/// Path to the root of the engine state on disk.
-		/// </summary>
-		public string RootPath { get; protected set; }
-
-		/// <summary>
-		/// List of paths that can be searched for packages.
-		/// </summary>
-		public List<string> PackagePaths { get; protected set; }
-
-		/// <summary>
-		/// Packages that have been loaded.
-		/// </summary>
-		public List<Package> Packages { get; protected set; }
-
-		Dictionary<string, Dictionary<string, Dictionary<string, Type>>> FactoryTypes = new Dictionary<string, Dictionary<string, Dictionary<string, Type>>>();
 
 		/// <summary>
 		/// Add a path to the collection, if it exists. Returns whether the directory exists and was added.
@@ -80,29 +79,36 @@ namespace Alexandria.Engines.Unreal {
 		/// <param name="fullPath"></param>
 		public bool AddPackagePath(string fullPath) {
 			var directoryName = Path.GetDirectoryName(fullPath);
-			if (!Directory.Exists(directoryName))
+			if (!FileManager.Exists(directoryName))
 				return false;
 			fullPath = fullPath.Replace("\\", "/");
 			PackagePaths.Add(fullPath);
 			return true;
 		}
 
+		/// <summary>Add a list of sub-paths for the packages.</summary>
+		/// <param name="subPaths"></param>
 		public void AddPackageSubPaths(params string[] subPaths) {
 			AddPackageSubPaths((IEnumerable<string>)subPaths);
 		}
 
+		/// <summary>Add a list of sub-paths for the packages.</summary>
+		/// <param name="subPaths"></param>
 		public void AddPackageSubPaths(IEnumerable<string> subPaths) {
 			foreach (var path in subPaths)
 				AddPackagePath(RootPath + path);
 		}
 
+		/// <summary>Open a given package.</summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
 		public Package OpenPackage(string name) {
 			foreach (var package in Packages)
 				if (package.Export.Name == name)
 					return package;
 			foreach (var path in PackagePaths) {
 				var fileName = path.Replace("*", name);
-				if (File.Exists(fileName)) {
+				if (FileManager.Exists(fileName)) {
 					var package = new Package(this, fileName);
 					Packages.Add(package);
 					return package;
@@ -111,6 +117,8 @@ namespace Alexandria.Engines.Unreal {
 			throw new Exception("Package " + name + " could not be found.");
 		}
 
+		/// <summary>Get the list of package filenames.</summary>
+		/// <returns></returns>
 		public List<string> GetPackageFilenames() {
 			List<string> list = new List<string>();
 
@@ -118,7 +126,7 @@ namespace Alexandria.Engines.Unreal {
 				int split = Math.Max(packagePath.LastIndexOf('/'), packagePath.LastIndexOf('\\'));
 				string path = packagePath.Substring(0, split);
 				string searchPattern = packagePath.Substring(split + 1);
-				string[] files = Directory.GetFiles(path, searchPattern, SearchOption.TopDirectoryOnly);
+				string[] files = FileManager.GetFiles(path, searchPattern, SearchOption.TopDirectoryOnly);
 				foreach (string file in files)
 					list.Add(Path.GetFileNameWithoutExtension(file));
 			}
@@ -126,6 +134,11 @@ namespace Alexandria.Engines.Unreal {
 			return list;
 		}
 
+		/// <summary>Register a new type.</summary>
+		/// <param name="packageName"></param>
+		/// <param name="className"></param>
+		/// <param name="objectName"></param>
+		/// <param name="type"></param>
 		public void RegisterType(string packageName, string className, string objectName, Type type) {
 			if (!type.IsSubclassOf(typeof(RootObject)))
 				throw new Exception();
@@ -182,8 +195,8 @@ namespace Alexandria.Engines.Unreal {
 		/// </summary>
 		public IniFile IniFile { get; protected set; }
 
-		public State2(string rootPath, string iniFileName)
-			: base(rootPath) {
+		public State2(AlexandriaManager manager, string rootPath, FileManager fileManager, string iniFileName)
+			: base(manager, rootPath, fileManager) {
 			IniFile = new IniFile(RootPath + iniFileName);
 
 			IniFileSection section = IniFile["Core.System"];

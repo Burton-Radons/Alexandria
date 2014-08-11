@@ -15,10 +15,9 @@ namespace Glare.Graphics.Rendering {
 	/// The <see cref="LightLengthAttenuation"/> parameters for <see cref="NearAttenuation"/> and <see cref="FarAttenuation"/> add layers onto distance attenuation. Near attenuation is backwards, so that points at the start distance have a factor of 0 and points at the end distance have a factor greater than zero. This is used to avoid harsh clipping for objects that are too close to lights, and for special effects. Far attenuation is the same as <see cref="DistanceAttenuation"/>, but is commonly used to clamp a light's realistic distance attenuation so that it can be smoothly clipped to zero instead of emanating light to infinity.
 	/// 
 	/// The <see cref="LightAngleAttenuation"/> parameters for <see cref="AngleAttenuation"/> use the angle from the position and the ray defined by the <see cref="Position"/> and <see cref="Direction"/> of the light. This is used for spotlights. <see cref="LightAngleAttenuation.Radius"/> can be used to make the spotlight cone wider at its base, or even make the spotlight into a column or beam.
-	/// 
-	/// <see cref=""/>
 	/// </remarks>
 	public class Light : INotifyPropertyChanged {
+		/// <summary>Notified when a property has changed.</summary>
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		LightAngleAttenuation angleAttenuation;
@@ -26,7 +25,7 @@ namespace Glare.Graphics.Rendering {
 		Vector4d diffuseColor = Vector4d.One, specularColor = Vector4d.One;
 		Vector3d direction;
 		Vector3d position = Vector3d.Zero;
-		Angle angleAttenuationStart = Angle.Turn, angleAttenuationEnd = Angle.Turn;
+		Angle angleAttenuationStart = Angle.Turns(1), angleAttenuationEnd = Angle.Turns(1);
 
 		/// <summary>Get or set the attenuation parameters for angle attenuation. This uses the angular difference between a point and the <see cref="Position"/> and <see cref="Direction"/>, which is used for spotlights. This is disabled if <see cref="Direction"/> is zero. The default is none.</summary>
 		public LightAngleAttenuation AngleAttenuation {
@@ -89,16 +88,25 @@ namespace Glare.Graphics.Rendering {
 			Direction = target - source;
 		}
 
+		/// <summary>Called when a property is changed.</summary>
+		/// <param name="propertyName"></param>
 		protected void OnPropertyChanged(string propertyName) {
 			if (PropertyChanged != null)
 				PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
+		/// <summary>Handle assignment to a property.</summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="propertyName"></param>
+		/// <param name="container"></param>
+		/// <param name="value"></param>
 		protected void SetProperty<T>(string propertyName, ref T container, ref T value) {
 			container = value;
 			OnPropertyChanged(propertyName);
 		}
 
+		/// <summary>Set the <see cref="Position"/> and <see cref="Direction"/> parameters using the <see cref="Plane3d"/>.</summary>
+		/// <param name="plane"></param>
 		public void Setup(Plane3d plane) { Direction = plane.Normal; Position = plane.Distance * direction; }
 
 		/// <summary>Set the <see cref="Position"/> and <see cref="Direction"/> parameters using the <see cref="Ray3"/>.</summary>
@@ -129,6 +137,10 @@ namespace Glare.Graphics.Rendering {
 		InverseSquared,
 	}
 
+	/// <summary>
+	/// Light attenuation parameters.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public interface ILightAttenuationParameters<T> {
 		/// <summary>Get or set the method to use for attenuating values.</summary>
 		LightAttenuation Method { get; set; }
@@ -140,10 +152,16 @@ namespace Glare.Graphics.Rendering {
 		T End { get; set; }
 	}
 
+	/// <summary>
+	/// Attenuation for a light.
+	/// </summary>
 	public struct LightAngleAttenuation : ILightAttenuationParameters<Angle> {
 		Length radius;
 		Angle start, end;
 
+		/// <summary>
+		/// Get or set how the light attenuates.
+		/// </summary>
 		public LightAttenuation Method { get; set; }
 
 		/// <summary>Get or set the radius of the cone at the origin.</summary>
@@ -152,16 +170,22 @@ namespace Glare.Graphics.Rendering {
 			set { radius = value.Max(Length.Zero); }
 		}
 
+		/// <summary>Get or set when attenuation starts.</summary>
 		public Angle Start {
 			get { return start; }
 			set { if ((start = value.Max(Angle.Zero)) > end) end = start; }
 		}
 
+		/// <summary>Get or set when attenuation ends.</summary>
 		public Angle End {
 			get { return end; }
 			set { if (start > (end = value.Max(Angle.Zero))) start = end; }
 		}
 
+		/// <summary>Initialise the attenuator.</summary>
+		/// <param name="method"></param>
+		/// <param name="start"></param>
+		/// <param name="end"></param>
 		public LightAngleAttenuation(LightAttenuation method, Angle start, Angle end)
 			: this() {
 			Method = method;
@@ -169,8 +193,19 @@ namespace Glare.Graphics.Rendering {
 			End = end;
 		}
 
-		public static LightAngleAttenuation Degrees(LightAttenuation method, double start, double end) { return new LightAngleAttenuation(method, Angle.Degrees(start), Angle.Degrees(end)); }
-		public static LightAngleAttenuation Radians(LightAttenuation method, double start, double end) { return new LightAngleAttenuation(method, Angle.Radians(start), Angle.Radians(end)); }
+		/// <summary>Create an attenuator from degrees.</summary>
+		/// <param name="method"></param>
+		/// <param name="startDegrees"></param>
+		/// <param name="endDegrees"></param>
+		/// <returns></returns>
+		public static LightAngleAttenuation Degrees(LightAttenuation method, double startDegrees, double endDegrees) { return new LightAngleAttenuation(method, Angle.Degrees(startDegrees), Angle.Degrees(endDegrees)); }
+
+		/// <summary>Create an attenuator from radians.</summary>
+		/// <param name="method"></param>
+		/// <param name="startRadians"></param>
+		/// <param name="endRadians"></param>
+		/// <returns></returns>
+		public static LightAngleAttenuation Radians(LightAttenuation method, double startRadians, double endRadians) { return new LightAngleAttenuation(method, Angle.Radians(startRadians), Angle.Radians(endRadians)); }
 	}
 
 	/// <summary>
@@ -186,24 +221,33 @@ namespace Glare.Graphics.Rendering {
 		Sphere,
 	}
 
+	/// <summary>A distance attenuator for a light.</summary>
 	public struct LightLengthAttenuation : ILightAttenuationParameters<Length> {
 		Length start, end;
 
 		/// <summary>Get or set how distance is calculated.</summary>
 		public LightDistanceFunction DistanceFunction { get; set; }
 
+		/// <summary>Get or set the attenuation method.</summary>
 		public LightAttenuation Method { get; set; }
 
+		/// <summary>Get or set the distance at which attenuation starts.</summary>
 		public Length Start {
 			get { return start; }
 			set { if ((start = value.Max(Length.Zero)) > end) end = start; }
 		}
 
+		/// <summary>Get or set the distance at which attenuation ends.</summary>
 		public Length End {
 			get { return end; }
 			set { if (start > (end = value.Max(Length.Zero))) start = end; }
 		}
 
+		/// <summary>Construct light attenuation parameters.</summary>
+		/// <param name="method"></param>
+		/// <param name="start"></param>
+		/// <param name="end"></param>
+		/// <param name="distanceFunction"></param>
 		public LightLengthAttenuation(LightAttenuation method, Length start, Length end, LightDistanceFunction distanceFunction)
 			: this() {
 			Method = method;
@@ -212,6 +256,12 @@ namespace Glare.Graphics.Rendering {
 			DistanceFunction = distanceFunction;
 		}
 
-		public static LightLengthAttenuation Metres(LightAttenuation method, double start, double end, LightDistanceFunction distanceFunction = LightDistanceFunction.Sphere) { return new LightLengthAttenuation(method, Length.Metres(start), Length.Metres(end), distanceFunction); }
+		/// <summary>Create light attenuation parameters from metres.</summary>
+		/// <param name="method"></param>
+		/// <param name="startMetres"></param>
+		/// <param name="endMetres"></param>
+		/// <param name="distanceFunction"></param>
+		/// <returns></returns>
+		public static LightLengthAttenuation Metres(LightAttenuation method, double startMetres, double endMetres, LightDistanceFunction distanceFunction = LightDistanceFunction.Sphere) { return new LightLengthAttenuation(method, Length.Metres(startMetres), Length.Metres(endMetres), distanceFunction); }
 	}
 }

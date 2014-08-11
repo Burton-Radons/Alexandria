@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArchiveFormatName" xml:space="preserve">
+    <value>Archive format</value>
+  </data>
   <data name="ArchiveLoaderDescription" xml:space="preserve">
     <value>This loads archive files used by SSI's Gold Box series of role-playing games.</value>
   </data>
@@ -129,6 +132,9 @@
   <data name="EngineName" xml:space="preserve">
     <value>SSI Gold Box Engine</value>
   </data>
+  <data name="ImageFormatName" xml:space="preserve">
+    <value>Image format (archives only)</value>
+  </data>
   <data name="ImageLoaderDescription" xml:space="preserve">
     <value>This loads image files used by SSI's Gold Box series of role-playing games. These contain a number of frames of indexed images.</value>
   </data>
@@ -140,5 +146,8 @@
   </data>
   <data name="PluginName" xml:space="preserve">
     <value>SSI Gold Box Plugin</value>
+  </data>
+  <data name="ScriptFormatName" xml:space="preserve">
+    <value>Script format (archives only)</value>
   </data>
 </root>

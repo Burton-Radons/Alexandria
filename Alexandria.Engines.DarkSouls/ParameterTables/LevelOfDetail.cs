@@ -16,10 +16,12 @@ namespace Alexandria.Engines.DarkSouls {
 		/// Defined as "LOD_BANK" in the file "LodBank.paramdef" (id 0Bh).
 		/// </remarks>
 		public class LevelOfDetail : ParameterTableRow {
+			/// <summary>The name of the table in the file.</summary>
 			public const string TableName = "LOD_BANK";
 
 			Single lv01_BorderDist, lv01_PlayDist, lv12_BorderDist, lv12_PlayDist;
 
+			/// <summary>A property of the class.</summary>
 			public static readonly PropertyInfo
 				Lv01_BorderDistProperty = GetProperty<LevelOfDetail>("Lv01_BorderDist"),
 				Lv01_PlayDistProperty = GetProperty<LevelOfDetail>("Lv01_PlayDist"),
@@ -31,7 +33,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "LODレベル0-1境界距離[m]", Google translated: "LOD level 0-1 boundary distance [m]".
 			/// Japanese description: "切り替わる中心", Google translated: "Center to switch".
 			/// </remarks>
-			[ParameterTableRowAttribute("lv01_BorderDist", index: 0, minimum: 0, maximum: 9999, step: 0.1, order: 1, unknown2: 0)]
+			[ParameterTableRowAttribute("lv01_BorderDist", index: 0, minimum: 0, maximum: 9999, step: 0.1, sortOrder: 1, unknown2: 0)]
 			[DisplayName("LOD level 0-1 boundary distance [m]")]
 			[Description("Center to switch")]
 			[DefaultValue((Single)5)]
@@ -49,7 +51,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "LODレベル0-1遊び距離[m]", Google translated: "LOD level 0-1 play distance [m]".
 			/// Japanese description: "境界中心で±遊び", Google translated: "± play center at the border".
 			/// </remarks>
-			[ParameterTableRowAttribute("lv01_PlayDist", index: 1, minimum: 0, maximum: 10, step: 0.1, order: 2, unknown2: 0)]
+			[ParameterTableRowAttribute("lv01_PlayDist", index: 1, minimum: 0, maximum: 10, step: 0.1, sortOrder: 2, unknown2: 0)]
 			[DisplayName("LOD level 0-1 play distance [m]")]
 			[Description("± play center at the border")]
 			[DefaultValue((Single)1)]
@@ -67,7 +69,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "LODレベル1-2境界距離[m]", Google translated: "LOD Level 1-2 boundary distance [m]".
 			/// Japanese description: "切り替わる中心", Google translated: "Center to switch".
 			/// </remarks>
-			[ParameterTableRowAttribute("lv12_BorderDist", index: 2, minimum: 0, maximum: 9999, step: 0.1, order: 3, unknown2: 0)]
+			[ParameterTableRowAttribute("lv12_BorderDist", index: 2, minimum: 0, maximum: 9999, step: 0.1, sortOrder: 3, unknown2: 0)]
 			[DisplayName("LOD Level 1-2 boundary distance [m]")]
 			[Description("Center to switch")]
 			[DefaultValue((Single)20)]
@@ -85,7 +87,7 @@ namespace Alexandria.Engines.DarkSouls {
 			/// Japanese short name: "LODレベル1-2遊び距離[m]", Google translated: "LOD level 1-2 play distance [m]".
 			/// Japanese description: "境界中心で±遊び", Google translated: "± play center at the border".
 			/// </remarks>
-			[ParameterTableRowAttribute("lv12_PlayDist", index: 3, minimum: 0, maximum: 10, step: 0.1, order: 4, unknown2: 0)]
+			[ParameterTableRowAttribute("lv12_PlayDist", index: 3, minimum: 0, maximum: 10, step: 0.1, sortOrder: 4, unknown2: 0)]
 			[DisplayName("LOD level 1-2 play distance [m]")]
 			[Description("± play center at the border")]
 			[DefaultValue((Single)2)]
@@ -116,6 +118,8 @@ namespace Alexandria.Engines.DarkSouls {
 				Lv12_PlayDist = (Single)2;
 			}
 
+			/// <summary>Write the <see cref="LevelOfDetail"/> row.</summary>
+			/// <param name="writer"></param>
 			public override void Write(BinaryWriter writer) {
 				writer.Write(Lv01_BorderDist);
 				writer.Write(Lv01_PlayDist);

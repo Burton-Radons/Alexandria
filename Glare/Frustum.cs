@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glare
-{
+namespace Glare {
 	/// <summary>
 	/// A bounding frustum class.
 	/// </summary>
-	public class Frustum : IEquatable<Frustum>
-	{
+	public class Frustum : IEquatable<Frustum> {
 		const int CornerCount = 8;
 		const int PlaneCount = 6;
 
@@ -18,58 +16,71 @@ namespace Glare
 		readonly Vector3d[] corners = new Vector3d[CornerCount];
 		readonly Plane3d[] planes = new Plane3d[PlaneCount];
 
-
+		/// <summary>Get the near <see cref="Plane3d"/> of the <see cref="Frustum"/>.</summary>
 		public Plane3d Near { get { return this.planes[0]; } }
 
+		/// <summary>Get the far <see cref="Plane3d"/> of the <see cref="Frustum"/>.</summary>
 		public Plane3d Far { get { return this.planes[1]; } }
 
+		/// <summary>Get the left <see cref="Plane3d"/> of the <see cref="Frustum"/>.</summary>
 		public Plane3d Left { get { return this.planes[2]; } }
 
+		/// <summary>Get the right <see cref="Plane3d"/> of the <see cref="Frustum"/>.</summary>
 		public Plane3d Right { get { return this.planes[3]; } }
 
+		/// <summary>Get the top <see cref="Plane3d"/> of the <see cref="Frustum"/>.</summary>
 		public Plane3d Top { get { return this.planes[4]; } }
 
+		/// <summary>Get the bottom <see cref="Plane3d"/> of the <see cref="Frustum"/>.</summary>
 		public Plane3d Bottom { get { return this.planes[5]; } }
 
-		public Matrix4d Transform 
-		{
+		/// <summary>Get or set the transform for the plane.</summary>
+		public Matrix4d Transform {
 			get { return transform; }
 
-			set
-			{
+			set {
 				transform = value;
 				SetupPlanes();
 				SetupCorners();
 			}
 		}
 
+		/// <summary>Initialise the frustum.</summary>
 		public Frustum() : this(Matrix4d.Identity) { }
 
-		public Frustum(Matrix4d transform)
-		{
+		/// <summary>Initialise the frustum.</summary>
+		/// <param name="transform"></param>
+		public Frustum(Matrix4d transform) {
 			Transform = transform;
 		}
 
-		public override bool Equals(object obj)
-		{
+		/// <summary>
+		/// Check whether this is equal to another <see cref="Frustum"/>.
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
+		public override bool Equals(object obj) {
 			if (obj is Frustum)
 				return Equals((Frustum)obj);
 			return base.Equals(obj);
 		}
 
-		public bool Equals(Frustum other)
-		{
+		/// <summary>Check whether this is equal to another frustum.</summary>
+		/// <param name="other"></param>
+		/// <returns></returns>
+		public bool Equals(Frustum other) {
 			if (ReferenceEquals(this, other))
 				return true;
-			if(ReferenceEquals(other, null))
+			if (ReferenceEquals(other, null))
 				return false;
 			return transform == other.transform;
 		}
 
+		/// <summary>Get a hash code from the transform.</summary>
+		/// <returns></returns>
 		public override int GetHashCode() { return transform.GetHashCode(); }
 
-		void SetupCorners()
-		{
+		void SetupCorners() {
 			planes[0].Intersect(ref planes[2], ref planes[4], out corners[0]);
 			planes[0].Intersect(ref planes[3], ref planes[4], out corners[1]);
 			planes[0].Intersect(ref planes[3], ref planes[5], out corners[2]);
@@ -80,8 +91,7 @@ namespace Glare
 			planes[1].Intersect(ref planes[2], ref planes[5], out corners[7]);
 		}
 
-		void SetupPlanes()
-		{
+		void SetupPlanes() {
 			planes[0] = new Plane3d(-transform.XZ, -transform.YZ, -transform.ZZ, -transform.WZ);
 			planes[1] = new Plane3d(transform.XZ - transform.XW, transform.YZ - transform.YW, transform.ZZ - transform.ZW, transform.WZ - transform.WW);
 			planes[2] = new Plane3d(-transform.XW - transform.XX, -transform.YW - transform.YX, -transform.ZW - transform.ZX, -transform.WW - transform.WX);
@@ -97,7 +107,18 @@ namespace Glare
 			planes[5].NormalizeInPlace();
 		}
 
+		/// <summary>Check for equality with another frustum.</summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static bool operator ==(Frustum a, Frustum b) { if (ReferenceEquals(a, null)) return ReferenceEquals(b, null); return a.Equals(b); }
+
+		/// <summary>
+		/// Check for inequality with another frustum.
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		public static bool operator !=(Frustum a, Frustum b) { return !(a == b); }
 	}
 }

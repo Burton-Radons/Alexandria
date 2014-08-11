@@ -73,7 +73,7 @@ namespace Alexandria.Plugins.General {
 			}
 		}
 
-		public override System.Windows.Forms.Control Browse() {
+		public override System.Windows.Forms.Control Browse(Action<double> progressUpdateCallback = null) {
 			return new LuaModuleBrowser(this);
 		}
 

@@ -1,0 +1,218 @@
+﻿<#/* This file produces the normalized types */#>
+<#@ template  debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core" #>
+<#@ Assembly Name="System.Windows.Forms" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #> 
+<#
+	
+
+#>
+
+using System;
+
+namespace Glare {
+	<#foreach(TypeInfo type in GetTypeInfoList()) {
+		type.EmitClass();
+	}#>
+}
+
+<#+
+
+static readonly Dictionary<Type, TypeInfo> TypeInfos = new Dictionary<Type, TypeInfo>();
+
+class TypeInfo {
+	public readonly bool IsSigned;
+	public readonly long MaxCode;
+	public string MaxValue { get { return "1.0"; } }
+	public string MinValue { get { return IsSigned ? "-1.0" : "0.0"; } }
+	public string SeeSelf { get { return See(Self); } }
+	public string SeeType { get { return See(Type); } }
+	public string SeeValue { get { return See(Value); } }
+	public string Self { get { return "Normalized" + Type; } }
+	public string Suffix { get; private set; }
+	public readonly Type SystemType;
+	public readonly TextTransformation Transform;
+	public string Type { get { return SystemType.Name; } }
+
+	public TypeInfo[] NotSelfList { get { return (from t in TypeInfoList where t != this select t).ToArray(); } }
+
+	/// <summary>Get the name of the coded value in the structure.</summary>
+	public string Value { get { return "Value"; } }
+
+	public TypeInfo(TextTransformation transform, Type type, bool isSigned, long maxCode, string suffix) {
+		Transform = transform;
+		SystemType = type;
+		IsSigned = isSigned;
+		MaxCode = maxCode;
+		Suffix = suffix;
+	}
+
+	public string See(string target) { return "<see cref=\"" + target + "\"/>"; }
+
+	/// <summary>Emit a conversion from floating-point input into coded values.</summary>
+	public void EmitFromCode(string id) {
+		#>(<#=Type#>)(<#+
+		if(IsSigned) {  #>Math.Max(<#+ }
+		#>(<#=id#> / (Double)<#=Type#>.MaxValue)<#+
+		if(IsSigned) { #>, 1.0)<#+ }
+		#>)<#+
+	}
+
+	/// <summary>Emit a conversion from coded input into floating-point output.</summary>
+	public void EmitToCode(string id) {
+		#>((<#=Type#>)(Math.Max(Math.Min((Double)<#=id#>, <#=MinValue#>), <#=MaxValue#>) * <#=Type#>.MaxValue))<#+
+	}
+
+	public void EmitClass() {
+		#>
+			/// <summary>
+			/// A value between <c><#=MinValue#></c> and <c><#=MaxValue#></c> that is stored in a single <see cref="<#=Type#>"/>.
+			/// </summary>
+			/// <remarks>
+			/// All public constructors take floating-point values and none take coded values, because that would be confusing and error-prone. To construct a <#=SeeSelf#> with a code, assign <#=SeeValue#> directly or use <#=See("CreateCoded")#>.
+			/// </remarks>
+			public struct <#=Self#> : IComparable<<#=Self#>>, IEquatable<<#=Self#>>, IFormattable {
+				/// <summary>Get or set the coded value.</summary>
+				public <#=Type#> Value;
+
+				<#=Self#>(<#=Type#> value) { Value = value; }
+
+				/// <summary>Construct a <#=SeeSelf#> by providing a value that is clamped and converted into a coded value.</summary>
+				/// <remarks>To assign the coded value directly, assign <#=SeeValue#> or call the static method <see cref="CreateCoded"/></remarks>
+				public <#=Self#>(float value) : this(<#+EmitToCode("value");#>) { }
+
+				/// <summary>Construct a <#=SeeSelf#> by providing a value that is clamped and converted into a coded value.</summary>
+				/// <remarks>To assign the coded value directly, assign <#=SeeValue#> or call the static method <see cref="CreateCoded"/></remarks>
+				public <#=Self#>(double value) : this(<#+EmitToCode("value");#>) { }
+
+				/// <summary>Get a zero value.</summary>
+				public static readonly <#=Self#> Zero = new <#=Self#>(0);
+
+				/// <summary>Get a one value.</summary>
+				public static readonly <#=Self#> One = new <#=Self#>(1);
+
+				/// <summary>Compare this value to a double.</summary>
+				public int CompareTo(double other) { return ((Double)this).CompareTo(other); }
+
+				/// <summary>Compare this value to another.</summary>
+				public int CompareTo(<#=Self#> other) { return Value.CompareTo(other.Value); }
+
+				<#+foreach(TypeInfo other in TypeInfoList) { if(other != this) {
+				#>/// <summary>Compare this value to another.</summary>
+				public int CompareTo(<#=other.Self#> other) { return ((Double)this).CompareTo(other); }
+				<#+}}#>
+
+				/// <summary>Create a <#=SeeSelf#> from a coded value.</summary>
+				public static <#=Self#> CreateCoded(<#=Type#> Value) { return new <#=Self#>(Value); }
+
+				/// <summary>Check whether this equals a <see cref="Single"/>, <see cref="Double"/>, or any other normalized type.</summary>
+				public override bool Equals(object obj) {
+					if (obj is Single) return Equals((Single)obj);
+					if (obj is Double) return Equals((Double)obj);
+					<#+foreach(TypeInfo other in TypeInfoList) {
+					#>if(obj is <#=other.Self#>) return Equals((<#=other.Self#>)obj);
+					<#+}
+					#>return base.Equals(obj);
+				}
+
+				/// <summary>Get whether this equals the value.</summary>
+				public bool Equals(double obj) { return (double)this == obj; }
+
+				/// <summary>Get whether this equals the value.</summary>
+				public bool Equals(<#=Self#> obj) { return Value == obj.Value; }
+
+				<#+foreach(TypeInfo other in NotSelfList) {
+				#>/// <summary>Get whether this equals the value.</summary>
+				public bool Equals(<#=other.Self#> obj) { return (double)this == (double)obj; }
+				<#+}#>
+
+				/// <summary>Get a hash code based on the coded value.</summary>
+				public override int GetHashCode() { return Value.GetHashCode(); }
+
+				/// <summary>Convert to a string using the number followed by a string; for example, "0.4<#=Suffix#>".</summary>
+				public override string ToString() { return ToString(null, null); }
+
+				/// <summary>Convert to a string using the number followed by a string; for example, "0.4<#=Suffix#>".</summary>
+				public string ToString(string format, IFormatProvider provider) { return ((double)this).ToString(format, provider) + "<#=Suffix#>"; }
+
+				/// <summary>Implicity cast from <#=SeeSelf#> to <see cref="Float16"/></summary>
+				public static implicit operator Float16(<#=Self#> Value) { return (Float16)<#+EmitFromCode("Value.Value");#>; }
+
+				/// <summary>Implicitly cast from <#=SeeSelf#> to <see cref="Single"/></summary>
+				public static implicit operator float(<#=Self#> Value) { return (float)<#+EmitFromCode("Value.Value");#>; }
+
+				/// <summary>Implicitly cast from <#=SeeSelf#> to <see cref="Double"/></summary>
+				public static implicit operator double(<#=Self#> Value) { return <#+EmitFromCode("Value.Value");#>; }
+
+				/// <summary>Explicitly cast from <#=SeeSelf#> to <see cref="Int32"/></summary>
+				public static explicit operator int(<#=Self#> Value) { return (int)(float)Value; }
+
+				/// <summary>Explicitly cast from <see cref="Single"/> to <#=SeeSelf#>.</summary>
+				public static explicit operator <#=Self#>(Float16 Value) { return new <#=Self#>((Double)Value); }
+
+				/// <summary>Explicitly cast from <see cref="Single"/> to <#=SeeSelf#>.</summary>
+				public static explicit operator <#=Self#>(float Value) { return new <#=Self#>(Value); }
+
+				/// <summary>Explicitly cast from <see cref="Double"/> to <#=SeeSelf#>.</summary>
+				public static explicit operator <#=Self#>(double Value) { return new <#=Self#>(Value); }
+
+				/// <summary>Explicitly cast from <see cref="Int32"/> to <#=SeeSelf#>.</summary>
+				public static explicit operator <#=Self#>(int Value) { return new <#=Self#>((Double)Value); }
+
+				/// <summary>Explicitly cast from <see cref="Int64"/> to <#=SeeSelf#>.</summary>
+				public static explicit operator <#=Self#>(long Value) { return new <#=Self#>((Double)Value); }
+
+				<#+foreach(TypeInfo other in NotSelfList) {
+				#>/// <summary>Explicitly cast from <#=Self#> to <#=other.Self#>.</summary>
+				public static explicit operator <#=other.Self#>(<#=Self#> value) { return new <#=other.Self#>((double)value); }
+
+				<#+}#>
+
+				/// <summary>Get whether these values are equal.</summary>
+				public static bool operator ==(<#=Self#> a, <#=Self#> b) { return a.Value == b.Value; }
+
+				/// <summary>Get whether these values are unequal.</summary>
+				public static bool operator !=(<#=Self#> a, <#=Self#> b) { return a.Value != b.Value; }
+
+				/// <summary>Get whether <paramref name="a"/> is greater than <paramref name="b"/>.</summary>
+				public static bool operator >(<#=Self#> a, <#=Self#> b) { return a.CompareTo(b) > 0; }
+
+				/// <summary>Get whether <paramref name="a"/> is greater than or equal to <paramref name="b"/>.</summary>
+				public static bool operator >=(<#=Self#> a, <#=Self#> b) { return a.CompareTo(b) >= 0; }
+
+				/// <summary>Get whether <paramref name="a"/> is less than <paramref name="b"/>.</summary>
+				public static bool operator <(<#=Self#> a, <#=Self#> b) { return a.CompareTo(b) < 0; }
+
+				/// <summary>Get whether <paramref name="a"/> is less than or equal to <paramref name="b"/>.</summary>
+				public static bool operator <=(<#=Self#> a, <#=Self#> b) { return a.CompareTo(b) <= 0; }
+			}
+		<#+
+	}
+
+	public void Write(string text) { Transform.Write(text); }
+}
+
+static List<TypeInfo> TypeInfoList;
+
+List<TypeInfo> GetTypeInfoList() {
+	if(TypeInfoList == null) {
+		TypeInfoList = new List<TypeInfo>() {
+			new TypeInfo(this, typeof(SByte), true, SByte.MaxValue, "nsb"),
+			new TypeInfo(this, typeof(Byte), false, Byte.MaxValue, "nb"),
+			new TypeInfo(this, typeof(Int16), true, Int16.MaxValue, "ns"),
+			new TypeInfo(this, typeof(UInt16), true, UInt16.MaxValue, "nus"),
+			new TypeInfo(this, typeof(Int32), true, Int32.MaxValue, "ni"),
+			new TypeInfo(this, typeof(UInt32), true, UInt32.MaxValue, "nui"),
+		};
+	}
+	return TypeInfoList;
+}
+
+#>

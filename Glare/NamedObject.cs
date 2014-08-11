@@ -6,13 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glare
-{
+namespace Glare {
 	/// <summary>
 	/// An object that can be named with <see cref="Name"/> and has a dictionary of tags with <see cref="Tags"/>.
 	/// </summary>
-	public abstract class NamedObject
-	{
+	public abstract class NamedObject {
 		readonly RichDictionary<object, object> tags = new RichDictionary<object, object>();
 		string debugName;
 
@@ -25,8 +23,9 @@ namespace Glare
 		/// <summary>Get a dictionary of user-defined tags.</summary>
 		public RichDictionary<object, object> Tags { get { return tags; } }
 
-		public override string ToString()
-		{
+		/// <summary>Convert to a string representation of the object.</summary>
+		/// <returns></returns>
+		public override string ToString() {
 			return "{" + GetType().Name + (DebugName != null ? " '" + DebugName + "'" : "") + "}";
 		}
 	}
